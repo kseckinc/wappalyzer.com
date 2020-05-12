@@ -100,5 +100,24 @@
       "Fresh and accurate data"
     ],
     "feature": true
+  },
+  "alerts": {
+    "title": "Alerts",
+    "subtitle": "Get notified when a website's technology stack changes",
+    "icon": "mdi-bullhorn",
+    "image": "bulk.svg",
+    "text": "Monitor your competitor's technology choices with alerts. Be the first to know when they launch a new website.",
+    "buttons": [
+      {
+        "text": "Compare plans",
+        "to": "/alerts",
+        "icon": "mdi-arrow-right"
+      }
+    ],
+    "features": [
+      "Same-day notifications",
+      "Create up to 500 alerts"
+    ],
+    "feature": true
   }
 }

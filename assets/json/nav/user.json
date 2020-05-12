@@ -30,6 +30,11 @@
     "to": "/apikey"
   },
   {
+    "title": "Alerts",
+    "icon": "mdi-bullhorn",
+    "to": "/alerts/manage"
+  },
+  {
     "title": "Sign out",
     "icon": "mdi-logout-variant",
     "to": "/signout",

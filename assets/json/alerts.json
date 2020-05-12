@@ -1,0 +1,64 @@
+{
+  "planAttrs": {
+    "amount": { "text": "Price", "type": "currency" },
+    "alerts": { "text": "Alerts", "type": "text" }
+  },
+  "plans": {
+    "alerts_small_mo": {
+      "name": "Alerts Small",
+      "size": "Small",
+      "interval": "month",
+      "attrs": {
+        "amount": 1500,
+        "alerts": "5"
+      }
+    },
+    "alerts_medium_mo": {
+      "name": "Alerts Medium",
+      "size": "Medium",
+      "raised": true,
+      "interval": "month",
+      "attrs": {
+        "amount": 3000,
+        "alerts": "50"
+      }
+    },
+    "alerts_large_mo": {
+      "name": "Alerts Large",
+      "size": "Large",
+      "interval": "month",
+      "attrs": {
+        "amount": 6000,
+        "alerts": "500"
+      }
+    },
+    "alerts_small_yr": {
+      "name": "Alerts Small",
+      "size": "Small",
+      "interval": "year",
+      "attrs": {
+        "amount": 15000,
+        "alerts": "5"
+      }
+    },
+    "alerts_medium_yr": {
+      "name": "Alerts Medium",
+      "size": "Medium",
+      "raised": true,
+      "interval": "year",
+      "attrs": {
+        "amount": 30000,
+        "alerts": "50"
+      }
+    },
+    "alerts_large_yr": {
+      "name": "Alerts Large",
+      "size": "Large",
+      "interval": "year",
+      "attrs": {
+        "amount": 60000,
+        "alerts": "500"
+      }
+    }
+  }
+}
