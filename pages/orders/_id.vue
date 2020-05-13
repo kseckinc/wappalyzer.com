@@ -44,7 +44,7 @@
       </v-alert>
 
       <v-alert v-if="order.status === 'Pending'" type="info" outlined>
-        <template v-if="order.product === 'API'">
+        <template v-if="['Alerts', 'API'].includes(order.product)">
           Your card could not be charged automatically, please use the invoice
           to complete the payment. An additional step may be required by your
           card issuer to authorise the transaction.
@@ -63,7 +63,7 @@
       </v-alert>
 
       <v-alert v-if="order.status === 'Complete'" type="success">
-        <template v-if="order.product === 'API'">
+        <template v-if="['Alerts', 'API'].includes(order.product)">
           Thank you for your payment, your subscription has been created.
         </template>
         <template
@@ -112,15 +112,23 @@
           :to="`/subscriptions/${order.stripeSubscription}`"
           color="accent"
           outlined
-          ><v-icon left>mdi-calendar-refresh</v-icon>Subscription</v-btn
+          ><v-icon left>mdi-calendar-repeat</v-icon>Subscription</v-btn
         >
 
         <v-btn
-          v-if="order.status === 'Complete'"
+          v-if="order.status === 'Complete' && order.product === 'API'"
           to="/apikey"
           color="accent"
           outlined
           ><v-icon left>mdi-key-variant</v-icon> API key</v-btn
+        >
+
+        <v-btn
+          v-if="order.status === 'Complete' && order.product === 'Alerts'"
+          to="/alerts/manage"
+          color="accent"
+          outlined
+          ><v-icon left>mdi-bullhorn</v-icon> Alerts</v-btn
         >
       </template>
 
@@ -189,11 +197,15 @@
           <v-divider />
 
           <v-card-title>
-            {{ order.product === 'API' ? 'Subscription' : order.product }}
+            {{
+              ['Alerts', 'API'].includes(order.product)
+                ? 'Subscription'
+                : order.product
+            }}
           </v-card-title>
 
           <v-card-text class="px-0">
-            <v-simple-table v-if="order.product === 'API'">
+            <v-simple-table v-if="['Alerts', 'API'].includes(order.product)">
               <tbody>
                 <tr>
                   <th width="30%">Plan</th>
@@ -477,7 +489,10 @@
             Payment
           </v-card-title>
 
-          <v-card-text v-if="order.product !== 'API'" class="px-0">
+          <v-card-text
+            v-if="!['Alerts', 'API'].includes(order.product)"
+            class="px-0"
+          >
             <v-simple-table>
               <tbody>
                 <tr>
@@ -522,7 +537,7 @@
                 ><v-icon left>mdi-credit-card</v-icon> Pay now</v-btn
               >
               <v-btn
-                v-if="order.product !== 'API'"
+                v-if="!['Alerts', 'API'].includes(order.product)"
                 @click="invoice"
                 :loading="invoicing"
                 :disabled="!user.billingEmail"
@@ -610,7 +625,7 @@
               <v-select v-model="status" :items="statusItems" label="Status" />
 
               <v-text-field
-                v-if="order.product !== 'API'"
+                v-if="!['Alerts', 'API'].includes(order.product)"
                 v-model="discount"
                 :label="
                   `Discount (subtotal ${formatCurrency(
@@ -771,7 +786,7 @@ export default {
       try {
         const { id } = this.$route.params
 
-        if (this.order.product === 'API') {
+        if (['Alerts', 'API'].includes(this.order.product)) {
           await this.$axios.patch(`orders/${id}`, {
             stripePaymentMethod:
               this.paymentMethod === 'stripe' ? this.stripePaymentMethod : null

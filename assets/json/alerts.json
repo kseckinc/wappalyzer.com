@@ -1,12 +1,12 @@
 {
-  "planAttrs": {
+  "attrs": {
     "amount": { "text": "Price", "type": "currency" },
     "alerts": { "text": "Alerts", "type": "text" }
   },
   "plans": {
     "alerts_small_mo": {
-      "name": "Alerts Small",
-      "size": "Small",
+      "title": "Alerts Small",
+      "name": "Small",
       "interval": "month",
       "attrs": {
         "amount": 1500,
@@ -14,8 +14,8 @@
       }
     },
     "alerts_medium_mo": {
-      "name": "Alerts Medium",
-      "size": "Medium",
+      "title": "Alerts Medium",
+      "name": "Medium",
       "raised": true,
       "interval": "month",
       "attrs": {
@@ -24,8 +24,8 @@
       }
     },
     "alerts_large_mo": {
-      "name": "Alerts Large",
-      "size": "Large",
+      "title": "Alerts Large",
+      "name": "Large",
       "interval": "month",
       "attrs": {
         "amount": 6000,
@@ -33,8 +33,8 @@
       }
     },
     "alerts_small_yr": {
-      "name": "Alerts Small",
-      "size": "Small",
+      "title": "Alerts Small",
+      "name": "Small",
       "interval": "year",
       "attrs": {
         "amount": 15000,
@@ -42,8 +42,8 @@
       }
     },
     "alerts_medium_yr": {
-      "name": "Alerts Medium",
-      "size": "Medium",
+      "title": "Alerts Medium",
+      "name": "Medium",
       "raised": true,
       "interval": "year",
       "attrs": {
@@ -52,8 +52,8 @@
       }
     },
     "alerts_large_yr": {
-      "name": "Alerts Large",
-      "size": "Large",
+      "title": "Alerts Large",
+      "name": "Large",
       "interval": "year",
       "attrs": {
         "amount": 60000,

@@ -105,7 +105,7 @@
     "title": "Alerts",
     "subtitle": "Get notified when a website's technology stack changes",
     "icon": "mdi-bullhorn",
-    "image": "bulk.svg",
+    "image": "alerts.svg",
     "text": "Monitor your competitor's technology choices with alerts. Be the first to know when they launch a new website.",
     "buttons": [
       {

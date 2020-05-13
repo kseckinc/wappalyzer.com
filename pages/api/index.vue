@@ -18,71 +18,7 @@
       </div>
 
       <template v-slot:content>
-        <v-container class="apis pa-0 mt-12">
-          <v-row class="apis__matrix pt-2 pr-1 pb-4" no-gutters>
-            <v-col>
-              <v-responsive height="245" />
-              <template v-for="(attr, name) in attrs">
-                <v-divider />
-                <v-responsive height="60">
-                  <v-card-text :key="name">
-                    {{ attr }}
-                  </v-card-text>
-                </v-responsive>
-              </template>
-            </v-col>
-            <v-col
-              v-for="api in apis"
-              :class="api.raised ? 'apis__col--raised' : ''"
-              :key="api.name"
-            >
-              <v-responsive v-if="!api.raised" height="20"> </v-responsive>
-              <v-card :raised="api.raised" class="text-center">
-                <v-responsive v-if="!api.raised" height="10"> </v-responsive>
-                <v-responsive v-if="api.raised" height="30">
-                  <v-card-subtitle class="overline">
-                    Most popular
-                  </v-card-subtitle>
-                </v-responsive>
-                <v-responsive height="50">
-                  <v-card-title class="justify-center">
-                    {{ api.name }}
-                  </v-card-title>
-                </v-responsive>
-                <v-responsive height="100">
-                  <v-card-subtitle>
-                    {{ api.description }}
-                  </v-card-subtitle>
-                </v-responsive>
-                <v-responsive height="65">
-                  <v-card-actions>
-                    <v-btn
-                      :to="api.route"
-                      :text="!api.raised"
-                      color="primary white-text"
-                      class="mx-auto"
-                      >Compare plans</v-btn
-                    >
-                  </v-card-actions>
-                </v-responsive>
-                <template v-for="(attr, name) in attrs">
-                  <v-divider />
-                  <v-responsive height="60">
-                    <v-card-text :key="name" class="text-center">
-                      <v-icon v-if="api.attrs[name] === true" color="success">
-                        mdi-check
-                      </v-icon>
-                      <small v-else>
-                        {{ api.attrs[name] }}
-                      </small>
-                    </v-card-text>
-                  </v-responsive>
-                </template>
-                <v-responsive v-if="api.raised" height="20"> </v-responsive>
-              </v-card>
-            </v-col>
-          </v-row>
-        </v-container>
+        <Matrix :items="apis" :attrs="attrs" button-text="Compare plans" />
 
         <v-container>
           <small>* Subject to availability</small>
@@ -139,13 +75,15 @@
 <script>
 import Page from '~/components/Page.vue'
 import Logos from '~/components/Logos.vue'
+import Matrix from '~/components/Matrix.vue'
 import { attrs, apis } from '~/assets/json/apis.json'
 import { apis as meta } from '~/assets/json/meta.json'
 
 export default {
   components: {
     Page,
-    Logos
+    Logos,
+    Matrix
   },
   data() {
     return {
@@ -159,18 +97,6 @@ export default {
 </script>
 
 <style>
-.apis {
-  overflow-x: auto;
-}
-
-.apis__matrix {
-  min-width: 850px;
-}
-
-.apis__col--raised {
-  z-index: 2;
-}
-
 .code {
   background-color: #282c34 !important;
 }

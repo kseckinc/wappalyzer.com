@@ -16,85 +16,7 @@
         </v-btn-toggle>
       </div>
 
-      <v-row class="plans__matrix mt-12" no-gutters>
-        <v-col>
-          <v-responsive :height="Object.keys(plans).length > 1 ? 155 : 125" />
-          <template v-for="attr in planAttrs">
-            <v-divider />
-            <v-responsive :key="attr.text" height="60">
-              <v-card-text>
-                {{ attr.text }}
-              </v-card-text>
-            </v-responsive>
-          </template>
-        </v-col>
-        <v-col
-          v-for="(plan, id) in plans"
-          :class="plan.raised ? 'plans__col--raised' : ''"
-          :key="plan.size"
-        >
-          <v-responsive v-if="!plan.raised" height="20"> </v-responsive>
-          <v-card :raised="plan.raised" class="text-center">
-            <v-responsive v-if="!plan.raised" height="10"> </v-responsive>
-            <v-responsive
-              v-if="plan.raised && Object.keys(plans).length > 1"
-              height="30"
-            >
-              <v-card-subtitle class="overline">
-                Most popular
-              </v-card-subtitle>
-            </v-responsive>
-            <v-responsive height="60">
-              <v-card-title class="justify-center">
-                {{ plan.size }}
-              </v-card-title>
-            </v-responsive>
-            <v-responsive height="65">
-              <v-card-actions>
-                <v-btn
-                  @click="subscribe(id)"
-                  :text="!plan.raised"
-                  color="primary white-text"
-                  class="mx-auto"
-                  >Order</v-btn
-                >
-              </v-card-actions>
-            </v-responsive>
-            <template v-for="(attr, name) in planAttrs">
-              <v-divider />
-              <v-responsive height="60">
-                <v-card-text :key="name" class="text-center">
-                  <template v-if="attr.type === 'currency'">
-                    <template v-if="plan.attrs[name]">
-                      <span class="font-weight-medium">
-                        {{ formatCurrency(plan.attrs[name] / 100) }}
-                      </span>
-                      <template v-if="name === 'amount'">
-                        / {{ plan.interval }}
-                      </template>
-                    </template>
-                    <template v-else>
-                      Free
-                    </template>
-                  </template>
-                  <template v-else-if="attr.type === 'number'">
-                    <template v-if="plan.attrs[name]">
-                      {{ formatNumber(plan.attrs[name]) }}
-                    </template>
-                    <template v-else>
-                      Unlimited
-                    </template>
-                  </template>
-                  <template v-else>
-                    {{ plan.attrs[name] }}
-                  </template>
-                </v-card-text>
-              </v-responsive>
-            </template>
-            <v-responsive v-if="plan.raised" height="20"> </v-responsive>
-          </v-card>
-        </v-col>
-      </v-row>
+      <Matrix v-on:select="subscribe" :items="plans" :attrs="attrs" />
 
       <v-container>
         <small>
@@ -125,15 +47,17 @@ import Page from '~/components/Page.vue'
 import Logos from '~/components/Logos.vue'
 import SignIn from '~/components/SignIn.vue'
 import OrderDialog from '~/components/OrderDialog.vue'
+import Matrix from '~/components/Matrix.vue'
 import { alerts as meta } from '~/assets/json/meta.json'
-import { planAttrs, plans } from '~/assets/json/alerts.json'
+import { attrs, plans } from '~/assets/json/alerts.json'
 
 export default {
   components: {
     Page,
     Logos,
     SignIn,
-    OrderDialog
+    OrderDialog,
+    Matrix
   },
   data() {
     return {
@@ -141,7 +65,7 @@ export default {
       interval: 'month',
       order: false,
       orderError: '',
-      planAttrs,
+      attrs,
       meta,
       signInDialog: false,
       subscribing: false
@@ -184,7 +108,7 @@ export default {
       try {
         this.order = (
           await this.$axios.put('orders', {
-            product: 'API',
+            product: 'Alerts',
             plan
           })
         ).data
@@ -195,21 +119,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.plans__matrix {
-  min-width: 850px;
-}
-
-.plans__col--raised {
-  z-index: 2;
-}
-
-th.apis__col--highlight,
-tr:not(:hover) td.apis__col--highlight {
-  background-color: #fafafa;
-}
-
-th.apis__col--highlight {
-}
-</style>

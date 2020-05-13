@@ -8,10 +8,27 @@
     </v-alert>
 
     <template v-if="!loading">
+      <p>
+        Create an alert to get notified via email when a website's technology
+        stack changes.
+      </p>
+
+      <v-btn
+        v-if="!quota"
+        to="/alerts"
+        class="mb-4"
+        color="accent"
+        outlined
+        exact
+      >
+        Compare plans
+        <v-icon right>mdi-arrow-right</v-icon>
+      </v-btn>
+
       <v-card>
         <v-card-text v-if="!alerts.length" class="pb-0">
           <v-alert color="info" class="mb-0" outlined>
-            You haven't created any alerts.
+            You don't have any alerts.
           </v-alert>
         </v-card-text>
         <v-card-text v-else class="px-0">
@@ -44,8 +61,15 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn @click="createDialog = true" color="accent" text
-            ><v-icon left>mdi-bullhorn</v-icon> Create alert</v-btn
+          <v-btn
+            @click="createDialog = true"
+            :disabled="alerts.length >= quota"
+            color="accent"
+            text
+            ><v-icon left>mdi-bullhorn</v-icon> Create alert ({{
+              Math.max(0, quota - alerts.length)
+            }}
+            left)</v-btn
           >
         </v-card-actions>
       </v-card>
@@ -124,6 +148,7 @@ export default {
       error: false,
       hostname: '',
       loading: true,
+      quota: 0,
       removeDialog: false,
       removeError: false,
       removeHostname: '',
@@ -152,7 +177,9 @@ export default {
     async '$store.state.user.isSignedIn'(isSignedIn) {
       if (isSignedIn) {
         try {
-          this.alerts = (await this.$axios.get('alerts')).data
+          ;({ quota: this.quota, alerts: this.alerts } = (
+            await this.$axios.get('alerts')
+          ).data)
 
           this.loading = false
         } catch (error) {
@@ -164,7 +191,9 @@ export default {
   async created() {
     if (this.$store.state.user.isSignedIn) {
       try {
-        this.alerts = (await this.$axios.get('alerts')).data
+        ;({ quota: this.quota, alerts: this.alerts } = (
+          await this.$axios.get('alerts')
+        ).data)
 
         this.loading = false
       } catch (error) {
@@ -183,8 +212,9 @@ export default {
         await this.$axios.put('alerts', {
           hostname: this.hostname.trim()
         })
-
-        this.alerts = (await this.$axios.get('alerts')).data
+        ;({ quota: this.quota, alerts: this.alerts } = (
+          await this.$axios.get('alerts')
+        ).data)
 
         this.success = 'The alert has been created'
 
@@ -203,8 +233,9 @@ export default {
 
       try {
         await this.$axios.delete(`alerts/${this.removeHostname}`)
-
-        this.alerts = (await this.$axios.get('alerts')).data
+        ;({ quota: this.quota, alerts: this.alerts } = (
+          await this.$axios.get('alerts')
+        ).data)
 
         this.success = 'The alert has been deleted.'
 

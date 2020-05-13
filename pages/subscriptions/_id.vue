@@ -1,6 +1,7 @@
 <template>
   <Page
     :title="subscription ? subscription.planName : 'Subscription'"
+    :head="{ title: subscription ? subscription.planName : 'Subscription' }"
     :crumbs="[{ title: 'Subscriptions', to: '/subscriptions' }]"
     :loading="!subscription && !error"
     secure
@@ -28,8 +29,20 @@
         <v-icon right>mdi-open-in-new</v-icon>
       </v-btn>
 
-      <v-btn to="/apikey" color="accent" outlined
+      <v-btn
+        v-if="subscription.planId.startsWith('api_')"
+        to="/apikey"
+        color="accent"
+        outlined
         ><v-icon left>mdi-key-variant</v-icon> API key</v-btn
+      >
+
+      <v-btn
+        v-if="subscription.planId.startsWith('alerts_')"
+        to="/alerts/manage"
+        color="accent"
+        outlined
+        ><v-icon left>mdi-bullhorn</v-icon> Alerts</v-btn
       >
 
       <v-card class="my-4">
@@ -282,6 +295,10 @@ export default {
 
       try {
         await this.$axios.delete(`subscriptions/${this.subscription.id}`)
+
+        this.subscription = (
+          await this.$axios.get(`subscriptions/${this.subscription.id}`)
+        ).data
 
         this.cancelDialog = false
 

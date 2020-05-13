@@ -1,14 +1,14 @@
 {
   "attrs": {
-    "instant": "Instant results",
-    "siteWide": "Site-wide results",
-    "realTime": "Real-time analysis",
-    "historic": "Historic data *",
-    "traffic": "Traffic indicator *",
-    "emailSupport": "Email support",
-    "payment": "Pricing model",
-    "responseType": "Response type",
-    "dataFormat": "Data format"
+    "instant": { "text": "Instant results", "type": "boolean" },
+    "siteWide": { "text": "Site-wide results", "type": "boolean" },
+    "realTime": { "text": "Real-time analysis", "type": "boolean" },
+    "historic": { "text": "Historic data *", "type": "boolean" },
+    "traffic": { "text": "Traffic indicator *", "type": "boolean" },
+    "emailSupport": { "text": "Email support", "type": "boolean" },
+    "payment": { "text": "Pricing model", "type": "small" },
+    "responseType": { "text": "Response type", "type": "small" },
+    "dataFormat": { "text": "Data format", "type": "small" }
   },
   "planAttrs": {
     "amount": { "text": "Price", "type": "currency" },
@@ -19,7 +19,7 @@
   "apis": {
     "lookup": {
       "name": "Lookup",
-      "route": "/api/lookup",
+      "to": "/api/lookup",
       "description": "Look up a domain per request",
       "raised": true,
       "attrs": {
@@ -34,8 +34,8 @@
       },
       "plans": {
         "api_lookup_small_mo": {
-          "name": "Lookup API Small",
-          "size": "Small",
+          "title": "Lookup API Small",
+          "name": "Small",
           "interval": "month",
           "attrs": {
             "amount": 5000,
@@ -45,8 +45,8 @@
           }
         },
         "api_lookup_medium_mo": {
-          "name": "Lookup API Medium",
-          "size": "Medium",
+          "title": "Lookup API Medium",
+          "name": "Medium",
           "raised": true,
           "interval": "month",
           "attrs": {
@@ -57,8 +57,8 @@
           }
         },
         "api_lookup_large_mo": {
-          "name": "Lookup API Large",
-          "size": "Large",
+          "title": "Lookup API Large",
+          "name": "Large",
           "interval": "month",
           "attrs": {
             "amount": 50000,
@@ -68,8 +68,8 @@
           }
         },
         "api_lookup_small_yr": {
-          "name": "Lookup API Small",
-          "size": "Small",
+          "title": "Lookup API Small",
+          "name": "Small",
           "interval": "year",
           "attrs": {
             "amount": 50000,
@@ -79,8 +79,8 @@
           }
         },
         "api_lookup_medium_yr": {
-          "name": "Lookup API Medium",
-          "size": "Medium",
+          "title": "Lookup API Medium",
+          "name": "Medium",
           "raised": true,
           "interval": "year",
           "attrs": {
@@ -91,8 +91,8 @@
           }
         },
         "api_lookup_large_yr": {
-          "name": "Lookup API Large",
-          "size": "Large",
+          "title": "Lookup API Large",
+          "name": "Large",
           "interval": "year",
           "attrs": {
             "amount": 500000,
@@ -105,7 +105,7 @@
     },
     "analyze": {
       "name": "Analyze",
-      "route": "/api/analyze",
+      "to": "/api/analyze",
       "description": "Fetch and analyze a single URL per request",
       "attrs": {
         "realTime": true,
@@ -116,8 +116,8 @@
       },
       "plans": {
         "api_analyze_small_mo": {
-          "name": "Analyze API Small",
-          "size": "Small",
+          "title": "Analyze API Small",
+          "name": "Small",
           "interval": "month",
           "attrs": {
             "amount": 7500,
@@ -127,8 +127,8 @@
           }
         },
         "api_analyze_medium_mo": {
-          "name": "Analyze API Medium",
-          "size": "Medium",
+          "title": "Analyze API Medium",
+          "name": "Medium",
           "raised": true,
           "interval": "month",
           "attrs": {
@@ -139,8 +139,8 @@
           }
         },
         "api_analyze_large_mo": {
-          "name": "Analyze API Large",
-          "size": "Large",
+          "title": "Analyze API Large",
+          "name": "Large",
           "interval": "month",
           "attrs": {
             "amount": 60000,
@@ -150,8 +150,8 @@
           }
         },
         "api_analyze_small_yr": {
-          "name": "Analyze API Small",
-          "size": "Small",
+          "title": "Analyze API Small",
+          "name": "Small",
           "interval": "year",
           "attrs": {
             "amount": 50000,
@@ -161,8 +161,8 @@
           }
         },
         "api_analyze_medium_yr": {
-          "name": "Analyze API Medium",
-          "size": "Medium",
+          "title": "Analyze API Medium",
+          "name": "Medium",
           "raised": true,
           "interval": "year",
           "attrs": {
@@ -173,8 +173,8 @@
           }
         },
         "api_analyze_large_yr": {
-          "name": "Analyze API Large",
-          "size": "Large",
+          "title": "Analyze API Large",
+          "name": "Large",
           "interval": "year",
           "attrs": {
             "amount": 600000,
@@ -187,7 +187,7 @@
     },
     "crawl": {
       "name": "Crawl",
-      "route": "/api/crawl",
+      "to": "/api/crawl",
       "description": "Fetch and analyze a domain per request",
       "to": "/api/crawl",
       "attrs": {
@@ -200,8 +200,8 @@
       },
       "plans": {
         "api_crawl_small_mo": {
-          "name": "Crawl API Small",
-          "size": "Small",
+          "title": "Crawl API Small",
+          "name": "Small",
           "interval": "month",
           "attrs": {
             "amount": 10000,
@@ -211,8 +211,8 @@
           }
         },
         "api_crawl_medium_mo": {
-          "name": "Crawl API Medium",
-          "size": "Medium",
+          "title": "Crawl API Medium",
+          "name": "Medium",
           "raised": true,
           "interval": "month",
           "attrs": {
@@ -223,8 +223,8 @@
           }
         },
         "api_crawl_large_mo": {
-          "name": "Crawl API Large",
-          "size": "Large",
+          "title": "Crawl API Large",
+          "name": "Large",
           "interval": "month",
           "attrs": {
             "amount": 70000,
@@ -234,8 +234,8 @@
           }
         },
         "api_crawl_small_yr": {
-          "name": "Crawl API Small",
-          "size": "Small",
+          "title": "Crawl API Small",
+          "name": "Small",
           "interval": "year",
           "attrs": {
             "amount": 100000,
@@ -245,8 +245,8 @@
           }
         },
         "api_crawl_medium_yr": {
-          "name": "Crawl API Medium",
-          "size": "Medium",
+          "title": "Crawl API Medium",
+          "name": "Medium",
           "raised": true,
           "interval": "year",
           "attrs": {
@@ -257,8 +257,8 @@
           }
         },
         "api_crawl_large_yr": {
-          "name": "Crawl API Large",
-          "size": "Large",
+          "title": "Crawl API Large",
+          "name": "Large",
           "interval": "year",
           "attrs": {
             "amount": 700000,
@@ -271,9 +271,8 @@
     },
     "dataset": {
       "name": "Dataset",
-      "route": "/api/dataset",
-      "description": "Purchase datasets programmatically",
       "to": "/api/dataset",
+      "description": "Purchase datasets programmatically",
       "attrs": {
         "siteWide": true,
         "traffic": true,
@@ -284,8 +283,8 @@
       },
       "plans": {
         "api_dataset_yr": {
-          "name": "Dataset API",
-          "size": "Pay-per-request",
+          "title": "Dataset API",
+          "name": "Pay-per-request",
           "raised": true,
           "interval": "year",
           "attrs": {
