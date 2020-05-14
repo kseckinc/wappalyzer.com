@@ -80,7 +80,7 @@
               {{ removeError }}
             </v-alert>
 
-            <p>The card will be removed.</p>
+            The card will be removed.
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>

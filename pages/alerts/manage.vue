@@ -36,17 +36,24 @@
             <thead>
               <tr>
                 <th>Website</th>
+                <th>Created</th>
+                <th>Last checked</th>
                 <th></th>
               </tr>
             </thead>
 
             <tbody>
               <tr v-for="alert in alerts">
-                <td>{{ alert.hostname }}</td>
+                <td>
+                  <a :href="alert.url" target="_blank">{{ alert.url }}</a>
+                  <v-icon small>mdi-open-in-new</v-icon>
+                </td>
+                <td>{{ formatDate(new Date(alert.createdAt * 1000)) }}</td>
+                <td>{{ formatDate(new Date(alert.updatedAt * 1000)) }}</td>
                 <td width="1">
                   <v-btn
                     @click="
-                      removeHostname = alert.hostname
+                      removeUrl = alert.url
                       removeDialog = true
                     "
                     color="error"
@@ -84,13 +91,15 @@
               {{ createError }}
             </v-alert>
 
-            <v-text-field
-              v-model="hostname"
-              :rules="rules.hostname"
-              label="Hostname"
-              placeholder="example.com"
-              dense
-            ></v-text-field>
+            <v-form v-on:submit.prevent="create">
+              <v-text-field
+                v-model="url"
+                :rules="rules.url"
+                label="Website URL"
+                placeholder="https://www.example.com"
+                dense
+              ></v-text-field>
+            </v-form>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
@@ -146,26 +155,26 @@ export default {
       createError: false,
       creating: false,
       error: false,
-      hostname: '',
+      url: '',
       loading: true,
       quota: 0,
       removeDialog: false,
       removeError: false,
-      removeHostname: '',
+      removeUrl: '',
       removing: false,
       rules: {
-        hostname: [
+        url: [
           (v) => {
-            try {
-              const { hostname } = new URL(`http://${v.trim()}`)
+            if (!v) {
+              return true
+            }
 
-              if (v.trim() !== hostname.trim()) {
-                throw new Error('Invalid hostname')
-              }
+            try {
+              new URL(v.trim()) // eslint-disable-line no-new
 
               return true
             } catch (error) {
-              return 'Enter a valid hostname, e.g. example.com'
+              return 'Enter a valid URL, e.g. https://www.example.com'
             }
           }
         ]
@@ -210,13 +219,14 @@ export default {
 
       try {
         await this.$axios.put('alerts', {
-          hostname: this.hostname.trim()
+          url: this.url.trim()
         })
         ;({ quota: this.quota, alerts: this.alerts } = (
           await this.$axios.get('alerts')
         ).data)
 
         this.success = 'The alert has been created'
+        this.url = ''
 
         this.createDialog = false
       } catch (error) {
@@ -232,7 +242,7 @@ export default {
       this.removing = true
 
       try {
-        await this.$axios.delete(`alerts/${this.removeHostname}`)
+        await this.$axios.delete(`alerts/${encodeURIComponent(this.removeUrl)}`)
         ;({ quota: this.quota, alerts: this.alerts } = (
           await this.$axios.get('alerts')
         ).data)
