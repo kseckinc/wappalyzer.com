@@ -123,6 +123,35 @@
         </v-simple-table>
       </v-card>
 
+      <h3 id="properties-required" class="mt-8 mb-2">
+        Optional properties
+        <a href="#optional-properties">
+          <v-icon color="accent">mdi-link</v-icon>
+        </a>
+      </h3>
+
+      <v-card class="my-4" flat outlined>
+        <v-simple-table>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Type</th>
+              <th>Description</th>
+              <th>Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>cpe</code></td>
+              <td>String</td>
+              <td>The <a href="https://cpe.mitre.org/about/">CPE</a> is a structured naming scheme for applications, see the <a href="https://cpe.mitre.org/specification/">specification</a>.</td>
+              <td><code>"cpe:/a:apache:http_server"</code></td>
+            </tr>
+          </tbody>
+        </v-simple-table>
+      </v-card>
+
+
       <h3 id="implies-and-excludes-optional" class="mt-8 mb-2">
         Implies and excludes (optional)
         <a href="#implies-and-excludes-optional">
