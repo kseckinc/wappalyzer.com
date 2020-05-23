@@ -25,7 +25,7 @@
           href="https://github.com/aliasio/wappalyzer/blob/master/src/apps.json"
           target="_blank"
         >
-          <code>src/apps.jon</code> </a
+          <code>src/apps.json</code> </a
         >. The following is an example of an application fingerprint.
       </p>
 
