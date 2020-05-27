@@ -198,6 +198,8 @@ export default {
     }
   },
   async created() {
+    const { url } = this.$route.query
+
     if (this.$store.state.user.isSignedIn) {
       try {
         ;({ quota: this.quota, alerts: this.alerts } = (
@@ -208,6 +210,22 @@ export default {
       } catch (error) {
         this.error = this.getErrorMessage(error)
       }
+    } else if (url) {
+      this.$router.push('/alerts')
+
+      return
+    }
+
+    if (url) {
+      if (!this.quota) {
+        this.$router.push('/alerts')
+
+        return
+      }
+
+      this.url = url
+
+      this.createDialog = true
     }
   },
   methods: {

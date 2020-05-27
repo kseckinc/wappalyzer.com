@@ -66,9 +66,11 @@
           </v-col>
         </v-row>
       </template>
-    </Page>
 
-    <Logos />
+      <template v-slot:footer>
+        <Logos />
+      </template>
+    </Page>
   </div>
 </template>
 

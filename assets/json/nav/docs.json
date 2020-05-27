@@ -34,10 +34,6 @@
       {
         "title": "Crawl API",
         "to": "/docs/api/crawl"
-      },
-      {
-        "title": "Dataset API",
-        "to": "/docs/api/dataset"
       }
     ]
   }

@@ -56,6 +56,10 @@
         <slot name="content" />
       </template>
     </v-container>
+
+    <slot name="footer" />
+
+    <Subscribe v-if="!noSubscribe && (!secure || isSignedIn)" />
   </div>
 </template>
 
@@ -63,6 +67,7 @@
 import { mapState, mapActions } from 'vuex'
 
 import PageHead from '~/components/PageHead.vue'
+import Subscribe from '~/components/Subscribe.vue'
 import SideNav from '~/components/SideNav.vue'
 import Crumbs from '~/components/Crumbs.vue'
 import SignIn from '~/components/SignIn.vue'
@@ -71,6 +76,7 @@ import userNav from '~/assets/json/nav/user.json'
 export default {
   components: {
     PageHead,
+    Subscribe,
     SideNav,
     Crumbs,
     SignIn
@@ -122,6 +128,10 @@ export default {
       }
     },
     noHead: {
+      type: Boolean,
+      default: false
+    },
+    noSubscribe: {
       type: Boolean,
       default: false
     },

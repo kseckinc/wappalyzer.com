@@ -112,9 +112,11 @@
         :error="orderError"
         :id="order ? order.id : null"
       />
-    </Page>
 
-    <Logos />
+      <template v-slot:footer>
+        <Logos />
+      </template>
+    </Page>
   </div>
 </template>
 

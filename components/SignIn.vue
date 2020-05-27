@@ -24,7 +24,7 @@
           label="Email address"
           class="mb-4"
           required
-        ></v-text-field>
+        />
 
         <v-text-field
           v-if="
@@ -40,7 +40,13 @@
           :label="mode === 'verifyReset' ? 'New password' : 'Password'"
           class="mt-n4 mb-4"
           required
-        ></v-text-field>
+        />
+
+        <v-checkbox
+          v-if="mode === 'signUp'"
+          v-model="subscribe"
+          label="Receive occasional product updates"
+        />
 
         <v-text-field
           v-if="
@@ -53,7 +59,7 @@
           label="Verification code"
           class="mb-4"
           required
-        ></v-text-field>
+        />
 
         <template v-if="mode === 'signUp'">
           <v-btn
@@ -189,6 +195,7 @@ export default {
       mode: this.modeSignUp ? 'signUp' : this.modeReset ? 'reset' : 'signIn',
       error: '',
       nextError: '',
+      subscribe: false,
       success: '',
       nextSuccess: '',
       showPassword: false,
@@ -276,6 +283,14 @@ export default {
 
       if (this.$refs.form.validate()) {
         this.verifying = true
+
+        if (this.subscribe) {
+          try {
+            await this.$axios.put(`subscribers/${this.email}`)
+          } catch (error) {
+            // Do nothing
+          }
+        }
 
         try {
           await this.signUp({ username: this.email, password: this.password })

@@ -268,33 +268,6 @@
           }
         }
       }
-    },
-    "dataset": {
-      "name": "Dataset",
-      "to": "/api/dataset",
-      "description": "Purchase datasets programmatically",
-      "attrs": {
-        "siteWide": true,
-        "traffic": true,
-        "emailSupport": true,
-        "payment": "Subscription + per request",
-        "responseType": "Callback",
-        "dataFormat": "CSV"
-      },
-      "plans": {
-        "api_dataset_yr": {
-          "title": "Dataset API",
-          "name": "Pay-per-request",
-          "raised": true,
-          "interval": "year",
-          "attrs": {
-            "requests": 0,
-            "amount": 500,
-            "setupAmount": 0,
-            "throttle": "N/A"
-          }
-        }
-      }
     }
   }
 }

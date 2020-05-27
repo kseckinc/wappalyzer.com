@@ -2,7 +2,7 @@
   <div>
     <Page
       :title="title"
-      :head="{ title: title, subtitle: meta.subtitle, text: meta.text }"
+      :head="{ title: title, subtitle: meta.subtitle, text }"
       hero
     >
       <div class="d-flex justify-center my-12">
@@ -36,9 +36,11 @@
         :error="orderError"
         :id="order ? order.id : null"
       />
-    </Page>
 
-    <Logos />
+      <template v-slot:footer>
+        <Logos />
+      </template>
+    </Page>
   </div>
 </template>
 
@@ -67,6 +69,10 @@ export default {
       orderError: '',
       attrs,
       meta,
+      text: [
+        meta.text,
+        `Simply add the websites you want to monitor and we'll check them daily. As soon as we notice a change we'll alert you with an email.`
+      ],
       signInDialog: false,
       subscribing: false
     }

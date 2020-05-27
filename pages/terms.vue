@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Page :title="title" crumbs narrow>
+    <Page :title="title" crumbs narrow no-subscribe>
       <p>
         These Wappalyzer terms of service (the '<strong>Terms</strong>')
         describe your rights and responsibilities when using our website,

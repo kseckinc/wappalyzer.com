@@ -73,8 +73,8 @@
         >.
       </p>
 
-      <h3 id="properties-required" class="mt-8 mb-2">
-        Properties (required)
+      <h3 id="required-properties" class="mt-8 mb-2">
+        Required properties
         <a href="#properties-required">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
@@ -123,7 +123,7 @@
         </v-simple-table>
       </v-card>
 
-      <h3 id="properties-required" class="mt-8 mb-2">
+      <h3 id="optional-properties" class="mt-8 mb-2">
         Optional properties
         <a href="#optional-properties">
           <v-icon color="accent">mdi-link</v-icon>
@@ -144,13 +144,19 @@
             <tr>
               <td><code>cpe</code></td>
               <td>String</td>
-              <td>The <a href="https://cpe.mitre.org/about/">CPE</a> is a structured naming scheme for applications, see the <a href="https://cpe.mitre.org/specification/">specification</a>.</td>
+              <td>
+                The
+                <a href="https://cpe.mitre.org/about/" target="_blank">CPE</a>
+                is a structured naming scheme for applications, see the
+                <a href="https://cpe.mitre.org/specification/" target="_blank"
+                  >specification</a
+                >.
+              </td>
               <td><code>"cpe:/a:apache:http_server"</code></td>
             </tr>
           </tbody>
         </v-simple-table>
       </v-card>
-
 
       <h3 id="implies-and-excludes-optional" class="mt-8 mb-2">
         Implies and excludes (optional)

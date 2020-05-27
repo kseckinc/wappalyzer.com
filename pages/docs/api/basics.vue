@@ -76,8 +76,7 @@
 
       <p>
         Use the API key below to try the APIs before purchasing a subscription.
-        It's good for ten requests per day across all APIs (excluding the
-        Dataset API).
+        It's good for ten requests per day across all APIs.
       </p>
 
       <p><code>wappalyzer.api.demo.key</code></p>

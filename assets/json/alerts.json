@@ -1,7 +1,7 @@
 {
   "attrs": {
     "amount": { "text": "Price", "type": "currency" },
-    "alerts": { "text": "Alerts", "type": "text" }
+    "alerts": { "text": "Websites monitored", "type": "text" }
   },
   "plans": {
     "alerts_small_mo": {
@@ -9,7 +9,7 @@
       "name": "Small",
       "interval": "month",
       "attrs": {
-        "amount": 1500,
+        "amount": 500,
         "alerts": "5"
       }
     },
@@ -28,7 +28,7 @@
       "name": "Large",
       "interval": "month",
       "attrs": {
-        "amount": 6000,
+        "amount": 12000,
         "alerts": "500"
       }
     },
@@ -37,7 +37,7 @@
       "name": "Small",
       "interval": "year",
       "attrs": {
-        "amount": 15000,
+        "amount": 5000,
         "alerts": "5"
       }
     },
@@ -56,7 +56,7 @@
       "name": "Large",
       "interval": "year",
       "attrs": {
-        "amount": 60000,
+        "amount": 120000,
         "alerts": "500"
       }
     }

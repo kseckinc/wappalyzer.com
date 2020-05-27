@@ -7,6 +7,7 @@
       text
     }"
     hero
+    no-subscribe
   >
     <v-alert v-if="statusCode !== 404" type="error" class="mt-4" outlined>
       {{ message }}

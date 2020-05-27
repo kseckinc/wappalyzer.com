@@ -59,17 +59,17 @@
           </v-col>
         </v-row>
       </template>
-    </Page>
 
-    <SignUpCTA />
-    <Logos />
+      <template v-slot:footer>
+        <Logos />
+      </template>
+    </Page>
   </div>
 </template>
 
 <script>
 import Logos from '~/components/Logos.vue'
 import Page from '~/components/Page.vue'
-import SignUpCTA from '~/components/SignUpCTA.vue'
 import meta from '~/assets/json/meta.json'
 
 export default {
@@ -84,8 +84,7 @@ export default {
   },
   components: {
     Logos,
-    Page,
-    SignUpCTA
+    Page
   },
   data() {
     return {

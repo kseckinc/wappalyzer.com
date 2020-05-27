@@ -1,0 +1,81 @@
+<template>
+  <div>
+    <v-divider class="mb-8" />
+
+    <v-container class="mb-10">
+      <p class="body-2 mb-6 text-center">
+        Subscribe to receive occasional product updates.
+      </p>
+
+      <div class="ma-auto" style="max-width: 500px">
+        <v-alert v-if="success" type="success" class="mb-0" outlined>
+          {{ success }}
+        </v-alert>
+
+        <v-alert v-if="error" type="error" outlined>
+          {{ error }}
+        </v-alert>
+
+        <v-form
+          ref="form"
+          v-if="!success"
+          v-on:submit.prevent="subscribe"
+          class="d-flex align-center"
+        >
+          <v-text-field
+            v-model="email"
+            :rules="[(v) => !v || /@/.test(v)]"
+            placeholder="info@example.com"
+            height="44px"
+            dense
+            outlined
+            hide-details
+          />
+          <v-btn
+            @click="subscribe"
+            :loading="subscribing"
+            color="primary"
+            class="ml-2"
+            large
+          >
+            <v-icon left>mdi-email</v-icon> Subscribe
+          </v-btn>
+        </v-form>
+      </div>
+    </v-container>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      email: '',
+      error: false,
+      success: false,
+      subscribing: false
+    }
+  },
+  methods: {
+    async subscribe() {
+      this.error = false
+      this.success = false
+
+      if (this.$refs.form.validate()) {
+        this.subscribing = true
+
+        try {
+          await this.$axios.put(`subscribers/${this.email}`)
+
+          this.success = 'Thank you for subscribing!'
+          this.email = ''
+        } catch (error) {
+          this.error = this.getErrorMessage(error)
+        }
+
+        this.subscribing = false
+      }
+    }
+  }
+}
+</script>
