@@ -75,11 +75,18 @@ export const actions = {
     })
   },
 
-  signUp(context, { username: Username, password: Password }) {
+  signUp(
+    context,
+    { username: Username, password: Password, rewardfulReferral = '' }
+  ) {
     const attributeList = [
       new CognitoUserAttribute({
         Name: 'email',
         Value: Username.trim()
+      }),
+      new CognitoUserAttribute({
+        Name: 'rewardfulReferral',
+        Value: rewardfulReferral
       })
     ]
 

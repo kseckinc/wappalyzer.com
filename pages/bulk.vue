@@ -12,7 +12,7 @@
           <li>Include up to 1,000 URLs</li>
           <li>
             The resulting dataset is in CSV and JSON format (<a
-              href="/bulk-sample.json"
+              href="/bulk-sample.zip"
               download
               >sample</a
             >)

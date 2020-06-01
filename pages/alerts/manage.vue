@@ -136,6 +136,24 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+
+      <v-dialog v-model="quotaDialog" max-width="400px" eager>
+        <v-card>
+          <v-card-title>
+            Quota reached
+          </v-card-title>
+          <v-card-text>
+            You don't have any alerts left. Please add a plan to create more.
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn to="/alerts" color="accent" text exact>Compare plans</v-btn>
+            <v-btn @click="quotaDialog = false" color="error" text
+              >Cancel</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </template>
   </Page>
 </template>
@@ -152,6 +170,7 @@ export default {
       title: 'Alerts',
       alerts: [],
       createDialog: false,
+      quotaDialog: false,
       createError: false,
       creating: false,
       error: false,
@@ -217,15 +236,14 @@ export default {
     }
 
     if (url) {
-      if (!this.quota) {
-        this.$router.push('/alerts')
+      console.log(this.quota)
+      if (this.quota - this.alerts.length > 0) {
+        this.url = url
 
-        return
+        this.createDialog = true
+      } else {
+        this.quotaDialog = true
       }
-
-      this.url = url
-
-      this.createDialog = true
     }
   },
   methods: {

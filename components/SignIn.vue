@@ -293,7 +293,11 @@ export default {
         }
 
         try {
-          await this.signUp({ username: this.email, password: this.password })
+          await this.signUp({
+            username: this.email,
+            password: this.password,
+            rewardfulReferral: window.Rewardful.referral
+          })
 
           this.mode = 'verifySignUp'
           this.nextSuccess = 'Please check your email for a verification code'

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Page :title="title">
+    <Page :title="title" no-subscribe>
       <template v-if="success">
         <p>{{ success }}</p>
 

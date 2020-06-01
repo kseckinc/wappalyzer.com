@@ -6,12 +6,9 @@
 
         <p v-if="subtitle" class="subtitle-2 mt-n4">{{ subtitle }}</p>
 
-        <p
-          v-if="Array.isArray(text)"
-          v-for="paragraph in text"
-          v-html="paragraph"
-          class="head-text"
-        />
+        <template v-if="Array.isArray(text)">
+          <p v-for="paragraph in text" v-html="paragraph" class="head-text" />
+        </template>
         <p v-else v-html="text" class="head-text" />
 
         <Progress v-if="loading" />
@@ -33,12 +30,9 @@
 
           <p v-if="subtitle" class="subtitle-2 mt-n4">{{ subtitle }}</p>
 
-          <p
-            v-if="Array.isArray(text)"
-            v-for="paragraph in text"
-            v-html="paragraph"
-            class="head-text"
-          />
+          <template v-if="Array.isArray(text)">
+            <p v-for="paragraph in text" v-html="paragraph" class="head-text" />
+          </template>
           <p v-else v-html="text" class="head-text" />
         </v-col>
       </v-row>

@@ -13,6 +13,11 @@
       <Footer :mainNav="mainNav" />
     </v-content>
     <Drawer ref="drawer" :mainNav="mainNav" :userNav="userNav" :user="user" />
+    <script
+      async
+      src="https://r.wdfl.co/rw.js"
+      data-rewardful="7fd1cb"
+    ></script>
   </v-app>
 </template>
 
