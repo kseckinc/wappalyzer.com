@@ -173,9 +173,9 @@ $ ./run links</Prism></pre>
         >
         and add a square icon to
         <a
-          href="https://github.com/aliasio/wappalyzer/tree/master/src/icons"
+          href="https://github.com/aliasio/wappalyzer/tree/master/src/drivers/webextension/images/icons"
           target="_blank"
-          ><code>src/icons</code></a
+          ><code>src/drivers/webextension/images/icons</code></a
         >
         (preferably an SVG file, otherwise a 64x64 or 32x32 PNG file).
       </p>

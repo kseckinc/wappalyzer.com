@@ -33,31 +33,43 @@
       </v-col>
     </v-row>
 
-    <h3 class="mt-8 mb-2">Social media</h3>
+    <v-row>
+      <v-col md="8">
+        <h3 class="mb-2">Social media</h3>
 
-    <p class="mb-8">
-      Follow us on LinkedIn and Twitter for occasional product updates.
-    </p>
+        <p class="mb-4">
+          Follow us on LinkedIn and Twitter for occasional product updates.
+        </p>
 
-    <v-btn
-      href="https://www.linkedin.com/company/wappalyzer"
-      color="accent"
-      class="mr-2"
-      target="_blank"
-      outlined
-    >
-      <v-icon left>mdi-linkedin</v-icon>
-      LinkedIn
-    </v-btn>
-    <v-btn
-      href="https://twitter.com/Wappalyzer"
-      color="accent"
-      target="_blank"
-      outlined
-    >
-      <v-icon left>mdi-twitter</v-icon>
-      Twitter
-    </v-btn>
+        <v-btn
+          href="https://www.linkedin.com/company/wappalyzer"
+          color="accent"
+          class="mr-2"
+          target="_blank"
+          outlined
+        >
+          <v-icon left>mdi-linkedin</v-icon>
+          LinkedIn
+        </v-btn>
+        <v-btn
+          href="https://twitter.com/Wappalyzer"
+          color="accent"
+          target="_blank"
+          outlined
+        >
+          <v-icon left>mdi-twitter</v-icon>
+          Twitter
+        </v-btn>
+
+        <h3 id="affiliates" class="mt-8 mb-2">Become an affiliate partner</h3>
+
+        <p>
+          Email us to become an affiliate partner. We pay 30% recurring
+          commission on referrals from any user who signs up using your unique
+          link. You'll be able to track sales using a personal dashboard.
+        </p>
+      </v-col>
+    </v-row>
   </Page>
 </template>
 

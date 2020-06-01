@@ -85,7 +85,7 @@ export const actions = {
         Value: Username.trim()
       }),
       new CognitoUserAttribute({
-        Name: 'rewardfulReferral',
+        Name: 'custom:rewardfulReferral',
         Value: rewardfulReferral
       })
     ]

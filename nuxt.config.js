@@ -24,7 +24,8 @@ export default {
         "'self'",
         "'unsafe-inline'",
         '*.google-analytics.com',
-        '*.stripe.com'
+        '*.stripe.com',
+        '*.wdfl.co'
       ],
       'connect-src': [
         '*.google-analytics.com',

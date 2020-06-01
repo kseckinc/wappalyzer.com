@@ -296,7 +296,7 @@ export default {
           await this.signUp({
             username: this.email,
             password: this.password,
-            rewardfulReferral: window.Rewardful.referral
+            rewardfulReferral: window.Rewardful ? window.Rewardful.referral : ''
           })
 
           this.mode = 'verifySignUp'

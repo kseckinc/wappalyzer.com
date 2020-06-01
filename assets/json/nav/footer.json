@@ -28,6 +28,10 @@
       "to": "/privacy"
     },
     {
+      "title": "Affiliates",
+      "to": "/contact#affiliates"
+    },
+    {
       "title": "Get in touch",
       "to": "/contact"
     }

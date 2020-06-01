@@ -60,7 +60,13 @@
           </v-col>
 
           <v-col cols="12" sm="auto" class="text-center">
-            <v-btn v-for="{ title, to } in items" :key="title" :to="to" text>
+            <v-btn
+              v-for="{ title, to } in items"
+              :key="title"
+              :to="to"
+              text
+              exact
+            >
               {{ title }}
             </v-btn>
           </v-col>
