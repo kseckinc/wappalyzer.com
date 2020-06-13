@@ -236,7 +236,6 @@ export default {
     }
 
     if (url) {
-      console.log(this.quota)
       if (this.quota - this.alerts.length > 0) {
         this.url = url
 

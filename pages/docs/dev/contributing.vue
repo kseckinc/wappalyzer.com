@@ -13,9 +13,7 @@
         <a
           href="https://github.com/aliasio/wappalyzer/blob/master/LICENSE"
           target="_blank"
-          g
-        >
-          open-source </a
+          >open-source</a
         >. Anyone who wishes to contribute is welcome to do so! Wappalyzer has
         been improved by
         <a
@@ -55,7 +53,7 @@
         <a href="https://github.com/aliasio/wappalyzer" target="_blank" g
           >Wappalyzer repository</a
         >
-        on GitHub, clone it and execute <code>./run links</code> in
+        on GitHub, clone it and execute <code>yarn run link</code> in
         <a
           href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)"
           target="_blank"
@@ -68,7 +66,7 @@
         class="mb-4"
       ><Prism language="bash" class="body-2">$ git clone https://github.com/&lt;your_github_username&gt;/wappalyzer.git
 $ cd wappalyzer
-$ ./run links</Prism></pre>
+$ yarn run link</Prism></pre>
 
       <h2 id="drivers" class="mt-8 mb-2">
         Drivers
@@ -138,8 +136,8 @@ $ ./run links</Prism></pre>
       </h2>
 
       <p>
-        When you're done making changes, run <code>./run validate</code>. If no
-        errors are reported, push your commits to a new branch on your own
+        When you're done making changes, run <code>yarn run validate</code>. If
+        no errors are reported, push your commits to a new branch on your own
         repository.
       </p>
 

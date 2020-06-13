@@ -43,7 +43,7 @@
         target="_blank"
         outlined
       >
-        <v-icon left>mdi-github</v-icon>
+        <v-icon left>mdi-git</v-icon>
         Source code
       </v-btn>
 
