@@ -34,9 +34,7 @@
 
       <p>
         To get started, install
-        <a href="https://git-scm.com/" target="_blank" g>Git</a>
-        and
-        <a href="https://www.docker.com/" target="_blank" g>Docker</a>
+        <a href="https://git-scm.com/" target="_blank">Git</a>
         on your system. This will allow you to install and run the Wappalyzer
         development environment which comes bundled with the required tools.
       </p>
@@ -66,6 +64,7 @@
         class="mb-4"
       ><Prism language="bash" class="body-2">$ git clone https://github.com/&lt;your_github_username&gt;/wappalyzer.git
 $ cd wappalyzer
+$ yarn install
 $ yarn run link</Prism></pre>
 
       <h2 id="drivers" class="mt-8 mb-2">
