@@ -3,11 +3,11 @@ import Vue from 'vue'
 Vue.mixin({
   methods: {
     formatCurrency: (amount, currency = 'AUD', decimal = false) =>
-      amount.toLocaleString('en-US', {
+      `${amount.toLocaleString('en-AU', {
         style: 'currency',
         currency,
         minimumFractionDigits: decimal ? 2 : 0
-      }),
+      })} ${currency}`,
     formatDate: (date) =>
       date.toLocaleString(undefined, {
         day: 'numeric',

@@ -154,7 +154,7 @@
           "name": "Small",
           "interval": "year",
           "attrs": {
-            "amount": 50000,
+            "amount": 75000,
             "setupAmount": 0,
             "requests": "5,000 / month",
             "throttle": "1 / second"
