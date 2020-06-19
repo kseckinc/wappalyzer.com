@@ -78,23 +78,25 @@
                 </v-list>
                 <v-divider />
               </v-sheet>
-              <v-list nav dense>
-                <v-list-item
-                  v-for="{ title, to, icon } in userNav"
-                  :key="title"
-                  :to="to"
-                  color="primary"
-                >
-                  <v-list-item-icon>
-                    <v-icon dense>{{ icon }}</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>
-                      {{ title }}
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
+              <v-sheet tile>
+                <v-list nav dense>
+                  <v-list-item
+                    v-for="{ title, to, icon } in userNav"
+                    :key="title"
+                    :to="to"
+                    color="primary"
+                  >
+                    <v-list-item-icon>
+                      <v-icon dense>{{ icon }}</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                      <v-list-item-title>
+                        {{ title }}
+                      </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </v-sheet>
             </v-menu>
           </v-col>
 
