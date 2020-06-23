@@ -124,11 +124,9 @@
       "version": "",
       "icon": "CraftCMS.svg",
       "website": "https://craftcms.com",
-      "categories": [
-        {
-          "1": "CMS"
-        }
-      ]
+      "categories": {
+        "1": "CMS"
+      }
     }
   ],
   "status": "success"
