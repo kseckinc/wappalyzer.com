@@ -6,8 +6,10 @@
       v-on:change="(item) => $emit('select', item)"
       v-on:focus="focus"
       :items="results"
+      class="mb-4"
       label="Find a technology"
       item-value="slug"
+      hide-details="auto"
       return-object
       eager
     >

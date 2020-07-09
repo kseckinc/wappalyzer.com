@@ -23,22 +23,39 @@
                   </v-btn>
                 </template>
 
-                <v-list v-if="items">
-                  <v-list-item
-                    v-for="{ title: _title, to: _to } in items"
+                <v-list v-if="items" class="header__menu">
+                  <v-template
+                    v-for="({ title: _title, subtitle, to: _to },
+                    index) in items"
                     :key="_title"
-                    :href="_to.match(/^http/) ? _to : null"
-                    :target="_to.match(/^http/) ? '_blank' : '_self'"
-                    :to="_to.match(/^http/) ? null : _to"
-                    color="primary"
                   >
-                    <v-list-item-title>
-                      {{ _title }}
-                    </v-list-item-title>
-                    <v-list-item-icon v-if="_to.match(/^http/)"
-                      ><v-icon dense>mdi-open-in-new</v-icon></v-list-item-icon
+                    <v-divider v-if="index" class="my-2"></v-divider>
+                    <v-list-item
+                      :href="_to.match(/^http/) ? _to : null"
+                      :target="_to.match(/^http/) ? '_blank' : '_self'"
+                      :to="_to.match(/^http/) ? null : _to"
+                      color="primary"
                     >
-                  </v-list-item>
+                      <v-list-item-content>
+                        <v-list-item-title
+                          :class="subtitle ? 'font-weight-medium' : ''"
+                        >
+                          {{ _title }}
+                        </v-list-item-title>
+                        <v-list-item-subtitle
+                          v-if="subtitle"
+                          class="header__subtitle"
+                        >
+                          {{ subtitle }}
+                        </v-list-item-subtitle>
+                      </v-list-item-content>
+                      <v-list-item-icon v-if="_to.match(/^http/)"
+                        ><v-icon dense
+                          >mdi-open-in-new</v-icon
+                        ></v-list-item-icon
+                      >
+                    </v-list-item>
+                  </v-template>
                 </v-list>
               </v-menu>
             </template>
@@ -159,5 +176,13 @@ export default {
 .header .logo {
   height: 50px !important;
   width: 200px;
+}
+
+.header__menu {
+  max-width: 350px;
+}
+
+.header__subtitle {
+  white-space: normal !important;
 }
 </style>

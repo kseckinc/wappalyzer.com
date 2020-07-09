@@ -7,11 +7,11 @@
     >
       <div class="d-flex justify-center my-12">
         <v-btn-toggle v-model="interval" color="primary" class="mr-4" mandatory>
-          <v-btn value="month" class="overline px-8" outlined>
-            Monthly
+          <v-btn value="month" class="caption px-8" outlined>
+            MONTHLY
           </v-btn>
-          <v-btn value="year" class="overline px-8" outlined>
-            Annually
+          <v-btn value="year" class="caption px-8" outlined>
+            ANNUALLY &nbsp; (two months free)
           </v-btn>
         </v-btn-toggle>
       </div>

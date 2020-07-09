@@ -51,10 +51,13 @@
           <v-card-text class="px-0">
             <v-simple-table>
               <tbody>
-                <tr v-for="{ name, slug, icon } in technologies" :key="name">
+                <tr
+                  v-for="{ name, slug, categories, icon } in technologies"
+                  :key="name"
+                >
                   <td width="1">
                     <nuxt-link
-                      :to="`/technologies/${slug}`"
+                      :to="`/technologies/${categories[0].slug}/${slug}`"
                       class="d-flex align-center body-2 my-2"
                     >
                       <TechnologyIcon :icon="icon" />

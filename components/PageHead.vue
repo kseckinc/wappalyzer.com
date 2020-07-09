@@ -69,7 +69,7 @@ export default {
       default: ''
     },
     text: {
-      type: String,
+      type: [Array, String],
       default: ''
     },
     image: {

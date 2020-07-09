@@ -9,312 +9,66 @@
       <template v-slot:content>
         <h2 class="mb-4">Get an instant quote</h2>
 
-        <v-card class="mb-4">
+        <v-card class="mb-4" color="secondary">
           <v-card-text v-if="error">
             <v-alert type="error">
               {{ error }}
             </v-alert>
           </v-card-text>
           <v-row>
-            <v-col class="py-0" cols="12" sm="6">
+            <v-col class="py-0 pr-sm-0" cols="12" sm="6">
               <v-card-title>
                 <v-icon color="primary" left>mdi-format-list-checks</v-icon>
                 Selection
               </v-card-title>
               <v-card-text>
-                <div class="subtitle-2">Technologies</div>
+                <v-card>
+                  <v-card-title class="subtitle-2">
+                    Technologies
+                  </v-card-title>
+                  <v-card-text>
+                    <p>
+                      Choose one or more technologies to include.
+                    </p>
 
-                <p>
-                  Choose one or more technologies to include.
-                </p>
-
-                <Technologies ref="selector" v-on:select="selectItem" />
-              </v-card-text>
-              <v-card-text class="px-0 pt-0 mt-n4">
-                <v-simple-table>
-                  <tbody>
-                    <tr v-for="item in selectedItems" :key="item.slug">
-                      <td>
-                        <div
-                          v-if="item.type === 'technology'"
-                          class="d-flex align-center py-2"
-                        >
-                          <TechnologyIcon :icon="item.icon" />
-                          <span>{{ item.name }}</span>
-                        </div>
-                        <v-row v-else>
-                          <v-col>
-                            {{ item.name }}
-                          </v-col>
-                          <v-col class="text-right">
-                            <small
-                              >{{ item.technologiesCount }} technologies</small
+                    <Technologies ref="selector" v-on:select="selectItem" />
+                  </v-card-text>
+                  <v-card-text class="px-0 pt-0 mt-n4">
+                    <v-simple-table>
+                      <tbody>
+                        <tr v-for="item in selectedItems" :key="item.slug">
+                          <td>
+                            <div
+                              v-if="item.type === 'technology'"
+                              class="d-flex align-center py-2"
                             >
-                          </v-col>
-                        </v-row>
-                      </td>
-                      <td width="1">
-                        <v-btn @click="removeItem(item)" icon>
-                          <v-icon>mdi-close-circle-outline</v-icon>
-                        </v-btn>
-                      </td>
-                    </tr>
-                  </tbody>
-                </v-simple-table>
-              </v-card-text>
-            </v-col>
-            <v-col class="py-0" cols="12" sm="6">
-              <v-card-title>
-                <v-icon color="primary" left>mdi-filter-outline</v-icon>
-                Filters <span class="grey--text ml-1">(optional)</span>
-              </v-card-title>
-              <v-card-text>
-                <div class="subtitle-2">Languages</div>
-
-                <p>
-                  Target websites using specific languages.
-                </p>
-
-                <v-select
-                  ref="language"
-                  v-model="selectedLanguage"
-                  :items="languages"
-                  class="mb-4"
-                  label="Select a language"
-                  hide-details
-                >
-                  <template v-slot:item="{ item }">
-                    <v-list-item @click="toggleLanguage(item)" ripple>
-                      <v-list-item-action>
-                        <v-icon :color="item.active ? 'primary' : ''">{{
-                          typeof item.value === 'object'
-                            ? 'mdi-dots-horizontal'
-                            : item.active
-                            ? 'mdi-checkbox-marked'
-                            : 'mdi-checkbox-blank-outline'
-                        }}</v-icon>
-                      </v-list-item-action>
-
-                      <v-list-item-content>
-                        <v-row class="align-center">
-                          <v-col class="py-0">
-                            {{ item.text }}
-                          </v-col>
-                          <v-col
-                            class="py-0 nowrap text-right body-2 flex-grow-0"
-                          >
-                            {{
-                              typeof item.value === 'object'
-                                ? item.value[Object.keys(item.value)[0]]
-                                : item.value
-                            }}
-                          </v-col>
-                        </v-row>
-                      </v-list-item-content>
-                    </v-list-item>
-                  </template>
-                </v-select>
-
-                <v-select
-                  ref="variant"
-                  v-if="variants"
-                  :items="variants"
-                  class="mb-4"
-                  label="Select a language country"
-                  hide-details
-                >
-                  <template v-slot:prepend-item>
-                    <v-list-item @click="toggleVariants" ripple>
-                      <v-list-item-action>
-                        <v-icon
-                          :color="
-                            selected.languages.length > 0 ? 'primary' : ''
-                          "
-                          >{{
-                            variants.every(({ active }) => active)
-                              ? 'mdi-checkbox-marked'
-                              : variants.some(({ active }) => active)
-                              ? 'mdi-minus-box-outline'
-                              : 'mdi-checkbox-blank-outline'
-                          }}</v-icon
-                        >
-                      </v-list-item-action>
-
-                      <v-list-item-content>
-                        <v-list-item-title>Select All</v-list-item-title>
-                      </v-list-item-content>
-                    </v-list-item>
-
-                    <v-divider class="mt-2"></v-divider>
-                  </template>
-
-                  <template v-slot:item="{ item }">
-                    <v-list-item @click="toggleVariant(item)" ripple>
-                      <v-list-item-action>
-                        <v-icon :color="item.active ? 'primary' : ''">{{
-                          item.active
-                            ? 'mdi-checkbox-marked'
-                            : 'mdi-checkbox-blank-outline'
-                        }}</v-icon>
-                      </v-list-item-action>
-
-                      <v-list-item-content>
-                        <v-row class="align-center">
-                          <v-col class="py-0">
-                            {{ item.text }}
-                          </v-col>
-                          <v-col
-                            class="py-0 nowrap text-right body-2 flex-grow-0"
-                            >{{ item.value }}</v-col
-                          >
-                        </v-row>
-                      </v-list-item-content>
-                    </v-list-item>
-                  </template>
-                </v-select>
-
-                <v-chip-group
-                  v-if="selected.languages.length"
-                  class="mt-n1 mb-2"
-                  column
-                >
-                  <v-tooltip
-                    v-for="(item, i) in selected.languages"
-                    :key="i"
-                    bottom
-                  >
-                    <template v-slot:activator="{ on }">
-                      <v-chip
-                        v-on="on"
-                        @click:close="toggleVariant(item)"
-                        color="primary"
-                        outlined
-                        close
-                      >
-                        {{ item.value }}
-                      </v-chip>
-                    </template>
-
-                    {{
-                      item.parent && item.parent !== item.text
-                        ? `${item.parent} (${item.text})`
-                        : item.text
-                    }}
-                  </v-tooltip>
-                </v-chip-group>
-
-                <div class="subtitle-2 mt-8">Top-level domains</div>
-
-                <p>
-                  Target countries by top-level domain.<sup
-                    ><a
-                      href="https://en.wikipedia.org/wiki/Top-level_domain"
-                      target="_blank"
-                      ><v-icon color="accent" small>mdi-help-box</v-icon></a
-                    ></sup
-                  >
-                </p>
-
-                <v-row>
-                  <v-col class="py-0">
-                    <v-select
-                      ref="country"
-                      v-model="selectedCountry"
-                      :items="countries"
-                      class="mb-4"
-                      label="Select a country"
-                      hide-details
-                    />
-                  </v-col>
-                  <v-col class="py-0">
-                    <v-form ref="form" @submit.prevent="addTld">
-                      <v-text-field
-                        v-model="tld"
-                        @click:append="addTld"
-                        :error-messages="tldErrors"
-                        append-icon="mdi-plus"
-                        placeholder=".com"
-                        hide-details="auto"
-                      />
-                    </v-form>
-                  </v-col>
-                </v-row>
-
-                <v-select
-                  ref="tld"
-                  v-if="selectedCountry"
-                  :items="tlds"
-                  class="mb-8"
-                  label="Select a top-level-domain"
-                  hide-details
-                >
-                  <template v-slot:prepend-item>
-                    <v-list-item @click="toggleTlds" ripple>
-                      <v-list-item-action>
-                        <v-icon
-                          :color="selected.tlds.length > 0 ? 'primary' : ''"
-                          >{{
-                            tlds.every(({ active }) => active)
-                              ? 'mdi-checkbox-marked'
-                              : tlds.some(({ active }) => active)
-                              ? 'mdi-minus-box-outline'
-                              : 'mdi-checkbox-blank-outline'
-                          }}</v-icon
-                        >
-                      </v-list-item-action>
-
-                      <v-list-item-content>
-                        <v-list-item-title>Select All</v-list-item-title>
-                      </v-list-item-content>
-                    </v-list-item>
-
-                    <v-divider class="mt-2"></v-divider>
-                  </template>
-
-                  <template v-slot:item="{ item }">
-                    <v-list-item @click="toggleTld(item)" ripple>
-                      <v-list-item-action>
-                        <v-icon :color="item.active ? 'primary' : ''">{{
-                          item.active
-                            ? 'mdi-checkbox-marked'
-                            : 'mdi-checkbox-blank-outline'
-                        }}</v-icon>
-                      </v-list-item-action>
-
-                      <v-list-item-content>
-                        {{ item.text }}
-                      </v-list-item-content>
-                    </v-list-item>
-                  </template>
-                </v-select>
-
-                <v-chip-group
-                  v-if="selected.tlds.length"
-                  class="mt-n1 mb-4"
-                  column
-                >
-                  <v-tooltip v-for="(item, i) in selected.tlds" :key="i" bottom>
-                    <template v-slot:activator="{ on }">
-                      <v-chip
-                        v-on="item.parent ? on : undefined"
-                        @click:close="toggleTld(item)"
-                        color="primary"
-                        outlined
-                        close
-                      >
-                        {{ item.value }}
-                      </v-chip>
-                    </template>
-
-                    {{ item.parent }}
-                  </v-tooltip>
-                </v-chip-group>
-
-                <v-checkbox
-                  v-model="matchAll"
-                  label="Match all filters (yields fewer results)"
-                  hide-details
-                ></v-checkbox>
+                              <TechnologyIcon :icon="item.icon" />
+                              <span>{{ item.name }}</span>
+                            </div>
+                            <v-row v-else>
+                              <v-col>
+                                {{ item.name }}
+                              </v-col>
+                              <v-col class="text-right">
+                                <small
+                                  >{{
+                                    item.technologiesCount
+                                  }}
+                                  technologies</small
+                                >
+                              </v-col>
+                            </v-row>
+                          </td>
+                          <td width="1">
+                            <v-btn @click="removeItem(item)" icon>
+                              <v-icon>mdi-close-circle-outline</v-icon>
+                            </v-btn>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </v-simple-table>
+                  </v-card-text>
+                </v-card>
               </v-card-text>
 
               <v-card-title>
@@ -324,26 +78,373 @@
                 Limits <span class="grey--text ml-1">(optional)</span>
               </v-card-title>
               <v-card-text>
-                <div class="subtitle-2">Subset</div>
+                <v-card>
+                  <v-card-title class="subtitle-2">
+                    Subset
+                  </v-card-title>
+                  <v-card-text>
+                    <p>
+                      Limit results to a number of top traficked websites per
+                      technology.
+                    </p>
 
-                <p>
-                  Limit results to a number of top traficked websites per
-                  technology.
-                </p>
+                    <v-text-field
+                      v-model="subset"
+                      :rules="[
+                        (v) =>
+                          !v || /^[0-9]+$/.test(v) || 'Value must be numeric',
+                        (v) =>
+                          !v || v >= 100 || 'Subset size must be at least 100'
+                      ]"
+                      class="mb-4"
+                      placeholder="5000"
+                      hide-details="auto"
+                    />
+                  </v-card-text>
+                </v-card>
+              </v-card-text>
+            </v-col>
+            <v-col class="py-0 pl-sm-0" cols="12" sm="6">
+              <v-card-title>
+                <v-icon color="primary" left>mdi-filter-outline</v-icon>
+                Filters <span class="grey--text ml-1">(optional)</span>
+              </v-card-title>
+              <v-card-text>
+                <v-card class="mb-8">
+                  <v-card-title class="subtitle-2">
+                    IP countries
+                  </v-card-title>
+                  <v-card-text>
+                    <p>
+                      Target countries by website IP address.
+                    </p>
 
-                <v-form ref="form" @submit.prevent="addTld">
-                  <v-text-field
-                    v-model="subset"
-                    :rules="[
-                      (v) =>
-                        !v || /^[0-9]+$/.test(v) || 'Value must be numeric',
-                      (v) =>
-                        !v || v >= 100 || 'Subset size must be at least 100'
-                    ]"
-                    placeholder="5000"
-                    hide-details="auto"
-                  />
-                </v-form>
+                    <v-select
+                      ref="country"
+                      :items="geoIps"
+                      class="mb-4"
+                      label="Select a country"
+                      hide-details
+                    >
+                      <template v-slot:item="{ item }">
+                        <v-list-item @click="toggleGeoIp(item)" ripple>
+                          <v-list-item-action>
+                            <v-icon :color="item.active ? 'primary' : ''">{{
+                              item.active
+                                ? 'mdi-checkbox-marked'
+                                : 'mdi-checkbox-blank-outline'
+                            }}</v-icon>
+                          </v-list-item-action>
+
+                          <v-list-item-content>
+                            <v-row class="align-center">
+                              <v-col class="py-0">
+                                {{ item.text }}
+                              </v-col>
+                              <v-col
+                                class="py-0 nowrap text-right body-2 flex-grow-0"
+                              >
+                                {{ item.value }}
+                              </v-col>
+                            </v-row>
+                          </v-list-item-content>
+                        </v-list-item>
+                      </template>
+                    </v-select>
+
+                    <v-chip-group
+                      v-if="selected.geoIps.length"
+                      class="mt-n1 mb-2"
+                      column
+                    >
+                      <v-tooltip
+                        v-for="(item, i) in selected.geoIps"
+                        :key="i"
+                        bottom
+                      >
+                        <template v-slot:activator="{ on }">
+                          <v-chip
+                            v-on="on"
+                            @click:close="toggleGeoIp(item)"
+                            color="primary"
+                            outlined
+                            close
+                          >
+                            {{ item.value }}
+                          </v-chip>
+                        </template>
+
+                        {{
+                          item.parent && item.parent !== item.text
+                            ? `${item.parent} (${item.text})`
+                            : item.text
+                        }}
+                      </v-tooltip>
+                    </v-chip-group>
+                  </v-card-text>
+                </v-card>
+
+                <v-card class="mb-8">
+                  <v-card-title class="subtitle-2">
+                    Top-level domains
+                  </v-card-title>
+                  <v-card-text>
+                    <p>
+                      Target countries by top-level domain.<sup
+                        ><a
+                          href="https://en.wikipedia.org/wiki/Top-level_domain"
+                          target="_blank"
+                          ><v-icon color="accent" small>mdi-help-box</v-icon></a
+                        ></sup
+                      >
+                    </p>
+
+                    <v-row>
+                      <v-col class="py-0">
+                        <v-select
+                          ref="country"
+                          v-model="selectedCountry"
+                          :items="countries"
+                          class="mb-4"
+                          label="Select a country"
+                          hide-details
+                        />
+                      </v-col>
+                      <v-col class="py-0">
+                        <v-form ref="form" @submit.prevent="addTld">
+                          <v-text-field
+                            v-model="tld"
+                            @click:append="addTld"
+                            :error-messages="tldErrors"
+                            append-icon="mdi-plus"
+                            placeholder=".com"
+                            hide-details="auto"
+                          />
+                        </v-form>
+                      </v-col>
+                    </v-row>
+
+                    <v-select
+                      ref="tld"
+                      v-if="selectedCountry"
+                      :items="tlds"
+                      class="mb-8"
+                      label="Select a top-level-domain"
+                      hide-details
+                    >
+                      <template v-slot:prepend-item>
+                        <v-list-item @click="toggleTlds" ripple>
+                          <v-list-item-action>
+                            <v-icon
+                              :color="selected.tlds.length > 0 ? 'primary' : ''"
+                              >{{
+                                tlds.every(({ active }) => active)
+                                  ? 'mdi-checkbox-marked'
+                                  : tlds.some(({ active }) => active)
+                                  ? 'mdi-minus-box-outline'
+                                  : 'mdi-checkbox-blank-outline'
+                              }}</v-icon
+                            >
+                          </v-list-item-action>
+
+                          <v-list-item-content>
+                            <v-list-item-title>Select All</v-list-item-title>
+                          </v-list-item-content>
+                        </v-list-item>
+
+                        <v-divider class="mt-2"></v-divider>
+                      </template>
+
+                      <template v-slot:item="{ item }">
+                        <v-list-item @click="toggleTld(item)" ripple>
+                          <v-list-item-action>
+                            <v-icon :color="item.active ? 'primary' : ''">{{
+                              item.active
+                                ? 'mdi-checkbox-marked'
+                                : 'mdi-checkbox-blank-outline'
+                            }}</v-icon>
+                          </v-list-item-action>
+
+                          <v-list-item-content>
+                            {{ item.text }}
+                          </v-list-item-content>
+                        </v-list-item>
+                      </template>
+                    </v-select>
+
+                    <v-chip-group
+                      v-if="selected.tlds.length"
+                      class="mt-n1 mb-4"
+                      column
+                    >
+                      <v-tooltip
+                        v-for="(item, i) in selected.tlds"
+                        :key="i"
+                        bottom
+                      >
+                        <template v-slot:activator="{ on }">
+                          <v-chip
+                            v-on="item.parent ? on : undefined"
+                            @click:close="toggleTld(item)"
+                            color="primary"
+                            outlined
+                            close
+                          >
+                            {{ item.value }}
+                          </v-chip>
+                        </template>
+
+                        {{ item.parent }}
+                      </v-tooltip>
+                    </v-chip-group>
+                  </v-card-text>
+                </v-card>
+
+                <v-card class="mb-8">
+                  <v-card-title class="subtitle-2">
+                    Languages
+                  </v-card-title>
+                  <v-card-text>
+                    <p>
+                      Target websites using specific languages.
+                    </p>
+
+                    <v-select
+                      ref="language"
+                      v-model="selectedLanguage"
+                      :items="languages"
+                      class="mb-4"
+                      label="Select a language"
+                      hide-details
+                    >
+                      <template v-slot:item="{ item }">
+                        <v-list-item @click="toggleLanguage(item)" ripple>
+                          <v-list-item-action>
+                            <v-icon :color="item.active ? 'primary' : ''">{{
+                              typeof item.value === 'object'
+                                ? 'mdi-dots-horizontal'
+                                : item.active
+                                ? 'mdi-checkbox-marked'
+                                : 'mdi-checkbox-blank-outline'
+                            }}</v-icon>
+                          </v-list-item-action>
+
+                          <v-list-item-content>
+                            <v-row class="align-center">
+                              <v-col class="py-0">
+                                {{ item.text }}
+                              </v-col>
+                              <v-col
+                                class="py-0 nowrap text-right body-2 flex-grow-0"
+                              >
+                                {{
+                                  typeof item.value === 'object'
+                                    ? item.value[Object.keys(item.value)[0]]
+                                    : item.value
+                                }}
+                              </v-col>
+                            </v-row>
+                          </v-list-item-content>
+                        </v-list-item>
+                      </template>
+                    </v-select>
+
+                    <v-select
+                      ref="variant"
+                      v-if="variants"
+                      :items="variants"
+                      class="mb-4"
+                      label="Select a language country"
+                      hide-details
+                    >
+                      <template v-slot:prepend-item>
+                        <v-list-item @click="toggleVariants" ripple>
+                          <v-list-item-action>
+                            <v-icon
+                              :color="
+                                selected.languages.length > 0 ? 'primary' : ''
+                              "
+                              >{{
+                                variants.every(({ active }) => active)
+                                  ? 'mdi-checkbox-marked'
+                                  : variants.some(({ active }) => active)
+                                  ? 'mdi-minus-box-outline'
+                                  : 'mdi-checkbox-blank-outline'
+                              }}</v-icon
+                            >
+                          </v-list-item-action>
+
+                          <v-list-item-content>
+                            <v-list-item-title>Select All</v-list-item-title>
+                          </v-list-item-content>
+                        </v-list-item>
+
+                        <v-divider class="mt-2"></v-divider>
+                      </template>
+
+                      <template v-slot:item="{ item }">
+                        <v-list-item @click="toggleVariant(item)" ripple>
+                          <v-list-item-action>
+                            <v-icon :color="item.active ? 'primary' : ''">{{
+                              item.active
+                                ? 'mdi-checkbox-marked'
+                                : 'mdi-checkbox-blank-outline'
+                            }}</v-icon>
+                          </v-list-item-action>
+
+                          <v-list-item-content>
+                            <v-row class="align-center">
+                              <v-col class="py-0">
+                                {{ item.text }}
+                              </v-col>
+                              <v-col
+                                class="py-0 nowrap text-right body-2 flex-grow-0"
+                                >{{ item.value }}</v-col
+                              >
+                            </v-row>
+                          </v-list-item-content>
+                        </v-list-item>
+                      </template>
+                    </v-select>
+
+                    <v-chip-group
+                      v-if="selected.languages.length"
+                      class="mt-n1 mb-2"
+                      column
+                    >
+                      <v-tooltip
+                        v-for="(item, i) in selected.languages"
+                        :key="i"
+                        bottom
+                      >
+                        <template v-slot:activator="{ on }">
+                          <v-chip
+                            v-on="on"
+                            @click:close="toggleVariant(item)"
+                            color="primary"
+                            outlined
+                            close
+                          >
+                            {{ item.value }}
+                          </v-chip>
+                        </template>
+
+                        {{
+                          item.parent && item.parent !== item.text
+                            ? `${item.parent} (${item.text})`
+                            : item.text
+                        }}
+                      </v-tooltip>
+                    </v-chip-group>
+                  </v-card-text>
+                </v-card>
+
+                <v-checkbox
+                  v-model="matchAll"
+                  class="mb-4"
+                  label="Match all filters (yields fewer results)"
+                  hide-details
+                ></v-checkbox>
               </v-card-text>
             </v-col>
           </v-row>
@@ -394,6 +495,7 @@ import OrderDialog from '~/components/OrderDialog.vue'
 import { datasets as meta } from '~/assets/json/meta.json'
 import languages from '~/assets/json/languages.json'
 import tlds from '~/assets/json/tlds.json'
+import countries from '~/assets/json/countries.json'
 
 export default {
   components: {
@@ -417,6 +519,7 @@ export default {
       selected: {
         categories: [],
         technologies: [],
+        geoIps: [],
         tlds: [],
         languages: []
       },
@@ -459,6 +562,15 @@ export default {
         active: this.selected.tlds.some(({ value }) => value === tld),
         parent: this.selectedCountry,
         value: tld
+      }))
+    },
+    geoIps() {
+      return countries.map(({ value, text }) => ({
+        text,
+        active: this.selected.geoIps.some(
+          ({ value: _value }) => _value === value
+        ),
+        value
       }))
     }
   },
@@ -562,6 +674,10 @@ export default {
                     value
                   })
                 ),
+                geoIps: this.selected.geoIps.map(({ value, text }) => ({
+                  value,
+                  text
+                })),
                 tlds: this.selected.tlds.map(({ value }) => value),
                 matchAll: this.matchAll,
                 subset: this.subset
@@ -680,6 +796,26 @@ export default {
       this.selected.tlds = this.selected.tlds.filter(
         ({ value }, index) =>
           this.selected.tlds.findIndex((tld) => tld.value === value) === index
+      )
+    },
+    toggleGeoIp(item, active) {
+      if (active !== undefined ? active : item.active) {
+        item.active = false
+
+        this.selected.geoIps = this.selected.geoIps.filter(
+          ({ value }) => value !== item.value
+        )
+      } else {
+        item.active = true
+
+        this.selected.geoIps.push(item)
+      }
+
+      this.selected.geoIps = this.selected.geoIps.filter(
+        ({ value }, index) =>
+          this.selected.geoIps.findIndex(
+            ({ value: _value }) => _value === value
+          ) === index
       )
     },
     addTld() {

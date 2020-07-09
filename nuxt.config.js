@@ -1,5 +1,9 @@
 require('dotenv').config({
-  path: `.env.${process.env.ENVIRONMENT || 'v1'}`
+  path: `.env.${
+    process.env.NODE_ENV === 'development' || process.env.ENVIRONMENT === 'beta'
+      ? 'beta'
+      : 'v1'
+  }`
 })
 
 export default {
@@ -25,7 +29,8 @@ export default {
         "'unsafe-inline'",
         '*.google-analytics.com',
         '*.stripe.com',
-        '*.wdfl.co'
+        '*.wdfl.co',
+        '*.driftt.com'
       ],
       'connect-src': [
         '*.google-analytics.com',
@@ -34,7 +39,7 @@ export default {
       ],
       'form-action': ["'self'"],
       'frame-ancestors': ["'none'"],
-      'frame-src': ['*.stripe.com'],
+      'frame-src': ['*.stripe.com', '*.driftt.com'],
       'object-src': ["'none'"]
     }
   },
@@ -60,6 +65,9 @@ export default {
     ]
   ],
   modules: ['@nuxtjs/axios', 'nuxt-stripe-module', 'nuxtjs-mdi-font'],
+  router: {
+    middleware: 'drift'
+  },
   axios: {
     baseURL: process.env.BASE_URL,
     secure: true,

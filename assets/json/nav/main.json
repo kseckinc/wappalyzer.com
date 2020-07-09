@@ -4,18 +4,22 @@
     "items": [
       {
         "title": "Datasets",
+        "subtitle": "Create a list of websites that use certain technologies",
         "to": "/datasets"
       },
       {
         "title": "Bulk lookup",
+        "subtitle": "Look up a number of website in one go",
         "to": "/bulk"
       },
       {
         "title": "APIs",
+        "subtitle": "Programmatic access to technographic data",
         "to": "/api"
       },
       {
         "title": "Alerts",
+        "subtitle": "Get notified when a website's technology stack changes",
         "to": "/alerts"
       }
     ]
@@ -25,14 +29,17 @@
     "items": [
       {
         "title": "Technology lookup",
+        "subtitle":"Find out what websites are built with",
         "to": "/lookup"
       },
       {
         "title": "Browser extension",
+        "subtitle": "See the technologies used on websites you visit at a glance",
         "to": "/download"
       },
       {
-        "title": "Node.js module",
+        "title": "For developers",
+        "subtitle": "Build custom solutions in Node.js",
         "to": "/docs/dev/nodejs"
       }
     ]
@@ -41,15 +48,18 @@
     "title": "Resources",
     "items": [
       {
-        "title": "Browse technologies",
+        "title": "Technologies",
+        "subtitle": "Browse technologies and categories",
         "to": "/technologies"
       },
       {
-        "title": "Frequently asked questions",
+        "title": "FAQs",
+        "subtitle": "Answers to frequently asked questions",
         "to": "/faq/extension"
       },
       {
         "title": "Developer documentation",
+        "subtitle": "API reference and contributing guide",
         "to": "/docs"
       }
     ]
@@ -60,7 +70,11 @@
       {
         "title": "Our story",
         "to": "/about"
-      }
+      },
+    {
+      "title": "Get in touch",
+      "to": "/contact"
+    }
     ]
   }
 ]

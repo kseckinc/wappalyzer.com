@@ -316,14 +316,14 @@
                     </v-chip-group>
                   </td>
                 </tr>
-                <tr v-if="order.dataset.query.languages.length">
+                <tr v-if="order.dataset.query.geoIps.length">
                   <th>
-                    Languages
+                    IP countries
                   </th>
                   <td>
                     <v-chip-group class="my-2" column>
                       <v-tooltip
-                        v-for="{ text, value } in order.dataset.query.languages"
+                        v-for="{ text, value } in order.dataset.query.geoIps"
                         :key="value"
                         bottom
                       >
@@ -351,6 +351,28 @@
                         small
                         >{{ tld }}</v-chip
                       >
+                    </v-chip-group>
+                  </td>
+                </tr>
+                <tr v-if="order.dataset.query.languages.length">
+                  <th>
+                    Languages
+                  </th>
+                  <td>
+                    <v-chip-group class="my-2" column>
+                      <v-tooltip
+                        v-for="{ text, value } in order.dataset.query.languages"
+                        :key="value"
+                        bottom
+                      >
+                        <template v-slot:activator="{ on }">
+                          <v-chip v-on="on" outlined small>
+                            {{ value }}
+                          </v-chip>
+                        </template>
+
+                        {{ text }}
+                      </v-tooltip>
                     </v-chip-group>
                   </td>
                 </tr>
