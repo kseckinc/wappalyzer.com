@@ -334,7 +334,7 @@ export default {
           await this.reset({ username: this.email })
 
           this.mode = 'verifyReset'
-          this.nextSuccess = 'Please check your email for a verication code'
+          this.nextSuccess = 'Please check your email for a verification code'
         } catch (error) {
           this.error = error.message || error.toString()
         }

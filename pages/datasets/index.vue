@@ -3,7 +3,17 @@
     <Page :title="title" :head="meta" hero>
       <v-btn color="accent" to="/faq/datasets" class="mt-4 mb-8" outlined>
         <v-icon left>mdi-forum</v-icon>
-        Frequently asked questions
+        FAQs
+      </v-btn>
+
+      <v-btn
+        color="accent"
+        href="/dataset-sample.zip"
+        class="mt-4 mb-8"
+        outlined
+      >
+        <v-icon left>mdi-download</v-icon>
+        Download sample
       </v-btn>
 
       <template v-slot:content>
