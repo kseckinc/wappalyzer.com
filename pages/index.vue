@@ -2,11 +2,7 @@
   <div>
     <Page :title="title" hero no-crumbs no-head>
       <template v-for="(section, i) in sections">
-        <v-divider
-          v-if="i"
-          :key="`section-${i}`"
-          class="my-4 my-sm-8 my-md-10"
-        />
+        <v-divider v-if="i" :key="`section-${i}`" class="my-4 my-sm-6" />
 
         <v-row align="center" justify="center" class="pt-lg-8 pb-lg-6">
           <v-col :order-sm="i % 2 !== 0 ? 0 : 12" cols="12" order="12" sm="4">

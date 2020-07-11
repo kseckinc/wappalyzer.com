@@ -39,7 +39,7 @@
               {{ item.name }}
             </v-card-title>
           </v-responsive>
-          <v-responsive v-if="item.description" height="100">
+          <v-responsive v-if="item.description" height="70">
             <v-card-subtitle>
               {{ item.description }}
             </v-card-subtitle>
@@ -94,7 +94,7 @@
                     mdi-check
                   </v-icon>
                   <small v-else>
-                    {{ item.attrs[name] }}
+                    &nbsp;
                   </small>
                 </template>
                 <small v-else-if="attr.type === 'small'">

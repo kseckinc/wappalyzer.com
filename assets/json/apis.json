@@ -6,6 +6,7 @@
     "historic": { "text": "Historic data *", "type": "boolean" },
     "traffic": { "text": "Traffic indicator *", "type": "boolean" },
     "emailSupport": { "text": "Email support", "type": "boolean" },
+    "phoneSupport": { "text": "Phone support", "type": "small" },
     "payment": { "text": "Pricing model", "type": "small" },
     "responseType": { "text": "Response type", "type": "small" },
     "dataFormat": { "text": "Data format", "type": "small" }
@@ -14,13 +15,19 @@
     "amount": { "text": "Price", "type": "currency" },
     "setupAmount": { "text": "Setup fee", "type": "currency" },
     "requests": { "text": "API requests", "type": "text" },
-    "throttle": { "text": "Request limit", "type": "text" }
+    "throttle": { "text": "Request limit", "type": "text" },
+    "emailSupport": { "text": "Email support", "type": "boolean" },
+    "phoneSupport": { "text": "Phone support", "type": "boolean" }
   },
   "apis": {
     "lookup": {
       "name": "Lookup",
       "to": "/api/lookup",
       "description": "Look up a domain per request",
+      "text": [
+        "Perform instant technology lookups with the Lookup API. Results are fetched from our comprehensive database of millions of websites. If we haven't seen a domain before, we'll index it immediately and report back within minutes.",
+        "Results are site-wide and may even include pages behind logins that typical crawlers can't reach. Where available, country, language and traffic data are included."
+      ],
       "raised": true,
       "attrs": {
         "instant": true,
@@ -28,6 +35,7 @@
         "historic": true,
         "traffic": true,
         "emailSupport": true,
+        "phoneSupport": "On selected plans",
         "payment": "Subscription",
         "responseType": "Synchronous",
         "dataFormat": "JSON"
@@ -41,7 +49,9 @@
             "amount": 5000,
             "setupAmount": 0,
             "requests": "5,000 / month",
-            "throttle": "1 / second"
+            "throttle": "1 / second",
+            "emailSupport": true,
+            "phoneSupport": false
           }
         },
         "api_lookup_medium_mo": {
@@ -53,7 +63,9 @@
             "amount": 30000,
             "setupAmount": 0,
             "requests": "50,000 / month",
-            "throttle": "1 / second"
+            "throttle": "1 / second",
+            "emailSupport": true,
+            "phoneSupport": false
           }
         },
         "api_lookup_large_mo": {
@@ -64,7 +76,9 @@
             "amount": 50000,
             "setupAmount": 0,
             "requests": "500,000 / month",
-            "throttle": "1 / second"
+            "throttle": "1 / second",
+            "emailSupport": true,
+            "phoneSupport": true
           }
         },
         "api_lookup_small_yr": {
@@ -75,7 +89,9 @@
             "amount": 50000,
             "setupAmount": 0,
             "requests": "5,000 / month",
-            "throttle": "1 / second"
+            "throttle": "1 / second",
+            "emailSupport": true,
+            "phoneSupport": false
           }
         },
         "api_lookup_medium_yr": {
@@ -87,7 +103,9 @@
             "amount": 300000,
             "setupAmount": 0,
             "requests": "50,000 / month",
-            "throttle": "1 / second"
+            "throttle": "1 / second",
+            "emailSupport": true,
+            "phoneSupport": false
           }
         },
         "api_lookup_large_yr": {
@@ -98,7 +116,9 @@
             "amount": 500000,
             "setupAmount": 0,
             "requests": "500,000 / month",
-            "throttle": "1 / second"
+            "throttle": "1 / second",
+            "emailSupport": true,
+            "phoneSupport": true
           }
         }
       }
@@ -106,10 +126,12 @@
     "analyze": {
       "name": "Analyze",
       "to": "/api/analyze",
-      "description": "Fetch and analyze a single URL per request",
+      "description": "Analyze a single web page per request",
+      "text": "Identify the technologies used on any public URL in real-time. Results are always guaranteed up-to-date and delivered within seconds.",
       "attrs": {
         "realTime": true,
         "emailSupport": true,
+        "phoneSupport": "On selected plans",
         "payment": "Subscription",
         "responseType": "Synchronous",
         "dataFormat": "JSON"
@@ -123,7 +145,9 @@
             "amount": 7500,
             "setupAmount": 0,
             "requests": "5,000 / month",
-            "throttle": "1 / second"
+            "throttle": "1 / second",
+            "emailSupport": true,
+            "phoneSupport": false
           }
         },
         "api_analyze_medium_mo": {
@@ -135,7 +159,9 @@
             "amount": 40000,
             "setupAmount": 0,
             "requests": "50,000 / month",
-            "throttle": "1 / second"
+            "throttle": "1 / second",
+            "emailSupport": true,
+            "phoneSupport": false
           }
         },
         "api_analyze_large_mo": {
@@ -146,7 +172,9 @@
             "amount": 60000,
             "setupAmount": 0,
             "requests": "500,000 / month",
-            "throttle": "1 / second"
+            "throttle": "1 / second",
+            "emailSupport": true,
+            "phoneSupport": true
           }
         },
         "api_analyze_small_yr": {
@@ -157,7 +185,9 @@
             "amount": 75000,
             "setupAmount": 0,
             "requests": "5,000 / month",
-            "throttle": "1 / second"
+            "throttle": "1 / second",
+            "emailSupport": true,
+            "phoneSupport": false
           }
         },
         "api_analyze_medium_yr": {
@@ -169,7 +199,9 @@
             "amount": 400000,
             "setupAmount": 0,
             "requests": "50,000 / month",
-            "throttle": "1 / second"
+            "throttle": "1 / second",
+            "emailSupport": true,
+            "phoneSupport": false
           }
         },
         "api_analyze_large_yr": {
@@ -180,7 +212,9 @@
             "amount": 600000,
             "setupAmount": 0,
             "requests": "500,000 / month",
-            "throttle": "1 / second"
+            "throttle": "1 / second",
+            "emailSupport": true,
+            "phoneSupport": true
           }
         }
       }
@@ -188,12 +222,14 @@
     "crawl": {
       "name": "Crawl",
       "to": "/api/crawl",
-      "description": "Fetch and analyze a domain per request",
+      "description": "Analyze a domain per request",
+      "text": "Identify the technologies used on any public website in real-time. Results are always guaranteed up-to-date and delivered within minutes.",
       "to": "/api/crawl",
       "attrs": {
         "siteWide": "Up to 20 public pages",
         "realTime": true,
         "emailSupport": true,
+        "phoneSupport": "On selected plans",
         "payment": "Subscription",
         "responseType": "Callback",
         "dataFormat": "JSON"
@@ -207,7 +243,9 @@
             "amount": 10000,
             "setupAmount": 0,
             "requests": "5,000 / month",
-            "throttle": "1 / second"
+            "throttle": "1 / second",
+            "emailSupport": true,
+            "phoneSupport": false
           }
         },
         "api_crawl_medium_mo": {
@@ -219,7 +257,9 @@
             "amount": 50000,
             "setupAmount": 0,
             "requests": "50,000 / month",
-            "throttle": "1 / second"
+            "throttle": "1 / second",
+            "emailSupport": true,
+            "phoneSupport": false
           }
         },
         "api_crawl_large_mo": {
@@ -230,7 +270,9 @@
             "amount": 70000,
             "setupAmount": 0,
             "requests": "500,000 / month",
-            "throttle": "1 / second"
+            "throttle": "1 / second",
+            "emailSupport": true,
+            "phoneSupport": true
           }
         },
         "api_crawl_small_yr": {
@@ -241,7 +283,9 @@
             "amount": 100000,
             "setupAmount": 0,
             "requests": "5,000 / month",
-            "throttle": "1 / second"
+            "throttle": "1 / second",
+            "emailSupport": true,
+            "phoneSupport": false
           }
         },
         "api_crawl_medium_yr": {
@@ -253,7 +297,9 @@
             "amount": 500000,
             "setupAmount": 0,
             "requests": "50,000 / month",
-            "throttle": "1 / second"
+            "throttle": "1 / second",
+            "emailSupport": true,
+            "phoneSupport": false
           }
         },
         "api_crawl_large_yr": {
@@ -264,7 +310,9 @@
             "amount": 700000,
             "setupAmount": 0,
             "requests": "500,000 / month",
-            "throttle": "1 / second"
+            "throttle": "1 / second",
+            "emailSupport": true,
+            "phoneSupport": true
           }
         }
       }

@@ -19,6 +19,46 @@
     "features": ["It's free", "Look up any website"],
     "feature": true
   },
+  "datasets": {
+    "title": "Datasets",
+    "subtitle": "Create lists of websites that use certain technologies",
+    "icon": "mdi-database",
+    "image": "dataset.svg",
+    "text": "Technographic datasets provide valuable insights into the software industry and are an essential tool for market research and competitor analysis.",
+    "buttons": [
+      {
+        "text": "Create a dataset",
+        "to": "/datasets",
+        "icon": "mdi-arrow-right"
+      }
+    ],
+    "features": [
+      "Over a thousand technologies tracked",
+      "Organic data with traffic markers",
+      "Fresh and accurate data"
+    ],
+    "feature": true
+  },
+  "bulk": {
+    "title": "Bulk lookup",
+    "subtitle": "Look up a number of websites in one go",
+    "icon": "mdi-file-table-outline",
+    "image": "bulk.svg",
+    "text": "Supply your own list of websites to perform a large number of technology lookups in one go. Essential for competitive analysis and understanding your target market.",
+    "buttons": [
+      {
+        "text": "Upload a list",
+        "to": "/bulk",
+        "icon": "mdi-upload"
+      }
+    ],
+    "features": [
+      "Perform up to 1,000 lookups at once",
+      "Effortless and integration free",
+      "Fresh and accurate data"
+    ],
+    "feature": true
+  },
   "apis": {
     "title": "APIs",
     "subtitle": "Programmatic access to technographic data",
@@ -41,6 +81,25 @@
     "features": ["Get started in minutes", "Perform instant lookups", "Real-time analysis"],
     "feature": true
   },
+  "alerts": {
+    "title": "Alerts",
+    "subtitle": "Get notified when a website's technology stack changes",
+    "icon": "mdi-bullhorn",
+    "image": "alerts.svg",
+    "text": "Monitor your competitor's technology choices with alerts. Be the first to know when they move to a new CMS, ecommerce platform or any other technology.",
+    "buttons": [
+      {
+        "text": "Compare plans",
+        "to": "/alerts",
+        "icon": "mdi-arrow-right"
+      }
+    ],
+    "features": [
+      "Same-day notifications",
+      "Create up to 500 alerts"
+    ],
+    "feature": true
+  },
   "download": {
     "title": "Browser extension",
     "subtitle": "Get the free browser extension",
@@ -58,65 +117,6 @@
       "It's free",
       "Available on Chrome, Firefox and Edge",
       "Works locally and offline"
-    ],
-    "feature": true
-  },
-  "datasets": {
-    "title": "Datasets",
-    "subtitle": "Create a list of websites that use certain technologies",
-    "icon": "mdi-database",
-    "image": "dataset.svg",
-    "text": "Technographic datasets provide valuable insights into the software industry. Essential for market research and competitor analysis.",
-    "buttons": [
-      {
-        "text": "Create a dataset",
-        "to": "/datasets",
-        "icon": "mdi-arrow-right"
-      }
-    ],
-    "features": [
-      "Over a thousand technologies tracked",
-      "Organic data with traffic markers",
-      "Fresh and accurate data"
-    ],
-    "feature": true
-  },
-  "bulk": {
-    "title": "Bulk lookup",
-    "subtitle": "Look up a large number of websites in one go",
-    "icon": "mdi-file-table-outline",
-    "image": "bulk.svg",
-    "text": "Supply your own list of websites to perform a large number of technology lookups in one go. Essential for competitive analysis and understanding your target market.",
-    "buttons": [
-      {
-        "text": "Upload a list",
-        "to": "/bulk",
-        "icon": "mdi-upload"
-      }
-    ],
-    "features": [
-      "Perform up to 1,000 lookups at once",
-      "Effortless and integration free",
-      "Fresh and accurate data"
-    ],
-    "feature": true
-  },
-  "alerts": {
-    "title": "Alerts",
-    "subtitle": "Get notified when a website's technology stack changes",
-    "icon": "mdi-bullhorn",
-    "image": "alerts.svg",
-    "text": "Monitor your competitor's technology choices with alerts. Be the first to know when they move to a new CMS, ecommerce platform or any other technology.",
-    "buttons": [
-      {
-        "text": "Compare plans",
-        "to": "/alerts",
-        "icon": "mdi-arrow-right"
-      }
-    ],
-    "features": [
-      "Same-day notifications",
-      "Create up to 500 alerts"
     ],
     "feature": true
   }

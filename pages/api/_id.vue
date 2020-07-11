@@ -2,7 +2,7 @@
   <div>
     <Page
       :title="title"
-      :head="{ title: title, subtitle: api.description, text: meta.text }"
+      :head="{ title: title, subtitle: api.description, text: api.text }"
       :crumbs="[{ title: 'APIs', to: '/api' }]"
       hero
     >
