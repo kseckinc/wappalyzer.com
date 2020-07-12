@@ -103,7 +103,7 @@
                   2
                 </td>
                 <td>
-                  Domain
+                  Web page
                 </td>
               </tr>
               <tr>
