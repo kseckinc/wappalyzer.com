@@ -1,0 +1,72 @@
+{
+  "attrs": {
+    "amount": { "text": "Price", "type": "currency" },
+    "credits": { "text": "Credits per month", "type": "number" },
+    "lookups": { "text": "Technology lookups", "type": "boolean" },
+    "datasets": { "text": "Datasets", "type": "boolean" },
+    "bulkLookups": { "text": "Bulk lookups", "type": "boolean" },
+    "apis": { "text": "API access", "type": "boolean" },
+    "alerts": { "text": "Website alerts", "type": "boolean" },
+    "support": { "text": "Technical support", "type": "boolean" }
+  },
+  "plans": {
+    "free_mo": {
+      "name": "Free",
+      "interval": "month",
+      "attrs": {
+        "amount": 0,
+        "credits": 50,
+        "lookups": true,
+        "datasets": false,
+        "bulkLookups": false,
+        "apis": true,
+        "alerts": true,
+        "support": false
+      }
+    },
+    "starter_mo": {
+      "name": "Starter",
+      "interval": "month",
+      "attrs": {
+        "amount": 30000,
+        "credits": 5000,
+        "lookups": true,
+        "datasets": true,
+        "bulkLookups": true,
+        "apis": true,
+        "alerts": true,
+        "support": "Email"
+      }
+    },
+    "business_mo": {
+      "name": "Business",
+      "raised": true,
+      "interval": "month",
+      "attrs": {
+        "amount": 60000,
+        "credits": 50000,
+        "lookups": true,
+        "datasets": true,
+        "bulkLookups": true,
+        "apis": true,
+        "alerts": true,
+        "support": "Email & phone"
+      }
+    },
+    "enterprise_mo": {
+      "name": "Enterprise",
+      "enterprise": true,
+      "interval": "month",
+      "attrs": {
+        "amount": "-",
+        "credits": "-",
+        "lookups": true,
+        "datasets": true,
+        "bulkLookups": true,
+        "apis": true,
+        "alerts": true,
+        "support": "Priority email & phone"
+      }
+    }
+  }
+}

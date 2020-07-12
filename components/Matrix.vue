@@ -47,12 +47,12 @@
           <v-responsive height="65">
             <v-card-actions>
               <v-btn
-                v-if="item.to"
-                :to="item.to"
+                v-if="item.to || item.enterprise"
+                :to="item.enterprise ? '/contact' : item.to"
                 :text="!item.raised"
                 color="primary white-text"
                 class="mx-auto"
-                >{{ buttonText }}</v-btn
+                >{{ item.enterprise ? 'Contact us' : buttonText }}</v-btn
               >
               <v-btn
                 v-else
@@ -69,7 +69,15 @@
             <v-responsive height="60">
               <v-card-text :key="name" class="text-center">
                 <template v-if="attr.type === 'currency'">
-                  <template v-if="item.attrs[name]">
+                  <template v-if="item.attrs[name] === 0">
+                    <span class="font-weight-medium">
+                      Free
+                    </span>
+                  </template>
+                  <template v-else-if="typeof item.attrs[name] === 'string'">
+                    {{ item.attrs[name] }}
+                  </template>
+                  <template v-else>
                     <span class="font-weight-medium">
                       {{ formatCurrency(item.attrs[name] / 100) }}
                     </span>
@@ -77,24 +85,26 @@
                       / {{ item.interval }}
                     </template>
                   </template>
-                  <template v-else>
-                    Free
-                  </template>
                 </template>
                 <template v-else-if="attr.type === 'number'">
                   <template v-if="item.attrs[name]">
-                    {{ formatNumber(item.attrs[name]) }}
-                  </template>
-                  <template v-else>
-                    Unlimited
+                    <template v-if="typeof item.attrs[name] === 'string'">
+                      {{ item.attrs[name] }}
+                    </template>
+                    <template v-else>
+                      {{ formatNumber(item.attrs[name]) }}
+                    </template>
                   </template>
                 </template>
                 <template v-else-if="attr.type === 'boolean'">
                   <v-icon v-if="item.attrs[name] === true" color="success">
                     mdi-check
                   </v-icon>
-                  <small v-else>
+                  <v-icon v-else-if="item.attrs[name] === false">
                     &nbsp;
+                  </v-icon>
+                  <small v-else>
+                    {{ item.attrs[name] }}
                   </small>
                 </template>
                 <small v-else-if="attr.type === 'small'">
