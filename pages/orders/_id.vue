@@ -528,6 +528,7 @@
                     >
                       <v-radio label="Credit card" value="stripe" />
                       <v-radio label="PayPal" value="paypal" />
+                      <v-radio label="Credit balance" value="credits" />
                     </v-radio-group>
                   </td>
                 </tr>
@@ -582,6 +583,20 @@
               >
                 <v-icon left>mdi-email</v-icon>
                 Send invoice
+              </v-btn>
+            </div>
+          </v-card-text>
+          <v-card-text v-if="paymentMethod === 'credits'" class="pa-0">
+            <div class="d-flex justify-center py-8">
+              <v-btn
+                @click="() => {}"
+                :loading="crediting"
+                :disabled="credits < order.credits"
+                class="primary"
+                large
+              >
+                <v-icon left>mdi-alpha-c-circle</v-icon>
+                Spend {{ formatNumber(order.credits) }} credits
               </v-btn>
             </div>
           </v-card-text>
@@ -674,7 +689,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import Page from '~/components/Page.vue'
 import Account from '~/components/Account.vue'
 import CreditCards from '~/components/CreditCards.vue'
@@ -728,7 +743,8 @@ export default {
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
-      isAdmin: ({ user }) => user.attrs.admin || user.impersonating
+      isAdmin: ({ user }) => user.attrs.admin || user.impersonating,
+      credits: ({ credits: { credits } }) => credits
     }),
     billingAddress() {
       return [
@@ -790,6 +806,8 @@ export default {
       const { id } = this.$route.params
 
       try {
+        this.getCredits()
+
         this.order = (await this.$axios.get(`orders/${id}`)).data
       } catch (error) {
         this.error = this.getErrorMessage(error)
@@ -800,6 +818,9 @@ export default {
     this.stripe = this.$stripe.import()
   },
   methods: {
+    ...mapActions({
+      getCredits: 'credits/get'
+    }),
     async pay() {
       this.error = false
       this.paying = true

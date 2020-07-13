@@ -3,8 +3,13 @@
     "title": "Products",
     "items": [
       {
+        "title": "Technology lookup",
+        "subtitle":"Find out what websites are built with",
+        "to": "/lookup"
+      },
+      {
         "title": "Datasets",
-        "subtitle": "Create a list of websites that use certain technologies",
+        "subtitle": "Create lists of sites using certain technologies",
         "to": "/datasets"
       },
       {
@@ -19,28 +24,13 @@
       },
       {
         "title": "Alerts",
-        "subtitle": "Get notified when a website's technology stack changes",
+        "subtitle": "Monitor website technology stacks for changes",
         "to": "/alerts"
-      }
-    ]
-  },
-  {
-    "title": "Free tools",
-    "items": [
-      {
-        "title": "Technology lookup",
-        "subtitle":"Find out what websites are built with",
-        "to": "/lookup"
       },
       {
         "title": "Browser extension",
-        "subtitle": "See the technologies used on websites you visit at a glance",
+        "subtitle": "See the technologies on websites you visit at a glance",
         "to": "/download"
-      },
-      {
-        "title": "For developers",
-        "subtitle": "Build custom solutions in Node.js",
-        "to": "/docs/dev/nodejs"
       }
     ]
   },

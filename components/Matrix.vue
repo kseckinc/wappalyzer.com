@@ -5,8 +5,8 @@
         <v-responsive
           :height="
             (Object.values(items).some(({ description }) => description)
-              ? 100
-              : 0) + (Object.keys(items).length > 1 ? 155 : 125)
+              ? 70
+              : 0) + 155
           "
         />
         <template v-for="attr in attrs">

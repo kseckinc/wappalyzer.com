@@ -18,7 +18,7 @@
       </div>
 
       <template v-slot:content>
-        <Matrix :items="apis" :attrs="attrs" button-text="Compare plans" />
+        <Matrix :items="apis" :attrs="attrs" button-text="Read more" />
 
         <v-container>
           <small>* Subject to availability</small>

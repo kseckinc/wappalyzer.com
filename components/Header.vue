@@ -29,7 +29,7 @@
                     index) in items"
                     :key="_title"
                   >
-                    <v-divider v-if="index" class="my-2"></v-divider>
+                    <v-divider v-if="index"></v-divider>
                     <v-list-item
                       :href="_to.match(/^http/) ? _to : null"
                       :target="_to.match(/^http/) ? '_blank' : '_self'"
@@ -37,14 +37,12 @@
                       color="primary"
                     >
                       <v-list-item-content>
-                        <v-list-item-title
-                          :class="subtitle ? 'font-weight-medium' : ''"
-                        >
+                        <v-list-item-title class="subtitle-2">
                           {{ _title }}
                         </v-list-item-title>
                         <v-list-item-subtitle
                           v-if="subtitle"
-                          class="header__subtitle"
+                          class="subtitle-2 font-weight-regular header__subtitle"
                         >
                           {{ subtitle }}
                         </v-list-item-subtitle>
@@ -179,7 +177,7 @@ export default {
 }
 
 .header__menu {
-  max-width: 350px;
+  max-width: 450px;
 }
 
 .header__subtitle {

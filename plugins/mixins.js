@@ -7,7 +7,7 @@ Vue.mixin({
         style: 'currency',
         currency,
         minimumFractionDigits: decimal ? 2 : 0
-      })} ${currency}`,
+      })} ${currency.toUpperCase()}`,
     formatDate: (date) =>
       date.toLocaleString(undefined, {
         day: 'numeric',

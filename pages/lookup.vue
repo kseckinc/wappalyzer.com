@@ -1,17 +1,11 @@
 <template>
   <Page :title="title" :head="meta" hero no-heading>
-    <v-alert icon="mdi-lightbulb-on-outline" class="my-8" outlined>
-      Use
-      <nuxt-link to="/bulk">Bulk lookup</nuxt-link> to perform multiple lookups
-      in one go or automate with our <nuxt-link to="/api">APIs</nuxt-link>. To
-      get a list of websites using specific technologies, see our
-      <nuxt-link to="/datasets">Datasets</nuxt-link>. To see the technologies on
-      websites you visit at a glance, install the free
-      <nuxt-link to="/download">browser extension</nuxt-link>.
-    </v-alert>
-
     <v-row>
       <v-col sm="8" md="12" lg="8" class="py-0">
+        <template v-if="isSignedIn">
+          <p>Credits remaining: {{ credits }}</p>
+        </template>
+
         <h3 class="mb-4">Lookup</h3>
 
         <v-form ref="form" @submit.prevent="submit" v-model="valid">
@@ -79,6 +73,8 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 import Page from '~/components/Page.vue'
 import SignIn from '~/components/SignIn.vue'
 import Progress from '~/components/Progress.vue'
@@ -117,6 +113,12 @@ export default {
       valid: true
     }
   },
+  computed: {
+    ...mapState({
+      isSignedIn: ({ user }) => user.isSignedIn,
+      credits: ({ credits: { credits } }) => credits
+    })
+  },
   watch: {
     '$store.state.user.isSignedIn'(isSignedIn) {
       if (isSignedIn && this.signInDialog) {
@@ -126,7 +128,19 @@ export default {
       }
     }
   },
+  async created() {
+    if (this.$store.state.user.isSignedIn) {
+      try {
+        await this.getCredits()
+      } catch (error) {
+        this.error = this.getErrorMessage(error)
+      }
+    }
+  },
   methods: {
+    ...mapActions({
+      getCredits: 'credits/get'
+    }),
     async submit() {
       this.error = false
       this.technologies = false
@@ -140,10 +154,14 @@ export default {
       this.loading = true
 
       if (this.$refs.form.validate()) {
+        let credits
+
         try {
-          this.technologies = (
+          ;({ credits, technologies: this.technologies } = (
             await this.$axios(`lookup/${encodeURIComponent(this.url)}`)
-          ).data
+          ).data)
+
+          this.$store.commit('credits/set', credits)
         } catch (error) {
           this.error =
             (error.response && error.response.data) ||

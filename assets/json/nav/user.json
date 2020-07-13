@@ -5,6 +5,11 @@
     "to": "/account"
   },
   {
+    "title": "Credits",
+    "icon": "mdi-alpha-c-circle",
+    "to": "/credits"
+  },
+  {
     "title": "Payment methods",
     "icon": "mdi-credit-card",
     "to": "/paymentmethods"

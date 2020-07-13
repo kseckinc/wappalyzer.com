@@ -8,7 +8,7 @@
     "subtitle": "Find out what websites are built with",
     "icon": "mdi-layers-outline",
     "image": "lookup.svg",
-    "text": "Reveal the technology stack of any website, instantly and for free.",
+    "text": "Instantly reveal the technology stack of any website.",
     "buttons": [
       {
         "text": "Look up a website",
@@ -16,7 +16,7 @@
         "icon": "mdi-magnify"
       }
     ],
-    "features": ["It's free", "Look up any website"],
+    "features": ["Instant results", "Look up any website"],
     "feature": true
   },
   "datasets": {
@@ -114,7 +114,7 @@
       }
     ],
     "features": [
-      "It's free",
+      "Free forever",
       "Available on Chrome, Firefox and Edge",
       "Works locally and offline"
     ],

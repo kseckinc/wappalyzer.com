@@ -8,6 +8,8 @@
       </v-row>
       <v-row v-else-if="sideNav.length">
         <v-col cols="12" sm="4" lg="3" order="2" order-sm="0">
+          <Credits v-if="secure && isSignedIn" />
+
           <SideNav :items="sideNav" />
         </v-col>
         <v-col cols="12" sm="8" lg="9">
@@ -71,6 +73,7 @@ import Subscribe from '~/components/Subscribe.vue'
 import SideNav from '~/components/SideNav.vue'
 import Crumbs from '~/components/Crumbs.vue'
 import SignIn from '~/components/SignIn.vue'
+import Credits from '~/components/Credits.vue'
 import userNav from '~/assets/json/nav/user.json'
 
 export default {
@@ -79,7 +82,8 @@ export default {
     Subscribe,
     SideNav,
     Crumbs,
-    SignIn
+    SignIn,
+    Credits
   },
   head() {
     return {
