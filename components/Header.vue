@@ -24,7 +24,7 @@
                 </template>
 
                 <v-list v-if="items" class="header__menu">
-                  <v-template
+                  <div
                     v-for="({ title: _title, subtitle, to: _to },
                     index) in items"
                     :key="_title"
@@ -53,7 +53,7 @@
                         ></v-list-item-icon
                       >
                     </v-list-item>
-                  </v-template>
+                  </div>
                 </v-list>
               </v-menu>
             </template>

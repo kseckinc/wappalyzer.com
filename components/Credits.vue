@@ -1,12 +1,12 @@
 <template>
   <v-card color="secondary" class="mb-4" flat>
     <v-card-title class="subtitle-2">Credit balance</v-card-title>
-    <v-card-text>{{ credits }}</v-card-text>
+    <v-card-text>{{ formatNumber(credits) }}</v-card-text>
   </v-card>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   computed: {
@@ -14,14 +14,19 @@ export default {
       credits: ({ credits: { credits } }) => credits
     })
   },
-  async created() {
+  created() {
     if (this.$store.state.user.isSignedIn) {
       try {
-        await this.getCredits()
+        this.getCredits()
       } catch (error) {
         this.error = this.getErrorMessage(error)
       }
     }
+  },
+  methods: {
+    ...mapActions({
+      getCredits: 'credits/get'
+    })
   }
 }
 </script>

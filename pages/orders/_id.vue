@@ -73,6 +73,9 @@
         >
           Thank you for your payment, your dataset is ready.
         </template>
+        <template v-else-if="order.product === 'Credits'">
+          Thank you for your payment, credits have been added to your balance.
+        </template>
       </v-alert>
 
       <v-btn
@@ -132,7 +135,12 @@
         >
       </template>
 
-      <template v-if="order.product === 'Dataset'">
+      <template
+        v-if="
+          order.product === 'Dataset' &&
+            !['Insufficient', 'Failed'].includes(order.status)
+        "
+      >
         <v-btn
           v-if="order.dataset.filename"
           :href="`${datasetsBaseUrl}${order.dataset.filename}`"
@@ -407,6 +415,19 @@
                 </tr>
               </tbody>
             </v-simple-table>
+
+            <v-simple-table v-if="order.product === 'Credits'">
+              <tbody>
+                <tr>
+                  <th width="30%">
+                    Credits
+                  </th>
+                  <td>
+                    {{ formatNumber(order.credits) }}
+                  </td>
+                </tr>
+              </tbody>
+            </v-simple-table>
           </v-card-text>
         </template>
 
@@ -528,7 +549,11 @@
                     >
                       <v-radio label="Credit card" value="stripe" />
                       <v-radio label="PayPal" value="paypal" />
-                      <v-radio label="Credit balance" value="credits" />
+                      <v-radio
+                        v-if="order.product !== 'Credits'"
+                        label="Credit balance"
+                        value="credits"
+                      />
                     </v-radio-group>
                   </td>
                 </tr>
@@ -591,12 +616,12 @@
               <v-btn
                 @click="() => {}"
                 :loading="crediting"
-                :disabled="credits < order.credits"
+                :disabled="!credits || credits < order.credits"
                 class="primary"
                 large
               >
                 <v-icon left>mdi-alpha-c-circle</v-icon>
-                Spend {{ formatNumber(order.credits) }} credits
+                Spend {{ formatNumber(order.credits || 0) }} credits
               </v-btn>
             </div>
           </v-card-text>

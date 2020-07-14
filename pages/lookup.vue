@@ -3,7 +3,7 @@
     <v-row>
       <v-col sm="8" md="12" lg="8" class="py-0">
         <template v-if="isSignedIn">
-          <p>Credits remaining: {{ credits }}</p>
+          <p>Credits remaining: {{ formatNumber(credits) }}</p>
         </template>
 
         <h3 class="mb-4">Lookup</h3>

@@ -1,12 +1,23 @@
 import Vue from 'vue'
 
 Vue.mixin({
+  data() {
+    return {
+      creditPrices: {
+        1: 10,
+        1000: 8,
+        10000: 2,
+        100000: 0.5
+      }
+    }
+  },
   methods: {
     formatCurrency: (amount, currency = 'AUD', decimal = false) =>
       `${amount.toLocaleString('en-AU', {
         style: 'currency',
         currency,
-        minimumFractionDigits: decimal ? 2 : 0
+        minimumFractionDigits: decimal ? 2 : 0,
+        maximumFractionDigits: 3
       })} ${currency.toUpperCase()}`,
     formatDate: (date) =>
       date.toLocaleString(undefined, {
@@ -15,6 +26,10 @@ Vue.mixin({
         year: 'numeric'
       }),
     formatNumber: (number, readable) => {
+      if (typeof number !== 'number') {
+        return ''
+      }
+
       if (readable && number > 10) {
         const length = number.toString().length
         const half = Math.round(length / 2)
@@ -53,6 +68,32 @@ Vue.mixin({
       this.$nextTick(() =>
         setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100)
       )
+    },
+    centsToCredits(cents) {
+      if (!cents) {
+        return 0
+      }
+
+      const tier = Object.keys(this.creditPrices)
+        .map((tier) => ({
+          tier,
+          value: parseInt(tier, 10) * this.creditPrices[tier]
+        }))
+        .filter(({ value }) => value <= cents)
+        .reduce((max, { tier }) => Math.max(max, parseInt(tier, 10)), 0)
+
+      return Math.round(cents / this.creditPrices[tier])
+    },
+    creditsToCents(credits) {
+      if (!credits) {
+        return 0
+      }
+
+      const tier = Object.keys(this.creditPrices)
+        .filter((tier) => parseInt(tier, 10) <= credits)
+        .reduce((max, tier) => Math.max(max, parseInt(tier, 10)), 0)
+
+      return Math.round(credits * this.creditPrices[tier], 2)
     }
   }
 })
