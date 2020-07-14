@@ -114,7 +114,7 @@
               <tbody>
                 <tr v-for="tier in Object.keys(creditPrices)">
                   <td class="pl-6">
-                    {{ formatNumber(Math.max(100, parseInt(tier, 10))) }}+
+                    {{ formatNumber(Math.max(100, parseInt(tier, 10))) }}
                   </td>
                   <td class="pr-6">
                     {{ formatCurrency(creditPrices[tier] / 100, 'AUD', true) }}
@@ -152,7 +152,9 @@
                   <v-text-field
                     :value="
                       formatCurrency(
-                        creditsToCents(parseInt(credits, 10)) / 100
+                        creditsToCents(parseInt(credits, 10)) / 100,
+                        'AUD',
+                        true
                       )
                     "
                     label="Price"
@@ -193,36 +195,7 @@ export default {
       rules: {
         credits: [
           (v) => /^[0-9]+$/.test(v),
-          (v) => (parseInt(v) >= 100 ? true : 'Minimum 100 credits'),
-          (v) => {
-            const credits = parseInt(this.credits, 10)
-            const tiers = Object.keys(this.creditPrices)
-
-            const tier = tiers
-              .filter((tier) => parseInt(tier, 10) <= credits)
-              .reduce((max, tier) => Math.max(max, parseInt(tier, 10)), 0)
-
-            const nextTier = parseInt(
-              // eslint-disable-next-line standard/computed-property-even-spacing
-              tiers[
-                tiers.findIndex((_tier) => parseInt(_tier, 10) === tier) + 1
-              ],
-              10
-            )
-
-            if (
-              nextTier &&
-              this.creditsToCents(nextTier) <= this.creditsToCents(credits)
-            ) {
-              return `Get ${this.formatNumber(
-                nextTier
-              )} credits for ${this.formatCurrency(
-                this.creditsToCents(nextTier) / 100
-              )}`
-            }
-
-            return true
-          }
+          (v) => (parseInt(v) >= 100 ? true : 'Minimum 100 credits')
         ]
       },
       orderDialog: false,

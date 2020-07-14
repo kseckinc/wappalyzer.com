@@ -89,11 +89,24 @@ Vue.mixin({
         return 0
       }
 
-      const tier = Object.keys(this.creditPrices)
-        .filter((tier) => parseInt(tier, 10) <= credits)
-        .reduce((max, tier) => Math.max(max, parseInt(tier, 10)), 0)
+      const tiers = Object.keys(this.creditPrices)
 
-      return Math.round(credits * this.creditPrices[tier], 2)
+      let remaining = credits
+
+      return Math.floor(
+        tiers.reduce((price, tier, index) => {
+          const rows = Math.max(
+            index === tiers.length - 1
+              ? remaining
+              : Math.min(tier, index ? remaining : Math.max(tier, remaining)),
+            0
+          )
+
+          remaining -= rows
+
+          return price + rows * this.creditPrices[tier]
+        }, 0)
+      )
     }
   }
 })
