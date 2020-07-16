@@ -1,7 +1,7 @@
 {
   "attrs": {
     "amount": { "text": "Price", "type": "currency" },
-    "credits": { "text": "Credits per month", "type": "number" },
+    "credits": { "text": "Credits per month", "type": "credits" },
     "support": { "text": "Technical support", "type": "boolean" }
   },
   "plans": {
@@ -18,8 +18,8 @@
       "name": "Starter",
       "interval": "month",
       "attrs": {
-        "amount": 30000,
-        "credits": 5000,
+        "amount": 19500,
+        "credits": 10000,
         "support": "Email"
       }
     },
@@ -28,7 +28,7 @@
       "raised": true,
       "interval": "month",
       "attrs": {
-        "amount": 60000,
+        "amount": 39500,
         "credits": 50000,
         "support": "Email & phone"
       }
@@ -39,7 +39,45 @@
       "interval": "month",
       "attrs": {
         "amount": "-",
-        "credits": "-",
+        "credits": "Custom",
+        "support": "Priority email & phone"
+      }
+    },
+    "free_yr": {
+      "name": "Free",
+      "interval": "year",
+      "attrs": {
+        "amount": 0,
+        "credits": 50,
+        "support": false
+      }
+    },
+    "starter_yr": {
+      "name": "Starter",
+      "interval": "year",
+      "attrs": {
+        "amount": 200000,
+        "credits": 10000,
+        "support": "Email"
+      }
+    },
+    "business_yr": {
+      "name": "Business",
+      "raised": true,
+      "interval": "year",
+      "attrs": {
+        "amount": 400000,
+        "credits": 50000,
+        "support": "Email & phone"
+      }
+    },
+    "enterprise_yr": {
+      "name": "Enterprise",
+      "enterprise": true,
+      "interval": "year",
+      "attrs": {
+        "amount": "-",
+        "credits": "Custom",
         "support": "Priority email & phone"
       }
     }

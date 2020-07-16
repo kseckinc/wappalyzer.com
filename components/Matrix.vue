@@ -86,13 +86,25 @@
                     </template>
                   </template>
                 </template>
-                <template v-else-if="attr.type === 'number'">
+                <template
+                  v-else-if="attr.type === 'number' || attr.type === 'credits'"
+                >
                   <template v-if="item.attrs[name]">
                     <template v-if="typeof item.attrs[name] === 'string'">
                       {{ item.attrs[name] }}
                     </template>
                     <template v-else>
                       {{ formatNumber(item.attrs[name]) }}
+                      <span class="caption text--disabled"
+                        >({{
+                          formatCurrency(
+                            Math.floor(
+                              creditsToCents(item.attrs[name]) / 1000
+                            ) * 10
+                          ).replace(' AUD', '')
+                        }}
+                        value)</span
+                      >
                     </template>
                   </template>
                 </template>

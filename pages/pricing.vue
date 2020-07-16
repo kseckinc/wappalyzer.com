@@ -29,16 +29,61 @@
       <v-container>
         <small>
           Prices are in Australian dollars.<br />
-          <nuxt-link to="/contact">Contact us</nuxt-link> for firehose access
-          and tailored plans.<br />
-          By using our services, you agree to our
-          <nuxt-link to="/terms">terms of service</nuxt-link>.
+          Credits included in plans expire after 60 days.
         </small>
       </v-container>
 
-      <div class="py-2" />
+      <v-card class="mt-8 mb-12">
+        <v-card-title>
+          Pricing
+        </v-card-title>
+        <v-card-text class="px-0">
+          <p class="px-4">
+            Additional credits can be purchased at tiered prices. For example,
+            the price for 1,000 credits is (100 x $0.20) + (400 x $0.10) + (500
+            x $0.05) = $85.
+          </p>
 
-      <v-card class="mt-12 mb-6">
+          <v-simple-table class="mb-4" outlined>
+            <thead>
+              <tr>
+                <th width="33%">Credits</th>
+                <th>Price per credit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(tier, index) in Object.keys(creditTiers)">
+                <td>
+                  {{
+                    formatNumber(
+                      index
+                        ? parseInt(Object.keys(creditTiers)[index - 1], 10) + 1
+                        : 1
+                    )
+                  }}
+                  {{
+                    index === Object.keys(creditTiers).length - 1
+                      ? '+'
+                      : `- ${formatNumber(parseInt(tier, 10))}`
+                  }}
+                </td>
+                <td>
+                  {{ formatCurrency(creditTiers[tier] / 100, 'AUD', true) }}
+                </td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+
+          <p class="px-4 mb-0">
+            <small>
+              Prices are in Australian dollars.<br />
+              Credits purchased without a plan expire after 365 days.
+            </small>
+          </p>
+        </v-card-text>
+      </v-card>
+
+      <v-card class="mb-6">
         <v-card-title>
           Credit usage
         </v-card-title>
@@ -47,78 +92,63 @@
             <thead>
               <tr>
                 <th width="33%">Product</th>
-                <th width="33%">Credit spend / unit</th>
-                <th>Unit</th>
+                <th>Credit spend / unit</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td><nuxt-link to="/lookup">Technology lookup</nuxt-link></td>
                 <td>
-                  1
-                </td>
-                <td>
-                  Domain
+                  1 per domain
                 </td>
               </tr>
               <tr>
                 <td><nuxt-link to="/datasets">Datasets</nuxt-link></td>
                 <td>
-                  1
-                </td>
-                <td>
-                  Domain
+                  1 per domain
                 </td>
               </tr>
               <tr>
                 <td><nuxt-link to="/alerts">Website alert</nuxt-link></td>
                 <td>
-                  5
-                </td>
-                <td>
-                  Alert / month
+                  5 per alert per month
                 </td>
               </tr>
               <tr>
                 <td><nuxt-link to="/bulk">Bulk lookup</nuxt-link></td>
                 <td>
-                  1
-                </td>
-                <td>
-                  Domain
+                  2 per domain
                 </td>
               </tr>
               <tr>
                 <td><nuxt-link to="/api/lookup">Lookup API</nuxt-link></td>
                 <td>
-                  1
-                </td>
-                <td>
-                  Domain
+                  1 per domain
                 </td>
               </tr>
               <tr>
                 <td><nuxt-link to="/api/analyze">Analyze API</nuxt-link></td>
                 <td>
-                  2
-                </td>
-                <td>
-                  Web page
+                  1 per web page
                 </td>
               </tr>
               <tr>
                 <td><nuxt-link to="/api/crawl">Crawl API</nuxt-link></td>
                 <td>
-                  4
-                </td>
-                <td>
-                  Domain
+                  2 per domain
                 </td>
               </tr>
             </tbody>
           </v-simple-table>
         </v-card-text>
       </v-card>
+
+      <v-container>
+        <small>
+          By using our services, you agree to our
+          <nuxt-link to="/terms">terms of service</nuxt-link>.
+        </small>
+      </v-container>
 
       <v-dialog v-model="signInDialog" max-width="400px">
         <SignIn mode-continue mode-sign-up />
