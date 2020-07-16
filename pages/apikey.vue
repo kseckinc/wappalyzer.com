@@ -8,7 +8,7 @@
     </v-alert>
 
     <div class="mb-4">
-      <v-btn href="https://wappalyzer.com/docs/api" color="accent" outlined>
+      <v-btn href="/docs/api" color="accent" outlined>
         <v-icon left>mdi-book-open-page-variant</v-icon>
         API reference
       </v-btn>

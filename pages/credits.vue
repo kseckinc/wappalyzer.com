@@ -7,6 +7,12 @@
       {{ error }}
     </v-alert>
 
+    <div class="mb-4">
+      <v-btn href="/pricing" color="accent" outlined>
+        Plans &amp; pricing
+      </v-btn>
+    </div>
+
     <template v-if="!loading">
       <v-card>
         <v-card-title>
@@ -21,11 +27,11 @@
           <v-simple-table>
             <thead>
               <tr>
-                <th width="20%">Description</th>
+                <th width="30%">Description</th>
                 <th width="20%">Added</th>
                 <th width="20%">Expires</th>
-                <th width="20%">Credits</th>
-                <th width="20%">Remaining</th>
+                <th width="15%">Credits</th>
+                <th width="15%">Remaining</th>
               </tr>
             </thead>
 
@@ -104,7 +110,7 @@
               {{ orderError }}
             </v-alert>
 
-            <v-simple-table outlined>
+            <v-simple-table class="mb-4" outlined dense>
               <thead>
                 <tr>
                   <th class="pl-6" width="50%">Credits</th>
@@ -112,12 +118,24 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="tier in Object.keys(creditPrices)">
-                  <td class="pl-6">
-                    {{ formatNumber(Math.max(100, parseInt(tier, 10))) }}
+                <tr v-for="(tier, index) in Object.keys(creditTiers)">
+                  <td class="pl-6 caption">
+                    {{
+                      formatNumber(
+                        index
+                          ? parseInt(Object.keys(creditTiers)[index - 1], 10) +
+                              1
+                          : 1
+                      )
+                    }}
+                    {{
+                      index === Object.keys(creditTiers).length - 1
+                        ? '+'
+                        : `- ${formatNumber(parseInt(tier, 10))}`
+                    }}
                   </td>
-                  <td class="pr-6">
-                    {{ formatCurrency(creditPrices[tier] / 100, 'AUD', true) }}
+                  <td class="pr-6 caption">
+                    {{ formatCurrency(creditTiers[tier] / 100, 'AUD', true) }}
                   </td>
                 </tr>
               </tbody>
@@ -152,9 +170,7 @@
                   <v-text-field
                     :value="
                       formatCurrency(
-                        creditsToCents(parseInt(credits, 10)) / 100,
-                        'AUD',
-                        true
+                        creditsToCents(parseInt(credits, 10)) / 100
                       )
                     "
                     label="Price"
@@ -195,7 +211,8 @@ export default {
       rules: {
         credits: [
           (v) => /^[0-9]+$/.test(v),
-          (v) => (parseInt(v) >= 100 ? true : 'Minimum 100 credits')
+          (v) => (parseInt(v) >= 100 ? true : 'Minimum 100 credits'),
+          (v) => (parseInt(v) < 10000000 ? true : 'Maximum 10,000,000 credits')
         ]
       },
       orderDialog: false,
@@ -249,7 +266,10 @@ export default {
         const order = (
           await this.$axios.put('orders', {
             product: 'Credits',
-            credits: Math.min(100, parseInt(this.credits, 10))
+            credits: Math.min(
+              10000000,
+              Math.max(100, parseInt(this.credits, 10))
+            )
           })
         ).data
 

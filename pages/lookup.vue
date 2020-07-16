@@ -3,7 +3,22 @@
     <v-row>
       <v-col sm="8" md="12" lg="8" class="py-0">
         <template v-if="isSignedIn">
-          <p>Credits remaining: {{ formatNumber(credits) }}</p>
+          <v-card class="mt-4 mb-6" flat outlined>
+            <v-card-text class="pa-2 pl-4">
+              <v-row align="center">
+                <v-col class="py-0">
+                  Credit balance:
+                  <Spinner v-if="credits === null" />
+                  <span v-else class="font-weight-medium">
+                    {{ formatNumber(credits) }}
+                  </span>
+                </v-col>
+                <v-col class="py-0 text-right">
+                  <v-btn to="/credits" text>Buy credits</v-btn>
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
         </template>
 
         <h3 class="mb-4">Lookup</h3>
@@ -13,6 +28,12 @@
             v-model="url"
             @click:append="submit"
             :rules="rules.url"
+            :hint="
+              isSignedIn
+                ? 'Price per lookup: 1 credit. Get 50 credits per month on a free plan.'
+                : false
+            "
+            persistent-hint
             class="mb-4"
             append-icon="mdi-magnify"
             label="Enter a URL"
@@ -79,6 +100,7 @@ import Page from '~/components/Page.vue'
 import SignIn from '~/components/SignIn.vue'
 import Progress from '~/components/Progress.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
+import Spinner from '~/components/Spinner.vue'
 import { lookup as meta } from '~/assets/json/meta.json'
 
 export default {
@@ -86,7 +108,8 @@ export default {
     Page,
     SignIn,
     Progress,
-    TechnologyIcon
+    TechnologyIcon,
+    Spinner
   },
   data() {
     return {
@@ -99,13 +122,17 @@ export default {
         url: [
           (v) => {
             try {
-              new URL(v) // eslint-disable-line no-new
+              if (v) {
+                new URL(v) // eslint-disable-line no-new
+              }
 
               return true
             } catch (error) {
               return 'Enter a valid URL, e.g. https://www.example.com'
             }
-          }
+          },
+          (v) =>
+            !v || !this.isSignedIn || this.credits || 'Insufficient credits'
         ]
       },
       signInDialog: false,
@@ -123,8 +150,6 @@ export default {
     '$store.state.user.isSignedIn'(isSignedIn) {
       if (isSignedIn && this.signInDialog) {
         this.signInDialog = false
-
-        this.submit()
       }
     }
   },
@@ -163,9 +188,7 @@ export default {
 
           this.$store.commit('credits/set', credits)
         } catch (error) {
-          this.error =
-            (error.response && error.response.data) ||
-            this.getErrorMessage(error)
+          this.error = this.getErrorMessage(error)
         }
       }
 

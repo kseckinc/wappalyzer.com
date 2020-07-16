@@ -16,6 +16,10 @@
       <v-alert v-if="error" outlined type="error">
         {{ error }}
       </v-alert>
+      <v-alert v-if="mode === 'signUp'" color="secondary" class="mx-n6 px-6">
+        Sign up for free to receive 50 credits monthly. See all
+        <nuxt-link to="/pricing">plans &amp; pricing</nuxt-link>.
+      </v-alert>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-text-field
           v-if="mode !== 'verifySignUp' && mode !== 'verifySignIn'"

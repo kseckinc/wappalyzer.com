@@ -261,9 +261,7 @@
                     Rows
                   </th>
                   <td v-if="order.status === 'Calculating'">
-                    <v-btn class="loader ml-n1" icon disabled small>
-                      <v-icon>mdi-autorenew</v-icon>
-                    </v-btn>
+                    <Spinner />
                   </td>
                   <td v-else>
                     {{
@@ -719,13 +717,15 @@ import Page from '~/components/Page.vue'
 import Account from '~/components/Account.vue'
 import CreditCards from '~/components/CreditCards.vue'
 import Progress from '~/components/Progress.vue'
+import Spinner from '~/components/Spinner.vue'
 
 export default {
   components: {
     Page,
     Account,
     CreditCards,
-    Progress
+    Progress,
+    Spinner
   },
   data() {
     return {
@@ -888,7 +888,7 @@ export default {
           }
 
           if (paymentIntent.status === 'succeeded') {
-            for (let attempt = 1; attempt <= 5; attempt += 1) {
+            for (let attempt = 1; attempt <= 20; attempt += 1) {
               await new Promise((resolve, reject) => {
                 setTimeout(async () => {
                   try {
@@ -902,6 +902,8 @@ export default {
               })
 
               if (this.order.status === 'Complete') {
+                this.getCredits()
+
                 break
               }
             }
@@ -992,20 +994,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.loader {
-  animation: loader 1.5s infinite;
-  display: flex;
-}
-
-@keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-</style>

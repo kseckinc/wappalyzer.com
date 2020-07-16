@@ -1,26 +1,33 @@
 {
   "attrs": {
     "amount": { "text": "Price", "type": "currency" },
-    "credits": { "text": "Credits per month", "type": "number" },
+    "credits": { "text": "Credits per month", "type": "credits" },
+    "products": { "text": "Access to all products", "type": "boolean" },
+    "cancellation": { "text": "Anytime cancellation", "type": "boolean" },
     "support": { "text": "Technical support", "type": "boolean" }
   },
   "plans": {
     "free_mo": {
       "name": "Free",
       "interval": "month",
+      "buttonAction": "signUp",
       "attrs": {
         "amount": 0,
         "credits": 50,
-        "support": false
+        "support": "-",
+        "products": true,
+        "cancellation": true
       }
     },
     "starter_mo": {
       "name": "Starter",
       "interval": "month",
       "attrs": {
-        "amount": 30000,
-        "credits": 5000,
-        "support": "Email"
+        "amount": 19500,
+        "credits": 10000,
+        "support": "Email",
+        "products": true,
+        "cancellation": true
       }
     },
     "business_mo": {
@@ -28,9 +35,11 @@
       "raised": true,
       "interval": "month",
       "attrs": {
-        "amount": 60000,
+        "amount": 39500,
         "credits": 50000,
-        "support": "Email & phone"
+        "support": "Email & phone",
+        "products": true,
+        "cancellation": true
       }
     },
     "enterprise_mo": {
@@ -39,8 +48,57 @@
       "interval": "month",
       "attrs": {
         "amount": "-",
-        "credits": "-",
-        "support": "Priority email & phone"
+        "credits": "Custom",
+        "support": "Priority email & phone",
+        "products": true,
+        "cancellation": true
+      }
+    },
+    "free_yr": {
+      "name": "Free",
+      "interval": "year",
+      "buttonAction": "signUp",
+      "attrs": {
+        "amount": 0,
+        "credits": 50,
+        "support": "-",
+        "products": true,
+        "cancellation": true
+      }
+    },
+    "starter_yr": {
+      "name": "Starter",
+      "interval": "year",
+      "attrs": {
+        "amount": 195000,
+        "credits": 10000,
+        "support": "Email",
+        "products": true,
+        "cancellation": true
+      }
+    },
+    "business_yr": {
+      "name": "Business",
+      "raised": true,
+      "interval": "year",
+      "attrs": {
+        "amount": 395000,
+        "credits": 50000,
+        "support": "Email & phone",
+        "products": true,
+        "cancellation": true
+      }
+    },
+    "enterprise_yr": {
+      "name": "Enterprise",
+      "enterprise": true,
+      "interval": "year",
+      "attrs": {
+        "amount": "-",
+        "credits": "Custom",
+        "support": "Priority email & phone",
+        "products": true,
+        "cancellation": true
       }
     }
   }

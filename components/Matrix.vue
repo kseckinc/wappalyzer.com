@@ -47,7 +47,16 @@
           <v-responsive height="65">
             <v-card-actions>
               <v-btn
-                v-if="item.to || item.enterprise"
+                v-if="item.buttonAction === 'signUp'"
+                @click="signInDialog = true"
+                :disabled="isSignedIn"
+                color="primary"
+                class="mx-auto"
+                text
+                >Sign up</v-btn
+              >
+              <v-btn
+                v-else-if="item.to || item.enterprise"
                 :to="item.enterprise ? '/contact' : item.to"
                 :text="!item.raised"
                 color="primary white-text"
@@ -86,13 +95,23 @@
                     </template>
                   </template>
                 </template>
-                <template v-else-if="attr.type === 'number'">
+                <template
+                  v-else-if="attr.type === 'number' || attr.type === 'credits'"
+                >
                   <template v-if="item.attrs[name]">
                     <template v-if="typeof item.attrs[name] === 'string'">
                       {{ item.attrs[name] }}
                     </template>
                     <template v-else>
                       {{ formatNumber(item.attrs[name]) }}
+                      <span class="caption text--disabled"
+                        >({{
+                          formatCurrency(
+                            Math.floor(creditsToCents(item.attrs[name]) / 100)
+                          ).replace(' AUD', '')
+                        }}
+                        value)</span
+                      >
                     </template>
                   </template>
                 </template>
@@ -120,11 +139,22 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <v-dialog v-model="signInDialog" max-width="400px">
+      <SignIn mode-sign-up />
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
+import SignIn from '~/components/SignIn.vue'
+
 export default {
+  components: {
+    SignIn
+  },
   props: {
     items: {
       type: Object,
@@ -141,6 +171,24 @@ export default {
     raisedText: {
       type: String,
       default: 'Most popular'
+    }
+  },
+  data() {
+    return {
+      signInDialog: false
+    }
+  },
+  computed: {
+    ...mapState({
+      isSignedIn: ({ user }) => user.isSignedIn,
+      credits: ({ credits: { credits } }) => credits
+    })
+  },
+  watch: {
+    '$store.state.user.isSignedIn'(isSignedIn) {
+      if (isSignedIn && this.signInDialog) {
+        this.signInDialog = false
+      }
     }
   }
 }

@@ -4,6 +4,12 @@
       {{ error }}
     </v-alert>
 
+    <div class="mb-4">
+      <v-btn href="/pricing" color="accent" outlined>
+        Plans &amp; pricing
+      </v-btn>
+    </div>
+
     <template v-if="subscriptions">
       <v-card>
         <v-card-text v-if="!subscriptions.length">

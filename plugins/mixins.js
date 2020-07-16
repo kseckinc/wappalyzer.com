@@ -3,11 +3,14 @@ import Vue from 'vue'
 Vue.mixin({
   data() {
     return {
-      creditPrices: {
-        1: 10,
-        1000: 8,
-        10000: 2,
-        100000: 0.5
+      creditTiers: {
+        100: 20,
+        500: 10,
+        1000: 6,
+        5000: 2,
+        10000: 1,
+        50000: 0.6,
+        100000: 0.2
       }
     }
   },
@@ -17,7 +20,7 @@ Vue.mixin({
         style: 'currency',
         currency,
         minimumFractionDigits: decimal ? 2 : 0,
-        maximumFractionDigits: 3
+        maximumFractionDigits: decimal ? 3 : 0
       })} ${currency.toUpperCase()}`,
     formatDate: (date) =>
       date.toLocaleString(undefined, {
@@ -74,39 +77,54 @@ Vue.mixin({
         return 0
       }
 
-      const tier = Object.keys(this.creditPrices)
-        .map((tier) => ({
-          tier,
-          value: parseInt(tier, 10) * this.creditPrices[tier]
-        }))
-        .filter(({ value }) => value <= cents)
-        .reduce((max, { tier }) => Math.max(max, parseInt(tier, 10)), 0)
+      const tiers = Object.keys(this.creditTiers).map((tier) =>
+        parseInt(tier, 10)
+      )
 
-      return Math.round(cents / this.creditPrices[tier])
+      let remaining = cents
+
+      return Math.round(
+        tiers.reduce((credits, tier, index) => {
+          const price = this.creditTiers[tier]
+
+          const diff = Math.min(
+            remaining,
+            price * (tier - (index ? tiers[index - 1] : 0))
+          )
+
+          credits += (index === tiers.length - 1 ? remaining : diff) / price
+
+          remaining -= diff
+
+          return credits
+        }, 0)
+      )
     },
     creditsToCents(credits) {
       if (!credits) {
         return 0
       }
 
-      const tiers = Object.keys(this.creditPrices)
+      const tiers = Object.keys(this.creditTiers).map((tier) =>
+        parseInt(tier, 10)
+      )
 
       let remaining = credits
 
-      return Math.floor(
-        tiers.reduce((price, tier, index) => {
-          const rows = Math.max(
-            index === tiers.length - 1
-              ? remaining
-              : Math.min(tier, index ? remaining : Math.max(tier, remaining)),
-            0
-          )
+      return tiers.reduce((price, tier, index) => {
+        const amount = tier - (index ? tiers[index - 1] : 0)
 
-          remaining -= rows
+        const credits = Math.max(
+          index === tiers.length - 1
+            ? remaining
+            : Math.min(amount, index ? remaining : Math.max(amount, remaining)),
+          0
+        )
 
-          return price + rows * this.creditPrices[tier]
-        }, 0)
-      )
+        remaining -= credits
+
+        return price + credits * this.creditTiers[tier]
+      }, 0)
     }
   }
 })
