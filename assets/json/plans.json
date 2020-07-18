@@ -1,48 +1,47 @@
 {
   "attrs": {
-    "amount": { "text": "Price", "type": "currency" },
     "credits": { "text": "Credits per month", "type": "credits" },
     "products": { "text": "Access to all products", "type": "boolean" },
     "cancellation": { "text": "Anytime cancellation", "type": "boolean" },
     "support": { "text": "Technical support", "type": "boolean" }
   },
   "plans": {
-    "free_mo": {
+    "credits_free_mo": {
       "name": "Free",
       "interval": "month",
       "buttonAction": "signUp",
+      "price": 0,
       "attrs": {
-        "amount": 0,
         "credits": 50,
         "support": "-",
         "products": true,
         "cancellation": true
       }
     },
-    "starter_mo": {
+    "credits_starter_mo": {
       "name": "Starter",
       "interval": "month",
+      "price": 19500,
       "attrs": {
-        "amount": 19500,
         "credits": 10000,
         "support": "Email",
         "products": true,
         "cancellation": true
       }
     },
-    "business_mo": {
+    "credits_business_mo": {
       "name": "Business",
       "raised": true,
       "interval": "month",
+      "price": 39500,
       "attrs": {
-        "amount": 39500,
         "credits": 50000,
         "support": "Email & phone",
         "products": true,
         "cancellation": true
       }
     },
-    "enterprise_mo": {
+    "credits_enterprise_mo": {
       "name": "Enterprise",
       "enterprise": true,
       "interval": "month",
@@ -54,42 +53,44 @@
         "cancellation": true
       }
     },
-    "free_yr": {
+    "credits_free_yr": {
       "name": "Free",
       "interval": "year",
       "buttonAction": "signUp",
+      "price": 0,
       "attrs": {
-        "amount": 0,
         "credits": 50,
         "support": "-",
         "products": true,
         "cancellation": true
       }
     },
-    "starter_yr": {
+    "credits_starter_yr": {
       "name": "Starter",
       "interval": "year",
+      "beforePrice": 234000,
+      "price": 195000,
       "attrs": {
-        "amount": 195000,
         "credits": 10000,
         "support": "Email",
         "products": true,
         "cancellation": true
       }
     },
-    "business_yr": {
+    "credits_business_yr": {
       "name": "Business",
       "raised": true,
       "interval": "year",
+      "beforePrice": 474000,
+      "price": 395000,
       "attrs": {
-        "amount": 395000,
         "credits": 50000,
         "support": "Email & phone",
         "products": true,
         "cancellation": true
       }
     },
-    "enterprise_yr": {
+    "credits_enterprise_yr": {
       "name": "Enterprise",
       "enterprise": true,
       "interval": "year",

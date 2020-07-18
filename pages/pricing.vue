@@ -12,22 +12,23 @@
         </v-btn>
       </div>
 
-      <div class="d-flex justify-center my-12">
-        <v-btn-toggle v-model="interval" color="primary" class="mr-4" mandatory>
-          <v-btn value="month" class="caption px-8" outlined>
-            MONTHLY
-          </v-btn>
-          <v-btn value="year" class="caption px-8" outlined>
-            ANNUALLY &nbsp; (two months free)
-          </v-btn>
-        </v-btn-toggle>
+      <div
+        class="d-flex flex-row align-center body-2 font-weight-medium mt-8 mb-6"
+      >
+        <v-spacer />
+        <span @click="annually = !annually">Monthly</span>
+        <v-switch v-model="annually" class="px-2 ma-0" hide-details></v-switch>
+        <span @click="annually = !annually">
+          Annually <span class="font-weight-regular ml-1">(2 months free)</span>
+        </span>
+        <v-spacer />
       </div>
 
       <Matrix
         v-on:select="subscribe"
         :items="plans"
         :attrs="attrs"
-        button-text="Subscribe"
+        button-text="Sign up"
       />
 
       <v-container>
@@ -37,61 +38,7 @@
         </small>
       </v-container>
 
-      <v-card class="mt-8 mb-12">
-        <v-card-title>
-          Credit pricing
-        </v-card-title>
-        <v-card-text class="px-0">
-          <v-row>
-            <v-col class="py-0" md="8">
-              <p class="px-4">
-                Additional credits can be purchased at tiered pricing. For
-                example, the price for 1,000 credits is (100 x $0.20) + (400 x
-                $0.10) + (500 x $0.06) = $90 AUD.
-              </p>
-            </v-col>
-          </v-row>
-
-          <v-simple-table class="mb-4" outlined>
-            <thead>
-              <tr>
-                <th width="33%">Credits</th>
-                <th>Price per credit</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(tier, index) in Object.keys(creditTiers)">
-                <td>
-                  {{
-                    formatNumber(
-                      index
-                        ? parseInt(Object.keys(creditTiers)[index - 1], 10) + 1
-                        : 1
-                    )
-                  }}
-                  {{
-                    index === Object.keys(creditTiers).length - 1
-                      ? '+'
-                      : `- ${formatNumber(parseInt(tier, 10))}`
-                  }}
-                </td>
-                <td>
-                  {{ formatCurrency(creditTiers[tier] / 100, 'AUD', true) }}
-                </td>
-              </tr>
-            </tbody>
-          </v-simple-table>
-
-          <p class="px-4 mb-0">
-            <small>
-              Prices are in Australian dollars.<br />
-              Credits purchased without a plan expire after 365 days.
-            </small>
-          </p>
-        </v-card-text>
-      </v-card>
-
-      <v-card class="mb-6">
+      <v-card class="mt-12 mb-8">
         <v-card-title>
           Credit usage
         </v-card-title>
@@ -99,7 +46,7 @@
           <v-row>
             <v-col class="py-0" md="8">
               <p class="px-4">
-                Credits can be spend on a range of products, including datasets
+                Credits can be spent on a range of products, including datasets
                 and every API.
               </p>
             </v-col>
@@ -160,6 +107,60 @@
         </v-card-text>
       </v-card>
 
+      <v-card class="mb-4">
+        <v-card-title>
+          Credit pricing
+        </v-card-title>
+        <v-card-text class="px-0">
+          <v-row>
+            <v-col class="py-0" md="8">
+              <p class="px-4">
+                Additional credits can be purchased at tiered pricing. For
+                example, the price for 1,000 credits is (100 x $0.20) + (400 x
+                $0.10) + (500 x $0.06) = $90 AUD.
+              </p>
+            </v-col>
+          </v-row>
+
+          <v-simple-table class="mb-4" outlined>
+            <thead>
+              <tr>
+                <th width="33%">Credits</th>
+                <th>Price per credit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(tier, index) in Object.keys(creditTiers)">
+                <td>
+                  {{
+                    formatNumber(
+                      index
+                        ? parseInt(Object.keys(creditTiers)[index - 1], 10) + 1
+                        : 1
+                    )
+                  }}
+                  {{
+                    index === Object.keys(creditTiers).length - 1
+                      ? '+'
+                      : `- ${formatNumber(parseInt(tier, 10))}`
+                  }}
+                </td>
+                <td>
+                  {{ formatCurrency(creditTiers[tier] / 100, 'AUD', true) }}
+                </td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+
+          <p class="px-4 mb-0">
+            <small>
+              Prices are in Australian dollars.<br />
+              Credits purchased without a plan expire after 365 days.
+            </small>
+          </p>
+        </v-card-text>
+      </v-card>
+
       <v-container>
         <small>
           By using our services, you agree to our
@@ -207,7 +208,7 @@ export default {
       attrs,
       order: false,
       orderError: '',
-      interval: 'month',
+      annually: false,
       signInDialog: false,
       subscribing: false
     }
@@ -215,7 +216,7 @@ export default {
   computed: {
     plans() {
       return Object.keys(plans).reduce((_plans, plan) => {
-        if (plans[plan].interval === this.interval) {
+        if (plans[plan].interval === (this.annually ? 'year' : 'month')) {
           _plans[plan] = plans[plan]
         }
 

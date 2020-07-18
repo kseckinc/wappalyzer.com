@@ -1,12 +1,12 @@
 <template>
-  <v-container class="matrix__container mt-12 pl-0 pr-3 pt-2 pb-4">
+  <v-container class="matrix__container pl-0 pr-3 pt-2 pb-4">
     <v-row class="matrix" no-gutters>
       <v-col>
         <v-responsive
           :height="
             (Object.values(items).some(({ description }) => description)
-              ? 70
-              : 0) + 155
+              ? 120
+              : 0) + 205
           "
         />
         <template v-for="attr in attrs">
@@ -30,14 +30,44 @@
             v-if="item.raised && Object.keys(items).length > 1"
             height="30"
           >
-            <v-card-subtitle class="overline">
-              {{ raisedText }}
+            <v-card-subtitle class="overline py-0">
+              <small>
+                {{ raisedText }}
+              </small>
             </v-card-subtitle>
           </v-responsive>
-          <v-responsive height="60">
+          <v-responsive height="50">
             <v-card-title class="justify-center">
               {{ item.name }}
             </v-card-title>
+          </v-responsive>
+          <v-responsive height="60" class="align-center">
+            <v-card-text class="py-0 justify-center">
+              <template v-if="item.enterprise">
+                <small class="text--disabled">
+                  Tailored plans available
+                </small>
+              </template>
+              <template v-if="item.price === 0">
+                <span class="font-weight-medium">
+                  Free forever
+                </span>
+                <div class="text--disabled">
+                  <small>No credit card required</small>
+                </div>
+              </template>
+              <template v-else-if="item.price">
+                <div
+                  v-if="item.beforePrice"
+                  class="text-decoration-line-through text--disabled"
+                >
+                  {{ formatCurrency(item.beforePrice / 100) }}
+                </div>
+                <span class="font-weight-medium">
+                  {{ formatCurrency(item.price / 100) }}
+                </span>
+              </template>
+            </v-card-text>
           </v-responsive>
           <v-responsive v-if="item.description" height="70">
             <v-card-subtitle>
