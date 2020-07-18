@@ -66,6 +66,7 @@
                 <span class="font-weight-medium">
                   {{ formatCurrency(item.price / 100) }}
                 </span>
+                <span> / {{ item.interval }} </span>
               </template>
             </v-card-text>
           </v-responsive>
@@ -120,9 +121,6 @@
                     <span class="font-weight-medium">
                       {{ formatCurrency(item.attrs[name] / 100) }}
                     </span>
-                    <template v-if="name === 'amount'">
-                      / {{ item.interval }}
-                    </template>
                   </template>
                 </template>
                 <template
