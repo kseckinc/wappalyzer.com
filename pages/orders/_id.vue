@@ -235,22 +235,6 @@
                     </template>
                   </td>
                 </tr>
-                <tr>
-                  <th>Setup fee</th>
-                  <td>
-                    <template v-if="order.plan.setupAmount">
-                      {{
-                        formatCurrency(
-                          order.plan.setupAmount / 100,
-                          order.plan.currency
-                        )
-                      }}
-                    </template>
-                    <template v-else>
-                      Free
-                    </template>
-                  </td>
-                </tr>
               </tbody>
             </v-simple-table>
 

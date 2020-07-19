@@ -16,12 +16,15 @@ Vue.mixin({
   },
   methods: {
     formatCurrency: (amount, currency = 'AUD', decimal = false) =>
-      `${amount.toLocaleString('en-AU', {
-        style: 'currency',
-        currency,
-        minimumFractionDigits: decimal ? 2 : 0,
-        maximumFractionDigits: decimal ? 3 : 0
-      })} ${currency.toUpperCase()}`,
+      `${amount.toLocaleString(
+        currency.toUpperCase() === 'AUD' ? 'en-AU' : 'en-US',
+        {
+          style: 'currency',
+          currency,
+          minimumFractionDigits: decimal ? 2 : 0,
+          maximumFractionDigits: decimal ? 3 : 0
+        }
+      )} ${currency.toUpperCase()}`,
     formatDate: (date) =>
       date.toLocaleString(undefined, {
         day: 'numeric',

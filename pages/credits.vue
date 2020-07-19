@@ -38,7 +38,7 @@
             <tbody>
               <tr v-for="item in add">
                 <td>
-                  {{ item.product }}
+                  {{ item.description }}
                 </td>
                 <td>
                   {{ formatDate(new Date(item.createdAt * 1000)) }}
@@ -86,7 +86,7 @@
             <tbody>
               <tr v-for="item in spend">
                 <td>
-                  {{ item.product }}
+                  {{ item.descripion }}
                 </td>
                 <td>
                   {{ formatDate(new Date(item.createdAt * 1000)) }}

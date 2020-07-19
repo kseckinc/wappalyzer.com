@@ -57,16 +57,17 @@
                 </div>
               </template>
               <template v-else-if="item.price">
-                <div
-                  v-if="item.beforePrice"
-                  class="text-decoration-line-through text--disabled"
-                >
-                  {{ formatCurrency(item.beforePrice / 100) }}
-                </div>
                 <span class="font-weight-medium">
                   {{ formatCurrency(item.price / 100) }}
                 </span>
                 <span> / {{ item.interval }} </span>
+                <div v-if="exchangeRate">
+                  <small class="text--disabled">
+                    (~{{
+                      formatCurrency((item.price * exchangeRate) / 100, 'USD')
+                    }})
+                  </small>
+                </div>
               </template>
             </v-card-text>
           </v-responsive>
@@ -199,6 +200,10 @@ export default {
     raisedText: {
       type: String,
       default: 'Most popular'
+    },
+    exchangeRate: {
+      type: Number,
+      default: 0
     }
   },
   data() {

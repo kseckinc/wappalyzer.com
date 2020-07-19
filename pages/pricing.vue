@@ -28,6 +28,7 @@
         v-on:select="subscribe"
         :items="plans"
         :attrs="attrs"
+        :exchangeRate="exchangeRate"
         button-text="Sign up"
       />
 
@@ -107,7 +108,7 @@
         </v-card-text>
       </v-card>
 
-      <v-card class="mb-4">
+      <v-card class="mt-12 mb-4">
         <v-card-title>
           Credit pricing
         </v-card-title>
@@ -209,6 +210,7 @@ export default {
       order: false,
       orderError: '',
       annually: false,
+      exchangeRate: 0,
       signInDialog: false,
       subscribing: false
     }
@@ -232,6 +234,9 @@ export default {
         this.subscribe(this.subscribing)
       }
     }
+  },
+  async created() {
+    this.exchangeRate = (await this.$axios.get('rate')).data
   },
   methods: {
     async subscribe(plan) {
