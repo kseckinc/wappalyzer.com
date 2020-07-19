@@ -176,7 +176,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import SignIn from '~/components/SignIn.vue'
 
@@ -200,10 +200,6 @@ export default {
     raisedText: {
       type: String,
       default: 'Most popular'
-    },
-    exchangeRate: {
-      type: Number,
-      default: 0
     }
   },
   data() {
@@ -214,7 +210,8 @@ export default {
   computed: {
     ...mapState({
       isSignedIn: ({ user }) => user.isSignedIn,
-      credits: ({ credits: { credits } }) => credits
+      credits: ({ credits: { credits } }) => credits,
+      exchangeRate: ({ rate: { exchangeRate } }) => exchangeRate
     })
   },
   watch: {
@@ -223,6 +220,14 @@ export default {
         this.signInDialog = false
       }
     }
+  },
+  created() {
+    this.getRate()
+  },
+  methods: {
+    ...mapActions({
+      getRate: 'rate/get'
+    })
   }
 }
 </script>

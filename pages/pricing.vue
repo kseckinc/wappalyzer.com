@@ -28,7 +28,6 @@
         v-on:select="subscribe"
         :items="plans"
         :attrs="attrs"
-        :exchangeRate="exchangeRate"
         button-text="Sign up"
       />
 
@@ -210,7 +209,6 @@ export default {
       order: false,
       orderError: '',
       annually: false,
-      exchangeRate: 0,
       signInDialog: false,
       subscribing: false
     }
@@ -234,9 +232,6 @@ export default {
         this.subscribe(this.subscribing)
       }
     }
-  },
-  async created() {
-    this.exchangeRate = (await this.$axios.get('rate')).data
   },
   methods: {
     async subscribe(plan) {

@@ -453,10 +453,20 @@
                 </tr>
                 <tr>
                   <th>Total payable now</th>
-                  <td class="font-weight-bold">
-                    {{
-                      formatCurrency(order.total / 100, order.currency, true)
-                    }}
+                  <td>
+                    <span class="font-weight-bold">
+                      {{
+                        formatCurrency(order.total / 100, order.currency, true)
+                      }}
+                    </span>
+                    <span v-if="exchangeRate" class="text--disabled">
+                      (~{{
+                        formatCurrency(
+                          (order.total * exchangeRate) / 100,
+                          'USD'
+                        )
+                      }})
+                    </span>
                   </td>
                 </tr>
               </tbody>
@@ -697,6 +707,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+
 import Page from '~/components/Page.vue'
 import Account from '~/components/Account.vue'
 import CreditCards from '~/components/CreditCards.vue'
@@ -753,7 +764,8 @@ export default {
     ...mapState({
       user: ({ user }) => user.attrs,
       isAdmin: ({ user }) => user.attrs.admin || user.impersonating,
-      credits: ({ credits: { credits } }) => credits
+      credits: ({ credits: { credits } }) => credits,
+      exchangeRate: ({ rate: { exchangeRate } }) => exchangeRate
     }),
     billingAddress() {
       return [
@@ -816,6 +828,7 @@ export default {
 
       try {
         this.getCredits()
+        this.getRate()
 
         this.order = (await this.$axios.get(`orders/${id}`)).data
       } catch (error) {
@@ -828,7 +841,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      getCredits: 'credits/get'
+      getCredits: 'credits/get',
+      getRate: 'rate/get'
     }),
     async pay() {
       this.error = false
