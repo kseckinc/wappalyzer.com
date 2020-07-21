@@ -1,23 +1,23 @@
 <template>
   <div>
-    <Page
-      :title="title"
-      :head="{ title, text: 'Introduction text goes here' }"
-      hero
-    >
+    <Page :title="title" :head="{ title, text }" hero>
       <div class="mt-4">
-        <v-btn color="accent" to="/faq" class="mb-2" outlined>
+        <v-btn color="accent" to="/faq/credits" class="mb-2" outlined>
           <v-icon left>mdi-forum</v-icon>
           FAQs
         </v-btn>
       </div>
 
       <div
-        class="d-flex flex-row align-center body-2 font-weight-medium mt-8 mb-6"
+        class="d-flex flex-row align-center body-2 font-weight-medium mt-4 mb-6"
       >
         <v-spacer />
         <span @click="annually = !annually">Monthly</span>
-        <v-switch v-model="annually" class="px-2 ma-0" hide-details></v-switch>
+        <v-switch
+          v-model="annually"
+          class="my-0 ml-3 mr-1"
+          hide-details
+        ></v-switch>
         <span @click="annually = !annually">
           Annually <span class="font-weight-regular ml-1">(2 months free)</span>
         </span>
@@ -38,7 +38,7 @@
         </small>
       </v-container>
 
-      <v-card class="mt-12 mb-8">
+      <v-card id="usage" class="mt-12 mb-8">
         <v-card-title>
           Credit usage
         </v-card-title>
@@ -75,7 +75,7 @@
               <tr>
                 <td><nuxt-link to="/alerts">Website alert</nuxt-link></td>
                 <td>
-                  5 per alert per month
+                  10 per alert per month
                 </td>
               </tr>
               <tr>
@@ -107,7 +107,7 @@
         </v-card-text>
       </v-card>
 
-      <v-card class="mt-12 mb-4">
+      <v-card id="credits" class="mt-12 mb-4">
         <v-card-title>
           Credit pricing
         </v-card-title>
@@ -210,7 +210,10 @@ export default {
       orderError: '',
       annually: false,
       signInDialog: false,
-      subscribing: false
+      subscribing: false,
+      text: [
+        'Sign up for access to our full range of products. Each plan grants you monthly credits to spend on technology lookups, datasets and API calls.'
+      ]
     }
   },
   computed: {

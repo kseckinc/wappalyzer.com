@@ -36,7 +36,7 @@
                       :to="_to.match(/^http/) ? null : _to"
                       color="primary"
                     >
-                      <v-list-item-content>
+                      <v-list-item-content class="py-4">
                         <v-list-item-title class="subtitle-2">
                           {{ _title }}
                         </v-list-item-title>

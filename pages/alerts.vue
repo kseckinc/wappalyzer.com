@@ -1,34 +1,19 @@
 <template>
-  <Page :title="title" :loading="loading && !error" secure>
-    <v-alert v-if="success" type="success">
-      {{ success }}
-    </v-alert>
-    <v-alert v-if="error" type="error">
-      {{ error }}
-    </v-alert>
-
-    <template v-if="!loading">
-      <p>
-        Create an alert to get notified via email when a website's technology
-        stack changes.
-      </p>
-
-      <v-btn
-        v-if="!quota"
-        to="/alerts"
-        class="mb-4"
-        color="accent"
-        outlined
-        exact
-      >
-        Compare plans
-        <v-icon right>mdi-arrow-right</v-icon>
-      </v-btn>
-
-      <v-card>
+  <div>
+    <Page :title="title" :head="meta" :loading="isSignedIn && loading" hero>
+      <v-card class="mt-12">
+        <v-card-title>
+          Websites
+        </v-card-title>
+        <v-card-text class="pb-0">
+          <p>
+            Add the websites you want to monitor here and we'll check them
+            daily. As soon as we notice a change we'll alert you with an email.
+          </p>
+        </v-card-text>
         <v-card-text v-if="!alerts.length" class="pb-0">
           <v-alert color="info" class="mb-0" outlined>
-            You don't have any alerts.
+            You haven't added any websites to monitor yet.
           </v-alert>
         </v-card-text>
         <v-card-text v-else class="px-0">
@@ -56,7 +41,6 @@
                       removeUrl = alert.url
                       removeDialog = true
                     "
-                    color="error"
                     icon
                     ><v-icon>mdi-close-circle</v-icon></v-btn
                   >
@@ -69,14 +53,10 @@
         <v-card-actions>
           <v-spacer />
           <v-btn
-            @click="createDialog = true"
-            :disabled="alerts.length >= quota"
+            @click="isSignedIn ? (createDialog = true) : (signInDialog = true)"
             color="accent"
             text
-            ><v-icon left>mdi-bullhorn</v-icon> Create alert ({{
-              Math.max(0, quota - alerts.length)
-            }}
-            left)</v-btn
+            ><v-icon left>mdi-bullhorn</v-icon> Create alert</v-btn
           >
         </v-card-actions>
       </v-card>
@@ -90,6 +70,12 @@
             <v-alert v-if="createError" type="error">
               {{ createError }}
             </v-alert>
+
+            <p>
+              One alert costs 10 credits per month.
+            </p>
+
+            <Credits class="mb-8" />
 
             <v-form v-on:submit.prevent="create">
               <v-text-field
@@ -106,8 +92,13 @@
             <v-btn @click="createDialog = false" color="error" text
               >Cancel</v-btn
             >
-            <v-btn @click="create" :loading="creating" color="accent" text
-              >Create</v-btn
+            <v-btn
+              @click="create"
+              :disabled="credits < 10"
+              :loading="creating"
+              color="accent"
+              text
+              ><v-icon left>mdi-alpha-c-circle</v-icon> Spend 10 credits</v-btn
             >
           </v-card-actions>
         </v-card>
@@ -137,50 +128,48 @@
         </v-card>
       </v-dialog>
 
-      <v-dialog v-model="quotaDialog" max-width="400px" eager>
-        <v-card>
-          <v-card-title>
-            Quota reached
-          </v-card-title>
-          <v-card-text>
-            You don't have any alerts left. Please add a plan to create more.
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn to="/alerts" color="accent" text exact>Compare plans</v-btn>
-            <v-btn @click="quotaDialog = false" color="error" text
-              >Cancel</v-btn
-            >
-          </v-card-actions>
-        </v-card>
+      <v-dialog v-model="signInDialog" max-width="400px">
+        <SignIn mode-continue mode-sign-up />
       </v-dialog>
-    </template>
-  </Page>
+
+      <template v-slot:footer>
+        <Logos />
+      </template>
+    </Page>
+  </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 import Page from '~/components/Page.vue'
+import Logos from '~/components/Logos.vue'
+import SignIn from '~/components/SignIn.vue'
+import Credits from '~/components/Credits.vue'
+import { alerts as meta } from '~/assets/json/meta.json'
 
 export default {
   components: {
-    Page
+    Page,
+    Logos,
+    SignIn,
+    Credits
   },
   data() {
     return {
-      title: 'Alerts',
+      title: meta.title,
       alerts: [],
       createDialog: false,
-      quotaDialog: false,
       createError: false,
       creating: false,
       error: false,
-      url: '',
       loading: true,
-      quota: 0,
+      url: '',
       removeDialog: false,
       removeError: false,
-      removeUrl: '',
       removing: false,
+      removeUrl: '',
+      meta,
       rules: {
         url: [
           (v) => {
@@ -198,54 +187,60 @@ export default {
           }
         ]
       },
-      success: false
+      signInDialog: false,
+      subscribing: false
     }
+  },
+  computed: {
+    ...mapState({
+      isSignedIn: ({ user }) => user.isSignedIn,
+      credits: ({ credits: { credits } }) => credits
+    })
   },
   watch: {
     async '$store.state.user.isSignedIn'(isSignedIn) {
       if (isSignedIn) {
-        try {
-          ;({ quota: this.quota, alerts: this.alerts } = (
-            await this.$axios.get('alerts')
-          ).data)
+        this.signInDialog = false
 
-          this.loading = false
-        } catch (error) {
-          this.error = this.getErrorMessage(error)
+        await this.getCredits()
+        ;({ alerts: this.alerts } = (await this.$axios.get('alerts')).data)
+
+        this.loading = false
+
+        if (this.url) {
+          this.createDialog = true
         }
       }
     }
   },
   async created() {
-    const { url } = this.$route.query
+    ;({ url: this.url } = this.$route.query)
 
     if (this.$store.state.user.isSignedIn) {
       try {
-        ;({ quota: this.quota, alerts: this.alerts } = (
-          await this.$axios.get('alerts')
-        ).data)
+        if (this.signInDialog) {
+          this.signInDialog = false
+        }
+
+        await this.getCredits()
+        ;({ alerts: this.alerts } = (await this.$axios.get('alerts')).data)
 
         this.loading = false
       } catch (error) {
         this.error = this.getErrorMessage(error)
       }
-    } else if (url) {
-      this.$router.push('/alerts')
 
-      return
-    }
-
-    if (url) {
-      if (this.quota - this.alerts.length > 0) {
-        this.url = url
-
+      if (this.url) {
         this.createDialog = true
-      } else {
-        this.quotaDialog = true
       }
+    } else if (this.url) {
+      this.signInDialog = true
     }
   },
   methods: {
+    ...mapActions({
+      getCredits: 'credits/get'
+    }),
     async create() {
       this.success = false
       this.error = false
@@ -256,9 +251,7 @@ export default {
         await this.$axios.put('alerts', {
           url: this.url.trim()
         })
-        ;({ quota: this.quota, alerts: this.alerts } = (
-          await this.$axios.get('alerts')
-        ).data)
+        ;({ alerts: this.alerts } = (await this.$axios.get('alerts')).data)
 
         this.success = 'The alert has been created'
         this.url = ''
@@ -278,9 +271,7 @@ export default {
 
       try {
         await this.$axios.delete(`alerts/${encodeURIComponent(this.removeUrl)}`)
-        ;({ quota: this.quota, alerts: this.alerts } = (
-          await this.$axios.get('alerts')
-        ).data)
+        ;({ alerts: this.alerts } = (await this.$axios.get('alerts')).data)
 
         this.success = 'The alert has been deleted.'
 

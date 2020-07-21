@@ -11,8 +11,8 @@
         />
         <template v-for="attr in attrs">
           <v-divider />
-          <v-responsive :key="attr.text" height="60">
-            <v-card-text>
+          <v-responsive :key="attr.text" height="60" class="align-center">
+            <v-card-text class="py-0">
               {{ attr.text }}
             </v-card-text>
           </v-responsive>
@@ -61,12 +61,8 @@
                   {{ formatCurrency(item.price / 100) }}
                 </span>
                 <span> / {{ item.interval }} </span>
-                <div v-if="exchangeRate">
-                  <small class="text--disabled">
-                    (~{{
-                      formatCurrency((item.price * exchangeRate) / 100, 'USD')
-                    }})
-                  </small>
+                <div>
+                  <small><AudToUsd :aud="item.price"/></small>
                 </div>
               </template>
             </v-card-text>
@@ -176,13 +172,15 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 
 import SignIn from '~/components/SignIn.vue'
+import AudToUsd from '~/components/AudToUsd.vue'
 
 export default {
   components: {
-    SignIn
+    SignIn,
+    AudToUsd
   },
   props: {
     items: {
@@ -210,8 +208,7 @@ export default {
   computed: {
     ...mapState({
       isSignedIn: ({ user }) => user.isSignedIn,
-      credits: ({ credits: { credits } }) => credits,
-      exchangeRate: ({ rate: { exchangeRate } }) => exchangeRate
+      credits: ({ credits: { credits } }) => credits
     })
   },
   watch: {
@@ -220,14 +217,6 @@ export default {
         this.signInDialog = false
       }
     }
-  },
-  created() {
-    this.getRate()
-  },
-  methods: {
-    ...mapActions({
-      getRate: 'rate/get'
-    })
   }
 }
 </script>

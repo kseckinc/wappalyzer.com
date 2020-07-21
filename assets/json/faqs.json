@@ -37,7 +37,11 @@
       ],
       [
         "What segmentation options are available?",
-        [ "Currently, datasets can be filtered by language and top-level domain. More segmentation options will be made available in the future." ]
+        [ "Currently, datasets can be filtered by IP country, top-level domain and language. Additional segmentation options may become available in the future." ]
+      ],
+      [
+        "What is IP country?",
+        [ "IP country is the country a website's IP address belongs to. Typically this is where the website is hosted, which may be different from the location the business that owns the website operates from." ]
       ],
       [
         "Do you supply company or contact information?",
@@ -84,15 +88,30 @@
       ],
       [
         "Do you offer a free trial?",
-        [ "You can use the <a href='/docs/api/basics#demo-api-key'>demo API key</a> to try out the APIs before buying." ]
+        [ "Sign up for <a href='/pricing'>free plan</a> to get 50 credits every month to use with the APIs." ]
+      ]
+    ]
+  },
+  "credits": {
+    "title": "Credits",
+    "icon": "mdi-alpha-c-circle",
+    "to": "/faq/credits",
+    "items": [
+      [
+        "What are credits?",
+        [ "Credits can be spent on a range of products, including datasets and APIs. Each product has a fixed spend per unit, detailed on the <a href='/pricing'>pricing</a> page." ]
+      ],
+      [
+        "When do credits expire?",
+        [ "Credits included in plans expire after 60 days. Credits purchased directly expire after 365 days. Expired credits can no longer be used." ]
       ],
       [
         "Can I use a different payment method?",
-        [ "We only accept credit card for subscriptions." ]
+        [ "Plans can only be purchased with a credit card. Credits can be purchased directly using a credit card or PayPal account. Please <a href='/contact'>contact us</a> if you wish to pay via bank transfer or Bitcoin, or discuss options." ]
       ],
       [
         "What is your refund policy?",
-        [ "Subscriptions are generally non-refundable. However, if you're dissatisfied with the quality of our offering we will either work with you to resolve the issue, reinstate your quota or issue a pro-rata refund." ]
+        [ "Credits are generally non-refundable. However, if you're dissatisfied with the quality of our offering we will either work with you to resolve the issue, credit your account or issue a pro-rata refund. Please refer to the <a href='/terms'>terms of use</a>." ]
       ]
     ]
   }

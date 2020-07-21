@@ -452,21 +452,19 @@
                   </td>
                 </tr>
                 <tr>
-                  <th>Total payable now</th>
+                  <th>
+                    Total {{ order.status === 'Complete' ? '' : 'payable now' }}
+                  </th>
                   <td>
                     <span class="font-weight-bold">
                       {{
                         formatCurrency(order.total / 100, order.currency, true)
                       }}
                     </span>
-                    <span v-if="exchangeRate" class="text--disabled">
-                      (~{{
-                        formatCurrency(
-                          (order.total * exchangeRate) / 100,
-                          'USD'
-                        )
-                      }})
-                    </span>
+                    <AudToUsd
+                      v-if="order.currency.toUpperCase() === 'AUD'"
+                      :aud="order.total"
+                    />
                   </td>
                 </tr>
               </tbody>
@@ -713,6 +711,7 @@ import Account from '~/components/Account.vue'
 import CreditCards from '~/components/CreditCards.vue'
 import Progress from '~/components/Progress.vue'
 import Spinner from '~/components/Spinner.vue'
+import AudToUsd from '~/components/AudToUsd.vue'
 
 export default {
   components: {
@@ -720,7 +719,8 @@ export default {
     Account,
     CreditCards,
     Progress,
-    Spinner
+    Spinner,
+    AudToUsd
   },
   data() {
     return {
@@ -764,8 +764,7 @@ export default {
     ...mapState({
       user: ({ user }) => user.attrs,
       isAdmin: ({ user }) => user.attrs.admin || user.impersonating,
-      credits: ({ credits: { credits } }) => credits,
-      exchangeRate: ({ rate: { exchangeRate } }) => exchangeRate
+      credits: ({ credits: { credits } }) => credits
     }),
     billingAddress() {
       return [
@@ -828,7 +827,6 @@ export default {
 
       try {
         this.getCredits()
-        this.getRate()
 
         this.order = (await this.$axios.get(`orders/${id}`)).data
       } catch (error) {
@@ -841,8 +839,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      getCredits: 'credits/get',
-      getRate: 'rate/get'
+      getCredits: 'credits/get'
     }),
     async pay() {
       this.error = false

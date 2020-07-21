@@ -35,6 +35,23 @@
         <li>Endpoints are HTTPS only</li>
       </ul>
 
+      <h2 id="pricing" class="mt-8 mb-2">
+        Pricing
+        <a href="#pricing">
+          <v-icon color="accent">mdi-link</v-icon>
+        </a>
+      </h2>
+
+      <p>
+        API calls deduct credits from your balance. Credits are included in
+        <nuxt-link to="/pricing">plans</nuxt-link> and can also be
+        <nuxt-link :to="{ path: '/pricing', hash: 'credits' }"
+          >purchased directly</nuxt-link
+        >. To determine the number of credits spent per request, refer to the
+        <nuxt-link :to="{ path: '/pricing', hash: 'usage' }">pricing</nuxt-link>
+        page.
+      </p>
+
       <h2 id="authentication" class="mt-8 mb-2">
         Authentication
         <a href="#authentication">
@@ -60,26 +77,12 @@
             <tr>
               <td><code>x-api-key</code></td>
               <td>
-                <em><code>&lt;Your API key&gt;</code></em>
+                <em><code>&lt;your api key&gt;</code></em>
               </td>
             </tr>
           </tbody>
         </v-simple-table>
       </v-card>
-
-      <h2 id="demo-api-key" class="mt-8 mb-2">
-        Demo API key
-        <a href="#demo-api-key">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h2>
-
-      <p>
-        Use the API key below to try the APIs before purchasing a subscription.
-        It's good for ten requests per day across all APIs.
-      </p>
-
-      <p><code>wappalyzer.api.demo.key</code></p>
 
       <h2 id="response-codes" class="mt-8 mb-2">
         Response codes
@@ -134,7 +137,7 @@
             </tr>
             <tr>
               <td><code>429</code></td>
-              <td>Usage plan quota exceeded</td>
+              <td>Rate limit exceeded or insufficient credits</td>
             </tr>
           </tbody>
         </v-simple-table>
@@ -194,16 +197,15 @@
         </v-simple-table>
       </v-card>
 
-      <h2 id="limits-usage" class="mt-8 mb-2">
-        Limits &amp; usage
-        <a href="#limits-usage">
+      <h2 id="credit-balance" class="mt-8 mb-2">
+        Credit balance
+        <a href="#credit-balance">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h2>
 
       <p>
-        Every request includes response headers detailing the API limits and
-        your usage.
+        Every response includes a header with your credit balance.
       </p>
 
       <v-card class="my-4" flat outlined>
@@ -217,47 +219,15 @@
           <tbody>
             <tr>
               <td>
-                <code>wappalyzer-rate-limit</code>
+                <code>wappalyzer-credits-remaining</code>
               </td>
               <td>
-                The maximum number of request that can be made per second
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <code>wappalyzer-quota-limit</code>
-              </td>
-              <td>
-                The total number of requests that can be made within the time
-                period
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <code>wappalyzer-quota-period</code>
-              </td>
-              <td>
-                The period of time after which the quota is reset (e.g.
-                <code>MONTH</code>)
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <code>wappalyzer-quota-remaining</code>
-              </td>
-              <td>
-                The remaining number of requests that can be made within the
-                time period
+                Your credit balance
               </td>
             </tr>
           </tbody>
         </v-simple-table>
       </v-card>
-
-      <v-alert icon="mdi-lightbulb-on-outline" outlined>
-        The remaining quota value is updated periodically and should be treated
-        as an estimate
-      </v-alert>
     </Page>
   </div>
 </template>

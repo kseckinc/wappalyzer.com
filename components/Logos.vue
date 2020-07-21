@@ -3,7 +3,7 @@
     <v-divider class="mb-12" />
 
     <v-container class="logos text-center mb-6">
-      <p class="overline">
+      <p class="overline font-weight-regular">
         Wappalyzer is trusted by thousands of professionals world-wide
       </p>
 

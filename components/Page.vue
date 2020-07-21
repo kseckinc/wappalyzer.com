@@ -8,7 +8,7 @@
       </v-row>
       <v-row v-else-if="sideNav.length">
         <v-col cols="12" sm="4" lg="3" order="2" order-sm="0">
-          <Credits v-if="secure && isSignedIn" />
+          <Credits v-if="secure && isSignedIn" variant />
 
           <SideNav :items="sideNav" />
         </v-col>

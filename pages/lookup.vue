@@ -2,24 +2,7 @@
   <Page :title="title" :head="meta" hero no-heading>
     <v-row>
       <v-col sm="8" md="12" lg="8" class="py-0">
-        <template v-if="isSignedIn">
-          <v-card class="mt-4 mb-6" flat outlined>
-            <v-card-text class="pa-2 pl-4">
-              <v-row align="center">
-                <v-col class="py-0">
-                  Credit balance:
-                  <Spinner v-if="credits === null" />
-                  <span v-else class="font-weight-medium">
-                    {{ formatNumber(credits) }}
-                  </span>
-                </v-col>
-                <v-col class="py-0 text-right">
-                  <v-btn to="/credits" text>Buy credits</v-btn>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
-        </template>
+        <Credits class="mt-8" />
 
         <h3 class="mb-4">Lookup</h3>
 
@@ -100,7 +83,7 @@ import Page from '~/components/Page.vue'
 import SignIn from '~/components/SignIn.vue'
 import Progress from '~/components/Progress.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
-import Spinner from '~/components/Spinner.vue'
+import Credits from '~/components/Credits.vue'
 import { lookup as meta } from '~/assets/json/meta.json'
 
 export default {
@@ -109,7 +92,7 @@ export default {
     SignIn,
     Progress,
     TechnologyIcon,
-    Spinner
+    Credits
   },
   data() {
     return {

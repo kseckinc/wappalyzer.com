@@ -7,8 +7,8 @@
       </h1>
 
       <p>
-        Fetch and analyse a domain. The crawler fetches up to 25 pages in
-        real-time and returns the combined results.
+        Identify the technologies used on any public website in real-time.
+        Results are always guaranteed up-to-date and delivered within minutes.
       </p>
 
       <p>
@@ -99,8 +99,7 @@
 
       <pre
         class="mb-4"
-      ><Prism language="bash" class="body-2">curl -H "x-api-key: wappalyzer.api.demo.key" \
-"https://api.wappalyzer.com/crawl/v1/?url=https://example.com&amp;callback_url=https://example.com"</Prism></pre>
+      ><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/crawl/v1/?url=https://example.com&amp;callback_url=https://example.com"</Prism></pre>
 
       <p><strong>Example response (<code>202</code>)</strong></p>
 

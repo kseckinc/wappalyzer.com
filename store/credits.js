@@ -10,8 +10,15 @@ export const mutations = {
 
 export const actions = {
   async get({ state, commit, dispatch }, attributes) {
-    const { credits } = (await this.$axios.get('credits')).data
+    try {
+      const { credits } = (await this.$axios.get('credits')).data
 
-    commit('set', credits)
+      commit('set', credits)
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error)
+
+      commit('set', 0)
+    }
   }
 }

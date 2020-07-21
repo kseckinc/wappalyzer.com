@@ -6,7 +6,10 @@
         <a href="#analyze-api"><v-icon color="accent">mdi-link</v-icon></a>
       </h1>
 
-      <p>Fetch and analyse a single web page in real-time.</p>
+      <p>
+        Identify the technologies used on any public URL in real-time. Results
+        are always guaranteed up-to-date and delivered within seconds.
+      </p>
 
       <h2 id="endpoint" class="mt-8 mb-2">
         Endpoint
@@ -84,8 +87,7 @@
 
       <pre
         class="mb-4"
-      ><Prism language="bash" class="body-2">curl -H "x-api-key: wappalyzer.api.demo.key" \
-"https://api.wappalyzer.com/analyze/v1/?url=https://example.com"</Prism></pre>
+      ><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/analyze/v1/?url=https://example.com"</Prism></pre>
 
       <p><strong>Example response (success)</strong></p>
 

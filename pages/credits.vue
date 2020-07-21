@@ -8,8 +8,18 @@
     </v-alert>
 
     <div class="mb-4">
+      <v-btn @click="addDialog = true" v-if="isAdmin" color="success" outlined>
+        <v-icon left>mdi-alpha-c-circle</v-icon>
+        Add credits
+      </v-btn>
+
       <v-btn href="/pricing" color="accent" outlined>
+        <v-icon left>mdi-alpha-c-circle</v-icon>
         Plans &amp; pricing
+      </v-btn>
+      <v-btn href="/faq/credits" color="accent" outlined>
+        <v-icon left>mdi-forum</v-icon>
+        FAQs
       </v-btn>
     </div>
 
@@ -18,7 +28,7 @@
         <v-card-title>
           Packs
         </v-card-title>
-        <v-card-text v-if="!add.length" class="pb-0">
+        <v-card-text v-if="!adds.length" class="pb-0">
           <v-alert color="info" class="mb-0" outlined>
             You don't have any active credit packs.
           </v-alert>
@@ -36,7 +46,7 @@
             </thead>
 
             <tbody>
-              <tr v-for="item in add">
+              <tr v-for="item in adds">
                 <td>
                   {{ item.description }}
                 </td>
@@ -68,7 +78,10 @@
         <v-card-title>
           Usage
         </v-card-title>
-        <v-card-text v-if="!spend.length">
+        <v-card-text class="pb-0">
+          These are your credit spends for the last 60 days.
+        </v-card-text>
+        <v-card-text v-if="!spends.length">
           <v-alert color="info" class="mb-0" outlined>
             You don't have credit usage.
           </v-alert>
@@ -84,9 +97,9 @@
             </thead>
 
             <tbody>
-              <tr v-for="item in spend">
+              <tr v-for="item in spends">
                 <td>
-                  {{ item.descripion }}
+                  {{ item.description }}
                 </td>
                 <td>
                   {{ formatDate(new Date(item.createdAt * 1000)) }}
@@ -192,11 +205,42 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+
+      <v-dialog v-model="addDialog" max-width="400px" eager>
+        <v-card>
+          <v-card-title>
+            Add credits
+          </v-card-title>
+          <v-card-text class="pb-0">
+            <v-alert v-if="addError" type="error">
+              {{ addError }}
+            </v-alert>
+
+            <v-form>
+              <v-text-field
+                v-model="credits"
+                :rules="rules.credits"
+                label="Credits"
+              />
+              <v-text-field v-model="description" label="Description" />
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn @click="addDialog = false" color="accent" text>Cancel</v-btn>
+            <v-btn @click="add" :loading="adding" color="accent" text
+              >Add</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </template>
   </Page>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
 import Page from '~/components/Page.vue'
 
 export default {
@@ -206,12 +250,17 @@ export default {
   data() {
     return {
       title: 'Credits',
-      add: [],
+      adds: [],
+      addDialog: false,
+      adding: false,
+      addError: false,
       credits: 100,
+      description: 'Complimentary credits',
       rules: {
         credits: [
           (v) => /^[0-9]+$/.test(v),
-          (v) => (parseInt(v) >= 100 ? true : 'Minimum 100 credits'),
+          (v) =>
+            parseInt(v) >= 100 || this.isAdmin ? true : 'Minimum 100 credits',
           (v) => (parseInt(v) < 10000000 ? true : 'Maximum 10,000,000 credits')
         ]
       },
@@ -219,19 +268,24 @@ export default {
       orderError: false,
       order: false,
       submitting: false,
-      spend: [],
+      spends: [],
       error: false,
       loading: true,
       success: false
     }
   },
+  computed: {
+    ...mapState({
+      user: ({ user }) => user.attrs,
+      isAdmin: ({ user }) => user.attrs.admin || user.impersonating
+    })
+  },
   watch: {
     async '$store.state.user.isSignedIn'(isSignedIn) {
       if (isSignedIn) {
         try {
-          ;({ usage: this.add } = (await this.$axios.get('credits/add')).data)
-          ;({ usage: this.spend } = (
-            await this.$axios.get('credits/spend')
+          ;({ add: this.adds, spend: this.spends } = (
+            await this.$axios.get('credits/usage')
           ).data)
 
           this.loading = false
@@ -245,9 +299,8 @@ export default {
     if (this.$store.state.user.isSignedIn) {
       try {
         await Promise.all([
-          ({ usage: this.add } = (await this.$axios.get('credits/add')).data),
-          ({ usage: this.spend } = (
-            await this.$axios.get('credits/spend')
+          ({ add: this.adds, spend: this.spends } = (
+            await this.$axios.get('credits/usage')
           ).data)
         ])
 
@@ -258,6 +311,30 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      getCredits: 'credits/get'
+    }),
+    async add() {
+      this.addError = ''
+      this.adding = true
+
+      try {
+        await this.$axios.put('credits', {
+          credits: parseInt(this.credits, 10),
+          description: this.description
+        })
+
+        this.getCredits()
+        ;({ add: this.adds, spend: this.spends } = (
+          await this.$axios.get('credits/usage')
+        ).data)
+      } catch (error) {
+        this.addError = this.getErrorMessage(error)
+      }
+
+      this.adding = false
+      this.addDialog = false
+    },
     async submit() {
       this.orderError = ''
       this.submitting = true

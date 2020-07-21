@@ -1,6 +1,6 @@
 <template>
   <v-app light>
-    <v-content>
+    <v-main>
       <Header
         :mainNav="mainNav"
         :userNav="userNav"
@@ -11,7 +11,7 @@
       />
       <nuxt />
       <Footer :mainNav="mainNav" />
-    </v-content>
+    </v-main>
     <Drawer ref="drawer" :mainNav="mainNav" :userNav="userNav" :user="user" />
     <script
       async

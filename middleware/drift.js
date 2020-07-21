@@ -5,12 +5,7 @@ const shown = []
 const routes = {
   '/about': null,
   '/account': null,
-  '/alerts/manage': null,
-  '/alerts': `Hi there! Please let me know if you need any help choosing a plan.`,
   '/apikey': null,
-  '/api/analyze': `Hi there! Please let me know if you need any help choosing a plan.`,
-  '/api/crawl': `Hi there! Please let me know if you need any help choosing a plan.`,
-  '/api/lookup': `Hi there! Please let me know if you need any help choosing a plan.`,
   '/api': `Hi there! Please let me know if you have any questions about our APIs.`,
   '/bulk': `Hi there! Please let me know if you have any questions about bulk lookups.`,
   '/contact': `Hi there! Please let me know if you have any questions and I'll be happy to help.`,

@@ -7,14 +7,16 @@
       </h1>
 
       <p>
-        Look up a domain in the Wappalyzer database. Results are near-instant
-        and site-wide and include historic data where available.
+        Perform near-instant technology lookups with the Lookup API. Results are
+        fetched from our comprehensive database of millions of websites. If we
+        haven't seen a domain before, we'll index it immediately and report back
+        within minutes.
       </p>
 
       <p>
-        If Wappalyzer hasn't seen the domain before, it will be indexed
-        automatically. Results are sent to an optional callback URL once they
-        become available.
+        Results are site-wide and may even include pages behind logins that
+        typical crawlers can't reach. Where available, country, language and
+        traffic data are included.
       </p>
 
       <h2 id="endpoint" class="mt-8 mb-4">
@@ -113,8 +115,7 @@
 
       <pre
         class="mb-4"
-      ><Prism language="bash" class="body-2">curl -H "x-api-key: wappalyzer.api.demo.key" \
-"https://api.wappalyzer.com/lookup/v1/?url=https://example.com&amp;callback_url=https://example.com"</Prism></pre>
+      ><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v1/?url=https://example.com&amp;callback_url=https://example.com"</Prism></pre>
 
       <p><strong>Example response (<code>200</code>)</strong></p>
 
