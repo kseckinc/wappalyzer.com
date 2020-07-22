@@ -44,7 +44,6 @@
                 <th width="15%">Remaining</th>
               </tr>
             </thead>
-
             <tbody>
               <tr v-for="item in adds">
                 <td>
@@ -170,7 +169,7 @@
           <v-card-text class="pb-0">
             <v-form v-on:submit.prevent="submit">
               <v-row>
-                <v-col cols="7">
+                <v-col cols="7" class="py-0">
                   <v-text-field
                     v-model="credits"
                     :rules="rules.credits"
@@ -179,7 +178,7 @@
                     dense
                   />
                 </v-col>
-                <v-col>
+                <v-col class="py-0">
                   <v-text-field
                     :value="
                       formatCurrency(

@@ -75,7 +75,7 @@
               <tr>
                 <td><nuxt-link to="/alerts">Website alert</nuxt-link></td>
                 <td>
-                  10 per alert per month
+                  10 per alert every 30 days
                 </td>
               </tr>
               <tr>

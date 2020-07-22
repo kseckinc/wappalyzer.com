@@ -23,6 +23,7 @@
                 <th>Website</th>
                 <th>Created</th>
                 <th>Last checked</th>
+                <th>Enabled</th>
                 <th></th>
               </tr>
             </thead>
@@ -35,6 +36,14 @@
                 </td>
                 <td>{{ formatDate(new Date(alert.createdAt * 1000)) }}</td>
                 <td>{{ formatDate(new Date(alert.updatedAt * 1000)) }}</td>
+                <td>
+                  <v-checkbox
+                    v-model="alert.enabled"
+                    @change="toggle(alert)"
+                    class="ma-0 pa-0"
+                    hide-details
+                  ></v-checkbox>
+                </td>
                 <td width="1">
                   <v-btn
                     @click="
@@ -72,7 +81,7 @@
             </v-alert>
 
             <p>
-              One alert costs 10 credits per month.
+              One alert costs 10 credits per 30 days.
             </p>
 
             <Credits class="mb-8" />
@@ -281,6 +290,17 @@ export default {
       }
 
       this.removing = false
+    },
+    async toggle(alert) {
+      this.error = false
+
+      try {
+        await this.$axios.patch(`alerts/${encodeURIComponent(alert.url)}`, {
+          enabled: alert.enabled
+        })
+      } catch (error) {
+        this.error = this.getErrorMessage(error)
+      }
     }
   }
 }

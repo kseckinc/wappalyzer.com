@@ -1,5 +1,5 @@
 <template>
-  <Page :title="title" :loading="subscribing" no-heading no-subscribe>
+  <Page :title="title" :loading="unsubscribing" no-heading no-subscribe>
     <v-alert v-if="success" type="success" outlined>
       {{ success }}
     </v-alert>
@@ -24,8 +24,8 @@ export default {
   },
   data() {
     return {
-      title: 'Subscribe',
-      subscribing: true,
+      title: 'Unsubscribe',
+      unsubscribing: true,
       error: false,
       success: false
     }
@@ -34,14 +34,14 @@ export default {
     const { email } = this.$route.params
 
     try {
-      await this.$axios.put(`subscribers/${email}`)
+      await this.$axios.delete(`subscribers/${email}`)
 
-      this.success = 'Thank you for subscribing!'
+      this.success = 'You have been unsubscribed from our mailing list.'
     } catch (error) {
       this.error = this.getErrorMessage(error)
     }
 
-    this.subscribing = false
+    this.unsubscribing = false
   }
 }
 </script>
