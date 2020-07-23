@@ -16,7 +16,11 @@
       <v-alert v-if="error" outlined type="error">
         {{ error }}
       </v-alert>
-      <v-alert v-if="mode === 'signUp'" color="secondary" class="mx-n6 px-6">
+      <v-alert
+        v-if="!noBanner && mode === 'signUp'"
+        color="secondary"
+        class="mx-n6 px-6"
+      >
         Sign up for free to receive 50 credits monthly. See all
         <nuxt-link to="/pricing">plans &amp; pricing</nuxt-link>.
       </v-alert>
@@ -190,6 +194,10 @@ export default {
       default: false
     },
     modeContinue: {
+      type: Boolean,
+      default: false
+    },
+    noBanner: {
       type: Boolean,
       default: false
     }

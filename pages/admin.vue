@@ -18,6 +18,7 @@
             :rules="[(v) => !v || /@/.test(v) || 'Enter a valid email address']"
             label="Email address"
             required
+            hide-details="auto"
           />
         </v-form>
       </v-card-text>

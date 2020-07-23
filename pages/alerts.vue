@@ -16,34 +16,34 @@
             You haven't added any websites to monitor yet.
           </v-alert>
         </v-card-text>
-        <v-card-text v-else class="px-0">
+        <v-card-text v-else class="px-0 pt-0">
           <v-simple-table>
             <thead>
               <tr>
+                <th width="1">Enabled</th>
                 <th>Website</th>
-                <th>Created</th>
-                <th>Last checked</th>
-                <th>Enabled</th>
-                <th></th>
+                <th width="20%">Created</th>
+                <th width="20%">Last checked</th>
+                <th width="1"></th>
               </tr>
             </thead>
 
             <tbody>
               <tr v-for="alert in alerts">
                 <td>
+                  <v-switch
+                    v-model="alert.enabled"
+                    @change="toggle(alert)"
+                    class="ma-0 pa-0 mx-auto"
+                    hide-details
+                  />
+                </td>
+                <td>
                   <a :href="alert.url" target="_blank">{{ alert.url }}</a>
                   <v-icon small>mdi-open-in-new</v-icon>
                 </td>
                 <td>{{ formatDate(new Date(alert.createdAt * 1000)) }}</td>
                 <td>{{ formatDate(new Date(alert.updatedAt * 1000)) }}</td>
-                <td>
-                  <v-checkbox
-                    v-model="alert.enabled"
-                    @change="toggle(alert)"
-                    class="ma-0 pa-0"
-                    hide-details
-                  ></v-checkbox>
-                </td>
                 <td width="1">
                   <v-btn
                     @click="
@@ -86,7 +86,7 @@
 
             <Credits class="mb-8" />
 
-            <v-form v-on:submit.prevent="create">
+            <v-form ref="form" v-on:submit.prevent="create">
               <v-text-field
                 v-model="url"
                 :rules="rules.url"
@@ -182,10 +182,6 @@ export default {
       rules: {
         url: [
           (v) => {
-            if (!v) {
-              return true
-            }
-
             try {
               new URL(v.trim()) // eslint-disable-line no-new
 
@@ -256,18 +252,20 @@ export default {
       this.createError = false
       this.creating = true
 
-      try {
-        await this.$axios.put('alerts', {
-          url: this.url.trim()
-        })
-        ;({ alerts: this.alerts } = (await this.$axios.get('alerts')).data)
+      if (this.$refs.form.validate()) {
+        try {
+          await this.$axios.put('alerts', {
+            url: this.url.trim()
+          })
+          ;({ alerts: this.alerts } = (await this.$axios.get('alerts')).data)
 
-        this.success = 'The alert has been created'
-        this.url = ''
+          this.success = 'The alert has been created'
+          this.url = ''
 
-        this.createDialog = false
-      } catch (error) {
-        this.createError = this.getErrorMessage(error)
+          this.createDialog = false
+        } catch (error) {
+          this.createError = this.getErrorMessage(error)
+        }
       }
 
       this.creating = false

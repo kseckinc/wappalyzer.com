@@ -35,6 +35,33 @@
           ><v-icon left>mdi-pencil</v-icon> Edit details</v-btn
         >
       </v-card-actions>
+
+      <v-divider />
+
+      <v-card-title>Credits</v-card-title>
+
+      <v-card-text class="px-0 pb-0">
+        <v-simple-table>
+          <tbody>
+            <tr>
+              <th width="30%">Balance</th>
+              <td>
+                <Spinner v-if="credits === null" />
+                <template v-else>
+                  {{ formatNumber(credits) }}
+                </template>
+              </td>
+            </tr>
+          </tbody>
+        </v-simple-table>
+      </v-card-text>
+
+      <v-card-actions>
+        <v-spacer />
+        <v-btn to="/credits" color="accent" text
+          ><v-icon left>mdi-alpha-c-circle</v-icon> Buy credits</v-btn
+        >
+      </v-card-actions>
     </v-card>
 
     <v-dialog v-model="billingDialog" width="80%" max-width="700">
@@ -49,16 +76,19 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
+
 import Page from '~/components/Page.vue'
 import Account from '~/components/Account.vue'
 import CreditCards from '~/components/CreditCards.vue'
+import Spinner from '~/components/Spinner.vue'
 
 export default {
   components: {
     Page,
     Account,
-    CreditCards
+    CreditCards,
+    Spinner
   },
   data() {
     return {
@@ -70,7 +100,8 @@ export default {
   },
   computed: {
     ...mapState({
-      user: ({ user }) => user.attrs
+      user: ({ user }) => user.attrs,
+      credits: ({ credits }) => credits.credits
     })
   },
   watch: {
@@ -82,6 +113,14 @@ export default {
     user() {
       this.billingDialog = false
     }
+  },
+  created() {
+    this.getCredits()
+  },
+  methods: {
+    ...mapActions({
+      getCredits: 'credits/get'
+    })
   }
 }
 </script>

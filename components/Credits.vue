@@ -1,5 +1,6 @@
 <template>
   <v-card
+    v-if="isSignedIn"
     :color="variant ? 'secondary' : ''"
     :outlined="!variant"
     class="mb-4"
@@ -46,8 +47,16 @@ export default {
   },
   computed: {
     ...mapState({
+      isSignedIn: ({ user }) => user.isSignedIn,
       credits: ({ credits: { credits } }) => credits
     })
+  },
+  watch: {
+    '$store.state.user.isSignedIn'(isSignedIn) {
+      if (isSignedIn) {
+        this.getCredits()
+      }
+    }
   },
   created() {
     if (this.$store.state.user.isSignedIn) {

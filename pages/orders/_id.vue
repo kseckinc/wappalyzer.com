@@ -44,7 +44,7 @@
       </v-alert>
 
       <v-alert v-if="order.status === 'Pending'" type="info" outlined>
-        <template v-if="['Alerts', 'API'].includes(order.product)">
+        <template v-if="['Subscription'].includes(order.product)">
           Your card could not be charged automatically, please use the invoice
           to complete the payment. An additional step may be required by your
           card issuer to authorise the transaction.
@@ -63,18 +63,19 @@
       </v-alert>
 
       <v-alert v-if="order.status === 'Complete'" type="success">
-        <template v-if="['Alerts', 'API'].includes(order.product)">
+        <template v-if="order.product === 'Subscription'">
           Thank you for your payment, your subscription has been created.
         </template>
         <template
-          v-else-if="
-            order.product === 'Dataset' || order.product === 'Bulk lookup'
-          "
+          v-else-if="['Dataset', 'Bulk lookup'].includes(order.product)"
         >
           Thank you for your payment, your dataset is ready.
         </template>
         <template v-else-if="order.product === 'Credits'">
           Thank you for your payment, credits have been added to your balance.
+        </template>
+        <template v-else>
+          Thank you for your payment.
         </template>
       </v-alert>
 
@@ -116,22 +117,6 @@
           color="accent"
           outlined
           ><v-icon left>mdi-calendar-repeat</v-icon>Subscription</v-btn
-        >
-
-        <v-btn
-          v-if="order.status === 'Complete' && order.product === 'API'"
-          to="/apikey"
-          color="accent"
-          outlined
-          ><v-icon left>mdi-key-variant</v-icon> API key</v-btn
-        >
-
-        <v-btn
-          v-if="order.status === 'Complete' && order.product === 'Alerts'"
-          to="/alerts/manage"
-          color="accent"
-          outlined
-          ><v-icon left>mdi-bullhorn</v-icon> Alerts</v-btn
         >
       </template>
 
@@ -205,15 +190,11 @@
           <v-divider />
 
           <v-card-title>
-            {{
-              ['Alerts', 'API'].includes(order.product)
-                ? 'Subscription'
-                : order.product
-            }}
+            {{ order.product }}
           </v-card-title>
 
           <v-card-text class="px-0">
-            <v-simple-table v-if="['Alerts', 'API'].includes(order.product)">
+            <v-simple-table v-if="order.product === 'Subscription'">
               <tbody>
                 <tr>
                   <th width="30%">Plan</th>
@@ -522,10 +503,7 @@
             Payment
           </v-card-title>
 
-          <v-card-text
-            v-if="!['Alerts', 'API'].includes(order.product)"
-            class="px-0"
-          >
+          <v-card-text v-if="order.product !== 'Subscription'" class="px-0">
             <v-simple-table>
               <tbody>
                 <tr>
@@ -552,6 +530,7 @@
 
             <v-divider class="mt-4 mb-n4" />
           </v-card-text>
+
           <v-card-text v-if="paymentMethod === 'stripe'" class="px-0 pb-0">
             <div v-if="!cardsLoaded" class="d-flex justify-center py-2 pb-6">
               <Progress />
@@ -575,7 +554,7 @@
                 ><v-icon left>mdi-credit-card</v-icon> Pay now</v-btn
               >
               <v-btn
-                v-if="!['Alerts', 'API'].includes(order.product)"
+                v-if="!order.product !== 'Subscription'"
                 @click="invoice"
                 :loading="invoicing"
                 :disabled="!user.billingEmail"
@@ -604,9 +583,9 @@
           <v-card-text v-if="paymentMethod === 'credits'" class="pa-0">
             <div class="d-flex justify-center py-8">
               <v-btn
-                @click="() => {}"
-                :loading="crediting"
-                :disabled="!credits || credits < order.credits"
+                @click="pay"
+                :loading="paying"
+                :disabled="creditBalance < order.credits"
                 class="primary"
                 large
               >
@@ -614,6 +593,35 @@
                 Spend {{ formatNumber(order.credits || 0) }} credits
               </v-btn>
             </div>
+          </v-card-text>
+        </template>
+
+        <template v-if="order.status === 'Complete'">
+          <v-divider />
+
+          <v-card-title>
+            Payment
+          </v-card-title>
+          <v-card-text class="px-0">
+            <v-simple-table>
+              <tbody>
+                <tr>
+                  <th width="30%">Method</th>
+                  <td v-if="order.paymentMethod === 'stripe'">
+                    Credit card
+                  </td>
+                  <td v-if="order.paymentMethod === 'paypal'">
+                    PayPal
+                  </td>
+                  <td v-if="order.paymentMethod === 'credits'">
+                    Credits ({{ formatNumber(order.credits) }})
+                  </td>
+                  <td v-else></td>
+                </tr>
+              </tbody>
+            </v-simple-table>
+
+            <v-divider class="mt-4 mb-n4" />
           </v-card-text>
         </template>
       </v-card>
@@ -677,7 +685,13 @@
               <v-select v-model="status" :items="statusItems" label="Status" />
 
               <v-text-field
-                v-if="!['Alerts', 'API'].includes(order.product)"
+                v-if="!['Subscription', 'Credits'].includes(order.product)"
+                v-model="credits"
+                label="Credits"
+              />
+
+              <v-text-field
+                v-if="order.product !== 'Subscription'"
                 v-model="discount"
                 :label="
                   `Discount (subtotal ${formatCurrency(
@@ -735,6 +749,7 @@ export default {
       checks: 0,
       datasetsBaseUrl: process.env.DATASETS_BASE_URL,
       bulkLookupBaseUrl: process.env.BULK_LOOKUP_BASE_URL,
+      credits: 0,
       discount: 0,
       editDialog: false,
       editError: false,
@@ -764,7 +779,7 @@ export default {
     ...mapState({
       user: ({ user }) => user.attrs,
       isAdmin: ({ user }) => user.attrs.admin || user.impersonating,
-      credits: ({ credits: { credits } }) => credits
+      creditBalance: ({ credits: { credits } }) => credits
     }),
     billingAddress() {
       return [
@@ -804,8 +819,9 @@ export default {
     user() {
       this.billingDialog = false
     },
-    order({ id, status, discount }) {
+    order({ id, status, credits, discount }) {
       this.status = status
+      this.credits = credits
       this.discount = discount / 100
 
       if (status === 'Calculating') {
@@ -849,14 +865,20 @@ export default {
       try {
         const { id } = this.$route.params
 
-        if (['Alerts', 'API'].includes(this.order.product)) {
+        if (this.order.product === 'Subscription') {
           await this.$axios.patch(`orders/${id}`, {
             stripePaymentMethod:
               this.paymentMethod === 'stripe' ? this.stripePaymentMethod : null
           })
 
           this.order = (await this.$axios.get(`orders/${id}`)).data
-        } else {
+        } else if (this.paymentMethod === 'credits') {
+          await this.$axios.patch(`orders/${id}`, {
+            paymentMethod: 'credits'
+          })
+
+          this.order = (await this.$axios.get(`orders/${id}`)).data
+        } else if (this.paymentMethod === 'stripe') {
           if (!this.order.stripePaymentIntent.id) {
             await this.$axios.patch(`orders/${id}`)
 
@@ -897,8 +919,6 @@ export default {
               })
 
               if (this.order.status === 'Complete') {
-                this.getCredits()
-
                 break
               }
             }
@@ -917,6 +937,8 @@ export default {
       }
 
       this.paying = false
+
+      this.getCredits()
 
       this.scrollToTop()
     },
@@ -970,6 +992,7 @@ export default {
 
         await this.$axios.patch(`orders/${id}`, {
           status: this.status,
+          credits: this.credits,
           discount: Math.min(this.discount * 100, this.order.subtotal)
         })
 

@@ -71,7 +71,7 @@
     </v-row>
 
     <v-dialog v-model="signInDialog" max-width="400px">
-      <SignIn mode-continue />
+      <SignIn mode-sign-up mode-continue />
     </v-dialog>
   </Page>
 </template>

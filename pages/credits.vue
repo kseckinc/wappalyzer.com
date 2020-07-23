@@ -46,7 +46,19 @@
             </thead>
             <tbody>
               <tr v-for="item in adds">
-                <td>
+                <td
+                  v-if="item.subscriptionId && item.subscriptionId !== 'free'"
+                >
+                  <nuxt-link :to="`/subscriptions/${item.subscriptionId}`">
+                    {{ item.description }}
+                  </nuxt-link>
+                </td>
+                <td v-else-if="item.orderId">
+                  <nuxt-link :to="`/orders/${item.orderId}`">
+                    {{ item.description }}
+                  </nuxt-link>
+                </td>
+                <td v-else>
                   {{ item.description }}
                 </td>
                 <td>
@@ -97,7 +109,12 @@
 
             <tbody>
               <tr v-for="item in spends">
-                <td>
+                <td v-if="item.orderId">
+                  <nuxt-link :to="`/orders/${item.orderId}`">
+                    {{ item.description }}
+                  </nuxt-link>
+                </td>
+                <td v-else>
                   {{ item.description }}
                 </td>
                 <td>

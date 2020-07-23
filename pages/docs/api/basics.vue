@@ -31,7 +31,7 @@
           data format is used for responses and POST requests
         </li>
         <li>All resources require authentication</li>
-        <li>Requests are rate-limited and capped to a monthly quota</li>
+        <li>Requests are rate-limited and metered</li>
         <li>Endpoints are HTTPS only</li>
       </ul>
 
@@ -131,13 +131,13 @@
             <tr>
               <td><code>403</code></td>
               <td>
-                Authorisation failure (incorrect API key or invalid method or
-                resource)
+                Authorisation failure (incorrect API key, invalid method or
+                resource or insufficient credits)
               </td>
             </tr>
             <tr>
               <td><code>429</code></td>
-              <td>Rate limit exceeded or insufficient credits</td>
+              <td>Rate limit exceeded</td>
             </tr>
           </tbody>
         </v-simple-table>

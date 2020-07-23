@@ -253,7 +253,7 @@ export default {
       try {
         this.order = (
           await this.$axios.put('orders', {
-            product: 'API',
+            product: 'Subscription',
             plan
           })
         ).data

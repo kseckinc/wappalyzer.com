@@ -166,7 +166,7 @@
     </v-row>
 
     <v-dialog v-model="signInDialog" max-width="400px">
-      <SignIn mode-sign-up />
+      <SignIn mode-sign-up no-banner />
     </v-dialog>
   </v-container>
 </template>

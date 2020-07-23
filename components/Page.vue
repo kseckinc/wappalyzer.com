@@ -3,9 +3,7 @@
     <Crumbs v-if="!noCrumbs" :crumbs="crumbNav" />
 
     <v-container class="py-10 py-sm-12">
-      <v-row v-if="secure && !isSignedIn" no-gutters>
-        <SignIn mode-continue />
-      </v-row>
+      <SignIn v-if="secure && !isSignedIn" class="px-2" mode-continue />
       <v-row v-else-if="sideNav.length">
         <v-col cols="12" sm="4" lg="3" order="2" order-sm="0">
           <Credits v-if="secure && isSignedIn" variant />

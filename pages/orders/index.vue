@@ -9,7 +9,7 @@
         <v-card-text v-if="!orders.length">
           <v-alert class="ma-0" color="info" outlined>
             <p>
-              You don't have any open orders.
+              You don't have any orders.
             </p>
 
             <v-btn to="/" color="accent" outlined>

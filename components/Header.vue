@@ -59,47 +59,35 @@
             </template>
             <v-menu offset-y left>
               <template v-slot:activator="{ on }">
-                <v-btn v-on="on" class="white--text" icon>
-                  <v-icon size="20">{{
-                    isSignedIn ? 'mdi-account-check' : 'mdi-account'
-                  }}</v-icon>
+                <v-btn
+                  v-on="on"
+                  :icon="!isSignedIn"
+                  class="font-weight-regular"
+                  color="white"
+                  dark
+                  text
+                >
+                  <v-icon :left="isSignedIn" size="20">mdi-account</v-icon>
+                  {{ user.email }}
                 </v-btn>
               </template>
 
-              <v-sheet v-if="user.email" color="white" tile>
-                <v-list nav dense>
-                  <v-list-item>
-                    <v-list-item-content>
-                      <v-list-item-title class="mb-2">
-                        Signed in as
-                      </v-list-item-title>
-
-                      <small>
-                        {{ user.email }}
-
-                        <v-btn
-                          v-if="user.admin"
-                          to="/admin"
-                          class="my-n2"
-                          color="success"
-                          icon
-                          small
-                        >
-                          <v-icon small>mdi-lock-open</v-icon>
-                        </v-btn>
-                      </small>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
-                <v-divider />
-              </v-sheet>
               <v-sheet tile>
                 <v-list nav dense>
+                  <v-list-item v-if="user.admin" to="/admin">
+                    <v-list-item-icon>
+                      <v-icon color="success" dense>mdi-lock-open</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                      <v-list-item-title>
+                        Administration
+                      </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
                   <v-list-item
                     v-for="{ title, to, icon } in userNav"
                     :key="title"
                     :to="to"
-                    color="primary"
                   >
                     <v-list-item-icon>
                       <v-icon dense>{{ icon }}</v-icon>
