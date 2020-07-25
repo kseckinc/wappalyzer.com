@@ -22,7 +22,7 @@
           href="https://github.com/aliasio/wappalyzer/blob/master/src/apps.json"
           target="_blank"
         >
-          <code>src/apps.jon</code> </a
+          <code>src/apps.json</code> </a
         >. The following is an example of an application fingerprint.
       </p>
 
@@ -178,9 +178,16 @@
               <td>String | Array</td>
               <td>
                 The presence of one application can imply the presence of
-                another, e.g. WordpPress means PHP is also in use. "PHP"
-                excludes String | Array Opposite of implies. The presence of one
-                application can exclude the presence of another.
+                another, e.g. WordpPress means PHP is also in use.
+              </td>
+              <td><code>"PHP"</code></td>
+            </tr>
+            <tr>
+              <td><code>excludes</code></td>
+              <td>String | Array</td>
+              <td>
+                Opposite of implies. The presence of one application can 
+                exclude the presence of another.
               </td>
               <td><code>"Apache"</code></td>
             </tr>

@@ -4,6 +4,7 @@
       <v-img
         :src="`/images/icons/${icon}`"
         class="d-inline-block"
+        contain
         max-height="16"
         max-width="16"
       />
