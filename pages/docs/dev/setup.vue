@@ -40,7 +40,7 @@ $ yarn run link</Prism></pre>
 
       <h2 id="drivers" class="mt-8 mb-2">
         Drivers
-        <a href="#drivers">
+        <a href="#drivers" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h2>
@@ -68,7 +68,7 @@ $ yarn run link</Prism></pre>
 
       <h3 id="chrome" class="mt-8 mb-2">
         Chrome and Edge extensions
-        <a href="#chrome">
+        <a href="#chrome" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h3>
@@ -82,7 +82,7 @@ $ yarn run link</Prism></pre>
 
       <h3 id="firefox" class="mt-8 mb-2">
         Firefox add-on
-        <a href="#firefox">
+        <a href="#firefox" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h3>
@@ -95,7 +95,7 @@ $ yarn run link</Prism></pre>
 
       <h3 id="nodejs" class="mt-8 mb-2">
         Node.js
-        <a href="#nodejs">
+        <a href="#nodejs" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h3>
@@ -129,3 +129,19 @@ export default {
   }
 }
 </script>
+
+<style>
+h2 .docs__anchor,
+h3 .docs__anchor {
+  visibility: hidden;
+}
+
+h2:hover .docs__anchor,
+h3:hover .docs__anchor {
+  visibility: visible;
+}
+
+.docs__anchor {
+  text-decoration: none;
+}
+</style>

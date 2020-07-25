@@ -1,9 +1,8 @@
 <template>
   <div>
     <Page :title="title" :side="side" no-head>
-      <h1 id="crawl-api" class="mb-4">
+      <h1 class="mb-4">
         Crawl API
-        <a href="#crawl-api"><v-icon color="accent">mdi-link</v-icon></a>
       </h1>
 
       <p>
@@ -18,14 +17,18 @@
 
       <h2 id="endpoint" class="mt-8 mb-2">
         Endpoint
-        <a href="#endpoint"><v-icon color="accent">mdi-link</v-icon></a>
+        <a href="#endpoint" class="docs__anchor"
+          ><v-icon color="accent">mdi-link</v-icon></a
+        >
       </h2>
 
       <p><code>GET</code> <code>https://api.wappalyzer.com/crawl/v1/</code></p>
 
       <h2 id="properties" class="mt-8 mb-2">
         Properties
-        <a href="#properties"><v-icon color="accent">mdi-link</v-icon></a>
+        <a href="#properties" class="docs__anchor"
+          ><v-icon color="accent">mdi-link</v-icon></a
+        >
       </h2>
 
       <v-card class="my-4" flat outlined>
@@ -55,7 +58,9 @@
 
       <h2 id="parameters" class="mt-8 mb-2">
         Parameters
-        <a href="#parameters"><v-icon color="accent">mdi-link</v-icon></a>
+        <a href="#parameters" class="docs__anchor"
+          ><v-icon color="accent">mdi-link</v-icon></a
+        >
       </h2>
 
       <v-card class="my-4" flat outlined>
@@ -92,7 +97,9 @@
 
       <h2 id="examples" class="mt-8 mb-2">
         Examples
-        <a href="#examples"><v-icon color="accent">mdi-link</v-icon></a>
+        <a href="#examples" class="docs__anchor"
+          ><v-icon color="accent">mdi-link</v-icon></a
+        >
       </h2>
 
       <p><strong>Example request</strong></p>
@@ -172,3 +179,19 @@ export default {
   }
 }
 </script>
+
+<style>
+h2 .docs__anchor,
+h3 .docs__anchor {
+  visibility: hidden;
+}
+
+h2:hover .docs__anchor,
+h3:hover .docs__anchor {
+  visibility: visible;
+}
+
+.docs__anchor {
+  text-decoration: none;
+}
+</style>

@@ -1,11 +1,8 @@
 <template>
   <div>
     <Page :title="title" :side="side" no-head>
-      <h1 id="specification" class="mb-4">
+      <h1 class="mb-4">
         Specification
-        <a href="#specification">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
       </h1>
 
       <p>
@@ -57,7 +54,7 @@
 
       <h2 id="json-fields" class="mt-8 mb-2">
         JSON fields
-        <a href="#json-fields">
+        <a href="#json-fields" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h2>
@@ -75,7 +72,7 @@
 
       <h3 id="required-properties" class="mt-8 mb-2">
         Required properties
-        <a href="#properties-required">
+        <a href="#properties-required" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h3>
@@ -125,7 +122,7 @@
 
       <h3 id="optional-properties" class="mt-8 mb-2">
         Optional properties
-        <a href="#optional-properties">
+        <a href="#optional-properties" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h3>
@@ -160,7 +157,7 @@
 
       <h3 id="implies-and-excludes-optional" class="mt-8 mb-2">
         Implies and excludes (optional)
-        <a href="#implies-and-excludes-optional">
+        <a href="#implies-and-excludes-optional" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h3>
@@ -193,7 +190,7 @@
 
       <h3 id="patterns-optional" class="mt-8 mb-2">
         Patterns (optional)
-        <a href="#patterns-optional">
+        <a href="#patterns-optional" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h3>
@@ -265,7 +262,7 @@
 
       <h3 id="patterns" class="mt-8 mb-2">
         Patterns
-        <a href="#patterns">
+        <a href="#patterns" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h3>
@@ -277,7 +274,7 @@
 
       <h2 id="quirks-and-pitfalls" class="mt-8 mb-2">
         Quirks and pitfalls
-        <a href="#quirks-and-pitfalls">
+        <a href="#quirks-and-pitfalls" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h2>
@@ -309,7 +306,7 @@
 
       <h2 id="tags" class="mt-8 mb-2">
         Tags
-        <a href="#tags">
+        <a href="#tags" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h2>
@@ -357,7 +354,7 @@
 
       <h2 id="version-syntax" class="mt-8 mb-2">
         Version syntax
-        <a href="#version-syntax">
+        <a href="#version-syntax" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h2>
@@ -430,3 +427,19 @@ export default {
   }
 }
 </script>
+
+<style>
+h2 .docs__anchor,
+h3 .docs__anchor {
+  visibility: hidden;
+}
+
+h2:hover .docs__anchor,
+h3:hover .docs__anchor {
+  visibility: visible;
+}
+
+.docs__anchor {
+  text-decoration: none;
+}
+</style>

@@ -1,11 +1,8 @@
 <template>
   <div>
     <Page :title="title" :side="side" no-head>
-      <h1 id="basics" class="mb-4">
+      <h1 class="mb-4">
         Basics
-        <a href="#basics">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
       </h1>
 
       <p>
@@ -37,7 +34,7 @@
 
       <h2 id="pricing" class="mt-8 mb-2">
         Pricing
-        <a href="#pricing">
+        <a href="#pricing" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h2>
@@ -54,7 +51,7 @@
 
       <h2 id="authentication" class="mt-8 mb-2">
         Authentication
-        <a href="#authentication">
+        <a href="#authentication" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h2>
@@ -86,7 +83,7 @@
 
       <h2 id="response-codes" class="mt-8 mb-2">
         Response codes
-        <a href="#response-codes">
+        <a href="#response-codes" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h2>
@@ -152,7 +149,7 @@
 
       <h2 id="error-types" class="mt-8 mb-2">
         Error types
-        <a href="#error-types">
+        <a href="#error-types" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h2>
@@ -199,7 +196,7 @@
 
       <h2 id="credit-balance" class="mt-8 mb-2">
         Credit balance
-        <a href="#credit-balance">
+        <a href="#credit-balance" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h2>
@@ -248,3 +245,19 @@ export default {
   }
 }
 </script>
+
+<style>
+h2 .docs__anchor,
+h3 .docs__anchor {
+  visibility: hidden;
+}
+
+h2:hover .docs__anchor,
+h3:hover .docs__anchor {
+  visibility: visible;
+}
+
+.docs__anchor {
+  text-decoration: none;
+}
+</style>

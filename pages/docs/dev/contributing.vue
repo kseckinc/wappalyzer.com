@@ -17,7 +17,7 @@
 
       <h2 id="getting-started" class="mt-8 mb-2">
         Getting started
-        <a href="#submitting-changes">
+        <a href="#submitting-changes" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h2>
@@ -30,7 +30,7 @@
 
       <h2 id="submitting-changes" class="mt-8 mb-2">
         Submitting changes
-        <a href="#submitting-changes">
+        <a href="#submitting-changes" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h2>
@@ -56,7 +56,7 @@
 
       <h2 id="adding-a-new-technology" class="mt-8 mb-2">
         Adding a new technology
-        <a href="#adding-a-new-technology">
+        <a href="#adding-a-new-technology" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h2>
@@ -101,7 +101,7 @@
 
       <h2 id="adding-a-new-category" class="mt-8 mb-2">
         Adding a new category
-        <a href="#adding-a-new-category">
+        <a href="#adding-a-new-category" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h2>
@@ -132,7 +132,7 @@
 
       <h2 id="adding-a-new-translation" class="mt-8 mb-2">
         Adding a new translation
-        <a href="#adding-a-new-translation">
+        <a href="#adding-a-new-translation" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h2>
@@ -149,7 +149,7 @@
 
       <h2 id="adding-a-new-feature" class="mt-8 mb-2">
         Adding a new feature
-        <a href="#adding-a-new-feature">
+        <a href="#adding-a-new-feature" class="docs__anchor">
           <v-icon color="accent">mdi-link</v-icon>
         </a>
       </h2>
@@ -182,3 +182,19 @@ export default {
   }
 }
 </script>
+
+<style>
+h2 .docs__anchor,
+h3 .docs__anchor {
+  visibility: hidden;
+}
+
+h2:hover .docs__anchor,
+h3:hover .docs__anchor {
+  visibility: visible;
+}
+
+.docs__anchor {
+  text-decoration: none;
+}
+</style>

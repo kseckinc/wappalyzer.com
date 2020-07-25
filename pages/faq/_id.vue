@@ -17,7 +17,7 @@
       >
         <h3 :class="`${i ? 'mt-8' : ''} mb-2`">
           {{ question }}
-          <a :href="`#${slugify(question)}`"
+          <a :href="`#${slugify(question)}`" class="faq__anchor"
             ><v-icon color="accent">mdi-link</v-icon></a
           >
         </h3>
@@ -73,3 +73,17 @@ export default {
   }
 }
 </script>
+
+<style>
+h3 .faq__anchor {
+  visibility: hidden;
+}
+
+h3:hover .faq__anchor {
+  visibility: visible;
+}
+
+.faq__anchor {
+  text-decoration: none;
+}
+</style>

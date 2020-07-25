@@ -9,7 +9,9 @@
 
       <h2 id="log-data" class="mt-8 mb-2">
         Log data
-        <a href="#log-data"><v-icon color="accent">mdi-link</v-icon></a>
+        <a href="#log-data" class="privacy__anchor"
+          ><v-icon color="accent">mdi-link</v-icon></a
+        >
       </h2>
 
       <p>
@@ -22,7 +24,7 @@
 
       <h2 id="account-registration" class="mt-8 mb-2">
         Account registration
-        <a href="#account-registration"
+        <a href="#account-registration" class="privacy__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
         >
       </h2>
@@ -36,7 +38,7 @@
 
       <h2 id="browser-extension" class="mt-8 mb-2">
         Browser extension
-        <a href="#browser-extension"
+        <a href="#browser-extension" class="privacy__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
         >
       </h2>
@@ -76,3 +78,17 @@ export default {
   }
 }
 </script>
+
+<style>
+h2 .privacy__anchor {
+  visibility: hidden;
+}
+
+h2:hover .privacy__anchor {
+  visibility: visible;
+}
+
+.privacy__anchor {
+  text-decoration: none;
+}
+</style>

@@ -9,7 +9,9 @@
 
       <h2 id="privacy" class="mt-8 mb-2">
         Privacy
-        <a href="#privacy"><v-icon color="accent">mdi-link</v-icon></a>
+        <a href="#privacy" class="terms__anchor"
+          ><v-icon color="accent">mdi-link</v-icon></a
+        >
       </h2>
 
       <p>
@@ -20,7 +22,7 @@
 
       <h2 id="prohibitions-on-content" class="mt-8 mb-2">
         Prohibitions on content
-        <a href="#prohibitions-on-content"
+        <a href="#prohibitions-on-content" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
         >
       </h2>
@@ -33,7 +35,7 @@
 
       <h2 id="account-registration" class="mt-8 mb-2">
         Account registration
-        <a href="#account-registration"
+        <a href="#account-registration" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
         >
       </h2>
@@ -50,14 +52,16 @@
 
       <h2 id="using-our-data-services" class="mt-8 mb-2">
         Using our data services
-        <a href="#using-our-data-services"
+        <a href="#using-our-data-services" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
         >
       </h2>
 
       <h3 id="permitted-access" class="mb-2">
         Permitted access
-        <a href="#permitted-access"><v-icon color="accent">mdi-link</v-icon></a>
+        <a href="#permitted-access" class="terms__anchor"
+          ><v-icon color="accent">mdi-link</v-icon></a
+        >
       </h3>
 
       <p>
@@ -67,7 +71,9 @@
 
       <h3 id="api-limitations" class="mb-2">
         API limitations
-        <a href="#api-limitations"><v-icon color="accent">mdi-link</v-icon></a>
+        <a href="#api-limitations" class="terms__anchor"
+          ><v-icon color="accent">mdi-link</v-icon></a
+        >
       </h3>
 
       <p>
@@ -79,7 +85,9 @@
 
       <h3 id="license" class="mb-2">
         License
-        <a href="#license"><v-icon color="accent">mdi-link</v-icon></a>
+        <a href="#license" class="terms__anchor"
+          ><v-icon color="accent">mdi-link</v-icon></a
+        >
       </h3>
 
       <p>
@@ -91,7 +99,7 @@
 
       <h2 id="payment-for-services" class="mt-8 mb-2">
         Payment for services
-        <a href="#payment-for-services"
+        <a href="#payment-for-services" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
         >
       </h2>
@@ -107,7 +115,9 @@
 
       <h3 id="refunds" class="mb-2">
         Refunds
-        <a href="#refunds"><v-icon color="accent">mdi-link</v-icon></a>
+        <a href="#refunds" class="terms__anchor"
+          ><v-icon color="accent">mdi-link</v-icon></a
+        >
       </h3>
 
       <p>
@@ -118,7 +128,9 @@
 
       <h2 id="publicity" class="mt-8 mb-2">
         Publicity
-        <a href="#publicity"><v-icon color="accent">mdi-link</v-icon></a>
+        <a href="#publicity" class="terms__anchor"
+          ><v-icon color="accent">mdi-link</v-icon></a
+        >
       </h2>
 
       <p>
@@ -130,7 +142,7 @@
 
       <h2 id="disclaimer-of-warranties" class="mt-8 mb-2">
         Disclaimer of warranties
-        <a href="#disclaimer-of-warranties"
+        <a href="#disclaimer-of-warranties" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
         >
       </h2>
@@ -143,7 +155,7 @@
 
       <h2 id="limitation-of-liability" class="mt-8 mb-2">
         Limitation of liability
-        <a href="#limitation-of-liability"
+        <a href="#limitation-of-liability" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
         >
       </h2>
@@ -155,7 +167,7 @@
 
       <h2 id="modification-and-termination" class="mt-8 mb-2">
         Modification and termination
-        <a href="#modification-and-termination"
+        <a href="#modification-and-termination" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
         >
       </h2>
@@ -177,7 +189,7 @@
 
       <h2 id="law-and-jurisdiction" class="mt-8 mb-2">
         Law and jurisdiction
-        <a href="#law-and-jurisdiction"
+        <a href="#law-and-jurisdiction" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
         >
       </h2>
@@ -205,3 +217,19 @@ export default {
   }
 }
 </script>
+
+<style>
+h2 .terms__anchor,
+h3 .terms__anchor {
+  visibility: hidden;
+}
+
+h2:hover .terms__anchor,
+h3:hover .terms__anchor {
+  visibility: visible;
+}
+
+.terms__anchor {
+  text-decoration: none;
+}
+</style>
