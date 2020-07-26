@@ -1,6 +1,5 @@
 {
   "attrs": {
-    "credits": { "text": "Credit spend", "type": "string" },
     "instant": { "text": "Instant results", "type": "boolean" },
     "siteWide": { "text": "Site-wide results", "type": "boolean" },
     "realTime": { "text": "Real-time analysis", "type": "boolean" },
@@ -12,8 +11,10 @@
   "apis": {
     "lookup": {
       "name": "Lookup",
-      "to": "/docs/api/lookup",
-      "description": "Look up a domain per request",
+      "raised": true,
+      "to": "/pricing",
+      "readMore": "/docs/api/lookup",
+      "description": "Look up a domain per request.",
       "text": [
         "Perform instant technology lookups with the Lookup API. Results are fetched from our comprehensive database of millions of websites. If we haven't seen a domain before, we'll index it immediately and report back within minutes.",
         "Results are site-wide and may even include pages behind logins that typical crawlers can't reach. Where available, country, language and traffic data are included."
@@ -23,32 +24,31 @@
         "siteWide": true,
         "historic": true,
         "traffic": true,
-        "credits": "1 / request",
         "responseType": "Synchronous",
         "dataFormat": "JSON"
       }
     },
     "analyze": {
       "name": "Analyze",
-      "to": "/docs/api/analyze",
-      "description": "Analyze a single web page per request",
+      "to": "/pricing",
+      "readMore": "/docs/api/lookup",
+      "description": "Analyze a single web page per request.",
       "text": "Identify the technologies used on any public URL in real-time. Results are always guaranteed up-to-date and delivered within seconds.",
       "attrs": {
         "realTime": true,
-        "credits": "2 / request",
         "responseType": "Synchronous",
         "dataFormat": "JSON"
       }
     },
     "crawl": {
       "name": "Crawl",
-      "to": "/docs/api/crawl",
-      "description": "Analyze a domain per request",
+      "to": "/pricing",
+      "readMore": "/docs/api/lookup",
+      "description": "Analyze a domain per request.",
       "text": "Identify the technologies used on any public website in real-time. Results are always guaranteed up-to-date and delivered within minutes.",
       "attrs": {
         "siteWide": "Up to 20 public pages",
         "realTime": true,
-        "credits": "4 / request",
         "responseType": "Callback",
         "dataFormat": "JSON"
       }

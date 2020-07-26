@@ -10,6 +10,7 @@ const routes = {
   '/bulk': `Hi there! Please let me know if you have any questions about bulk lookups.`,
   '/contact': `Hi there! Please let me know if you have any questions and I'll be happy to help.`,
   '/datasets': `Hi there! Please let me know if you have any questions about our datasets.`,
+  '/pricing': `Hi there! Please let me know if you have any questions about our plans and pricing.`,
   '/docs': null,
   '/faq': null,
   '/invoices': null,

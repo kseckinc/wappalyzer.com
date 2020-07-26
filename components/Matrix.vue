@@ -4,9 +4,7 @@
       <v-col>
         <v-responsive
           :height="
-            (Object.values(items).some(({ description }) => description)
-              ? 120
-              : 0) + 205
+            (Object.values(items).some(({ price }) => price) ? 0 : 10) + 205
           "
         />
         <template v-for="attr in attrs">
@@ -41,7 +39,11 @@
               {{ item.name }}
             </v-card-title>
           </v-responsive>
-          <v-responsive height="60" class="align-center">
+          <v-responsive
+            v-if="Object.values(items).some(({ price }) => price)"
+            height="60"
+            class="align-center"
+          >
             <v-card-text class="py-0 justify-center">
               <template v-if="item.enterprise">
                 <small class="text--disabled">
@@ -67,9 +69,16 @@
               </template>
             </v-card-text>
           </v-responsive>
-          <v-responsive v-if="item.description" height="70">
+          <v-responsive
+            v-if="item.description"
+            height="70"
+            class="align-center"
+          >
             <v-card-subtitle>
               {{ item.description }}
+              <span v-if="item.readMore"
+                ><nuxt-link :to="item.readMore">Read more</nuxt-link>.</span
+              >
             </v-card-subtitle>
           </v-responsive>
           <v-responsive height="65">

@@ -186,8 +186,8 @@
               <td><code>excludes</code></td>
               <td>String | Array</td>
               <td>
-                Opposite of implies. The presence of one application can 
-                exclude the presence of another.
+                Opposite of implies. The presence of one application can exclude
+                the presence of another.
               </td>
               <td><code>"Apache"</code></td>
             </tr>
