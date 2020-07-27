@@ -18,7 +18,11 @@
       </div>
 
       <template v-slot:content>
-        <Matrix :items="apis" :attrs="attrs" button-text="Compare plans" />
+        <Matrix
+          :items="apis"
+          :attrs="attrs"
+          button-text="Plans &amp; pricing"
+        />
 
         <v-container>
           <small>* Subject to availability</small>
@@ -31,7 +35,7 @@
             <v-card class="code mt-4" dark>
               <v-card-text>
                 <pre class="code__block code__block--wrap">
-<span class="code__key">curl</span> -H <span class="code__value">"x-api-key: wappalyzer.api.demo.key"</span> <span class="code__value">"https://api.wappalyzer.com/lookup/v1/?url=https://example.com"</span></pre>
+<span class="code__key">curl</span> -H <span class="code__value">"x-api-key: &lt;your api key&gt;"</span> <span class="code__value">"https://api.wappalyzer.com/lookup/v2/?urls=https://example.com"</span></pre>
               </v-card-text>
             </v-card>
           </v-col>
@@ -41,26 +45,26 @@
             <v-card class="code mt-4" dark>
               <v-card-text>
                 <pre class="code__block">
-[
-  {
-    <span class="code__key">"monthYear"</span>: <span class="code__value">"01-2020"</span>,
-    <span class="code__key">"languages"</span>: [
-      <span class="code__value">"en_US"</span>
-    ],
-    <span class="code__key">"applications"</span>: [
-      {
-        <span class="code__key">"name"</span>: <span class="code__value">"Craft CMS"</span>,
-        <span class="code__key">"categories"</span>: [
-          <span class="code__value">"CMS"</span>
-        ],
-        <span class="code__key">"versions"</span>: [
-          <span class="code__value">"3.0.0"</span>
-        ],
-        <span class="code__key">"hits"</span>: <span class="code__value">5000</span>
-      }
-    ]
-  }
-]</pre>
+{
+  <span class="code__key">"technologies"</span>: [
+    {
+      <span class="code__key">"slug"</span>: <span class="code__value">"craft-cms"</span>,
+      <span class="code__key">"name"</span>: <span class="code__value">"Craft CMS"</span>,
+      <span class="code__key">"categories"</span>: [
+        {
+          <span class="code__key">"id"</span>: <span class="code__value">1</span>,
+          <span class="code__key">"slug"</span>: <span class="code__value">"cms"</span>,
+          <span class="code__key">"name"</span>: <span class="code__value">"CMS"</span>
+        }
+      ],
+      <span class="code__key">"versions"</span>: [
+        <span class="code__value">"3.0.0"</span>
+      ],
+      <span class="code__key">"hits"</span>: <span class="code__value">5000</span>
+    }
+  ]
+}
+</pre>
               </v-card-text>
             </v-card>
           </v-col>

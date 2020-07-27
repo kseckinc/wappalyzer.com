@@ -89,7 +89,7 @@ export default ({ route, store }) => {
         api.showWelcomeMessage(
           `${routes[path]}${
             !isOnline
-              ? ` I'm currently away but if you leave message I'll get back to you soon.`
+              ? ` I'm away right now but leave message I'll get back to you soon.`
               : ''
           }`
         )
