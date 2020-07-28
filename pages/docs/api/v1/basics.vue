@@ -32,12 +32,9 @@
         <li>Endpoints are HTTPS only</li>
       </ul>
 
-      <h2 id="pricing" class="mt-8 mb-2">
+      <Heading id="pricing" size="2" class="mt-8 mb-2">
         Pricing
-        <a href="#pricing" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h2>
+      </Heading>
 
       <p>
         API calls deduct credits from your balance. Credits are included in
@@ -49,12 +46,9 @@
         page.
       </p>
 
-      <h2 id="authentication" class="mt-8 mb-2">
+      <Heading id="authentication" size="2" class="mt-8 mb-2">
         Authentication
-        <a href="#authentication" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h2>
+      </Heading>
 
       <p>
         Wappalyzer uses API keys to provide authorized access to its APIs.
@@ -81,12 +75,9 @@
         </v-simple-table>
       </v-card>
 
-      <h2 id="response-codes" class="mt-8 mb-2">
+      <Heading id="response-codes" size="2" class="mt-8 mb-2">
         Response codes
-        <a href="#response-codes" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h2>
+      </Heading>
 
       <p>
         The APIs return
@@ -147,12 +138,9 @@
         <code>5xx</code> code means a server-side error occurred.
       </v-alert>
 
-      <h2 id="error-types" class="mt-8 mb-2">
+      <Heading id="error-types" size="2" class="mt-8 mb-2">
         Error types
-        <a href="#error-types" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h2>
+      </Heading>
 
       <p>
         In case of an error, an error type may be included in the JSON response,
@@ -194,12 +182,9 @@
         </v-simple-table>
       </v-card>
 
-      <h2 id="credit-balance" class="mt-8 mb-2">
+      <Heading id="credit-balance" size="2" class="mt-8 mb-2">
         Credit balance
-        <a href="#credit-balance" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h2>
+      </Heading>
 
       <p>
         Every response includes a header with your credit balance.
@@ -231,11 +216,13 @@
 
 <script>
 import Page from '~/components/Page.vue'
+import Heading from '~/components/Heading.vue'
 import side from '~/assets/json/nav/docs.json'
 
 export default {
   components: {
-    Page
+    Page,
+    Heading
   },
   data() {
     return {
@@ -245,19 +232,3 @@ export default {
   }
 }
 </script>
-
-<style>
-h2 .docs__anchor,
-h3 .docs__anchor {
-  visibility: hidden;
-}
-
-h2:hover .docs__anchor,
-h3:hover .docs__anchor {
-  visibility: visible;
-}
-
-.docs__anchor {
-  text-decoration: none;
-}
-</style>

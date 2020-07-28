@@ -13,7 +13,7 @@
       "name": "Lookup API",
       "raised": true,
       "to": "/pricing",
-      "readMore": "/docs/api/lookup",
+      "readMore": "/docs/api/v2/lookup",
       "description": "Look up websites in our comprehensive database.",
       "text": [
         "Perform instant technology lookups with the Lookup API. Results are fetched from our comprehensive database of millions of websites. If we haven't seen a domain before, we'll index it immediately and report back within minutes.",
@@ -31,7 +31,7 @@
     "crawl": {
       "name": "Crawl API",
       "to": "/pricing",
-      "readMore": "/docs/api/lookup",
+      "readMore": "/docs/api/v2/lookup",
       "description": "Crawl and analyse websites in real-time.",
       "text": "Identify the technologies used on any public website in real-time. Results are always guaranteed up-to-date and delivered within minutes.",
       "attrs": {

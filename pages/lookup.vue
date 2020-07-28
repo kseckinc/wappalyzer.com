@@ -171,7 +171,9 @@ export default {
 
           this.$store.commit('credits/set', credits)
         } catch (error) {
-          this.error = this.getErrorMessage(error)
+          this.error =
+            (error.response && error.response.data) ||
+            this.getErrorMessage(error)
         }
       }
 

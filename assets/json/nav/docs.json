@@ -29,19 +29,15 @@
     "items": [
       {
         "title": "Basics",
-        "to": "/docs/api/basics"
+        "to": "/docs/api/v2/basics"
       },
       {
         "title": "Lookup API",
-        "to": "/docs/api/lookup"
-      },
-      {
-        "title": "Analyze API",
-        "to": "/docs/api/analyze"
+        "to": "/docs/api/v2/lookup"
       },
       {
         "title": "Crawl API",
-        "to": "/docs/api/crawl"
+        "to": "/docs/api/v2/crawl"
       }
     ]
   }

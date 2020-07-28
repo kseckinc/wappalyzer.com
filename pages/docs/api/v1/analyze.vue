@@ -10,23 +10,17 @@
         are always guaranteed up-to-date and delivered within seconds.
       </p>
 
-      <h2 id="endpoint" class="mt-8 mb-2">
+      <Heading id="endpoint" size="2" class="mt-8 mb-2">
         Endpoint
-        <a href="#endpoint" class="docs__anchor"
-          ><v-icon color="accent">mdi-link</v-icon></a
-        >
-      </h2>
+      </Heading>
 
       <p>
         <code>GET</code> <code>https://api.wappalyzer.com/analyze/v1/</code>
       </p>
 
-      <h2 id="properties" class="mt-8 mb-2">
+      <Heading id="properties" size="2" class="mt-8 mb-2">
         Properties
-        <a href="#properties" class="docs__anchor"
-          ><v-icon color="accent">mdi-link</v-icon></a
-        >
-      </h2>
+      </Heading>
 
       <v-card class="my-4" flat outlined>
         <v-simple-table>
@@ -55,12 +49,9 @@
         </v-simple-table>
       </v-card>
 
-      <h2 id="parameters" class="mt-8 mb-2">
+      <Heading id="parameters" size="2" class="mt-8 mb-2">
         Parameters
-        <a href="#parameters" class="docs__anchor"
-          ><v-icon color="accent">mdi-link</v-icon></a
-        >
-      </h2>
+      </Heading>
 
       <v-card class="my-4" flat outlined>
         <v-simple-table>
@@ -83,12 +74,9 @@
         </v-simple-table>
       </v-card>
 
-      <h2 id="examples" class="mt-8 mb-2">
+      <Heading id="examples" size="2" class="mt-8 mb-2">
         Examples
-        <a href="#examples" class="docs__anchor"
-          ><v-icon color="accent">mdi-link</v-icon></a
-        >
-      </h2>
+      </Heading>
 
       <p><strong>Example request</strong></p>
 
@@ -118,8 +106,8 @@
 
       <p>
         An
-        <nuxt-link to="/docs/api/basics#error-types">error type</nuxt-link> and
-        message is returned if the URL could not be fetched.
+        <nuxt-link to="/docs/api/v1/basics#error-types">error type</nuxt-link>
+        and message is returned if the URL could not be fetched.
       </p>
 
       <pre class="mb-4"><Prism language="json" class="body-2">{
@@ -142,11 +130,13 @@
 
 <script>
 import Page from '~/components/Page.vue'
+import Heading from '~/components/Heading.vue'
 import side from '~/assets/json/nav/docs.json'
 
 export default {
   components: {
-    Page
+    Page,
+    Heading
   },
   data() {
     return {
@@ -156,19 +146,3 @@ export default {
   }
 }
 </script>
-
-<style>
-h2 .docs__anchor,
-h3 .docs__anchor {
-  visibility: hidden;
-}
-
-h2:hover .docs__anchor,
-h3:hover .docs__anchor {
-  visibility: visible;
-}
-
-.docs__anchor {
-  text-decoration: none;
-}
-</style>

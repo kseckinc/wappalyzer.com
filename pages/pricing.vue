@@ -63,7 +63,7 @@
               <tr>
                 <td><nuxt-link to="/lookup">Technology lookup</nuxt-link></td>
                 <td>
-                  1 per lookup
+                  1 per domain
                 </td>
               </tr>
               <tr>
@@ -85,21 +85,15 @@
                 </td>
               </tr>
               <tr>
-                <td><nuxt-link to="/api/lookup">Lookup API</nuxt-link></td>
+                <td><nuxt-link to="/api">Lookup API</nuxt-link></td>
                 <td>
-                  1 per request
+                  1 per domain
                 </td>
               </tr>
               <tr>
-                <td><nuxt-link to="/api/analyze">Analyze API</nuxt-link></td>
+                <td><nuxt-link to="/api">Crawl API</nuxt-link></td>
                 <td>
-                  1 per request
-                </td>
-              </tr>
-              <tr>
-                <td><nuxt-link to="/api/crawl">Crawl API</nuxt-link></td>
-                <td>
-                  2 per request
+                  1 per URL / 2 per domain
                 </td>
               </tr>
             </tbody>
