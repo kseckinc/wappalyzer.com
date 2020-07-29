@@ -22,6 +22,7 @@
           :items="apis"
           :attrs="attrs"
           button-text="Plans &amp; pricing"
+          class="mt-8"
         />
 
         <v-container>
@@ -30,43 +31,32 @@
 
         <v-row class="mb-4 mt-4 mt-sm-8">
           <v-col md="6">
-            <h3>Example request (cURL)</h3>
+            <h3>Example request</h3>
 
-            <v-card class="code mt-4" dark>
-              <v-card-text>
-                <pre class="code__block code__block--wrap">
-<span class="code__key">curl</span> -H <span class="code__value">"x-api-key: &lt;your api key&gt;"</span> <span class="code__value">"https://api.wappalyzer.com/lookup/v2/?urls=https://example.com"</span></pre>
-              </v-card-text>
-            </v-card>
+            <pre><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com"</Prism></pre>
           </v-col>
           <v-col md="6">
-            <h3>Example response (JSON)</h3>
+            <h3>Example response</h3>
 
-            <v-card class="code mt-4" dark>
-              <v-card-text>
-                <pre class="code__block">
-{
-  <span class="code__key">"technologies"</span>: [
+            <pre><Prism language="json" class="body-2">{
+  "url": "https://example.com",
+  "technologies": [
     {
-      <span class="code__key">"slug"</span>: <span class="code__value">"craft-cms"</span>,
-      <span class="code__key">"name"</span>: <span class="code__value">"Craft CMS"</span>,
-      <span class="code__key">"categories"</span>: [
+      "slug": "craft-cms",
+      "name": "Craft CMS",
+      "versions": [
+        "3.0.0"
+      ],
+      "categories": [
         {
-          <span class="code__key">"id"</span>: <span class="code__value">1</span>,
-          <span class="code__key">"slug"</span>: <span class="code__value">"cms"</span>,
-          <span class="code__key">"name"</span>: <span class="code__value">"CMS"</span>
+          "id": 1,
+          "slug": "cms",
+          "name": "CMS"
         }
-      ],
-      <span class="code__key">"versions"</span>: [
-        <span class="code__value">"3.0.0"</span>
-      ],
-      <span class="code__key">"hits"</span>: <span class="code__value">5000</span>
+      ]
     }
   ]
-}
-</pre>
-              </v-card-text>
-            </v-card>
+}</Prism></pre>
           </v-col>
         </v-row>
       </template>
@@ -101,25 +91,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.code {
-  background-color: #282c34 !important;
-}
-
-.code__block {
-  line-height: 1.1rem;
-}
-
-.code__block--wrap {
-  white-space: normal;
-}
-
-.code__key {
-  color: #f8c555;
-}
-
-.code__value {
-  color: #7ec699;
-}
-</style>

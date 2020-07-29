@@ -2,7 +2,7 @@ require('dotenv').config({
   path: `.env.${
     process.env.NODE_ENV === 'development' || process.env.ENVIRONMENT === 'beta'
       ? 'beta'
-      : 'v1'
+      : 'v2'
   }`
 })
 

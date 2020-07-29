@@ -36,15 +36,18 @@
           <tbody>
             <tr>
               <td>Execution</td>
-              <td>Asynchronous</td>
+              <td>
+                Synchronous / Asynchronous (when crawling or indexing multiple
+                domains)
+              </td>
             </tr>
             <tr>
               <td>Request timeout</td>
-              <td>6s</td>
+              <td>30s</td>
             </tr>
             <tr>
               <td>Rate limit</td>
-              <td>1 request / second</td>
+              <td>1 request / second (up to ten domains per request)</td>
             </tr>
           </tbody>
         </v-simple-table>
@@ -59,94 +62,149 @@
           <thead>
             <tr>
               <th>Name</th>
-              <th>Required</th>
               <th>Description</th>
-              <th>Example</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><code>url</code></td>
-              <td>Yes</td>
               <td>
-                URL of the first web page to analyze
+                <code>urls</code>&nbsp;<em class="text--disabled"
+                  >(required)</em
+                >
               </td>
-              <td><code>https://example.com</code></td>
+              <td>
+                Beetween one and ten website URLs (e.g.
+                <code>https://example.com,https://example.org</code>).
+              </td>
             </tr>
             <tr>
               <td><code>callback_url</code></td>
-              <td>Yes</td>
               <td>
                 A POST request will be made to the callback URL upon completion
-                of the request
+                of the request (e.g.
+                <code>https://yourdomain.com</code>). Required when
+                <code>recursive</code> is <code>true</code> (default) or
+                multiple <code>urls</code> are specified.
               </td>
-              <td><code>https://example.com</code></td>
+            </tr>
+            <tr>
+              <td><code>recursive</code></td>
+              <td>
+                Follow links to analyse up to 25 pages (<code>true</code>
+                (default) or <code>false</code>).
+              </td>
             </tr>
           </tbody>
         </v-simple-table>
       </v-card>
 
+      <Heading id="callback" size="2" class="mt-8 mb-4">
+        Callback
+      </Heading>
+
+      <p>
+        A callback URL is a public endpoint hosted on your own server. If you
+        request a domain that we haven't seen before, you'll initially get an
+        empty response while the website is being indexed. Minutes later, your
+        callback URL will receive a POST request with the final results. Without
+        a callback URL, you will not get these results unless you make another
+        request.
+      </p>
+
       <Heading id="examples" size="2" class="mt-8 mb-2">
         Examples
       </Heading>
 
-      <p><strong>Example request</strong></p>
+      <v-card class="mb-8">
+        <v-card-title class="subtitle-2">Example request</v-card-title>
+        <v-card-text>
+          <p>
+            By default, websites are crawled recursively by following links on
+            the page and a callback URL is required.
+          </p>
 
-      <pre
-        class="mb-4"
-      ><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/crawl/v2/?url=https://example.com&amp;callback_url=https://example.com"</Prism></pre>
+          <pre><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/crawl/v2/?urls=https://example.com,https://example.org&amp;callback_url=https://yourdomain.com"</Prism></pre>
+        </v-card-text>
 
-      <p><strong>Example response (<code>202</code>)</strong></p>
+        <v-divider />
 
-      <pre class="mb-4"><Prism language="json" class="body-2">{
-  "status": "received"
-}</Prism></pre>
+        <v-card-title class="subtitle-2">Example response</v-card-title>
+        <v-card-text>
+          <p>
+            The callback URL will receive a POST request when results become
+            available. The callback URL will be invoked seperately for each
+            requested URL.
+          </p>
+          <pre><Prism language="json" class="body-2">[
+  {
+    "url": "https://example.com",
+    "crawl": true // Crawl initiated
+  },
+  {
+    "url": "https://example.org",
+    "crawl": true // Crawl initiated
+  }
+]</Prism></pre>
+        </v-card-text>
+      </v-card>
 
-      <p><strong>Example callback response (success)</strong></p>
+      <v-card class="mb-4">
+        <v-card-title class="subtitle-2">Example request</v-card-title>
+        <v-card-text>
+          <p>
+            In this example we pass a single URL, set <code>recursive</code> to
+            <code>false</code> and no <code>callback_url</code>. This way only a
+            single page is indexed and results are available directly in the
+            response. This method is faster and requires less effort to set up
+            but results are less comprehensive.
+          </p>
 
-      <p>
-        The callback URL will receive a POST request when results become
-        available.
-      </p>
+          <pre><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/crawl/v2/?urls=https://example.com&amp;recursive=false"</Prism></pre>
+        </v-card-text>
 
-      <pre class="mb-4"><Prism language="json" class="body-2">{
-  "url": "https://example.com",
-  "applications": [
-    {
-      "name": "Craft CMS",
-      "confidence": "100",
-      "version": "",
-      "icon": "CraftCMS.svg",
-      "website": "https://craftcms.com",
-      "categories": {
-        "1": "CMS"
-      }
-    }
-  ],
-  "status": "success"
-}</Prism></pre>
+        <v-divider />
 
-      <p><strong>Example callback response (error)</strong></p>
-
-      <p>
-        An
-        <nuxt-link to="/docs/api/v2/basics#error-types" class=""
-          >error type</nuxt-link
+        <v-card-title class="subtitle-2"
+          >Example response (success)</v-card-title
         >
-        and message is returned if no URLs could be fetched.
-      </p>
+        <v-card-text>
+          <pre><Prism language="json" class="body-2">[
+  {
+    "url": "https://example.com",
+    "technologies": [
+      {
+        "slug": "craft-cms",
+        "name": "Craft CMS",
+        "versions": [
+          "3.0.0"
+        ],
+        "categories": [
+          {
+            "id": 1,
+            "slug": "cms",
+            "name": "CMS"
+          }
+        ]
+      }
+    ]
+  }
+]</Prism></pre>
+        </v-card-text>
 
-      <pre class="mb-4"><Prism language="json" class="body-2">{
-  "url": "https://example.com",
-  "applications": [],
-  "status": "error",
-  "errors": [
-    {
-      "type": "RESPONSE_NOT_OK",
-      "message": "Response was not ok"
-    }
-  ]
-}</Prism></pre>
+        <v-divider />
+
+        <v-card-title class="subtitle-2">Example response (error)</v-card-title>
+        <v-card-text>
+          <pre><Prism language="json" class="body-2">[
+  {
+    "url": "https://example.com",
+    "errors": [
+      "No response from server"
+    ]
+  }
+]</Prism></pre>
+        </v-card-text>
+      </v-card>
     </Page>
   </div>
 </template>
@@ -169,3 +227,10 @@ export default {
   }
 }
 </script>
+
+<style>
+td {
+  padding-top: 0.2rem !important;
+  padding-bottom: 0.2rem !important;
+}
+</style>

@@ -39,16 +39,9 @@ body {
 }
 
 .v-application code {
-  color: inherit !important;
-  box-shadow: none !important;
-  font-size: 0.8rem !important;
-  font-weight: inherit !important;
-}
-
-.v-application pre code {
-  &:before, &:after {
-    content: '' !important;
-  }
+  background-color: #f0ebf9;
+  color: #4608ad;
+  padding: 0.1rem 0.2rem;
 }
 
 pre {

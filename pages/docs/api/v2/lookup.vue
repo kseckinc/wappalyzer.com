@@ -49,7 +49,7 @@
             </tr>
             <tr>
               <td>Rate limit</td>
-              <td>1 request / second</td>
+              <td>1 request / second (up to ten domains per request)</td>
             </tr>
           </tbody>
         </v-simple-table>
@@ -64,60 +64,51 @@
           <thead>
             <tr>
               <th>Name</th>
-              <th>Required</th>
               <th>Description</th>
-              <th>Example</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><code>urls</code></td>
-              <td>Yes</td>
-              <td>Between 1 and 10 website URLs, comma-separated.</td>
               <td>
-                <code>https://example.com,https://example.com</code>
+                <code>urls</code>&nbsp;<em class="text--disabled"
+                  >(required)</em
+                >
+              </td>
+              <td>
+                Between one and ten website URLs, comma-separated (e.g.
+                <code>https://example.com,https://example.org</code>).
               </td>
             </tr>
             <tr>
               <td><code>callback_url</code></td>
-              <td>No</td>
               <td>
                 If instant results are unavailable, A POST request will be made
-                to the callback URL upon completion of the request.
-              </td>
-              <td>
-                <code>https://example.com</code>
+                to the callback URL upon completion of the request (e.g.
+                <code>https://yourdomain.com</code>).
               </td>
             </tr>
             <tr>
               <td><code>denoise</code></td>
-              <td>No</td>
               <td>
                 Exclude low confidence results (<code>true</code> (default) or
                 <code>false</code>).
               </td>
-              <td><code>false</code></td>
             </tr>
             <tr>
               <td><code>max_age</code></td>
-              <td>No</td>
               <td>
                 Return results of up to <code>max_age</code> months old
                 (<code>1</code>-<code>12</code>). Set to <code>1</code> to only
                 return fresh results. Defaults to <code>2</code>.
               </td>
-              <td>
-                <code>2</code>
-              </td>
             </tr>
             <tr>
               <td><code>squash</code></td>
-              <td>No</td>
               <td>
-                Combine monthly results into a single set (default). Set to
-                <code>false</code> to group results by month.
+                Combine monthly results into a single set when
+                <code>true</code> (default). Set to <code>false</code> to group
+                results by month.
               </td>
-              <td><code>true</code></td>
             </tr>
           </tbody>
         </v-simple-table>
@@ -140,21 +131,37 @@
         Examples
       </Heading>
 
-      <p>
-        <strong>Example request</strong>
-      </p>
+      <v-card class="mb-8">
+        <v-card-title class="subtitle-2">Example request</v-card-title>
+        <v-card-text>
+          <p>
+            In this example we request two URLs with a callback URL and the
+            default options.
+          </p>
 
-      <pre
-        class="mb-4"
-      ><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com&amp;callback_url=https://example.com,https://example.org"</Prism></pre>
+          <pre><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com,https://example.org&amp;callback_url=https://yourdomain.com"</Prism></pre>
+        </v-card-text>
 
-      <p><strong>Example response</strong></p>
+        <v-divider />
 
-      <p>
-        TODO
-      </p>
+        <v-card-title class="subtitle-2"
+          >Example response (success)</v-card-title
+        >
+        <v-card-text>
+          <p>
+            We get a result for each URL, in this case one successful and one
+            empty. An empty response means the website has either not been
+            indexed, or no technologies were found. The <code>crawl</code> field
+            indicates that a crawl has been initiated. When ready, results will
+            be sent to the callback URL provided.
+          </p>
 
-      <pre class="mb-4"><Prism language="json" class="body-2">[
+          <p>
+            The <code>hits</code> value is a relative traffic indicator. A
+            higher number means a more trafficked website.
+          </p>
+
+          <pre><Prism language="json" class="body-2">[
   {
     "url": "https://example.com",
     "technologies": [
@@ -167,133 +174,57 @@
             "slug": "cms",
             "name": "CMS"
         ],
-        "versions": [],
-        "hits": 0
+        "versions": [
+          "3.0.0"
+        ],
+        "hits": 0 // Traffic indicator
       }
     ]
   },
   {
     "url": "https://example.org",
-    "technologies": [],
-    "crawl": true
+    "technologies": [], // No results available
+    "crawl": true // Crawl initiated
   }
 ]
 </Prism></pre>
+        </v-card-text>
 
-      <p>
-        The <code>hits</code> value is the number of times users of the
-        <nuxt-link to="/download">browser extension</nuxt-link>
-        have visited the website that month. It can be used as an indicator of
-        traffic.
-      </p>
+        <v-divider />
 
-      <p><strong>Example response (<code>202</code>)</strong></p>
-
-      <p>
-        If instant results are unavailable and <code>callback_url</code> is
-        specified, a <code>202</code> is returned and the domain will be indexed
-        using the <nuxt-link to="/docs/api/v2/crawl">Crawl API</nuxt-link> as a
-        fallback. The callback URL will be called upon completion of the
-        request, typically minutes later.
-      </p>
-
-      <pre class="mb-4"><Prism language="json" class="body-2">{
-  "status": "received"
-}</Prism></pre>
-
-      <p>
-        <strong>Example request (<code>squash=false</code>)</strong>
-      </p>
-
-      <pre
-        class="mb-4"
-      ><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com&amp;callback_url=https://example.com,https://example.org"</Prism></pre>
-
-      <p><strong>Example response (<code>200</code>)</strong></p>
-
-      <p>
-        Results are grouped by month and may contain data from anywhere between
-        six months ago and today.
-      </p>
-
-      <pre class="mb-4"><Prism language="json" class="body-2">[
+        <v-card-title class="subtitle-2">Example response (error)</v-card-title>
+        <v-card-text>
+          <pre><Prism language="json" class="body-2">[
   {
     "url": "https://example.com",
-    "results": [
-      {
-        "monthYear": "01-2020",
-        "technologies": [
-          {
-            "slug": "craft-cms",
-            "name": "Craft CMS",
-            "categories": [
-              {
-                "id": 1,
-                "slug": "cms",
-                "name": "CMS"
-            ],
-            "versions": [],
-            "hits": 0
-          }
-        ]
-      }
+    "errors": [
+      "Something went wrong"
     ]
-  },
-  {
-    "url": "https://example.org",
-    "results": [],
-    "crawl": true
   }
 ]</Prism></pre>
+        </v-card-text>
 
-      <p>
-        The <code>hits</code> value is the number of times users of the
-        <nuxt-link to="/download">browser extension</nuxt-link>
-        have visited the website that month. It can be used as an indicator of
-        traffic.
-      </p>
+        <v-divider />
 
-      <p><strong>Example response (<code>202</code>)</strong></p>
+        <v-card-title class="subtitle-2"
+          >Example callback response</v-card-title
+        >
+        <v-card-text>
+          <p>
+            The callback URL will receive a POST request when results become
+            available. The callback URL will be invoked seperately for each
+            requested URL.
+          </p>
 
-      <p>
-        If instant results are unavailable and <code>callback_url</code> is
-        specified, a <code>202</code> is returned and the domain will be indexed
-        using the <nuxt-link to="/docs/api/v2/crawl">Crawl API</nuxt-link> as a
-        fallback. The callback URL will be called upon completion of the
-        request, typically minutes later.
-      </p>
-
-      <pre class="mb-4"><Prism language="json" class="body-2">{
-  "status": "received"
-}</Prism></pre>
-
-      <p>
-        If no callback URL is specified, a <code>404</code> response code will
-        be returned instead.
-      </p>
-
-      <v-alert icon="mdi-lightbulb-on-outline" outlined>
-        A <code>404</code> response will still be counted towards the
-        subscription quota. Provide a <code>callback_url</code> if possible.
-      </v-alert>
-
-      <p><strong>Example callback response</strong></p>
-
-      <p>
-        The callback URL will receive a POST request when results become
-        available.
-      </p>
-
-      <pre class="mb-4"><Prism language="json" class="body-2">{
+          <pre><Prism language="json" class="body-2">{
   "url": "https://example.com",
   "technologies": [
     {
       "slug": "craft-cms",
       "name": "Craft CMS",
-      "confidence": "100",
-      "version": "",
-      "icon": "CraftCMS.svg",
-      "website": "https://craftcms.com",
+      "versions": [
+        "3.0.0"
+      ],
       "categories": [
         {
           "id": 1,
@@ -304,6 +235,61 @@
     }
   ]
 }</Prism></pre>
+        </v-card-text>
+      </v-card>
+
+      <v-card class="mb-4">
+        <v-card-title class="subtitle-2">Example request</v-card-title>
+        <v-card-text>
+          <p>
+            In this example we set <code>squash</code> to <code>false</code> to
+            get results grouped by month. This is useful to see changes to the
+            technology stack over time. We set <code>max_age</code> to
+            <code>12</code> to get up to a year's worth of data (subject to
+            availability).
+          </p>
+
+          <pre><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com&amp;callback_url=https://yourdomain.com&amp;squash=false&amp;max_age=12"</Prism></pre>
+        </v-card-text>
+
+        <v-divider />
+
+        <v-card-title class="subtitle-2">Example response</v-card-title>
+        <v-card-text>
+          <pre><Prism language="json" class="body-2">[
+  {
+    "url": "https://example.com",
+    "results": [
+      {
+        "monthYear": "01-2020", // The month in which the technologies were indentified
+        "technologies": [
+          {
+            "slug": "craft-cms",
+            "name": "Craft CMS",
+            "categories": [
+              {
+                "id": 1,
+                "slug": "cms",
+                "name": "CMS"
+            ],
+            "versions": [
+              "3.0.0"
+            ],
+            "hits": 0 // Traffic indicator
+          }
+        ]
+      },
+      {
+        "monthYear": "02-2020",
+        "technologies": [
+          ...
+        ]
+      }
+    ]
+  }
+]</Prism></pre>
+        </v-card-text>
+      </v-card>
     </Page>
   </div>
 </template>
@@ -326,3 +312,10 @@ export default {
   }
 }
 </script>
+
+<style>
+td {
+  padding-top: 0.2rem !important;
+  padding-bottom: 0.2rem !important;
+}
+</style>

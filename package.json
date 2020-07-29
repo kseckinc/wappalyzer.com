@@ -5,12 +5,12 @@
   "author": "Wappalyzer",
   "scripts": {
     "dev": "ENVIRONMENT=beta nuxt",
-    "prod": "ENVIRONMENT=v1 nuxt",
+    "prod": "NODE_ENV=production ENVIRONMENT=v2 nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "deploy:beta": "ENVIRONMENT=beta nuxt build && aws s3 sync dist s3://beta.wappalyzer.com --cache-control max-age=31536000,public --exclude 'images/icons/*' --profile wappalyzer",
-    "deploy:v1": "ENVIRONMENT=v1 nuxt build && aws s3 sync dist s3://www.wappalyzer.com --cache-control max-age=31536000,public --exclude 'images/icons/*' --profile wappalyzer"
+    "deploy:v2": "ENVIRONMENT=v2 nuxt build && aws s3 sync dist s3://www.wappalyzer.com --cache-control max-age=31536000,public --exclude 'images/icons/*' --profile wappalyzer"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.10.1",

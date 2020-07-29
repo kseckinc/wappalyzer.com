@@ -4,7 +4,7 @@
       <v-col>
         <v-responsive
           :height="
-            (Object.values(items).some(({ price }) => price) ? 0 : 10) + 205
+            (Object.values(items).some(({ price }) => price) ? 0 : 10) + 225
           "
         />
         <template v-for="attr in attrs">
@@ -23,19 +23,21 @@
       >
         <v-responsive v-if="!item.raised" height="20"> </v-responsive>
         <v-card :raised="item.raised" class="text-center">
-          <v-responsive v-if="!item.raised" height="10"> </v-responsive>
+          <v-responsive v-if="!item.raised" height="20"> </v-responsive>
           <v-responsive
             v-if="item.raised && Object.keys(items).length > 1"
-            height="30"
+            height="40"
           >
-            <v-card-subtitle class="overline py-0">
-              <small>
-                {{ raisedText }}
-              </small>
+            <v-card-subtitle class="overline pa-0">
+              <v-sheet color="primary lighten-1 primary--text">
+                <small>
+                  {{ raisedText }}
+                </small>
+              </v-sheet>
             </v-card-subtitle>
           </v-responsive>
           <v-responsive height="50">
-            <v-card-title class="justify-center">
+            <v-card-title class="justify-center py-2">
               {{ item.name }}
             </v-card-title>
           </v-responsive>
@@ -81,7 +83,7 @@
               >
             </v-card-subtitle>
           </v-responsive>
-          <v-responsive height="65">
+          <v-responsive height="75">
             <v-card-actions>
               <v-btn
                 v-if="item.buttonAction === 'signUp'"

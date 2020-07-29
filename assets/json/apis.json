@@ -31,7 +31,7 @@
     "crawl": {
       "name": "Crawl API",
       "to": "/pricing",
-      "readMore": "/docs/api/v2/lookup",
+      "readMore": "/docs/api/v2/crawl",
       "description": "Crawl and analyse websites in real-time.",
       "text": "Identify the technologies used on any public website in real-time. Results are always guaranteed up-to-date and delivered within minutes.",
       "attrs": {

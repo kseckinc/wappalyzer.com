@@ -51,9 +51,8 @@
       </Heading>
 
       <p>
-        Wappalyzer uses API keys to provide authorized access to its APIs.
-        <nuxt-link to="/pricing">Subscribe</nuxt-link>
-        to a plan to obtain an API key.
+        Wappalyzer uses API keys to provide authorized access to its APIs. Sign
+        up to <nuxt-link to="/apikey">create an API key</nuxt-link>.
       </p>
 
       <v-card class="my-4" flat outlined>
@@ -68,7 +67,7 @@
             <tr>
               <td><code>x-api-key</code></td>
               <td>
-                <em><code>&lt;your api key&gt;</code></em>
+                Your API key
               </td>
             </tr>
           </tbody>
