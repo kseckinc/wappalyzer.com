@@ -8,19 +8,7 @@
               Signed in as
             </v-list-item-title>
 
-            <small
-              >{{ user.email }}
-              <v-btn
-                v-if="user.admin"
-                to="/admin"
-                class="my-n2"
-                color="success"
-                icon
-                small
-              >
-                <v-icon small>mdi-lock-open</v-icon>
-              </v-btn>
-            </small>
+            <small>{{ user.email }}</small>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -54,6 +42,14 @@
       <v-divider />
     </div>
     <v-list nav dense>
+      <v-list-item v-if="user.admin" to="/admin">
+        <v-list-item-title>
+          Administration
+        </v-list-item-title>
+        <v-list-item-icon>
+          <v-icon color="success" dense>mdi-lock-open</v-icon>
+        </v-list-item-icon>
+      </v-list-item>
       <v-list-item
         v-for="(item, i) in userNav"
         :key="i"

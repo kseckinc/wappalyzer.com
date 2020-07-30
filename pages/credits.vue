@@ -17,6 +17,7 @@
         <v-icon left>mdi-alpha-c-circle</v-icon>
         Plans &amp; pricing
       </v-btn>
+
       <v-btn href="/faq/credits" color="accent" outlined>
         <v-icon left>mdi-forum</v-icon>
         FAQs

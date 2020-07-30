@@ -101,6 +101,7 @@ export default ({ route, store }) => {
         api.widget.show()
       }
     } else {
+      api.hideWelcomeMessage()
       api.widget.hide()
     }
   })
