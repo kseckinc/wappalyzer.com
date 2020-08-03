@@ -21,8 +21,8 @@
         color="secondary"
         class="mx-n6 px-6"
       >
-        Sign up for free to receive 50 credits monthly. See all
-        <nuxt-link to="/pricing">plans &amp; pricing</nuxt-link>.
+        Sign up for free to receive 50 credits every month to spend on any
+        product.
       </v-alert>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-text-field

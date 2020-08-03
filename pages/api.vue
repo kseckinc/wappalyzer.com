@@ -21,7 +21,7 @@
         <Matrix
           :items="apis"
           :attrs="attrs"
-          button-text="Plans &amp; pricing"
+          button-text="Compare plans"
           class="mt-8"
         />
 

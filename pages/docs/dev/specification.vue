@@ -29,6 +29,7 @@
       <h4>Example</h4>
 
       <pre class="mb-4"><Prism language="json" class="body-2">"Example": {
+  "description": "A short description of the technology.",
   "cats": [
     "1"
   ],
@@ -92,21 +93,9 @@
               <td><code>cats</code></td>
               <td>Array</td>
               <td>
-                One or more category IDs.<!-- Refer to the
-                <a
-                  href="https://www.wappalyzer.com/categories/list"
-                  target="_blank"
-                 g
-                  >list of category IDs</a
-                  >. -->
+                One or more category IDs.
               </td>
               <td><code>[1, 6]</code></td>
-            </tr>
-            <tr>
-              <td><code>icon</code></td>
-              <td>String</td>
-              <td>Application icon filename.</td>
-              <td><code>"WordPress.svg"</code></td>
             </tr>
             <tr>
               <td><code>website</code></td>
@@ -138,6 +127,22 @@
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td><code>description</code></td>
+              <td>String</td>
+              <td>
+                A short description of the technology in British English (max.
+                250 characters). Write in a neutral, factual tone; not like an
+                ad.
+              </td>
+              <td><code>"A short description."</code></td>
+            </tr>
+            <tr>
+              <td><code>icon</code></td>
+              <td>String</td>
+              <td>Application icon filename.</td>
+              <td><code>"WordPress.svg"</code></td>
+            </tr>
             <tr>
               <td><code>cpe</code></td>
               <td>String</td>

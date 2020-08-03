@@ -82,7 +82,7 @@ export const actions = {
     const attributeList = [
       new CognitoUserAttribute({
         Name: 'email',
-        Value: Username.trim()
+        Value: Username.toLowerCase().trim()
       }),
       new CognitoUserAttribute({
         Name: 'custom:rewardfulReferral',
@@ -92,7 +92,7 @@ export const actions = {
 
     return new Promise((resolve, reject) => {
       Pool.signUp(
-        Username.trim(),
+        Username.toLowerCase().trim(),
         Password,
         attributeList,
         null,
@@ -109,7 +109,7 @@ export const actions = {
 
   verifySignUp(context, { username: Username, code }) {
     const cognitoUser = new CognitoUser({
-      Username: Username.trim(),
+      Username: Username.toLowerCase().trim(),
       Pool
     })
 
@@ -121,7 +121,10 @@ export const actions = {
   },
 
   reverifySignUp(context, { username: Username }) {
-    const cognitoUser = new CognitoUser({ Username: Username.trim(), Pool })
+    const cognitoUser = new CognitoUser({
+      Username: Username.toLowerCase().trim(),
+      Pool
+    })
 
     return new Promise((resolve, reject) => {
       cognitoUser.resendConfirmationCode((error, result) =>
@@ -131,11 +134,14 @@ export const actions = {
   },
 
   signIn({ commit, dispatch }, { username: Username, password: Password }) {
-    const cognitoUser = new CognitoUser({ Username: Username.trim(), Pool })
+    const cognitoUser = new CognitoUser({
+      Username: Username.toLowerCase().trim(),
+      Pool
+    })
 
     return new Promise((resolve, reject) => {
       const authenticationDetails = new AuthenticationDetails({
-        Username: Username.trim(),
+        Username: Username.toLowerCase().trim(),
         Password
       })
 
@@ -171,7 +177,7 @@ export const actions = {
     })
   },
 
-  reverifySignIn(context, { username: Username }) {
+  reverifySignIn(context) {
     const cognitoUser = Pool.getCurrentUser()
 
     return new Promise((resolve, reject) => {
@@ -224,7 +230,7 @@ export const actions = {
 
   reset(context, { username: Username }) {
     const cognitoUser = new CognitoUser({
-      Username: Username.trim(),
+      Username: Username.toLowerCase().trim(),
       Pool
     })
 
@@ -238,7 +244,7 @@ export const actions = {
 
   verifyReset(context, { username: Username, password, code }) {
     const cognitoUser = new CognitoUser({
-      Username: Username.trim(),
+      Username: Username.toLowerCase().trim(),
       Pool
     })
 

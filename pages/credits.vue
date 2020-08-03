@@ -1,5 +1,10 @@
 <template>
-  <Page :title="title" :loading="loading && !error" secure>
+  <Page
+    :title="title"
+    :loading="loading && !error"
+    :head="{ title, text }"
+    secure
+  >
     <v-alert v-if="success" type="success">
       {{ success }}
     </v-alert>
@@ -286,6 +291,9 @@ export default {
       order: false,
       submitting: false,
       spends: [],
+      text: [
+        `Credits can be spent on any product. Sign up for a plan to get credits monthly.`
+      ],
       error: false,
       loading: true,
       success: false

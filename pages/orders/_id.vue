@@ -386,7 +386,7 @@
                     Credits
                   </th>
                   <td>
-                    {{ formatNumber(order.credits) }}
+                    {{ formatNumber(order.totalCredits) }}
                   </td>
                 </tr>
               </tbody>
@@ -531,8 +531,17 @@
             <v-divider class="mt-4 mb-n4" />
           </v-card-text>
 
-          <v-card-text v-if="paymentMethod === 'stripe'" class="px-0 pb-0">
-            <div v-if="!cardsLoaded" class="d-flex justify-center py-2 pb-6">
+          <v-card-text v-if="paymentMethod === 'stripe'" class="pa-0">
+            <v-alert
+              v-if="order.product !== 'Subscription'"
+              color="secondary"
+              class="mb-0 text-center"
+            >
+              Come here often? Save with a plan. See
+              <nuxt-link to="/pricing">plans &amp; pricing</nuxt-link>.
+            </v-alert>
+
+            <div v-if="!cardsLoaded" class="d-flex justify-center pt-6 pb-6">
               <Progress />
             </div>
 
@@ -567,6 +576,11 @@
             </div>
           </v-card-text>
           <v-card-text v-if="paymentMethod === 'paypal'" class="pa-0">
+            <v-alert color="secondary" class="mb-0 text-center">
+              Come here often? Save with a plan. See
+              <nuxt-link to="/pricing">plans &amp; pricing</nuxt-link>.
+            </v-alert>
+
             <div class="d-flex justify-center py-8">
               <v-btn
                 @click="invoice"
@@ -580,20 +594,36 @@
               </v-btn>
             </div>
           </v-card-text>
-          <v-card-text v-if="paymentMethod === 'credits'" class="pa-0">
-            <div class="d-flex justify-center py-8">
-              <v-btn
-                @click="pay"
-                :loading="paying"
-                :disabled="creditBalance < order.credits"
-                class="primary"
-                large
+          <template v-if="paymentMethod === 'credits'">
+            <v-card-text v-if="paymentMethod === 'credits'" class="pa-0">
+              <div
+                :class="
+                  `d-flex justify-center pt-8${
+                    credits < order.totalCredits ? '' : ' pb-8'
+                  }`
+                "
               >
-                <v-icon left>mdi-alpha-c-circle</v-icon>
-                Spend {{ formatNumber(order.credits || 0) }} credits
-              </v-btn>
-            </div>
-          </v-card-text>
+                <v-btn
+                  @click="pay"
+                  :loading="paying"
+                  :disabled="
+                    !order.totalCredits || credits < order.totalCredits
+                  "
+                  class="primary"
+                  large
+                >
+                  <v-icon left>mdi-alpha-c-circle</v-icon>
+                  Spend {{ formatNumber(order.totalCredits || 0) }} credits
+                </v-btn>
+              </div>
+            </v-card-text>
+            <v-card-actions v-if="credits < order.totalCredits">
+              <v-spacer />
+              <v-btn @click="billingDialog = true" color="accent" text
+                ><v-icon left>mdi-alpha-c-circle</v-icon> Buy credits</v-btn
+              >
+            </v-card-actions>
+          </template>
         </template>
 
         <template v-if="order.status === 'Complete'">
@@ -614,7 +644,7 @@
                     PayPal
                   </td>
                   <td v-if="order.paymentMethod === 'credits'">
-                    Credits ({{ formatNumber(order.credits) }})
+                    Credits ({{ formatNumber(order.totalCredits) }})
                   </td>
                   <td v-else></td>
                 </tr>
@@ -686,7 +716,7 @@
 
               <v-text-field
                 v-if="!['Subscription', 'Credits'].includes(order.product)"
-                v-model="credits"
+                v-model="totalCredits"
                 label="Credits"
               />
 
@@ -749,7 +779,6 @@ export default {
       checks: 0,
       datasetsBaseUrl: process.env.DATASETS_BASE_URL,
       bulkLookupBaseUrl: process.env.BULK_LOOKUP_BASE_URL,
-      credits: 0,
       discount: 0,
       editDialog: false,
       editError: false,
@@ -772,6 +801,7 @@ export default {
       stripe: null,
       stripePaymentMethod: false,
       technologiesViewAll: false,
+      totalCredits: 0,
       success: false
     }
   },
@@ -779,7 +809,7 @@ export default {
     ...mapState({
       user: ({ user }) => user.attrs,
       isAdmin: ({ user }) => user.attrs.admin || user.impersonating,
-      creditBalance: ({ credits: { credits } }) => credits
+      credits: ({ credits: { credits } }) => credits
     }),
     billingAddress() {
       return [
@@ -819,9 +849,9 @@ export default {
     user() {
       this.billingDialog = false
     },
-    order({ id, status, credits, discount }) {
+    order({ id, status, totalCredits, discount }) {
       this.status = status
-      this.credits = credits
+      this.totalCredits = totalCredits
       this.discount = discount / 100
 
       if (status === 'Calculating') {
@@ -992,7 +1022,7 @@ export default {
 
         await this.$axios.patch(`orders/${id}`, {
           status: this.status,
-          credits: this.credits,
+          totalCredits: this.totalCredits,
           discount: Math.min(this.discount * 100, this.order.subtotal)
         })
 
