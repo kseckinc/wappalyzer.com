@@ -48,6 +48,7 @@ export default {
   plugins: [
     '~/plugins/axios.js',
     '~/plugins/mixins.js',
+    '~/plugins/gtag.js',
     { src: '~/plugins/prism', ssr: false }
   ],
   buildModules: [
@@ -56,13 +57,7 @@ export default {
       '@nuxtjs/dotenv',
       { filename: `.env.${process.env.ENVIRONMENT || 'beta'}` }
     ],
-    '@nuxtjs/vuetify',
-    [
-      '@nuxtjs/google-analytics',
-      {
-        id: process.env.GOOGLE_ANALYTICS_ID
-      }
-    ]
+    '@nuxtjs/vuetify'
   ],
   modules: ['@nuxtjs/axios', 'nuxt-stripe-module', 'nuxtjs-mdi-font'],
   router: {

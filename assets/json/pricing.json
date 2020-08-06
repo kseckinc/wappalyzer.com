@@ -1,0 +1,19 @@
+{
+  "creditsPerUnit": {
+    "lookup": { "name": "Technology lookup", "to": "/lookup", "units": [ { "unit": "Domains", "per": "domain", "credits": 1 } ] },
+    "dataset":  { "name": "Datasets", "to": "/datasets", "units": [ { "unit": "Domains", "per": "domain", "credits": 1 } ] },
+    "alert":  { "name": "Alerts", "to": "/alerts", "units": [ { "unit": "Websites", "per": "alert every 30 days", "credits": 10 } ] },
+    "bulk":  { "name": "Bulk lookup", "to": "/bulk", "units": [ { "unit": "Domains", "per": "domain", "credits": 2 } ] },
+    "apiLookup":  { "name": "Lookup API", "to": "/api", "units": [ { "unit": "Domains", "per": "domain", "credits": 1 } ] },
+    "apiCrawl":  { "name": "Crawl API", "to": "/api", "units": [ { "unit": "Pages", "per": "URL", "credits": 1 }, { "unit": "Domains", "per": "domain", "credits": 2 } ] }
+  },
+  "creditTiers": {
+    "100": 20,
+    "500": 10,
+    "1000": 6,
+    "5000": 2,
+    "10000": 1,
+    "50000": 0.6,
+    "100000": 0.2
+  }
+}

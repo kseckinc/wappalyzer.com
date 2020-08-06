@@ -271,6 +271,11 @@ export default {
         try {
           await this.signIn({ username: this.email, password: this.password })
 
+          this.$gtag.event('login')
+          this.$gtag.config({
+            user_id: this.email.toLowerCase()
+          })
+
           if (this.user.email_verified !== 'true') {
             this.mode = 'verifySignIn'
           }
@@ -376,6 +381,8 @@ export default {
               username: this.email,
               code: this.code
             })
+
+            this.$gtag.event('sign_up')
 
             this.mode = 'signIn'
             this.nextSuccess = 'Thank you for signing up! You can now sign in.'

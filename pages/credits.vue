@@ -1,16 +1,16 @@
 <template>
-  <Page
-    :title="title"
-    :loading="loading && !error"
-    :head="{ title, text }"
-    secure
-  >
+  <Page :title="title" :loading="loading && !error" secure>
     <v-alert v-if="success" type="success">
       {{ success }}
     </v-alert>
     <v-alert v-if="error" type="error">
       {{ error }}
     </v-alert>
+
+    <p class="mb-8">
+      Credits can be spent on any product, including technology lookups, APIs
+      and datasets. Sign up for a plan to get monthly credits at a lower price.
+    </p>
 
     <div class="mb-4">
       <v-btn @click="addDialog = true" v-if="isAdmin" color="success" outlined>
@@ -291,9 +291,6 @@ export default {
       order: false,
       submitting: false,
       spends: [],
-      text: [
-        `Credits can be spent on any product. Sign up for a plan to get credits monthly.`
-      ],
       error: false,
       loading: true,
       success: false
@@ -333,6 +330,10 @@ export default {
       } catch (error) {
         this.error = this.getErrorMessage(error)
       }
+    }
+
+    if (this.$route.query.buy) {
+      this.orderDialog = true
     }
   },
   methods: {

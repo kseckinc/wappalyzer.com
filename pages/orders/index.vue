@@ -50,6 +50,10 @@
                   <td v-else-if="order.status === 'Insufficient'">
                     -
                   </td>
+                  <td v-else-if="order.paymentMethod === 'credits'">
+                    {{ formatNumber(order.totalCredits) }}
+                    Credits
+                  </td>
                   <td v-else>
                     {{ formatCurrency(order.total / 100, order.currency) }}
                   </td>

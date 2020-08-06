@@ -1,19 +1,8 @@
 import Vue from 'vue'
 
+import { creditTiers } from '~/assets/json/pricing.json'
+
 Vue.mixin({
-  data() {
-    return {
-      creditTiers: {
-        100: 20,
-        500: 10,
-        1000: 6,
-        5000: 2,
-        10000: 1,
-        50000: 0.6,
-        100000: 0.2
-      }
-    }
-  },
   methods: {
     formatCurrency: (amount, currency = 'AUD', decimal = false) =>
       `${amount.toLocaleString(
@@ -80,9 +69,7 @@ Vue.mixin({
         return 0
       }
 
-      const tiers = Object.keys(this.creditTiers).map((tier) =>
-        parseInt(tier, 10)
-      )
+      const tiers = Object.keys(creditTiers).map((tier) => parseInt(tier, 10))
 
       let remaining = cents
 
@@ -108,9 +95,7 @@ Vue.mixin({
         return 0
       }
 
-      const tiers = Object.keys(this.creditTiers).map((tier) =>
-        parseInt(tier, 10)
-      )
+      const tiers = Object.keys(creditTiers).map((tier) => parseInt(tier, 10))
 
       let remaining = credits
 
@@ -126,7 +111,7 @@ Vue.mixin({
 
         remaining -= credits
 
-        return price + credits * this.creditTiers[tier]
+        return price + credits * creditTiers[tier]
       }, 0)
     }
   }

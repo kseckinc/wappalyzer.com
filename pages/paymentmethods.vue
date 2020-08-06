@@ -58,7 +58,10 @@
 
       <v-card-actions>
         <v-spacer />
-        <v-btn to="/credits" color="accent" text
+        <v-btn
+          :to="{ path: '/credits', query: { buy: true } }"
+          color="accent"
+          text
           ><v-icon left>mdi-alpha-c-circle</v-icon> Buy credits</v-btn
         >
       </v-card-actions>

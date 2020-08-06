@@ -1,6 +1,16 @@
 <template>
   <div>
     <Page :title="title" :head="meta" hero>
+      <v-btn
+        @click="$refs.pricingDialog.open()"
+        color="accent"
+        class="mt-4 mb-8"
+        outlined
+      >
+        <v-icon left>mdi-calculator</v-icon>
+        Pricing
+      </v-btn>
+
       <h3 class="mb-4">Upload your list</h3>
 
       <v-alert icon="mdi-information-outline" outlined>
@@ -9,7 +19,7 @@
             Upload a .txt file containing URLs, each on a separate line
           </li>
           <li>URLs must start with http:// or https://</li>
-          <li>Include up to 1,000 URLs</li>
+          <li>Include up to 5,000 URLs</li>
           <li>
             The resulting dataset is in CSV and JSON format (<a
               href="/bulk-sample.zip"
@@ -65,6 +75,8 @@
         :id="order ? order.id : null"
       />
 
+      <PricingDialog product="bulk" ref="pricingDialog" />
+
       <template v-slot:footer>
         <Logos />
       </template>
@@ -77,6 +89,7 @@ import Page from '~/components/Page.vue'
 import Logos from '~/components/Logos.vue'
 import SignIn from '~/components/SignIn.vue'
 import OrderDialog from '~/components/OrderDialog.vue'
+import PricingDialog from '~/components/PricingDialog.vue'
 import { bulk as meta } from '~/assets/json/meta.json'
 
 export default {
@@ -84,7 +97,8 @@ export default {
     Page,
     Logos,
     SignIn,
-    OrderDialog
+    OrderDialog,
+    PricingDialog
   },
   data() {
     return {
@@ -149,8 +163,8 @@ export default {
 
       const lines = this.fileContent.trim().split('\n')
 
-      if (lines.length > 1000) {
-        this.fileErrors.push('Limit of 1,000 URLs exceeded')
+      if (lines.length > 5000) {
+        this.fileErrors.push('Limit of 5,000 URLs exceeded')
       }
 
       lines.forEach((line, i) => {

@@ -386,7 +386,7 @@
                     Credits
                   </th>
                   <td>
-                    {{ formatNumber(order.totalCredits) }}
+                    {{ formatNumber(order.credits) }}
                   </td>
                 </tr>
               </tbody>
@@ -406,7 +406,17 @@
           </v-card-title>
 
           <v-card-text class="px-0">
-            <v-simple-table>
+            <v-simple-table v-if="order.paymentMethod === 'credits'">
+              <tbody>
+                <tr>
+                  <th width="30%">Credits</th>
+                  <td>
+                    {{ formatNumber(order.totalCredits) }}
+                  </td>
+                </tr>
+              </tbody>
+            </v-simple-table>
+            <v-simple-table v-else>
               <tbody>
                 <tr>
                   <th width="30%">Subotal</th>
@@ -427,7 +437,14 @@
                   </td>
                 </tr>
                 <tr>
-                  <th>Tax ({{ order.taxPercent }}%)</th>
+                  <th>
+                    Tax ({{
+                      order.taxPercent &&
+                      user.billingCountry.toLowerCase() === 'au'
+                        ? 'GST '
+                        : ''
+                    }}{{ order.taxPercent }}%)
+                  </th>
                   <td>
                     {{ formatCurrency(order.tax / 100, order.currency, true) }}
                   </td>
@@ -644,7 +661,7 @@
                     PayPal
                   </td>
                   <td v-if="order.paymentMethod === 'credits'">
-                    Credits ({{ formatNumber(order.totalCredits) }})
+                    Credit balance
                   </td>
                   <td v-else></td>
                 </tr>
@@ -841,6 +858,15 @@ export default {
         }
       }
     },
+    '$store.state.credits.credits'(credits) {
+      if (
+        this.order &&
+        this.order.product !== 'Subscription' &&
+        this.credits >= this.order.totalCredits
+      ) {
+        this.paymentMethod = 'credits'
+      }
+    },
     billingDialog(open) {
       if (open) {
         this.billingSuccess = false
@@ -860,6 +886,13 @@ export default {
 
           this.order = (await this.$axios.get(`orders/${id}`)).data
         }, Math.min(20000, 2000 + 100 * this.checks * this.checks))
+      }
+
+      if (
+        this.order.product !== 'Subscription' &&
+        this.credits >= this.order.totalCredits
+      ) {
+        this.paymentMethod = 'credits'
       }
     },
     paymentMethod() {
@@ -882,6 +915,8 @@ export default {
   },
   mounted() {
     this.stripe = this.$stripe.import()
+
+    this.$gtag.event('begin_checkout')
   },
   methods: {
     ...mapActions({
@@ -949,6 +984,20 @@ export default {
               })
 
               if (this.order.status === 'Complete') {
+                if (this.order.paymentMethod !== 'credits') {
+                  this.$gtag.purchase({
+                    transaction_id: this.order.id,
+                    value: this.order.total / 100,
+                    currency: this.order.currency.toUpperCase(),
+                    tax: this.order.tax / 100,
+                    items: [
+                      {
+                        name: this.order.product
+                      }
+                    ]
+                  })
+                }
+
                 break
               }
             }

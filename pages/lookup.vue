@@ -14,7 +14,7 @@
             :hint="
               isSignedIn
                 ? 'Price per lookup: 1 credit. Get 50 credits per month on a free plan.'
-                : false
+                : ''
             "
             persistent-hint
             class="mb-4"
@@ -115,7 +115,7 @@ export default {
             }
           },
           (v) =>
-            !v || !this.isSignedIn || this.credits || 'Insufficient credits'
+            !v || !this.isSignedIn || !!this.credits || 'Insufficient credits'
         ]
       },
       signInDialog: false,

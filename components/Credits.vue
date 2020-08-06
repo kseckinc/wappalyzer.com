@@ -24,7 +24,9 @@
               {{ formatNumber(credits) }}
             </template>
           </template>
-          <v-btn v-else to="/credits" text>Buy credits</v-btn>
+          <v-btn v-else :to="{ path: '/credits', query: { buy: true } }" text
+            >Buy credits</v-btn
+          >
         </v-col>
       </v-row>
     </v-card-text>

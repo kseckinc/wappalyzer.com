@@ -21,12 +21,12 @@
     "nuxtjs-mdi-font": "^1.0.2",
     "prismjs": "^1.19.0",
     "stripe": "^8.46.0",
+    "vue-gtag": "^1.8.0",
     "vue-prism-component": "^1.1.1"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",
     "@nuxtjs/eslint-module": "^1.0.0",
-    "@nuxtjs/google-analytics": "^2.2.3",
     "@nuxtjs/vuetify": "^1.0.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^6.1.0",

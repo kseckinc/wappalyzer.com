@@ -76,8 +76,8 @@ export default ({ route, store }) => {
 
     if (user.sub) {
       drift.identify(user.sub, {
-        email: user.email,
-        nickname: user.name,
+        email: user.email || '',
+        nickname: user.name || user.email || '',
         userId: user.sub
       })
     }
@@ -97,12 +97,24 @@ export default ({ route, store }) => {
         shown.push(path)
       } else {
         api.hideWelcomeMessage()
-
         api.widget.show()
       }
     } else {
       api.hideWelcomeMessage()
-      api.widget.hide()
+
+      setTimeout(() => api.widget.hide(), 100)
     }
+
+    setTimeout(() => {
+      const path = Object.keys(routes).find((path) =>
+        route.path.startsWith(path)
+      )
+
+      if (!path) {
+        api.hideWelcomeMessage()
+
+        setTimeout(() => api.widget.hide(), 100)
+      }
+    }, 1000)
   })
 }

@@ -60,40 +60,16 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><nuxt-link to="/lookup">Technology lookup</nuxt-link></td>
+              <tr v-for="{ name, to, units } in creditsPerUnit">
                 <td>
-                  1 per domain
+                  <nuxt-link :to="to">{{ name }}</nuxt-link>
                 </td>
-              </tr>
-              <tr>
-                <td><nuxt-link to="/datasets">Datasets</nuxt-link></td>
                 <td>
-                  1 per domain
-                </td>
-              </tr>
-              <tr>
-                <td><nuxt-link to="/alerts">Website alert</nuxt-link></td>
-                <td>
-                  10 per alert every 30 days
-                </td>
-              </tr>
-              <tr>
-                <td><nuxt-link to="/bulk">Bulk lookup</nuxt-link></td>
-                <td>
-                  2 per domain
-                </td>
-              </tr>
-              <tr>
-                <td><nuxt-link to="/api">Lookup API</nuxt-link></td>
-                <td>
-                  1 per domain
-                </td>
-              </tr>
-              <tr>
-                <td><nuxt-link to="/api">Crawl API</nuxt-link></td>
-                <td>
-                  1 per URL / 2 per domain
+                  {{
+                    units
+                      .map(({ per, credits }) => `${credits} per ${per}`)
+                      .join(' / ')
+                  }}
                 </td>
               </tr>
             </tbody>
@@ -187,6 +163,7 @@ import SignIn from '~/components/SignIn.vue'
 import OrderDialog from '~/components/OrderDialog.vue'
 import Matrix from '~/components/Matrix.vue'
 import { attrs, plans } from '~/assets/json/plans.json'
+import { creditsPerUnit, creditTiers } from '~/assets/json/pricing.json'
 
 export default {
   components: {
@@ -203,6 +180,8 @@ export default {
       order: false,
       orderError: '',
       annually: false,
+      creditsPerUnit,
+      creditTiers,
       signInDialog: false,
       subscribing: false,
       text: [

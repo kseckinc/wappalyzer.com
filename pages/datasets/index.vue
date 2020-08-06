@@ -611,9 +611,7 @@ export default {
       if (technologySlug) {
         try {
           const { slug, name, icon } = (
-            await this.$axios.get(
-              `technologies/${categorySlug}/${technologySlug}`
-            )
+            await this.$axios.get(`technologies/${technologySlug}`)
           ).data
 
           this.selected.technologies.push({
@@ -628,7 +626,7 @@ export default {
       } else {
         try {
           const { slug, name, technologies } = (
-            await this.$axios.get(`technologies/${categorySlug}`)
+            await this.$axios.get(`categories/${categorySlug}`)
           ).data
 
           this.selected.categories.push({
