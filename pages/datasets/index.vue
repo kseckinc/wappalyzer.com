@@ -1,9 +1,14 @@
 <template>
   <div>
     <Page :title="title" :head="meta" hero>
-      <v-btn color="accent" to="/faq/datasets" class="mt-4 mb-8" outlined>
-        <v-icon left>mdi-forum</v-icon>
-        FAQs
+      <v-btn
+        @click="$refs.pricingDialog.open()"
+        color="accent"
+        class="mt-4 mb-8"
+        outlined
+      >
+        <v-icon left>mdi-calculator</v-icon>
+        Pricing
       </v-btn>
 
       <v-btn
@@ -13,7 +18,12 @@
         outlined
       >
         <v-icon left>mdi-download</v-icon>
-        Download sample
+        Sample dataset
+      </v-btn>
+
+      <v-btn color="accent" to="/faq/datasets" class="mt-4 mb-8" outlined>
+        <v-icon left>mdi-forum</v-icon>
+        FAQs
       </v-btn>
 
       <template v-slot:content>
@@ -488,6 +498,8 @@
         :id="order ? order.id : null"
       />
 
+      <PricingDialog ref="pricingDialog" product="dataset" />
+
       <template v-slot:footer>
         <Logos />
       </template>
@@ -502,6 +514,7 @@ import TechnologyIcon from '~/components/TechnologyIcon.vue'
 import Logos from '~/components/Logos.vue'
 import SignIn from '~/components/SignIn.vue'
 import OrderDialog from '~/components/OrderDialog.vue'
+import PricingDialog from '~/components/PricingDialog.vue'
 import { datasets as meta } from '~/assets/json/meta.json'
 import languages from '~/assets/json/languages.json'
 import tlds from '~/assets/json/tlds.json'
@@ -514,7 +527,8 @@ export default {
     TechnologyIcon,
     Logos,
     SignIn,
-    OrderDialog
+    OrderDialog,
+    PricingDialog
   },
   data() {
     return {

@@ -75,7 +75,7 @@
         :id="order ? order.id : null"
       />
 
-      <PricingDialog product="bulk" ref="pricingDialog" />
+      <PricingDialog ref="pricingDialog" product="bulk" />
 
       <template v-slot:footer>
         <Logos />

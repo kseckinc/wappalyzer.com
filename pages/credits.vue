@@ -9,7 +9,8 @@
 
     <p class="mb-8">
       Credits can be spent on any product, including technology lookups, APIs
-      and datasets. Sign up for a plan to get monthly credits at a lower price.
+      and datasets. <nuxt-link to="/pricing">Sign up for a plan</nuxt-link> to
+      get monthly credits at a lower price.
     </p>
 
     <div class="mb-4">
@@ -18,10 +19,9 @@
         Add credits
       </v-btn>
 
-      <v-btn href="/pricing" color="accent" outlined>
-        <v-icon left>mdi-alpha-c-circle</v-icon>
-        Plans &amp; pricing
-      </v-btn>
+      <v-btn @click="orderDialog = true" color="accent" outlined
+        ><v-icon left>mdi-alpha-c-circle</v-icon> Buy credits</v-btn
+      >
 
       <v-btn href="/faq/credits" color="accent" outlined>
         <v-icon left>mdi-forum</v-icon>
@@ -262,6 +262,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import { creditTiers } from '~/assets/json/pricing.json'
 
 import Page from '~/components/Page.vue'
 
@@ -277,6 +278,7 @@ export default {
       adding: false,
       addError: false,
       credits: 100,
+      creditTiers,
       description: 'Complimentary credits',
       rules: {
         credits: [
