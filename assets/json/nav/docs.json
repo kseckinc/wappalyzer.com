@@ -40,5 +40,10 @@
         "to": "/docs/api/v2/crawl"
       }
     ]
+  },
+  {
+    "title": "Attribute sets",
+    "icon": "mdi-tag-outline",
+    "to": "/docs/sets"
   }
 ]

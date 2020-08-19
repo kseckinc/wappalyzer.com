@@ -1,6 +1,6 @@
 <template>
   <v-dialog v-model="isOpen" max-width="400px">
-    <v-card v-for="{ unit, credits } in units">
+    <v-card v-for="({ unit, per, credits }, i) in units" :key="i">
       <v-card-title>
         Pricing
       </v-card-title>
@@ -16,7 +16,7 @@
           <thead>
             <tr>
               <th class="pl-6" width="50%">{{ unit }}</th>
-              <th class="pr-6" width="50%">Price</th>
+              <th class="pr-6" width="50%">Price per {{ per }}</th>
             </tr>
           </thead>
           <tbody>

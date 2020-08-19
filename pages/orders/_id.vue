@@ -15,8 +15,8 @@
 
     <template v-if="order">
       <v-alert v-if="order.status === 'Calculating'" type="info" outlined>
-        Checking availability and price... This can take seconds or up to an
-        hour. We will send you an email when your order is ready.
+        Checking availability and price... This may take a few minutes. We will
+        send you an email when your order is ready.
       </v-alert>
 
       <v-alert v-if="order.status === 'Failed'" type="error">
@@ -30,9 +30,9 @@
           try it again with different or no filters.
         </p>
 
-        <v-btn to="/datasets" outlined>
+        <v-btn to="/lists" outlined>
           <v-icon left>mdi-arrow-left</v-icon>
-          Back to Datasets
+          Back to Lead lists
         </v-btn>
       </v-alert>
 
@@ -67,9 +67,9 @@
           Thank you for your payment, your subscription has been created.
         </template>
         <template
-          v-else-if="['Dataset', 'Bulk lookup'].includes(order.product)"
+          v-else-if="['Lead list', 'Bulk lookup'].includes(order.product)"
         >
-          Thank you for your payment, your dataset is ready.
+          Thank you for your payment, your list is ready.
         </template>
         <template v-else-if="order.product === 'Credits'">
           Thank you for your payment, credits have been added to your balance.
@@ -122,7 +122,7 @@
 
       <template
         v-if="
-          order.product === 'Dataset' &&
+          order.product === 'Lead list' &&
             !['Insufficient', 'Failed'].includes(order.status)
         "
       >
@@ -131,7 +131,7 @@
           :href="`${datasetsBaseUrl}${order.dataset.filename}`"
           color="accent"
           outlined
-          ><v-icon left>mdi-download</v-icon>Download dataset</v-btn
+          ><v-icon left>mdi-download</v-icon>Download list</v-btn
         >
         <v-btn
           v-else-if="order.dataset.sampleFilename"
@@ -148,7 +148,7 @@
           :href="`${bulkLookupBaseUrl}${order.bulk.filename}`"
           color="accent"
           outlined
-          ><v-icon left>mdi-download</v-icon>Download dataset</v-btn
+          ><v-icon left>mdi-download</v-icon>Download list</v-btn
         >
       </template>
 
@@ -219,7 +219,7 @@
               </tbody>
             </v-simple-table>
 
-            <v-simple-table v-if="order.product === 'Dataset'">
+            <v-simple-table v-if="order.product === 'Lead list'">
               <tbody>
                 <tr v-if="!['Insufficient', 'Failed'].includes(order.status)">
                   <th>
@@ -237,6 +237,21 @@
                         )
                       )
                     }}
+                  </td>
+                </tr>
+                <tr v-if="order.dataset.exclusionsFilename">
+                  <th>
+                    Exclusions
+                  </th>
+                  <td>
+                    <v-btn
+                      :href="
+                        `${datasetsBaseUrl}${order.dataset.exclusionsFilename}`
+                      "
+                      color="accent"
+                      icon
+                      ><v-icon>mdi-download</v-icon></v-btn
+                    >
                   </td>
                 </tr>
                 <tr>
@@ -284,6 +299,36 @@
                             : `View all ${order.dataset.query.technologies.length}`
                         }}
                       </v-chip>
+                    </v-chip-group>
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    Attribute sets
+                  </th>
+                  <td>
+                    <v-chip-group class="my-2" column>
+                      <v-tooltip
+                        v-for="set in sets.filter(
+                          ({ key }) =>
+                            key === 'base-list' ||
+                            order.dataset.sets.includes(key)
+                        )"
+                        :key="set.key"
+                        bottom
+                      >
+                        <template v-slot:activator="{ on }">
+                          <v-chip v-on="on" outlined small>
+                            {{ set.name }}
+                          </v-chip>
+                        </template>
+
+                        {{
+                          set.attributes
+                            .map(({ name, key }) => name || key)
+                            .join(', ')
+                        }}
+                      </v-tooltip>
                     </v-chip-group>
                   </td>
                 </tr>
@@ -374,6 +419,36 @@
                   </th>
                   <td>
                     {{ formatNumber(order.bulk.rows) }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    Attribute sets
+                  </th>
+                  <td>
+                    <v-chip-group>
+                      <v-tooltip
+                        v-for="set in sets.filter(
+                          ({ key }) =>
+                            key === 'base-lookup' ||
+                            order.bulk.sets.includes(key)
+                        )"
+                        :key="set.key"
+                        bottom
+                      >
+                        <template v-slot:activator="{ on }">
+                          <v-chip v-on="on" outlined small>
+                            {{ set.name }}
+                          </v-chip>
+                        </template>
+
+                        {{
+                          set.attributes
+                            .map(({ name, key }) => name || key)
+                            .join(', ')
+                        }}
+                      </v-tooltip>
+                    </v-chip-group>
                   </td>
                 </tr>
               </tbody>
@@ -552,13 +627,13 @@
             <v-alert
               v-if="order.product !== 'Subscription'"
               color="secondary"
-              class="mb-0 text-center"
+              class="text-center"
             >
               Come here often? Save with a plan. See
               <nuxt-link to="/pricing">plans &amp; pricing</nuxt-link>.
             </v-alert>
 
-            <div v-if="!cardsLoaded" class="d-flex justify-center pt-6 pb-6">
+            <div v-if="!cardsLoaded" class="d-flex justify-center pt-2 pb-6">
               <Progress />
             </div>
 
@@ -593,12 +668,12 @@
             </div>
           </v-card-text>
           <v-card-text v-if="paymentMethod === 'paypal'" class="pa-0">
-            <v-alert color="secondary" class="mb-0 text-center">
+            <v-alert color="secondary" class="text-center">
               Come here often? Save with a plan. See
               <nuxt-link to="/pricing">plans &amp; pricing</nuxt-link>.
             </v-alert>
 
-            <div class="d-flex justify-center py-8">
+            <div class="d-flex justify-center mt-n4 py-8">
               <v-btn
                 @click="invoice"
                 :loading="invoicing"
@@ -773,6 +848,8 @@ import CreditCards from '~/components/CreditCards.vue'
 import Progress from '~/components/Progress.vue'
 import Spinner from '~/components/Spinner.vue'
 import AudToUsd from '~/components/AudToUsd.vue'
+import declineCodes from '~/assets/json/declineCodes.json'
+import sets from '~/assets/json/sets.json'
 
 export default {
   components: {
@@ -796,6 +873,7 @@ export default {
       checks: 0,
       datasetsBaseUrl: process.env.DATASETS_BASE_URL,
       bulkLookupBaseUrl: process.env.BULK_LOOKUP_BASE_URL,
+      declineCodes,
       discount: 0,
       editDialog: false,
       editError: false,
@@ -803,8 +881,10 @@ export default {
       error: false,
       invoicing: false,
       order: null,
+      orderLoaded: false,
       paymentMethod: 'stripe',
       paying: false,
+      sets,
       status,
       statusItems: [
         'Open',
@@ -888,11 +968,15 @@ export default {
         }, Math.min(20000, 2000 + 100 * this.checks * this.checks))
       }
 
-      if (
-        this.order.product !== 'Subscription' &&
-        this.credits >= this.order.totalCredits
-      ) {
-        this.paymentMethod = 'credits'
+      if (!this.orderLoaded) {
+        this.orderLoaded = true
+
+        if (
+          this.order.product !== 'Subscription' &&
+          this.credits >= this.order.totalCredits
+        ) {
+          this.paymentMethod = 'credits'
+        }
       }
     },
     paymentMethod() {
@@ -966,6 +1050,12 @@ export default {
           )
 
           if (error) {
+            if (error.code === 'card_declined') {
+              if (declineCodes[error.decline_code]) {
+                throw new Error(declineCodes[error.decline_code])
+              }
+            }
+
             throw new Error(this.getErrorMessage(error))
           }
 

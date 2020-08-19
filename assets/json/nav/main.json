@@ -8,9 +8,9 @@
         "to": "/lookup"
       },
       {
-        "title": "Datasets",
+        "title": "Lead lists",
         "subtitle": "Create lists of sites using certain technologies",
-        "to": "/datasets"
+        "to": "/lists"
       },
       {
         "title": "Bulk lookup",

@@ -1,0 +1,85 @@
+[
+  {
+    "key": "base-list",
+    "name": "Base",
+    "attributes": [
+      { "name": "website URLs", "key": "url" },
+      { "name": "technology versions", "key": "versions" },
+      { "name": "traffic rank", "key": "trafficRank" }
+    ],
+    "value": true,
+    "disabled": true
+  },
+  {
+    "key": "base-lookup",
+    "name": "Base",
+    "attributes": [
+      { "key": "technologies" },
+      { "key": "categories" },
+      { "key": "versions" },
+      { "name": "traffic rank", "key": "trafficRank" }
+    ],
+    "value": true,
+    "disabled": true
+  },
+  {
+    "key": "contact",
+    "name": "Contact details",
+    "attributes": [
+      { "name": "phone numbers", "key": "phone", "description": "Phone numbers found on the website's contact page. We identify <code>tel:</code> links and numbers that appear to be phone numbers." },
+      { "name": "email addresses", "key": "email", "description": "Email addresses found on the website's contact page. We identify <code>mailto:</code> links and strings that appear to be email addresses based on the website's domain." },
+      { "name": "skype", "key": "skype", "description": "Skype handles found on the website's contact page." },
+      { "name": "address", "key": "address", "description": "Addresses found on the website's contact page. We identify <code>&lt;address&gt;</code> tags for this purpose." },
+      { "name": "company name", "key": "inferredCompanyName", "description": "Best guess company name, inferred from the website's content and social media handles. Indicative only." }
+    ],
+    "value": false
+  },
+  {
+    "key": "social",
+    "name": "Social media accounts",
+    "attributes": [
+      { "name": "Twitter", "key": "twitter", "description": "Twitter handles found on the website's contact page." },
+      { "name": "Facebook", "key": "facebook", "description": "Facebook handles found on the website's contact page." },
+      { "name": "Instagram", "key": "instagram", "description": "Instagram handles found on the website's contact page." },
+      { "name": "GitHub", "key": "github", "description": "GitHub handles found on the website's contact page." },
+      { "name": "TikTok", "key": "tiktok", "description": "TikTok handles found on the website's contact page." },
+      { "name": "YouTube", "key": "youtube", "description": "YouTube handles found on the website's contact page." },
+      { "name": "Pinterest", "key": "pinterest", "description": "Pinterest handles found on the website's contact page." },
+      { "name": "LinkedIn", "key": "linkedin", "description": "LinkedIn handles found on the website's contact page." }
+    ],
+    "value": false
+  },
+  {
+    "key": "meta",
+    "name": "Meta data",
+    "attributes": [
+      { "key": "title", "description": "The website's title, as found on the homepage." },
+      { "key": "description", "description": "The website's meta description." },
+      { "key": "copyright", "description": "Copyright notice, if found (e.g. \"Copyright © 2018 - 2020\")." },
+      { "name": "copyright year", "key": "copyrightYear", "description": "The most recent year extracted from the copyright notice (e.g. \"2020\")." }
+    ],
+    "value": false
+  },
+  {
+    "key": "locale",
+    "name": "Locale",
+    "attributes": [
+      { "name": "IP country", "key": "ipCountry", "description": "The website's country, based on its IP address. This is usually the where the website is hosted, which can be indicative of where a business operates from." },
+      { "name": "IP region", "key": "ipRegion", "description": "The website's region (e.g. state), based on its IP address" },
+      { "key": "language", "description": "The website's language, determined by interpreting content on the website. Indicative only." }
+    ],
+    "value": false
+  },
+  {
+    "key": "trackers",
+    "name": "Trackers",
+    "attributes": [
+      { "name": "Google Analytics", "key": "trackerGoogleAnalytics", "description": "Google Analytics tracking ID." },
+      { "name": "Google AdSense", "key": "trackerGoogleAdSense", "description": "Google AdSense tracking ID." },
+      { "name": "Medianet", "key": "trackerMedianet", "description": "Medianet tracking ID." },
+      { "name": "Facebook", "key": "trackerFacebook", "description": "Facebook tracking ID." },
+      { "name": "Optimizely", "key": "trackerOptimizely", "description": "Optimizely tracking ID." }
+    ],
+    "value": false
+  }
+]

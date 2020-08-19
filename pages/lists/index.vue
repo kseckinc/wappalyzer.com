@@ -11,17 +11,12 @@
         Pricing
       </v-btn>
 
-      <v-btn
-        color="accent"
-        href="/dataset-sample.zip"
-        class="mt-4 mb-8"
-        outlined
-      >
+      <v-btn color="accent" href="/list-sample.zip" class="mt-4 mb-8" outlined>
         <v-icon left>mdi-download</v-icon>
-        Sample dataset
+        Sample list
       </v-btn>
 
-      <v-btn color="accent" to="/faq/datasets" class="mt-4 mb-8" outlined>
+      <v-btn color="accent" to="/faq/lists" class="mt-4 mb-8" outlined>
         <v-icon left>mdi-forum</v-icon>
         FAQs
       </v-btn>
@@ -91,6 +86,59 @@
                 </v-card>
               </v-card-text>
 
+              <v-card-text>
+                <v-card>
+                  <v-card-title class="subtitle-2">
+                    Attribute sets
+                  </v-card-title>
+                  <v-card-text class="px-0">
+                    <p class="px-4">
+                      Choose one or more
+                      <nuxt-link to="/docs/sets" target="_blank"
+                        >attribute sets</nuxt-link
+                      >
+                      to include. Limited availability.
+                    </p>
+                    <v-simple-table dense>
+                      <tbody>
+                        <v-tooltip
+                          v-for="set in sets.filter(
+                            ({ key }) => key !== 'base-lookup'
+                          )"
+                          top
+                        >
+                          <template v-slot:activator="{ on }">
+                            <tr v-on="on">
+                              <td>
+                                <v-checkbox
+                                  v-model="set.value"
+                                  :disabled="set.disabled"
+                                  class="mt-0"
+                                  dense
+                                  hide-details
+                                >
+                                  <template v-slot:label>
+                                    <small>
+                                      {{ set.name }}
+                                    </small>
+                                  </template>
+                                </v-checkbox>
+                              </td>
+                            </tr>
+                          </template>
+
+                          {{
+                            set.attributes
+                              .map(({ name, key }) => name || key)
+                              .join(', ')
+                          }}
+                        </v-tooltip>
+                      </tbody>
+                    </v-simple-table>
+                  </v-card-text>
+                </v-card>
+              </v-card-text>
+
               <v-card-title>
                 <v-icon color="primary" left
                   >mdi-arrow-collapse-vertical</v-icon
@@ -98,7 +146,7 @@
                 Limits <span class="grey--text ml-1">(optional)</span>
               </v-card-title>
               <v-card-text>
-                <v-card>
+                <v-card class="mb-8">
                   <v-card-title class="subtitle-2">
                     Subset
                   </v-card-title>
@@ -119,6 +167,27 @@
                       class="mb-4"
                       placeholder="5000"
                       hide-details="auto"
+                    />
+                  </v-card-text>
+                </v-card>
+
+                <v-card>
+                  <v-card-title class="subtitle-2">
+                    Exclusions
+                  </v-card-title>
+                  <v-card-text>
+                    <p>
+                      Upload a .txt file with domain names to exclude, each on a
+                      new line.
+                    </p>
+
+                    <v-file-input
+                      v-on:change="fileChange"
+                      :error-messages="fileErrors"
+                      placeholder="Select a file..."
+                      accept="text/plain"
+                      hide-details="auto"
+                      class="mb-4"
                     />
                   </v-card-text>
                 </v-card>
@@ -498,7 +567,7 @@
         :id="order ? order.id : null"
       />
 
-      <PricingDialog ref="pricingDialog" product="dataset" />
+      <PricingDialog ref="pricingDialog" product="list" />
 
       <template v-slot:footer>
         <Logos />
@@ -515,10 +584,11 @@ import Logos from '~/components/Logos.vue'
 import SignIn from '~/components/SignIn.vue'
 import OrderDialog from '~/components/OrderDialog.vue'
 import PricingDialog from '~/components/PricingDialog.vue'
-import { datasets as meta } from '~/assets/json/meta.json'
+import { lists as meta } from '~/assets/json/meta.json'
 import languages from '~/assets/json/languages.json'
 import tlds from '~/assets/json/tlds.json'
 import countries from '~/assets/json/countries.json'
+import sets from '~/assets/json/sets.json'
 
 export default {
   components: {
@@ -535,6 +605,8 @@ export default {
       title: meta.title,
       countries: Object.keys(tlds),
       error: false,
+      file: '',
+      fileErrors: [],
       matchAll: false,
       meta,
       signInDialog: false,
@@ -547,6 +619,7 @@ export default {
         tlds: [],
         languages: []
       },
+      sets,
       subset: null,
       order: false,
       orderError: '',
@@ -619,7 +692,7 @@ export default {
     }
   },
   async created() {
-    const { categorySlug, technologySlug } = this.$store.state.datasets
+    const { categorySlug, technologySlug } = this.$store.state.lists
 
     if (categorySlug) {
       if (technologySlug) {
@@ -655,8 +728,8 @@ export default {
       }
     }
 
-    this.$store.commit('datasets/setTechnologySlug', false)
-    this.$store.commit('datasets/setCategorySlug', false)
+    this.$store.commit('lists/setTechnologySlug', false)
+    this.$store.commit('lists/setCategorySlug', false)
   },
   methods: {
     async submit() {
@@ -674,7 +747,7 @@ export default {
       try {
         this.order = (
           await this.$axios.put('orders', {
-            product: 'Dataset',
+            product: 'Lead list',
             dataset: {
               query: {
                 technologies: this.selected.technologies.map(
@@ -703,7 +776,11 @@ export default {
                 tlds: this.selected.tlds.map(({ value }) => value),
                 matchAll: this.matchAll,
                 subset: this.subset
-              }
+              },
+              sets: this.sets
+                .filter(({ disabled, value }) => value && !disabled)
+                .map(({ key }) => key),
+              exclusions: this.file
             }
           })
         ).data
@@ -871,6 +948,39 @@ export default {
 
       this.tld = ''
       this.tldErrors = []
+    },
+    async fileChange(file) {
+      this.file = ''
+      this.fileErrors = []
+
+      if (!file) {
+        return
+      }
+
+      this.file = (await file.text())
+        .trim()
+        .split('\n')
+        .map((line, i) => {
+          const a = document.createElement('a')
+
+          a.href = (line.startsWith('http') ? line : `http://${line}`).trim()
+
+          const { hostname } = a
+
+          if (!hostname) {
+            this.fileErrors.push(`Invalid URL on line ${i + 1}: ${line}`)
+          }
+
+          return a.href
+        })
+
+      this.fileErrors = this.fileErrors.slice(0, 10)
+
+      if (this.file.length > 100000) {
+        this.fileErrors.push('Limit of 100,000 URLs exceeded')
+      }
+
+      this.file = this.file.join('\n')
     }
   }
 }

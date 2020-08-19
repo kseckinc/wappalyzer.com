@@ -7,6 +7,11 @@
       {{ error }}
     </v-alert>
 
+    <p class="mb-8">
+      Your API key provides authorized access to our
+      <nuxt-link to="/api">APIs</nuxt-link>.
+    </p>
+
     <div class="mb-4">
       <v-btn href="/docs/api" color="accent" outlined>
         <v-icon left>mdi-book-open-page-variant</v-icon>

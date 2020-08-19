@@ -9,7 +9,7 @@
       <v-container class="white--text text-center body-2 py-6">
         <p>
           Interested to know which websites use certain technologies?<br />
-          Our APIs and datasets provide valuable insights into the software
+          Our APIs and lead lists provide valuable insights into the software
           industry.
         </p>
 

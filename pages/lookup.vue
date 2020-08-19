@@ -43,7 +43,7 @@
             <span class="overline"
               >{{ technologies.length }}
               {{ technologies.length === 1 ? 'technology' : 'technologies' }}
-              identfied</span
+              identified</span
             >
           </v-card-title>
           <v-card-text class="px-0">
@@ -55,7 +55,11 @@
                 >
                   <td width="1">
                     <nuxt-link
-                      :to="`/technologies/${categories[0].slug}/${slug}`"
+                      :to="
+                        `/technologies/${
+                          categories.length ? `${categories[0].slug}/` : ''
+                        }${slug}`
+                      "
                       class="d-flex align-center body-2 my-2"
                     >
                       <TechnologyIcon :icon="icon" />

@@ -11,51 +11,111 @@
         Pricing
       </v-btn>
 
-      <h3 class="mb-4">Upload your list</h3>
-
-      <v-alert icon="mdi-information-outline" outlined>
-        <ul>
-          <li>
-            Upload a .txt file containing URLs, each on a separate line
-          </li>
-          <li>URLs must start with http:// or https://</li>
-          <li>Include up to 5,000 URLs</li>
-          <li>
-            The resulting dataset is in CSV and JSON format (<a
-              href="/bulk-sample.zip"
-              download
-              >sample</a
-            >)
-          </li>
-        </ul>
-      </v-alert>
+      <h2 class="mb-4">Get an instant quote</h2>
 
       <v-alert v-if="error" type="error">
         {{ error }}
       </v-alert>
 
-      <v-row>
-        <v-col sm="8" class="py-0">
-          <v-form ref="form">
-            <v-file-input
-              v-on:change="fileChange"
-              :error-messages="fileErrors"
-              placeholder="Select a file..."
-              accept="text/plain"
-              hide-details="auto"
-              class="mb-8"
-            />
+      <v-form ref="form">
+        <v-card class="mb-8" color="secondary">
+          <v-card-title>
+            <v-icon color="primary" left>mdi-format-list-checks</v-icon>
+            Selection
+          </v-card-title>
+          <v-card-text>
+            <v-card class="mb-4">
+              <v-card-title class="subtitle-2">
+                Upload your list
+              </v-card-title>
+              <v-card-text>
+                <ul>
+                  <li>
+                    Upload a .txt file containing URLs, each on a separate line
+                  </li>
+                  <li>URLs must start with http:// or https://</li>
+                  <li>Include up to 5,000 URLs</li>
+                  <li>
+                    The resulting list is in CSV and JSON format (<a
+                      href="/bulk-sample.zip"
+                      download
+                      >sample</a
+                    >)
+                  </li>
+                </ul>
 
-            <v-btn
-              @click="submit"
-              :disabled="!!(!fileContent || fileErrors.length)"
-              color="primary"
-              large
-              >Request quote <v-icon right>mdi-arrow-right</v-icon>
-            </v-btn>
-          </v-form>
-        </v-col>
-      </v-row>
+                <v-file-input
+                  v-on:change="fileChange"
+                  :error-messages="fileErrors"
+                  placeholder="Select a file..."
+                  accept="text/plain"
+                  hide-details="auto"
+                  class="mb-4"
+                />
+              </v-card-text>
+            </v-card>
+
+            <v-card>
+              <v-card-title class="subtitle-2">
+                Attribute sets
+              </v-card-title>
+              <v-card-text class="px-0">
+                <p class="px-4">
+                  Choose one or more
+                  <nuxt-link to="/docs/sets" target="_blank"
+                    >attribute sets</nuxt-link
+                  >
+                  to include. Limited availability.
+                </p>
+                <v-simple-table dense>
+                  <tbody>
+                    <v-tooltip
+                      v-for="set in sets.filter(
+                        ({ key }) => key !== 'base-list'
+                      )"
+                      top
+                    >
+                      <template v-slot:activator="{ on }">
+                        <tr v-on="on">
+                          <td>
+                            <v-checkbox
+                              v-model="set.value"
+                              :disabled="set.disabled"
+                              class="mt-0"
+                              dense
+                              hide-details
+                            >
+                              <template v-slot:label>
+                                <small>
+                                  {{ set.name }}
+                                </small>
+                              </template>
+                            </v-checkbox>
+                          </td>
+                        </tr>
+                      </template>
+
+                      {{
+                        set.attributes
+                          .map(({ name, key }) => name || key)
+                          .join(', ')
+                      }}
+                    </v-tooltip>
+                  </tbody>
+                </v-simple-table>
+              </v-card-text>
+            </v-card>
+          </v-card-text>
+        </v-card>
+
+        <v-btn
+          @click="submit"
+          :disabled="!!(!file || fileErrors.length)"
+          color="primary"
+          large
+          >Request quote <v-icon right>mdi-arrow-right</v-icon>
+        </v-btn>
+      </v-form>
 
       <p class="mt-4">
         <small>
@@ -91,6 +151,7 @@ import SignIn from '~/components/SignIn.vue'
 import OrderDialog from '~/components/OrderDialog.vue'
 import PricingDialog from '~/components/PricingDialog.vue'
 import { bulk as meta } from '~/assets/json/meta.json'
+import sets from '~/assets/json/sets.json'
 
 export default {
   components: {
@@ -105,13 +166,13 @@ export default {
       title: meta.title,
       error: false,
       file: '',
-      fileContent: '',
       fileErrors: [],
       signInDialog: false,
       meta,
       order: false,
       orderError: '',
-      ordering: false
+      ordering: false,
+      sets
     }
   },
   watch: {
@@ -141,7 +202,10 @@ export default {
           await this.$axios.put('orders', {
             product: 'Bulk lookup',
             bulk: {
-              input: this.fileContent
+              input: this.file,
+              sets: this.sets
+                .filter(({ disabled, value }) => value && !disabled)
+                .map(({ key }) => key)
             }
           })
         ).data
@@ -152,32 +216,37 @@ export default {
       this.ordering = false
     },
     async fileChange(file) {
-      this.fileContent = ''
+      this.file = ''
       this.fileErrors = []
 
       if (!file) {
         return
       }
 
-      this.fileContent = await file.text()
+      this.file = (await file.text())
+        .trim()
+        .split('\n')
+        .map((line, i) => {
+          const a = document.createElement('a')
 
-      const lines = this.fileContent.trim().split('\n')
+          a.href = line.trim()
 
-      if (lines.length > 5000) {
+          const { hostname } = a
+
+          if (!/^https?:\/\//.test(line) || !hostname) {
+            this.fileErrors.push(`Invalid URL on line ${i + 1}: ${line}`)
+          }
+
+          return a.href
+        })
+
+      this.fileErrors = this.fileErrors.slice(0, 10)
+
+      if (this.file.length > 5000) {
         this.fileErrors.push('Limit of 5,000 URLs exceeded')
       }
 
-      lines.forEach((line, i) => {
-        const a = document.createElement('a')
-
-        a.href = line
-
-        const { hostname } = a
-
-        if (!/^https?:\/\//.test(line) || !hostname) {
-          this.fileErrors.push(`Invalid URL on line ${i + 1}: ${line}`)
-        }
-      })
+      this.file = this.file.join('\n')
     }
   }
 }

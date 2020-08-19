@@ -1,7 +1,7 @@
 {
   "hero": {
-    "title": "Identify technology on websites",
-    "text": "Wappalyzer is a technographics data provider, uncovering technologies such as content management systems, customer relationship management, ecommerce platforms, advertising networks, marketing tools and analytics."
+    "title": "Technology driven lead generation",
+    "text": "Sell and market more effectively with technographic insights. We track the websites of millions of companies and over a thousand web technologies, helping you to identify prospects and increase your addressable market."
   },
   "lookup": {
     "title": "Technology lookup",
@@ -16,25 +16,25 @@
         "icon": "mdi-magnify"
       }
     ],
-    "features": ["Instant results", "Look up any website"],
+    "features": ["Instant results", "Look up any website", "50 Free monthly lookups"],
     "feature": true
   },
-  "datasets": {
-    "title": "Datasets",
+  "lists": {
+    "title": "Lead lists",
     "subtitle": "Create lists of websites that use certain technologies",
-    "icon": "mdi-database",
-    "image": "dataset.svg",
+    "icon": "mdi-filter-variant",
+    "image": "list.svg",
     "text": "Technographic datasets provide valuable insights into the software industry and are an essential tool for market research and competitor analysis.",
     "buttons": [
       {
-        "text": "Create a dataset",
-        "to": "/datasets",
+        "text": "Create a lead list",
+        "to": "/lists",
         "icon": "mdi-arrow-right"
       }
     ],
     "features": [
       "Over a thousand technologies tracked",
-      "Organic data with traffic markers",
+      "Organic data with traffic markers and contacts",
       "Fresh and accurate data"
     ],
     "feature": true

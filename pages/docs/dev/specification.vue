@@ -44,6 +44,7 @@
   "X-Powered-By": "Example"
   },
   "html": "&lt;link[^&gt;]example\\.css",
+  "robots": "Disallow: /unique-path/",
   "implies": "PHP\\;confidence:50",
   "meta": {
   "generator": "(?:Example|Another Example)"
@@ -247,6 +248,14 @@
                 avoid matching plain text.
               </td>
               <td><code>"&lt;a [^&gt;]*href=\"index.html"</code></td>
+            </tr>
+            <tr>
+              <td><code>robots</code></td>
+              <td>String | Array</td>
+              <td>
+                Robots.txt contents.
+              </td>
+              <td><code>"Disallow: /unique-path/"</code></td>
             </tr>
             <tr>
               <td><code>url</code></td>

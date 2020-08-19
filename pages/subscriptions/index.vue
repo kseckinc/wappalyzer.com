@@ -14,14 +14,7 @@
       <v-card>
         <v-card-text v-if="!subscriptions.length">
           <v-alert class="ma-0" color="info" outlined>
-            <p>
-              You don't have any subscriptions.
-            </p>
-
-            <v-btn to="/api" color="accent" outlined>
-              Compare APIs
-              <v-icon right>mdi-arrow-right</v-icon>
-            </v-btn>
+            You don't have any subscriptions.
           </v-alert>
         </v-card-text>
         <v-card-text v-else class="px-0">

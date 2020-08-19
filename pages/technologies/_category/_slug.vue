@@ -79,7 +79,7 @@
             class="mb-4"
             outlined
           >
-            <v-icon left>mdi-database</v-icon> Get the full dataset
+            <v-icon left>mdi-filter-variant</v-icon> Create a lead list
           </v-btn>
 
           <v-card class="my-4">

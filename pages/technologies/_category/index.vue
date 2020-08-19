@@ -24,7 +24,7 @@
           class="mt-4 mb-2"
           outlined
         >
-          <v-icon left>mdi-database</v-icon> Get the full dataset
+          <v-icon left>mdi-filter-variant</v-icon> Create a lead list
         </v-btn>
 
         <v-card class="mt-8 mb-4">

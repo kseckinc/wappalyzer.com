@@ -3,7 +3,7 @@
     "credits": { "text": "Credits per month", "type": "credits" },
     "lookups": { "text": "Technology lookups", "type": "boolean" },
     "apis": { "text": "API access", "type": "boolean" },
-    "datasets": { "text": "Technographic datasets", "type": "boolean" },
+    "lists": { "text": "Lead lists", "type": "boolean" },
     "alerts": { "text": "Website alerts", "type": "boolean" },
     "cancellation": { "text": "Anytime cancellation", "type": "boolean" },
     "support": { "text": "Technical support", "type": "boolean" }
@@ -18,7 +18,7 @@
         "credits": 50,
         "support": "-",
         "lookups": true,
-        "datasets": true,
+        "lists": true,
         "apis": true,
         "alerts": true,
         "cancellation": true
@@ -32,7 +32,7 @@
         "credits": 10000,
         "support": "Email",
         "lookups": true,
-        "datasets": true,
+        "lists": true,
         "apis": true,
         "alerts": true,
         "cancellation": true
@@ -47,7 +47,7 @@
         "credits": 50000,
         "support": "Email & phone",
         "lookups": true,
-        "datasets": true,
+        "lists": true,
         "apis": true,
         "alerts": true,
         "cancellation": true
@@ -62,7 +62,7 @@
         "credits": "Custom",
         "support": "Priority email & phone",
         "lookups": true,
-        "datasets": true,
+        "lists": true,
         "apis": true,
         "alerts": true,
         "cancellation": true
@@ -77,7 +77,7 @@
         "credits": 50,
         "support": "-",
         "lookups": true,
-        "datasets": true,
+        "lists": true,
         "apis": true,
         "alerts": true,
         "cancellation": true
@@ -92,7 +92,7 @@
         "credits": 10000,
         "support": "Email",
         "lookups": true,
-        "datasets": true,
+        "lists": true,
         "apis": true,
         "alerts": true,
         "cancellation": true
@@ -108,7 +108,7 @@
         "credits": 50000,
         "support": "Email & phone",
         "lookups": true,
-        "datasets": true,
+        "lists": true,
         "apis": true,
         "alerts": true,
         "cancellation": true
@@ -123,7 +123,7 @@
         "credits": "Custom",
         "support": "Priority email & phone",
         "lookups": true,
-        "datasets": true,
+        "lists": true,
         "apis": true,
         "alerts": true,
         "cancellation": true

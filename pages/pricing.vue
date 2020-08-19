@@ -46,8 +46,8 @@
           <v-row>
             <v-col class="py-0" md="8">
               <p class="px-4">
-                Credits can be spent on a range of products, including datasets
-                and every API.
+                Credits can be spent on a range of products, including lead
+                lists and every API.
               </p>
             </v-col>
           </v-row>
@@ -68,7 +68,7 @@
                   {{
                     units
                       .map(({ per, credits }) => `${credits} per ${per}`)
-                      .join(' / ')
+                      .join(' or ')
                   }}
                 </td>
               </tr>
@@ -185,7 +185,7 @@ export default {
       signInDialog: false,
       subscribing: false,
       text: [
-        'Sign up for access to our full range of products. Each plan grants you monthly credits to spend on technology lookups, datasets and API calls.'
+        'Sign up for access to our full range of products. Each plan grants you monthly credits to spend on technology lookups, lead lists and API calls.'
       ]
     }
   },

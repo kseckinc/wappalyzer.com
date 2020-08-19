@@ -110,6 +110,14 @@
                 results by month.
               </td>
             </tr>
+            <tr>
+              <td><code>sets</code></td>
+              <td>
+                Comma-separated list of additional attribute sets to include in
+                the results (e.g. <code>meta,social</code>). See
+                <nuxt-link to="/docs/sets">Attribute sets</nuxt-link>.
+              </td>
+            </tr>
           </tbody>
         </v-simple-table>
       </v-card>
@@ -157,8 +165,8 @@
           </p>
 
           <p>
-            The <code>hits</code> value is a relative traffic indicator. A
-            higher number means a more trafficked website.
+            The <code>trafficRank</code> value is a relative traffic indicator.
+            A higher number means a more trafficked website.
           </p>
 
           <pre><Prism language="json" class="body-2">[
@@ -177,7 +185,7 @@
         "versions": [
           "3.0.0"
         ],
-        "hits": 0 // Traffic indicator
+        "trafficRank": 0
       }
     ]
   },
@@ -275,7 +283,7 @@
             "versions": [
               "3.0.0"
             ],
-            "hits": 0 // Traffic indicator
+            "trafficRank": 0
           }
         ]
       },

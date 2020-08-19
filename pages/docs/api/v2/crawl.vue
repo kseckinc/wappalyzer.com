@@ -94,6 +94,14 @@
                 (default) or <code>false</code>).
               </td>
             </tr>
+            <tr>
+              <td><code>sets</code></td>
+              <td>
+                Comma-separated list of additional attribute sets to include in
+                the results (e.g. <code>meta,social</code>). See
+                <nuxt-link to="/docs/sets">Attribute sets</nuxt-link>.
+              </td>
+            </tr>
           </tbody>
         </v-simple-table>
       </v-card>
