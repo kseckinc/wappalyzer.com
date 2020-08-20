@@ -229,14 +229,7 @@
                     <Spinner />
                   </td>
                   <td v-else>
-                    {{
-                      formatNumber(
-                        Object.values(order.dataset.rows).reduce(
-                          (total, rows) => total + rows,
-                          0
-                        )
-                      )
-                    }}
+                    {{ formatNumber(totalRows(order.dataset.rows)) }}
                   </td>
                 </tr>
                 <tr v-if="order.dataset.exclusionsFilename">
@@ -305,6 +298,13 @@
                 <tr>
                   <th>
                     Attribute sets
+                    {{
+                      ['Calculating', 'Insufficient', 'Failed'].includes(
+                        order.status
+                      )
+                        ? ''
+                        : '(rows)'
+                    }}
                   </th>
                   <td>
                     <v-chip-group class="my-2" column>
@@ -320,6 +320,19 @@
                         <template v-slot:activator="{ on }">
                           <v-chip v-on="on" outlined small>
                             {{ set.name }}
+                            {{
+                              ![
+                                'Calculating',
+                                'Insufficient',
+                                'Failed'
+                              ].includes(order.status)
+                                ? ` (${formatNumber(
+                                    set.key === 'base-list'
+                                      ? totalRows(order.dataset.rows)
+                                      : order.dataset.setRows[set.key] || 0
+                                  )})`
+                                : ''
+                            }}
                           </v-chip>
                         </template>
 
@@ -1177,6 +1190,9 @@ export default {
       this.editing = false
 
       this.scrollToTop()
+    },
+    totalRows(rows) {
+      return Object.values(rows).reduce((total, rows) => total + rows, 0)
     }
   }
 }

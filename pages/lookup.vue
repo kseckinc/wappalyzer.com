@@ -1,23 +1,20 @@
 <template>
   <Page :title="title" :head="meta" hero no-heading>
-    <v-row>
-      <v-col sm="8" md="12" lg="8" class="py-0">
-        <Credits class="mt-8" />
+    <Credits class="mt-8 mb-8" />
 
-        <h3 class="mb-4">Lookup</h3>
+    <v-card color="secondary" style="overflow: hidden">
+      <v-card-title>
+        <v-icon color="primary" left>mdi-layers-outline</v-icon>
+        Lookup
+      </v-card-title>
 
+      <v-card-text class="pb-0">
         <v-form ref="form" @submit.prevent="submit" v-model="valid">
           <v-text-field
             v-model="url"
             @click:append="submit"
             :rules="rules.url"
-            :hint="
-              isSignedIn
-                ? 'Price per lookup: 1 credit. Get 50 credits per month on a free plan.'
-                : ''
-            "
-            persistent-hint
-            class="mb-4"
+            style="background-color: white"
             append-icon="mdi-magnify"
             label="Enter a URL"
             placeholder="https://www.example.com"
@@ -28,51 +25,138 @@
           />
         </v-form>
 
-        <v-alert v-if="error" color="info" outlined>
+        <p>
+          <small>
+            Price per lookup: 1 credit. Get 50 credits per month on a free plan.
+          </small>
+        </p>
+
+        <v-alert v-if="error" color="info" class="mb-4" outlined>
           {{ error }}
         </v-alert>
 
-        <v-card v-if="loading">
+        <v-card v-if="loading" class="mb-4">
           <v-card-text class="d-flex justify-center">
             <Progress />
           </v-card-text>
         </v-card>
 
-        <v-card v-if="technologies">
-          <v-card-title>
-            <span class="overline"
-              >{{ technologies.length }}
-              {{ technologies.length === 1 ? 'technology' : 'technologies' }}
-              identified</span
-            >
-          </v-card-title>
-          <v-card-text class="px-0">
-            <v-simple-table>
-              <tbody>
-                <tr
-                  v-for="{ name, slug, categories, icon } in technologies"
-                  :key="name"
-                >
-                  <td width="1">
-                    <nuxt-link
-                      :to="
-                        `/technologies/${
-                          categories.length ? `${categories[0].slug}/` : ''
-                        }${slug}`
-                      "
-                      class="d-flex align-center body-2 my-2"
+        <v-row v-if="technologies">
+          <v-col class="py-0 col-12 col-sm-6">
+            <v-card class="mb-4">
+              <v-card-title class="subtitle-2">
+                Technologies ({{ technologies.length }})
+              </v-card-title>
+              <v-card-text class="px-0">
+                <v-simple-table>
+                  <tbody>
+                    <tr
+                      v-for="{ name, slug, categories, icon } in technologies"
+                      :key="name"
                     >
-                      <TechnologyIcon :icon="icon" />
-                      {{ name }}
-                    </nuxt-link>
-                  </td>
-                </tr>
-              </tbody>
-            </v-simple-table>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
+                      <td width="1">
+                        <nuxt-link
+                          :to="
+                            `/technologies/${
+                              categories.length ? `${categories[0].slug}/` : ''
+                            }${slug}`
+                          "
+                          class="d-flex align-center body-2 my-2"
+                        >
+                          <TechnologyIcon :icon="icon" />
+                          {{ name }}
+                        </nuxt-link>
+                      </td>
+                    </tr>
+                  </tbody>
+                </v-simple-table>
+              </v-card-text>
+            </v-card>
+          </v-col>
+          <v-col
+            v-if="
+              Object.values(sets).some(({ attributes: _attributes }) =>
+                _attributes.some(({ key }) => attributes[key])
+              )
+            "
+            class="py-0 col-12 col-sm-6"
+          >
+            <v-card
+              v-for="set in sets"
+              v-if="set.attributes.some(({ key }) => attributes[key])"
+              :key="set.key"
+              class="px-0 mb-4"
+            >
+              <v-card-title class="subtitle-2 pb-2">
+                {{ set.name }}
+              </v-card-title>
+              <v-card-text class="px-0">
+                <v-simple-table dense>
+                  <tbody>
+                    <tr
+                      v-for="{ name, key } in set.attributes"
+                      v-if="attributes[key]"
+                    >
+                      <th width="25%">
+                        <small>{{
+                          (name || key).charAt(0).toUpperCase() +
+                            (name || key).substring(1)
+                        }}</small>
+                      </th>
+                      <td>
+                        <small>
+                          <template v-if="Array.isArray(attributes[key])">
+                            <div v-for="(value, i) in attributes[key]" :key="i">
+                              <template v-if="set.key === 'social'">
+                                <a
+                                  :href="`${socialBaseUrls[key]}${value}`"
+                                  target="_blank"
+                                  >{{ value }}</a
+                                >
+                              </template>
+                              <template v-else>
+                                {{ value }}
+                              </template>
+                            </div>
+                          </template>
+                          <template v-else-if="key === 'language'">
+                            {{ getLanguage(attributes[key]) }}
+                          </template>
+                          <template v-else-if="key === 'ipCountry'">
+                            {{ getCountry(attributes[key]) }}
+                          </template>
+                          <template
+                            v-else-if="
+                              attributes.ipCountry && key === 'ipRegion'
+                            "
+                          >
+                            {{
+                              getRegion(attributes.ipCountry, attributes[key])
+                            }}
+                          </template>
+                          <template v-else>
+                            {{ attributes[key] }}
+                          </template>
+                        </small>
+                      </td>
+                    </tr>
+                  </tbody>
+                </v-simple-table>
+              </v-card-text>
+            </v-card>
+          </v-col>
+          <v-col v-else class="py-0 text-center">
+            <v-card>
+              <v-card-text>
+                <small class="text--disabled">
+                  No meta data available at this time.
+                </small>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
 
     <v-dialog v-model="signInDialog" max-width="400px">
       <SignIn mode-sign-up mode-continue />
@@ -89,6 +173,10 @@ import Progress from '~/components/Progress.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
 import Credits from '~/components/Credits.vue'
 import { lookup as meta } from '~/assets/json/meta.json'
+import sets from '~/assets/json/sets.json'
+import countries from '~/assets/json/countries.json'
+import languages from '~/assets/json/languages.json'
+import states from '~/assets/json/states.json'
 
 export default {
   components: {
@@ -104,6 +192,8 @@ export default {
       error: false,
       loading: false,
       meta,
+      sets,
+      attributes: {},
       url: '',
       rules: {
         url: [
@@ -121,6 +211,16 @@ export default {
           (v) =>
             !v || !this.isSignedIn || !!this.credits || 'Insufficient credits'
         ]
+      },
+      socialBaseUrls: {
+        twitter: 'https://www.twitter.com/',
+        facebook: 'https://www.facebook.com/',
+        instagram: 'https://www.instagram.com/',
+        github: 'https://www.github.com/',
+        tiktok: 'https://www.tiktok.com/',
+        youtube: 'https://www.youtube.com/',
+        pinterest: 'https://www.pinterest.com/',
+        linkedin: 'https://www.linkedin.com/'
       },
       signInDialog: false,
       technologies: false,
@@ -169,7 +269,11 @@ export default {
         let credits
 
         try {
-          ;({ credits, technologies: this.technologies } = (
+          ;({
+            credits,
+            technologies: this.technologies,
+            attributes: this.attributes
+          } = (
             await this.$axios(`lookup/${encodeURIComponent(this.url)}`)
           ).data)
 
@@ -182,6 +286,41 @@ export default {
       }
 
       this.loading = false
+    },
+    getCountry(code) {
+      const country = countries.find(
+        ({ value }) => value.toUpperCase() === code.toUpperCase()
+      )
+
+      return country ? country.text : code
+    },
+    getRegion(countryCode, regionCode) {
+      if (states[countryCode.toUpperCase()]) {
+        const region = states[countryCode.toUpperCase()].find(
+          ({ value }) => value.toUpperCase() === regionCode.toUpperCase()
+        )
+
+        return region ? region.text : regionCode
+      }
+
+      return regionCode
+    },
+    getLanguage(code) {
+      for (const name in languages) {
+        if (typeof languages[name] === 'string') {
+          if (languages[name].toUpperCase() === code.toUpperCase()) {
+            return name
+          }
+        } else {
+          for (const variant in languages[name]) {
+            if (languages[name][variant].toUpperCase() === code.toUpperCase()) {
+              return name === variant ? name : `${name} (${variant})`
+            }
+          }
+        }
+      }
+
+      return code
     }
   }
 }

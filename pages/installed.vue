@@ -3,20 +3,15 @@
     <v-row>
       <v-col md="8" class="py-0">
         <p>
-          Thank you for installing Wappalyzer!
+          Thank you for installing the Wappalyzer browser extension!
         </p>
 
         <h3 class="mt-10 mb-2">How it works</h3>
 
         <ol>
           <li>Go to any website</li>
-          <li>
-            The extension icon indicates the website's main technology
-          </li>
-          <li>Click the icon for the full list of identified technologies</li>
-          <li>
-            Click on a category or technology for more insights
-          </li>
+          <li>Click the icon for a list of identified technologies</li>
+          <li>Click on a technology or category for more insights</li>
         </ol>
 
         <v-btn color="accent" to="/faq/extension" class="mt-12" outlined>

@@ -1,14 +1,14 @@
 {
   "hero": {
     "title": "Technology driven lead generation",
-    "text": "Sell and market more effectively with technographic insights. We track the websites of millions of companies and over a thousand web technologies, helping you to identify prospects and increase your addressable market."
+    "text": "Sell and market more effectively with technographic insights. We track over a thousand technologies accross websites of millions of companies to help you to identify new prospects and increase your addressable market."
   },
   "lookup": {
     "title": "Technology lookup",
     "subtitle": "Find out what websites are built with",
     "icon": "mdi-layers-outline",
     "image": "lookup.svg",
-    "text": "Instantly reveal the technology stack of any website.",
+    "text": "Instantly reveal the technology stack and contact details of any website.",
     "buttons": [
       {
         "text": "Look up a website",
@@ -64,7 +64,7 @@
     "subtitle": "Programmatic access to technographic data",
     "icon": "mdi-console",
     "image": "api.svg",
-    "text": "The Wappalyzer APIs provide instant access to website technology stacks. Track your prospects' technology choices, examine large numbers of websites or enrich your own datasets.",
+    "text": "The Wappalyzer APIs provide instant access to website technology stacks and meta data. Track your prospects' technology choices, examine large numbers of websites or enrich your own datasets.",
     "buttons": [
       {
         "text": "Compare APIs",
@@ -116,7 +116,7 @@
     "features": [
       "Free forever",
       "Available on Chrome, Firefox and Edge",
-      "Works locally and offline"
+      "Functions locally and offline"
     ],
     "feature": true
   }

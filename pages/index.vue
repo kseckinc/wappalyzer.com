@@ -17,7 +17,7 @@
             </v-row>
           </v-col>
           <v-col cols="12" sm="8" lg="6">
-            <v-responsive height="30" class="d-flex align-center mb-4">
+            <v-responsive height="30" class="d-flex align-center mb-2">
               <v-icon color="primary" left>{{ section.icon }}</v-icon>
 
               <span class="overline font-weight-bold">{{ section.title }}</span>
@@ -42,7 +42,7 @@
               <v-icon right>{{ button.icon }}</v-icon>
             </v-btn>
 
-            <div class="overline pt-6 pb-2">Highlights</div>
+            <div class="overline pt-4">Highlights</div>
 
             <div
               v-for="feature in section.features"

@@ -3,6 +3,7 @@
     "instant": { "text": "Instant results", "type": "boolean" },
     "siteWide": { "text": "Site-wide results", "type": "boolean" },
     "realTime": { "text": "Real-time analysis", "type": "boolean" },
+    "contacts": { "text": "Phone numbers and emails *", "type": "boolean" },
     "historic": { "text": "Historic data *", "type": "boolean" },
     "traffic": { "text": "Traffic indicator *", "type": "boolean" },
     "responseType": { "text": "Response type", "type": "small" },
@@ -22,6 +23,7 @@
       "attrs": {
         "instant": true,
         "siteWide": true,
+        "contacts": true,
         "historic": true,
         "traffic": true,
         "responseType": "Synchronous",
@@ -37,6 +39,7 @@
       "attrs": {
         "instant": "Results ready in minutes",
         "siteWide": true,
+        "contacts": true,
         "realTime": true,
         "responseType": "Callback",
         "dataFormat": "JSON"

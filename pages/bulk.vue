@@ -73,6 +73,7 @@
                       v-for="set in sets.filter(
                         ({ key }) => key !== 'base-list'
                       )"
+                      :key="set.key"
                       top
                     >
                       <template v-slot:activator="{ on }">

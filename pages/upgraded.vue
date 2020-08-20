@@ -8,9 +8,8 @@
     <v-sheet color="primary" tile>
       <v-container class="white--text text-center body-2 py-6">
         <p>
-          Interested to know which websites use certain technologies?<br />
-          Our APIs and lead lists provide valuable insights into the software
-          industry.
+          Sell and market more effectively with technographic insights.<br />
+          Create lists of websites and contacts using certain technologies.
         </p>
 
         <v-btn to="/" color="white" small outlined>

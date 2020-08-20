@@ -33,7 +33,7 @@
           <v-col md="6">
             <h3>Example request</h3>
 
-            <pre><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com"</Prism></pre>
+            <pre><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com&amp;sets=locale,social,contact"</Prism></pre>
           </v-col>
           <v-col md="6">
             <h3>Example response</h3>
@@ -44,9 +44,7 @@
     {
       "slug": "craft-cms",
       "name": "Craft CMS",
-      "versions": [
-        "3.0.0"
-      ],
+      "versions": [ "3.0.0" ],
       "categories": [
         {
           "id": 1,
@@ -55,7 +53,13 @@
         }
       ]
     }
-  ]
+  ],
+  "email": [ "info@example.com" ],
+  "phone": [ "+1 (555) 555-5555" ],
+  "linkedin": [ "company/example" ],
+  "ipCountry": "US",
+  "ipRegion": "CA",
+  "language": "en"
 }</Prism></pre>
           </v-col>
         </v-row>
