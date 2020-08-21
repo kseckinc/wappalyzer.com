@@ -1,5 +1,5 @@
 export const state = () => ({
-  isHero: false,
+  isHero: true,
   isSecure: false
 })
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Page :title="title" hero no-crumbs no-head>
+    <Page :title="title" no-crumbs no-head>
       <template v-for="(section, i) in sections">
         <v-divider v-if="i" :key="`section-${i}`" class="my-4 my-sm-6" />
 
@@ -73,7 +73,9 @@ export default {
     return {
       meta: [
         {
-          description: 'Hello'
+          hid: 'description',
+          name: 'description',
+          content: meta.hero.text
         }
       ]
     }

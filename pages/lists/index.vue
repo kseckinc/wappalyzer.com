@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Page :title="title" :head="meta" hero>
+    <Page :title="title" :head="meta">
       <v-btn
         @click="$refs.pricingDialog.open()"
         color="accent"

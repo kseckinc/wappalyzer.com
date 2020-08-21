@@ -1,5 +1,5 @@
 <template>
-  <Page :title="title" hero>
+  <Page :title="title">
     <v-row>
       <v-col md="10" lg="8" class="py-0">
         <p class="mb-8">

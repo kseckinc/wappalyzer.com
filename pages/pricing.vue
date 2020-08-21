@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Page :title="title" :head="{ title, text }" hero>
+    <Page :title="title" :head="{ title, text }">
       <div class="mt-4">
         <v-btn color="accent" to="/faq/credits" class="mb-2" outlined>
           <v-icon left>mdi-forum</v-icon>

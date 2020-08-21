@@ -3,7 +3,6 @@
     <Page
       :title="title"
       :head="{ ...meta, image: 'extension-2.svg' }"
-      hero
       no-heading
     >
       <div class="mt-8 mb-4">

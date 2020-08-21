@@ -9,7 +9,6 @@
           extended period of time and are canidates for deletion.`
     }"
     :crumbs="[{ title: 'Technologies', to: '/technologies' }]"
-    hero
   >
     <v-alert v-if="error" type="error">
       {{ error }}

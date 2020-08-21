@@ -1,5 +1,5 @@
 <template>
-  <Page :title="title" :head="meta" hero no-heading>
+  <Page :title="title" :head="meta" no-heading>
     <Credits class="mt-8 mb-8" />
 
     <v-card color="secondary" style="overflow: hidden">

@@ -12,7 +12,9 @@
       <nuxt />
       <Footer :mainNav="mainNav" />
     </v-main>
+
     <Drawer ref="drawer" :mainNav="mainNav" :userNav="userNav" :user="user" />
+
     <script
       async
       src="https://r.wdfl.co/rw.js"
@@ -22,7 +24,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import Header from '~/components/Header.vue'
 import Footer from '~/components/Footer.vue'
@@ -62,6 +64,14 @@ export default {
     userNav() {
       return this.isSignedIn ? userNav : userNav.filter((item) => !item.auth)
     }
+  },
+  mounted() {
+    this.updateUserAttrs()
+  },
+  methods: {
+    ...mapActions({
+      updateUserAttrs: 'user/updateAttrs'
+    })
   }
 }
 </script>

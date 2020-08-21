@@ -1,5 +1,5 @@
 <template>
-  <Page :title="title" :loading="unsubscribing" no-heading no-subscribe>
+  <Page :title="title" :loading="unsubscribing" no-hero no-heading no-subscribe>
     <v-alert v-if="success" type="success" outlined>
       {{ success }}
     </v-alert>

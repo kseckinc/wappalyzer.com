@@ -7,7 +7,8 @@ require('dotenv').config({
 })
 
 export default {
-  mode: 'spa',
+  mode: 'universal',
+  target: 'static',
   head: {
     titleTemplate: (title) => `${title ? `${title} - ` : ''}Wappalyzer`,
     meta: [
@@ -60,9 +61,6 @@ export default {
     '@nuxtjs/vuetify'
   ],
   modules: ['@nuxtjs/axios', 'nuxt-stripe-module', 'nuxtjs-mdi-font'],
-  router: {
-    middleware: 'drift'
-  },
   axios: {
     baseURL: process.env.BASE_URL,
     secure: true,

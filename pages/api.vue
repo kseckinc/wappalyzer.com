@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Page :title="title" :head="meta" hero no-heading>
+    <Page :title="title" :head="meta" no-heading>
       <div class="mt-8">
         <v-btn color="accent" to="/faq/api" class="mb-2" outlined>
           <v-icon left>mdi-forum</v-icon>

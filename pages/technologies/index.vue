@@ -11,7 +11,6 @@
         : ''
     }"
     :loading="!categories"
-    hero
   >
     <h2 class="mb-4">Technologies</h2>
 

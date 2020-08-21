@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Page :title="title" hero narrow>
+    <Page :title="title" narrow>
       <p>
         Wappalyzer started in 2008 as a
         <nuxt-link to="/download">browser extension</nuxt-link> for Mozilla

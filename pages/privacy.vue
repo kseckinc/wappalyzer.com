@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Page :title="title" crumbs narrow no-subscribe>
+    <Page :title="title" crumbs narrow no-hero no-subscribe>
       <p>
         The Wappalyzer privacy policy describes how we treat personal
         information when you use our website, software and APIs (collectively,

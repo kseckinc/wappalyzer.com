@@ -19,7 +19,7 @@
     >
       <template v-if="category">
         <v-btn
-          :to="`/datasets/${category.slug}`"
+          :to="`/lists/${category.slug}`"
           color="accent"
           class="mt-4 mb-2"
           outlined

@@ -6,13 +6,7 @@ function getAuth(state) {
 }
 
 // eslint-disable-next-line handle-callback-err
-export default async ({ store: { dispatch, state }, $axios }) => {
-  try {
-    await dispatch('user/updateAttrs')
-  } catch (error) {
-    // Do nothing
-  }
-
+export default ({ store: { dispatch, state }, $axios }) => {
   $axios.onRequest((config) => {
     if (!/^https?:/.test(config.url)) {
       config.headers.common.Authorization = getAuth(state)

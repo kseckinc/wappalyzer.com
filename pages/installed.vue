@@ -1,5 +1,5 @@
 <template>
-  <Page :title="title" hero no-heading>
+  <Page :title="title" no-heading>
     <v-row>
       <v-col md="8" class="py-0">
         <p>

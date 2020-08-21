@@ -74,7 +74,7 @@
           </v-row>
 
           <v-btn
-            :to="`/datasets/${categorySlug}/${slug}`"
+            :to="`/lists/${categorySlug}/${slug}`"
             color="accent"
             class="mb-4"
             outlined

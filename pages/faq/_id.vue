@@ -6,7 +6,6 @@
       :crumbs="[{ title: 'FAQs', to: '/faq/extension' }]"
       seo-title="Frequently asked questions"
       no-head
-      hero
     >
       <h1 class="mb-4">Frequently asked questions</h1>
 

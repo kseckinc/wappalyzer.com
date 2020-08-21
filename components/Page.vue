@@ -141,7 +141,7 @@ export default {
       type: Boolean,
       default: false
     },
-    hero: {
+    noHero: {
       type: Boolean,
       default: false
     },
@@ -169,9 +169,9 @@ export default {
       return [...this.crumbs, { title: this.title, to: '' }]
     }
   },
-  created() {
+  mounted() {
     this.set({
-      hero: this.hero,
+      hero: !this.noHero || this.secure,
       secure: this.secure
     })
   },

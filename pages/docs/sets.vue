@@ -1,5 +1,5 @@
 <template>
-  <Page :title="title" :side="side" no-head>
+  <Page :title="title" :side="side" no-hero no-head>
     <h1 class="mb-4">
       Attribute sets
     </h1>

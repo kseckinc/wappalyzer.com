@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Page :title="title" :head="meta" :loading="isSignedIn && loading" hero>
+    <Page :title="title" :head="meta" :loading="isSignedIn && loading">
       <v-card class="mt-12">
         <v-card-title>
           Websites
