@@ -4,7 +4,7 @@
     :head="{
       title,
       subtitle,
-      text
+      text,
     }"
     hero
     no-subscribe
@@ -26,13 +26,13 @@ import Page from '~/components/Page.vue'
 export default {
   layout: 'empty',
   components: {
-    Page
+    Page,
   },
   props: {
     error: {
       type: Object,
-      default: null
-    }
+      default: null,
+    },
   },
   data() {
     return {
@@ -42,7 +42,7 @@ export default {
       message: this.error.response
         ? this.error.response.data.message || this.error.response.data
         : this.error.message || this.error.toString(),
-      code: (this.error.response && this.error.response.code) || ''
+      code: (this.error.response && this.error.response.code) || '',
     }
   },
   computed: {
@@ -80,7 +80,7 @@ export default {
       return this.statusCode === 404
         ? `This page you're looking for isn't here.`
         : `Sorry, something went wrong. Try reloading the page or <a href='/contact'>contact us</a> if the issue persists.`
-    }
-  }
+    },
+  },
 }
 </script>

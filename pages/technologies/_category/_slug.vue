@@ -2,12 +2,12 @@
   <div>
     <Page
       :title="title"
-      :seoTitle="`Websites using ${title}`"
+      :seo-title="`Websites using ${title}`"
       :crumbs="crumbs"
       no-head
       hero
     >
-      <h1 class=" d-flex align-center">
+      <h1 class="d-flex align-center">
         <TechnologyIcon :icon="technology ? technology.icon : 'default.svg'" />
 
         {{ title }}
@@ -93,7 +93,10 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="({ hits }, hostname) in technology.topHostnames">
+                  <tr
+                    v-for="({ hits }, hostname) in technology.topHostnames"
+                    :key="hostname"
+                  >
                     <td>
                       <a
                         :href="`http://${hostname}`"
@@ -141,11 +144,11 @@ export default {
     TechnologyIcon,
     Progress,
     Bar,
-    Logos
+    Logos,
   },
   data() {
     return {
-      technology: false
+      technology: false,
     }
   },
   computed: {
@@ -171,8 +174,8 @@ export default {
                 ({ slug }) => (slug = this.categorySlug)
               ).name
             : this.categorySlug,
-          to: `/technologies/${this.categorySlug}`
-        }
+          to: `/technologies/${this.categorySlug}`,
+        },
       ]
     },
     maxHits() {
@@ -182,9 +185,9 @@ export default {
           0
         ) || 1
       )
-    }
+    },
   },
-  async created() {
+  async mounted() {
     try {
       this.technology = (
         await this.$axios.get(`technologies/${this.slug}`)
@@ -192,6 +195,6 @@ export default {
     } catch (error) {
       this.$nuxt.error(error)
     }
-  }
+  },
 }
 </script>

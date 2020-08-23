@@ -38,12 +38,12 @@ import Page from '~/components/Page.vue'
 
 export default {
   components: {
-    Page
+    Page,
   },
   data() {
     return {
-      title: 'Our story'
+      title: 'Our story',
     }
-  }
+  },
 }
 </script>

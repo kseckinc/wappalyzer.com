@@ -1,5 +1,10 @@
 <template>
-  <v-form ref="form" v-model="valid" class="ml-0 mr-0" style="overflow: hidden">
+  <v-form
+    ref="form"
+    v-model="valid"
+    class="ml-0 mr-0"
+    style="overflow: hidden;"
+  >
     <v-alert v-if="error" type="error" class="mt-4 mx-4 mb-0">
       {{ error }}
     </v-alert>
@@ -130,10 +135,10 @@
     <v-card-actions>
       <v-spacer />
       <v-btn
-        @click.prevent="submit(false)"
         :loading="saving"
         color="accent"
         text
+        @click.prevent="submit(false)"
       >
         <v-icon left>mdi-content-save</v-icon> Save</v-btn
       >
@@ -167,41 +172,41 @@ export default {
         billingCity: '',
         billingPostcode: '',
         billingState: '',
-        billingCountry: ''
+        billingCountry: '',
       },
       countries,
       error: false,
       industries,
       rules: {
         required: [(v) => !!v || 'This field is required'],
-        email: [(v) => /@/.test(v) || 'Enter a valid email address']
+        email: [(v) => /@/.test(v) || 'Enter a valid email address'],
       },
       saving: false,
       success: false,
       taxIds,
       useCases,
-      valid: true
+      valid: true,
     }
   },
   computed: {
     ...mapState({
-      user: ({ user }) => user.attrs
+      user: ({ user }) => user.attrs,
     }),
     states() {
       return states[this.attrs.billingCountry] || null
-    }
+    },
   },
   watch: {
     user() {
       this.fill()
-    }
+    },
   },
   beforeMount() {
     this.fill()
   },
   methods: {
     ...mapActions({
-      save: 'user/save'
+      save: 'user/save',
     }),
     async submit() {
       this.success = ''
@@ -214,7 +219,7 @@ export default {
           if (this.newPassword) {
             await this.changePassword({
               oldPassword: this.oldPassword,
-              newPassword: this.newPassword
+              newPassword: this.newPassword,
             })
           }
 
@@ -232,7 +237,7 @@ export default {
       Object.keys(this.attrs).forEach(
         (attr) => (this.attrs[attr] = this.user[attr])
       )
-    }
-  }
+    },
+  },
 }
 </script>

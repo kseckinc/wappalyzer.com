@@ -3,19 +3,22 @@ require('dotenv').config({
     process.env.NODE_ENV === 'development' || process.env.ENVIRONMENT === 'beta'
       ? 'beta'
       : 'v2'
-  }`
+  }`,
 })
 
 export default {
   mode: 'universal',
   target: 'static',
+  generate: {
+    fallback: '200.html',
+  },
   head: {
     titleTemplate: (title) => `${title ? `${title} - ` : ''}Wappalyzer`,
     meta: [
       { charset: 'utf-8' },
       { theme_color: '#4608ad' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
-    ]
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    ],
   },
   csp: {
     reportOnly: true,
@@ -31,18 +34,18 @@ export default {
         '*.google-analytics.com',
         '*.stripe.com',
         '*.wdfl.co',
-        '*.driftt.com'
+        '*.driftt.com',
       ],
       'connect-src': [
         '*.google-analytics.com',
         '*.stripe.com',
-        '*.wappalyzer.com'
+        '*.wappalyzer.com',
       ],
       'form-action': ["'self'"],
       'frame-ancestors': ["'none'"],
       'frame-src': ['*.stripe.com', '*.driftt.com'],
-      'object-src': ["'none'"]
-    }
+      'object-src': ["'none'"],
+    },
   },
   loading: { color: '#fff' },
   css: ['~/assets/scss/styles.scss'],
@@ -50,25 +53,25 @@ export default {
     '~/plugins/axios.js',
     '~/plugins/mixins.js',
     '~/plugins/gtag.js',
-    { src: '~/plugins/prism', ssr: false }
+    { src: '~/plugins/prism', ssr: false },
   ],
   buildModules: [
     '@nuxtjs/eslint-module',
     [
       '@nuxtjs/dotenv',
-      { filename: `.env.${process.env.ENVIRONMENT || 'beta'}` }
+      { filename: `.env.${process.env.ENVIRONMENT || 'beta'}` },
     ],
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
   ],
   modules: ['@nuxtjs/axios', 'nuxt-stripe-module', 'nuxtjs-mdi-font'],
   axios: {
     baseURL: process.env.BASE_URL,
     secure: true,
-    retry: { retries: 1, retryDelay: () => 500 }
+    retry: { retries: 1, retryDelay: () => 500 },
   },
   stripe: {
     version: 'v3',
-    publishableKey: process.env.STRIPE_PUBLIC_KEY
+    publishableKey: process.env.STRIPE_PUBLIC_KEY,
   },
   vuetify: {
     customVariables: ['~/assets/scss/variables.scss'],
@@ -82,17 +85,17 @@ export default {
             base: '#4608ad',
             lighten1: '#f0ebf9',
             darken1: '#32067c',
-            darken2: '#150233'
+            darken2: '#150233',
           },
           accent: '#2196f3',
           secondary: '#fafafa',
-          anchor: '#2196f3'
-        }
-      }
-    }
+          anchor: '#2196f3',
+        },
+      },
+    },
   },
   build: {
     extend(config, ctx) {},
-    followSymlinks: true
-  }
+    followSymlinks: true,
+  },
 }

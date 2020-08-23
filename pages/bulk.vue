@@ -2,10 +2,10 @@
   <div>
     <Page :title="title" :head="meta">
       <v-btn
-        @click="$refs.pricingDialog.open()"
         color="accent"
         class="mt-4 mb-8"
         outlined
+        @click="$refs.pricingDialog.open()"
       >
         <v-icon left>mdi-calculator</v-icon>
         Pricing
@@ -45,12 +45,12 @@
                 </ul>
 
                 <v-file-input
-                  v-on:change="fileChange"
                   :error-messages="fileErrors"
                   placeholder="Select a file..."
                   accept="text/plain"
                   hide-details="auto"
                   class="mb-4"
+                  @change="fileChange"
                 />
               </v-card-text>
             </v-card>
@@ -110,10 +110,10 @@
         </v-card>
 
         <v-btn
-          @click="submit"
           :disabled="!!(!file || fileErrors.length)"
           color="primary"
           large
+          @click="submit"
           >Request quote <v-icon right>mdi-arrow-right</v-icon>
         </v-btn>
       </v-form>
@@ -130,10 +130,10 @@
       </v-dialog>
 
       <OrderDialog
-        ref="orderDialog"
-        v-on:close="orderDialog = false"
-        :error="orderError"
         :id="order ? order.id : null"
+        ref="orderDialog"
+        :error="orderError"
+        @close="orderDialog = false"
       />
 
       <PricingDialog ref="pricingDialog" product="bulk" />
@@ -160,7 +160,7 @@ export default {
     Logos,
     SignIn,
     OrderDialog,
-    PricingDialog
+    PricingDialog,
   },
   data() {
     return {
@@ -173,7 +173,7 @@ export default {
       order: false,
       orderError: '',
       ordering: false,
-      sets
+      sets,
     }
   },
   watch: {
@@ -183,7 +183,7 @@ export default {
 
         this.submit()
       }
-    }
+    },
   },
   methods: {
     async submit() {
@@ -206,8 +206,8 @@ export default {
               input: this.file,
               sets: this.sets
                 .filter(({ disabled, value }) => value && !disabled)
-                .map(({ key }) => key)
-            }
+                .map(({ key }) => key),
+            },
           })
         ).data
       } catch (error) {
@@ -248,7 +248,7 @@ export default {
       }
 
       this.file = this.file.join('\n')
-    }
-  }
+    },
+  },
 }
 </script>

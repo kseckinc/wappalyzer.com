@@ -22,7 +22,7 @@ Vue.mixin({
       '/invoices': null,
       '/orders': null,
       '/paymentmethods': null,
-      '/subscriptions': null
+      '/subscriptions': null,
     }
 
     if (!window.drift) {
@@ -41,11 +41,11 @@ Vue.mixin({
         'page',
         'hide',
         'off',
-        'on'
+        'on',
       ]
 
-      t.factory = function(e) {
-        return function() {
+      t.factory = function (e) {
+        return function () {
           const n = Array.prototype.slice.call(arguments)
           n.unshift(e)
           t.push(n)
@@ -53,11 +53,11 @@ Vue.mixin({
         }
       }
 
-      t.methods.forEach(function(e) {
+      t.methods.forEach(function (e) {
         t[e] = t.factory(e)
       })
 
-      t.load = function(t) {
+      t.load = function (t) {
         const e = 3e5
         const n = Math.ceil(new Date() / e) * e
         const o = document.createElement('script')
@@ -83,7 +83,7 @@ Vue.mixin({
         drift.identify(user.sub, {
           email: user.email || '',
           nickname: user.name || user.email || '',
-          userId: user.sub
+          userId: user.sub,
         })
       }
 
@@ -133,14 +133,14 @@ Vue.mixin({
           style: 'currency',
           currency,
           minimumFractionDigits: decimal ? 2 : 0,
-          maximumFractionDigits: decimal ? 3 : 0
+          maximumFractionDigits: decimal ? 3 : 0,
         }
       )} ${currency.toUpperCase()}`,
     formatDate: (date) =>
       date.toLocaleString(undefined, {
         day: 'numeric',
         month: 'short',
-        year: 'numeric'
+        year: 'numeric',
       }),
     formatNumber: (number, readable) => {
       if (typeof number !== 'number') {
@@ -174,8 +174,9 @@ Vue.mixin({
           case 409:
             return `Too many requests, please try again later${code}`
           default:
-            return `${error.response.data.message ||
-              error.response.data}${code}`
+            return `${
+              error.response.data.message || error.response.data
+            }${code}`
         }
       } else {
         return error.message || error.toString()
@@ -235,6 +236,6 @@ Vue.mixin({
 
         return price + credits * creditTiers[tier]
       }, 0)
-    }
-  }
+    },
+  },
 })

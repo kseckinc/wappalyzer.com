@@ -29,9 +29,9 @@
             </thead>
             <tbody>
               <tr
-                @click="selection = paymentMethod.id"
                 v-for="paymentMethod in paymentMethods"
                 :key="paymentMethod.id"
+                @click="selection = paymentMethod.id"
               >
                 <td v-if="modeSelect">
                   <v-radio :value="paymentMethod.id" />
@@ -41,17 +41,17 @@
                   <CreditCard
                     :brand="paymentMethod.brand"
                     :last4="paymentMethod.last4"
-                    :expMonth="paymentMethod.expMonth"
-                    :expYear="paymentMethod.expYear"
+                    :exp-month="paymentMethod.expMonth"
+                    :exp-year="paymentMethod.expYear"
                   />
                 </td>
                 <td class="text-right">
                   <v-btn
+                    icon
                     @click="
                       removeId = paymentMethod.id
                       removeDialog = true
                     "
-                    icon
                     ><v-icon color="error"
                       >mdi-credit-card-remove-outline</v-icon
                     ></v-btn
@@ -65,7 +65,7 @@
 
       <v-card-actions>
         <v-spacer />
-        <v-btn @click="addDialog = true" color="accent" text
+        <v-btn color="accent" text @click="addDialog = true"
           ><v-icon left>mdi-credit-card-plus-outline</v-icon> Add card</v-btn
         >
       </v-card-actions>
@@ -84,10 +84,10 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn @click="removeDialog = false" color="accent" text
+            <v-btn color="accent" text @click="removeDialog = false"
               >Cancel</v-btn
             >
-            <v-btn @click="remove" :loading="removing" color="error" text
+            <v-btn :loading="removing" color="error" text @click="remove"
               >Ok</v-btn
             >
           </v-card-actions>
@@ -132,14 +132,14 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn @click="addDialog = false" color="accent" text>Cancel</v-btn>
+            <v-btn color="accent" text @click="addDialog = false">Cancel</v-btn>
             <v-btn
               v-if="user.stripeCustomer"
-              @click="save"
               :loading="(stripeLoading || saving) && !addError"
               :disabled="!!addError"
               color="accent"
               text
+              @click="save"
               >Save</v-btn
             >
           </v-card-actions>
@@ -156,13 +156,13 @@ import CreditCard from '~/components/CreditCard.vue'
 
 export default {
   components: {
-    CreditCard
+    CreditCard,
   },
   props: {
     modeSelect: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
@@ -183,13 +183,13 @@ export default {
       stripeError: false,
       stripeLoading: true,
       success: false,
-      valid: true
+      valid: true,
     }
   },
   computed: {
     ...mapState({
-      user: ({ user }) => user.attrs
-    })
+      user: ({ user }) => user.attrs,
+    }),
   },
   watch: {
     async '$store.state.user.isSignedIn'(isSignedIn) {
@@ -261,7 +261,7 @@ export default {
     },
     selection(id) {
       this.$emit('select', id)
-    }
+    },
   },
   async created() {
     if (this.$store.state.user.isSignedIn) {
@@ -292,9 +292,9 @@ export default {
               payment_method: {
                 card: this.stripeCard,
                 billing_details: {
-                  name: this.billingName
-                }
-              }
+                  name: this.billingName,
+                },
+              },
             }
           )
 
@@ -302,7 +302,7 @@ export default {
             this.stripeError = this.getErrorMessage(response.error)
           } else {
             await this.$axios.put('paymentmethods', {
-              id: response.setupIntent.payment_method
+              id: response.setupIntent.payment_method,
             })
 
             this.paymentMethods = (await this.$axios.get('paymentmethods')).data
@@ -335,7 +335,7 @@ export default {
       }
 
       this.removing = false
-    }
-  }
+    },
+  },
 }
 </script>

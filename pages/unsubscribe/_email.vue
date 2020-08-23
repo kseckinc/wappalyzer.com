@@ -15,19 +15,14 @@ import Page from '~/components/Page.vue'
 
 export default {
   components: {
-    Page
-  },
-  head() {
-    return {
-      title: this.title
-    }
+    Page,
   },
   data() {
     return {
       title: 'Unsubscribe',
       unsubscribing: true,
       error: false,
-      success: false
+      success: false,
     }
   },
   async created() {
@@ -42,6 +37,11 @@ export default {
     }
 
     this.unsubscribing = false
-  }
+  },
+  head() {
+    return {
+      title: this.title,
+    }
+  },
 }
 </script>

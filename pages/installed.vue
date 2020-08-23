@@ -1,5 +1,5 @@
 <template>
-  <Page :title="title" no-heading>
+  <Page :title="title">
     <v-row>
       <v-col md="8" class="py-0">
         <p>
@@ -31,18 +31,13 @@ import Page from '~/components/Page.vue'
 
 export default {
   components: {
-    Page
-  },
-  head() {
-    return {
-      title: this.title
-    }
+    Page,
   },
   data() {
     return {
       title: 'Installation successful',
       release: null,
-      error: false
+      error: false,
     }
   },
   created() {
@@ -50,8 +45,13 @@ export default {
   },
   methods: {
     ...mapActions({
-      set: 'page/set'
-    })
-  }
+      set: 'page/set',
+    }),
+  },
+  head() {
+    return {
+      title: this.title,
+    }
+  },
 }
 </script>

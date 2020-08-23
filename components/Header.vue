@@ -8,13 +8,13 @@
           </v-col>
 
           <v-col class="text-right d-none d-md-block">
-            <template v-for="{ title, to, icon, items } in mainNav">
-              <v-btn v-if="to" :to="to" :key="title" class="white--text" text>
+            <template v-for="({ title, to, icon, items }, i) in mainNav">
+              <v-btn v-if="to" :key="title" :to="to" class="white--text" text>
                 {{ title }}
               </v-btn>
-              <v-menu v-else offset-y left>
+              <v-menu v-else :key="i" offset-y left>
                 <template v-slot:activator="{ on }">
-                  <v-btn v-on="on" :icon="!!icon" class="white--text" text>
+                  <v-btn :icon="!!icon" class="white--text" text v-on="on">
                     <v-icon v-if="icon" dense>{{ icon }}</v-icon>
                     <template v-else>
                       {{ title }}
@@ -60,12 +60,12 @@
             <v-menu offset-y left>
               <template v-slot:activator="{ on }">
                 <v-btn
-                  v-on="on"
                   :icon="!isSignedIn"
                   class="font-weight-regular"
                   color="white"
                   dark
                   text
+                  v-on="on"
                 >
                   <v-icon :left="isSignedIn" size="20">mdi-account</v-icon>
                   {{ user.email }}
@@ -104,7 +104,7 @@
           </v-col>
 
           <v-col class="text-right d-md-none">
-            <v-btn @click.stop="$emit('openDrawer')" icon color="white">
+            <v-btn icon color="white" @click.stop="$emit('openDrawer')">
               <v-icon>mdi-menu</v-icon>
             </v-btn>
           </v-col>
@@ -124,37 +124,37 @@ import { hero as meta } from '~/assets/json/meta.json'
 export default {
   components: {
     Logo,
-    Hero
+    Hero,
   },
   props: {
     dense: {
       type: Boolean,
-      default: false
+      default: false,
     },
     isSignedIn: {
       type: Boolean,
-      default: false
+      default: false,
     },
     mainNav: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     userNav: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     user: {
       type: Object,
       default() {
         return {}
-      }
-    }
+      },
+    },
   },
   data() {
     return {
-      meta
+      meta,
     }
-  }
+  },
 }
 </script>
 

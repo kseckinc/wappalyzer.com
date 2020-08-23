@@ -225,14 +225,14 @@ import side from '~/assets/json/nav/docs.json'
 export default {
   components: {
     Page,
-    Heading
+    Heading,
   },
   data() {
     return {
       title: 'Developer documentation',
-      side
+      side,
     }
-  }
+  },
 }
 </script>
 

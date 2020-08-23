@@ -208,13 +208,13 @@ import Page from '~/components/Page.vue'
 
 export default {
   components: {
-    Page
+    Page,
   },
   data() {
     return {
-      title: 'Terms of service'
+      title: 'Terms of service',
     }
-  }
+  },
 }
 </script>
 

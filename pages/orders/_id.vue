@@ -80,6 +80,10 @@
       </v-alert>
 
       <v-btn
+        v-if="isAdmin"
+        :disabled="order.status === 'Complete'"
+        color="success"
+        outlined
         @click="
           {
             {
@@ -88,10 +92,6 @@
           }
           editDialog = true
         "
-        v-if="isAdmin"
-        :disabled="order.status === 'Complete'"
-        color="success"
-        outlined
       >
         <v-icon left>mdi-pencil</v-icon>
         Edit order
@@ -100,7 +100,7 @@
       <v-btn
         v-if="
           (order.status === 'Pending' || order.status === 'Complete') &&
-            order.invoiceUrl
+          order.invoiceUrl
         "
         :href="order.invoiceUrl"
         target="_blank"
@@ -123,7 +123,7 @@
       <template
         v-if="
           order.product === 'Lead list' &&
-            !['Insufficient', 'Failed'].includes(order.status)
+          !['Insufficient', 'Failed'].includes(order.status)
         "
       >
         <v-btn
@@ -180,7 +180,7 @@
 
         <v-card-actions v-if="order.status !== 'Complete'">
           <v-spacer />
-          <v-btn @click="cancelDialog = true" color="error" text>
+          <v-btn color="error" text @click="cancelDialog = true">
             <v-icon left>mdi-cart-remove</v-icon>
             Cancel order
           </v-btn>
@@ -238,9 +238,7 @@
                   </th>
                   <td>
                     <v-btn
-                      :href="
-                        `${datasetsBaseUrl}${order.dataset.exclusionsFilename}`
-                      "
+                      :href="`${datasetsBaseUrl}${order.dataset.exclusionsFilename}`"
                       color="accent"
                       icon
                       ><v-icon>mdi-download</v-icon></v-btn
@@ -278,10 +276,10 @@
 
                       <v-chip
                         v-if="order.dataset.query.technologies.length > 20"
-                        @click="technologiesViewAll = !technologiesViewAll"
                         color="accent"
                         outlined
                         small
+                        @click="technologiesViewAll = !technologiesViewAll"
                       >
                         <v-icon small left>{{
                           technologiesViewAll ? 'mdi-minus' : 'mdi-plus'
@@ -318,13 +316,13 @@
                         bottom
                       >
                         <template v-slot:activator="{ on }">
-                          <v-chip v-on="on" outlined small>
+                          <v-chip outlined small v-on="on">
                             {{ set.name }}
                             {{
                               ![
                                 'Calculating',
                                 'Insufficient',
-                                'Failed'
+                                'Failed',
                               ].includes(order.status)
                                 ? ` (${formatNumber(
                                     set.key === 'base-list'
@@ -357,7 +355,7 @@
                         bottom
                       >
                         <template v-slot:activator="{ on }">
-                          <v-chip v-on="on" outlined small>
+                          <v-chip outlined small v-on="on">
                             {{ value }}
                           </v-chip>
                         </template>
@@ -395,7 +393,7 @@
                         bottom
                       >
                         <template v-slot:activator="{ on }">
-                          <v-chip v-on="on" outlined small>
+                          <v-chip outlined small v-on="on">
                             {{ value }}
                           </v-chip>
                         </template>
@@ -450,7 +448,7 @@
                         bottom
                       >
                         <template v-slot:activator="{ on }">
-                          <v-chip v-on="on" outlined small>
+                          <v-chip outlined small v-on="on">
                             {{ set.name }}
                           </v-chip>
                         </template>
@@ -597,7 +595,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn @click="billingDialog = true" color="accent" text
+            <v-btn color="accent" text @click="billingDialog = true"
               ><v-icon left>mdi-pencil</v-icon> Edit details</v-btn
             >
           </v-card-actions>
@@ -651,31 +649,31 @@
             </div>
 
             <CreditCards
-              v-on:load="cardsLoaded = true"
-              v-on:select="(id) => (stripePaymentMethod = id)"
               mode-select
+              @load="cardsLoaded = true"
+              @select="(id) => (stripePaymentMethod = id)"
             />
 
             <v-divider />
 
             <div class="d-flex justify-center py-8">
               <v-btn
-                @click="pay"
                 :loading="paying"
                 :disabled="!stripePaymentMethod || !user.billingEmail"
                 color="primary"
                 large
+                @click="pay"
                 ><v-icon left>mdi-credit-card</v-icon> Pay now</v-btn
               >
               <v-btn
                 v-if="!order.product !== 'Subscription'"
-                @click="invoice"
                 :loading="invoicing"
                 :disabled="!user.billingEmail"
                 class="ml-4"
                 color="primary"
                 large
                 outlined
+                @click="invoice"
                 ><v-icon left>mdi-email</v-icon> Send invoice</v-btn
               >
             </div>
@@ -688,11 +686,11 @@
 
             <div class="d-flex justify-center mt-n4 py-8">
               <v-btn
-                @click="invoice"
                 :loading="invoicing"
                 :disabled="!user.billingEmail"
                 class="primary"
                 large
+                @click="invoice"
               >
                 <v-icon left>mdi-email</v-icon>
                 Send invoice
@@ -702,20 +700,18 @@
           <template v-if="paymentMethod === 'credits'">
             <v-card-text v-if="paymentMethod === 'credits'" class="pa-0">
               <div
-                :class="
-                  `d-flex justify-center pt-8${
-                    credits < order.totalCredits ? '' : ' pb-8'
-                  }`
-                "
+                :class="`d-flex justify-center pt-8${
+                  credits < order.totalCredits ? '' : ' pb-8'
+                }`"
               >
                 <v-btn
-                  @click="pay"
                   :loading="paying"
                   :disabled="
                     !order.totalCredits || credits < order.totalCredits
                   "
                   class="primary"
                   large
+                  @click="pay"
                 >
                   <v-icon left>mdi-alpha-c-circle</v-icon>
                   Spend {{ formatNumber(order.totalCredits || 0) }} credits
@@ -724,7 +720,7 @@
             </v-card-text>
             <v-card-actions v-if="credits < order.totalCredits">
               <v-spacer />
-              <v-btn @click="billingDialog = true" color="accent" text
+              <v-btn color="accent" text @click="billingDialog = true"
                 ><v-icon left>mdi-alpha-c-circle</v-icon> Buy credits</v-btn
               >
             </v-card-actions>
@@ -766,10 +762,8 @@
       <v-dialog v-model="billingDialog" width="80%" max-width="700">
         <v-card>
           <Account
-            v-on:save="
-              accountSuccess = 'Your billing details have been updated'
-            "
             class="mx-2"
+            @save="accountSuccess = 'Your billing details have been updated'"
           />
         </v-card>
       </v-dialog>
@@ -788,10 +782,10 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn @click="cancelDialog = false" color="accent" text
+            <v-btn color="accent" text @click="cancelDialog = false"
               >Cancel</v-btn
             >
-            <v-btn @click="cancel" :loading="cancelling" color="error" text
+            <v-btn :loading="cancelling" color="error" text @click="cancel"
               >Ok</v-btn
             >
           </v-card-actions>
@@ -828,21 +822,19 @@
               <v-text-field
                 v-if="order.product !== 'Subscription'"
                 v-model="discount"
-                :label="
-                  `Discount (subtotal ${formatCurrency(
-                    order.subtotal / 100,
-                    order.currency
-                  )})`
-                "
+                :label="`Discount (subtotal ${formatCurrency(
+                  order.subtotal / 100,
+                  order.currency
+                )})`"
               />
             </v-form>
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn @click="editDialog = false" color="accent" text
+            <v-btn color="accent" text @click="editDialog = false"
               >Cancel</v-btn
             >
-            <v-btn @click="edit" :loading="editing" color="accent" text
+            <v-btn :loading="editing" color="accent" text @click="edit"
               >Save</v-btn
             >
           </v-card-actions>
@@ -871,7 +863,7 @@ export default {
     CreditCards,
     Progress,
     Spinner,
-    AudToUsd
+    AudToUsd,
   },
   data() {
     return {
@@ -906,20 +898,20 @@ export default {
         'Processing',
         'Insufficient',
         'Failed',
-        'Complete'
+        'Complete',
       ],
       stripe: null,
       stripePaymentMethod: false,
       technologiesViewAll: false,
       totalCredits: 0,
-      success: false
+      success: false,
     }
   },
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
       isAdmin: ({ user }) => user.attrs.admin || user.impersonating,
-      credits: ({ credits: { credits } }) => credits
+      credits: ({ credits: { credits } }) => credits,
     }),
     billingAddress() {
       return [
@@ -928,7 +920,7 @@ export default {
         this.user.billingCity,
         this.user.billingPostcode,
         this.user.billingState,
-        this.user.billingCountry
+        this.user.billingCountry,
       ]
         .filter((value) => value)
         .join(', ')
@@ -937,7 +929,7 @@ export default {
       return this.technologiesViewAll
         ? this.order.dataset.query.technologies
         : this.order.dataset.query.technologies.slice(0, 20)
-    }
+    },
   },
   watch: {
     async '$store.state.user.isSignedIn'(isSignedIn) {
@@ -995,7 +987,7 @@ export default {
     paymentMethod() {
       this.cardsLoaded = false
       this.stripePaymentMethod = false
-    }
+    },
   },
   async created() {
     if (this.$store.state.user.isSignedIn) {
@@ -1017,7 +1009,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      getCredits: 'credits/get'
+      getCredits: 'credits/get',
     }),
     async pay() {
       this.error = false
@@ -1030,13 +1022,13 @@ export default {
         if (this.order.product === 'Subscription') {
           await this.$axios.patch(`orders/${id}`, {
             stripePaymentMethod:
-              this.paymentMethod === 'stripe' ? this.stripePaymentMethod : null
+              this.paymentMethod === 'stripe' ? this.stripePaymentMethod : null,
           })
 
           this.order = (await this.$axios.get(`orders/${id}`)).data
         } else if (this.paymentMethod === 'credits') {
           await this.$axios.patch(`orders/${id}`, {
-            paymentMethod: 'credits'
+            paymentMethod: 'credits',
           })
 
           this.order = (await this.$axios.get(`orders/${id}`)).data
@@ -1058,7 +1050,7 @@ export default {
           const { paymentIntent, error } = await this.stripe.confirmCardPayment(
             clientSecret,
             {
-              payment_method: this.stripePaymentMethod
+              payment_method: this.stripePaymentMethod,
             }
           )
 
@@ -1095,9 +1087,9 @@ export default {
                     tax: this.order.tax / 100,
                     items: [
                       {
-                        name: this.order.product
-                      }
-                    ]
+                        name: this.order.product,
+                      },
+                    ],
                   })
                 }
 
@@ -1135,7 +1127,7 @@ export default {
         await this.$axios.patch(`orders/${id}`, {
           paymentMethod: this.paymentMethod,
           stripePaymentMethod:
-            this.paymentMethod === 'stripe' ? this.stripePaymentMethod : null
+            this.paymentMethod === 'stripe' ? this.stripePaymentMethod : null,
         })
 
         this.order = (await this.$axios.get(`orders/${id}`)).data
@@ -1175,7 +1167,7 @@ export default {
         await this.$axios.patch(`orders/${id}`, {
           status: this.status,
           totalCredits: this.totalCredits,
-          discount: Math.min(this.discount * 100, this.order.subtotal)
+          discount: Math.min(this.discount * 100, this.order.subtotal),
         })
 
         this.order = (await this.$axios.get(`orders/${id}`)).data
@@ -1193,7 +1185,7 @@ export default {
     },
     totalRows(rows) {
       return Object.values(rows).reduce((total, rows) => total + rows, 0)
-    }
-  }
+    },
+  },
 }
 </script>

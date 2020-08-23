@@ -1,8 +1,8 @@
 function getAuth(state) {
   // API Gateway doesn't allow token re-use across resources
-  return `${Math.random()
-    .toString(36)
-    .substr(2, 5)} ${state.user.idToken} ${state.user.impersonating}`
+  return `${Math.random().toString(36).substr(2, 5)} ${state.user.idToken} ${
+    state.user.impersonating
+  }`
 }
 
 // eslint-disable-next-line handle-callback-err

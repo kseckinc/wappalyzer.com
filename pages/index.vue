@@ -1,10 +1,20 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <div>
     <Page :title="title" no-crumbs no-head>
-      <template v-for="(section, i) in sections">
-        <v-divider v-if="i" :key="`section-${i}`" class="my-4 my-sm-6" />
+      <template v-for="(section, index) in sections">
+        <v-divider
+          v-if="index"
+          :key="`section-${index}`"
+          class="my-4 my-sm-6"
+        />
 
-        <v-row align="center" justify="center" class="pt-lg-8 pb-lg-6">
+        <v-row
+          :key="index"
+          align="center"
+          justify="center"
+          class="pt-lg-8 pb-lg-6"
+        >
           <v-col :order-sm="i % 2 !== 0 ? 0 : 12" cols="12" order="12" sm="4">
             <v-row justify="center">
               <v-col cols="8" sm="12" class="py-0">
@@ -27,7 +37,7 @@
               {{ section.subtitle }}
             </h2>
 
-            <p v-html="section.text" class="mb-8" />
+            <p class="mb-8" v-html="section.text" />
 
             <v-btn
               v-for="(button, k) in section.buttons"
@@ -69,26 +79,26 @@ import Page from '~/components/Page.vue'
 import meta from '~/assets/json/meta.json'
 
 export default {
+  components: {
+    Logos,
+    Page,
+  },
+  data() {
+    return {
+      title: meta.hero.title,
+      sections: Object.values(meta).filter((meta) => meta.feature),
+    }
+  },
   head() {
     return {
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: meta.hero.text
-        }
-      ]
+          content: meta.hero.text,
+        },
+      ],
     }
   },
-  components: {
-    Logos,
-    Page
-  },
-  data() {
-    return {
-      title: meta.hero.title,
-      sections: Object.values(meta).filter((meta) => meta.feature)
-    }
-  }
 }
 </script>

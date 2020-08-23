@@ -2,18 +2,18 @@
   <v-app light>
     <v-main>
       <Header
-        :mainNav="mainNav"
-        :userNav="userNav"
-        :isSignedIn="isSignedIn"
+        :main-nav="mainNav"
+        :user-nav="userNav"
+        :is-signed-in="isSignedIn"
         :user="user"
         :dense="!isHero || isSecure"
         @openDrawer="$refs.drawer.open()"
       />
       <nuxt />
-      <Footer :mainNav="mainNav" />
+      <Footer :main-nav="mainNav" />
     </v-main>
 
-    <Drawer ref="drawer" :mainNav="mainNav" :userNav="userNav" :user="user" />
+    <Drawer ref="drawer" :main-nav="mainNav" :user-nav="userNav" :user="user" />
 
     <script
       async
@@ -36,22 +36,22 @@ export default {
   components: {
     Header,
     Footer,
-    Drawer
+    Drawer,
   },
   props: {
     dense: {
       type: Boolean,
-      default: false
+      default: false,
     },
     auth: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       drawer: false,
-      mainNav
+      mainNav,
     }
   },
   computed: {
@@ -59,19 +59,19 @@ export default {
       isSignedIn: ({ user }) => user.isSignedIn,
       user: ({ user }) => user.attrs,
       isSecure: ({ page }) => page.isSecure,
-      isHero: ({ page }) => page.isHero
+      isHero: ({ page }) => page.isHero,
     }),
     userNav() {
       return this.isSignedIn ? userNav : userNav.filter((item) => !item.auth)
-    }
+    },
   },
   mounted() {
     this.updateUserAttrs()
   },
   methods: {
     ...mapActions({
-      updateUserAttrs: 'user/updateAttrs'
-    })
-  }
+      updateUserAttrs: 'user/updateAttrs',
+    }),
+  },
 }
 </script>

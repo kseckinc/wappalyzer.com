@@ -1,6 +1,6 @@
 export const state = () => ({
   categorySlug: false,
-  technologySlug: false
+  technologySlug: false,
 })
 
 export const mutations = {
@@ -9,5 +9,5 @@ export const mutations = {
   },
   setTechnologySlug(state, technologySlug) {
     state.technologySlug = technologySlug
-  }
+  },
 }

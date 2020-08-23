@@ -17,12 +17,12 @@ export default {
   props: {
     icon: {
       type: String,
-      default: ''
+      default: '',
     },
     small: {
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 }
 </script>

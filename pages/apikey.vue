@@ -29,7 +29,6 @@
         <v-card-text v-else class="pb-0">
           <v-text-field
             v-model="apiKey.value"
-            @click:append="() => (showKey = !showKey)"
             :append-icon="showKey ? 'mdi-eye-off' : 'mdi-eye'"
             :type="showKey ? 'text' : 'password'"
             class="apikey__value"
@@ -37,6 +36,7 @@
             readonly
             hide-details
             dense
+            @click:append="() => (showKey = !showKey)"
           ></v-text-field>
         </v-card-text>
 
@@ -44,13 +44,13 @@
           <v-spacer />
           <v-btn
             v-if="!apiKey"
-            @click="create"
             :loading="creating"
             color="accent"
             text
+            @click="create"
             ><v-icon left>mdi-key-plus</v-icon> Create key</v-btn
           >
-          <v-btn v-else @click="removeDialog = true" color="error" text
+          <v-btn v-else color="error" text @click="removeDialog = true"
             ><v-icon left>mdi-key-remove</v-icon> Delete key</v-btn
           >
         </v-card-actions>
@@ -72,10 +72,10 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn @click="removeDialog = false" color="accent" text
+            <v-btn color="accent" text @click="removeDialog = false"
               >Cancel</v-btn
             >
-            <v-btn @click="remove" :loading="removing" color="error" text
+            <v-btn :loading="removing" color="error" text @click="remove"
               >Ok</v-btn
             >
           </v-card-actions>
@@ -90,7 +90,7 @@ import Page from '~/components/Page.vue'
 
 export default {
   components: {
-    Page
+    Page,
   },
   data() {
     return {
@@ -103,7 +103,7 @@ export default {
       removing: false,
       showKey: false,
       success: false,
-      loading: true
+      loading: true,
     }
   },
   watch: {
@@ -117,7 +117,7 @@ export default {
           this.error = this.getErrorMessage(error)
         }
       }
-    }
+    },
   },
   async created() {
     if (this.$store.state.user.isSignedIn) {
@@ -167,8 +167,8 @@ export default {
       }
 
       this.removing = false
-    }
-  }
+    },
+  },
 }
 </script>
 

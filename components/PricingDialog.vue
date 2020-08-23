@@ -20,34 +20,33 @@
             </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="(tier, index) in Object.keys(creditTiers)"
-              v-if="tier <= limit"
-            >
-              <td class="pl-6 caption">
-                {{
-                  formatNumber(
-                    index
-                      ? parseInt(Object.keys(creditTiers)[index - 1], 10) + 1
-                      : 1
-                  )
-                }}
-                {{
-                  index === Object.keys(creditTiers).length - 1
-                    ? '+'
-                    : `- ${formatNumber(parseInt(tier, 10))}`
-                }}
-              </td>
-              <td class="pr-6 caption">
-                {{
-                  formatCurrency(
-                    (creditTiers[tier] * credits) / 100,
-                    'AUD',
-                    true
-                  )
-                }}
-              </td>
-            </tr>
+            <template v-for="(tier, index) in Object.keys(creditTiers)">
+              <tr v-if="tier <= limit" :key="index">
+                <td class="pl-6 caption">
+                  {{
+                    formatNumber(
+                      index
+                        ? parseInt(Object.keys(creditTiers)[index - 1], 10) + 1
+                        : 1
+                    )
+                  }}
+                  {{
+                    index === Object.keys(creditTiers).length - 1
+                      ? '+'
+                      : `- ${formatNumber(parseInt(tier, 10))}`
+                  }}
+                </td>
+                <td class="pr-6 caption">
+                  {{
+                    formatCurrency(
+                      (creditTiers[tier] * credits) / 100,
+                      'AUD',
+                      true
+                    )
+                  }}
+                </td>
+              </tr>
+            </template>
           </tbody>
         </v-simple-table>
       </v-card-text>
@@ -58,12 +57,12 @@
         Calculator
       </v-card-title>
       <v-card-text class="px-0 pb-0">
-        <v-form v-on:submit.prevent="submit">
+        <v-form @submit.prevent="submit">
           <v-text-field
             v-model="value"
             :rules="[
               (v) => /^[0-9]+$/.test(value) || 'Value should be numeric',
-              (v) => !limit || v <= limit || `Max. ${formatNumber(limit)}`
+              (v) => !limit || v <= limit || `Max. ${formatNumber(limit)}`,
             ]"
             :label="unit"
             class="px-6"
@@ -116,7 +115,7 @@
 
       <v-card-actions>
         <v-spacer />
-        <v-btn @click="close" color="accent" text>Close</v-btn>
+        <v-btn color="accent" text @click="close">Close</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -128,13 +127,13 @@ import { creditsPerUnit, creditTiers } from '~/assets/json/pricing.json'
 
 export default {
   components: {
-    AudToUsd
+    AudToUsd,
   },
   props: {
     product: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   data() {
     return {
@@ -143,7 +142,7 @@ export default {
       creditTiers,
       units: creditsPerUnit[this.product].units,
       limit: creditsPerUnit[this.product].limit,
-      value: ''
+      value: '',
     }
   },
   methods: {
@@ -154,7 +153,7 @@ export default {
       this.isOpen = false
 
       this.$emit('close')
-    }
-  }
+    },
+  },
 }
 </script>

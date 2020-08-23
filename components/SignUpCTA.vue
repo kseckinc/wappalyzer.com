@@ -8,7 +8,7 @@
           Sign up for a free account to access to all tools and products.
         </p>
 
-        <v-btn @click="signUpDialog = true" color="primary" class="mb-2" x-large
+        <v-btn color="primary" class="mb-2" x-large @click="signUpDialog = true"
           ><v-icon left>mdi-account-plus</v-icon> Sign up for free</v-btn
         >
 
@@ -29,7 +29,7 @@
         <v-card-actions>
           <v-spacer />
           <v-btn to="/account" color="accent" text>Manage account</v-btn>
-          <v-btn @click="signedInDialog = false" color="accent" text>Ok</v-btn>
+          <v-btn color="accent" text @click="signedInDialog = false">Ok</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -41,12 +41,12 @@ import SignIn from '~/components/SignIn.vue'
 
 export default {
   components: {
-    SignIn
+    SignIn,
   },
   data() {
     return {
       signUpDialog: false,
-      signedInDialog: false
+      signedInDialog: false,
     }
   },
   watch: {
@@ -55,7 +55,7 @@ export default {
         this.signUpDialog = false
         this.signedInDialog = true
       }
-    }
-  }
+    },
+  },
 }
 </script>

@@ -35,29 +35,46 @@
             >
               <Progress />
             </div>
-            <template v-if="release" v-for="type in ['add', 'fix', 'new']">
-              <template v-if="release.items[type].length">
-                <v-card-title v-if="type === 'add'" class="subtitle-2">
-                  <v-icon left>mdi-plus-box</v-icon>
-                  Additions
-                </v-card-title>
-                <v-card-title v-if="type === 'fix'" class="subtitle-2">
-                  <v-icon left>mdi-auto-fix</v-icon>
-                  Improvements
-                </v-card-title>
-                <v-card-title v-if="type === 'new'" class="subtitle-2">
-                  <v-icon left>mdi-star</v-icon>
-                  Features
-                </v-card-title>
-                <v-card-text class="px-0">
-                  <v-simple-table>
-                    <tbody>
-                      <tr v-for="item in release.items[type]">
-                        <td>{{ item }}</td>
-                      </tr>
-                    </tbody>
-                  </v-simple-table>
-                </v-card-text>
+            <template v-if="release">
+              <template v-for="type in ['add', 'fix', 'new']">
+                <template v-if="release.items[type].length">
+                  <v-card-title
+                    v-if="type === 'add'"
+                    :key="type"
+                    class="subtitle-2"
+                  >
+                    <v-icon left>mdi-plus-box</v-icon>
+                    Additions
+                  </v-card-title>
+                  <v-card-title
+                    v-if="type === 'fix'"
+                    :key="type"
+                    class="subtitle-2"
+                  >
+                    <v-icon left>mdi-auto-fix</v-icon>
+                    Improvements
+                  </v-card-title>
+                  <v-card-title
+                    v-if="type === 'new'"
+                    :key="type"
+                    class="subtitle-2"
+                  >
+                    <v-icon left>mdi-star</v-icon>
+                    Features
+                  </v-card-title>
+                  <v-card-text :key="type" class="px-0">
+                    <v-simple-table>
+                      <tbody>
+                        <tr
+                          v-for="(item, index) in release.items[type]"
+                          :key="index"
+                        >
+                          <td>{{ item }}</td>
+                        </tr>
+                      </tbody>
+                    </v-simple-table>
+                  </v-card-text>
+                </template>
               </template>
             </template>
           </v-card>
@@ -75,18 +92,13 @@ import Progress from '~/components/Progress.vue'
 export default {
   components: {
     Hero,
-    Progress
-  },
-  head() {
-    return {
-      title: this.title
-    }
+    Progress,
   },
   data() {
     return {
       title: 'Upgraded',
       release: null,
-      error: false
+      error: false,
     }
   },
   async created() {
@@ -100,8 +112,13 @@ export default {
   },
   methods: {
     ...mapActions({
-      set: 'page/set'
-    })
-  }
+      set: 'page/set',
+    }),
+  },
+  head() {
+    return {
+      title: this.title,
+    }
+  },
 }
 </script>

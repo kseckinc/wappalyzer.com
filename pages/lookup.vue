@@ -2,19 +2,18 @@
   <Page :title="title" :head="meta" no-heading>
     <Credits class="mt-8 mb-8" />
 
-    <v-card color="secondary" style="overflow: hidden">
+    <v-card color="secondary" style="overflow: hidden;">
       <v-card-title>
         <v-icon color="primary" left>mdi-layers-outline</v-icon>
         Lookup
       </v-card-title>
 
       <v-card-text class="pb-0">
-        <v-form ref="form" @submit.prevent="submit" v-model="valid">
+        <v-form ref="form" v-model="valid" @submit.prevent="submit">
           <v-text-field
             v-model="url"
-            @click:append="submit"
             :rules="rules.url"
-            style="background-color: white"
+            style="background-color: white;"
             append-icon="mdi-magnify"
             label="Enter a URL"
             placeholder="https://www.example.com"
@@ -22,6 +21,7 @@
             outlined
             large
             hide-details="auto"
+            @click:append="submit"
           />
         </v-form>
 
@@ -56,11 +56,9 @@
                     >
                       <td width="1">
                         <nuxt-link
-                          :to="
-                            `/technologies/${
-                              categories.length ? `${categories[0].slug}/` : ''
-                            }${slug}`
-                          "
+                          :to="`/technologies/${
+                            categories.length ? `${categories[0].slug}/` : ''
+                          }${slug}`"
                           class="d-flex align-center body-2 my-2"
                         >
                           <TechnologyIcon :icon="icon" />
@@ -81,69 +79,71 @@
             "
             class="py-0 col-12 col-sm-6"
           >
-            <v-card
-              v-for="set in sets"
-              v-if="set.attributes.some(({ key }) => attributes[key])"
-              :key="set.key"
-              class="px-0 mb-4"
-            >
-              <v-card-title class="subtitle-2 pb-2">
-                {{ set.name }}
-              </v-card-title>
-              <v-card-text class="px-0">
-                <v-simple-table dense>
-                  <tbody>
-                    <tr
-                      v-for="{ name, key } in set.attributes"
-                      v-if="attributes[key]"
-                    >
-                      <th width="25%">
-                        <small>{{
-                          (name || key).charAt(0).toUpperCase() +
-                            (name || key).substring(1)
-                        }}</small>
-                      </th>
-                      <td>
-                        <small>
-                          <template v-if="Array.isArray(attributes[key])">
-                            <div v-for="(value, i) in attributes[key]" :key="i">
-                              <template v-if="set.key === 'social'">
-                                <a
-                                  :href="`${socialBaseUrls[key]}${value}`"
-                                  target="_blank"
-                                  >{{ value }}</a
+            <template v-if="set.attributes.some(({ key }) => attributes[key])">
+              <v-card v-for="set in sets" :key="set.key" class="px-0 mb-4">
+                <v-card-title class="subtitle-2 pb-2">
+                  {{ set.name }}
+                </v-card-title>
+                <v-card-text class="px-0">
+                  <v-simple-table dense>
+                    <tbody>
+                      <template v-for="{ name, key } in set.attributes">
+                        <tr v-if="attributes[key]" :key="key">
+                          <th width="25%">
+                            <small>{{
+                              (name || key).charAt(0).toUpperCase() +
+                              (name || key).substring(1)
+                            }}</small>
+                          </th>
+                          <td>
+                            <small>
+                              <template v-if="Array.isArray(attributes[key])">
+                                <div
+                                  v-for="(value, i) in attributes[key]"
+                                  :key="i"
                                 >
+                                  <template v-if="set.key === 'social'">
+                                    <a
+                                      :href="`${socialBaseUrls[key]}${value}`"
+                                      target="_blank"
+                                      >{{ value }}</a
+                                    >
+                                  </template>
+                                  <template v-else>
+                                    {{ value }}
+                                  </template>
+                                </div>
+                              </template>
+                              <template v-else-if="key === 'language'">
+                                {{ getLanguage(attributes[key]) }}
+                              </template>
+                              <template v-else-if="key === 'ipCountry'">
+                                {{ getCountry(attributes[key]) }}
+                              </template>
+                              <template
+                                v-else-if="
+                                  attributes.ipCountry && key === 'ipRegion'
+                                "
+                              >
+                                {{
+                                  getRegion(
+                                    attributes.ipCountry,
+                                    attributes[key]
+                                  )
+                                }}
                               </template>
                               <template v-else>
-                                {{ value }}
+                                {{ attributes[key] }}
                               </template>
-                            </div>
-                          </template>
-                          <template v-else-if="key === 'language'">
-                            {{ getLanguage(attributes[key]) }}
-                          </template>
-                          <template v-else-if="key === 'ipCountry'">
-                            {{ getCountry(attributes[key]) }}
-                          </template>
-                          <template
-                            v-else-if="
-                              attributes.ipCountry && key === 'ipRegion'
-                            "
-                          >
-                            {{
-                              getRegion(attributes.ipCountry, attributes[key])
-                            }}
-                          </template>
-                          <template v-else>
-                            {{ attributes[key] }}
-                          </template>
-                        </small>
-                      </td>
-                    </tr>
-                  </tbody>
-                </v-simple-table>
-              </v-card-text>
-            </v-card>
+                            </small>
+                          </td>
+                        </tr>
+                      </template>
+                    </tbody>
+                  </v-simple-table>
+                </v-card-text>
+              </v-card>
+            </template>
           </v-col>
           <v-col v-else class="py-0 text-center">
             <v-card>
@@ -184,7 +184,7 @@ export default {
     SignIn,
     Progress,
     TechnologyIcon,
-    Credits
+    Credits,
   },
   data() {
     return {
@@ -209,8 +209,8 @@ export default {
             }
           },
           (v) =>
-            !v || !this.isSignedIn || !!this.credits || 'Insufficient credits'
-        ]
+            !v || !this.isSignedIn || !!this.credits || 'Insufficient credits',
+        ],
       },
       socialBaseUrls: {
         twitter: 'https://www.twitter.com/',
@@ -220,25 +220,25 @@ export default {
         tiktok: 'https://www.tiktok.com/',
         youtube: 'https://www.youtube.com/',
         pinterest: 'https://www.pinterest.com/',
-        linkedin: 'https://www.linkedin.com/'
+        linkedin: 'https://www.linkedin.com/',
       },
       signInDialog: false,
       technologies: false,
-      valid: true
+      valid: true,
     }
   },
   computed: {
     ...mapState({
       isSignedIn: ({ user }) => user.isSignedIn,
-      credits: ({ credits: { credits } }) => credits
-    })
+      credits: ({ credits: { credits } }) => credits,
+    }),
   },
   watch: {
     '$store.state.user.isSignedIn'(isSignedIn) {
       if (isSignedIn && this.signInDialog) {
         this.signInDialog = false
       }
-    }
+    },
   },
   async created() {
     if (this.$store.state.user.isSignedIn) {
@@ -251,7 +251,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      getCredits: 'credits/get'
+      getCredits: 'credits/get',
     }),
     async submit() {
       this.error = false
@@ -272,7 +272,7 @@ export default {
           ;({
             credits,
             technologies: this.technologies,
-            attributes: this.attributes
+            attributes: this.attributes,
           } = (
             await this.$axios(`lookup/${encodeURIComponent(this.url)}`)
           ).data)
@@ -321,7 +321,7 @@ export default {
       }
 
       return code
-    }
-  }
+    },
+  },
 }
 </script>

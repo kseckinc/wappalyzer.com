@@ -8,7 +8,7 @@
         ? `Wappalyzer tracks ${formatNumber(
             technologiesCount
           )} technologies across ${formatNumber(categoriesCount)} categories.`
-        : ''
+        : '',
     }"
     :loading="!categories"
   >
@@ -16,7 +16,7 @@
 
     <v-row justify="center">
       <v-col sm="8" md="6">
-        <Technologies v-on:select="selectTechnology" />
+        <Technologies @select="selectTechnology" />
       </v-col>
     </v-row>
 
@@ -48,12 +48,12 @@ import Technologies from '~/components/Technologies.vue'
 export default {
   components: {
     Page,
-    Technologies
+    Technologies,
   },
   data() {
     return {
       title: 'Technologies',
-      categories: false
+      categories: false,
     }
   },
   computed: {
@@ -67,7 +67,7 @@ export default {
             0
           )
         : 0
-    }
+    },
   },
   async created() {
     this.categories = (await this.$axios.get('categories')).data
@@ -81,7 +81,7 @@ export default {
       } else {
         this.$router.push(`/technologies/${item.slug}`)
       }
-    }
-  }
+    },
+  },
 }
 </script>

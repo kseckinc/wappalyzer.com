@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <Page :title="title">
     <v-row>
@@ -78,7 +79,7 @@ import Page from '~/components/Page.vue'
 
 export default {
   components: {
-    Page
+    Page,
   },
   data() {
     return {
@@ -92,8 +93,8 @@ export default {
           button: {
             icon: 'mdi-email-outline',
             href: 'mailto:info@wappalyzer.com',
-            text: 'Email us'
-          }
+            text: 'Email us',
+          },
         },
         {
           title: 'Bugs and feature requests',
@@ -103,8 +104,8 @@ export default {
           button: {
             icon: 'mdi-github',
             href: 'https://github.com/AliasIO/wappalyzer/issues/new/choose',
-            text: 'Create an issue'
-          }
+            text: 'Create an issue',
+          },
         },
         {
           title: 'Technical discussion',
@@ -115,11 +116,11 @@ export default {
             icon: 'mdi-slack',
             href:
               'https://join.slack.com/t/wappalyzer/shared_invite/enQtMjc1MzA2NzE4NzkwLTA5Y2RmMTQxMTFhYzViODQzMzUyNGFkMWIzY2ZhZmFlOWY2NTcyZWY4OWVjYzhiY2JhZTZlMzBiNThlMWJiMjU',
-            text: 'Join us on Slack'
-          }
-        }
-      ]
+            text: 'Join us on Slack',
+          },
+        },
+      ],
     }
-  }
+  },
 }
 </script>

@@ -47,10 +47,10 @@
         <v-card-actions>
           <v-spacer />
           <v-btn
-            @click.prevent="submit(false)"
             :loading="saving"
             color="success"
             text
+            @click.prevent="submit(false)"
           >
             <v-icon left>mdi-content-save</v-icon> Save</v-btn
           >
@@ -79,18 +79,18 @@
             <v-card-text class="py-0">
               <v-text-field
                 v-model="oldPassword"
-                @click:append="() => (showPassword = !showPassword)"
                 :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
                 :type="showPassword ? 'text' : 'password'"
                 label="Current password"
+                @click:append="() => (showPassword = !showPassword)"
               />
 
               <v-text-field
                 v-model="newPassword"
-                @click:append="() => (showPassword = !showPassword)"
                 :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
                 :type="showPassword ? 'text' : 'password'"
                 label="New password (optional)"
+                @click:append="() => (showPassword = !showPassword)"
               />
             </v-card-text>
           </v-col>
@@ -100,10 +100,10 @@
       <v-card-actions>
         <v-spacer />
         <v-btn
-          @click.prevent="submit(false)"
           :loading="saving"
           color="accent"
           text
+          @click.prevent="submit(false)"
         >
           <v-icon left>mdi-content-save</v-icon> Save</v-btn
         >
@@ -111,10 +111,10 @@
 
       <v-divider />
 
-      <Account v-on:save="accountDetailsSaved" />
+      <Account @save="accountDetailsSaved" />
     </v-card>
 
-    <v-btn @click="deleteAccountDialog = true" color="error" outlined>
+    <v-btn color="error" outlined @click="deleteAccountDialog = true">
       <v-icon left>mdi-account-remove</v-icon>
       Delete account
     </v-btn>
@@ -130,10 +130,10 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn @click="changeEmailDialog = false" color="accent" text
+          <v-btn color="accent" text @click="changeEmailDialog = false"
             >Cancel</v-btn
           >
-          <v-btn @click="submit(true)" color="accent" text>Ok</v-btn>
+          <v-btn color="accent" text @click="submit(true)">Ok</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -148,10 +148,10 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn @click="deleteAccountDialog = false" color="accent" text
+          <v-btn color="accent" text @click="deleteAccountDialog = false"
             >Cancel</v-btn
           >
-          <v-btn @click="remove" :loading="removing" color="error" text
+          <v-btn :loading="removing" color="error" text @click="remove"
             >Delete</v-btn
           >
         </v-card-actions>
@@ -169,7 +169,7 @@ import Account from '~/components/Account.vue'
 export default {
   components: {
     Page,
-    Account
+    Account,
   },
   data() {
     return {
@@ -184,25 +184,25 @@ export default {
       stripeCustomer: '',
       rules: {
         email: [(v) => /@/.test(v) || 'Enter a valid email address'],
-        required: [(v) => !!v || 'This field is required']
+        required: [(v) => !!v || 'This field is required'],
       },
       saving: false,
       showPassword: false,
       success: false,
       userId: '',
-      valid: true
+      valid: true,
     }
   },
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
-      isAdmin: ({ user }) => user.attrs.admin || user.impersonating
-    })
+      isAdmin: ({ user }) => user.attrs.admin || user.impersonating,
+    }),
   },
   watch: {
     user() {
       this.fill()
-    }
+    },
   },
   beforeMount() {
     this.fill()
@@ -211,7 +211,7 @@ export default {
     ...mapActions({
       saveUser: 'user/save',
       deleteUser: 'user/delete',
-      changePassword: 'user/changePassword'
+      changePassword: 'user/changePassword',
     }),
     async submit(emailChange) {
       this.success = ''
@@ -231,13 +231,13 @@ export default {
           if (this.newPassword) {
             await this.changePassword({
               oldPassword: this.oldPassword,
-              newPassword: this.newPassword
+              newPassword: this.newPassword,
             })
           }
 
           await this.saveUser({
             email: this.email,
-            stripeCustomer: this.stripeCustomer
+            stripeCustomer: this.stripeCustomer,
           })
 
           this.success = 'Your details have been saved'
@@ -274,7 +274,7 @@ export default {
       this.email = this.user.email
       this.stripeCustomer = this.user.stripeCustomer
       this.userId = this.user.sub
-    }
-  }
+    },
+  },
 }
 </script>

@@ -69,13 +69,13 @@ import Page from '~/components/Page.vue'
 
 export default {
   components: {
-    Page
+    Page,
   },
   data() {
     return {
-      title: 'Privacy policy'
+      title: 'Privacy policy',
     }
-  }
+  },
 }
 </script>
 

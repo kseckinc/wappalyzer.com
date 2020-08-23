@@ -11,6 +11,6 @@ export default {
   },
   created() {
     this.$router.replace('/lists')
-  }
+  },
 }
 </script>

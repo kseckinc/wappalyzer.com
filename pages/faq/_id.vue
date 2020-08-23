@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <div>
     <Page
@@ -10,8 +11,8 @@
       <h1 class="mb-4">Frequently asked questions</h1>
 
       <div
-        :id="slugify(question)"
         v-for="([question, answer], i) in items"
+        :id="slugify(question)"
         :key="question"
       >
         <h3 :class="`${i ? 'mt-8' : ''} mb-2`">
@@ -21,7 +22,7 @@
           >
         </h3>
 
-        <p v-for="text in answer" :key="text" v-html="text" class="answer"></p>
+        <p v-for="text in answer" :key="text" class="answer" v-html="text"></p>
       </div>
     </Page>
   </div>
@@ -33,7 +34,7 @@ import faqs from '~/assets/json/faqs.json'
 
 export default {
   components: {
-    Page
+    Page,
   },
   data() {
     return {
@@ -41,9 +42,9 @@ export default {
       side: Object.values(faqs).map(({ title, icon, to }) => ({
         title,
         icon,
-        to
+        to,
       })),
-      items: faqs[this.$route.params.id].items
+      items: faqs[this.$route.params.id].items,
     }
   },
   created() {
@@ -68,8 +69,8 @@ export default {
         .replace(/[^a-z0-9]/g, '-')
         .replace(/--+/, '-')
         .replace(/(^-|-$)/, '')
-    }
-  }
+    },
+  },
 }
 </script>
 

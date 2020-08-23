@@ -8,6 +8,6 @@ export default {
     const { url } = this.$route.query
 
     this.$router.push({ path: '/alerts', query: { url } })
-  }
+  },
 }
 </script>

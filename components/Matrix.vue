@@ -8,7 +8,7 @@
           "
         />
         <template v-for="attr in attrs">
-          <v-divider />
+          <v-divider :key="attr.text" />
           <v-responsive :key="attr.text" height="60" class="align-center">
             <v-card-text class="py-0">
               {{ attr.text }}
@@ -18,8 +18,8 @@
       </v-col>
       <v-col
         v-for="(item, id) in items"
-        :class="item.raised ? 'matrix__col--raised' : ''"
         :key="item.size"
+        :class="item.raised ? 'matrix__col--raised' : ''"
       >
         <v-responsive v-if="!item.raised" height="20"> </v-responsive>
         <v-card :raised="item.raised" class="text-center">
@@ -66,7 +66,7 @@
                 </span>
                 <span> / {{ item.interval }} </span>
                 <div>
-                  <small><AudToUsd :aud="item.price"/></small>
+                  <small><AudToUsd :aud="item.price" /></small>
                 </div>
               </template>
             </v-card-text>
@@ -87,11 +87,11 @@
             <v-card-actions>
               <v-btn
                 v-if="item.buttonAction === 'signUp'"
-                @click="signInDialog = true"
                 :disabled="isSignedIn"
                 color="primary"
                 class="mx-auto"
                 text
+                @click="signInDialog = true"
                 >Sign up</v-btn
               >
               <v-btn
@@ -104,17 +104,17 @@
               >
               <v-btn
                 v-else
-                @click="$emit('select', id)"
                 :text="!item.raised"
                 color="primary white-text"
                 class="mx-auto"
+                @click="$emit('select', id)"
                 >{{ buttonText }}</v-btn
               >
             </v-card-actions>
           </v-responsive>
           <template v-for="(attr, name) in attrs">
-            <v-divider />
-            <v-responsive height="60">
+            <v-divider :key="name" />
+            <v-responsive :key="name" height="60">
               <v-card-text :key="name" class="text-center">
                 <template v-if="attr.type === 'currency'">
                   <template v-if="item.attrs[name] === 0">
@@ -191,44 +191,44 @@ import AudToUsd from '~/components/AudToUsd.vue'
 export default {
   components: {
     SignIn,
-    AudToUsd
+    AudToUsd,
   },
   props: {
     items: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     attrs: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     buttonText: {
       type: String,
-      default: 'Order'
+      default: 'Order',
     },
     raisedText: {
       type: String,
-      default: 'Most popular'
-    }
+      default: 'Most popular',
+    },
   },
   data() {
     return {
-      signInDialog: false
+      signInDialog: false,
     }
   },
   computed: {
     ...mapState({
       isSignedIn: ({ user }) => user.isSignedIn,
-      credits: ({ credits: { credits } }) => credits
-    })
+      credits: ({ credits: { credits } }) => credits,
+    }),
   },
   watch: {
     '$store.state.user.isSignedIn'(isSignedIn) {
       if (isSignedIn && this.signInDialog) {
         this.signInDialog = false
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

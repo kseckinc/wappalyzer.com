@@ -7,7 +7,7 @@
         Subscribe to receive occasional product updates.
       </p>
 
-      <div class="ma-auto" style="max-width: 500px">
+      <div class="ma-auto" style="max-width: 500px;">
         <v-alert v-if="success" type="success" class="mb-0" outlined>
           {{ success }}
         </v-alert>
@@ -17,10 +17,10 @@
         </v-alert>
 
         <v-form
-          ref="form"
           v-if="!success"
-          v-on:submit.prevent="subscribe"
+          ref="form"
           class="d-flex align-center"
+          @submit.prevent="subscribe"
         >
           <v-text-field
             v-model="email"
@@ -32,11 +32,11 @@
             hide-details
           />
           <v-btn
-            @click="subscribe"
             :loading="subscribing"
             color="primary"
             class="ml-2"
             large
+            @click="subscribe"
           >
             <v-icon left>mdi-email</v-icon> Subscribe
           </v-btn>
@@ -53,7 +53,7 @@ export default {
       email: '',
       error: false,
       success: false,
-      subscribing: false
+      subscribing: false,
     }
   },
   methods: {
@@ -75,7 +75,7 @@ export default {
 
         this.subscribing = false
       }
-    }
-  }
+    },
+  },
 }
 </script>

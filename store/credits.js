@@ -1,11 +1,11 @@
 export const state = () => ({
-  credits: null
+  credits: null,
 })
 
 export const mutations = {
   set(state, credits) {
     state.credits = credits
-  }
+  },
 }
 
 export const actions = {
@@ -20,5 +20,5 @@ export const actions = {
 
       commit('set', 0)
     }
-  }
+  },
 }

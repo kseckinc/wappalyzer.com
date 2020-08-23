@@ -81,40 +81,28 @@ export default {
     SideNav,
     Crumbs,
     SignIn,
-    Credits
-  },
-  head() {
-    return {
-      title: this.seoTitle || this.title,
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: this.head.meta || this.head.text || ''
-        }
-      ]
-    }
+    Credits,
   },
   props: {
     crumbs: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     side: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     seoTitle: {
       type: String,
-      default: ''
+      default: '',
     },
     title: {
       type: String,
-      default: ''
+      default: '',
     },
     noCrumbs: {
       type: Boolean,
-      default: false
+      default: false,
     },
     head: {
       type: Object,
@@ -125,38 +113,38 @@ export default {
           subtitle: '',
           text: '',
           image: '',
-          meta: ''
+          meta: '',
         }
-      }
+      },
     },
     noHead: {
       type: Boolean,
-      default: false
+      default: false,
     },
     noSubscribe: {
       type: Boolean,
-      default: false
+      default: false,
     },
     narrow: {
       type: Boolean,
-      default: false
+      default: false,
     },
     noHero: {
       type: Boolean,
-      default: false
+      default: false,
     },
     secure: {
       type: Boolean,
-      default: false
+      default: false,
     },
     loading: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     ...mapState({
-      isSignedIn: ({ user }) => user.isSignedIn
+      isSignedIn: ({ user }) => user.isSignedIn,
     }),
     sideNav() {
       return this.secure
@@ -167,18 +155,30 @@ export default {
     },
     crumbNav() {
       return [...this.crumbs, { title: this.title, to: '' }]
-    }
+    },
   },
   mounted() {
     this.set({
       hero: !this.noHero || this.secure,
-      secure: this.secure
+      secure: this.secure,
     })
   },
   methods: {
     ...mapActions({
-      set: 'page/set'
-    })
-  }
+      set: 'page/set',
+    }),
+  },
+  head() {
+    return {
+      title: this.seoTitle || this.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.head.meta || this.head.text || '',
+        },
+      ],
+    }
+  },
 }
 </script>

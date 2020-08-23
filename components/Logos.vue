@@ -36,10 +36,10 @@ export default {
         'SAP',
         'Microsoft',
         'Salesforce',
-        'Adobe'
-      ]
+        'Adobe',
+      ],
     }
-  }
+  },
 }
 </script>
 

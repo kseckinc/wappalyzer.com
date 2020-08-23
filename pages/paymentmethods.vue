@@ -3,7 +3,7 @@
     <v-card class="mb-4">
       <v-card-title>Credit cards</v-card-title>
 
-      <CreditCards v-on:load="cardsLoaded = true" />
+      <CreditCards @load="cardsLoaded = true" />
 
       <v-divider />
 
@@ -31,7 +31,7 @@
 
       <v-card-actions>
         <v-spacer />
-        <v-btn @click="billingDialog = true" color="accent" text
+        <v-btn color="accent" text @click="billingDialog = true"
           ><v-icon left>mdi-pencil</v-icon> Edit details</v-btn
         >
       </v-card-actions>
@@ -70,8 +70,8 @@
     <v-dialog v-model="billingDialog" width="80%" max-width="700">
       <v-card>
         <Account
-          v-on:save="accountSuccess = 'Your billing details have been updated'"
           class="mx-2"
+          @save="accountSuccess = 'Your billing details have been updated'"
         />
       </v-card>
     </v-dialog>
@@ -91,21 +91,21 @@ export default {
     Page,
     Account,
     CreditCards,
-    Spinner
+    Spinner,
   },
   data() {
     return {
       title: 'Payment methods',
       accountSuccess: false,
       billingDialog: false,
-      cardsLoaded: false
+      cardsLoaded: false,
     }
   },
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
-      credits: ({ credits }) => credits.credits
-    })
+      credits: ({ credits }) => credits.credits,
+    }),
   },
   watch: {
     billingDialog(open) {
@@ -115,15 +115,15 @@ export default {
     },
     user() {
       this.billingDialog = false
-    }
+    },
   },
   created() {
     this.getCredits()
   },
   methods: {
     ...mapActions({
-      getCredits: 'credits/get'
-    })
-  }
+      getCredits: 'credits/get',
+    }),
+  },
 }
 </script>

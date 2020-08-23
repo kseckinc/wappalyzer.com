@@ -49,7 +49,7 @@ import { download as meta } from '~/assets/json/meta.json'
 
 export default {
   components: {
-    Page
+    Page,
   },
   data() {
     return {
@@ -60,21 +60,21 @@ export default {
           text: 'Google Chrome',
           href:
             'https://chrome.google.com/webstore/detail/wappalyzer/gppongmhjkpfnbhagpmjfkannfbllamg',
-          icon: 'mdi-google-chrome'
+          icon: 'mdi-google-chrome',
         },
         {
           text: 'Mozilla Firefox',
           href: 'https://addons.mozilla.org/en-US/firefox/addon/wappalyzer/',
-          icon: 'mdi-firefox'
+          icon: 'mdi-firefox',
         },
         {
           text: 'Microsoft Edge',
           href:
             'https://microsoftedge.microsoft.com/addons/detail/mnbndgmknlpdjdnjfmfcdjoegcckoikn',
-          icon: 'mdi-microsoft'
-        }
-      ]
+          icon: 'mdi-microsoft',
+        },
+      ],
     }
-  }
+  },
 }
 </script>

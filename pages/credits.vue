@@ -14,12 +14,12 @@
     </p>
 
     <div class="mb-4">
-      <v-btn @click="addDialog = true" v-if="isAdmin" color="success" outlined>
+      <v-btn v-if="isAdmin" color="success" outlined @click="addDialog = true">
         <v-icon left>mdi-alpha-c-circle</v-icon>
         Add credits
       </v-btn>
 
-      <v-btn @click="orderDialog = true" color="accent" outlined
+      <v-btn color="accent" outlined @click="orderDialog = true"
         ><v-icon left>mdi-alpha-c-circle</v-icon> Buy credits</v-btn
       >
 
@@ -51,7 +51,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in adds">
+              <tr v-for="(item, index) in adds" :key="index">
                 <td
                   v-if="item.subscriptionId && item.subscriptionId !== 'free'"
                 >
@@ -85,7 +85,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn @click="orderDialog = true" color="accent" text
+          <v-btn color="accent" text @click="orderDialog = true"
             ><v-icon left>mdi-alpha-c-circle</v-icon> Buy credits</v-btn
           >
         </v-card-actions>
@@ -114,7 +114,7 @@
             </thead>
 
             <tbody>
-              <tr v-for="item in spends">
+              <tr v-for="(item, index) in spends" :key="index">
                 <td v-if="item.orderId">
                   <nuxt-link :to="`/orders/${item.orderId}`">
                     {{ item.description }}
@@ -153,7 +153,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(tier, index) in Object.keys(creditTiers)">
+                <tr
+                  v-for="(tier, index) in Object.keys(creditTiers)"
+                  :key="index"
+                >
                   <td class="pl-6 caption">
                     {{
                       formatNumber(
@@ -190,7 +193,7 @@
             Order
           </v-card-title>
           <v-card-text class="pb-0">
-            <v-form v-on:submit.prevent="submit">
+            <v-form @submit.prevent="submit">
               <v-row>
                 <v-col cols="7" class="py-0">
                   <v-text-field
@@ -218,10 +221,10 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn @click="orderDialog = false" color="error" text
+            <v-btn color="error" text @click="orderDialog = false"
               >Cancel</v-btn
             >
-            <v-btn @click="submit" :loading="submitting" color="accent" text
+            <v-btn :loading="submitting" color="accent" text @click="submit"
               >Create order</v-btn
             >
           </v-card-actions>
@@ -249,8 +252,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn @click="addDialog = false" color="accent" text>Cancel</v-btn>
-            <v-btn @click="add" :loading="adding" color="accent" text
+            <v-btn color="accent" text @click="addDialog = false">Cancel</v-btn>
+            <v-btn :loading="adding" color="accent" text @click="add"
               >Add</v-btn
             >
           </v-card-actions>
@@ -268,7 +271,7 @@ import Page from '~/components/Page.vue'
 
 export default {
   components: {
-    Page
+    Page,
   },
   data() {
     return {
@@ -285,8 +288,8 @@ export default {
           (v) => /^[0-9]+$/.test(v),
           (v) =>
             parseInt(v) >= 100 || this.isAdmin ? true : 'Minimum 100 credits',
-          (v) => (parseInt(v) < 10000000 ? true : 'Maximum 10,000,000 credits')
-        ]
+          (v) => (parseInt(v) < 10000000 ? true : 'Maximum 10,000,000 credits'),
+        ],
       },
       orderDialog: false,
       orderError: false,
@@ -295,14 +298,14 @@ export default {
       spends: [],
       error: false,
       loading: true,
-      success: false
+      success: false,
     }
   },
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
-      isAdmin: ({ user }) => user.attrs.admin || user.impersonating
-    })
+      isAdmin: ({ user }) => user.attrs.admin || user.impersonating,
+    }),
   },
   watch: {
     async '$store.state.user.isSignedIn'(isSignedIn) {
@@ -317,7 +320,7 @@ export default {
           this.error = this.getErrorMessage(error)
         }
       }
-    }
+    },
   },
   async created() {
     if (this.$store.state.user.isSignedIn) {
@@ -325,7 +328,7 @@ export default {
         await Promise.all([
           ({ add: this.adds, spend: this.spends } = (
             await this.$axios.get('credits/usage')
-          ).data)
+          ).data),
         ])
 
         this.loading = false
@@ -340,7 +343,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      getCredits: 'credits/get'
+      getCredits: 'credits/get',
     }),
     async add() {
       this.addError = ''
@@ -349,7 +352,7 @@ export default {
       try {
         await this.$axios.put('credits', {
           credits: parseInt(this.credits, 10),
-          description: this.description
+          description: this.description,
         })
 
         this.getCredits()
@@ -374,7 +377,7 @@ export default {
             credits: Math.min(
               10000000,
               Math.max(100, parseInt(this.credits, 10))
-            )
+            ),
           })
         ).data
 
@@ -384,7 +387,7 @@ export default {
       }
 
       this.submitting = false
-    }
-  }
+    },
+  },
 }
 </script>

@@ -21,16 +21,16 @@ export default {
   props: {
     total: {
       type: Number,
-      default: 0
+      default: 0,
     },
     max: {
       type: Number,
-      default: 0
+      default: 0,
     },
     value: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   computed: {
     percentage() {
@@ -39,8 +39,8 @@ export default {
       return percentage.toFixed(
         percentage <= 0.9 ? (percentage <= 0.09 ? 2 : 1) : 0
       )
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -82,20 +82,20 @@ import { icons, items } from '~/assets/json/nav/footer.json'
 
 export default {
   components: {
-    Logo
+    Logo,
   },
   props: {
     mainNav: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
       icons,
-      items
+      items,
     }
-  }
+  },
 }
 </script>
 

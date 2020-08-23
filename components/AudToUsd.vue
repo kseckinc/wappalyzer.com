@@ -12,21 +12,21 @@ export default {
   props: {
     aud: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   computed: {
     ...mapState({
-      exchangeRate: ({ rate: { exchangeRate } }) => exchangeRate
-    })
+      exchangeRate: ({ rate: { exchangeRate } }) => exchangeRate,
+    }),
   },
   created() {
     this.getRate()
   },
   methods: {
     ...mapActions({
-      getRate: 'rate/get'
-    })
-  }
+      getRate: 'rate/get',
+    }),
+  },
 }
 </script>

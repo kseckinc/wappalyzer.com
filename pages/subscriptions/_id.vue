@@ -68,8 +68,8 @@
                     v-if="subscription.paymentMethodId"
                     :brand="subscription.paymentMethodBrand"
                     :last4="subscription.paymentMethodLast4"
-                    :expMonth="subscription.paymentMethodExpMonth"
-                    :expYear="subscription.paymentMethodExpYear"
+                    :exp-month="subscription.paymentMethodExpMonth"
+                    :exp-year="subscription.paymentMethodExpYear"
                   />
                   <template v-else>
                     Use default
@@ -106,10 +106,10 @@
           v-if="!subscription.cancelAt && subscription.status !== 'Cancelled'"
         >
           <v-spacer />
-          <v-btn @click="paymentMethodDialog = true" color="accent" text>
+          <v-btn color="accent" text @click="paymentMethodDialog = true">
             <v-icon left>mdi-credit-card-outline</v-icon> Change payment
           </v-btn>
-          <v-btn @click="cancel(false)" color="error" text>
+          <v-btn color="error" text @click="cancel(false)">
             <v-icon left>mdi-calendar-remove</v-icon> Cancel subscription
           </v-btn>
         </v-card-actions>
@@ -134,14 +134,14 @@
 
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn @click="cancelDialog = false" color="accent" text
+            <v-btn color="accent" text @click="cancelDialog = false"
               >Cancel</v-btn
             >
             <v-btn
-              @click="cancel(true)"
               :loading="cancelling"
               color="error"
               text
+              @click="cancel(true)"
               >Ok</v-btn
             >
           </v-card-actions>
@@ -191,8 +191,8 @@
                     <CreditCard
                       :brand="paymentMethod.brand"
                       :last4="paymentMethod.last4"
-                      :expMonth="paymentMethod.expMonth"
-                      :expYear="paymentMethod.expYear"
+                      :exp-month="paymentMethod.expMonth"
+                      :exp-year="paymentMethod.expYear"
                     />
                   </td>
                 </tr>
@@ -201,7 +201,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn @click="paymentMethodDialog = false" color="accent" text
+            <v-btn color="accent" text @click="paymentMethodDialog = false"
               >Cancel</v-btn
             >
           </v-card-actions>
@@ -219,7 +219,7 @@ import CreditCard from '~/components/CreditCard.vue'
 export default {
   components: {
     Page,
-    CreditCard
+    CreditCard,
   },
   data() {
     return {
@@ -233,13 +233,13 @@ export default {
       paymentMethods: false,
       paymentMethodsLoading: false,
       subscription: null,
-      success: false
+      success: false,
     }
   },
   computed: {
     ...mapState({
-      isAdmin: ({ user }) => user.attrs.admin || user.impersonating
-    })
+      isAdmin: ({ user }) => user.attrs.admin || user.impersonating,
+    }),
   },
   watch: {
     async '$store.state.user.isSignedIn'(isSignedIn) {
@@ -267,7 +267,7 @@ export default {
 
         this.paymentMethodsLoading = false
       }
-    }
+    },
   },
   async created() {
     if (this.$store.state.user.isSignedIn) {
@@ -316,7 +316,7 @@ export default {
 
       try {
         await this.$axios.patch(`subscriptions/${this.subscription.id}`, {
-          default_payment_method: id
+          default_payment_method: id,
         })
 
         this.subscription = (
@@ -333,7 +333,7 @@ export default {
       this.scrollToTop()
 
       this.paymentMethodSaving = false
-    }
-  }
+    },
+  },
 }
 </script>

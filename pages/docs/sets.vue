@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <Page :title="title" :side="side" no-hero no-head>
     <h1 class="mb-4">
@@ -19,7 +20,7 @@
           ({ key }) => key !== 'base-list' && key !== 'base-lookup'
         )"
       >
-        <h2 :id="set.key" class="mt-8 mb-2">
+        <h2 :id="set.key" :key="set.key" class="mt-8 mb-2">
           {{ set.name }}
           <template v-if="set.key"
             >(<code>{{ set.key }}</code
@@ -30,14 +31,14 @@
           </a>
         </h2>
 
-        <v-card class="my-4" flat outlined>
+        <v-card :key="set.key" class="my-4" flat outlined>
           <v-simple-table>
             <tbody>
               <tr>
                 <th width="25%">Attribute</th>
                 <th>Description</th>
               </tr>
-              <tr v-for="attr in set.attributes">
+              <tr v-for="attr in set.attributes" :key="attr.key">
                 <td>
                   <code>{{ attr.key }}</code>
                 </td>
@@ -57,14 +58,14 @@ import sets from '~/assets/json/sets.json'
 
 export default {
   components: {
-    Page
+    Page,
   },
   data() {
     return {
       title: 'Developer documentation',
       side,
-      sets
+      sets,
     }
-  }
+  },
 }
 </script>

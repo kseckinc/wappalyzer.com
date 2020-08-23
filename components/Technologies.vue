@@ -3,8 +3,6 @@
     <v-select
       ref="results"
       v-model="selection"
-      v-on:change="(item) => $emit('select', item)"
-      v-on:focus="focus"
       :items="results"
       class="mb-4"
       label="Find a technology"
@@ -12,13 +10,14 @@
       hide-details="auto"
       return-object
       eager
+      @change="(item) => $emit('select', item)"
+      @focus="focus"
     >
       <template v-slot:prepend-item>
-        <v-form ref="form" @submit.prevent="search" class="search">
+        <v-form ref="form" class="search" @submit.prevent="search">
           <v-text-field
             ref="search"
             v-model="query"
-            @click:append="search"
             :loading="loading"
             :error-messages="errors"
             class="mx-4"
@@ -27,6 +26,7 @@
             placeholder="E.g. 'CMS' or 'Shopify'"
             required
             hide-details="auto"
+            @click:append="search"
           />
         </v-form>
 
@@ -66,7 +66,7 @@ import TechnologyIcon from '~/components/TechnologyIcon.vue'
 
 export default {
   components: {
-    TechnologyIcon
+    TechnologyIcon,
   },
   data() {
     return {
@@ -76,7 +76,7 @@ export default {
       query: '',
       searchTimeout: null,
       selection: false,
-      technologies: []
+      technologies: [],
     }
   },
   computed: {
@@ -84,14 +84,14 @@ export default {
       return [
         ...this.categories.map((category) => ({
           ...category,
-          type: 'category'
+          type: 'category',
         })),
         ...this.technologies.map((technology) => ({
           ...technology,
-          type: 'technology'
-        }))
+          type: 'technology',
+        })),
       ]
-    }
+    },
   },
   watch: {
     query(query) {
@@ -100,7 +100,7 @@ export default {
 
         this.searchTimeout = setTimeout(() => this.search(), 300)
       }
-    }
+    },
   },
   methods: {
     async search() {
@@ -120,8 +120,8 @@ export default {
         ;({ categories: this.categories, technologies: this.technologies } = (
           await this.$axios.get('search/technologies', {
             params: {
-              query: this.query
-            }
+              query: this.query,
+            },
           })
         ).data)
 
@@ -151,8 +151,8 @@ export default {
           this.$refs.search.$el.querySelector('input').focus()
         }, 300)
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

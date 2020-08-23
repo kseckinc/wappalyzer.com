@@ -119,14 +119,14 @@ import side from '~/assets/json/nav/docs.json'
 
 export default {
   components: {
-    Page
+    Page,
   },
   data() {
     return {
       title: 'Developer documentation',
-      side
+      side,
     }
-  }
+  },
 }
 </script>
 

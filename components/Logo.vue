@@ -14,8 +14,8 @@ export default {
   props: {
     dark: {
       type: Boolean,
-      default: false
-    }
-  }
+      default: false,
+    },
+  },
 }
 </script>

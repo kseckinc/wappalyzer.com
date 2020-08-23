@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <div>
     <v-row v-if="image">
@@ -7,9 +8,14 @@
         <p v-if="subtitle" class="subtitle-2 mt-n4">{{ subtitle }}</p>
 
         <template v-if="Array.isArray(text)">
-          <p v-for="paragraph in text" v-html="paragraph" class="head-text" />
+          <p
+            v-for="(paragraph, index) in text"
+            :key="index"
+            class="head-text"
+            v-html="paragraph"
+          />
         </template>
-        <p v-else v-html="text" class="head-text" />
+        <p v-else class="head-text" v-html="text" />
 
         <Progress v-if="loading" />
 
@@ -31,9 +37,14 @@
           <p v-if="subtitle" class="subtitle-2 mt-n4">{{ subtitle }}</p>
 
           <template v-if="Array.isArray(text)">
-            <p v-for="paragraph in text" v-html="paragraph" class="head-text" />
+            <p
+              v-for="(paragraph, index) in text"
+              :key="index"
+              class="head-text"
+              v-html="paragraph"
+            />
           </template>
-          <p v-else v-html="text" class="head-text" />
+          <p v-else class="head-text" v-html="text" />
         </v-col>
       </v-row>
 
@@ -53,29 +64,29 @@ import Progress from '~/components/Progress.vue'
 
 export default {
   components: {
-    Progress
+    Progress,
   },
   props: {
     loading: {
       type: Boolean,
-      default: false
+      default: false,
     },
     title: {
       type: String,
-      default: ''
+      default: '',
     },
     subtitle: {
       type: String,
-      default: ''
+      default: '',
     },
     text: {
       type: [Array, String],
-      default: ''
+      default: '',
     },
     image: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   mounted() {
     Array.from(this.$el.querySelectorAll('.head-text a[href^="/"]')).forEach(
@@ -86,6 +97,6 @@ export default {
           this.$router.push(link.pathname)
         })
     )
-  }
+  },
 }
 </script>

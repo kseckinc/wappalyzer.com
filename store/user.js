@@ -2,7 +2,7 @@ import {
   CognitoUserPool,
   CognitoUserAttribute,
   CognitoUser,
-  AuthenticationDetails
+  AuthenticationDetails,
 } from 'amazon-cognito-identity-js'
 
 const UserPoolId = process.env.COGNITO_USER_POOL_ID
@@ -15,7 +15,7 @@ export const state = () => ({
   idToken: '',
   refreshToken: '',
   isSignedIn: false,
-  impersonating: ''
+  impersonating: '',
 })
 
 export const mutations = {
@@ -33,7 +33,7 @@ export const mutations = {
   },
   setImpersonating(state, email) {
     state.impersonating = email
-  }
+  },
 }
 
 export const actions = {
@@ -82,12 +82,12 @@ export const actions = {
     const attributeList = [
       new CognitoUserAttribute({
         Name: 'email',
-        Value: Username.toLowerCase().trim()
+        Value: Username.toLowerCase().trim(),
       }),
       new CognitoUserAttribute({
         Name: 'custom:rewardfulReferral',
-        Value: rewardfulReferral
-      })
+        Value: rewardfulReferral,
+      }),
     ]
 
     return new Promise((resolve, reject) => {
@@ -110,7 +110,7 @@ export const actions = {
   verifySignUp(context, { username: Username, code }) {
     const cognitoUser = new CognitoUser({
       Username: Username.toLowerCase().trim(),
-      Pool
+      Pool,
     })
 
     return new Promise((resolve, reject) => {
@@ -123,7 +123,7 @@ export const actions = {
   reverifySignUp(context, { username: Username }) {
     const cognitoUser = new CognitoUser({
       Username: Username.toLowerCase().trim(),
-      Pool
+      Pool,
     })
 
     return new Promise((resolve, reject) => {
@@ -136,13 +136,13 @@ export const actions = {
   signIn({ commit, dispatch }, { username: Username, password: Password }) {
     const cognitoUser = new CognitoUser({
       Username: Username.toLowerCase().trim(),
-      Pool
+      Pool,
     })
 
     return new Promise((resolve, reject) => {
       const authenticationDetails = new AuthenticationDetails({
         Username: Username.toLowerCase().trim(),
-        Password
+        Password,
       })
 
       cognitoUser.authenticateUser(authenticationDetails, {
@@ -151,7 +151,7 @@ export const actions = {
 
           resolve()
         },
-        onFailure: reject
+        onFailure: reject,
       })
     })
   },
@@ -171,7 +171,7 @@ export const actions = {
 
             resolve()
           },
-          onFailure: reject
+          onFailure: reject,
         })
       })
     })
@@ -189,7 +189,7 @@ export const actions = {
         cognitoUser.getAttributeVerificationCode('email', {
           onSuccess: resolve,
           onFailure: reject,
-          inputVerificationCode: resolve
+          inputVerificationCode: resolve,
         })
       })
     })
@@ -231,13 +231,13 @@ export const actions = {
   reset(context, { username: Username }) {
     const cognitoUser = new CognitoUser({
       Username: Username.toLowerCase().trim(),
-      Pool
+      Pool,
     })
 
     return new Promise((resolve, reject) => {
       cognitoUser.forgotPassword({
         onSuccess: resolve,
-        onFailure: reject
+        onFailure: reject,
       })
     })
   },
@@ -245,13 +245,13 @@ export const actions = {
   verifyReset(context, { username: Username, password, code }) {
     const cognitoUser = new CognitoUser({
       Username: Username.toLowerCase().trim(),
-      Pool
+      Pool,
     })
 
     return new Promise((resolve, reject) => {
       cognitoUser.confirmPassword(code, password, {
         onSuccess: resolve,
-        onFailure: reject
+        onFailure: reject,
       })
     })
   },
@@ -302,5 +302,5 @@ export const actions = {
     }
 
     await dispatch('updateAttrs')
-  }
+  },
 }

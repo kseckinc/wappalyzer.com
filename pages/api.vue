@@ -83,15 +83,15 @@ export default {
   components: {
     Page,
     Logos,
-    Matrix
+    Matrix,
   },
   data() {
     return {
       title: meta.title,
       attrs,
       apis,
-      meta
+      meta,
     }
-  }
+  },
 }
 </script>

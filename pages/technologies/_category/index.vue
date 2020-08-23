@@ -2,7 +2,7 @@
   <div>
     <Page
       :title="title"
-      :seoTitle="`${title} market share`"
+      :seo-title="`${title} market share`"
       :loading="!category"
       :crumbs="[{ title: 'Technologies', to: '/technologies' }]"
       :head="{
@@ -13,7 +13,7 @@
               ${formatNumber(totalHostnames, true)} websites and
               ${Object.keys(technologies).length} technologies in the
               category ${category.name}.`
-          : ''
+          : '',
       }"
       hero
     >
@@ -36,22 +36,22 @@
                   <th width="30%">
                     Technology
                     <v-btn
-                      @click="sort = 'name'"
                       :disabled="sort === 'name'"
                       color="accent"
                       icon
                       x-small
+                      @click="sort = 'name'"
                       ><v-icon>mdi-chevron-down</v-icon></v-btn
                     >
                   </th>
                   <th>
                     Market share
                     <v-btn
-                      @click="sort = 'hostnames'"
                       :disabled="sort === 'hostnames'"
                       color="accent"
                       icon
                       x-small
+                      @click="sort = 'hostnames'"
                       ><v-icon>mdi-chevron-down</v-icon></v-btn
                     >
                   </th>
@@ -101,12 +101,12 @@ export default {
     Page,
     TechnologyIcon,
     Bar,
-    Logos
+    Logos,
   },
   data() {
     return {
       category: false,
-      sort: 'hostnames'
+      sort: 'hostnames',
     }
   },
   computed: {
@@ -157,9 +157,9 @@ export default {
           0
         ) || 1
       )
-    }
+    },
   },
-  async created() {
+  async mounted() {
     try {
       this.category = (
         await this.$axios.get(`categories/${this.categorySlug}`)
@@ -172,6 +172,6 @@ export default {
         this.$nuxt.error(error)
       }
     }
-  }
+  },
 }
 </script>

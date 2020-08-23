@@ -9,14 +9,14 @@
     "build": "nuxt build",
     "generate": "nuxt generate",
     "start": "nuxt start",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "lint": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
     "deploy:beta": "ENVIRONMENT=beta nuxt generate && aws s3 sync dist s3://beta.wappalyzer.com --acl public-read --cache-control max-age=31536000,public --exclude 'images/icons/*' --profile wappalyzer",
     "deploy:v2": "ENVIRONMENT=v2 nuxt generate && aws s3 sync dist s3://www.wappalyzer.com --acl public-read --cache-control max-age=31536000,public --exclude 'images/icons/*' --profile wappalyzer"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.10.1",
     "@nuxtjs/dotenv": "^1.4.0",
-    "amazon-cognito-identity-js": "^3.2.2",
+    "amazon-cognito-identity-js": "^4.3.4",
     "nuxt": "^2.0.0",
     "nuxt-stripe-module": "^2.0.0",
     "nuxtjs-mdi-font": "^1.0.2",
@@ -26,14 +26,14 @@
     "vue-prism-component": "^1.1.1"
   },
   "devDependencies": {
-    "@nuxtjs/eslint-config": "^1.0.1",
-    "@nuxtjs/eslint-module": "^1.0.0",
+    "@nuxtjs/eslint-config": "^3.1.0",
+    "@nuxtjs/eslint-module": "^2.0.0",
     "@nuxtjs/vuetify": "^1.0.0",
     "babel-eslint": "^10.0.1",
-    "eslint": "^6.1.0",
-    "eslint-config-prettier": "^4.1.0",
+    "eslint": "^7.7.0",
+    "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-nuxt": ">=0.4.2",
     "eslint-plugin-prettier": "^3.0.1",
-    "prettier": "^1.16.4"
+    "prettier": "^2.0.5"
   }
 }

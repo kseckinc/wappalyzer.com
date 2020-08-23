@@ -6,6 +6,6 @@
 export default {
   asyncData({ redirect }) {
     redirect('/docs/api/v2/basics')
-  }
+  },
 }
 </script>

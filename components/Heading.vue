@@ -20,13 +20,13 @@ export default {
   props: {
     id: {
       type: String,
-      default: ''
+      default: '',
     },
     size: {
       type: String,
-      default: '2'
-    }
-  }
+      default: '2',
+    },
+  },
 }
 </script>
 

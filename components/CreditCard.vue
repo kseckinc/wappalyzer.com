@@ -19,20 +19,20 @@ export default {
   props: {
     brand: {
       type: String,
-      default: ''
+      default: '',
     },
     last4: {
       type: String,
-      default: ''
+      default: '',
     },
     expMonth: {
       type: Number,
-      default: 0
+      default: 0,
     },
     expYear: {
       type: Number,
-      default: 0
-    }
-  }
+      default: 0,
+    },
+  },
 }
 </script>

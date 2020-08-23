@@ -25,10 +25,10 @@
       </div>
 
       <Matrix
-        v-on:select="subscribe"
         :items="plans"
         :attrs="attrs"
         button-text="Sign up"
+        @select="subscribe"
       />
 
       <v-container>
@@ -60,7 +60,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="{ name, to, units } in creditsPerUnit">
+              <tr v-for="{ name, to, units } in creditsPerUnit" :key="name">
                 <td>
                   <nuxt-link :to="to">{{ name }}</nuxt-link>
                 </td>
@@ -100,7 +100,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(tier, index) in Object.keys(creditTiers)">
+              <tr
+                v-for="(tier, index) in Object.keys(creditTiers)"
+                :key="index"
+              >
                 <td>
                   {{
                     formatNumber(
@@ -143,10 +146,10 @@
       </v-dialog>
 
       <OrderDialog
-        ref="orderDialog"
-        v-on:close="orderDialog = false"
-        :error="orderError"
         :id="order ? order.id : null"
+        ref="orderDialog"
+        :error="orderError"
+        @close="orderDialog = false"
       />
 
       <template v-slot:footer>
@@ -171,7 +174,7 @@ export default {
     Logos,
     SignIn,
     OrderDialog,
-    Matrix
+    Matrix,
   },
   data() {
     return {
@@ -185,8 +188,8 @@ export default {
       signInDialog: false,
       subscribing: false,
       text: [
-        'Sign up for access to our full range of products. Each plan grants you monthly credits to spend on technology lookups, lead lists and API calls.'
-      ]
+        'Sign up for access to our full range of products. Each plan grants you monthly credits to spend on technology lookups, lead lists and API calls.',
+      ],
     }
   },
   computed: {
@@ -198,7 +201,7 @@ export default {
 
         return _plans
       }, {})
-    }
+    },
   },
   watch: {
     '$store.state.user.isSignedIn'(isSignedIn) {
@@ -207,7 +210,7 @@ export default {
 
         this.subscribe(this.subscribing)
       }
-    }
+    },
   },
   methods: {
     async subscribe(plan) {
@@ -227,13 +230,13 @@ export default {
         this.order = (
           await this.$axios.put('orders', {
             product: 'Subscription',
-            plan
+            plan,
           })
         ).data
       } catch (error) {
         this.orderError = this.getErrorMessage(error)
       }
-    }
-  }
+    },
+  },
 }
 </script>

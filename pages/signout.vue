@@ -25,20 +25,20 @@ import Page from '~/components/Page.vue'
 
 export default {
   components: {
-    Page
+    Page,
   },
   data() {
     return {
       title: 'Sign out',
       success: '',
       error: '',
-      signingOut: false
+      signingOut: false,
     }
   },
   computed: {
     ...mapState({
-      isSignedIn: ({ user }) => user.isSignedIn
-    })
+      isSignedIn: ({ user }) => user.isSignedIn,
+    }),
   },
   async mounted() {
     if (!this.isSignedIn) {
@@ -59,8 +59,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      signOut: 'user/signOut'
-    })
-  }
+      signOut: 'user/signOut',
+    }),
+  },
 }
 </script>

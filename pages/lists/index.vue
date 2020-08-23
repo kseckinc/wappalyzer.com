@@ -2,10 +2,10 @@
   <div>
     <Page :title="title" :head="meta">
       <v-btn
-        @click="$refs.pricingDialog.open()"
         color="accent"
         class="mt-4 mb-8"
         outlined
+        @click="$refs.pricingDialog.open()"
       >
         <v-icon left>mdi-calculator</v-icon>
         Pricing
@@ -46,7 +46,7 @@
                       Choose one or more technologies to include.
                     </p>
 
-                    <Technologies ref="selector" v-on:select="selectItem" />
+                    <Technologies ref="selector" @select="selectItem" />
                   </v-card-text>
                   <v-card-text class="px-0 pt-0 mt-n4">
                     <v-simple-table>
@@ -75,7 +75,7 @@
                             </v-row>
                           </td>
                           <td width="1">
-                            <v-btn @click="removeItem(item)" icon>
+                            <v-btn icon @click="removeItem(item)">
                               <v-icon>mdi-close-circle-outline</v-icon>
                             </v-btn>
                           </td>
@@ -105,7 +105,7 @@
                           v-for="set in sets.filter(
                             ({ key }) => key !== 'base-lookup'
                           )"
-                          :key="key"
+                          :key="set.key"
                           top
                         >
                           <template v-slot:activator="{ on }">
@@ -163,7 +163,7 @@
                         (v) =>
                           !v || /^[0-9]+$/.test(v) || 'Value must be numeric',
                         (v) =>
-                          !v || v >= 100 || 'Subset size must be at least 100'
+                          !v || v >= 100 || 'Subset size must be at least 100',
                       ]"
                       class="mb-4"
                       placeholder="5000"
@@ -183,12 +183,12 @@
                     </p>
 
                     <v-file-input
-                      v-on:change="fileChange"
                       :error-messages="fileErrors"
                       placeholder="Select a file..."
                       accept="text/plain"
                       hide-details="auto"
                       class="mb-4"
+                      @change="fileChange"
                     />
                   </v-card-text>
                 </v-card>
@@ -217,7 +217,7 @@
                       hide-details
                     >
                       <template v-slot:item="{ item }">
-                        <v-list-item @click="toggleGeoIp(item)" ripple>
+                        <v-list-item ripple @click="toggleGeoIp(item)">
                           <v-list-item-action>
                             <v-icon :color="item.active ? 'primary' : ''">{{
                               item.active
@@ -254,11 +254,11 @@
                       >
                         <template v-slot:activator="{ on }">
                           <v-chip
-                            v-on="on"
-                            @click:close="toggleGeoIp(item)"
                             color="primary"
                             outlined
                             close
+                            v-on="on"
+                            @click:close="toggleGeoIp(item)"
                           >
                             {{ item.value }}
                           </v-chip>
@@ -304,26 +304,26 @@
                         <v-form ref="form" @submit.prevent="addTld">
                           <v-text-field
                             v-model="tld"
-                            @click:append="addTld"
                             :error-messages="tldErrors"
                             append-icon="mdi-plus"
                             placeholder=".com"
                             hide-details="auto"
+                            @click:append="addTld"
                           />
                         </v-form>
                       </v-col>
                     </v-row>
 
                     <v-select
-                      ref="tld"
                       v-if="selectedCountry"
+                      ref="tld"
                       :items="tlds"
                       class="mb-8"
                       label="Select a top-level-domain"
                       hide-details
                     >
                       <template v-slot:prepend-item>
-                        <v-list-item @click="toggleTlds" ripple>
+                        <v-list-item ripple @click="toggleTlds">
                           <v-list-item-action>
                             <v-icon
                               :color="selected.tlds.length > 0 ? 'primary' : ''"
@@ -346,7 +346,7 @@
                       </template>
 
                       <template v-slot:item="{ item }">
-                        <v-list-item @click="toggleTld(item)" ripple>
+                        <v-list-item ripple @click="toggleTld(item)">
                           <v-list-item-action>
                             <v-icon :color="item.active ? 'primary' : ''">{{
                               item.active
@@ -374,11 +374,11 @@
                       >
                         <template v-slot:activator="{ on }">
                           <v-chip
-                            v-on="item.parent ? on : undefined"
-                            @click:close="toggleTld(item)"
                             color="primary"
                             outlined
                             close
+                            v-on="item.parent ? on : undefined"
+                            @click:close="toggleTld(item)"
                           >
                             {{ item.value }}
                           </v-chip>
@@ -408,7 +408,7 @@
                       hide-details
                     >
                       <template v-slot:item="{ item }">
-                        <v-list-item @click="toggleLanguage(item)" ripple>
+                        <v-list-item ripple @click="toggleLanguage(item)">
                           <v-list-item-action>
                             <v-icon :color="item.active ? 'primary' : ''">{{
                               typeof item.value === 'object'
@@ -440,15 +440,15 @@
                     </v-select>
 
                     <v-select
-                      ref="variant"
                       v-if="variants"
+                      ref="variant"
                       :items="variants"
                       class="mb-4"
                       label="Select a language country"
                       hide-details
                     >
                       <template v-slot:prepend-item>
-                        <v-list-item @click="toggleVariants" ripple>
+                        <v-list-item ripple @click="toggleVariants">
                           <v-list-item-action>
                             <v-icon
                               :color="
@@ -473,7 +473,7 @@
                       </template>
 
                       <template v-slot:item="{ item }">
-                        <v-list-item @click="toggleVariant(item)" ripple>
+                        <v-list-item ripple @click="toggleVariant(item)">
                           <v-list-item-action>
                             <v-icon :color="item.active ? 'primary' : ''">{{
                               item.active
@@ -509,11 +509,11 @@
                       >
                         <template v-slot:activator="{ on }">
                           <v-chip
-                            v-on="on"
-                            @click:close="toggleVariant(item)"
                             color="primary"
                             outlined
                             close
+                            v-on="on"
+                            @click:close="toggleVariant(item)"
                           >
                             {{ item.value }}
                           </v-chip>
@@ -541,11 +541,11 @@
         </v-card>
 
         <v-btn
-          @click="submit"
           :disabled="!selectedItems.length"
           color="primary"
           class="mt-4 mb-4"
           large
+          @click="submit"
           >Request quote <v-icon right>mdi-arrow-right</v-icon>
         </v-btn>
 
@@ -562,10 +562,10 @@
       </v-dialog>
 
       <OrderDialog
-        ref="orderDialog"
-        v-on:close="orderDialog = false"
-        :error="orderError"
         :id="order ? order.id : null"
+        ref="orderDialog"
+        :error="orderError"
+        @close="orderDialog = false"
       />
 
       <PricingDialog ref="pricingDialog" product="list" />
@@ -599,7 +599,7 @@ export default {
     Logos,
     SignIn,
     OrderDialog,
-    PricingDialog
+    PricingDialog,
   },
   data() {
     return {
@@ -618,7 +618,7 @@ export default {
         technologies: [],
         geoIps: [],
         tlds: [],
-        languages: []
+        languages: [],
       },
       sets,
       subset: null,
@@ -630,7 +630,7 @@ export default {
       languages: Object.keys(languages).reduce(
         (list, text) => [...list, { text, value: languages[text] }],
         []
-      )
+      ),
     }
   },
   computed: {
@@ -645,8 +645,8 @@ export default {
             {
               text,
               parent: this.selectedLanguage.text,
-              value: this.selectedLanguage.value[text]
-            }
+              value: this.selectedLanguage.value[text],
+            },
           ],
           []
         )
@@ -659,7 +659,7 @@ export default {
         text: tld,
         active: this.selected.tlds.some(({ value }) => value === tld),
         parent: this.selectedCountry,
-        value: tld
+        value: tld,
       }))
     },
     geoIps() {
@@ -668,9 +668,9 @@ export default {
         active: this.selected.geoIps.some(
           ({ value: _value }) => _value === value
         ),
-        value
+        value,
       }))
-    }
+    },
   },
   watch: {
     '$store.state.user.isSignedIn'(isSignedIn) {
@@ -690,7 +690,7 @@ export default {
           }
         })
       })
-    }
+    },
   },
   async created() {
     const { categorySlug, technologySlug } = this.$store.state.lists
@@ -706,7 +706,7 @@ export default {
             type: 'technology',
             slug,
             name,
-            icon
+            icon,
           })
         } catch (error) {
           this.error = this.getErrorMessage(error)
@@ -721,7 +721,7 @@ export default {
             type: 'category',
             slug,
             name,
-            technologiesCount: Object.keys(technologies).length
+            technologiesCount: Object.keys(technologies).length,
           })
         } catch (error) {
           this.error = this.getErrorMessage(error)
@@ -756,33 +756,33 @@ export default {
                     slug,
                     name,
                     icon,
-                    categories
+                    categories,
                   })
                 ),
                 categories: this.selected.categories.map(({ slug, name }) => ({
                   slug,
-                  name
+                  name,
                 })),
                 languages: this.selected.languages.map(
                   ({ text, parent, value }) => ({
                     text:
                       parent && parent !== text ? `${parent} (${text})` : text,
-                    value
+                    value,
                   })
                 ),
                 geoIps: this.selected.geoIps.map(({ value, text }) => ({
                   value,
-                  text
+                  text,
                 })),
                 tlds: this.selected.tlds.map(({ value }) => value),
                 matchAll: this.matchAll,
-                subset: this.subset
+                subset: this.subset,
               },
               sets: this.sets
                 .filter(({ disabled, value }) => value && !disabled)
                 .map(({ key }) => key),
-              exclusions: this.file
-            }
+              exclusions: this.file,
+            },
           })
         ).data
       } catch (error) {
@@ -931,7 +931,7 @@ export default {
         text: value,
         active: true,
         parent: '',
-        value
+        value,
       }
 
       Object.keys(tlds).forEach((country) => {
@@ -982,8 +982,8 @@ export default {
       }
 
       this.file = this.file.join('\n')
-    }
-  }
+    },
+  },
 }
 </script>
 

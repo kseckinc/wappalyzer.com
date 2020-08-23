@@ -39,26 +39,26 @@ import Spinner from '~/components/Spinner.vue'
 
 export default {
   components: {
-    Spinner
+    Spinner,
   },
   props: {
     variant: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     ...mapState({
       isSignedIn: ({ user }) => user.isSignedIn,
-      credits: ({ credits: { credits } }) => credits
-    })
+      credits: ({ credits: { credits } }) => credits,
+    }),
   },
   watch: {
     '$store.state.user.isSignedIn'(isSignedIn) {
       if (isSignedIn) {
         this.getCredits()
       }
-    }
+    },
   },
   created() {
     if (this.$store.state.user.isSignedIn) {
@@ -71,8 +71,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      getCredits: 'credits/get'
-    })
-  }
+      getCredits: 'credits/get',
+    }),
+  },
 }
 </script>

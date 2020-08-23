@@ -1,11 +1,11 @@
 export const state = () => ({
-  exchangeRate: 0
+  exchangeRate: 0,
 })
 
 export const mutations = {
   set(state, rate) {
     state.exchangeRate = rate
-  }
+  },
 }
 
 export const actions = {
@@ -15,5 +15,5 @@ export const actions = {
 
       commit('set', rate)
     }
-  }
+  },
 }

@@ -29,13 +29,13 @@
             </thead>
 
             <tbody>
-              <tr v-for="alert in alerts">
+              <tr v-for="alert in alerts" :key="alert.url">
                 <td>
                   <v-switch
                     v-model="alert.enabled"
-                    @change="toggle(alert)"
                     class="ma-0 pa-0 mx-auto"
                     hide-details
+                    @change="toggle(alert)"
                   />
                 </td>
                 <td>
@@ -46,11 +46,11 @@
                 <td>{{ formatDate(new Date(alert.updatedAt * 1000)) }}</td>
                 <td width="1">
                   <v-btn
+                    icon
                     @click="
                       removeUrl = alert.url
                       removeDialog = true
                     "
-                    icon
                     ><v-icon>mdi-close-circle</v-icon></v-btn
                   >
                 </td>
@@ -62,9 +62,9 @@
         <v-card-actions>
           <v-spacer />
           <v-btn
-            @click="isSignedIn ? (createDialog = true) : (signInDialog = true)"
             color="accent"
             text
+            @click="isSignedIn ? (createDialog = true) : (signInDialog = true)"
             ><v-icon left>mdi-bullhorn</v-icon> Create alert</v-btn
           >
         </v-card-actions>
@@ -86,7 +86,7 @@
 
             <Credits class="mb-8" />
 
-            <v-form ref="form" v-on:submit.prevent="create">
+            <v-form ref="form" @submit.prevent="create">
               <v-text-field
                 v-model="url"
                 :rules="rules.url"
@@ -98,15 +98,15 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn @click="createDialog = false" color="error" text
+            <v-btn color="error" text @click="createDialog = false"
               >Cancel</v-btn
             >
             <v-btn
-              @click="create"
               :disabled="credits < 10"
               :loading="creating"
               color="accent"
               text
+              @click="create"
               ><v-icon left>mdi-alpha-c-circle</v-icon> Spend 10 credits</v-btn
             >
           </v-card-actions>
@@ -127,10 +127,10 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn @click="removeDialog = false" color="accent" text
+            <v-btn color="accent" text @click="removeDialog = false"
               >Cancel</v-btn
             >
-            <v-btn @click="remove" :loading="removing" color="error" text
+            <v-btn :loading="removing" color="error" text @click="remove"
               >Ok</v-btn
             >
           </v-card-actions>
@@ -162,7 +162,7 @@ export default {
     Page,
     Logos,
     SignIn,
-    Credits
+    Credits,
   },
   data() {
     return {
@@ -189,18 +189,18 @@ export default {
             } catch (error) {
               return 'Enter a valid URL, e.g. https://www.example.com'
             }
-          }
-        ]
+          },
+        ],
       },
       signInDialog: false,
-      subscribing: false
+      subscribing: false,
     }
   },
   computed: {
     ...mapState({
       isSignedIn: ({ user }) => user.isSignedIn,
-      credits: ({ credits: { credits } }) => credits
-    })
+      credits: ({ credits: { credits } }) => credits,
+    }),
   },
   watch: {
     async '$store.state.user.isSignedIn'(isSignedIn) {
@@ -216,7 +216,7 @@ export default {
           this.createDialog = true
         }
       }
-    }
+    },
   },
   async created() {
     ;({ url: this.url } = this.$route.query)
@@ -244,7 +244,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      getCredits: 'credits/get'
+      getCredits: 'credits/get',
     }),
     async create() {
       this.success = false
@@ -255,7 +255,7 @@ export default {
       if (this.$refs.form.validate()) {
         try {
           await this.$axios.put('alerts', {
-            url: this.url.trim()
+            url: this.url.trim(),
           })
           ;({ alerts: this.alerts } = (await this.$axios.get('alerts')).data)
 
@@ -294,12 +294,12 @@ export default {
 
       try {
         await this.$axios.patch(`alerts/${encodeURIComponent(alert.url)}`, {
-          enabled: alert.enabled
+          enabled: alert.enabled,
         })
       } catch (error) {
         this.error = this.getErrorMessage(error)
       }
-    }
-  }
+    },
+  },
 }
 </script>

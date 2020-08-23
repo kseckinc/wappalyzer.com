@@ -58,13 +58,13 @@ import Page from '~/components/Page.vue'
 
 export default {
   components: {
-    Page
+    Page,
   },
   data() {
     return {
       title: 'Subscriptions',
       error: false,
-      subscriptions: null
+      subscriptions: null,
     }
   },
   watch: {
@@ -76,7 +76,7 @@ export default {
           this.error = this.getErrorMessage(error)
         }
       }
-    }
+    },
   },
   async created() {
     if (this.$store.state.user.isSignedIn) {
@@ -86,6 +86,6 @@ export default {
         this.error = this.getErrorMessage(error)
       }
     }
-  }
+  },
 }
 </script>

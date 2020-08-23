@@ -85,13 +85,13 @@ import Page from '~/components/Page.vue'
 
 export default {
   components: {
-    Page
+    Page,
   },
   data() {
     return {
       title: 'Invoices',
       error: false,
-      invoices: null
+      invoices: null,
     }
   },
   watch: {
@@ -103,7 +103,7 @@ export default {
           this.error = this.getErrorMessage(error)
         }
       }
-    }
+    },
   },
   async created() {
     if (this.$store.state.user.isSignedIn) {
@@ -113,6 +113,6 @@ export default {
         this.error = this.getErrorMessage(error)
       }
     }
-  }
+  },
 }
 </script>

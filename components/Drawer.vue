@@ -24,20 +24,21 @@
             {{ item.title }}
           </v-list-item-title>
         </v-list-item>
-        <v-list-item
-          v-if="item.items"
-          v-for="(subitem, j) in item.items"
-          :key="j"
-          :href="subitem.to.match(/^http/) ? subitem.to : null"
-          :target="subitem.to.match(/^http/) ? '_blank' : '_self'"
-          :to="subitem.to.match(/^http/) ? null : subitem.to"
-          color="primary"
-          nuxt
-        >
-          <v-list-item-title>
-            {{ subitem.title }}
-          </v-list-item-title>
-        </v-list-item>
+        <template v-if="item.items">
+          <v-list-item
+            v-for="(subitem, j) in item.items"
+            :key="j"
+            :href="subitem.to.match(/^http/) ? subitem.to : null"
+            :target="subitem.to.match(/^http/) ? '_blank' : '_self'"
+            :to="subitem.to.match(/^http/) ? null : subitem.to"
+            color="primary"
+            nuxt
+          >
+            <v-list-item-title>
+              {{ subitem.title }}
+            </v-list-item-title>
+          </v-list-item>
+        </template>
       </v-list>
       <v-divider />
     </div>
@@ -73,28 +74,28 @@ export default {
   props: {
     mainNav: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     userNav: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     user: {
       type: Object,
       default() {
         return {}
-      }
-    }
+      },
+    },
   },
   data() {
     return {
-      isOpen: false
+      isOpen: false,
     }
   },
   methods: {
     open() {
       this.isOpen = true
-    }
-  }
+    },
+  },
 }
 </script>

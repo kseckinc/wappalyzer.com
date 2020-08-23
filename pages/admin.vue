@@ -12,7 +12,7 @@
           {{ error }}
         </v-alert>
 
-        <v-form ref="form" v-on:submit.prevent="submit">
+        <v-form ref="form" @submit.prevent="submit">
           <v-text-field
             v-model="email"
             :rules="[(v) => !v || /@/.test(v) || 'Enter a valid email address']"
@@ -24,7 +24,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn @click="submit" :loading="submitting" color="accent" text>
+        <v-btn :loading="submitting" color="accent" text @click="submit">
           <v-icon left>mdi-account</v-icon>
           Sign in
         </v-btn>
@@ -39,7 +39,7 @@ import Page from '~/components/Page.vue'
 
 export default {
   components: {
-    Page
+    Page,
   },
   data() {
     return {
@@ -47,13 +47,13 @@ export default {
       email: '',
       error: false,
       submitting: false,
-      success: false
+      success: false,
     }
   },
   computed: {
     ...mapState({
-      user: ({ user }) => user.attrs
-    })
+      user: ({ user }) => user.attrs,
+    }),
   },
   created() {
     if (!this.user.admin) {
@@ -90,7 +90,7 @@ export default {
       }
 
       this.submitting = false
-    }
-  }
+    },
+  },
 }
 </script>

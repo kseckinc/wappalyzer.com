@@ -37,17 +37,17 @@
         <v-text-field
           v-if="
             mode !== 'reset' &&
-              mode !== 'verifySignUp' &&
-              mode !== 'verifySignIn'
+            mode !== 'verifySignUp' &&
+            mode !== 'verifySignIn'
           "
           v-model="password"
-          @click:append="() => (showPassword = !showPassword)"
           :rules="passwordRules"
           :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
           :type="showPassword ? 'text' : 'password'"
           :label="mode === 'verifyReset' ? 'New password' : 'Password'"
           class="mt-n4 mb-4"
           required
+          @click:append="() => (showPassword = !showPassword)"
         />
 
         <v-checkbox
@@ -59,8 +59,8 @@
         <v-text-field
           v-if="
             mode === 'verifyReset' ||
-              mode === 'verifySignUp' ||
-              mode === 'verifySignIn'
+            mode === 'verifySignUp' ||
+            mode === 'verifySignIn'
           "
           v-model="code"
           :rules="codeRules"
@@ -71,30 +71,30 @@
 
         <template v-if="mode === 'signUp'">
           <v-btn
-            @click.prevent.stop="doSignUp"
             :disabled="!valid"
             :loading="signingUp"
             type="submit"
             color="primary"
             large
+            @click.prevent.stop="doSignUp"
           >
             Sign up
           </v-btn>
 
           <div class="mt-4">
-            <a @click.prevent="mode = 'signIn'" href="">
+            <a href="" @click.prevent="mode = 'signIn'">
               Already have an account?
             </a>
           </div>
         </template>
         <template v-else-if="mode === 'signIn'">
           <v-btn
-            @click.prevent.stop="doSignIn"
             :disabled="!valid"
             :loading="signingIn"
             type="submit"
             color="primary"
             large
+            @click.prevent.stop="doSignIn"
           >
             Sign in
           </v-btn>
@@ -112,29 +112,29 @@
         <template
           v-else-if="
             mode === 'reset' ||
-              mode === 'verifySignUp' ||
-              mode === 'verifySignIn'
+            mode === 'verifySignUp' ||
+            mode === 'verifySignIn'
           "
         >
           <v-btn
-            @click.prevent.stop="
-              () => (mode === 'reset' ? doReset() : doVerify())
-            "
             :disabled="!valid"
             :loading="verifying"
             type="submit"
             color="primary"
             large
+            @click.prevent.stop="
+              () => (mode === 'reset' ? doReset() : doVerify())
+            "
           >
             Verify
           </v-btn>
 
           <v-btn
             v-if="mode !== 'reset'"
-            @click.prevent.stop="doReverify"
             :loading="reverifying"
             text
             large
+            @click.prevent.stop="doReverify"
           >
             Resend code
           </v-btn>
@@ -150,12 +150,12 @@
         </template>
         <template v-else-if="mode === 'verifyReset'">
           <v-btn
-            @click.prevent.stop="doVerify"
             :disabled="!valid"
             :loading="resetting"
             type="submit"
             color="primary"
             large
+            @click.prevent.stop="doVerify"
           >
             Reset password
           </v-btn>
@@ -173,7 +173,7 @@
         You are signed in.
       </p>
 
-      <v-btn @click.stop="doSignOut" :loading="signingOut" color="primary" nuxt>
+      <v-btn :loading="signingOut" color="primary" nuxt @click.stop="doSignOut">
         Sign out
       </v-btn>
     </v-card-text>
@@ -187,20 +187,20 @@ export default {
   props: {
     modeSignUp: {
       type: Boolean,
-      default: false
+      default: false,
     },
     modeReset: {
       type: Boolean,
-      default: false
+      default: false,
     },
     modeContinue: {
       type: Boolean,
-      default: false
+      default: false,
     },
     noBanner: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
@@ -221,22 +221,22 @@ export default {
       email: '',
       emailRules: [
         (v) => !!v || 'Email address is required',
-        (v) => /@/.test(v) || 'Email address is invalid'
+        (v) => /@/.test(v) || 'Email address is invalid',
       ],
       code: '',
       codeRules: [(v) => !!v || 'Code is required'],
       password: '',
       passwordRules: [
         (v) => !!v || 'Password is required',
-        (v) => v.length >= 8 || 'Please enter 8 or more characters'
-      ]
+        (v) => v.length >= 8 || 'Please enter 8 or more characters',
+      ],
     }
   },
   computed: {
     ...mapState({
       isSignedIn: ({ user }) => user.isSignedIn,
-      user: ({ user }) => user.attrs
-    })
+      user: ({ user }) => user.attrs,
+    }),
   },
   watch: {
     mode() {
@@ -247,7 +247,7 @@ export default {
 
       this.nextSuccess = ''
       this.nextError = ''
-    }
+    },
   },
   methods: {
     ...mapActions({
@@ -259,7 +259,7 @@ export default {
       reverifySignIn: 'user/reverifySignIn',
       verifySignUp: 'user/verifySignUp',
       reverifySignUp: 'user/reverifySignUp',
-      reset: 'user/reset'
+      reset: 'user/reset',
     }),
     async doSignIn() {
       this.success = ''
@@ -273,7 +273,7 @@ export default {
 
           this.$gtag.event('login')
           this.$gtag.config({
-            user_id: this.email.toLowerCase()
+            user_id: this.email.toLowerCase(),
           })
 
           if (this.user.email_verified !== 'true') {
@@ -313,7 +313,9 @@ export default {
           await this.signUp({
             username: this.email,
             password: this.password,
-            rewardfulReferral: window.Rewardful ? window.Rewardful.referral : ''
+            rewardfulReferral: window.Rewardful
+              ? window.Rewardful.referral
+              : '',
           })
 
           this.mode = 'verifySignUp'
@@ -371,7 +373,7 @@ export default {
             await this.verifyReset({
               username: this.email,
               password: this.password,
-              code: this.code
+              code: this.code,
             })
 
             this.mode = 'signIn'
@@ -379,7 +381,7 @@ export default {
           } else if (this.mode === 'verifySignUp') {
             await this.verifySignUp({
               username: this.email,
-              code: this.code
+              code: this.code,
             })
 
             this.$gtag.event('sign_up')
@@ -388,7 +390,7 @@ export default {
             this.nextSuccess = 'Thank you for signing up! You can now sign in.'
           } else if (this.mode === 'verifySignIn') {
             await this.verifySignIn({
-              code: this.code
+              code: this.code,
             })
           }
         } catch (error) {
@@ -416,7 +418,7 @@ export default {
       }
 
       this.reverifying = false
-    }
-  }
+    },
+  },
 }
 </script>

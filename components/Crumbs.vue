@@ -27,19 +27,19 @@ export default {
       type: Array,
       default() {
         return []
-      }
-    }
+      },
+    },
   },
   computed: {
     items() {
       return [
         {
           title: 'Home',
-          to: '/'
+          to: '/',
         },
-        ...this.crumbs
+        ...this.crumbs,
       ]
-    }
-  }
+    },
+  },
 }
 </script>
