@@ -31,3 +31,6 @@ jobs:
       
     - name: Deploy
       run: yarn deploy:v2
+
+    - name: Invalidate caches
+      run: aws cloudfront create-invalidation --distribution-id EZV00Y2P3H5W --paths "/*"
