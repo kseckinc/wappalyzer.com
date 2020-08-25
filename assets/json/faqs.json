@@ -32,6 +32,10 @@
     "to": "/faq/lists",
     "items": [
       [
+        "What is technographics?",
+        [ "Technographics is the profiling of target accounts based on their technology stack. Also see '<a href='/articles/what-is-technographics'>What is technographics?</a>'." ]
+      ],
+      [
         "What information is included in the lead lists?",
         [ "Our lead lists are lists of websites that use certain technologies. Where available, version numbers and languages are included as well as a traffic indicator ('trafficRank'). Additional <a href='/docs/sets'>attribute sets</a> are included on request, such as email addresses and website meta data. A free sample is provided with every quote." ]
       ],

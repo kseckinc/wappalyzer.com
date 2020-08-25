@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Page :title="title" :head="{ title, text }">
+    <Page :title="title" :head="meta">
       <div class="mt-4">
         <v-btn color="accent" to="/faq/credits" class="mb-2" outlined>
           <v-icon left>mdi-forum</v-icon>
@@ -34,7 +34,8 @@
       <v-container>
         <small>
           Prices are in Australian dollars.<br />
-          Credits included in plans expire after 60 days.
+          Credits included in plans expire after 60 days.<br />
+          <nuxt-link to="/contact">Contact us</nuxt-link> for tailored plans.
         </small>
       </v-container>
 
@@ -167,6 +168,7 @@ import OrderDialog from '~/components/OrderDialog.vue'
 import Matrix from '~/components/Matrix.vue'
 import { attrs, plans } from '~/assets/json/plans.json'
 import { creditsPerUnit, creditTiers } from '~/assets/json/pricing.json'
+import { pricing as meta } from '~/assets/json/meta.json'
 
 export default {
   components: {
@@ -178,18 +180,17 @@ export default {
   },
   data() {
     return {
-      title: 'Plans & pricing',
+      title: meta.title,
       attrs,
       order: false,
       orderError: '',
       annually: false,
       creditsPerUnit,
       creditTiers,
+      meta,
       signInDialog: false,
       subscribing: false,
-      text: [
-        'Sign up for access to our full range of products. Each plan grants you monthly credits to spend on technology lookups, lead lists and API calls.',
-      ],
+      text: meta.text,
     }
   },
   computed: {

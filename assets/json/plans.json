@@ -2,8 +2,8 @@
   "attrs": {
     "credits": { "text": "Credits per month", "type": "credits" },
     "lookups": { "text": "Technology lookups", "type": "boolean" },
-    "apis": { "text": "API access", "type": "boolean" },
     "lists": { "text": "Lead lists", "type": "boolean" },
+    "apis": { "text": "API access", "type": "boolean" },
     "alerts": { "text": "Website alerts", "type": "boolean" },
     "cancellation": { "text": "Anytime cancellation", "type": "boolean" },
     "support": { "text": "Technical support", "type": "boolean" }
@@ -24,13 +24,28 @@
         "cancellation": true
       }
     },
-    "credits_starter_mo": {
+    "credits_starter_v2_mo": {
       "name": "Starter",
       "interval": "month",
+      "price": 9500,
+      "attrs": {
+        "credits": 2500,
+        "support": "Email",
+        "lookups": true,
+        "lists": true,
+        "apis": true,
+        "alerts": true,
+        "cancellation": true
+      }
+    },
+    "credits_pro_v2_mo": {
+      "name": "Pro",
+      "interval": "month",
+      "raised": true,
       "price": 19500,
       "attrs": {
-        "credits": 10000,
-        "support": "Email",
+        "credits": 15000,
+        "support": "Email & phone",
         "lookups": true,
         "lists": true,
         "apis": true,
@@ -40,26 +55,10 @@
     },
     "credits_business_mo": {
       "name": "Business",
-      "raised": true,
       "interval": "month",
       "price": 39500,
       "attrs": {
-        "credits": 50000,
-        "support": "Email & phone",
-        "lookups": true,
-        "lists": true,
-        "apis": true,
-        "alerts": true,
-        "cancellation": true
-      }
-    },
-    "credits_enterprise_mo": {
-      "name": "Enterprise",
-      "enterprise": true,
-      "interval": "month",
-      "attrs": {
-        "amount": "-",
-        "credits": "Custom",
+        "credits": 75000,
         "support": "Priority email & phone",
         "lookups": true,
         "lists": true,
@@ -83,14 +82,28 @@
         "cancellation": true
       }
     },
-    "credits_starter_yr": {
+    "credits_starter_v2_yr": {
       "name": "Starter",
       "interval": "year",
-      "beforePrice": 234000,
+      "price": 95000,
+      "attrs": {
+        "credits": 2500,
+        "support": "Email",
+        "lookups": true,
+        "lists": true,
+        "apis": true,
+        "alerts": true,
+        "cancellation": true
+      }
+    },
+    "credits_pro_yr": {
+      "name": "Pro",
+      "interval": "year",
+      "raised": true,
       "price": 195000,
       "attrs": {
-        "credits": 10000,
-        "support": "Email",
+        "credits": 15000,
+        "support": "Email & phone",
         "lookups": true,
         "lists": true,
         "apis": true,
@@ -100,27 +113,10 @@
     },
     "credits_business_yr": {
       "name": "Business",
-      "raised": true,
       "interval": "year",
-      "beforePrice": 474000,
       "price": 395000,
       "attrs": {
-        "credits": 50000,
-        "support": "Email & phone",
-        "lookups": true,
-        "lists": true,
-        "apis": true,
-        "alerts": true,
-        "cancellation": true
-      }
-    },
-    "credits_enterprise_yr": {
-      "name": "Enterprise",
-      "enterprise": true,
-      "interval": "year",
-      "attrs": {
-        "amount": "-",
-        "credits": "Custom",
+        "credits": 75000,
         "support": "Priority email & phone",
         "lookups": true,
         "lists": true,

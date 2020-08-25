@@ -15,11 +15,16 @@
           justify="center"
           class="pt-lg-8 pb-lg-6"
         >
-          <v-col :order-sm="i % 2 !== 0 ? 0 : 12" cols="12" order="12" sm="4">
+          <v-col
+            :order-sm="index % 2 !== 0 ? 0 : 12"
+            cols="12"
+            order="12"
+            sm="4"
+          >
             <v-row justify="center">
               <v-col cols="8" sm="12" class="py-0">
                 <v-img
-                  :class="i % 2 !== 0 ? 'mr-sm-12' : 'ml-sm-12'"
+                  :class="index % 2 !== 0 ? 'mr-sm-12' : 'ml-sm-12'"
                   :src="`/images/${section.image}`"
                   contain
                 />
@@ -40,8 +45,8 @@
             <p class="mb-8" v-html="section.text" />
 
             <v-btn
-              v-for="(button, k) in section.buttons"
-              :key="`sectino-${i}-button-${k}`"
+              v-for="(button, buttonIndex) in section.buttons"
+              :key="`section-${index}-button-${buttonIndex}`"
               :to="button.to"
               :href="button.href"
               :target="button.href ? '_blank' : '_self'"

@@ -7,14 +7,14 @@
             (Object.values(items).some(({ price }) => price) ? 0 : 10) + 225
           "
         />
-        <template v-for="attr in attrs">
-          <v-divider :key="attr.text" />
-          <v-responsive :key="attr.text" height="60" class="align-center">
+        <div v-for="attr in attrs" :key="attr.text">
+          <v-divider />
+          <v-responsive height="60" class="align-center">
             <v-card-text class="py-0">
               {{ attr.text }}
             </v-card-text>
           </v-responsive>
-        </template>
+        </div>
       </v-col>
       <v-col
         v-for="(item, id) in items"
@@ -22,7 +22,11 @@
         :class="item.raised ? 'matrix__col--raised' : ''"
       >
         <v-responsive v-if="!item.raised" height="20"> </v-responsive>
-        <v-card :raised="item.raised" class="text-center">
+        <v-card
+          :raised="item.raised"
+          class="text-center"
+          :style="`${item.raised ? 'border: 1px solid #4608ad' : ''}`"
+        >
           <v-responsive v-if="!item.raised" height="20"> </v-responsive>
           <v-responsive
             v-if="item.raised && Object.keys(items).length > 1"
@@ -112,10 +116,10 @@
               >
             </v-card-actions>
           </v-responsive>
-          <template v-for="(attr, name) in attrs">
-            <v-divider :key="name" />
-            <v-responsive :key="name" height="60">
-              <v-card-text :key="name" class="text-center">
+          <div v-for="(attr, name) in attrs" :key="name">
+            <v-divider />
+            <v-responsive height="60">
+              <v-card-text class="text-center">
                 <template v-if="attr.type === 'currency'">
                   <template v-if="item.attrs[name] === 0">
                     <span class="font-weight-medium">
@@ -170,7 +174,7 @@
                 </template>
               </v-card-text>
             </v-responsive>
-          </template>
+          </div>
           <v-responsive v-if="item.raised" height="20"> </v-responsive>
         </v-card>
       </v-col>

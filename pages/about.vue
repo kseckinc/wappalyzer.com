@@ -1,11 +1,13 @@
 <template>
   <div>
-    <Page :title="title" narrow>
+    <Page :title="title" no-head narrow>
+      <h1 class="text-h1 mb-8">{{ title }}</h1>
+
       <p>
         Wappalyzer started in 2008 as a
         <nuxt-link to="/download">browser extension</nuxt-link> for Mozilla
         Firefox. Since then, the project has become platform independent and
-        grown into a successful business built around an
+        grown into a commercial business built around an
         <a href="https://github.com/aliasio/wappalyzer" target="blank"
           >open source</a
         >
@@ -22,7 +24,7 @@
         >), a Dutch expatriate software engineer.
       </p>
 
-      <h3 class="mt-8 mb-4">Get in touch</h3>
+      <h2 class="text-h2 mt-8 mb-2">Get in touch</h2>
 
       <p>
         We love to hear from you. If you have any comments, questions or

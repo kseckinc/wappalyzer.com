@@ -52,16 +52,6 @@ export default {
       return this.$nuxt.error({ statusCode: 404, message: 'Page not found' })
     }
   },
-  mounted() {
-    Array.from(this.$el.querySelectorAll('.answer a[href^="/"]')).forEach(
-      (link) =>
-        link.addEventListener('click', (event) => {
-          event.preventDefault()
-
-          this.$router.push(link.pathname)
-        })
-    )
-  },
   methods: {
     slugify(string) {
       return string

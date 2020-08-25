@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 require('dotenv').config({
   path: `.env.${
     process.env.NODE_ENV === 'development' || process.env.ENVIRONMENT === 'beta'
@@ -11,6 +13,23 @@ export default {
   target: 'static',
   generate: {
     fallback: '200.html',
+    concurrency: 25,
+    async routes() {
+      const categories = (
+        await axios.get(`${process.env.BASE_URL}/categories`)
+      ).data.map(({ slug }) => `/technologies/${slug}`)
+
+      const technologies = (
+        await axios.get(`${process.env.BASE_URL}/technologies`)
+      ).data
+        .filter(({ categories }) => categories.length)
+        .map(
+          ({ slug, categories: [{ slug: categorySlug }] }) =>
+            `/technologies/${categorySlug}/${slug}`
+        )
+
+      return [...categories, ...technologies]
+    },
   },
   head: {
     titleTemplate: (title) => `${title ? `${title} - ` : ''}Wappalyzer`,
@@ -77,6 +96,9 @@ export default {
     customVariables: ['~/assets/scss/variables.scss'],
     defaultAssets: false,
     treeShake: true,
+    options: {
+      customProperties: true,
+    },
     theme: {
       dark: false,
       themes: {

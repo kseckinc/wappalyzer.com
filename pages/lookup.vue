@@ -79,8 +79,12 @@
             "
             class="py-0 col-12 col-sm-6"
           >
-            <template v-if="set.attributes.some(({ key }) => attributes[key])">
-              <v-card v-for="set in sets" :key="set.key" class="px-0 mb-4">
+            <template v-for="set in sets">
+              <v-card
+                v-if="set.attributes.some(({ key }) => attributes[key])"
+                :key="set.key"
+                class="px-0 mb-4"
+              >
                 <v-card-title class="subtitle-2 pb-2">
                   {{ set.name }}
                 </v-card-title>

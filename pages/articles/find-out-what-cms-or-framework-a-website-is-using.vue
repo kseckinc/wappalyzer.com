@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <Page :crumbs="crumbs" :title="title" narrow>
+  <Page :crumbs="crumbs" :title="title" no-head narrow>
+    <article>
+      <h1 class="text-h1 mb-8">{{ title }}</h1>
+
       <p>
         Whether you're a developer, online marketer, security researcher or SEO
         consultant, you've likely looked at a website and wondered 'what CMS is
@@ -8,7 +10,7 @@
         website, which we'll explore in detail.
       </p>
 
-      <h2 class="mt-8 mb-2">The easy way</h2>
+      <h2 class="text-h2 mt-8 mb-2">The easy way</h2>
 
       <p>
         To instantly find out what CMS, framework or ecommerce platform a
@@ -29,7 +31,7 @@
         is a great way to identify potential customers.
       </p>
 
-      <h2 class="mt-8 mb-2">
+      <h2 class="text-h2 mt-8 mb-2">
         The hard way
       </h2>
 
@@ -40,7 +42,7 @@
         We'll go through a few examples below.
       </p>
 
-      <h3 class="mt-8 mb-2">
+      <h3 class="text-h3 mt-8 mb-2">
         Find out if a website is using WordPress
       </h3>
 
@@ -61,7 +63,7 @@
         to look for when trying to determine which CMS is being used.
       </p>
 
-      <h3 class="mt-8 mb-2">Find out if a website is using Shopify</h3>
+      <h3 class="text-h3 mt-8 mb-2">Find out if a website is using Shopify</h3>
 
       <p>
         Shopify is a popular ecommerce solution that makes it easy to set up an
@@ -80,7 +82,7 @@
         'Shopify is not defined'.
       </p>
 
-      <h3 class="mt-8 mb-2">
+      <h3 class="text-h3 mt-8 mb-2">
         Find out what web server or CDN a website is using
       </h3>
 
@@ -102,9 +104,9 @@
         CloudFlare, Akamai or CloudFront).
       </p>
 
-      <h3 class="mt-8 mb-2">
+      <h2 class="text-h2 mt-8 mb-2">
         Conclusion
-      </h3>
+      </h2>
 
       <p>
         There are many different ways to find out what CMS or framework is used
@@ -118,8 +120,8 @@
         create a list of websites using a certain technology, have a look at
         Wappalyzer's <nuxt-link to="/lists">lead lists</nuxt-link>.
       </p>
-    </Page>
-  </div>
+    </article>
+  </Page>
 </template>
 
 <script>

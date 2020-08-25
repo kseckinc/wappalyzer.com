@@ -24,7 +24,7 @@
     "subtitle": "Create lists of websites that use certain technologies",
     "icon": "mdi-filter-variant",
     "image": "list.svg",
-    "text": "Technographic datasets provide valuable insights into the software industry and are an essential tool for market research and competitor analysis.",
+    "text": "Lead lists provide valuable insights into the software industry and are an essential tool for market research and competitor analysis.",
     "buttons": [
       {
         "text": "Create a lead list",
@@ -119,5 +119,9 @@
       "Functions locally and offline"
     ],
     "feature": true
+  },
+  "pricing": {
+    "title": "Plans & pricing",
+    "text": "Sign up for access to our full range of products. Each plan grants you monthly credits to spend on technology lookups, lead lists and API calls."
   }
 }

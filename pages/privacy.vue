@@ -1,13 +1,15 @@
 <template>
   <div>
-    <Page :title="title" crumbs narrow no-hero no-subscribe>
+    <Page :title="title" crumbs narrow no-head no-hero no-subscribe>
+      <h1 class="text-h1 mb-8">{{ title }}</h1>
+
       <p>
         The Wappalyzer privacy policy describes how we treat personal
         information when you use our website, software and APIs (collectively,
         '<strong>Services</strong>').
       </p>
 
-      <h2 id="log-data" class="mt-8 mb-2">
+      <h2 id="log-data" class="text-h2 mt-8 mb-2">
         Log data
         <a href="#log-data" class="privacy__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
@@ -22,7 +24,7 @@
         Services were used, browser type and settings and cookie data.
       </p>
 
-      <h2 id="account-registration" class="mt-8 mb-2">
+      <h2 id="account-registration" class="text-h2 mt-8 mb-2">
         Account registration
         <a href="#account-registration" class="privacy__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
@@ -36,7 +38,7 @@
         cancel your account at any time.
       </p>
 
-      <h2 id="browser-extension" class="mt-8 mb-2">
+      <h2 id="browser-extension" class="text-h2 mt-8 mb-2">
         Browser extension
         <a href="#browser-extension" class="privacy__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a

@@ -1,13 +1,15 @@
 <template>
   <div>
-    <Page :title="title" crumbs narrow no-hero no-subscribe>
+    <Page :title="title" crumbs narrow no-head no-hero no-subscribe>
+      <h1 class="text-h1 mb-8">{{ title }}</h1>
+
       <p>
         These Wappalyzer terms of service (the '<strong>Terms</strong>')
         describe your rights and responsibilities when using our website,
         software and APIs (collectively, '<strong>Services</strong>').
       </p>
 
-      <h2 id="privacy" class="mt-8 mb-2">
+      <h2 id="privacy" class="text-h2 mt-8 mb-2">
         Privacy
         <a href="#privacy" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
@@ -20,7 +22,7 @@
         we collect and use the information you provide to us.
       </p>
 
-      <h2 id="prohibitions-on-content" class="mt-8 mb-2">
+      <h2 id="prohibitions-on-content" class="text-h2 mt-8 mb-2">
         Prohibitions on content
         <a href="#prohibitions-on-content" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
@@ -33,7 +35,7 @@
         without our consent.
       </p>
 
-      <h2 id="account-registration" class="mt-8 mb-2">
+      <h2 id="account-registration" class="text-h2 mt-8 mb-2">
         Account registration
         <a href="#account-registration" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
@@ -50,14 +52,14 @@
         the right to suspend or terminate the account.
       </p>
 
-      <h2 id="using-our-data-services" class="mt-8 mb-2">
+      <h2 id="using-our-data-services" class="text-h2 mt-8 mb-2">
         Using our data services
         <a href="#using-our-data-services" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
         >
       </h2>
 
-      <h3 id="permitted-access" class="mb-2">
+      <h3 id="permitted-access" class="text-h3 mb-2">
         Permitted access
         <a href="#permitted-access" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
@@ -69,7 +71,7 @@
         described in the documentation of that API.
       </p>
 
-      <h3 id="api-limitations" class="mb-2">
+      <h3 id="api-limitations" class="text-h3 mb-2">
         API limitations
         <a href="#api-limitations" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
@@ -83,7 +85,7 @@
         attempt to circumvent, such limitations documented with each API.
       </p>
 
-      <h3 id="license" class="mb-2">
+      <h3 id="license" class="text-h3 mb-2">
         License
         <a href="#license" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
@@ -97,7 +99,7 @@
         and share the data you have purchased from us.
       </p>
 
-      <h2 id="payment-for-services" class="mt-8 mb-2">
+      <h2 id="payment-for-services" class="text-h2 mt-8 mb-2">
         Payment for services
         <a href="#payment-for-services" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
@@ -113,7 +115,7 @@
         account.
       </p>
 
-      <h3 id="refunds" class="mb-2">
+      <h3 id="refunds" class="text-h3 mb-2">
         Refunds
         <a href="#refunds" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
@@ -126,7 +128,7 @@
         is faulty or doesn't provide what is promised.
       </p>
 
-      <h2 id="publicity" class="mt-8 mb-2">
+      <h2 id="publicity" class="text-h2 mt-8 mb-2">
         Publicity
         <a href="#publicity" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
@@ -140,7 +142,7 @@
         customers, subject to your standard trademark usage guidelines.
       </p>
 
-      <h2 id="disclaimer-of-warranties" class="mt-8 mb-2">
+      <h2 id="disclaimer-of-warranties" class="text-h2 mt-8 mb-2">
         Disclaimer of warranties
         <a href="#disclaimer-of-warranties" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
@@ -153,7 +155,7 @@
         Services will be uninterrupted, timely, secure or error-free.
       </p>
 
-      <h2 id="limitation-of-liability" class="mt-8 mb-2">
+      <h2 id="limitation-of-liability" class="text-h2 mt-8 mb-2">
         Limitation of liability
         <a href="#limitation-of-liability" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
@@ -165,7 +167,7 @@
         any lost profits or revenues or for any damages however caused.
       </p>
 
-      <h2 id="modification-and-termination" class="mt-8 mb-2">
+      <h2 id="modification-and-termination" class="text-h2 mt-8 mb-2">
         Modification and termination
         <a href="#modification-and-termination" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a
@@ -187,7 +189,7 @@
         use of the Services.
       </p>
 
-      <h2 id="law-and-jurisdiction" class="mt-8 mb-2">
+      <h2 id="law-and-jurisdiction" class="text-h2 mt-8 mb-2">
         Law and jurisdiction
         <a href="#law-and-jurisdiction" class="terms__anchor"
           ><v-icon color="accent">mdi-link</v-icon></a

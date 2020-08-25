@@ -10,14 +10,30 @@ $body-font-family: Averta, Arial, sans-serif;
 
 $font-size-root: 18px;
 
-@import '~vuetify/src/styles/styles.sass';
-
-$material-light: map-merge($material-light, (
+$material-light: (
   text: (
     primary: #4a4a4a
   )
-));
+);
 
+$headings: (
+  'h1': (
+    'size': 2.5rem,
+    'line-height': 1.15em
+  ),
+  'h2': (
+    'size': 1.75rem,
+    'line-height': 1.5em,
+    'weight': 400,
+  ),
+  'h3': (
+    'size': 1.25rem,
+    'line-height': 1.5em,
+    'weight': 500,
+  )
+);
+
+@import '~vuetify/src/styles/styles.sass';
 @import '~vuetify/src/components/VBtn/_variables.scss';
 
 $btn-text-transform: none;

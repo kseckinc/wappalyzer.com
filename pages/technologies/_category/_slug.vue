@@ -4,6 +4,11 @@
       :title="title"
       :seo-title="`Websites using ${title}`"
       :crumbs="crumbs"
+      :head="{
+        meta: `Download a list of websites${
+          technology ? ` using ${technology.name}` : ''
+        } with email addresses, phone numbers and LinkedIn profiles.`,
+      }"
       no-head
       hero
     >

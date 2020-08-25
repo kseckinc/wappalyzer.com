@@ -48,6 +48,11 @@
         "to": "/faq/extension"
       },
       {
+        "title": "Articles",
+        "subtitle": "Free content covering technographics",
+        "to": "/articles"
+      },
+      {
         "title": "Developer documentation",
         "subtitle": "API reference and contributing guide",
         "to": "/docs"

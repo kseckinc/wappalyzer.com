@@ -890,7 +890,7 @@ export default {
       paymentMethod: 'stripe',
       paying: false,
       sets,
-      status,
+      status: '',
       statusItems: [
         'Open',
         'Calculating',

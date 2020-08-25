@@ -8,6 +8,9 @@
       :head="{
         title,
         subtitle: 'Technology category',
+        meta: `Download a list of websites${
+          category ? ` using ${category.name} technologies` : ''
+        } with email addresses, phone numbers and LinkedIn profiles.`,
         text: category
           ? `Wappalyzer tracks over
               ${formatNumber(totalHostnames, true)} websites and

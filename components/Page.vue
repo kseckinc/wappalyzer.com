@@ -25,7 +25,7 @@
           <slot name="content" />
         </v-col>
       </v-row>
-      <v-row v-else-if="narrow" no-gutters>
+      <v-row v-else-if="narrow" justify="center" no-gutters>
         <v-col sm="10" md="10" lg="8">
           <PageHead
             v-if="!noHead"
@@ -85,7 +85,7 @@ export default {
   },
   props: {
     crumbs: {
-      type: Array,
+      type: [Array, String],
       default: () => [],
     },
     side: {
