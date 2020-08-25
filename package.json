@@ -10,8 +10,8 @@
     "generate": "NODE_OPTIONS=--max-old-space-size=4096 nuxt generate",
     "start": "nuxt start",
     "lint": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
-    "deploy:beta": "ENVIRONMENT=beta NODE_OPTIONS=--max-old-space-size=4096 nuxt generate && aws s3 sync dist s3://beta.wappalyzer.com --acl public-read --cache-control max-age=31536000,public --exclude 'images/icons/*' --profile wappalyzer",
-    "deploy:v2": "ENVIRONMENT=v2 NODE_OPTIONS=--max-old-space-size=4096 nuxt generate && aws s3 sync dist s3://www.wappalyzer.com --acl public-read --cache-control max-age=31536000,public --exclude 'images/icons/*' --profile wappalyzer"
+    "deploy:beta": "ENVIRONMENT=beta AWS_PROFILE=wappalyzer NODE_OPTIONS=--max-old-space-size=4096 nuxt generate && aws s3 sync dist s3://beta.wappalyzer.com --acl public-read --cache-control max-age=31536000,public --exclude 'images/icons/*'",
+    "deploy:v2": "ENVIRONMENT=v2 AWS_PROFILE=wappalyzer NODE_OPTIONS=--max-old-space-size=4096 nuxt generate && aws s3 sync dist s3://www.wappalyzer.com --acl public-read --cache-control max-age=31536000,public --exclude 'images/icons/*'"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.10.1",
