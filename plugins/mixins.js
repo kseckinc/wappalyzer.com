@@ -6,6 +6,7 @@ import { creditTiers } from '~/assets/json/pricing.json'
 
 Vue.mixin({
   mounted() {
+    let ready = false
     let shown = false
 
     const routes = {
@@ -77,6 +78,12 @@ Vue.mixin({
     }
 
     drift.on('ready', (api, { isOnline }) => {
+      if (ready) {
+        return
+      }
+
+      ready = true
+
       const user = this.$store.state.user.attrs
 
       if (user.sub) {
