@@ -97,6 +97,10 @@ export default {
     version: 'v3',
     publishableKey: process.env.STRIPE_PUBLIC_KEY,
   },
+  sitemap: {
+    gzip: true,
+    exclude: ['/admin'],
+  },
   vuetify: {
     customVariables: ['~/assets/scss/variables.scss'],
     defaultAssets: false,
