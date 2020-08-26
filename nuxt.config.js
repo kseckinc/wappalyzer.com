@@ -98,7 +98,7 @@ export default {
     publishableKey: process.env.STRIPE_PUBLIC_KEY,
   },
   sitemap: {
-    gzip: true,
+    hostname: process.env.WEBSITE_URL,
     exclude: ['/admin'],
   },
   vuetify: {
