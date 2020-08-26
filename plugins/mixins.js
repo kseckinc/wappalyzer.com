@@ -4,10 +4,14 @@ import Vue from 'vue'
 
 import { creditTiers } from '~/assets/json/pricing.json'
 
+let ready = false
+let shown = false
+
 Vue.mixin({
   mounted() {
-    let ready = false
-    let shown = false
+    if (ready) {
+      return
+    }
 
     const routes = {
       '/about': null,
@@ -99,7 +103,7 @@ Vue.mixin({
       )
 
       if (path) {
-        if (routes[path] && (!shown || routes[path] === '/contact')) {
+        if (routes[path] && (!shown || path === '/contact')) {
           api.showWelcomeMessage(
             `${routes[path]}${
               !isOnline
