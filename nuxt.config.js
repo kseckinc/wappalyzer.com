@@ -38,6 +38,13 @@ export default {
       { theme_color: '#4608ad' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     ],
+    link: [
+      {
+        rel: 'author',
+        type: 'text/plain',
+        href: `${process.env.WEBSITE_URL}/humans.txt`,
+      },
+    ],
   },
   csp: {
     reportOnly: true,
