@@ -62,7 +62,7 @@
               <v-card-text class="px-0">
                 <p class="px-4">
                   Choose one or more
-                  <nuxt-link to="/docs/sets" target="_blank"
+                  <nuxt-link to="/docs/sets/" target="_blank"
                     >attribute sets</nuxt-link
                   >
                   to include. Limited availability.
@@ -121,7 +121,7 @@
       <p class="mt-4">
         <small>
           By using our services, you agree to our
-          <nuxt-link to="/terms" target="_blank">terms of service</nuxt-link>.
+          <nuxt-link to="/terms/" target="_blank">terms of service</nuxt-link>.
         </small>
       </p>
 

@@ -9,7 +9,7 @@
 
     <p class="mb-8">
       Credits can be spent on any product, including technology lookups, APIs
-      and datasets. <nuxt-link to="/pricing">Sign up for a plan</nuxt-link> to
+      and datasets. <nuxt-link to="/pricing/">Sign up for a plan</nuxt-link> to
       get monthly credits at a lower price.
     </p>
 
@@ -55,12 +55,12 @@
                 <td
                   v-if="item.subscriptionId && item.subscriptionId !== 'free'"
                 >
-                  <nuxt-link :to="`/subscriptions/${item.subscriptionId}`">
+                  <nuxt-link :to="`/subscriptions/${item.subscriptionId}/`">
                     {{ item.description }}
                   </nuxt-link>
                 </td>
                 <td v-else-if="item.orderId">
-                  <nuxt-link :to="`/orders/${item.orderId}`">
+                  <nuxt-link :to="`/orders/${item.orderId}/`">
                     {{ item.description }}
                   </nuxt-link>
                 </td>
@@ -116,7 +116,7 @@
             <tbody>
               <tr v-for="(item, index) in spends" :key="index">
                 <td v-if="item.orderId">
-                  <nuxt-link :to="`/orders/${item.orderId}`">
+                  <nuxt-link :to="`/orders/${item.orderId}/`">
                     {{ item.description }}
                   </nuxt-link>
                 </td>

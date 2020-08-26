@@ -13,7 +13,7 @@
       </p>
 
       <v-alert icon="mdi-lightbulb-on-outline" class="my-8" outlined>
-        Consider using our <nuxt-link to="/api">APIs</nuxt-link> if you don't
+        Consider using our <nuxt-link to="/api/">APIs</nuxt-link> if you don't
         want to create and maintain your own infrastructure or worry about
         scalability.
       </v-alert>

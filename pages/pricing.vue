@@ -35,7 +35,7 @@
         <small>
           Prices are in Australian dollars.<br />
           Credits included in plans expire after 60 days.<br />
-          <nuxt-link to="/contact">Contact us</nuxt-link> for tailored plans.
+          <nuxt-link to="/contact/">Contact us</nuxt-link> for tailored plans.
         </small>
       </v-container>
 
@@ -138,7 +138,7 @@
       <v-container>
         <small>
           By using our services, you agree to our
-          <nuxt-link to="/terms">terms of service</nuxt-link>.
+          <nuxt-link to="/terms/">terms of service</nuxt-link>.
         </small>
       </v-container>
 

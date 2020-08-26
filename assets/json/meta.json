@@ -12,7 +12,7 @@
     "buttons": [
       {
         "text": "Look up a website",
-        "to": "/lookup",
+        "to": "/lookup/",
         "icon": "mdi-magnify"
       }
     ],
@@ -28,7 +28,7 @@
     "buttons": [
       {
         "text": "Create a lead list",
-        "to": "/lists",
+        "to": "/lists/",
         "icon": "mdi-arrow-right"
       }
     ],
@@ -68,12 +68,12 @@
     "buttons": [
       {
         "text": "Compare APIs",
-        "to": "/api",
+        "to": "/api/",
         "icon": "mdi-arrow-right"
       },
       {
         "text": "API reference",
-        "to": "/docs/api",
+        "to": "/docs/api/",
         "icon": "mdi-book-open-page-variant",
         "secondary": true
       }
@@ -90,7 +90,7 @@
     "buttons": [
       {
         "text": "Compare plans",
-        "to": "/alerts",
+        "to": "/alerts/",
         "icon": "mdi-arrow-right"
       }
     ],
@@ -109,7 +109,7 @@
     "buttons": [
       {
         "text": "Download",
-        "to": "/download",
+        "to": "/download/",
         "icon": "mdi-download"
       }
     ],

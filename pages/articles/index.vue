@@ -47,17 +47,17 @@ export default {
         {
           title: 'What is technographics?',
           intro: `Technographics is a market research methodology used to profile target accounts based on their technology stack. For many companies, especially those offering a SaaS product, the technology a prospect uses can be a strong qualifying factor.`,
-          to: '/articles/what-is-technographics',
+          to: '/articles/what-is-technographics/',
         },
         {
           title: 'Find out what CMS or framework a website is using',
           intro: `Whether you're a developer, online marketer, security researcher or SEO consultant, you've likely looked at a website and wondered 'what CMS is this website using'? There are several ways to check the technology of a website, which we'll explore in detail.`,
-          to: '/articles/find-out-what-cms-or-framework-a-website-is-using',
+          to: '/articles/find-out-what-cms-or-framework-a-website-is-using/',
         },
         {
           title: 'How to hide technologies from Wappalyzer',
           intro: `Most web technologies, including server-side software such as CMSs, leave trails of evidence of their presence in websites' HTML code. This code is publicly accessible, which is necessary for browsers to render and display the page. Wappalyzer is known to be very proficient exposing these technologies through various fingerprinting methods.`,
-          to: '/articles/how-to-hide-technologies-from-wappalyzer',
+          to: '/articles/how-to-hide-technologies-from-wappalyzer/',
         },
       ],
     }

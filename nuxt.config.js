@@ -87,6 +87,10 @@ export default {
     '@nuxtjs/sitemap',
     'nuxt-stripe-module',
     'nuxtjs-mdi-font',
+    [
+      'nuxt-canonical',
+      { baseUrl: process.env.WEBSITE_URL, trailingSlashes: true },
+    ],
   ],
   axios: {
     baseURL: process.env.BASE_URL,
@@ -100,6 +104,7 @@ export default {
   sitemap: {
     hostname: process.env.WEBSITE_URL,
     exclude: ['/admin'],
+    trailingSlash: true,
   },
   vuetify: {
     customVariables: ['~/assets/scss/variables.scss'],

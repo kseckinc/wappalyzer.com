@@ -5,7 +5,7 @@
 
       <p>
         Wappalyzer started in 2008 as a
-        <nuxt-link to="/download">browser extension</nuxt-link> for Mozilla
+        <nuxt-link to="/download/">browser extension</nuxt-link> for Mozilla
         Firefox. Since then, the project has become platform independent and
         grown into a commercial business built around an
         <a href="https://github.com/aliasio/wappalyzer" target="blank"
@@ -29,7 +29,7 @@
       <p>
         We love to hear from you. If you have any comments, questions or
         suggestions, please don't hesitate to
-        <nuxt-link to="/contact">contact us</nuxt-link>.
+        <nuxt-link to="/contact/">contact us</nuxt-link>.
       </p>
     </Page>
   </div>

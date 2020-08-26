@@ -6,7 +6,7 @@
     "items": [
       [
         "Can I suggest a technology to be added?",
-        [ "Anyone can add a new technology: refer to the <a href='/docs/dev'>documentation</a> on how to contribute. If you're not a developer and don't have access to one, please <a href='https://github.com/AliasIO/wappalyzer/issues/new/choose' target='_blank'>create an issue</a> on GitHub." ]
+        [ "Anyone can add a new technology: refer to the <a href='/docs/dev/'>documentation</a> on how to contribute. If you're not a developer and don't have access to one, please <a href='https://github.com/AliasIO/wappalyzer/issues/new/choose' target='_blank'>create an issue</a> on GitHub." ]
       ],
       [
         "Where can I report a bug or request a new feature?",
@@ -14,7 +14,7 @@
       ],
       [
         "How does the extension work?",
-        [ "The extension inspects HTML, scripts, cookies, and headers of pages you visit, looking for technology fingerprints. For technical details, refer to the <a href='/docs/dev/specification'>documentation</a>." ]
+        [ "The extension inspects HTML, scripts, cookies, and headers of pages you visit, looking for technology fingerprints. For technical details, refer to the <a href='/docs/dev/specification/'>documentation</a>." ]
       ],
       [
         "Can I hide technologies on my website from Wappalyzer?",
@@ -22,7 +22,7 @@
       ],
       [
         "What information do you collect?",
-        [ "We collect information in accordance with our <a href='/privacy'>privacy policy</a>. By default, when you visit a website, we record the domain name and identified technologies in a way that can't be traced back to you. You can disable this behaviour in the extension's settings." ]
+        [ "We collect information in accordance with our <a href='/privacy/'>privacy policy</a>. By default, when you visit a website, we record the domain name and identified technologies in a way that can't be traced back to you. You can disable this behaviour in the extension's settings." ]
       ]
     ]
   },
@@ -33,11 +33,11 @@
     "items": [
       [
         "What is technographics?",
-        [ "Technographics is the profiling of target accounts based on their technology stack. Also see '<a href='/articles/what-is-technographics'>What is technographics?</a>'." ]
+        [ "Technographics is the profiling of target accounts based on their technology stack. Also see '<a href='/articles/what-is-technographics/'>What is technographics?</a>'." ]
       ],
       [
         "What information is included in the lead lists?",
-        [ "Our lead lists are lists of websites that use certain technologies. Where available, version numbers and languages are included as well as a traffic indicator ('trafficRank'). Additional <a href='/docs/sets'>attribute sets</a> are included on request, such as email addresses and website meta data. A free sample is provided with every quote." ]
+        [ "Our lead lists are lists of websites that use certain technologies. Where available, version numbers and languages are included as well as a traffic indicator ('trafficRank'). Additional <a href='/docs/sets/'>attribute sets</a> are included on request, such as email addresses and website meta data. A free sample is provided with every quote." ]
       ],
       [
         "What segmentation options are available?",
@@ -49,7 +49,7 @@
       ],
       [
         "Do you supply company or contact information?",
-        [ "Yes, subject to availability. We look for publicly listed phone numbers, email address and LinkedIn profiles on website's contact pages. See <a href=\"/docs/sets\">Attribute sets</a> for more information." ]
+        [ "Yes, subject to availability. We look for publicly listed phone numbers, email address and LinkedIn profiles on website's contact pages. See <a href='/docs/sets/'>Attribute sets</a> for more information." ]
       ],
       [
         "How is the information being collected?",
@@ -65,7 +65,7 @@
       ],
       [
         "Can I use a different payment method?",
-        [ "Please <a href='/contact'>contact us</a> if you wish to pay via bank transfer or Bitcoin, or discuss options." ]
+        [ "Please <a href='/contact/'>contact us</a> if you wish to pay via bank transfer or Bitcoin, or discuss options." ]
       ],
       [
         "What is your refund policy?",
@@ -92,7 +92,7 @@
       ],
       [
         "Do you offer a free trial?",
-        [ "Sign up for <a href='/pricing'>free plan</a> to get 50 credits every month to use with the APIs and other products." ]
+        [ "Sign up for <a href='/pricing/'>free plan</a> to get 50 credits every month to use with the APIs and other products." ]
       ]
     ]
   },
@@ -103,7 +103,7 @@
     "items": [
       [
         "What are credits?",
-        [ "Credits can be spent on a range of products, including lead lists and APIs. Each product has a fixed spend per unit, detailed on the <a href='/pricing'>pricing</a> page." ]
+        [ "Credits can be spent on a range of products, including lead lists and APIs. Each product has a fixed spend per unit, detailed on the <a href='/pricing/'>pricing</a> page." ]
       ],
       [
         "When do credits expire?",
@@ -111,11 +111,11 @@
       ],
       [
         "Can I use a different payment method?",
-        [ "Plans can only be purchased with a credit card. Credits can be purchased directly using a credit card or PayPal account. Please <a href='/contact'>contact us</a> if you wish to pay via bank transfer or Bitcoin, or discuss options." ]
+        [ "Plans can only be purchased with a credit card. Credits can be purchased directly using a credit card or PayPal account. Please <a href='/contact/'>contact us</a> if you wish to pay via bank transfer or Bitcoin, or discuss options." ]
       ],
       [
         "What is your refund policy?",
-        [ "Credits are generally non-refundable. However, if you're dissatisfied with the quality of our offering we will either work with you to resolve the issue, credit your account or issue a pro-rata refund. Please refer to the <a href='/terms'>terms of use</a>." ]
+        [ "Credits are generally non-refundable. However, if you're dissatisfied with the quality of our offering we will either work with you to resolve the issue, credit your account or issue a pro-rata refund. Please refer to the <a href='/terms/'>terms of use</a>." ]
       ]
     ]
   }

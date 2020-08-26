@@ -8,10 +8,10 @@ export default {
     store.commit('lists/setCategorySlug', params.category)
     store.commit('lists/setTechnologySlug', params.slug)
 
-    app.router.push('/lists')
+    app.router.push('/lists/')
   },
   created() {
-    this.$router.replace('/lists')
+    this.$router.replace('/lists/')
   },
 }
 </script>

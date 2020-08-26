@@ -103,7 +103,7 @@ $ yarn run link</Prism></pre>
       <p>
         Run Wappalyzer directly on the command line using Node.js. For available
         options, other uses and examples, see the
-        <nuxt-link to="/docs/dev/nodejs">documentation</nuxt-link>.
+        <nuxt-link to="/docs/dev/nodejs/">documentation</nuxt-link>.
       </p>
 
       <pre

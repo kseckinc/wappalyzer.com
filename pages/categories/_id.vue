@@ -5,7 +5,7 @@
 <script>
 export default {
   asyncData({ redirect, route }) {
-    redirect(`/technologies/${route.params.id}`)
+    redirect(`/technologies/${route.params.id}/`)
   },
 }
 </script>

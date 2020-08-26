@@ -5,7 +5,7 @@
 <script>
 export default {
   created() {
-    this.$router.replace('/lists')
+    this.$router.replace('/lists/')
   },
 }
 </script>

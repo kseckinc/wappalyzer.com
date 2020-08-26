@@ -24,7 +24,7 @@
 
       <p>
         To get started, follow the
-        <nuxt-link to="/docs/dev/setup"> development setup</nuxt-link>
+        <nuxt-link to="/docs/dev/setup/"> development setup</nuxt-link>
         instructions.
       </p>
 
@@ -69,7 +69,7 @@
           >regular expressions</a
         >
         to fingerprint technologies. Refer to the
-        <nuxt-link to="/docs/dev/specification">specification</nuxt-link> for
+        <nuxt-link to="/docs/dev/specification/">specification</nuxt-link> for
         detail.
       </p>
 

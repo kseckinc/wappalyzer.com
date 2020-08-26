@@ -115,7 +115,7 @@
               <td>
                 Comma-separated list of additional attribute sets to include in
                 the results (e.g. <code>meta,social</code>). See
-                <nuxt-link to="/docs/sets">Attribute sets</nuxt-link>.
+                <nuxt-link to="/docs/sets/">Attribute sets</nuxt-link>.
               </td>
             </tr>
           </tbody>

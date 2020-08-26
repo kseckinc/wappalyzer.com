@@ -21,19 +21,19 @@
   "items": [
     {
       "title": "Terms",
-      "to": "/terms"
+      "to": "/terms/"
     },
     {
       "title": "Privacy",
-      "to": "/privacy"
+      "to": "/privacy/"
     },
     {
       "title": "Affiliates",
-      "to": "/contact#affiliates"
+      "to": "/contact/#affiliates"
     },
     {
       "title": "Get in touch",
-      "to": "/contact"
+      "to": "/contact/"
     }
   ]
 }

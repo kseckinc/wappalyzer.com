@@ -58,7 +58,7 @@
                         <nuxt-link
                           :to="`/technologies/${
                             categories.length ? `${categories[0].slug}/` : ''
-                          }${slug}`"
+                          }${slug}/`"
                           class="d-flex align-center body-2 my-2"
                         >
                           <TechnologyIcon :icon="icon" />

@@ -67,7 +67,7 @@
                 >
                   <td>
                     <nuxt-link
-                      :to="`/technologies/${categorySlug}/${slug}`"
+                      :to="`/technologies/${categorySlug}/${slug}/`"
                       class="body-2 d-flex align-center my-2"
                     >
                       <TechnologyIcon :icon="icon" />

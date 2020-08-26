@@ -18,7 +18,7 @@
 
       <p>
         You consent to Wappalyzer's
-        <nuxt-link to="/privacy">privacy policy</nuxt-link>, which explains how
+        <nuxt-link to="/privacy/">privacy policy</nuxt-link>, which explains how
         we collect and use the information you provide to us.
       </p>
 

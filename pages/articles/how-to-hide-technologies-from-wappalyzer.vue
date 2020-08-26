@@ -1,5 +1,5 @@
 <template>
-  <Page :crumbs="crumbs" :title="title" no-head narrow>
+  <Page :crumbs="crumbs" :title="title" :head="{ meta }" no-head narrow>
     <article>
       <h1 class="text-h1 mb-8">{{ title }}</h1>
 
@@ -50,7 +50,7 @@
         To hide a technology from Wappalyzer, it helps to first understand how
         it works and what Wappalyzer looks for. Luckily, Wappalyzer is
         open-source and its library of fingerprints is publicly viewable. Refer
-        to the <nuxt-link to="/docs">documentation</nuxt-link> for more
+        to the <nuxt-link to="/docs/">documentation</nuxt-link> for more
         information.
       </p>
 
@@ -126,7 +126,7 @@
 
       <p>
         Install the free
-        <nuxt-link to="/download">browser extension</nuxt-link> to see
+        <nuxt-link to="/download/">browser extension</nuxt-link> to see
         technologies used on websites you visit at glance.
       </p>
     </article>
@@ -144,6 +144,7 @@ export default {
     return {
       title: 'How to hide technologies from Wappalyzer',
       crumbs: [{ title: 'Articles', to: '/articles' }],
+      meta: `Concerned about your website's security or competitors inspecting your technology stack? Find out how to hide technologies from Wappalyzer.`,
     }
   },
 }

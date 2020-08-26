@@ -5,32 +5,32 @@
       {
         "title": "Technology lookup",
         "subtitle": "Find out what websites are built with",
-        "to": "/lookup"
+        "to": "/lookup/"
       },
       {
         "title": "Lead lists",
         "subtitle": "Create lists of sites using certain technologies",
-        "to": "/lists"
+        "to": "/lists/"
       },
       {
         "title": "Bulk lookup",
         "subtitle": "Look up a number of website in one go",
-        "to": "/bulk"
+        "to": "/bulk/"
       },
       {
         "title": "APIs",
         "subtitle": "Programmatic access to technographic data",
-        "to": "/api"
+        "to": "/api/"
       },
       {
         "title": "Alerts",
         "subtitle": "Monitor website technology stacks for changes",
-        "to": "/alerts"
+        "to": "/alerts/"
       },
       {
         "title": "Browser extension",
         "subtitle": "See the technologies on websites you visit at a glance",
-        "to": "/download"
+        "to": "/download/"
       }
     ]
   },
@@ -40,22 +40,22 @@
       {
         "title": "Technologies",
         "subtitle": "Browse technologies and categories",
-        "to": "/technologies"
+        "to": "/technologies/"
       },
       {
         "title": "FAQs",
         "subtitle": "Answers to frequently asked questions",
-        "to": "/faq/extension"
+        "to": "/faq/extension/"
       },
       {
         "title": "Articles",
         "subtitle": "Free content covering technographics",
-        "to": "/articles"
+        "to": "/articles/"
       },
       {
         "title": "Developer documentation",
         "subtitle": "API reference and contributing guide",
-        "to": "/docs"
+        "to": "/docs/"
       }
     ]
   },
@@ -64,11 +64,11 @@
     "items": [
       {
         "title": "Our story",
-        "to": "/about"
+        "to": "/about/"
       },
     {
       "title": "Get in touch",
-      "to": "/contact"
+      "to": "/contact/"
     }
     ]
   }

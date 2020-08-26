@@ -9,7 +9,7 @@
 
     <p class="mb-8">
       Your API key provides authorized access to our
-      <nuxt-link to="/api">APIs</nuxt-link>.
+      <nuxt-link to="/api/">APIs</nuxt-link>.
     </p>
 
     <div class="mb-4">

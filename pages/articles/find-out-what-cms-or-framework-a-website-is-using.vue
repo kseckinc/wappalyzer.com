@@ -1,5 +1,5 @@
 <template>
-  <Page :crumbs="crumbs" :title="title" no-head narrow>
+  <Page :crumbs="crumbs" :title="title" :head="{ meta }" no-head narrow>
     <article>
       <h1 class="text-h1 mb-8">{{ title }}</h1>
 
@@ -15,7 +15,7 @@
       <p>
         To instantly find out what CMS, framework or ecommerce platform a
         website is using, install the
-        <nuxt-link to="/download">Wappalyzer browser extension</nuxt-link>. The
+        <nuxt-link to="/download/">Wappalyzer browser extension</nuxt-link>. The
         extension automatically checks pages you visit and reveals the
         technologies the website is built with. Click on any category or
         technology for more insights, such as market share and the top websites
@@ -24,11 +24,11 @@
 
       <p>
         Alternatively, you can use the online
-        <nuxt-link to="/lookup">technology lookup</nuxt-link>, which requires no
-        installation. Results are usually instant and more in-depth information
-        is displayed alongside the list of identified technologies. If you're
-        performing market research for a software product, the technology lookup
-        is a great way to identify potential customers.
+        <nuxt-link to="/lookup/">technology lookup</nuxt-link>, which requires
+        no installation. Results are usually instant and more in-depth
+        information is displayed alongside the list of identified technologies.
+        If you're performing market research for a software product, the
+        technology lookup is a great way to identify potential customers.
       </p>
 
       <h2 class="text-h2 mt-8 mb-2">
@@ -115,10 +115,10 @@
       </p>
 
       <p>
-        You can use the <nuxt-link to="/api">Wappalyzer APIs</nuxt-link> to add
+        You can use the <nuxt-link to="/api/">Wappalyzer APIs</nuxt-link> to add
         technology lookups to your own project or website. Or, if you want to
         create a list of websites using a certain technology, have a look at
-        Wappalyzer's <nuxt-link to="/lists">lead lists</nuxt-link>.
+        Wappalyzer's <nuxt-link to="/lists/">lead lists</nuxt-link>.
       </p>
     </article>
   </Page>
@@ -135,6 +135,7 @@ export default {
     return {
       title: 'Find out what CMS or framework a website is using',
       crumbs: [{ title: 'Articles', to: '/articles' }],
+      meta: `Find out what CMS or framework a website is using. The best tools and methods to identify technologies on websites.`,
     }
   },
 }

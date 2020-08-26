@@ -6,19 +6,19 @@
     "items": [
       {
         "title": "Contributing",
-        "to": "/docs/dev/contributing"
+        "to": "/docs/dev/contributing/"
       },
       {
         "title": "Setup",
-        "to": "/docs/dev/setup"
+        "to": "/docs/dev/setup/"
       },
       {
         "title": "Node.js module",
-        "to": "/docs/dev/nodejs"
+        "to": "/docs/dev/nodejs/"
       },
       {
         "title": "Specification",
-        "to": "/docs/dev/specification"
+        "to": "/docs/dev/specification/"
       }
     ]
   },
@@ -29,21 +29,21 @@
     "items": [
       {
         "title": "Basics",
-        "to": "/docs/api/v2/basics"
+        "to": "/docs/api/v2/basics/"
       },
       {
         "title": "Lookup API",
-        "to": "/docs/api/v2/lookup"
+        "to": "/docs/api/v2/lookup/"
       },
       {
         "title": "Crawl API",
-        "to": "/docs/api/v2/crawl"
+        "to": "/docs/api/v2/crawl/"
       }
     ]
   },
   {
     "title": "Attribute sets",
     "icon": "mdi-tag-outline",
-    "to": "/docs/sets"
+    "to": "/docs/sets/"
   }
 ]

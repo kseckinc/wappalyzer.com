@@ -38,8 +38,8 @@
 
       <p>
         API calls deduct credits from your balance. Credits are included in
-        <nuxt-link to="/pricing">plans</nuxt-link> and can also be
-        <nuxt-link :to="{ path: '/pricing', hash: 'credits' }"
+        <nuxt-link to="/pricing/">plans</nuxt-link> and can also be
+        <nuxt-link :to="{ path: '/pricing/', hash: 'credits' }"
           >purchased directly</nuxt-link
         >. To determine the number of credits spent per request, refer to the
         <nuxt-link :to="{ path: '/pricing', hash: 'usage' }">pricing</nuxt-link>
@@ -52,7 +52,7 @@
 
       <p>
         Wappalyzer uses API keys to provide authorized access to its APIs. Sign
-        up to <nuxt-link to="/apikey">create an API key</nuxt-link>.
+        up to <nuxt-link to="/apikey/">create an API key</nuxt-link>.
       </p>
 
       <v-card class="my-4" flat outlined>

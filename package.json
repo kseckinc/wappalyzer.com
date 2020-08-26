@@ -19,6 +19,7 @@
     "@nuxtjs/sitemap": "^2.4.0",
     "amazon-cognito-identity-js": "^4.3.4",
     "nuxt": "^2.0.0",
+    "nuxt-canonical": "^1.0.4",
     "nuxt-stripe-module": "^2.0.0",
     "nuxtjs-mdi-font": "^1.0.2",
     "prismjs": "^1.21.0",
