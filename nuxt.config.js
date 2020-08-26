@@ -82,7 +82,12 @@ export default {
     ],
     '@nuxtjs/vuetify',
   ],
-  modules: ['@nuxtjs/axios', 'nuxt-stripe-module', 'nuxtjs-mdi-font'],
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/sitemap',
+    'nuxt-stripe-module',
+    'nuxtjs-mdi-font',
+  ],
   axios: {
     baseURL: process.env.BASE_URL,
     secure: true,

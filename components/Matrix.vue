@@ -25,7 +25,9 @@
         <v-card
           :raised="item.raised"
           class="text-center"
-          :style="`${item.raised ? 'border: 1px solid #4608ad' : ''}`"
+          :style="`${
+            item.raised ? 'border: 1px solid #4608ad; margin-top: -1px' : ''
+          }`"
         >
           <v-responsive v-if="!item.raised" height="20"> </v-responsive>
           <v-responsive
