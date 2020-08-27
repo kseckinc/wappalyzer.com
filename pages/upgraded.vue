@@ -102,7 +102,7 @@ export default {
     }
   },
   async created() {
-    this.set({})
+    this.set({ hero: false })
 
     try {
       this.release = (await this.$axios.get(process.env.RELEASE_URL)).data

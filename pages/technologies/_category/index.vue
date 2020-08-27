@@ -7,7 +7,13 @@
       :crumbs="[{ title: 'Technologies', to: '/technologies' }]"
       :head="{
         title,
-        subtitle: 'Technology category',
+        subtitle: `${
+          category
+            ? `Tracking ${
+                Object.keys(category.technologies).length
+              } technologies in this category`
+            : `Technology category`
+        }`,
         meta: `Download a list of websites${
           category ? ` using ${category.name} technologies` : ''
         } with email addresses, phone numbers and LinkedIn profiles.`,
