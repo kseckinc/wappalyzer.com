@@ -11,26 +11,36 @@
         meta: `Download a list of websites${
           category ? ` using ${category.name} technologies` : ''
         } with email addresses, phone numbers and LinkedIn profiles.`,
-        text: category
-          ? `Wappalyzer tracks over
-              ${formatNumber(totalHostnames, true)} websites and
-              ${Object.keys(technologies).length} technologies in the
-              category ${category.name}.`
-          : '',
       }"
       hero
     >
       <template v-if="category">
+        <v-row>
+          <v-col md="10" lg="8">
+            <p>
+              These are the top technologies in the category '{{
+                category.name
+              }}'.
+              <br />
+              <nuxt-link :to="`/lists/${category.slug}`"
+                >Create a list of
+                {{ formatNumber(totalHostnames, true) }} leads</nuxt-link
+              >
+              with email addresses and phone numbers.
+            </p>
+          </v-col>
+        </v-row>
+
         <v-btn
           :to="`/lists/${category.slug}`"
           color="accent"
-          class="mt-4 mb-2"
+          class="mb-6"
           outlined
         >
           <v-icon left>mdi-filter-variant</v-icon> Create a lead list
         </v-btn>
 
-        <v-card class="mt-8 mb-4">
+        <v-card class="my-4">
           <v-card-title>Technologies</v-card-title>
           <v-card-text class="px-0">
             <v-simple-table>

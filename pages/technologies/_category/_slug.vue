@@ -71,9 +71,13 @@
           <v-row>
             <v-col md="10" lg="8">
               <p>
-                Wappalyzer tracks over
-                {{ formatNumber(technology.hostnames, true) }} websites that use
-                {{ technology.name }}.
+                These are top top websites usings {{ technology.name }}.
+                <nuxt-link :to="`/lists/${categorySlug}/${slug}/`"
+                  >Create a list of
+                  {{ formatNumber(technology.hostnames, true) }}
+                  leads</nuxt-link
+                >
+                with email addresses and phone numbers.
               </p>
             </v-col>
           </v-row>
@@ -81,7 +85,7 @@
           <v-btn
             :to="`/lists/${categorySlug}/${slug}/`"
             color="accent"
-            class="mb-4"
+            class="mb-6"
             outlined
           >
             <v-icon left>mdi-filter-variant</v-icon> Create a lead list
@@ -93,7 +97,7 @@
               <v-simple-table>
                 <thead>
                   <tr>
-                    <th width="30%">Hostname</th>
+                    <th width="30%">Website</th>
                     <th>Traffic *</th>
                   </tr>
                 </thead>
@@ -127,22 +131,13 @@
           <p class="mb-8">
             <small>
               * Percentage of pageviews across all tracked websites that use
-              {{ technology.name }}.
+              {{ technology.name }}.<br />
+              Get the full list of
+              <nuxt-link :to="`/lists/${categorySlug}/${slug}/`"
+                >websites and companies using {{ technology.name }}.</nuxt-link
+              >
             </small>
           </p>
-
-          <v-row>
-            <v-col md="8">
-              <p>
-                These are the top {{ technology.name }} websites. Download the
-                full list of
-                <nuxt-link :to="`/lists/${categorySlug}/${slug}/`"
-                  >websites and companies using {{ technology.name }}</nuxt-link
-                >, including email addresses, phone numbers, LinkedIn profiles
-                and more.
-              </p>
-            </v-col>
-          </v-row>
         </template>
       </template>
     </Page>

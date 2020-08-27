@@ -92,7 +92,6 @@ export default {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/sitemap',
-    '@nuxtjs/redirect-module',
     'nuxt-stripe-module',
     'nuxtjs-mdi-font',
     [
