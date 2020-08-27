@@ -1,0 +1,37 @@
+<RoutingRules>
+	<RoutingRule>
+		<Condition>
+			<KeyPrefixEquals>datasets/</KeyPrefixEquals>
+		</Condition>
+		<Redirect>
+			<HostName>www.wappalyzer.com</HostName>
+			<ReplaceKeyPrefixWith>lists/</ReplaceKeyPrefixWith>
+		</Redirect>
+	</RoutingRule>
+	<RoutingRule>
+		<Condition>
+			<KeyPrefixEquals>stats/</KeyPrefixEquals>
+		</Condition>
+		<Redirect>
+			<HostName>www.wappalyzer.com</HostName>
+			<ReplaceKeyPrefixWith>technologies/</ReplaceKeyPrefixWith>
+		</Redirect>
+	</RoutingRule>	<RoutingRule>
+		<Condition>
+			<KeyPrefixEquals>applications/</KeyPrefixEquals>
+		</Condition>
+		<Redirect>
+			<HostName>www.wappalyzer.com</HostName>
+			<ReplaceKeyPrefixWith>technologies/</ReplaceKeyPrefixWith>
+		</Redirect>
+	</RoutingRule>
+	<RoutingRule>
+		<Condition>
+			<KeyPrefixEquals>categories/</KeyPrefixEquals>
+		</Condition>
+		<Redirect>
+			<HostName>www.wappalyzer.com</HostName>
+			<ReplaceKeyPrefixWith>technologies/</ReplaceKeyPrefixWith>
+		</Redirect>
+	</RoutingRule>
+</RoutingRules>
