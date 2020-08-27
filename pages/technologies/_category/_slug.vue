@@ -124,10 +124,25 @@
             </v-card-text>
           </v-card>
 
-          <small>
-            * Percentage of pageviews across all tracked websites that use
-            {{ technology.name }}.
-          </small>
+          <p class="mb-8">
+            <small>
+              * Percentage of pageviews across all tracked websites that use
+              {{ technology.name }}.
+            </small>
+          </p>
+
+          <v-row>
+            <v-col md="8">
+              <p>
+                These are the top {{ technology.name }} websites. Download the
+                full list of
+                <nuxt-link :to="`/lists/${categorySlug}/${slug}/`"
+                  >websites and companies using {{ technology.name }}</nuxt-link
+                >, including email addresses, phone numbers, LinkedIn profiles
+                and more.
+              </p>
+            </v-col>
+          </v-row>
         </template>
       </template>
     </Page>
