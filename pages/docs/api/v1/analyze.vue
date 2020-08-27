@@ -106,7 +106,7 @@
 
       <p>
         An
-        <nuxt-link to="/docs/api/v1/basics#error-types">error type</nuxt-link>
+        <nuxt-link to="/docs/api/v1/basics/#error-types">error type</nuxt-link>
         and message is returned if the URL could not be fetched.
       </p>
 

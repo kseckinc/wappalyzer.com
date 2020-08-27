@@ -1,7 +1,7 @@
 <template>
   <Page
     :title="title"
-    :crumbs="[{ title: 'Orders', to: '/orders' }]"
+    :crumbs="[{ title: 'Orders', to: '/orders/' }]"
     :loading="!order && !error"
     secure
   >
@@ -30,7 +30,7 @@
           try it again with different or no filters.
         </p>
 
-        <v-btn to="/lists" outlined>
+        <v-btn to="/lists/" outlined>
           <v-icon left>mdi-arrow-left</v-icon>
           Back to Lead lists
         </v-btn>
@@ -113,7 +113,7 @@
 
       <template v-if="order.stripeSubscription">
         <v-btn
-          :to="`/subscriptions/${order.stripeSubscription}`"
+          :to="`/subscriptions/${order.stripeSubscription}/`"
           color="accent"
           outlined
           ><v-icon left>mdi-calendar-repeat</v-icon>Subscription</v-btn
@@ -641,7 +641,7 @@
               class="text-center"
             >
               Come here often? Save with a plan. See
-              <nuxt-link to="/pricing">plans &amp; pricing</nuxt-link>.
+              <nuxt-link to="/pricing/">plans &amp; pricing</nuxt-link>.
             </v-alert>
 
             <div v-if="!cardsLoaded" class="d-flex justify-center pt-2 pb-6">
@@ -681,7 +681,7 @@
           <v-card-text v-if="paymentMethod === 'paypal'" class="pa-0">
             <v-alert color="secondary" class="text-center">
               Come here often? Save with a plan. See
-              <nuxt-link to="/pricing">plans &amp; pricing</nuxt-link>.
+              <nuxt-link to="/pricing/">plans &amp; pricing</nuxt-link>.
             </v-alert>
 
             <div class="d-flex justify-center mt-n4 py-8">

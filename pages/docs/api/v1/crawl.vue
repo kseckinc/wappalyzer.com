@@ -130,7 +130,7 @@
 
       <p>
         An
-        <nuxt-link to="/docs/api/v1/basics#error-types" class=""
+        <nuxt-link to="/docs/api/v1/basics/#error-types" class=""
           >error type</nuxt-link
         >
         and message is returned if no URLs could be fetched.

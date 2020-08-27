@@ -4,7 +4,7 @@
     <Page
       :title="title"
       :side="side"
-      :crumbs="[{ title: 'FAQs', to: '/faq/extension' }]"
+      :crumbs="[{ title: 'FAQs', to: '/faq/extension/' }]"
       seo-title="Frequently asked questions"
       no-head
     >

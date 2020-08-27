@@ -76,10 +76,10 @@ export default {
     selectTechnology(item) {
       if (item.type === 'technology') {
         this.$router.push(
-          `/technologies/${item.categories[0].slug}/${item.slug}`
+          `/technologies/${item.categories[0].slug}/${item.slug}/`
         )
       } else {
-        this.$router.push(`/technologies/${item.slug}`)
+        this.$router.push(`/technologies/${item.slug}/`)
       }
     },
   },

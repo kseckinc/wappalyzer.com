@@ -98,7 +98,7 @@ export default {
   data() {
     return {
       title: 'What is technographics?',
-      crumbs: [{ title: 'Articles', to: '/articles' }],
+      crumbs: [{ title: 'Articles', to: '/articles/' }],
       meta: `What is technographics and how can it help drive B2B sales? Target accounts with technographic insights.`,
     }
   },

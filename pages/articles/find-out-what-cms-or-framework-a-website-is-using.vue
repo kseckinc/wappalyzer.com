@@ -134,7 +134,7 @@ export default {
   data() {
     return {
       title: 'Find out what CMS or framework a website is using',
-      crumbs: [{ title: 'Articles', to: '/articles' }],
+      crumbs: [{ title: 'Articles', to: '/articles/' }],
       meta: `Find out what CMS or framework a website is using. The best tools and methods to identify technologies on websites.`,
     }
   },

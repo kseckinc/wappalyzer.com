@@ -5,7 +5,7 @@
 <script>
 export default {
   asyncData({ redirect }) {
-    redirect('/docs/api/v1/basics')
+    redirect('/docs/api/v1/basics/')
   },
 }
 </script>

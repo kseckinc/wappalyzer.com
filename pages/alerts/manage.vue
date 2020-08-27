@@ -7,7 +7,7 @@ export default {
   created() {
     const { url } = this.$route.query
 
-    this.$router.push({ path: '/alerts', query: { url } })
+    this.$router.push({ path: '/alerts/', query: { url } })
   },
 }
 </script>

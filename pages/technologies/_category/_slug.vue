@@ -26,7 +26,7 @@
             <v-chip
               v-for="{ slug: _slug, name } in technology.categories"
               :key="_slug"
-              :to="`/technologies/${_slug}`"
+              :to="`/technologies/${_slug}/`"
               color="primary"
               outlined
               small
@@ -62,7 +62,7 @@
             </template>
           </v-alert>
 
-          <v-btn to="/technologies" class="mt-4" color="accent" outlined exact>
+          <v-btn to="/technologies/" class="mt-4" color="accent" outlined exact>
             <v-icon left>mdi-magnify</v-icon>
             Browse technologies
           </v-btn>
@@ -79,7 +79,7 @@
           </v-row>
 
           <v-btn
-            :to="`/lists/${categorySlug}/${slug}`"
+            :to="`/lists/${categorySlug}/${slug}/`"
             color="accent"
             class="mb-4"
             outlined
@@ -172,14 +172,14 @@ export default {
     },
     crumbs() {
       return [
-        { title: 'Technologies', to: '/technologies' },
+        { title: 'Technologies', to: '/technologies/' },
         {
           title: this.technology
             ? this.technology.categories.find(
                 ({ slug }) => (slug = this.categorySlug)
               ).name
             : this.categorySlug,
-          to: `/technologies/${this.categorySlug}`,
+          to: `/technologies/${this.categorySlug}/`,
         },
       ]
     },

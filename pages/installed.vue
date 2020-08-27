@@ -14,7 +14,7 @@
           <li>Click on a technology or category for more insights</li>
         </ol>
 
-        <v-btn color="accent" to="/faq/extension" class="mt-12" outlined>
+        <v-btn color="accent" to="/faq/extension/" class="mt-12" outlined>
           Frequently asked questions
         </v-btn>
       </v-col>

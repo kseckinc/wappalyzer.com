@@ -138,7 +138,7 @@
 
       <p>
         The <code>hits</code> value is the number of times users of the
-        <nuxt-link to="/download">browser extension</nuxt-link>
+        <nuxt-link to="/download/">browser extension</nuxt-link>
         have visited the website that month. It can be used as an indicator of
         traffic.
       </p>
@@ -148,7 +148,7 @@
       <p>
         If instant results are unavailable and <code>callback_url</code> is
         specified, a <code>202</code> is returned and the domain will be indexed
-        using the <nuxt-link to="/docs/api/v1/crawl">Crawl API</nuxt-link> as a
+        using the <nuxt-link to="/docs/api/v1/crawl/">Crawl API</nuxt-link> as a
         fallback. The callback URL will be called upon completion of the
         request, typically minutes later.
       </p>

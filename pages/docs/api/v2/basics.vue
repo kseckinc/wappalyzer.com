@@ -42,7 +42,9 @@
         <nuxt-link :to="{ path: '/pricing/', hash: 'credits' }"
           >purchased directly</nuxt-link
         >. To determine the number of credits spent per request, refer to the
-        <nuxt-link :to="{ path: '/pricing', hash: 'usage' }">pricing</nuxt-link>
+        <nuxt-link :to="{ path: '/pricing/', hash: 'usage' }"
+          >pricing</nuxt-link
+        >
         page.
       </p>
 

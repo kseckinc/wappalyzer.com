@@ -143,7 +143,7 @@ export default {
   data() {
     return {
       title: 'How to hide technologies from Wappalyzer',
-      crumbs: [{ title: 'Articles', to: '/articles' }],
+      crumbs: [{ title: 'Articles', to: '/articles/' }],
       meta: `Concerned about your website's security or competitors inspecting your technology stack? Find out how to hide technologies from Wappalyzer.`,
     }
   },

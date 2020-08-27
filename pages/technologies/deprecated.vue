@@ -8,7 +8,7 @@
       text: `These technologies have been determined to receive low traffic over an
           extended period of time and are canidates for deletion.`,
     }"
-    :crumbs="[{ title: 'Technologies', to: '/technologies' }]"
+    :crumbs="[{ title: 'Technologies', to: '/technologies/' }]"
   >
     <v-alert v-if="error" type="error">
       {{ error }}

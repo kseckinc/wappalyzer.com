@@ -2,7 +2,7 @@
   <Page
     :title="subscription ? subscription.planName : 'Subscription'"
     :head="{ title: subscription ? subscription.planName : 'Subscription' }"
-    :crumbs="[{ title: 'Subscriptions', to: '/subscriptions' }]"
+    :crumbs="[{ title: 'Subscriptions', to: '/subscriptions/' }]"
     :loading="!subscription && !error"
     secure
   >
@@ -31,7 +31,7 @@
 
       <v-btn
         v-if="subscription.planId.startsWith('api_')"
-        to="/apikey"
+        to="/apikey/"
         color="accent"
         outlined
         ><v-icon left>mdi-key-variant</v-icon> API key</v-btn
@@ -39,7 +39,7 @@
 
       <v-btn
         v-if="subscription.planId.startsWith('alerts_')"
-        to="/alerts/manage"
+        to="/alerts/manage/"
         color="accent"
         outlined
         ><v-icon left>mdi-bullhorn</v-icon> Alerts</v-btn
@@ -171,7 +171,7 @@
               outlined
             >
               You don't currently have any
-              <nuxt-link to="/paymentmethods">payment methods</nuxt-link>.
+              <nuxt-link to="/paymentmethods/">payment methods</nuxt-link>.
             </v-alert>
             <v-simple-table v-else>
               <thead>

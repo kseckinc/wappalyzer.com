@@ -89,7 +89,7 @@ export default {
   },
   watch: {
     $route(route) {
-      this.checkDrift()
+      this.checkDrift(route)
     },
   },
   mounted() {
@@ -149,7 +149,7 @@ export default {
         this.driftApi = api
         this.driftOnline = isOnline
 
-        this.checkDrift()
+        this.checkDrift(this.$route.path)
       })
     }
   },
@@ -157,7 +157,7 @@ export default {
     ...mapActions({
       updateUserAttrs: 'user/updateAttrs',
     }),
-    checkDrift() {
+    checkDrift(route) {
       if (this.driftApi) {
         if (this.user.sub) {
           drift.identify(this.user.sub, {
@@ -168,7 +168,7 @@ export default {
         }
 
         const path = Object.keys(driftRoutes).find((path) =>
-          this.$route.path.startsWith(path)
+          route.startsWith(path)
         )
 
         if (path) {

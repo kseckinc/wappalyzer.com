@@ -2,16 +2,11 @@
   <div>
     <Page :title="title" :head="meta" no-heading>
       <div class="mt-8">
-        <v-btn color="accent" to="/faq/api" class="mb-2" outlined>
+        <v-btn color="accent" to="/faq/api/" class="mb-2" outlined>
           <v-icon left>mdi-forum</v-icon>
           FAQs
         </v-btn>
-        <v-btn
-          color="accent"
-          href="https://wappalyzer.com/docs/api"
-          class="mb-2"
-          outlined
-        >
+        <v-btn color="accent" to="/docs/api/" class="mb-2" outlined>
           <v-icon left>mdi-book-open-page-variant</v-icon>
           API reference
         </v-btn>

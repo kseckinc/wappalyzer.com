@@ -48,7 +48,7 @@
                 <td>
                   <v-btn
                     v-if="invoice.orderId"
-                    :to="`/orders/${invoice.orderId}`"
+                    :to="`/orders/${invoice.orderId}/`"
                     icon
                   >
                     <v-icon color="accent"
