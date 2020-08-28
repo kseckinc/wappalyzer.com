@@ -101,39 +101,43 @@
                     </p>
                     <v-simple-table dense>
                       <tbody>
-                        <v-tooltip
+                        <tr
                           v-for="set in sets.filter(
                             ({ key }) => key !== 'base-lookup'
                           )"
                           :key="set.key"
-                          top
                         >
-                          <template v-slot:activator="{ on }">
-                            <tr v-on="on">
-                              <td>
-                                <v-checkbox
-                                  v-model="set.value"
-                                  :disabled="set.disabled"
-                                  class="mt-0"
-                                  dense
-                                  hide-details
-                                >
-                                  <template v-slot:label>
-                                    <small>
-                                      {{ set.name }}
-                                    </small>
-                                  </template>
-                                </v-checkbox>
-                              </td>
-                            </tr>
-                          </template>
+                          <td>
+                            <v-row class="px-2">
+                              <v-checkbox
+                                v-model="set.value"
+                                :disabled="set.disabled"
+                                class="mt-0 shrink"
+                                dense
+                                hide-details
+                              >
+                                <template v-slot:label>
+                                  <small>
+                                    {{ set.name }}
+                                  </small>
+                                </template>
+                              </v-checkbox>
+                              <v-tooltip :key="set.key" top>
+                                <template v-slot:activator="{ on }">
+                                  <v-icon small class="ml-1" v-on="on"
+                                    >mdi-information-outline</v-icon
+                                  >
+                                </template>
 
-                          {{
-                            set.attributes
-                              .map(({ name, key }) => name || key)
-                              .join(', ')
-                          }}
-                        </v-tooltip>
+                                {{
+                                  set.attributes
+                                    .map(({ name, key }) => name || key)
+                                    .join(', ')
+                                }}
+                              </v-tooltip>
+                            </v-row>
+                          </td>
+                        </tr>
                       </tbody>
                     </v-simple-table>
                   </v-card-text>

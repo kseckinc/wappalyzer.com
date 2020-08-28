@@ -59,6 +59,11 @@ export default {
           intro: `Most web technologies, including server-side software such as CMSs, leave trails of evidence of their presence in websites' HTML code. This code is publicly accessible, which is necessary for browsers to render and display the page. Wappalyzer is known to be very proficient exposing these technologies through various fingerprinting methods.`,
           to: '/articles/how-to-hide-technologies-from-wappalyzer/',
         },
+        {
+          title: 'Wappalyzer vs. BuiltWith and Datanyze',
+          intro: `Wappalyzer, BuiltWith and Datanyze are data vendors that scan websites to identify technologies. When looking for providers in the technographics space, Wappalyzer is often mentioned as a BuiltWith alternative or Datanyze alternative.`,
+          to: '/articles/wappalyzer-vs-builtwith-and-datanyze/',
+        },
       ],
     }
   },
