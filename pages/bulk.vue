@@ -1,6 +1,12 @@
 <template>
   <div>
     <Page :title="title" :head="meta">
+      <p>
+        Upload your list to get an instant and obligation free quote. Results
+        are available within hours, depending on the size of the list. Websites
+        we haven't seen before are crawled and analysed immediately.
+      </p>
+
       <v-btn
         color="accent"
         class="mt-4 mb-8"
@@ -11,7 +17,7 @@
         Pricing
       </v-btn>
 
-      <h2 class="mb-4">Get an instant quote</h2>
+      <h2 class="mb-4">Upload your list</h2>
 
       <v-alert v-if="error" type="error">
         {{ error }}
@@ -118,7 +124,7 @@
           color="primary"
           large
           @click="submit"
-          >Request quote <v-icon right>mdi-arrow-right</v-icon>
+          >Get a quote <v-icon right>mdi-arrow-right</v-icon>
         </v-btn>
       </v-form>
 

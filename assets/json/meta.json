@@ -24,7 +24,7 @@
     "subtitle": "Create lists of websites that use certain technologies",
     "icon": "mdi-filter-variant",
     "image": "list.svg",
-    "text": "Lead lists provide valuable insights into the software industry and are an essential tool for market research and competitor analysis.",
+    "text": "Find new customers and prospects based on the technologies they use. Lead lists are an essential tool for market research and competitor analysis and provide valuable technographic insights.",
     "buttons": [
       {
         "text": "Create a lead list",
@@ -44,11 +44,11 @@
     "subtitle": "Look up a number of websites in one go",
     "icon": "mdi-file-table-outline",
     "image": "bulk.svg",
-    "text": "Supply your own list of websites to perform a large number of technology lookups in one go. Essential for competitive analysis and understanding your target market.",
+    "text": "Supply your own list of websites to create a report of the technologies they use, along with contact details and metadata. Gain a better understanding of your target audience with technographic insights.",
     "buttons": [
       {
         "text": "Upload a list",
-        "to": "/bulk",
+        "to": "/bulk/",
         "icon": "mdi-upload"
       }
     ],

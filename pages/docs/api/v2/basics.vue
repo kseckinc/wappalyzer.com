@@ -7,7 +7,7 @@
 
       <p>
         The
-        <nuxt-link to="/api">Wappalyzer APIs</nuxt-link>
+        <nuxt-link to="/api/">Wappalyzer APIs</nuxt-link>
         provide programmatic access to technographic data on websites, either in
         real-time or prefetched.
       </p>

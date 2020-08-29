@@ -1,2 +1,17 @@
 User-agent: *
-Disallow:
+
+Disallow: /200.html
+Disallow: /account/
+Disallow: /apikey/
+Disallow: /credits/
+Disallow: /css/
+Disallow: /installed/
+Disallow: /invoices/
+Disallow: /orders/
+Disallow: /paymentmethods/
+Disallow: /signout/
+Disallow: /subscriptions/
+Disallow: /unsubscribe/
+Disallow: /upgraded/
+
+Sitemap: https://www.wappalyzer.com/sitemap.xml

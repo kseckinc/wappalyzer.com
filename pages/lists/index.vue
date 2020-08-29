@@ -1,6 +1,13 @@
 <template>
   <div>
     <Page :title="title" :head="meta">
+      <p>
+        Get started by selecting one or more technologies. Optionally add
+        additional attributes, filters and limits to customise your list. An
+        obligation free quote will be created and your list is available
+        immediately upon completing the order.
+      </p>
+
       <v-btn
         color="accent"
         class="mt-4 mb-8"
@@ -22,7 +29,7 @@
       </v-btn>
 
       <template v-slot:content>
-        <h2 class="mb-4">Get an instant quote</h2>
+        <h2 class="mb-4">Create your list</h2>
 
         <v-card class="mb-4" color="secondary">
           <v-card-text v-if="error">
@@ -550,7 +557,7 @@
           class="mt-4 mb-4"
           large
           @click="submit"
-          >Request quote <v-icon right>mdi-arrow-right</v-icon>
+          >Get a quote <v-icon right>mdi-arrow-right</v-icon>
         </v-btn>
 
         <p class="mb-8">

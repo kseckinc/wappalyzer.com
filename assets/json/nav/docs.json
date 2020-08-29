@@ -2,7 +2,7 @@
   {
     "title": "Development",
     "icon": "mdi-monitor",
-    "to": "/docs/dev",
+    "to": "/docs/dev/",
     "items": [
       {
         "title": "Contributing",
@@ -25,7 +25,7 @@
   {
     "title": "APIs",
     "icon": "mdi-console",
-    "to": "/docs/api",
+    "to": "/docs/api/",
     "items": [
       {
         "title": "Basics",

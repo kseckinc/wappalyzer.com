@@ -2,7 +2,7 @@
   "extension": {
     "title": "Browser extension",
     "icon": "mdi-puzzle",
-    "to": "/faq/extension",
+    "to": "/faq/extension/",
     "items": [
       [
         "Can I suggest a technology to be added?",
@@ -29,7 +29,7 @@
   "lists": {
     "title": "Lead lists",
     "icon": "mdi-filter-variant",
-    "to": "/faq/lists",
+    "to": "/faq/lists/",
     "items": [
       [
         "What is technographics?",
@@ -76,7 +76,7 @@
   "api": {
     "title": "APIs",
     "icon": "mdi-console",
-    "to": "/faq/api",
+    "to": "/faq/api/",
     "items": [
       [
         "How is the information being collected?",
@@ -99,7 +99,7 @@
   "credits": {
     "title": "Credits",
     "icon": "mdi-alpha-c-circle",
-    "to": "/faq/credits",
+    "to": "/faq/credits/",
     "items": [
       [
         "What are credits?",
