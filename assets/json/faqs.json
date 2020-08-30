@@ -1,7 +1,7 @@
 {
   "extension": {
     "title": "Browser extension",
-    "icon": "mdi-puzzle",
+    "icon": "mdiPuzzle",
     "to": "/faq/extension/",
     "items": [
       [
@@ -28,7 +28,7 @@
   },
   "lists": {
     "title": "Lead lists",
-    "icon": "mdi-filter-variant",
+    "icon": "mdiFilterVariant",
     "to": "/faq/lists/",
     "items": [
       [
@@ -75,7 +75,7 @@
   },
   "api": {
     "title": "APIs",
-    "icon": "mdi-console",
+    "icon": "mdiConsole",
     "to": "/faq/api/",
     "items": [
       [
@@ -98,7 +98,7 @@
   },
   "credits": {
     "title": "Credits",
-    "icon": "mdi-alpha-c-circle",
+    "icon": "mdiAlphaCCircle",
     "to": "/faq/credits/",
     "items": [
       [

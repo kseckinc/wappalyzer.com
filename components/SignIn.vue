@@ -42,7 +42,7 @@
           "
           v-model="password"
           :rules="passwordRules"
-          :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+          :append-icon="showPassword ? mdiEyeOff : mdiEye"
           :type="showPassword ? 'text' : 'password'"
           :label="mode === 'verifyReset' ? 'New password' : 'Password'"
           class="mt-n4 mb-4"
@@ -182,6 +182,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import { mdiEye, mdiEyeOff } from '@mdi/js'
 
 export default {
   props: {
@@ -209,6 +210,8 @@ export default {
       nextError: '',
       subscribe: false,
       success: '',
+      mdiEye,
+      mdiEyeOff,
       nextSuccess: '',
       showPassword: false,
       signingIn: false,

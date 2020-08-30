@@ -4,8 +4,8 @@
   "description": "wappalyzer.com",
   "author": "Wappalyzer",
   "scripts": {
-    "dev": "ENVIRONMENT=beta nuxt",
-    "prod": "NODE_ENV=production ENVIRONMENT=v2 nuxt",
+    "dev": "ENVIRONMENT=beta NODE_OPTIONS=--max-old-space-size=4096 nuxt",
+    "prod": "NODE_ENV=production NODE_OPTIONS=--max-old-space-size=4096 ENVIRONMENT=v2 nuxt",
     "build": "nuxt build",
     "generate": "NODE_OPTIONS=--max-old-space-size=4096 nuxt generate",
     "start": "nuxt start",
@@ -21,13 +21,13 @@
     "nuxt": "^2.0.0",
     "nuxt-canonical": "^1.0.4",
     "nuxt-stripe-module": "^2.0.0",
-    "nuxtjs-mdi-font": "^1.0.2",
     "prismjs": "^1.21.0",
     "stripe": "^8.46.0",
     "vue-gtag": "^1.8.0",
     "vue-prism-component": "^1.1.1"
   },
   "devDependencies": {
+    "@mdi/js": "^5.5.55",
     "@nuxtjs/eslint-config": "^3.1.0",
     "@nuxtjs/eslint-module": "^2.0.0",
     "@nuxtjs/vuetify": "^1.0.0",

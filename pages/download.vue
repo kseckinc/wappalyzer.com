@@ -15,7 +15,7 @@
           target="_blank"
           outlined
         >
-          <v-icon left>{{ icon }}</v-icon>
+          <v-icon left>{{ mdi[icon] }}</v-icon>
           {{ text }}
         </v-btn>
       </div>
@@ -36,7 +36,7 @@
         class="mb-4"
         outlined
       >
-        <v-icon left>mdi-git</v-icon>
+        <v-icon left>{{ mdi.mdiGithub }}</v-icon>
         Contribute on GitHub
       </v-btn>
     </Page>
@@ -44,6 +44,13 @@
 </template>
 
 <script>
+import {
+  mdiGithub,
+  mdiMicrosoftEdge,
+  mdiFirefox,
+  mdiGoogleChrome,
+} from '@mdi/js'
+
 import Page from '~/components/Page.vue'
 import { download as meta } from '~/assets/json/meta.json'
 
@@ -54,24 +61,30 @@ export default {
   data() {
     return {
       title: meta.title,
+      mdi: {
+        mdiGithub,
+        mdiMicrosoftEdge,
+        mdiFirefox,
+        mdiGoogleChrome,
+      },
       meta,
       platforms: [
         {
           text: 'Google Chrome',
           href:
             'https://chrome.google.com/webstore/detail/wappalyzer/gppongmhjkpfnbhagpmjfkannfbllamg',
-          icon: 'mdi-google-chrome',
+          icon: 'mdiGoogleChrome',
         },
         {
           text: 'Mozilla Firefox',
           href: 'https://addons.mozilla.org/en-US/firefox/addon/wappalyzer/',
-          icon: 'mdi-firefox',
+          icon: 'mdiFirefox',
         },
         {
           text: 'Microsoft Edge',
           href:
             'https://microsoftedge.microsoft.com/addons/detail/mnbndgmknlpdjdnjfmfcdjoegcckoikn',
-          icon: 'mdi-microsoft',
+          icon: 'mdiMicrosoftEdge',
         },
       ],
     }

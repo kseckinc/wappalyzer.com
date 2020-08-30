@@ -9,11 +9,8 @@
         '<strong>Services</strong>').
       </p>
 
-      <h2 id="log-data" class="text-h2 mt-8 mb-2">
+      <h2 class="text-h2 mt-8 mb-2">
         Log data
-        <a href="#log-data" class="privacy__anchor"
-          ><v-icon color="accent">mdi-link</v-icon></a
-        >
       </h2>
 
       <p>
@@ -24,11 +21,8 @@
         Services were used, browser type and settings and cookie data.
       </p>
 
-      <h2 id="account-registration" class="text-h2 mt-8 mb-2">
+      <h2 class="text-h2 mt-8 mb-2">
         Account registration
-        <a href="#account-registration" class="privacy__anchor"
-          ><v-icon color="accent">mdi-link</v-icon></a
-        >
       </h2>
 
       <p>
@@ -38,11 +32,8 @@
         cancel your account at any time.
       </p>
 
-      <h2 id="browser-extension" class="text-h2 mt-8 mb-2">
+      <h2 class="text-h2 mt-8 mb-2">
         Browser extension
-        <a href="#browser-extension" class="privacy__anchor"
-          ><v-icon color="accent">mdi-link</v-icon></a
-        >
       </h2>
 
       <p>

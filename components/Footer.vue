@@ -55,7 +55,7 @@
               target="blank"
               icon
             >
-              <v-icon size="20px">{{ icon }}</v-icon>
+              <v-icon size="20px">{{ mdi[icon] }}</v-icon>
             </v-btn>
           </v-col>
 
@@ -77,6 +77,7 @@
 </template>
 
 <script>
+import { mdiGithub, mdiSlack, mdiTwitter, mdiLinkedin } from '@mdi/js'
 import Logo from '~/components/Logo.vue'
 import { icons, items } from '~/assets/json/nav/footer.json'
 
@@ -94,6 +95,12 @@ export default {
     return {
       icons,
       items,
+      mdi: {
+        mdiSlack,
+        mdiTwitter,
+        mdiLinkedin,
+        mdiGithub,
+      },
     }
   },
 }

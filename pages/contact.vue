@@ -18,7 +18,7 @@
       <v-col v-for="item in items" :key="item.title" cols="12" md="4">
         <v-card height="100%" class="d-flex flex-column">
           <v-card-title class="subtitle-2">
-            <v-icon left>{{ item.icon }}</v-icon>
+            <v-icon left>{{ mdi[item.icon] }}</v-icon>
             {{ item.title }}
           </v-card-title>
           <v-card-text v-html="item.text" />
@@ -26,7 +26,7 @@
           <v-card-actions>
             <v-spacer />
             <v-btn :href="item.button.href" color="accent" text>
-              <v-icon left>{{ item.button.icon }}</v-icon>
+              <v-icon left>{{ mdi[item.button.icon] }}</v-icon>
               {{ item.button.text }}
             </v-btn>
           </v-card-actions>
@@ -49,7 +49,7 @@
           target="_blank"
           outlined
         >
-          <v-icon left>mdi-linkedin</v-icon>
+          <v-icon left>{{ mdi.mdiLinkedin }}</v-icon>
           LinkedIn
         </v-btn>
         <v-btn
@@ -58,7 +58,7 @@
           target="_blank"
           outlined
         >
-          <v-icon left>mdi-twitter</v-icon>
+          <v-icon left>{{ mdi.mdiTwitter }}</v-icon>
           Twitter
         </v-btn>
 
@@ -75,6 +75,17 @@
 </template>
 
 <script>
+import {
+  mdiTwitter,
+  mdiGithub,
+  mdiLinkedin,
+  mdiSlack,
+  mdiEmailOutline,
+  mdiFaceAgent,
+  mdiBug,
+  mdiChatOutline,
+} from '@mdi/js'
+
 import Page from '~/components/Page.vue'
 
 export default {
@@ -87,39 +98,49 @@ export default {
       items: [
         {
           title: 'Sales and support',
-          icon: 'mdi-face-agent',
+          icon: 'mdiFaceAgent',
           text:
             'Email us at <a href="mailto:info@wappalyzer.com">info@wappalyzer.com</a> for sales enquiries and technical support for paid products, or just to say hi.',
           button: {
-            icon: 'mdi-email-outline',
+            icon: 'mdiEmailOutline',
             href: 'mailto:info@wappalyzer.com',
             text: 'Email us',
           },
         },
         {
           title: 'Bugs and feature requests',
-          icon: 'mdi-bug',
+          icon: 'mdiBug',
           text:
             'Did you find a bug with the browser extension or Node.js module, or want to request a new feature? Please create an issue on GitHub.',
           button: {
-            icon: 'mdi-github',
+            icon: 'mdiGithub',
             href: 'https://github.com/AliasIO/wappalyzer/issues/new/choose',
             text: 'Create an issue',
           },
         },
         {
           title: 'Technical discussion',
-          icon: 'mdi-chat-outline',
+          icon: 'mdiChatOutline',
           text:
             'Join us on Slack for technical discussion about the browser extension and Node.js module.',
           button: {
-            icon: 'mdi-slack',
+            icon: 'mdiSlack',
             href:
               'https://join.slack.com/t/wappalyzer/shared_invite/enQtMjc1MzA2NzE4NzkwLTA5Y2RmMTQxMTFhYzViODQzMzUyNGFkMWIzY2ZhZmFlOWY2NTcyZWY4OWVjYzhiY2JhZTZlMzBiNThlMWJiMjU',
             text: 'Join us on Slack',
           },
         },
       ],
+      mdi: {
+        mdiTwitter,
+        mdiGithub,
+        mdiLinkedin,
+        mdiSlack,
+        mdiEmailOutline,
+        mdiFaceAgent,
+        mdiBug,
+        mdiChatOutline,
+      },
     }
   },
 }

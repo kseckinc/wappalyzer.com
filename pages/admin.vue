@@ -25,7 +25,7 @@
       <v-card-actions>
         <v-spacer />
         <v-btn :loading="submitting" color="accent" text @click="submit">
-          <v-icon left>mdi-account</v-icon>
+          <v-icon left>{{ mdiAccount }}</v-icon>
           Sign in
         </v-btn>
       </v-card-actions>
@@ -35,6 +35,8 @@
 
 <script>
 import { mapState } from 'vuex'
+import { mdiAccount } from '@mdi/js'
+
 import Page from '~/components/Page.vue'
 
 export default {
@@ -46,6 +48,7 @@ export default {
       title: 'Administration',
       email: '',
       error: false,
+      mdiAccount,
       submitting: false,
       success: false,
     }

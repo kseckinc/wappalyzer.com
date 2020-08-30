@@ -14,7 +14,7 @@
 
     <div class="mb-4">
       <v-btn href="/docs/api" color="accent" outlined>
-        <v-icon left>mdi-book-open-page-variant</v-icon>
+        <v-icon left>{{ mdiBookOpenPageVariant }}</v-icon>
         API reference
       </v-btn>
     </div>
@@ -29,7 +29,7 @@
         <v-card-text v-else class="pb-0">
           <v-text-field
             v-model="apiKey.value"
-            :append-icon="showKey ? 'mdi-eye-off' : 'mdi-eye'"
+            :append-icon="showKey ? mdiEyeOff : mdiEye"
             :type="showKey ? 'text' : 'password'"
             class="apikey__value"
             label=""
@@ -48,10 +48,10 @@
             color="accent"
             text
             @click="create"
-            ><v-icon left>mdi-key-plus</v-icon> Create key</v-btn
+            ><v-icon left>{{ mdiKeyPlus }}</v-icon> Create key</v-btn
           >
           <v-btn v-else color="error" text @click="removeDialog = true"
-            ><v-icon left>mdi-key-remove</v-icon> Delete key</v-btn
+            ><v-icon left>{{ mdiKeyRemove }}</v-icon> Delete key</v-btn
           >
         </v-card-actions>
       </v-card>
@@ -86,6 +86,13 @@
 </template>
 
 <script>
+import {
+  mdiBookOpenPageVariant,
+  mdiEye,
+  mdiEyeOff,
+  mdiKeyPlus,
+  mdiKeyRemove,
+} from '@mdi/js'
 import Page from '~/components/Page.vue'
 
 export default {
@@ -98,6 +105,11 @@ export default {
       apiKey: null,
       creating: false,
       error: false,
+      mdiBookOpenPageVariant,
+      mdiEye,
+      mdiEyeOff,
+      mdiKeyPlus,
+      mdiKeyRemove,
       removeDialog: false,
       removeError: false,
       removing: false,

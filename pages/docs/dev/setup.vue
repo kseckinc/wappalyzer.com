@@ -38,12 +38,9 @@ $ cd wappalyzer
 $ yarn install
 $ yarn run link</Prism></pre>
 
-      <h2 id="drivers" class="mt-8 mb-2">
+      <Heading id="drivers" size="2" class="mt-8 mb-2">
         Drivers
-        <a href="#drivers" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h2>
+      </Heading>
 
       <p>
         Wappalyzer is available on multiple platforms. Core functionality is
@@ -66,12 +63,9 @@ $ yarn run link</Prism></pre>
         Follow the steps below to run Wappalyzer from source.
       </p>
 
-      <h3 id="chrome" class="mt-8 mb-2">
+      <Heading id="chrome" size="3" class="mt-8 mb-2">
         Chrome and Edge extensions
-        <a href="#chrome" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h3>
+      </Heading>
 
       <ul>
         <li>Go go <code>about:extensions</code></li>
@@ -80,12 +74,9 @@ $ yarn run link</Prism></pre>
         <li>Select <code>src/drivers/webextension</code></li>
       </ul>
 
-      <h3 id="firefox" class="mt-8 mb-2">
+      <Heading id="firefox" size="3" class="mt-8 mb-2">
         Firefox add-on
-        <a href="#firefox" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h3>
+      </Heading>
 
       <ul>
         <li>Go go <code>about:debugging#/runtime/this-firefox</code></li>
@@ -93,12 +84,9 @@ $ yarn run link</Prism></pre>
         <li>Select <code>src/drivers/webextension/manifest.json</code></li>
       </ul>
 
-      <h3 id="nodejs" class="mt-8 mb-2">
+      <Heading id="nodejs" size="3" class="mt-8 mb-2">
         Node.js
-        <a href="#nodejs" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h3>
+      </Heading>
 
       <p>
         Run Wappalyzer directly on the command line using Node.js. For available
@@ -115,11 +103,13 @@ $ yarn run link</Prism></pre>
 
 <script>
 import Page from '~/components/Page.vue'
+import Heading from '~/components/Heading.vue'
 import side from '~/assets/json/nav/docs.json'
 
 export default {
   components: {
     Page,
+    Heading,
   },
   data() {
     return {
@@ -129,19 +119,3 @@ export default {
   },
 }
 </script>
-
-<style>
-h2 .docs__anchor,
-h3 .docs__anchor {
-  visibility: hidden;
-}
-
-h2:hover .docs__anchor,
-h3:hover .docs__anchor {
-  visibility: visible;
-}
-
-.docs__anchor {
-  text-decoration: none;
-}
-</style>

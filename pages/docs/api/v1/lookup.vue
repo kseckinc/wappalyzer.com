@@ -162,7 +162,7 @@
         be returned instead.
       </p>
 
-      <v-alert icon="mdi-lightbulb-on-outline" outlined>
+      <v-alert :icon="mdiLightbulbOnOutline" outlined>
         A <code>404</code> response will still be counted towards the
         subscription quota. Provide a <code>callback_url</code> if possible.
       </v-alert>
@@ -196,6 +196,8 @@
 </template>
 
 <script>
+import { mdiLightbulbOnOutline } from '@mdi/js'
+
 import Page from '~/components/Page.vue'
 import Heading from '~/components/Heading.vue'
 import side from '~/assets/json/nav/docs.json'
@@ -208,6 +210,7 @@ export default {
   data() {
     return {
       title: 'Developer documentation',
+      mdiLightbulbOnOutline,
       side,
     }
   },

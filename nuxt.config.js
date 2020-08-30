@@ -76,6 +76,7 @@ export default {
   loading: { color: '#fff' },
   css: ['~/assets/scss/styles.scss'],
   plugins: [
+    '~/plugins/vuetify.js',
     '~/plugins/axios.js',
     '~/plugins/mixins.js',
     '~/plugins/gtag.js',
@@ -93,7 +94,6 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/sitemap',
     'nuxt-stripe-module',
-    'nuxtjs-mdi-font',
     [
       'nuxt-canonical',
       { baseUrl: process.env.WEBSITE_URL, trailingSlashes: true },

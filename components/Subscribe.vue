@@ -38,7 +38,7 @@
             large
             @click="subscribe"
           >
-            <v-icon left>mdi-email</v-icon> Subscribe
+            <v-icon left>{{ mdiEmail }}</v-icon> Subscribe
           </v-btn>
         </v-form>
       </div>
@@ -47,11 +47,14 @@
 </template>
 
 <script>
+import { mdiEmail } from '@mdi/js'
+
 export default {
   data() {
     return {
       email: '',
       error: false,
+      mdiEmail,
       success: false,
       subscribing: false,
     }

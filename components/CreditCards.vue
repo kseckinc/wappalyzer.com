@@ -52,9 +52,9 @@
                       removeId = paymentMethod.id
                       removeDialog = true
                     "
-                    ><v-icon color="error"
-                      >mdi-credit-card-remove-outline</v-icon
-                    ></v-btn
+                    ><v-icon color="error">{{
+                      mdiCreditCardRemoveOutline
+                    }}</v-icon></v-btn
                   >
                 </td>
               </tr>
@@ -66,7 +66,7 @@
       <v-card-actions>
         <v-spacer />
         <v-btn color="accent" text @click="addDialog = true"
-          ><v-icon left>mdi-credit-card-plus-outline</v-icon> Add card</v-btn
+          ><v-icon left>{{ mdiCreditCardPlusOutline }}</v-icon> Add card</v-btn
         >
       </v-card-actions>
 
@@ -151,6 +151,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { mdiCreditCardPlusOutline, mdiCreditCardRemoveOutline } from '@mdi/js'
 
 import CreditCard from '~/components/CreditCard.vue'
 
@@ -170,6 +171,8 @@ export default {
       addError: false,
       billingName: '',
       error: false,
+      mdiCreditCardPlusOutline,
+      mdiCreditCardRemoveOutline,
       paymentMethods: null,
       removeDialog: false,
       removeError: false,

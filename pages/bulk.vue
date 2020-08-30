@@ -13,7 +13,7 @@
         outlined
         @click="$refs.pricingDialog.open()"
       >
-        <v-icon left>mdi-calculator</v-icon>
+        <v-icon left>{{ mdiCalculator }}</v-icon>
         Pricing
       </v-btn>
 
@@ -26,7 +26,7 @@
       <v-form ref="form">
         <v-card class="mb-8" color="secondary">
           <v-card-title>
-            <v-icon color="primary" left>mdi-format-list-checks</v-icon>
+            <v-icon color="primary" left>{{ mdiFormatListChecks }}</v-icon>
             Selection
           </v-card-title>
           <v-card-text>
@@ -82,7 +82,7 @@
                       :key="set.key"
                     >
                       <td>
-                        <v-row class="px-2">
+                        <v-row class="px-2" align="center">
                           <v-checkbox
                             v-model="set.value"
                             :disabled="set.disabled"
@@ -98,9 +98,9 @@
                           </v-checkbox>
                           <v-tooltip :key="set.key" top>
                             <template v-slot:activator="{ on }">
-                              <v-icon small class="ml-1" v-on="on"
-                                >mdi-information-outline</v-icon
-                              >
+                              <v-icon small class="ml-1" v-on="on">{{
+                                mdiInformationOutline
+                              }}</v-icon>
                             </template>
 
                             {{
@@ -124,7 +124,7 @@
           color="primary"
           large
           @click="submit"
-          >Get a quote <v-icon right>mdi-arrow-right</v-icon>
+          >Get a quote <v-icon right>{{ mdiArrowRight }}</v-icon>
         </v-btn>
       </v-form>
 
@@ -156,6 +156,13 @@
 </template>
 
 <script>
+import {
+  mdiCalculator,
+  mdiFormatListChecks,
+  mdiInformationOutline,
+  mdiArrowRight,
+} from '@mdi/js'
+
 import Page from '~/components/Page.vue'
 import Logos from '~/components/Logos.vue'
 import SignIn from '~/components/SignIn.vue'
@@ -179,6 +186,10 @@ export default {
       file: '',
       fileErrors: [],
       signInDialog: false,
+      mdiCalculator,
+      mdiFormatListChecks,
+      mdiInformationOutline,
+      mdiArrowRight,
       meta,
       order: false,
       orderError: '',

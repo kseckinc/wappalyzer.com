@@ -23,7 +23,7 @@
 
               <v-btn :to="article.to" color="accent" text>
                 Read article
-                <v-icon right small>mdi-arrow-right</v-icon>
+                <v-icon right small>{{ mdiArrowRight }}</v-icon>
               </v-btn>
             </v-card-actions>
           </div>
@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import { mdiArrowRight } from '@mdi/js'
+
 import Page from '~/components/Page.vue'
 
 export default {
@@ -65,6 +67,7 @@ export default {
           to: '/articles/wappalyzer-vs-builtwith-and-datanyze/',
         },
       ],
+      mdiArrowRight,
     }
   },
 }

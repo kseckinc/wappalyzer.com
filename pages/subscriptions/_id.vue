@@ -26,7 +26,7 @@
         outlined
       >
         Stripe subscription
-        <v-icon right>mdi-open-in-new</v-icon>
+        <v-icon right>{{ mdiOpenInNew }}</v-icon>
       </v-btn>
 
       <v-btn
@@ -34,15 +34,7 @@
         to="/apikey/"
         color="accent"
         outlined
-        ><v-icon left>mdi-key-variant</v-icon> API key</v-btn
-      >
-
-      <v-btn
-        v-if="subscription.planId.startsWith('alerts_')"
-        to="/alerts/manage/"
-        color="accent"
-        outlined
-        ><v-icon left>mdi-bullhorn</v-icon> Alerts</v-btn
+        ><v-icon left>{{ mdiKeyVariant }}</v-icon> API key</v-btn
       >
 
       <v-card class="my-4">
@@ -107,10 +99,10 @@
         >
           <v-spacer />
           <v-btn color="accent" text @click="paymentMethodDialog = true">
-            <v-icon left>mdi-credit-card-outline</v-icon> Change payment
+            <v-icon left>{{ mdiCreditCardOutline }}</v-icon> Change payment
           </v-btn>
           <v-btn color="error" text @click="cancel(false)">
-            <v-icon left>mdi-calendar-remove</v-icon> Cancel subscription
+            <v-icon left>{{ mdiCalendarRemove }}</v-icon> Cancel subscription
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -213,6 +205,13 @@
 
 <script>
 import { mapState } from 'vuex'
+import {
+  mdiOpenInNew,
+  mdiKeyVariant,
+  mdiCreditCardOutline,
+  mdiCalendarRemove,
+} from '@mdi/js'
+
 import Page from '~/components/Page.vue'
 import CreditCard from '~/components/CreditCard.vue'
 
@@ -227,6 +226,10 @@ export default {
       cancelError: false,
       cancelling: false,
       error: false,
+      mdiOpenInNew,
+      mdiKeyVariant,
+      mdiCreditCardOutline,
+      mdiCalendarRemove,
       paymentMethodDialog: false,
       paymentMethodError: false,
       paymentMethodSaving: false,

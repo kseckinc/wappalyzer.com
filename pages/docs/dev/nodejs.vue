@@ -12,7 +12,7 @@
         and contributed to by a large community of developers.
       </p>
 
-      <v-alert icon="mdi-lightbulb-on-outline" class="my-8" outlined>
+      <v-alert :icon="mdiLightbulbOnOutline" class="my-8" outlined>
         Consider using our <nuxt-link to="/api/">APIs</nuxt-link> if you don't
         want to create and maintain your own infrastructure or worry about
         scalability.
@@ -64,6 +64,8 @@
 </template>
 
 <script>
+import { mdiLightbulbOnOutline } from '@mdi/js'
+
 import Page from '~/components/Page.vue'
 import side from '~/assets/json/nav/docs.json'
 
@@ -74,6 +76,7 @@ export default {
   data() {
     return {
       title: 'Developer documentation',
+      mdiLightbulbOnOutline,
       side,
     }
   },

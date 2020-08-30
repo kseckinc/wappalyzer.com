@@ -14,17 +14,17 @@
         outlined
         @click="$refs.pricingDialog.open()"
       >
-        <v-icon left>mdi-calculator</v-icon>
+        <v-icon left>{{ mdiCalculator }}</v-icon>
         Pricing
       </v-btn>
 
       <v-btn color="accent" href="/list-sample.zip" class="mt-4 mb-8" outlined>
-        <v-icon left>mdi-download</v-icon>
+        <v-icon left>{{ mdiDownload }}</v-icon>
         Sample list
       </v-btn>
 
       <v-btn color="accent" to="/faq/lists/" class="mt-4 mb-8" outlined>
-        <v-icon left>mdi-forum</v-icon>
+        <v-icon left>{{ mdiForum }}</v-icon>
         FAQs
       </v-btn>
 
@@ -40,7 +40,7 @@
           <v-row>
             <v-col class="py-0 pr-sm-0" cols="12" sm="6">
               <v-card-title>
-                <v-icon color="primary" left>mdi-format-list-checks</v-icon>
+                <v-icon color="primary" left>{{ mdiFormatListChecks }}</v-icon>
                 Selection
               </v-card-title>
               <v-card-text>
@@ -83,7 +83,7 @@
                           </td>
                           <td width="1">
                             <v-btn icon @click="removeItem(item)">
-                              <v-icon>mdi-close-circle-outline</v-icon>
+                              <v-icon>{{ mdiCloseCircleOutline }}</v-icon>
                             </v-btn>
                           </td>
                         </tr>
@@ -115,7 +115,7 @@
                           :key="set.key"
                         >
                           <td>
-                            <v-row class="px-2">
+                            <v-row class="px-2" align="center">
                               <v-checkbox
                                 v-model="set.value"
                                 :disabled="set.disabled"
@@ -131,9 +131,9 @@
                               </v-checkbox>
                               <v-tooltip :key="set.key" top>
                                 <template v-slot:activator="{ on }">
-                                  <v-icon small class="ml-1" v-on="on"
-                                    >mdi-information-outline</v-icon
-                                  >
+                                  <v-icon small class="ml-1" v-on="on">{{
+                                    mdiInformationOutline
+                                  }}</v-icon>
                                 </template>
 
                                 {{
@@ -152,9 +152,9 @@
               </v-card-text>
 
               <v-card-title>
-                <v-icon color="primary" left
-                  >mdi-arrow-collapse-vertical</v-icon
-                >
+                <v-icon color="primary" left>{{
+                  mdiArrowCollapseVertical
+                }}</v-icon>
                 Limits <span class="grey--text ml-1">(optional)</span>
               </v-card-title>
               <v-card-text>
@@ -207,7 +207,7 @@
             </v-col>
             <v-col class="py-0 pl-sm-0" cols="12" sm="6">
               <v-card-title>
-                <v-icon color="primary" left>mdi-filter-outline</v-icon>
+                <v-icon color="primary" left>{{ mdiFilterOutline }}</v-icon>
                 Filters <span class="grey--text ml-1">(optional)</span>
               </v-card-title>
               <v-card-text>
@@ -232,8 +232,8 @@
                           <v-list-item-action>
                             <v-icon :color="item.active ? 'primary' : ''">{{
                               item.active
-                                ? 'mdi-checkbox-marked'
-                                : 'mdi-checkbox-blank-outline'
+                                ? mdiCheckboxMarked
+                                : mdiCheckboxBlankOutline
                             }}</v-icon>
                           </v-list-item-action>
 
@@ -295,7 +295,9 @@
                         ><a
                           href="https://en.wikipedia.org/wiki/Top-level_domain"
                           target="_blank"
-                          ><v-icon color="accent" small>mdi-help-box</v-icon></a
+                          ><v-icon color="accent" small>{{
+                            mdiHelpBox
+                          }}</v-icon></a
                         ></sup
                       >
                     </p>
@@ -316,7 +318,7 @@
                           <v-text-field
                             v-model="tld"
                             :error-messages="tldErrors"
-                            append-icon="mdi-plus"
+                            :append-icon="mdiPlus"
                             placeholder=".com"
                             hide-details="auto"
                             @click:append="addTld"
@@ -340,10 +342,10 @@
                               :color="selected.tlds.length > 0 ? 'primary' : ''"
                               >{{
                                 tlds.every(({ active }) => active)
-                                  ? 'mdi-checkbox-marked'
+                                  ? mdiCheckboxMarked
                                   : tlds.some(({ active }) => active)
-                                  ? 'mdi-minus-box-outline'
-                                  : 'mdi-checkbox-blank-outline'
+                                  ? mdiMinusBoxOutline
+                                  : mdiCheckboxBlankOutline
                               }}</v-icon
                             >
                           </v-list-item-action>
@@ -361,8 +363,8 @@
                           <v-list-item-action>
                             <v-icon :color="item.active ? 'primary' : ''">{{
                               item.active
-                                ? 'mdi-checkbox-marked'
-                                : 'mdi-checkbox-blank-outline'
+                                ? mdiCheckboxMarked
+                                : mdiCheckboxBlankOutline
                             }}</v-icon>
                           </v-list-item-action>
 
@@ -423,10 +425,10 @@
                           <v-list-item-action>
                             <v-icon :color="item.active ? 'primary' : ''">{{
                               typeof item.value === 'object'
-                                ? 'mdi-dots-horizontal'
+                                ? mdiDotsHorizontal
                                 : item.active
-                                ? 'mdi-checkbox-marked'
-                                : 'mdi-checkbox-blank-outline'
+                                ? mdiCheckboxMarked
+                                : mdiCheckboxBlankOutline
                             }}</v-icon>
                           </v-list-item-action>
 
@@ -467,10 +469,10 @@
                               "
                               >{{
                                 variants.every(({ active }) => active)
-                                  ? 'mdi-checkbox-marked'
+                                  ? mdiCheckboxMarked
                                   : variants.some(({ active }) => active)
-                                  ? 'mdi-minus-box-outline'
-                                  : 'mdi-checkbox-blank-outline'
+                                  ? mdiMinusBoxOutline
+                                  : mdiCheckboxBlankOutline
                               }}</v-icon
                             >
                           </v-list-item-action>
@@ -488,8 +490,8 @@
                           <v-list-item-action>
                             <v-icon :color="item.active ? 'primary' : ''">{{
                               item.active
-                                ? 'mdi-checkbox-marked'
-                                : 'mdi-checkbox-blank-outline'
+                                ? mdiCheckboxMarked
+                                : mdiCheckboxBlankOutline
                             }}</v-icon>
                           </v-list-item-action>
 
@@ -557,7 +559,7 @@
           class="mt-4 mb-4"
           large
           @click="submit"
-          >Get a quote <v-icon right>mdi-arrow-right</v-icon>
+          >Get a quote <v-icon right>{{ mdiArrowRight }}</v-icon>
         </v-btn>
 
         <p class="mb-8">
@@ -590,6 +592,21 @@
 </template>
 
 <script>
+import {
+  mdiCalculator,
+  mdiDownload,
+  mdiForum,
+  mdiFormatListChecks,
+  mdiCloseCircleOutline,
+  mdiInformationOutline,
+  mdiCheckboxMarked,
+  mdiCheckboxBlankOutline,
+  mdiMinusBoxOutline,
+  mdiDotsHorizontal,
+  mdiHelpBox,
+  mdiPlus,
+  mdiArrowRight,
+} from '@mdi/js'
 import Page from '~/components/Page.vue'
 import Technologies from '~/components/Technologies.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
@@ -621,6 +638,19 @@ export default {
       file: '',
       fileErrors: [],
       matchAll: false,
+      mdiCalculator,
+      mdiDownload,
+      mdiForum,
+      mdiFormatListChecks,
+      mdiCloseCircleOutline,
+      mdiInformationOutline,
+      mdiCheckboxMarked,
+      mdiCheckboxBlankOutline,
+      mdiMinusBoxOutline,
+      mdiDotsHorizontal,
+      mdiHelpBox,
+      mdiPlus,
+      mdiArrowRight,
       meta,
       signInDialog: false,
       selectedCountry: '',

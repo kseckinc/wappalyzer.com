@@ -140,7 +140,7 @@
         text
         @click.prevent="submit(false)"
       >
-        <v-icon left>mdi-content-save</v-icon> Save</v-btn
+        <v-icon left>{{ mdiContentSave }}</v-icon> Save</v-btn
       >
     </v-card-actions>
   </v-form>
@@ -148,6 +148,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import { mdiContentSave } from '@mdi/js'
 
 import taxIds from '~/assets/json/taxids'
 import countries from '~/assets/json/countries'
@@ -181,6 +182,7 @@ export default {
         required: [(v) => !!v || 'This field is required'],
         email: [(v) => /@/.test(v) || 'Enter a valid email address'],
       },
+      mdiContentSave,
       saving: false,
       success: false,
       taxIds,

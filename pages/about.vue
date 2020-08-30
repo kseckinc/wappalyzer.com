@@ -20,7 +20,7 @@
         <a href="https://alias.io" target="_blank">Elbert Alias</a> (<a
           href="https://www.linkedin.com/in/elbertalias/"
           target="_blank"
-          ><v-icon color="accent" small>mdi-linkedin</v-icon></a
+          ><v-icon color="accent" small> {{ mdiLinkedin }}</v-icon></a
         >), a Dutch expatriate software engineer.
       </p>
 
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { mdiLinkedin } from '@mdi/js'
 import Page from '~/components/Page.vue'
 
 export default {
@@ -45,6 +46,7 @@ export default {
   data() {
     return {
       title: 'Our story',
+      mdiLinkedin,
     }
   },
 }

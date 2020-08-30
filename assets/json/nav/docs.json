@@ -1,7 +1,7 @@
 [
   {
     "title": "Development",
-    "icon": "mdi-monitor",
+    "icon": "mdiMonitor",
     "to": "/docs/dev/",
     "items": [
       {
@@ -24,7 +24,7 @@
   },
   {
     "title": "APIs",
-    "icon": "mdi-console",
+    "icon": "mdiConsole",
     "to": "/docs/api/",
     "items": [
       {
@@ -43,7 +43,7 @@
   },
   {
     "title": "Attribute sets",
-    "icon": "mdi-tag-outline",
+    "icon": "mdiTagOutline",
     "to": "/docs/sets/"
   }
 ]

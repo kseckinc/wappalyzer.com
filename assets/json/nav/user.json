@@ -1,42 +1,42 @@
 [
   {
     "title": "Account",
-    "icon": "mdi-account",
+    "icon": "mdiAccount",
     "to": "/account/"
   },
   {
     "title": "Credits",
-    "icon": "mdi-alpha-c-circle",
+    "icon": "mdiAlphaCCircle",
     "to": "/credits/"
   },
   {
     "title": "Payment methods",
-    "icon": "mdi-credit-card",
+    "icon": "mdiCreditCard",
     "to": "/paymentmethods/"
   },
   {
     "title": "Subscriptions",
-    "icon": "mdi-calendar-repeat",
+    "icon": "mdiCalendarSync",
     "to": "/subscriptions/"
   },
   {
     "title": "Orders",
-    "icon": "mdi-cart",
+    "icon": "mdiCart",
     "to": "/orders/"
   },
   {
     "title": "Invoices",
-    "icon": "mdi-file-document-box-outline",
+    "icon": "mdiFileDocumentOutline",
     "to": "/invoices/"
   },
   {
     "title": "API Key",
-    "icon": "mdi-key-variant",
+    "icon": "mdiKeyVariant",
     "to": "/apikey/"
   },
   {
     "title": "Sign out",
-    "icon": "mdi-logout-variant",
+    "icon": "mdiLogoutVariant",
     "to": "/signout/",
     "auth": true
   }

@@ -1,8 +1,18 @@
 <template>
   <v-btn class="spinner ml-n1" icon disabled small>
-    <v-icon>mdi-autorenew</v-icon>
+    <v-icon>{{ mdiAutorenew }}</v-icon>
   </v-btn>
 </template>
+
+<script>
+import { mdiAutorenew } from '@mdi/js'
+
+export default {
+  data() {
+    return { mdiAutorenew }
+  },
+}
+</script>
 
 <style>
 .spinner {

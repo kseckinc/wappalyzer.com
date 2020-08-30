@@ -28,9 +28,9 @@
                 <td>
                   <a :href="invoice.hosted_invoice_url" target="_blank">
                     {{ invoice.number
-                    }}<v-icon color="accent" right small
-                      >mdi-open-in-new</v-icon
-                    >
+                    }}<v-icon color="accent" right small>{{
+                      mdiOpenInNew
+                    }}</v-icon>
                   </a>
                 </td>
                 <td>{{ formatDate(new Date(invoice.created * 1000)) }}</td>
@@ -39,10 +39,12 @@
                 </td>
                 <td>
                   <v-btn v-if="invoice.status === 'paid'" icon>
-                    <v-icon color="success">mdi-checkbox-marked-outline</v-icon>
+                    <v-icon color="success">{{
+                      mdiCheckboxMarkedOutline
+                    }}</v-icon>
                   </v-btn>
                   <v-btn v-else disabled icon>
-                    <v-icon>mdi-checkbox-blank-outline</v-icon>
+                    <v-icon>{{ mdiCheckboxBlankOutline }}</v-icon>
                   </v-btn>
                 </td>
                 <td>
@@ -51,12 +53,10 @@
                     :to="`/orders/${invoice.orderId}/`"
                     icon
                   >
-                    <v-icon color="accent"
-                      >mdi-file-document-box-outline</v-icon
-                    >
+                    <v-icon color="accent">{{ mdiFileDocumentOutline }}</v-icon>
                   </v-btn>
                   <v-btn v-else disabled icon>
-                    <v-icon>mdi-file-document-box-remove-outline</v-icon>
+                    <v-icon>{{ mdiFileDocumentRemoveOutline }}</v-icon>
                   </v-btn>
                 </td>
                 <td>
@@ -67,7 +67,7 @@
                     icon
                   >
                     <v-icon color="accent">{{
-                      invoice.invoice_pdf ? 'mdi-download' : 'mdi-download-off'
+                      invoice.invoice_pdf ? mdiDownload : mdiDownloadOff
                     }}</v-icon>
                   </v-btn>
                 </td>
@@ -81,6 +81,15 @@
 </template>
 
 <script>
+import {
+  mdiOpenInNew,
+  mdiCheckboxMarkedOutline,
+  mdiCheckboxBlankOutline,
+  mdiFileDocumentOutline,
+  mdiFileDocumentRemoveOutline,
+  mdiDownload,
+  mdiDownloadOff,
+} from '@mdi/js'
 import Page from '~/components/Page.vue'
 
 export default {
@@ -92,6 +101,13 @@ export default {
       title: 'Invoices',
       error: false,
       invoices: null,
+      mdiOpenInNew,
+      mdiCheckboxMarkedOutline,
+      mdiCheckboxBlankOutline,
+      mdiFileDocumentOutline,
+      mdiFileDocumentRemoveOutline,
+      mdiDownload,
+      mdiDownloadOff,
     }
   },
   watch: {

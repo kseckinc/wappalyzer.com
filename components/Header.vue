@@ -18,7 +18,7 @@
                     <v-icon v-if="icon" dense>{{ icon }}</v-icon>
                     <template v-else>
                       {{ title }}
-                      <v-icon dense right>mdi-chevron-down</v-icon>
+                      <v-icon dense right>{{ mdi.mdiChevronDown }}</v-icon>
                     </template>
                   </v-btn>
                 </template>
@@ -48,9 +48,9 @@
                         </v-list-item-subtitle>
                       </v-list-item-content>
                       <v-list-item-icon v-if="_to.match(/^http/)"
-                        ><v-icon dense
-                          >mdi-open-in-new</v-icon
-                        ></v-list-item-icon
+                        ><v-icon dense>{{
+                          mdi.mdiOpenInNew
+                        }}</v-icon></v-list-item-icon
                       >
                     </v-list-item>
                   </div>
@@ -67,7 +67,9 @@
                   text
                   v-on="on"
                 >
-                  <v-icon :left="isSignedIn" size="20">mdi-account</v-icon>
+                  <v-icon :left="isSignedIn" size="20">{{
+                    mdi.mdiAccount
+                  }}</v-icon>
                   {{ user.email }}
                 </v-btn>
               </template>
@@ -76,7 +78,9 @@
                 <v-list nav dense>
                   <v-list-item v-if="user.admin" to="/admin">
                     <v-list-item-icon>
-                      <v-icon color="success" dense>mdi-lock-open</v-icon>
+                      <v-icon color="success" dense>{{
+                        mdi.mdiLockOpen
+                      }}</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title>
@@ -90,7 +94,7 @@
                     :to="to"
                   >
                     <v-list-item-icon>
-                      <v-icon dense>{{ icon }}</v-icon>
+                      <v-icon dense>{{ mdi[icon] }}</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title>
@@ -105,7 +109,7 @@
 
           <v-col class="text-right d-md-none">
             <v-btn icon color="white" @click.stop="$emit('openDrawer')">
-              <v-icon>mdi-menu</v-icon>
+              <v-icon>{{ mdi.mdiMenu }}</v-icon>
             </v-btn>
           </v-col>
         </v-row>
@@ -117,6 +121,19 @@
 </template>
 
 <script>
+import {
+  mdiChevronDown,
+  mdiAccount,
+  mdiMenu,
+  mdiLockOpen,
+  mdiAlphaCCircle,
+  mdiCreditCard,
+  mdiCalendarSync,
+  mdiCart,
+  mdiFileDocumentOutline,
+  mdiKeyVariant,
+  mdiLogoutVariant,
+} from '@mdi/js'
 import Logo from '~/components/Logo.vue'
 import Hero from '~/components/Hero.vue'
 import { hero as meta } from '~/assets/json/meta.json'
@@ -152,6 +169,19 @@ export default {
   },
   data() {
     return {
+      mdi: {
+        mdiChevronDown,
+        mdiAccount,
+        mdiMenu,
+        mdiLockOpen,
+        mdiAlphaCCircle,
+        mdiCreditCard,
+        mdiCalendarSync,
+        mdiCart,
+        mdiFileDocumentOutline,
+        mdiKeyVariant,
+        mdiLogoutVariant,
+      },
       meta,
     }
   },

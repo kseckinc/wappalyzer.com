@@ -121,7 +121,7 @@
   "applications": []
 }</Prism></pre>
 
-      <v-alert icon="mdi-lightbulb-on-outline" outlined>
+      <v-alert :icon="mdiLightbulbOnOutline" outlined>
         Unsuccesful responses count towards the subscription quota.
       </v-alert>
     </Page>
@@ -129,6 +129,8 @@
 </template>
 
 <script>
+import { mdiLightbulbOnOutline } from '@mdi/js'
+
 import Page from '~/components/Page.vue'
 import Heading from '~/components/Heading.vue'
 import side from '~/assets/json/nav/docs.json'
@@ -141,6 +143,7 @@ export default {
   data() {
     return {
       title: 'Developer documentation',
+      mdiLightbulbOnOutline,
       side,
     }
   },

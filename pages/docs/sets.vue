@@ -10,7 +10,7 @@
       technologies. Additional attributes can optionally be included.
     </p>
 
-    <v-alert class="mt-8" icon="mdi-information-outline" outlined>
+    <v-alert class="mt-8" :icon="mdiInformationOutline" outlined>
       Attributes are subject to availability and unverified.
     </v-alert>
 
@@ -20,16 +20,13 @@
           ({ key }) => key !== 'base-list' && key !== 'base-lookup'
         )"
       >
-        <h2 :id="set.key" :key="set.key" class="mt-8 mb-2">
+        <Heading :id="set.key" :key="set.key" size="2" class="mt-8 mb-2">
           {{ set.name }}
           <template v-if="set.key"
             >(<code>{{ set.key }}</code
             >)</template
           >
-          <a :href="`#${set.key}`" class="docs__anchor">
-            <v-icon color="accent">mdi-link</v-icon>
-          </a>
-        </h2>
+        </Heading>
 
         <v-card :key="set.key" class="my-4" flat outlined>
           <v-simple-table>
@@ -52,17 +49,23 @@
 </template>
 
 <script>
+import { mdiInformationOutline, mdiLink } from '@mdi/js'
+
 import Page from '~/components/Page.vue'
+import Heading from '~/components/Heading.vue'
 import side from '~/assets/json/nav/docs.json'
 import sets from '~/assets/json/sets.json'
 
 export default {
   components: {
     Page,
+    Heading,
   },
   data() {
     return {
       title: 'Developer documentation',
+      mdiInformationOutline,
+      mdiLink,
       side,
       sets,
     }

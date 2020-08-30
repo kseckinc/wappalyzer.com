@@ -17,7 +17,7 @@
           exact
         >
           <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon>{{ mdi[item.icon] }}</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
             <v-list-item-title>
@@ -50,12 +50,47 @@
 </template>
 
 <script>
+import {
+  mdiAccount,
+  mdiAlphaCCircle,
+  mdiCreditCard,
+  mdiCalendarSync,
+  mdiCart,
+  mdiFileDocumentOutline,
+  mdiKeyVariant,
+  mdiPuzzle,
+  mdiFilterVariant,
+  mdiLogoutVariant,
+  mdiMonitor,
+  mdiConsole,
+  mdiTagOutline,
+} from '@mdi/js'
+
 export default {
   props: {
     items: {
       type: Array,
       default: () => [],
     },
+  },
+  data() {
+    return {
+      mdi: {
+        mdiAccount,
+        mdiAlphaCCircle,
+        mdiCreditCard,
+        mdiCalendarSync,
+        mdiCart,
+        mdiFileDocumentOutline,
+        mdiKeyVariant,
+        mdiPuzzle,
+        mdiFilterVariant,
+        mdiLogoutVariant,
+        mdiMonitor,
+        mdiConsole,
+        mdiTagOutline,
+      },
+    }
   },
 }
 </script>

@@ -32,7 +32,7 @@
       <v-card-actions>
         <v-spacer />
         <v-btn color="accent" text @click="billingDialog = true"
-          ><v-icon left>mdi-pencil</v-icon> Edit details</v-btn
+          ><v-icon left>{{ mdiPencil }}</v-icon> Edit details</v-btn
         >
       </v-card-actions>
 
@@ -62,7 +62,7 @@
           :to="{ path: '/credits/', query: { buy: true } }"
           color="accent"
           text
-          ><v-icon left>mdi-alpha-c-circle</v-icon> Buy credits</v-btn
+          ><v-icon left>{{ mdiAlphaCCircle }}</v-icon> Buy credits</v-btn
         >
       </v-card-actions>
     </v-card>
@@ -80,6 +80,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import { mdiAlphaCCircle, mdiPencil } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import Account from '~/components/Account.vue'
@@ -99,6 +100,8 @@ export default {
       accountSuccess: false,
       billingDialog: false,
       cardsLoaded: false,
+      mdiAlphaCCircle,
+      mdiPencil,
     }
   },
   computed: {

@@ -40,7 +40,7 @@
                 </td>
                 <td>
                   <a :href="alert.url" target="_blank">{{ alert.url }}</a>
-                  <v-icon small>mdi-open-in-new</v-icon>
+                  <v-icon small>{{ mdiOpenInNew }}</v-icon>
                 </td>
                 <td>{{ formatDate(new Date(alert.createdAt * 1000)) }}</td>
                 <td>{{ formatDate(new Date(alert.updatedAt * 1000)) }}</td>
@@ -51,7 +51,7 @@
                       removeUrl = alert.url
                       removeDialog = true
                     "
-                    ><v-icon>mdi-close-circle</v-icon></v-btn
+                    ><v-icon>{{ mdiCloseCircle }}</v-icon></v-btn
                   >
                 </td>
               </tr>
@@ -65,7 +65,7 @@
             color="accent"
             text
             @click="isSignedIn ? (createDialog = true) : (signInDialog = true)"
-            ><v-icon left>mdi-bullhorn</v-icon> Create alert</v-btn
+            ><v-icon left>{{ mdiBullhorn }}</v-icon> Create alert</v-btn
           >
         </v-card-actions>
       </v-card>
@@ -107,7 +107,8 @@
               color="accent"
               text
               @click="create"
-              ><v-icon left>mdi-alpha-c-circle</v-icon> Spend 10 credits</v-btn
+              ><v-icon left>{{ mdiAlphaCCircle }}</v-icon> Spend 10
+              credits</v-btn
             >
           </v-card-actions>
         </v-card>
@@ -150,6 +151,12 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import {
+  mdiOpenInNew,
+  mdiCloseCircle,
+  mdiBullhorn,
+  mdiAlphaCCircle,
+} from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import Logos from '~/components/Logos.vue'
@@ -178,6 +185,10 @@ export default {
       removeError: false,
       removing: false,
       removeUrl: '',
+      mdiOpenInNew,
+      mdiCloseCircle,
+      mdiBullhorn,
+      mdiAlphaCCircle,
       meta,
       rules: {
         url: [

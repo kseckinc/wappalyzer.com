@@ -48,7 +48,7 @@
           Administration
         </v-list-item-title>
         <v-list-item-icon>
-          <v-icon color="success" dense>mdi-lock-open</v-icon>
+          <v-icon color="success" dense>{{ mdiLockOpen }}</v-icon>
         </v-list-item-icon>
       </v-list-item>
       <v-list-item
@@ -70,6 +70,8 @@
 </template>
 
 <script>
+import { mdiLockOpen } from '@mdi/js'
+
 export default {
   props: {
     mainNav: {
@@ -90,6 +92,7 @@ export default {
   data() {
     return {
       isOpen: false,
+      mdiLockOpen,
     }
   },
   methods: {

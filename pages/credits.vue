@@ -15,16 +15,16 @@
 
     <div class="mb-4">
       <v-btn v-if="isAdmin" color="success" outlined @click="addDialog = true">
-        <v-icon left>mdi-alpha-c-circle</v-icon>
+        <v-icon left>{{ mdiAlphaCCircle }}</v-icon>
         Add credits
       </v-btn>
 
       <v-btn color="accent" outlined @click="orderDialog = true"
-        ><v-icon left>mdi-alpha-c-circle</v-icon> Buy credits</v-btn
+        ><v-icon left>{{ mdiAlphaCCircle }}</v-icon> Buy credits</v-btn
       >
 
       <v-btn href="/faq/credits" color="accent" outlined>
-        <v-icon left>mdi-forum</v-icon>
+        <v-icon left>{{ mdiForum }}</v-icon>
         FAQs
       </v-btn>
     </div>
@@ -86,7 +86,7 @@
         <v-card-actions>
           <v-spacer />
           <v-btn color="accent" text @click="orderDialog = true"
-            ><v-icon left>mdi-alpha-c-circle</v-icon> Buy credits</v-btn
+            ><v-icon left>{{ mdiAlphaCCircle }}</v-icon> Buy credits</v-btn
           >
         </v-card-actions>
 
@@ -265,6 +265,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import { mdiAlphaCCircle, mdiForum } from '@mdi/js'
 import { creditTiers } from '~/assets/json/pricing.json'
 
 import Page from '~/components/Page.vue'
@@ -283,6 +284,8 @@ export default {
       credits: 100,
       creditTiers,
       description: 'Complimentary credits',
+      mdiAlphaCCircle,
+      mdiForum,
       rules: {
         credits: [
           (v) => /^[0-9]+$/.test(v),

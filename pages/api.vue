@@ -3,11 +3,11 @@
     <Page :title="title" :head="meta" no-heading>
       <div class="mt-8">
         <v-btn color="accent" to="/faq/api/" class="mb-2" outlined>
-          <v-icon left>mdi-forum</v-icon>
+          <v-icon left>{{ mdiForum }}</v-icon>
           FAQs
         </v-btn>
         <v-btn color="accent" to="/docs/api/" class="mb-2" outlined>
-          <v-icon left>mdi-book-open-page-variant</v-icon>
+          <v-icon left>{{ mdiBookOpenPageVariant }}</v-icon>
           API reference
         </v-btn>
       </div>
@@ -68,6 +68,8 @@
 </template>
 
 <script>
+import { mdiForum, mdiBookOpenPageVariant } from '@mdi/js'
+
 import Page from '~/components/Page.vue'
 import Logos from '~/components/Logos.vue'
 import Matrix from '~/components/Matrix.vue'
@@ -86,6 +88,8 @@ export default {
       attrs,
       apis,
       meta,
+      mdiForum,
+      mdiBookOpenPageVariant,
     }
   },
 }

@@ -54,12 +54,9 @@
   "website": "https://example.com",
 }</Prism></pre>
 
-      <h2 id="json-fields" class="mt-8 mb-2">
+      <Heading id="json-fields" size="2" class="mt-8 mb-2">
         JSON fields
-        <a href="#json-fields" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h2>
+      </Heading>
 
       <p>
         Find the JSON schema at
@@ -72,12 +69,9 @@
         >.
       </p>
 
-      <h3 id="required-properties" class="mt-8 mb-2">
+      <Heading id="required-properties" size="3" class="mt-8 mb-2">
         Required properties
-        <a href="#properties-required" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h3>
+      </Heading>
 
       <v-card class="my-4" flat outlined>
         <v-simple-table>
@@ -110,12 +104,9 @@
         </v-simple-table>
       </v-card>
 
-      <h3 id="optional-properties" class="mt-8 mb-2">
+      <Heading id="optional-properties" size="3" class="mt-8 mb-2">
         Optional properties
-        <a href="#optional-properties" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h3>
+      </Heading>
 
       <v-card class="my-4" flat outlined>
         <v-simple-table>
@@ -161,12 +152,9 @@
         </v-simple-table>
       </v-card>
 
-      <h3 id="implies-and-excludes-optional" class="mt-8 mb-2">
+      <Heading id="implies-and-excludes-optional" size="3" class="mt-8 mb-2">
         Implies and excludes (optional)
-        <a href="#implies-and-excludes-optional" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h3>
+      </Heading>
 
       <v-card class="my-4" flat outlined>
         <v-simple-table>
@@ -201,12 +189,9 @@
         </v-simple-table>
       </v-card>
 
-      <h3 id="patterns-optional" class="mt-8 mb-2">
+      <Heading id="patterns-optional" size="3" class="mt-8 mb-2">
         Patterns (optional)
-        <a href="#patterns-optional" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h3>
+      </Heading>
 
       <v-card class="my-4" flat outlined>
         <v-simple-table>
@@ -281,24 +266,18 @@
         </v-simple-table>
       </v-card>
 
-      <h3 id="patterns" class="mt-8 mb-2">
+      <Heading id="patterns" size="2" class="mt-8 mb-2">
         Patterns
-        <a href="#patterns" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h3>
+      </Heading>
 
       <p>
         Patterns are essentially JavaScript regular expressions written as
         strings, but with some additions.
       </p>
 
-      <h2 id="quirks-and-pitfalls" class="mt-8 mb-2">
+      <Heading id="quirks-and-pitfalls" size="3" class="mt-8 mb-2">
         Quirks and pitfalls
-        <a href="#quirks-and-pitfalls" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h2>
+      </Heading>
 
       <ul class="mb-4">
         <li>
@@ -325,12 +304,9 @@
         </li>
       </ul>
 
-      <h2 id="tags" class="mt-8 mb-2">
+      <Heading id="tags" size="3" class="mt-8 mb-2">
         Tags
-        <a href="#tags" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h2>
+      </Heading>
 
       <p>
         Tags (a non-standard syntax) can be appended to patterns (and implies
@@ -373,12 +349,9 @@
         </v-simple-table>
       </v-card>
 
-      <h2 id="version-syntax" class="mt-8 mb-2">
+      <Heading id="version-syntax" size="3" class="mt-8 mb-2">
         Version syntax
-        <a href="#version-syntax" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h2>
+      </Heading>
 
       <p>
         Application version information can be obtained from a pattern using a
@@ -434,11 +407,13 @@
 
 <script>
 import Page from '~/components/Page.vue'
+import Heading from '~/components/Heading.vue'
 import side from '~/assets/json/nav/docs.json'
 
 export default {
   components: {
     Page,
+    Heading,
   },
   data() {
     return {
@@ -448,19 +423,3 @@ export default {
   },
 }
 </script>
-
-<style>
-h2 .docs__anchor,
-h3 .docs__anchor {
-  visibility: hidden;
-}
-
-h2:hover .docs__anchor,
-h3:hover .docs__anchor {
-  visibility: visible;
-}
-
-.docs__anchor {
-  text-decoration: none;
-}
-</style>

@@ -6,14 +6,14 @@
   "lookup": {
     "title": "Technology lookup",
     "subtitle": "Find out what websites are built with",
-    "icon": "mdi-layers-outline",
+    "icon": "mdiLayersOutline",
     "image": "lookup.svg",
     "text": "Instantly reveal the technology stack and contact details of any website.",
     "buttons": [
       {
         "text": "Look up a website",
         "to": "/lookup/",
-        "icon": "mdi-magnify"
+        "icon": "mdiMagnify"
       }
     ],
     "features": ["Instant results", "Look up any website", "50 Free monthly lookups"],
@@ -22,14 +22,14 @@
   "lists": {
     "title": "Lead lists",
     "subtitle": "Create lists of websites that use certain technologies",
-    "icon": "mdi-filter-variant",
+    "icon": "mdiFilterVariant",
     "image": "list.svg",
     "text": "Find new customers and prospects based on the technologies they use. Lead lists are an essential tool for market research and competitor analysis and provide valuable technographic insights.",
     "buttons": [
       {
         "text": "Create a lead list",
         "to": "/lists/",
-        "icon": "mdi-arrow-right"
+        "icon": "mdiArrowRight"
       }
     ],
     "features": [
@@ -42,14 +42,14 @@
   "bulk": {
     "title": "Bulk lookup",
     "subtitle": "Look up a number of websites in one go",
-    "icon": "mdi-file-table-outline",
+    "icon": "mdiFileTableOutline",
     "image": "bulk.svg",
     "text": "Supply your own list of websites to create a report of the technologies they use, along with contact details and metadata. Gain a better understanding of your target audience with technographic insights.",
     "buttons": [
       {
         "text": "Upload a list",
         "to": "/bulk/",
-        "icon": "mdi-upload"
+        "icon": "mdiUpload"
       }
     ],
     "features": [
@@ -62,19 +62,19 @@
   "apis": {
     "title": "APIs",
     "subtitle": "Programmatic access to technographic data",
-    "icon": "mdi-console",
+    "icon": "mdiConsole",
     "image": "api.svg",
     "text": "The Wappalyzer APIs provide instant access to website technology stacks and meta data. Track your prospects' technology choices, examine large numbers of websites or enrich your own datasets.",
     "buttons": [
       {
         "text": "Compare APIs",
         "to": "/api/",
-        "icon": "mdi-arrow-right"
+        "icon": "mdiArrowRight"
       },
       {
         "text": "API reference",
         "to": "/docs/api/",
-        "icon": "mdi-book-open-page-variant",
+        "icon": "mdiBookOpenPageVariant",
         "secondary": true
       }
     ],
@@ -84,14 +84,14 @@
   "alerts": {
     "title": "Alerts",
     "subtitle": "Get notified when a website's technology stack changes",
-    "icon": "mdi-bullhorn",
+    "icon": "mdiBullhorn",
     "image": "alerts.svg",
     "text": "Monitor your competitor's technology choices with alerts. Be the first to know when they move to a new CMS, ecommerce platform or any other technology.",
     "buttons": [
       {
         "text": "Compare plans",
         "to": "/alerts/",
-        "icon": "mdi-arrow-right"
+        "icon": "mdiArrowRight"
       }
     ],
     "features": [
@@ -103,14 +103,14 @@
   "download": {
     "title": "Browser extension",
     "subtitle": "Get the free browser extension",
-    "icon": "mdi-puzzle",
+    "icon": "mdiPuzzle",
     "image": "extension.svg",
     "text": "Install the Wappalyzer browser extension to see the technologies used on websites you visit at a glance.",
     "buttons": [
       {
         "text": "Download",
         "to": "/download/",
-        "icon": "mdi-download"
+        "icon": "mdiDownload"
       }
     ],
     "features": [

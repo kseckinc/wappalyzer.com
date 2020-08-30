@@ -18,7 +18,7 @@
       outlined
     >
       Stripe customer
-      <v-icon right>mdi-open-in-new</v-icon>
+      <v-icon right>{{ mdiOpenInNew }}</v-icon>
     </v-btn>
 
     <v-card class="mb-4">
@@ -52,7 +52,7 @@
             text
             @click.prevent="submit(false)"
           >
-            <v-icon left>mdi-content-save</v-icon> Save</v-btn
+            <v-icon left>{{ mdiContentSave }}</v-icon> Save</v-btn
           >
         </v-card-actions>
 
@@ -79,7 +79,7 @@
             <v-card-text class="py-0">
               <v-text-field
                 v-model="oldPassword"
-                :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                :append-icon="showPassword ? mdiEyeOff : mdiEye"
                 :type="showPassword ? 'text' : 'password'"
                 label="Current password"
                 @click:append="() => (showPassword = !showPassword)"
@@ -87,7 +87,7 @@
 
               <v-text-field
                 v-model="newPassword"
-                :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                :append-icon="showPassword ? mdiEyeOff : mdiEye"
                 :type="showPassword ? 'text' : 'password'"
                 label="New password (optional)"
                 @click:append="() => (showPassword = !showPassword)"
@@ -105,7 +105,7 @@
           text
           @click.prevent="submit(false)"
         >
-          <v-icon left>mdi-content-save</v-icon> Save</v-btn
+          <v-icon left>{{ mdiContentSave }}</v-icon> Save</v-btn
         >
       </v-card-actions>
 
@@ -115,7 +115,7 @@
     </v-card>
 
     <v-btn color="error" outlined @click="deleteAccountDialog = true">
-      <v-icon left>mdi-account-remove</v-icon>
+      <v-icon left>{{ mdiAccountRemove }}</v-icon>
       Delete account
     </v-btn>
 
@@ -162,6 +162,13 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import {
+  mdiOpenInNew,
+  mdiAccountRemove,
+  mdiContentSave,
+  mdiEye,
+  mdiEyeOff,
+} from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import Account from '~/components/Account.vue'
@@ -178,6 +185,11 @@ export default {
       deleteAccountDialog: false,
       email: '',
       error: false,
+      mdiOpenInNew,
+      mdiAccountRemove,
+      mdiContentSave,
+      mdiEye,
+      mdiEyeOff,
       newPassword: '',
       oldPassword: '',
       removing: false,

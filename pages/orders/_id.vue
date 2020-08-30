@@ -31,7 +31,7 @@
         </p>
 
         <v-btn to="/lists/" outlined>
-          <v-icon left>mdi-arrow-left</v-icon>
+          <v-icon left>{{ mdiArrowLeft }}</v-icon>
           Back to Lead lists
         </v-btn>
       </v-alert>
@@ -93,7 +93,7 @@
           editDialog = true
         "
       >
-        <v-icon left>mdi-pencil</v-icon>
+        <v-icon left>{{ mdiPencil }}</v-icon>
         Edit order
       </v-btn>
 
@@ -107,7 +107,7 @@
         color="accent"
         outlined
       >
-        <v-icon left>mdi-file-document-box-outline</v-icon>
+        <v-icon left>{{ mdiFileDocumentOutline }}</v-icon>
         Invoice
       </v-btn>
 
@@ -116,7 +116,8 @@
           :to="`/subscriptions/${order.stripeSubscription}/`"
           color="accent"
           outlined
-          ><v-icon left>mdi-calendar-repeat</v-icon>Subscription</v-btn
+          ><v-icon left>{{ mdiCalendarSync }}</v-icon
+          >Subscription</v-btn
         >
       </template>
 
@@ -131,14 +132,16 @@
           :href="`${datasetsBaseUrl}${order.dataset.filename}`"
           color="accent"
           outlined
-          ><v-icon left>mdi-download</v-icon>Download list</v-btn
+          ><v-icon left>{{ mdiDownload }}</v-icon
+          >Download list</v-btn
         >
         <v-btn
           v-else-if="order.dataset.sampleFilename"
           :href="`${datasetsBaseUrl}${order.dataset.sampleFilename}`"
           color="accent"
           outlined
-          ><v-icon left>mdi-download</v-icon>Download sample</v-btn
+          ><v-icon left>{{ mdiDownload }}</v-icon
+          >Download sample</v-btn
         >
       </template>
 
@@ -148,7 +151,8 @@
           :href="`${bulkLookupBaseUrl}${order.bulk.filename}`"
           color="accent"
           outlined
-          ><v-icon left>mdi-download</v-icon>Download list</v-btn
+          ><v-icon left>{{ mdiDownload }}</v-icon
+          >Download list</v-btn
         >
       </template>
 
@@ -181,7 +185,7 @@
         <v-card-actions v-if="order.status !== 'Complete'">
           <v-spacer />
           <v-btn color="error" text @click="cancelDialog = true">
-            <v-icon left>mdi-cart-remove</v-icon>
+            <v-icon left>{{ mdiCartRemove }}</v-icon>
             Cancel order
           </v-btn>
         </v-card-actions>
@@ -241,7 +245,7 @@
                       :href="`${datasetsBaseUrl}${order.dataset.exclusionsFilename}`"
                       color="accent"
                       icon
-                      ><v-icon>mdi-download</v-icon></v-btn
+                      ><v-icon>{{ mdiDownload }}</v-icon></v-btn
                     >
                   </td>
                 </tr>
@@ -282,7 +286,7 @@
                         @click="technologiesViewAll = !technologiesViewAll"
                       >
                         <v-icon small left>{{
-                          technologiesViewAll ? 'mdi-minus' : 'mdi-plus'
+                          technologiesViewAll ? mdiMinus : mdiPlus
                         }}</v-icon>
                         {{
                           technologiesViewAll
@@ -408,7 +412,7 @@
                     Match all filters
                   </th>
                   <td>
-                    <v-icon color="primary">mdi-checkbox-marked</v-icon>
+                    <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
                   </td>
                 </tr>
                 <tr v-if="order.dataset.query.subset">
@@ -596,7 +600,7 @@
           <v-card-actions>
             <v-spacer />
             <v-btn color="accent" text @click="billingDialog = true"
-              ><v-icon left>mdi-pencil</v-icon> Edit details</v-btn
+              ><v-icon left>{{ mdiPencil }}</v-icon> Edit details</v-btn
             >
           </v-card-actions>
 
@@ -663,7 +667,7 @@
                 color="primary"
                 large
                 @click="pay"
-                ><v-icon left>mdi-credit-card</v-icon> Pay now</v-btn
+                ><v-icon left>{{ mdiCreditCard }}</v-icon> Pay now</v-btn
               >
               <v-btn
                 v-if="!order.product !== 'Subscription'"
@@ -674,7 +678,7 @@
                 large
                 outlined
                 @click="invoice"
-                ><v-icon left>mdi-email</v-icon> Send invoice</v-btn
+                ><v-icon left>{{ mdiEmail }}</v-icon> Send invoice</v-btn
               >
             </div>
           </v-card-text>
@@ -692,7 +696,7 @@
                 large
                 @click="invoice"
               >
-                <v-icon left>mdi-email</v-icon>
+                <v-icon left>{{ mdiEmail }}</v-icon>
                 Send invoice
               </v-btn>
             </div>
@@ -713,7 +717,7 @@
                   large
                   @click="pay"
                 >
-                  <v-icon left>mdi-alpha-c-circle</v-icon>
+                  <v-icon left>{{ mdiAlphaCCircle }}</v-icon>
                   Spend {{ formatNumber(order.totalCredits || 0) }} credits
                 </v-btn>
               </div>
@@ -721,7 +725,7 @@
             <v-card-actions v-if="credits < order.totalCredits">
               <v-spacer />
               <v-btn color="accent" text @click="billingDialog = true"
-                ><v-icon left>mdi-alpha-c-circle</v-icon> Buy credits</v-btn
+                ><v-icon left>{{ mdiAlphaCCircle }</v-icon> Buy credits</v-btn
               >
             </v-card-actions>
           </template>
@@ -846,6 +850,21 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import {
+  mdiArrowLeft,
+  mdiPencil,
+  mdiFileDocumentOutline,
+  mdiCalendarSync,
+  mdiDownload,
+  mdiCartRemove,
+  mdiCreditCard,
+  mdiEmail,
+  mdiPlus,
+  mdiMinus,
+  mdiCheckboxMarked,
+  mdiCheckboxEmail,
+  mdiAlphaCCircle,
+} from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import Account from '~/components/Account.vue'
@@ -885,6 +904,19 @@ export default {
       editing: false,
       error: false,
       invoicing: false,
+      mdiArrowLeft,
+      mdiPencil,
+      mdiFileDocumentOutline,
+      mdiCalendarSync,
+      mdiDownload,
+      mdiCartRemove,
+      mdiCreditCard,
+      mdiEmail,
+      mdiPlus,
+      mdiMinus,
+      mdiCheckboxMarked,
+      mdiCheckboxEmail,
+      mdiAlphaCCircle,
       order: null,
       orderLoaded: false,
       paymentMethod: 'stripe',

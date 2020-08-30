@@ -159,7 +159,7 @@
                 </template>
                 <template v-else-if="attr.type === 'boolean'">
                   <v-icon v-if="item.attrs[name] === true" color="success">
-                    mdi-check
+                    {{ mdiCheck }}
                   </v-icon>
                   <v-icon v-else-if="item.attrs[name] === false">
                     &nbsp;
@@ -190,6 +190,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { mdiCheck } from '@mdi/js'
 
 import SignIn from '~/components/SignIn.vue'
 import AudToUsd from '~/components/AudToUsd.vue'
@@ -220,6 +221,7 @@ export default {
   data() {
     return {
       signInDialog: false,
+      mdiCheck,
     }
   },
   computed: {

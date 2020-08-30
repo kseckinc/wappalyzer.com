@@ -36,33 +36,21 @@
               <Progress />
             </div>
             <template v-if="release">
-              <template v-for="type in ['add', 'fix', 'new']">
+              <div v-for="type in ['add', 'fix', 'new']" :key="type">
                 <template v-if="release.items[type].length">
-                  <v-card-title
-                    v-if="type === 'add'"
-                    :key="type"
-                    class="subtitle-2"
-                  >
-                    <v-icon left>mdi-plus-box</v-icon>
+                  <v-card-title v-if="type === 'add'" class="subtitle-2">
+                    <v-icon left>{{ mdiPlusBox }}</v-icon>
                     Additions
                   </v-card-title>
-                  <v-card-title
-                    v-if="type === 'fix'"
-                    :key="type"
-                    class="subtitle-2"
-                  >
-                    <v-icon left>mdi-auto-fix</v-icon>
+                  <v-card-title v-if="type === 'fix'" class="subtitle-2">
+                    <v-icon left>{{ mdiAutoFix }}</v-icon>
                     Improvements
                   </v-card-title>
-                  <v-card-title
-                    v-if="type === 'new'"
-                    :key="type"
-                    class="subtitle-2"
-                  >
-                    <v-icon left>mdi-star</v-icon>
+                  <v-card-title v-if="type === 'new'" class="subtitle-2">
+                    <v-icon left>{{ mdiStar }} </v-icon>
                     Features
                   </v-card-title>
-                  <v-card-text :key="type" class="px-0">
+                  <v-card-text class="px-0">
                     <v-simple-table>
                       <tbody>
                         <tr
@@ -75,7 +63,7 @@
                     </v-simple-table>
                   </v-card-text>
                 </template>
-              </template>
+              </div>
             </template>
           </v-card>
         </v-col>
@@ -86,6 +74,8 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { mdiPlusBox, mdiAutoFix, mdiStar } from '@mdi/js'
+
 import Hero from '~/components/Hero.vue'
 import Progress from '~/components/Progress.vue'
 
@@ -97,6 +87,9 @@ export default {
   data() {
     return {
       title: 'Upgraded',
+      mdiPlusBox,
+      mdiAutoFix,
+      mdiStar,
       release: null,
       error: false,
     }

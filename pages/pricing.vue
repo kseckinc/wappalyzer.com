@@ -3,7 +3,7 @@
     <Page :title="title" :head="meta">
       <div class="mt-4">
         <v-btn color="accent" to="/faq/credits" class="mb-2" outlined>
-          <v-icon left>mdi-forum</v-icon>
+          <v-icon left>{{ mdiForum }}</v-icon>
           FAQs
         </v-btn>
       </div>
@@ -161,6 +161,8 @@
 </template>
 
 <script>
+import { mdiForum } from '@mdi/js'
+
 import Page from '~/components/Page.vue'
 import Logos from '~/components/Logos.vue'
 import SignIn from '~/components/SignIn.vue'
@@ -187,6 +189,7 @@ export default {
       annually: false,
       creditsPerUnit,
       creditTiers,
+      mdiForum,
       meta,
       signInDialog: false,
       subscribing: false,

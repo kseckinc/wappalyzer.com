@@ -15,12 +15,9 @@
         contribute.
       </p>
 
-      <h2 id="getting-started" class="mt-8 mb-2">
+      <Heading id="getting-started" size="2" class="mt-8 mb-2">
         Getting started
-        <a href="#submitting-changes" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h2>
+      </Heading>
 
       <p>
         To get started, follow the
@@ -28,12 +25,9 @@
         instructions.
       </p>
 
-      <h2 id="submitting-changes" class="mt-8 mb-2">
+      <Heading id="submitting-changed" size="2" class="mt-8 mb-2">
         Submitting changes
-        <a href="#submitting-changes" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h2>
+      </Heading>
 
       <ul>
         <li>
@@ -54,12 +48,9 @@
         </li>
       </ul>
 
-      <h2 id="adding-a-new-technology" class="mt-8 mb-2">
+      <Heading id="adding-a-new-technology" size="2" class="mt-8 mb-2">
         Adding a new technology
-        <a href="#adding-a-new-technology" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h2>
+      </Heading>
 
       <p>
         Wappalyzer uses
@@ -92,19 +83,16 @@
         </li>
       </ul>
 
-      <v-alert icon="mdi-lightbulb-on-outline" outlined>
+      <v-alert :icon="mdiLightbulbOnOutline" outlined>
         Only widely used technologies are accepted. When creating a pull
         request, include ten or more links to websites that use the application,
         a GitHub page with at least 1,000 stars or anything that will help
         establish the size of the user base.
       </v-alert>
 
-      <h2 id="adding-a-new-category" class="mt-8 mb-2">
+      <Heading id="adding-a-new-category" size="2" class="mt-8 mb-2">
         Adding a new category
-        <a href="#adding-a-new-category" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h2>
+      </Heading>
 
       <p>
         Please
@@ -130,12 +118,9 @@
         >. You may use the English category name in all of them.
       </p>
 
-      <h2 id="adding-a-new-translation" class="mt-8 mb-2">
+      <Heading id="adding-a-new-translation" size="2" class="mt-8 mb-2">
         Adding a new translation
-        <a href="#adding-a-new-translation" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h2>
+      </Heading>
 
       <p>
         To add a new translation, copy the <code>en</code> folder in
@@ -147,12 +132,9 @@
         containing <code>messages.json</code> file.
       </p>
 
-      <h2 id="adding-a-new-feature" class="mt-8 mb-2">
+      <Heading id="adding-a-new-feature" size="2" class="mt-8 mb-2">
         Adding a new feature
-        <a href="#adding-a-new-feature" class="docs__anchor">
-          <v-icon color="accent">mdi-link</v-icon>
-        </a>
-      </h2>
+      </Heading>
 
       <p>
         Please
@@ -167,34 +149,23 @@
 </template>
 
 <script>
+import { mdiLightbulbOnOutline } from '@mdi/js'
+
 import Page from '~/components/Page.vue'
+import Heading from '~/components/Heading.vue'
 import side from '~/assets/json/nav/docs.json'
 
 export default {
   components: {
     Page,
+    Heading,
   },
   data() {
     return {
       title: 'Developer documentation',
+      mdiLightbulbOnOutline,
       side,
     }
   },
 }
 </script>
-
-<style>
-h2 .docs__anchor,
-h3 .docs__anchor {
-  visibility: hidden;
-}
-
-h2:hover .docs__anchor,
-h3:hover .docs__anchor {
-  visibility: visible;
-}
-
-.docs__anchor {
-  text-decoration: none;
-}
-</style>

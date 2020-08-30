@@ -1,20 +1,19 @@
 {
   "icons": [
     {
-      "icon": "mdi-git",
+      "icon": "mdiGithub",
       "href": "https://github.com/aliasio/wappalyzer"
     },
     {
-      "icon": "mdi-slack",
-      "href":
-      "https://join.slack.com/t/wappalyzer/shared_invite/enQtMjc1MzA2NzE4NzkwLTA5Y2RmMTQxMTFhYzViODQzMzUyNGFkMWIzY2ZhZmFlOWY2NTcyZWY4OWVjYzhiY2JhZTZlMzBiNThlMWJiMjU"
+      "icon": "mdiSlack",
+      "href": "https://join.slack.com/t/wappalyzer/shared_invite/enQtMjc1MzA2NzE4NzkwLTA5Y2RmMTQxMTFhYzViODQzMzUyNGFkMWIzY2ZhZmFlOWY2NTcyZWY4OWVjYzhiY2JhZTZlMzBiNThlMWJiMjU"
     },
     {
-      "icon": "mdi-twitter",
+      "icon": "mdiTwitter",
       "href": "https://twitter.com/Wappalyzer"
     },
     {
-      "icon": "mdi-linkedin",
+      "icon": "mdiLinkedin",
       "href": "https://www.linkedin.com/company/wappalyzer"
     }
   ],

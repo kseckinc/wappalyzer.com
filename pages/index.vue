@@ -33,7 +33,7 @@
           </v-col>
           <v-col cols="12" sm="8" lg="6">
             <v-responsive height="30" class="d-flex align-center mb-2">
-              <v-icon color="primary" left>{{ section.icon }}</v-icon>
+              <v-icon color="primary" left>{{ mdi[section.icon] }}</v-icon>
 
               <span class="overline font-weight-bold">{{ section.title }}</span>
             </v-responsive>
@@ -54,7 +54,7 @@
               color="primary"
               class="mb-2 mr-2"
               >{{ button.text }}
-              <v-icon right>{{ button.icon }}</v-icon>
+              <v-icon right>{{ mdi[button.icon] }}</v-icon>
             </v-btn>
 
             <div class="overline pt-4">Highlights</div>
@@ -64,7 +64,7 @@
               :key="feature"
               class="body-2 d-flex align-start pt-2 grey--text"
             >
-              <v-icon color="success" dense left>mdi-check</v-icon>
+              <v-icon color="success" dense left>{{ mdi.mdiCheck }}</v-icon>
               {{ feature }}
             </div>
           </v-col>
@@ -79,6 +79,20 @@
 </template>
 
 <script>
+import {
+  mdiCheck,
+  mdiLayersOutline,
+  mdiMagnify,
+  mdiFilterVariant,
+  mdiArrowRight,
+  mdiFileTableOutline,
+  mdiUpload,
+  mdiConsole,
+  mdiBookOpenPageVariant,
+  mdiBullhorn,
+  mdiPuzzle,
+  mdiDownload,
+} from '@mdi/js'
 import Logos from '~/components/Logos.vue'
 import Page from '~/components/Page.vue'
 import meta from '~/assets/json/meta.json'
@@ -90,6 +104,20 @@ export default {
   },
   data() {
     return {
+      mdi: {
+        mdiCheck,
+        mdiLayersOutline,
+        mdiMagnify,
+        mdiFilterVariant,
+        mdiArrowRight,
+        mdiFileTableOutline,
+        mdiUpload,
+        mdiConsole,
+        mdiBookOpenPageVariant,
+        mdiBullhorn,
+        mdiPuzzle,
+        mdiDownload,
+      },
       title: meta.hero.title,
       sections: Object.values(meta).filter((meta) => meta.feature),
     }

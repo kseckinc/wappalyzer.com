@@ -126,7 +126,7 @@
         </v-simple-table>
       </v-card>
 
-      <v-alert icon="mdi-lightbulb-on-outline" outlined>
+      <v-alert :icon="mdiLightbulbOnOutline" outlined>
         In less common scenarios, other status codes may be used. To verify if a
         request was successful, check for a <code>2xx</code> code. A
         <code>4xx</code> code indicates a problem with the request. A
@@ -175,6 +175,8 @@
 </template>
 
 <script>
+import { mdiLightbulbOnOutline } from '@mdi/js'
+
 import Page from '~/components/Page.vue'
 import Heading from '~/components/Heading.vue'
 import side from '~/assets/json/nav/docs.json'
@@ -187,6 +189,7 @@ export default {
   data() {
     return {
       title: 'Developer documentation',
+      mdiLightbulbOnOutline,
       side,
     }
   },

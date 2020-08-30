@@ -14,7 +14,7 @@
 
             <v-btn to="/" color="accent" outlined>
               Explore products
-              <v-icon right>mdi-arrow-right</v-icon>
+              <v-icon right>mdiArrowRight</v-icon>
             </v-btn>
           </v-alert>
         </v-card-text>
@@ -44,7 +44,7 @@
                   </td>
                   <td v-if="order.status === 'Calculating'">
                     <v-btn class="loader ml-n1" icon disabled small>
-                      <v-icon>mdi-autorenew</v-icon>
+                      <v-icon>mdiAutorenew</v-icon>
                     </v-btn>
                   </td>
                   <td v-else-if="order.status === 'Insufficient'">
@@ -70,6 +70,7 @@
 </template>
 
 <script>
+import { mdiAutorenew, mdiArrowRight } from '@mdi/js'
 import Page from '~/components/Page.vue'
 
 export default {
@@ -81,6 +82,8 @@ export default {
       title: 'Orders',
       error: false,
       orders: null,
+      mdiAutorenew,
+      mdiArrowRight,
     }
   },
   watch: {

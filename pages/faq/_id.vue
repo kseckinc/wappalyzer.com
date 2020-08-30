@@ -15,12 +15,13 @@
         :id="slugify(question)"
         :key="question"
       >
-        <h3 :class="`${i ? 'mt-8' : ''} mb-2`">
+        <Heading
+          :id="slugify(question)"
+          size="3"
+          :class="`${i ? 'mt-8' : ''} mb-2`"
+        >
           {{ question }}
-          <a :href="`#${slugify(question)}`" class="faq__anchor"
-            ><v-icon color="accent">mdi-link</v-icon></a
-          >
-        </h3>
+        </Heading>
 
         <p v-for="text in answer" :key="text" class="answer" v-html="text"></p>
       </div>
@@ -30,11 +31,13 @@
 
 <script>
 import Page from '~/components/Page.vue'
+import Heading from '~/components/Heading.vue'
 import faqs from '~/assets/json/faqs.json'
 
 export default {
   components: {
     Page,
+    Heading,
   },
   data() {
     return {

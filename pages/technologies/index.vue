@@ -50,6 +50,9 @@ export default {
     Page,
     Technologies,
   },
+  async asyncData({ $axios }) {
+    return { categories: (await $axios.get('categories')).data }
+  },
   data() {
     return {
       title: 'Technologies',
@@ -68,9 +71,6 @@ export default {
           )
         : 0
     },
-  },
-  async created() {
-    this.categories = (await this.$axios.get('categories')).data
   },
   methods: {
     selectTechnology(item) {

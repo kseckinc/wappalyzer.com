@@ -4,7 +4,7 @@
 
     <v-card color="secondary" style="overflow: hidden;">
       <v-card-title>
-        <v-icon color="primary" left>mdi-layers-outline</v-icon>
+        <v-icon color="primary" left>{{ mdiLayersOutline }}</v-icon>
         Lookup
       </v-card-title>
 
@@ -13,8 +13,8 @@
           <v-text-field
             v-model="url"
             :rules="rules.url"
+            :append-icon="mdiMagnify"
             style="background-color: white;"
-            append-icon="mdi-magnify"
             label="Enter a URL"
             placeholder="https://www.example.com"
             required
@@ -170,6 +170,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import { mdiLayersOutline, mdiMagnify } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import SignIn from '~/components/SignIn.vue'
@@ -198,6 +199,8 @@ export default {
       meta,
       sets,
       attributes: {},
+      mdiLayersOutline,
+      mdiMagnify,
       url: '',
       rules: {
         url: [

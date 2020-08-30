@@ -21,7 +21,7 @@
             :loading="loading"
             :error-messages="errors"
             class="mx-4"
-            append-icon="mdi-magnify"
+            :append-icon="mdiMagnify"
             label="Search"
             placeholder="E.g. 'CMS' or 'Shopify'"
             required
@@ -62,6 +62,8 @@
 </template>
 
 <script>
+import { mdiMagnify } from '@mdi/js'
+
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
 
 export default {
@@ -73,6 +75,7 @@ export default {
       errors: [],
       categories: [],
       loading: false,
+      mdiMagnify,
       query: '',
       searchTimeout: null,
       selection: false,
