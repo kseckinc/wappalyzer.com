@@ -5,11 +5,6 @@ import {
   AuthenticationDetails,
 } from 'amazon-cognito-identity-js'
 
-const UserPoolId = process.env.COGNITO_USER_POOL_ID
-const ClientId = process.env.COGNITO_CLIENT_ID
-
-const Pool = new CognitoUserPool({ UserPoolId, ClientId })
-
 export const state = () => ({
   attrs: {},
   idToken: '',
@@ -38,6 +33,11 @@ export const mutations = {
 
 export const actions = {
   updateAttrs({ state, commit }) {
+    const Pool = new CognitoUserPool({
+      UserPoolId: this.$config.COGNITO_USER_POOL_ID,
+      ClientId: this.$config.COGNITO_CLIENT_ID,
+    })
+
     const cognitoUser = Pool.getCurrentUser()
 
     if (!cognitoUser) {
@@ -79,6 +79,11 @@ export const actions = {
     context,
     { username: Username, password: Password, rewardfulReferral = '' }
   ) {
+    const Pool = new CognitoUserPool({
+      UserPoolId: this.$config.COGNITO_USER_POOL_ID,
+      ClientId: this.$config.COGNITO_CLIENT_ID,
+    })
+
     const attributeList = [
       new CognitoUserAttribute({
         Name: 'email',
@@ -108,6 +113,11 @@ export const actions = {
   },
 
   verifySignUp(context, { username: Username, code }) {
+    const Pool = new CognitoUserPool({
+      UserPoolId: this.$config.COGNITO_USER_POOL_ID,
+      ClientId: this.$config.COGNITO_CLIENT_ID,
+    })
+
     const cognitoUser = new CognitoUser({
       Username: Username.toLowerCase().trim(),
       Pool,
@@ -121,6 +131,11 @@ export const actions = {
   },
 
   reverifySignUp(context, { username: Username }) {
+    const Pool = new CognitoUserPool({
+      UserPoolId: this.$config.COGNITO_USER_POOL_ID,
+      ClientId: this.$config.COGNITO_CLIENT_ID,
+    })
+
     const cognitoUser = new CognitoUser({
       Username: Username.toLowerCase().trim(),
       Pool,
@@ -134,6 +149,11 @@ export const actions = {
   },
 
   signIn({ commit, dispatch }, { username: Username, password: Password }) {
+    const Pool = new CognitoUserPool({
+      UserPoolId: this.$config.COGNITO_USER_POOL_ID,
+      ClientId: this.$config.COGNITO_CLIENT_ID,
+    })
+
     const cognitoUser = new CognitoUser({
       Username: Username.toLowerCase().trim(),
       Pool,
@@ -157,6 +177,11 @@ export const actions = {
   },
 
   verifySignIn({ dispatch }, { code }) {
+    const Pool = new CognitoUserPool({
+      UserPoolId: this.$config.COGNITO_USER_POOL_ID,
+      ClientId: this.$config.COGNITO_CLIENT_ID,
+    })
+
     const cognitoUser = Pool.getCurrentUser()
 
     return new Promise((resolve, reject) => {
@@ -177,7 +202,12 @@ export const actions = {
     })
   },
 
-  reverifySignIn(context) {
+  reverifySignIn() {
+    const Pool = new CognitoUserPool({
+      UserPoolId: this.$config.COGNITO_USER_POOL_ID,
+      ClientId: this.$config.COGNITO_CLIENT_ID,
+    })
+
     const cognitoUser = Pool.getCurrentUser()
 
     return new Promise((resolve, reject) => {
@@ -196,6 +226,11 @@ export const actions = {
   },
 
   async signOut({ dispatch }) {
+    const Pool = new CognitoUserPool({
+      UserPoolId: this.$config.COGNITO_USER_POOL_ID,
+      ClientId: this.$config.COGNITO_CLIENT_ID,
+    })
+
     const cognitoUser = Pool.getCurrentUser()
 
     if (cognitoUser) {
@@ -206,6 +241,11 @@ export const actions = {
   },
 
   refresh({ commit, state }) {
+    const Pool = new CognitoUserPool({
+      UserPoolId: this.$config.COGNITO_USER_POOL_ID,
+      ClientId: this.$config.COGNITO_CLIENT_ID,
+    })
+
     const cognitoUser = Pool.getCurrentUser()
 
     if (!cognitoUser) {
@@ -229,6 +269,11 @@ export const actions = {
   },
 
   reset(context, { username: Username }) {
+    const Pool = new CognitoUserPool({
+      UserPoolId: this.$config.COGNITO_USER_POOL_ID,
+      ClientId: this.$config.COGNITO_CLIENT_ID,
+    })
+
     const cognitoUser = new CognitoUser({
       Username: Username.toLowerCase().trim(),
       Pool,
@@ -243,6 +288,11 @@ export const actions = {
   },
 
   verifyReset(context, { username: Username, password, code }) {
+    const Pool = new CognitoUserPool({
+      UserPoolId: this.$config.COGNITO_USER_POOL_ID,
+      ClientId: this.$config.COGNITO_CLIENT_ID,
+    })
+
     const cognitoUser = new CognitoUser({
       Username: Username.toLowerCase().trim(),
       Pool,
@@ -257,6 +307,11 @@ export const actions = {
   },
 
   changePassword(context, { oldPassword, newPassword }) {
+    const Pool = new CognitoUserPool({
+      UserPoolId: this.$config.COGNITO_USER_POOL_ID,
+      ClientId: this.$config.COGNITO_CLIENT_ID,
+    })
+
     const cognitoUser = Pool.getCurrentUser()
 
     return new Promise((resolve, reject) => {
@@ -285,6 +340,11 @@ export const actions = {
   },
 
   async delete({ state, commit, dispatch }, attributes) {
+    const Pool = new CognitoUserPool({
+      UserPoolId: this.$config.COGNITO_USER_POOL_ID,
+      ClientId: this.$config.COGNITO_CLIENT_ID,
+    })
+
     const cognitoUser = Pool.getCurrentUser()
 
     if (cognitoUser) {

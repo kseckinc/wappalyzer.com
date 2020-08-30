@@ -1,37 +1,39 @@
 <template>
-  <Page :title="title">
-    <v-row>
-      <v-col md="8" class="py-0">
-        <p>
-          Thank you for installing the Wappalyzer browser extension!
-        </p>
+  <div>
+    <Hero
+      subtitle="Thank you for installing the Wappalyzer browser extension!"
+      title="Wappalyzer has been installed"
+    />
+    <v-container class="my-sm-12">
+      <v-row justify="center">
+        <v-col cols="12" sm="8" lg="6" class="py-0">
+          <v-card>
+            <v-card-title>How it works</v-card-title>
+            <v-card-text>
+              <ol class="mb-8">
+                <li>Go to any website</li>
+                <li>Click the icon for a list of identified technologies</li>
+                <li>Click on a technology or category for more insights</li>
+              </ol>
 
-        <h3 class="mt-10 mb-2">How it works</h3>
-
-        <ol>
-          <li>Go to any website</li>
-          <li>Click the icon for a list of identified technologies</li>
-          <li>Click on a technology or category for more insights</li>
-        </ol>
-
-        <v-btn color="accent" to="/faq/extension/" class="mt-12" outlined>
-          Frequently asked questions
-        </v-btn>
-      </v-col>
-      <v-col cols="4" class="d-none d-md-flex align-start pl-12">
-        <v-img src="/images/extension-2.svg" class="ml-sm-8 mb-4" />
-      </v-col>
-    </v-row>
-  </Page>
+              <v-btn color="accent" to="/faq/extension/" outlined>
+                Frequently asked questions
+              </v-btn>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
-import Page from '~/components/Page.vue'
+import Hero from '~/components/Hero.vue'
 
 export default {
   components: {
-    Page,
+    Hero,
   },
   data() {
     return {

@@ -98,7 +98,7 @@ export default {
     this.set({ hero: false })
 
     try {
-      this.release = (await this.$axios.get(process.env.RELEASE_URL)).data
+      this.release = (await this.$axios.get(this.$config.RELEASE_URL)).data
     } catch (error) {
       this.error = this.getErrorMessage(error)
     }

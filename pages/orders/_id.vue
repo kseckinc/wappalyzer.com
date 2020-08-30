@@ -862,7 +862,6 @@ import {
   mdiPlus,
   mdiMinus,
   mdiCheckboxMarked,
-  mdiCheckboxEmail,
   mdiAlphaCCircle,
 } from '@mdi/js'
 
@@ -895,8 +894,8 @@ export default {
       cancelling: false,
       cardsLoaded: false,
       checks: 0,
-      datasetsBaseUrl: process.env.DATASETS_BASE_URL,
-      bulkLookupBaseUrl: process.env.BULK_LOOKUP_BASE_URL,
+      datasetsBaseUrl: this.$config.DATASETS_BASE_URL,
+      bulkLookupBaseUrl: this.$config.BULK_LOOKUP_BASE_URL,
       declineCodes,
       discount: 0,
       editDialog: false,
@@ -915,7 +914,6 @@ export default {
       mdiPlus,
       mdiMinus,
       mdiCheckboxMarked,
-      mdiCheckboxEmail,
       mdiAlphaCCircle,
       order: null,
       orderLoaded: false,

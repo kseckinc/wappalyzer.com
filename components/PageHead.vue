@@ -17,7 +17,7 @@
         </template>
         <p v-else class="head-text" v-html="text" />
 
-        <Progress v-if="loading" />
+        <Progress v-if="loading" class="mt-8" />
 
         <v-fade-transition>
           <div v-show="!loading">
@@ -26,7 +26,7 @@
         </v-fade-transition>
       </v-col>
       <v-col cols="12" md="4" class="d-none d-md-flex align-start pl-12">
-        <v-img :src="`/images/${image}`" contain />
+        <ProductImage :name="image" />
       </v-col>
     </v-row>
     <template v-else>
@@ -61,10 +61,12 @@
 
 <script>
 import Progress from '~/components/Progress.vue'
+import ProductImage from '~/components/ProductImage.vue'
 
 export default {
   components: {
     Progress,
+    ProductImage,
   },
   props: {
     loading: {

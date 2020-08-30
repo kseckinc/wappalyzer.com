@@ -226,6 +226,7 @@
                       class="mb-4"
                       label="Select a country"
                       hide-details
+                      eager
                     >
                       <template v-slot:item="{ item }">
                         <v-list-item ripple @click="toggleGeoIp(item)">
@@ -311,6 +312,7 @@
                           class="mb-4"
                           label="Select a country"
                           hide-details
+                          eager
                         />
                       </v-col>
                       <v-col class="py-0">
@@ -334,6 +336,7 @@
                       class="mb-8"
                       label="Select a top-level-domain"
                       hide-details
+                      eager
                     >
                       <template v-slot:prepend-item>
                         <v-list-item ripple @click="toggleTlds">
@@ -419,6 +422,7 @@
                       class="mb-4"
                       label="Select a language"
                       hide-details
+                      eager
                     >
                       <template v-slot:item="{ item }">
                         <v-list-item ripple @click="toggleLanguage(item)">
@@ -459,6 +463,7 @@
                       class="mb-4"
                       label="Select a language country"
                       hide-details
+                      eager
                     >
                       <template v-slot:prepend-item>
                         <v-list-item ripple @click="toggleVariants">
@@ -606,6 +611,7 @@ import {
   mdiHelpBox,
   mdiPlus,
   mdiArrowRight,
+  mdiFilterOutline,
 } from '@mdi/js'
 import Page from '~/components/Page.vue'
 import Technologies from '~/components/Technologies.vue'
@@ -651,6 +657,7 @@ export default {
       mdiHelpBox,
       mdiPlus,
       mdiArrowRight,
+      mdiFilterOutline,
       meta,
       signInDialog: false,
       selectedCountry: '',

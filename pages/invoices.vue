@@ -53,10 +53,10 @@
                     :to="`/orders/${invoice.orderId}/`"
                     icon
                   >
-                    <v-icon color="accent">{{ mdiFileDocumentOutline }}</v-icon>
+                    <v-icon color="accent">{{ mdiTextBoxOutline }}</v-icon>
                   </v-btn>
                   <v-btn v-else disabled icon>
-                    <v-icon>{{ mdiFileDocumentRemoveOutline }}</v-icon>
+                    <v-icon>{{ mdiTextBoxRemoveOutline }}</v-icon>
                   </v-btn>
                 </td>
                 <td>
@@ -85,8 +85,8 @@ import {
   mdiOpenInNew,
   mdiCheckboxMarkedOutline,
   mdiCheckboxBlankOutline,
-  mdiFileDocumentOutline,
-  mdiFileDocumentRemoveOutline,
+  mdiTextBoxOutline,
+  mdiTextBoxRemoveOutline,
   mdiDownload,
   mdiDownloadOff,
 } from '@mdi/js'
@@ -104,8 +104,8 @@ export default {
       mdiOpenInNew,
       mdiCheckboxMarkedOutline,
       mdiCheckboxBlankOutline,
-      mdiFileDocumentOutline,
-      mdiFileDocumentRemoveOutline,
+      mdiTextBoxOutline,
+      mdiTextBoxRemoveOutline,
       mdiDownload,
       mdiDownloadOff,
     }

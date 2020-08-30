@@ -1,16 +1,19 @@
 <template>
   <nuxt-link to="/">
-    <img
-      :src="`/images/logo/${dark ? 'dark' : 'light'}.svg`"
-      alt="Wappalyzer"
-      class="logo"
-      height="100%"
-    />
+    <LogoDark v-if="dark" alt="Wappalyzer" class="logo" height="100%" />
+    <LogoLight v-else alt="Wappalyzer" class="logo" height="100%" />
   </nuxt-link>
 </template>
 
 <script>
+import LogoDark from '~/assets/images/logo/dark.svg?inline'
+import LogoLight from '~/assets/images/logo/light.svg?inline'
+
 export default {
+  components: {
+    LogoDark,
+    LogoLight,
+  },
   props: {
     dark: {
       type: Boolean,

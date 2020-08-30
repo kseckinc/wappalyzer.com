@@ -23,10 +23,9 @@
           >
             <v-row justify="center">
               <v-col cols="8" sm="12" class="py-0">
-                <v-img
-                  :class="index % 2 !== 0 ? 'mr-sm-12' : 'ml-sm-12'"
-                  :src="`/images/${section.image}`"
-                  contain
+                <ProductImage
+                  :name="section.image"
+                  :class="index % 2 !== 0 ? 'pr-sm-12' : 'pl-sm-12'"
                 />
               </v-col>
             </v-row>
@@ -95,12 +94,14 @@ import {
 } from '@mdi/js'
 import Logos from '~/components/Logos.vue'
 import Page from '~/components/Page.vue'
+import ProductImage from '~/components/ProductImage.vue'
 import meta from '~/assets/json/meta.json'
 
 export default {
   components: {
     Logos,
     Page,
+    ProductImage,
   },
   data() {
     return {
