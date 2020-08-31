@@ -28,7 +28,8 @@
     "attributes": [
       { "name": "phone numbers", "key": "phone", "description": "Phone numbers found on the website's contact page. We identify <code>tel:</code> links and numbers that appear to be phone numbers." },
       { "name": "email addresses", "key": "email", "description": "Email addresses found on the website's contact page. We identify <code>mailto:</code> links and strings that appear to be email addresses based on the website's domain." },
-      { "name": "skype", "key": "skype", "description": "Skype handles found on the website's contact page." },
+      { "name": "Skype", "key": "skype", "description": "Skype handles found on the website's contact page." },
+      { "name": "WhatsApp", "key": "whatsapp", "description": "WhatsApp numbers found on the website's contact page." },
       { "name": "address", "key": "address", "description": "Addresses found on the website's contact page. We identify <code>&lt;address&gt;</code> tags for this purpose." },
       { "name": "company name", "key": "inferredCompanyName", "description": "Best guess company name, inferred from the website's content and social media handles. Indicative only." }
     ],
