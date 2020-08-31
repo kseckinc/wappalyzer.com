@@ -612,6 +612,7 @@ import {
   mdiPlus,
   mdiArrowRight,
   mdiFilterOutline,
+  mdiArrowCollapseVertical,
 } from '@mdi/js'
 import Page from '~/components/Page.vue'
 import Technologies from '~/components/Technologies.vue'
@@ -658,6 +659,7 @@ export default {
       mdiPlus,
       mdiArrowRight,
       mdiFilterOutline,
+      mdiArrowCollapseVertical,
       meta,
       signInDialog: false,
       selectedCountry: '',

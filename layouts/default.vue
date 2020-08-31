@@ -89,7 +89,7 @@ export default {
   },
   watch: {
     $route(route) {
-      this.checkDrift(route)
+      this.checkDrift(route.path)
     },
   },
   mounted() {
