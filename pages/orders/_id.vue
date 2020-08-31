@@ -970,7 +970,7 @@ export default {
     '$store.state.credits.credits'(credits) {
       if (
         this.order &&
-        this.order.product !== 'Subscription' &&
+        !['Credits', 'Subscription'].includes(this.order.product) &&
         this.credits >= this.order.totalCredits
       ) {
         this.paymentMethod = 'credits'
@@ -1001,7 +1001,7 @@ export default {
         this.orderLoaded = true
 
         if (
-          this.order.product !== 'Subscription' &&
+          !['Credits', 'Subscription'].includes(this.order.product) &&
           this.credits >= this.order.totalCredits
         ) {
           this.paymentMethod = 'credits'

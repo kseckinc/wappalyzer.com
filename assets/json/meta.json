@@ -64,7 +64,7 @@
     "subtitle": "Programmatic access to technographic data",
     "icon": "mdiConsole",
     "image": "api.svg",
-    "text": "The Wappalyzer APIs provide instant access to website technology stacks and meta data. Track your prospects' technology choices, examine large numbers of websites or enrich your own datasets.",
+    "text": "The Wappalyzer APIs provide instant access to website technology stacks, contact details and metadata. Track your prospects' technology choices, examine large numbers of websites or enrich your own datasets with technographic insights.",
     "buttons": [
       {
         "text": "Compare APIs",

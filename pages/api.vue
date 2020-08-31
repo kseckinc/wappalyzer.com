@@ -1,7 +1,28 @@
 <template>
   <div>
     <Page :title="title" :head="meta" no-heading>
-      <div class="mt-8">
+      <v-card flat>
+        <v-card-text>
+          <h2 class="mb-2 subtitle-2">Lookup API</h2>
+
+          <p>
+            Perform near-instant technology lookups with the Lookup API. Results
+            are fetched from our comprehensive database of millions of websites.
+            If we haven't seen a domain before, we'll index it immediately and
+            report back within minutes.
+          </p>
+
+          <h3 class="mb-2 subtitle-2">Crawl API</h3>
+
+          <p class="mb-0">
+            Identify the technologies used on any public website in real-time.
+            Results are always guaranteed up-to-date and delivered within
+            minutes.
+          </p>
+        </v-card-text>
+      </v-card>
+
+      <div class="mt-4">
         <v-btn color="accent" to="/faq/api/" class="mb-2" outlined>
           <v-icon left>{{ mdiForum }}</v-icon>
           FAQs
@@ -28,12 +49,15 @@
           <v-col md="6">
             <h3>Example request</h3>
 
-            <pre><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com&amp;sets=locale,social,contact"</Prism></pre>
+            <small>
+              <pre><Prism language="bash">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com&amp;sets=locale,social,contact"</Prism></pre>
+            </small>
           </v-col>
           <v-col md="6">
             <h3>Example response</h3>
 
-            <pre><Prism language="json" class="body-2">{
+            <small>
+              <pre><Prism language="json">{
   "url": "https://example.com",
   "technologies": [
     {
@@ -56,6 +80,7 @@
   "ipRegion": "CA",
   "language": "en"
 }</Prism></pre>
+            </small>
           </v-col>
         </v-row>
       </template>
