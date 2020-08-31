@@ -1,5 +1,13 @@
 import axios from 'axios'
 
+require('dotenv').config({
+  path: `.env.${
+    process.env.NODE_ENV === 'development' || process.env.ENVIRONMENT === 'beta'
+      ? 'beta'
+      : 'v2'
+  }`,
+})
+
 const publicRuntimeConfig = {
   AWS_REGION: 'ap-southeast-2',
   COGNITO_USER_POOL_ID: 'ap-southeast-2_Tz6DGDkmB',
@@ -99,7 +107,12 @@ export default {
     '~/plugins/gtag.js',
     { src: '~/plugins/prism', ssr: false },
   ],
-  buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/svg', '@nuxtjs/vuetify'],
+  buildModules: [
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/svg',
+    '@nuxtjs/vuetify',
+    '@nuxtjs/dotenv',
+  ],
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/sitemap',
