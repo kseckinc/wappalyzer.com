@@ -111,7 +111,10 @@ export default {
     '@nuxtjs/eslint-module',
     '@nuxtjs/svg',
     '@nuxtjs/vuetify',
-    '@nuxtjs/dotenv',
+    [
+      '@nuxtjs/dotenv',
+      { filename: `.env.${process.env.ENVIRONMENT || 'beta'}` },
+    ],
   ],
   modules: [
     '@nuxtjs/axios',
