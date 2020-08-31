@@ -173,7 +173,7 @@
                     }}
                   </td>
                   <td class="pr-6 caption">
-                    {{ formatCurrency(creditTiers[tier] / 100, 'AUD', true) }}
+                    {{ formatCurrency(creditTiers[tier] / 100, 'USD', true) }}
                   </td>
                 </tr>
               </tbody>
@@ -181,7 +181,7 @@
 
             <p class="px-6 mb-0">
               <small>
-                Prices are in Australian dollars.<br />
+                Prices are in United States dollars.<br />
                 Credits expire after 365 days.
               </small>
             </p>

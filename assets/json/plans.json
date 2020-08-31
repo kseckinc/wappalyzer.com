@@ -24,12 +24,12 @@
         "cancellation": true
       }
     },
-    "credits_starter_v2_mo": {
+    "credits_starter_v3_mo": {
       "name": "Starter",
       "interval": "month",
-      "price": 9500,
+      "price": 4900,
       "attrs": {
-        "credits": 2500,
+        "credits": 2000,
         "support": "Email",
         "lookups": true,
         "lists": true,
@@ -38,13 +38,13 @@
         "cancellation": true
       }
     },
-    "credits_pro_v2_mo": {
+    "credits_pro_v3_mo": {
       "name": "Pro",
       "interval": "month",
       "raised": true,
-      "price": 19500,
+      "price": 14900,
       "attrs": {
-        "credits": 15000,
+        "credits": 20000,
         "support": "Email & phone",
         "lookups": true,
         "lists": true,
@@ -53,12 +53,12 @@
         "cancellation": true
       }
     },
-    "credits_business_mo": {
+    "credits_business_v3_mo": {
       "name": "Business",
       "interval": "month",
-      "price": 39500,
+      "price": 29900,
       "attrs": {
-        "credits": 75000,
+        "credits": 100000,
         "support": "Priority email & phone",
         "lookups": true,
         "lists": true,
@@ -82,12 +82,13 @@
         "cancellation": true
       }
     },
-    "credits_starter_v2_yr": {
+    "credits_starter_v3_yr": {
       "name": "Starter",
       "interval": "year",
-      "price": 95000,
+      "beforePrice": 58800,
+      "price": 49000,
       "attrs": {
-        "credits": 2500,
+        "credits": 2000,
         "support": "Email",
         "lookups": true,
         "lists": true,
@@ -96,13 +97,14 @@
         "cancellation": true
       }
     },
-    "credits_pro_yr": {
+    "credits_pro_v3_yr": {
       "name": "Pro",
       "interval": "year",
       "raised": true,
-      "price": 195000,
+      "beforePrice": 178800,
+      "price": 149000,
       "attrs": {
-        "credits": 15000,
+        "credits": 20000,
         "support": "Email & phone",
         "lookups": true,
         "lists": true,
@@ -111,12 +113,13 @@
         "cancellation": true
       }
     },
-    "credits_business_yr": {
+    "credits_business_v3_yr": {
       "name": "Business",
       "interval": "year",
-      "price": 395000,
+      "beforePrice": 358800,
+      "price": 299000,
       "attrs": {
-        "credits": 75000,
+        "credits": 100000,
         "support": "Priority email & phone",
         "lookups": true,
         "lists": true,

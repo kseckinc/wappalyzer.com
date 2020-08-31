@@ -43,7 +43,7 @@ export default {
     }
   },
   created() {
-    this.set({})
+    this.set({ hero: false })
   },
   methods: {
     ...mapActions({

@@ -549,10 +549,6 @@
                         formatCurrency(order.total / 100, order.currency, true)
                       }}
                     </span>
-                    <AudToUsd
-                      v-if="order.currency.toUpperCase() === 'AUD'"
-                      :aud="order.total"
-                    />
                   </td>
                 </tr>
               </tbody>
@@ -761,7 +757,7 @@
         </template>
       </v-card>
 
-      <small>Prices are in Australian dollars.</small>
+      <small>Prices are in United States dollars.</small>
 
       <v-dialog v-model="billingDialog" width="80%" max-width="700">
         <v-card>
@@ -870,7 +866,6 @@ import Account from '~/components/Account.vue'
 import CreditCards from '~/components/CreditCards.vue'
 import Progress from '~/components/Progress.vue'
 import Spinner from '~/components/Spinner.vue'
-import AudToUsd from '~/components/AudToUsd.vue'
 import declineCodes from '~/assets/json/declineCodes.json'
 import sets from '~/assets/json/sets.json'
 
@@ -881,7 +876,6 @@ export default {
     CreditCards,
     Progress,
     Spinner,
-    AudToUsd,
   },
   data() {
     return {

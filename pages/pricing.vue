@@ -33,9 +33,10 @@
 
       <v-container>
         <small>
-          Prices are in Australian dollars.<br />
-          Credits included in plans expire after 60 days.<br />
-          <nuxt-link to="/contact/">Contact us</nuxt-link> for tailored plans.
+          <nuxt-link to="/contact/">Contact us</nuxt-link> for tailored
+          plans.<br />
+          Prices are in United States dollars.<br />
+          Credits included in plans expire after 60 days.
         </small>
       </v-container>
 
@@ -88,7 +89,7 @@
               <p class="px-4">
                 Additional credits can be purchased at tiered pricing. For
                 example, the price for 1,000 credits is (100 x $0.20) + (400 x
-                $0.10) + (500 x $0.06) = $90 AUD.
+                $0.10) + (500 x $0.06) = $90.
               </p>
             </v-col>
           </v-row>
@@ -120,7 +121,7 @@
                   }}
                 </td>
                 <td>
-                  {{ formatCurrency(creditTiers[tier] / 100, 'AUD', true) }}
+                  {{ formatCurrency(creditTiers[tier] / 100, 'USD', true) }}
                 </td>
               </tr>
             </tbody>
@@ -128,7 +129,7 @@
 
           <p class="px-4 mb-0">
             <small>
-              Prices are in Australian dollars.<br />
+              Prices are in United States dollars.<br />
               Credits purchased without a plan expire after 365 days.
             </small>
           </p>

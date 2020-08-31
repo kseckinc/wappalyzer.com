@@ -107,7 +107,7 @@
         </v-card-actions>
       </v-card>
 
-      <small>Prices are in Australian dollars.</small>
+      <small>Prices are in United States dollars.</small>
 
       <v-dialog v-model="cancelDialog" max-width="400px" eager>
         <v-card>

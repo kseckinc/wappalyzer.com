@@ -40,7 +40,7 @@
                   {{
                     formatCurrency(
                       (creditTiers[tier] * credits) / 100,
-                      'AUD',
+                      'USD',
                       true
                     )
                   }}
@@ -85,17 +85,6 @@
                       ) / 100
                     )
                   }}
-
-                  <AudToUsd
-                    :aud="
-                      creditsToCents(
-                        parseInt(
-                          (limit ? Math.min(limit, value) : value) * credits,
-                          10
-                        )
-                      )
-                    "
-                  />
                 </td>
               </tr>
               <tr>
@@ -122,13 +111,9 @@
 </template>
 
 <script>
-import AudToUsd from '~/components/AudToUsd.vue'
 import { creditsPerUnit, creditTiers } from '~/assets/json/pricing.json'
 
 export default {
-  components: {
-    AudToUsd,
-  },
   props: {
     product: {
       type: String,

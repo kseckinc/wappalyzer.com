@@ -1,5 +1,7 @@
 User-agent: *
 
+Allow: /lists/$
+
 Disallow: /200.html
 Disallow: /account/
 Disallow: /apikey/
@@ -7,6 +9,7 @@ Disallow: /credits/
 Disallow: /css/
 Disallow: /installed/
 Disallow: /invoices/
+Disallow: /lists/*
 Disallow: /orders/
 Disallow: /paymentmethods/
 Disallow: /signout/

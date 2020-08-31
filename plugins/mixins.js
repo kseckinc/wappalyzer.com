@@ -4,7 +4,7 @@ import { creditTiers } from '~/assets/json/pricing.json'
 
 Vue.mixin({
   methods: {
-    formatCurrency: (amount, currency = 'AUD', decimal = false) =>
+    formatCurrency: (amount, currency = 'USD', decimal = false) =>
       `${amount.toLocaleString(
         currency.toUpperCase() === 'AUD' ? 'en-AU' : 'en-US',
         {
@@ -13,7 +13,7 @@ Vue.mixin({
           minimumFractionDigits: decimal ? 2 : 0,
           maximumFractionDigits: decimal ? 3 : 0,
         }
-      )} ${currency.toUpperCase()}`,
+      )} ${currency.toUpperCase() === 'AUD' ? currency.toUpperCase() : ''}`,
     formatDate: (date) =>
       date.toLocaleString(undefined, {
         day: 'numeric',
@@ -34,7 +34,9 @@ Vue.mixin({
           Array(Math.max(0, length - half + 1)).join(0)
       }
 
-      return parseFloat(number).toLocaleString()
+      return isNaN(parseFloat(number))
+        ? ''
+        : parseFloat(number).toLocaleString()
     },
     getErrorMessage(error) {
       if (error.response) {

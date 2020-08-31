@@ -49,15 +49,16 @@
           </v-responsive>
           <v-responsive
             v-if="Object.values(items).some(({ price }) => price)"
-            height="60"
+            height="50"
             class="align-center"
           >
             <v-card-text class="py-0 justify-center">
-              <template v-if="item.enterprise">
-                <small class="text--disabled">
-                  Tailored plans available
-                </small>
-              </template>
+              <div
+                v-if="item.beforePrice"
+                class="caption text-decoration-line-through red--text text--darken-3 mb-n1"
+              >
+                {{ formatCurrency(item.beforePrice / 100) }}
+              </div>
               <template v-if="item.price === 0">
                 <span class="font-weight-medium">
                   Free forever
@@ -67,13 +68,12 @@
                 </div>
               </template>
               <template v-else-if="item.price">
-                <span class="font-weight-medium">
+                <span class="font-weight-regular text-h6">
                   {{ formatCurrency(item.price / 100) }}
                 </span>
-                <span> / {{ item.interval }} </span>
-                <div>
-                  <small><AudToUsd :aud="item.price" /></small>
-                </div>
+                <span class="caption">
+                  / {{ item.interval === 'month' ? 'mo' : 'yr' }}
+                </span>
               </template>
             </v-card-text>
           </v-responsive>
@@ -101,12 +101,12 @@
                 >Sign up</v-btn
               >
               <v-btn
-                v-else-if="item.to || item.enterprise"
-                :to="item.enterprise ? '/contact' : item.to"
+                v-else-if="item.to"
+                :to="item.to"
                 :text="!item.raised"
                 color="primary white-text"
                 class="mx-auto"
-                >{{ item.enterprise ? 'Contact us' : buttonText }}</v-btn
+                >{{ buttonText }}</v-btn
               >
               <v-btn
                 v-else
@@ -150,7 +150,7 @@
                         >({{
                           formatCurrency(
                             Math.floor(creditsToCents(item.attrs[name]) / 100)
-                          ).replace(' AUD', '')
+                          )
                         }}
                         value)</span
                       >
@@ -193,12 +193,10 @@ import { mapState } from 'vuex'
 import { mdiCheck } from '@mdi/js'
 
 import SignIn from '~/components/SignIn.vue'
-import AudToUsd from '~/components/AudToUsd.vue'
 
 export default {
   components: {
     SignIn,
-    AudToUsd,
   },
   props: {
     items: {
