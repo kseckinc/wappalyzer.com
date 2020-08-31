@@ -36,7 +36,7 @@ export default {
   target: 'static',
   generate: {
     fallback: '200.html',
-    concurrency: 10,
+    concurrency: 5,
     async routes() {
       const categories = (
         await axios.get(`${publicRuntimeConfig.BASE_URL}/categories`)

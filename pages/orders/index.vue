@@ -43,9 +43,7 @@
                     {{ order.product }}
                   </td>
                   <td v-if="order.status === 'Calculating'">
-                    <v-btn class="loader ml-n1" icon disabled small>
-                      <v-icon>mdiAutorenew</v-icon>
-                    </v-btn>
+                    <Spinner />
                   </td>
                   <td v-else-if="order.status === 'Insufficient'">
                     -
@@ -70,19 +68,20 @@
 </template>
 
 <script>
-import { mdiAutorenew, mdiArrowRight } from '@mdi/js'
+import { mdiArrowRight } from '@mdi/js'
 import Page from '~/components/Page.vue'
+import Spinner from '~/components/Spinner.vue'
 
 export default {
   components: {
     Page,
+    Spinner,
   },
   data() {
     return {
       title: 'Orders',
       error: false,
       orders: null,
-      mdiAutorenew,
       mdiArrowRight,
     }
   },
