@@ -4,7 +4,7 @@
       <v-col>
         <v-responsive
           :height="
-            (Object.values(items).some(({ price }) => price) ? 0 : 10) + 225
+            (Object.values(items).some(({ price }) => price) ? 0 : 10) + 215
           "
         />
         <div v-for="attr in attrs" :key="attr.text">

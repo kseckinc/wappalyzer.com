@@ -22,23 +22,28 @@
 
       <v-divider class="my-8" />
 
-      <h3 class="mb-2">Contribute!</h3>
+      <v-card flat>
+        <v-card-text class="pa-0">
+          <h3 class="mb-2 subtitle-2">Contribute!</h3>
 
-      <p class="mb-8">
-        The browser extension is open source, which means that anyone can add
-        new technologies or respond to issues.
-      </p>
+          <p class="mb-8">
+            The browser extension is open source, which means that anyone can
+            add new technologies or respond to issues.
+          </p>
 
-      <v-btn
-        href="https://github.com/aliasio/wappalyzer"
-        target="_blank"
-        color="accent"
-        class="mb-4"
-        outlined
-      >
-        <v-icon left>{{ mdi.mdiGithub }}</v-icon>
-        Contribute on GitHub
-      </v-btn>
+          <v-btn
+            href="https://github.com/aliasio/wappalyzer"
+            target="_blank"
+            color="accent"
+            class="mb-4"
+            outlined
+            small
+          >
+            <v-icon left>{{ mdi.mdiGithub }}</v-icon>
+            Contribute on GitHub
+          </v-btn>
+        </v-card-text>
+      </v-card>
     </Page>
   </div>
 </template>

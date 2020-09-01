@@ -1,11 +1,11 @@
 export const state = () => ({
-  isHero: true,
+  hero: true,
   isSecure: false,
 })
 
 export const mutations = {
-  hero(state, isHero) {
-    state.isHero = isHero
+  hero(state, hero) {
+    state.hero = hero
   },
   secure(state, isSecure) {
     state.isSecure = isSecure
@@ -14,5 +14,5 @@ export const mutations = {
 
 export const actions = {
   set: ({ commit }, attrs) =>
-    ['hero', 'secure'].forEach((attr) => commit(attr, attrs[attr] || false)),
+    ['hero', 'secure'].forEach((attr) => commit(attr, attrs[attr])),
 }

@@ -116,7 +116,24 @@
       </v-container>
     </v-sheet>
 
-    <Hero v-if="!dense" :title="meta.title" :subtitle="meta.text" />
+    <Hero
+      v-if="hero"
+      :title="hero.title || meta.title"
+      :subtitle="hero.subtitle || meta.text"
+    />
+
+    <v-sheet v-if="cta" color="primary" tile>
+      <v-container class="white--text text-center body-2 py-6">
+        <p>
+          Sell and market more effectively with technographic insights.<br />
+          Create lists of websites and contacts using certain technologies.
+        </p>
+
+        <v-btn to="/" color="white" small outlined>
+          Explore our products
+        </v-btn>
+      </v-container>
+    </v-sheet>
   </div>
 </template>
 
@@ -144,9 +161,9 @@ export default {
     Hero,
   },
   props: {
-    dense: {
-      type: Boolean,
-      default: false,
+    hero: {
+      type: [Object, Boolean],
+      default: true,
     },
     isSignedIn: {
       type: Boolean,
@@ -169,6 +186,7 @@ export default {
   },
   data() {
     return {
+      cta: this.$route.path === '/upgraded/',
       mdi: {
         mdiChevronDown,
         mdiAccount,

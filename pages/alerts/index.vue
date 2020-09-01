@@ -267,6 +267,7 @@ export default {
         try {
           await this.$axios.put('alerts', {
             url: this.url.trim(),
+            enabled: true,
           })
           ;({ alerts: this.alerts } = (await this.$axios.get('alerts')).data)
 

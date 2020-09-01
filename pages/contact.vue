@@ -9,6 +9,7 @@
         </p>
 
         <v-btn to="/faq/extension" color="accent" outlined>
+          <v-icon left>{{ mdi.mdiForum }}</v-icon>
           Frequently asked questions
         </v-btn>
       </v-col>
@@ -36,39 +37,48 @@
 
     <v-row>
       <v-col md="8">
-        <h3 class="mb-2">Social media</h3>
+        <v-card flat>
+          <v-card-text class="pa-0">
+            <h3 class="mb-2">Social media</h3>
 
-        <p class="mb-4">
-          Follow us on LinkedIn and Twitter for occasional product updates.
-        </p>
+            <p class="mb-4">
+              Follow us on LinkedIn and Twitter for occasional product updates.
+            </p>
 
-        <v-btn
-          href="https://www.linkedin.com/company/wappalyzer"
-          color="accent"
-          class="mr-2"
-          target="_blank"
-          outlined
-        >
-          <v-icon left>{{ mdi.mdiLinkedin }}</v-icon>
-          LinkedIn
-        </v-btn>
-        <v-btn
-          href="https://twitter.com/Wappalyzer"
-          color="accent"
-          target="_blank"
-          outlined
-        >
-          <v-icon left>{{ mdi.mdiTwitter }}</v-icon>
-          Twitter
-        </v-btn>
+            <v-btn
+              href="https://www.linkedin.com/company/wappalyzer"
+              color="accent"
+              class="mr-2"
+              target="_blank"
+              outlined
+              small
+            >
+              <v-icon left>{{ mdi.mdiLinkedin }}</v-icon>
+              LinkedIn
+            </v-btn>
+            <v-btn
+              href="https://twitter.com/Wappalyzer"
+              color="accent"
+              target="_blank"
+              outlined
+              small
+            >
+              <v-icon left>{{ mdi.mdiTwitter }}</v-icon>
+              Twitter
+            </v-btn>
 
-        <h3 id="affiliates" class="mt-8 mb-2">Become an affiliate partner</h3>
+            <h3 id="affiliates" class="mt-8 mb-2">
+              Become an affiliate partner
+            </h3>
 
-        <p>
-          Email us to become an affiliate partner. We pay 30% recurring
-          commission on referrals from any user who signs up using your unique
-          link. You'll be able to track sales using a personal dashboard.
-        </p>
+            <p>
+              Email us to become an affiliate partner. We pay 30% recurring
+              commission on referrals from any user who signs up using your
+              unique link. You'll be able to track sales using a personal
+              dashboard.
+            </p>
+          </v-card-text>
+        </v-card>
       </v-col>
     </v-row>
   </Page>
@@ -84,6 +94,7 @@ import {
   mdiFaceAgent,
   mdiBug,
   mdiChatOutline,
+  mdiForum,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -140,6 +151,7 @@ export default {
         mdiFaceAgent,
         mdiBug,
         mdiChatOutline,
+        mdiForum,
       },
     }
   },

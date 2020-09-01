@@ -129,9 +129,9 @@ export default {
       type: Boolean,
       default: false,
     },
-    noHero: {
-      type: Boolean,
-      default: false,
+    hero: {
+      type: [Object, Boolean],
+      default: true,
     },
     secure: {
       type: Boolean,
@@ -157,9 +157,17 @@ export default {
       return [...this.crumbs, { title: this.title, to: '' }]
     },
   },
+  watch: {
+    hero() {
+      this.set({
+        hero: this.hero && !this.secure ? this.hero : false,
+        secure: this.secure,
+      })
+    },
+  },
   mounted() {
     this.set({
-      hero: !this.noHero || this.secure,
+      hero: this.hero && !this.secure ? this.hero : false,
       secure: this.secure,
     })
   },

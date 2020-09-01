@@ -6,7 +6,7 @@
         :user-nav="userNav"
         :is-signed-in="isSignedIn"
         :user="user"
-        :dense="!isHero || isSecure"
+        :hero="hero && !isSecure ? hero : false"
         @openDrawer="$refs.drawer.open()"
       />
       <nuxt />
@@ -81,7 +81,7 @@ export default {
       isSignedIn: ({ user }) => user.isSignedIn,
       user: ({ user }) => user.attrs,
       isSecure: ({ page }) => page.isSecure,
-      isHero: ({ page }) => page.isHero,
+      hero: ({ page }) => page.hero,
     }),
     userNav() {
       return this.isSignedIn ? userNav : userNav.filter((item) => !item.auth)

@@ -13,7 +13,7 @@
           :key="index"
           align="center"
           justify="center"
-          class="pt-lg-8 pb-lg-6"
+          class="pt-lg-4 pb-lg-6"
         >
           <v-col
             :order-sm="index % 2 !== 0 ? 0 : 12"
