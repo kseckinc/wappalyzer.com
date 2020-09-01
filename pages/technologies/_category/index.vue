@@ -121,11 +121,23 @@ export default {
     Bar,
     Logos,
   },
-  async asyncData({ route, $axios }) {
+  async asyncData({ route, redirect, $axios }) {
     const { category: slug } = route.params
 
-    return {
-      category: (await $axios.get(`categories/${slug}`)).data,
+    try {
+      return {
+        category: (await $axios.get(`categories/${slug}`)).data,
+      }
+    } catch (error) {
+      const technology = (await $axios.get(`technologies/${slug}`)).data
+
+      redirect(
+        `/technologies/${
+          technology.categories.length
+            ? `${technology.categories[0].slug}/`
+            : ''
+        }${slug}`
+      )
     }
   },
   data() {
