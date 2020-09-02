@@ -4,11 +4,7 @@
     :head="{
       title: title,
       subtitle: 'Browse technologies and categories',
-      text: technologiesCount
-        ? `Wappalyzer tracks ${formatNumber(
-            technologiesCount
-          )} technologies across ${formatNumber(categoriesCount)} categories.`
-        : '',
+      text,
     }"
     :loading="!categories"
   >
@@ -70,6 +66,15 @@ export default {
             0
           )
         : 0
+    },
+    text() {
+      return this.technologiesCount
+        ? `Wappalyzer tracks ${this.formatNumber(
+            this.technologiesCount
+          )} web technologies across ${this.formatNumber(
+            this.categoriesCount
+          )} categories. Search for a technology by name or choose a category for information such as market share and traffic.`
+        : ''
     },
   },
   methods: {
