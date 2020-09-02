@@ -100,9 +100,11 @@
           </v-simple-table>
         </v-card-text>
       </v-card>
-    </Page>
 
-    <Logos />
+      <template v-slot:footer>
+        <Logos />
+      </template>
+    </Page>
   </div>
 </template>
 

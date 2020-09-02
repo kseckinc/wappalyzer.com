@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Page :title="title" crumbs narrow no-head no-hero no-subscribe>
+    <Page :title="title" :hero="false" narrow no-head no-subscribe>
       <h1 class="text-h1 mb-8">{{ title }}</h1>
 
       <p>

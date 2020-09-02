@@ -1,7 +1,7 @@
 <template>
   <nuxt-link to="/">
-    <LogoDark v-if="dark" alt="Wappalyzer" class="logo" height="100%" />
-    <LogoLight v-else alt="Wappalyzer" class="logo" height="100%" />
+    <LogoDark v-if="dark" alt="Wappalyzer" class="logo d-block" height="100%" />
+    <LogoLight v-else alt="Wappalyzer" class="logo d-block" height="100%" />
   </nuxt-link>
 </template>
 

@@ -38,6 +38,15 @@ Vue.mixin({
         ? ''
         : parseFloat(number).toLocaleString()
     },
+    formatHostname(url) {
+      try {
+        const { hostname } = new URL(url)
+
+        return hostname.replace(/^www\./, '')
+      } catch (error) {
+        return url.replace(/^https?:\/\/www\./, '')
+      }
+    },
     getErrorMessage(error) {
       if (error.response) {
         const code = error.response.data.code

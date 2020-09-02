@@ -1,5 +1,5 @@
 <template>
-  <Page :title="title" narrow no-hero no-subscribe>
+  <Page :title="title" :hero="false" narrow no-subscribe>
     <v-card class="mb-4">
       <v-card-title>
         Sign in as

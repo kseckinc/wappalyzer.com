@@ -6,10 +6,11 @@
         :user-nav="userNav"
         :is-signed-in="isSignedIn"
         :user="user"
-        :hero="hero && !isSecure ? hero : false"
         @openDrawer="$refs.drawer.open()"
       />
+
       <nuxt />
+
       <Footer :main-nav="mainNav" />
     </v-main>
 
@@ -57,19 +58,8 @@ export default {
     Footer,
     Drawer,
   },
-  props: {
-    dense: {
-      type: Boolean,
-      default: false,
-    },
-    auth: {
-      type: Boolean,
-      default: false,
-    },
-  },
   data() {
     return {
-      drawer: false,
       mainNav,
       driftShown: false,
       driftApi: null,
@@ -78,11 +68,16 @@ export default {
   },
   computed: {
     ...mapState({
-      isSignedIn: ({ user }) => user.isSignedIn,
       user: ({ user }) => user.attrs,
-      isSecure: ({ page }) => page.isSecure,
-      hero: ({ page }) => page.hero,
+      isSignedIn: ({ user }) => user.isSignedIn,
     }),
+    sideNav() {
+      return this.secure
+        ? this.isSignedIn
+          ? userNav
+          : userNav.filter((item) => !item.auth)
+        : this.side
+    },
     userNav() {
       return this.isSignedIn ? userNav : userNav.filter((item) => !item.auth)
     },

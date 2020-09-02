@@ -43,12 +43,12 @@
       <v-divider />
     </div>
     <v-list nav dense>
-      <v-list-item v-if="user.admin" to="/admin">
+      <v-list-item v-if="user.admin" to="/admin/">
         <v-list-item-title>
           Administration
         </v-list-item-title>
         <v-list-item-icon>
-          <v-icon color="success" dense>{{ mdiLockOpen }}</v-icon>
+          <v-icon color="success" dense>{{ mdi.mdiLockOpen }}</v-icon>
         </v-list-item-icon>
       </v-list-item>
       <v-list-item
@@ -62,7 +62,7 @@
           {{ item.title }}
         </v-list-item-title>
         <v-list-item-icon v-if="item.icon">
-          <v-icon dense>{{ item.icon }}</v-icon>
+          <v-icon dense>{{ mdi[item.icon] }}</v-icon>
         </v-list-item-icon>
       </v-list-item>
     </v-list>
@@ -70,7 +70,17 @@
 </template>
 
 <script>
-import { mdiLockOpen } from '@mdi/js'
+import {
+  mdiAccount,
+  mdiLockOpen,
+  mdiAlphaCCircle,
+  mdiCreditCard,
+  mdiCalendarSync,
+  mdiCart,
+  mdiFileDocumentOutline,
+  mdiKeyVariant,
+  mdiLogoutVariant,
+} from '@mdi/js'
 
 export default {
   props: {
@@ -92,7 +102,17 @@ export default {
   data() {
     return {
       isOpen: false,
-      mdiLockOpen,
+      mdi: {
+        mdiAccount,
+        mdiLockOpen,
+        mdiAlphaCCircle,
+        mdiCreditCard,
+        mdiCalendarSync,
+        mdiCart,
+        mdiFileDocumentOutline,
+        mdiKeyVariant,
+        mdiLogoutVariant,
+      },
     }
   },
   methods: {

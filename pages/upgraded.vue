@@ -5,8 +5,8 @@
       title: 'Wappalyzer has been upgraded',
       subtitle: release ? release.version : error ? '' : '...',
     }"
+    :crumbs="false"
     no-head
-    no-crumbs
   >
     <v-row justify="center my-4">
       <v-col cols="12" sm="8" lg="6" class="py-0">

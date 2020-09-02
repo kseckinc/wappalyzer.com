@@ -8,11 +8,11 @@
           </v-col>
 
           <v-col class="text-right d-none d-md-block">
-            <template v-for="({ title, to, icon, items }, i) in mainNav">
+            <template v-for="({ title, to, icon, items }, index) in mainNav">
               <v-btn v-if="to" :key="title" :to="to" class="white--text" text>
                 {{ title }}
               </v-btn>
-              <v-menu v-else :key="i" offset-y left eager>
+              <v-menu v-else :key="index" offset-y left eager>
                 <template v-slot:activator="{ on }">
                   <v-btn :icon="!!icon" class="white--text" text v-on="on">
                     <v-icon v-if="icon" dense>{{ icon }}</v-icon>
@@ -26,10 +26,10 @@
                 <v-list v-if="items" class="header__menu">
                   <div
                     v-for="({ title: _title, subtitle, to: _to },
-                    index) in items"
+                    index2) in items"
                     :key="_title"
                   >
-                    <v-divider v-if="index"></v-divider>
+                    <v-divider v-if="index2"></v-divider>
                     <v-list-item
                       :href="_to.match(/^http/) ? _to : null"
                       :target="_to.match(/^http/) ? '_blank' : '_self'"
@@ -115,25 +115,6 @@
         </v-row>
       </v-container>
     </v-sheet>
-
-    <Hero
-      v-if="hero"
-      :title="hero.title || meta.title"
-      :subtitle="hero.subtitle || meta.text"
-    />
-
-    <v-sheet v-if="cta" color="primary" tile>
-      <v-container class="white--text text-center body-2 py-6">
-        <p>
-          Sell and market more effectively with technographic insights.<br />
-          Create lists of websites and contacts using certain technologies.
-        </p>
-
-        <v-btn to="/" color="white" small outlined>
-          Explore our products
-        </v-btn>
-      </v-container>
-    </v-sheet>
   </div>
 </template>
 
@@ -152,13 +133,10 @@ import {
   mdiLogoutVariant,
 } from '@mdi/js'
 import Logo from '~/components/Logo.vue'
-import Hero from '~/components/Hero.vue'
-import { hero as meta } from '~/assets/json/meta.json'
 
 export default {
   components: {
     Logo,
-    Hero,
   },
   props: {
     hero: {
@@ -186,7 +164,6 @@ export default {
   },
   data() {
     return {
-      cta: this.$route.path === '/upgraded/',
       mdi: {
         mdiChevronDown,
         mdiAccount,
@@ -200,7 +177,6 @@ export default {
         mdiKeyVariant,
         mdiLogoutVariant,
       },
-      meta,
     }
   },
 }

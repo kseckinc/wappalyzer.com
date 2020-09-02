@@ -3,6 +3,7 @@
     <div class="d-flex">
       <v-img
         :src="`/images/icons/${icon}`"
+        :alt="`Websites using ${icon.replace(/\.[a-z]+$/i, '')}`"
         class="d-inline-block"
         contain
         max-height="16"

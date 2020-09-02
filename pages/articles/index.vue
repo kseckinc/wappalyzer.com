@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Page crumbs :title="title" narrow>
+    <Page :title="title" narrow>
       <v-card class="mb-4">
         <template v-for="(article, index) in articles">
           <div :key="index">

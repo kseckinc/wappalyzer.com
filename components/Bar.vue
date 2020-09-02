@@ -9,7 +9,7 @@
       class="bar__span white--text"
       height="18"
     >
-      <span class="bar__value bar__value--foreground mx-1">
+      <span class="bar__value bar__value--foreground mx-1" data-nosnippet>
         {{ percentage }}%
       </span>
     </v-sheet>

@@ -2,7 +2,7 @@
   <Page :title="title" :head="meta" no-heading>
     <Credits class="mt-8 mb-8" />
 
-    <v-card color="secondary" style="overflow: hidden;">
+    <v-card color="secondary" style="overflow: hidden;" class="mb-4">
       <v-card-title>
         <v-icon color="primary" left>{{ mdiLayersOutline }}</v-icon>
         Lookup

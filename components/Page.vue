@@ -1,16 +1,67 @@
 <template>
   <div>
-    <Crumbs v-if="!noCrumbs" :crumbs="crumbNav" />
+    <v-main>
+      <Hero
+        v-if="hero && !secure"
+        :title="hero.title || meta.title"
+        :subtitle="hero.subtitle || meta.text"
+      />
 
-    <v-container class="py-10 py-sm-12">
-      <SignIn v-if="secure && !isSignedIn" class="px-2" mode-continue />
-      <v-row v-else-if="sideNav.length">
-        <v-col cols="12" sm="4" lg="3" order="2" order-sm="0">
-          <Credits v-if="secure && isSignedIn" variant />
+      <v-sheet v-if="cta" color="primary" tile>
+        <v-container class="white--text text-center body-2 py-6">
+          <p>
+            Sell and market more effectively with technographic insights.<br />
+            Create lists of websites and contacts using certain technologies.
+          </p>
 
-          <SideNav :items="sideNav" />
-        </v-col>
-        <v-col cols="12" sm="8" lg="9">
+          <v-btn to="/" color="white" small outlined>
+            Explore our products
+          </v-btn>
+        </v-container>
+      </v-sheet>
+
+      <Crumbs v-if="crumbs" :crumbs="crumbNav" />
+
+      <v-container class="py-10 py-sm-12">
+        <SignIn v-if="secure && !isSignedIn" class="px-2" mode-continue />
+        <v-row v-else-if="sideNav.length">
+          <v-col cols="12" sm="4" lg="3" order="2" order-sm="0">
+            <Credits v-if="secure && isSignedIn" variant />
+
+            <SideNav :items="sideNav" />
+          </v-col>
+          <v-col cols="12" sm="8" lg="9">
+            <PageHead
+              v-if="!noHead"
+              :loading="loading"
+              :title="head.title"
+              :subtitle="head.subtitle"
+              :text="head.text"
+              :image="head.image"
+            >
+              <slot />
+            </PageHead>
+            <slot v-else />
+            <slot name="content" />
+          </v-col>
+        </v-row>
+        <v-row v-else-if="narrow" justify="center" no-gutters>
+          <v-col sm="10" md="10" lg="8">
+            <PageHead
+              v-if="!noHead"
+              :loading="loading"
+              :title="head.title"
+              :subtitle="head.subtitle"
+              :text="head.text"
+              :image="head.image"
+            >
+              <slot />
+            </PageHead>
+            <slot v-else />
+            <slot name="content" />
+          </v-col>
+        </v-row>
+        <template v-else>
           <PageHead
             v-if="!noHead"
             :loading="loading"
@@ -23,48 +74,18 @@
           </PageHead>
           <slot v-else />
           <slot name="content" />
-        </v-col>
-      </v-row>
-      <v-row v-else-if="narrow" justify="center" no-gutters>
-        <v-col sm="10" md="10" lg="8">
-          <PageHead
-            v-if="!noHead"
-            :loading="loading"
-            :title="head.title"
-            :subtitle="head.subtitle"
-            :text="head.text"
-            :image="head.image"
-          >
-            <slot />
-          </PageHead>
-          <slot v-else />
-          <slot name="content" />
-        </v-col>
-      </v-row>
-      <template v-else>
-        <PageHead
-          v-if="!noHead"
-          :loading="loading"
-          :title="head.title"
-          :subtitle="head.subtitle"
-          :text="head.text"
-          :image="head.image"
-        >
-          <slot />
-        </PageHead>
-        <slot v-else />
-        <slot name="content" />
-      </template>
-    </v-container>
+        </template>
+      </v-container>
 
-    <slot name="footer" />
+      <slot name="footer" />
 
-    <Subscribe v-if="!noSubscribe && (!secure || isSignedIn)" />
+      <Subscribe v-if="!noSubscribe && (!secure || isSignedIn)" />
+    </v-main>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 
 import PageHead from '~/components/PageHead.vue'
 import Subscribe from '~/components/Subscribe.vue'
@@ -72,10 +93,13 @@ import SideNav from '~/components/SideNav.vue'
 import Crumbs from '~/components/Crumbs.vue'
 import SignIn from '~/components/SignIn.vue'
 import Credits from '~/components/Credits.vue'
+import Hero from '~/components/Hero.vue'
 import userNav from '~/assets/json/nav/user.json'
+import { hero as meta } from '~/assets/json/meta.json'
 
 export default {
   components: {
+    Hero,
     PageHead,
     Subscribe,
     SideNav,
@@ -85,7 +109,7 @@ export default {
   },
   props: {
     crumbs: {
-      type: [Array, String],
+      type: [Array, String, Boolean],
       default: () => [],
     },
     side: {
@@ -99,10 +123,6 @@ export default {
     title: {
       type: String,
       default: '',
-    },
-    noCrumbs: {
-      type: Boolean,
-      default: false,
     },
     head: {
       type: Object,
@@ -142,8 +162,16 @@ export default {
       default: false,
     },
   },
+  data() {
+    return {
+      drawer: false,
+      cta: this.$route.path === '/upgraded/',
+      meta,
+    }
+  },
   computed: {
     ...mapState({
+      user: ({ user }) => user.attrs,
       isSignedIn: ({ user }) => user.isSignedIn,
     }),
     sideNav() {
@@ -156,25 +184,6 @@ export default {
     crumbNav() {
       return [...this.crumbs, { title: this.title, to: '' }]
     },
-  },
-  watch: {
-    hero() {
-      this.set({
-        hero: this.hero && !this.secure ? this.hero : false,
-        secure: this.secure,
-      })
-    },
-  },
-  mounted() {
-    this.set({
-      hero: this.hero && !this.secure ? this.hero : false,
-      secure: this.secure,
-    })
-  },
-  methods: {
-    ...mapActions({
-      set: 'page/set',
-    }),
   },
   head() {
     return {

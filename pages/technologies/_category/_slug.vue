@@ -35,7 +35,7 @@
         <v-divider vertical class="ml-3" />
 
         <v-btn :href="technology.website" color="accent" target="_blank" text>
-          Visit website
+          {{ formatHostname(technology.website) }}
           <v-icon right small>{{ mdiOpenInNew }}</v-icon>
         </v-btn>
       </div>
@@ -65,6 +65,10 @@
       <template v-else>
         <v-row>
           <v-col md="10" lg="8">
+            <p v-if="technology.description">
+              {{ technology.description }}
+            </p>
+
             <p>
               These are top top websites usings {{ technology.name }}.
               <nuxt-link :to="`/lists/${categorySlug}/${slug}/`"
@@ -134,9 +138,11 @@
           </small>
         </p>
       </template>
-    </Page>
 
-    <Logos />
+      <template v-slot:footer>
+        <Logos />
+      </template>
+    </Page>
   </div>
 </template>
 
