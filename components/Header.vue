@@ -12,7 +12,15 @@
               <v-btn v-if="to" :key="title" :to="to" class="white--text" text>
                 {{ title }}
               </v-btn>
-              <v-menu v-else :key="index" offset-y left eager attach>
+              <v-menu
+                v-else
+                :key="index"
+                class="text-left"
+                offset-y
+                left
+                eager
+                attach
+              >
                 <template v-slot:activator="{ on }">
                   <v-btn :icon="!!icon" class="white--text" text v-on="on">
                     <v-icon v-if="icon" dense>{{ icon }}</v-icon>
@@ -61,7 +69,7 @@
               <template v-slot:activator="{ on }">
                 <v-btn
                   :icon="!isSignedIn"
-                  class="font-weight-regular"
+                  class="font-weight-regular text-left"
                   color="white"
                   dark
                   text
