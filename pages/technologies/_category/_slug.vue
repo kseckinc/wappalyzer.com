@@ -144,7 +144,7 @@
           <v-card-title>Alternatives to {{ technology.name }}</v-card-title>
           <v-card-text class="pb-0">
             These are the top {{ technology.name }} alternatives based on market
-            share.
+            share in {{ new Date().getFullYear() }}.
           </v-card-text>
           <v-card-text class="px-0">
             <v-simple-table>

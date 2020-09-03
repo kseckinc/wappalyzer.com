@@ -2,7 +2,7 @@
   <div>
     <Page
       :title="title"
-      :seo-title="`${title} market share`"
+      :seo-title="`${title} market share in ${new Date().getFullYear()}`"
       :crumbs="[{ title: 'Technologies', to: '/technologies' }]"
       :head="{
         title,
@@ -22,13 +22,10 @@
       <v-row>
         <v-col md="10" lg="8">
           <p>
-            These are the top technologies in the category '{{
-              category.name
-            }}'.
-            <br />
+            Create a list of
+            {{ formatNumber(totalHostnames, true) }}
             <nuxt-link :to="`/lists/${category.slug}`"
-              >Create a list of
-              {{ formatNumber(totalHostnames, true) }} leads</nuxt-link
+              >{{ category.name }} websites</nuxt-link
             >
             with email addresses and phone numbers.
           </p>
@@ -45,7 +42,11 @@
       </v-btn>
 
       <v-card class="my-4">
-        <v-card-title>Technologies</v-card-title>
+        <v-card-title>{{ category.name }} market share</v-card-title>
+        <v-card-text class="pb-0">
+          These are the top {{ category.name }} technologies based on market
+          share in 2020.
+        </v-card-text>
         <v-card-text class="px-0">
           <v-simple-table>
             <thead>
