@@ -169,6 +169,8 @@ export default {
       const { technologies } = this.category
       const ordered = {}
 
+      delete technologies['cart-functionality']
+
       Object.keys(technologies)
         .sort((a, b) => {
           const order = this.sort === 'name' ? 1 : -1

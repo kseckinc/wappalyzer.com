@@ -83,109 +83,120 @@ export default {
     },
   },
   watch: {
-    $route(route) {
-      this.checkDrift(route.path)
+    $route() {
+      this.checkDrift()
     },
   },
   mounted() {
     this.updateUserAttrs()
 
-    if (!window.drift) {
-      const t = (window.driftt = window.drift = window.driftt || [])
-
-      t.invoked = true
-
-      t.methods = [
-        'identify',
-        'config',
-        'track',
-        'reset',
-        'debug',
-        'show',
-        'ping',
-        'page',
-        'hide',
-        'off',
-        'on',
-      ]
-
-      t.factory = function (e) {
-        return function () {
-          const n = Array.prototype.slice.call(arguments)
-          n.unshift(e)
-          t.push(n)
-          return t
-        }
-      }
-
-      t.methods.forEach(function (e) {
-        t[e] = t.factory(e)
-      })
-
-      t.load = function (t) {
-        const e = 3e5
-        const n = Math.ceil(new Date() / e) * e
-        const o = document.createElement('script')
-
-        o.type = 'text/javascript'
-        o.async = !0
-        o.crossorigin = 'anonymous'
-        o.src = 'https://js.driftt.com/include/' + n + '/' + t + '.js'
-
-        const i = document.getElementsByTagName('script')[0]
-
-        i.parentNode.insertBefore(o, i)
-      }
-
-      drift.SNIPPET_VERSION = '0.3.1'
-      drift.load('w7g5ksst75mb')
-
-      drift.on('ready', (api, { isOnline }) => {
-        this.driftApi = api
-        this.driftOnline = isOnline
-
-        this.checkDrift(this.$route.path)
-      })
-    }
+    this.checkDrift()
   },
   methods: {
     ...mapActions({
       updateUserAttrs: 'user/updateAttrs',
     }),
-    checkDrift(route) {
-      if (this.driftApi) {
-        if (this.user.sub) {
-          drift.identify(this.user.sub, {
-            email: this.user.email || '',
-            nickname: this.user.name || this.user.email || '',
-            userId: this.user.sub,
-          })
-        }
+    initDrift() {
+      if (!window.drift) {
+        return new Promise((resolve) => {
+          const t = (window.driftt = window.drift = window.driftt || [])
 
-        const path = Object.keys(driftRoutes).find((path) =>
-          route.startsWith(path)
-        )
+          t.invoked = true
 
-        if (path) {
-          if (driftRoutes[path] && (!this.driftShown || path === '/contact')) {
-            this.driftApi.showWelcomeMessage(
-              `${driftRoutes[path]}${
-                !this.driftOnline
-                  ? ` I'm away right now but leave message I'll get back to you soon.`
-                  : ''
-              }`
-            )
+          t.methods = [
+            'identify',
+            'config',
+            'track',
+            'reset',
+            'debug',
+            'show',
+            'ping',
+            'page',
+            'hide',
+            'off',
+            'on',
+          ]
 
-            this.driftShown = true
-          } else {
-            this.driftApi.hideWelcomeMessage()
-            this.driftApi.widget.show()
+          t.factory = function (e) {
+            return function () {
+              const n = Array.prototype.slice.call(arguments)
+              n.unshift(e)
+              t.push(n)
+              return t
+            }
           }
-        } else {
+
+          t.methods.forEach(function (e) {
+            t[e] = t.factory(e)
+          })
+
+          t.load = function (t) {
+            const e = 3e5
+            const n = Math.ceil(new Date() / e) * e
+            const o = document.createElement('script')
+
+            o.type = 'text/javascript'
+            o.async = !0
+            o.crossorigin = 'anonymous'
+            o.src = 'https://js.driftt.com/include/' + n + '/' + t + '.js'
+
+            const i = document.getElementsByTagName('script')[0]
+
+            i.parentNode.insertBefore(o, i)
+          }
+
+          drift.SNIPPET_VERSION = '0.3.1'
+          drift.load('w7g5ksst75mb')
+
+          drift.on('ready', (api, { isOnline }) => {
+            this.driftApi = api
+            this.driftOnline = isOnline
+
+            resolve()
+          })
+        })
+      }
+    },
+    async checkDrift() {
+      const path = Object.keys(driftRoutes).find((path) =>
+        this.$route.path.startsWith(path)
+      )
+
+      if (!path) {
+        if (this.driftApi) {
           this.driftApi.hideWelcomeMessage()
 
           setTimeout(() => this.driftApi.widget.hide(), 100)
         }
+
+        return
+      }
+
+      if (!this.driftApi) {
+        await this.initDrift()
+      }
+
+      if (this.user.sub) {
+        drift.identify(this.user.sub, {
+          email: this.user.email || '',
+          nickname: this.user.name || this.user.email || '',
+          userId: this.user.sub,
+        })
+      }
+
+      if (driftRoutes[path] && (!this.driftShown || path === '/contact')) {
+        this.driftApi.showWelcomeMessage(
+          `${driftRoutes[path]}${
+            !this.driftOnline
+              ? ` I'm away right now but leave message I'll get back to you soon.`
+              : ''
+          }`
+        )
+
+        this.driftShown = true
+      } else {
+        this.driftApi.hideWelcomeMessage()
+        this.driftApi.widget.show()
       }
     },
   },

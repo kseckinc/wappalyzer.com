@@ -3,11 +3,11 @@
     <v-sheet class="header" color="primary darken-1" tile>
       <v-container tag="header">
         <v-row class="align-center">
-          <v-col md="auto">
+          <v-col class="flex-grow-0 flex-shrink-1">
             <Logo dark />
           </v-col>
 
-          <v-col class="text-right d-none d-md-block">
+          <v-col class="d-none d-md-block flex-grow-1 flex-shrink-0 text-right">
             <template v-for="({ title, to, icon, items }, index) in mainNav">
               <v-btn v-if="to" :key="title" :to="to" class="white--text" text>
                 {{ title }}

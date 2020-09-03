@@ -62,6 +62,10 @@ export default {
         type: 'text/plain',
         href: `${publicRuntimeConfig.WEBSITE_URL}/humans.txt`,
       },
+      {
+        rel: 'preconnect',
+        href: `https://www.google-analytics.com`,
+      },
     ],
   },
   csp: {

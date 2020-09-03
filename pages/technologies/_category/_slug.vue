@@ -70,11 +70,9 @@
             </p>
 
             <p>
-              These are top top websites usings {{ technology.name }}.
-              <nuxt-link :to="`/lists/${categorySlug}/${slug}/`"
-                >Create a list of
-                {{ formatNumber(technology.hostnames, true) }}
-                leads</nuxt-link
+              Create a list of {{ formatNumber(technology.hostnames, true) }}
+              <nuxt-link :to="`/lists/${categorySlug}/${slug}/`">
+                {{ technology.name }} websites</nuxt-link
               >
               with email addresses and phone numbers.
             </p>
@@ -92,6 +90,10 @@
 
         <v-card class="my-4">
           <v-card-title>Websites using {{ technology.name }}</v-card-title>
+          <v-card-text class="pb-0">
+            These are top top websites usings {{ technology.name }}, based on
+            traffic.
+          </v-card-text>
           <v-card-text class="px-0">
             <v-simple-table>
               <thead>
@@ -127,17 +129,64 @@
           </v-card-text>
         </v-card>
 
-        <p class="mb-8">
+        <p class="mb-12">
           <small>
             * Percentage of pageviews across all tracked websites that use
             {{ technology.name }}.<br />
             Get the full list of
             <nuxt-link :to="`/lists/${categorySlug}/${slug}/`"
-              >websites and companies using {{ technology.name }}.</nuxt-link
-            >
+              >websites and companies using {{ technology.name }}</nuxt-link
+            >.
           </small>
         </p>
+
+        <v-card class="my-4">
+          <v-card-title>Alternatives to {{ technology.name }}</v-card-title>
+          <v-card-text class="pb-0">
+            These are the top {{ technology.name }} alternatives based on market
+            share.
+          </v-card-text>
+          <v-card-text class="px-0">
+            <v-simple-table>
+              <thead>
+                <tr>
+                  <th width="30%">Technology</th>
+                  <th>Markt share</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="alternative in alternatives" :key="alternative.slug">
+                  <td>
+                    <nuxt-link
+                      :to="`/technologies/${alternative.categorySlug}/${alternative.slug}/`"
+                      class="body-2 d-flex align-center my-2"
+                    >
+                      <TechnologyIcon :icon="alternative.icon" />
+                      {{ alternative.name }}
+                    </nuxt-link>
+                  </td>
+                  <td>
+                    <Bar
+                      :value="alternative.hostnames"
+                      :max="maxHostnames"
+                      :total="totalHostnames"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </v-simple-table>
+          </v-card-text>
+        </v-card>
       </template>
+
+      <p>
+        <small>
+          See the full list of
+          <nuxt-link :to="`/technologies/${categorySlug}/`"
+            >{{ technology.name }} alternatives</nuxt-link
+          >.
+        </small>
+      </p>
 
       <template v-slot:footer>
         <Logos />
@@ -164,8 +213,32 @@ export default {
   async asyncData({ route, $axios, error }) {
     const { slug } = route.params
 
+    const technology = (await $axios.get(`technologies/${slug}`)).data
+
+    const alternatives = (
+      await Promise.all(
+        technology.categories.map(async ({ slug }) =>
+          Object.values(
+            (await $axios.get(`categories/${slug}`)).data.technologies
+          ).map((technology) => ({ ...technology, categorySlug: slug }))
+        )
+      )
+    )
+      .flat()
+      .filter(({ slug: _slug }, index, alternatives) => {
+        return (
+          _slug !== slug &&
+          _slug !== 'cart-functionality' &&
+          alternatives.findIndex(({ slug: __slug }) => _slug === __slug) ===
+            index
+        )
+      })
+      .sort(({ hostnames: a }, { hostnames: b }) => (a < b ? 1 : -1))
+      .slice(0, 5)
+
     return {
-      technology: (await $axios.get(`technologies/${slug}`)).data,
+      technology,
+      alternatives,
     }
   },
   data() {
@@ -207,6 +280,22 @@ export default {
       return (
         Object.values(this.technology.topHostnames).reduce(
           (total, { hits }) => (total = Math.max(total, hits)),
+          0
+        ) || 1
+      )
+    },
+    maxHostnames() {
+      return (
+        Object.values(this.alternatives).reduce(
+          (total, { hostnames }) => (total = Math.max(total, hostnames)),
+          0
+        ) || 1
+      )
+    },
+    totalHostnames() {
+      return (
+        Object.values(this.alternatives).reduce(
+          (total, { hostnames }) => (total += hostnames),
           0
         ) || 1
       )
