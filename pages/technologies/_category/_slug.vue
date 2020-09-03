@@ -140,53 +140,58 @@
           </small>
         </p>
 
-        <v-card class="my-4">
-          <v-card-title>Alternatives to {{ technology.name }}</v-card-title>
-          <v-card-text class="pb-0">
-            These are the top {{ technology.name }} alternatives based on market
-            share in {{ new Date().getFullYear() }}.
-          </v-card-text>
-          <v-card-text class="px-0">
-            <v-simple-table>
-              <thead>
-                <tr>
-                  <th width="30%">Technology</th>
-                  <th>Markt share</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="alternative in alternatives" :key="alternative.slug">
-                  <td>
-                    <nuxt-link
-                      :to="`/technologies/${alternative.categorySlug}/${alternative.slug}/`"
-                      class="body-2 d-flex align-center my-2"
-                    >
-                      <TechnologyIcon :icon="alternative.icon" />
-                      {{ alternative.name }}
-                    </nuxt-link>
-                  </td>
-                  <td>
-                    <Bar
-                      :value="alternative.hostnames"
-                      :max="maxHostnames"
-                      :total="totalHostnames"
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </v-simple-table>
-          </v-card-text>
-        </v-card>
-      </template>
+        <template v-if="technology.alternatives.length">
+          <v-card class="my-4">
+            <v-card-title>Alternatives to {{ technology.name }}</v-card-title>
+            <v-card-text class="pb-0">
+              These are the top {{ technology.name }} alternatives based on
+              market share in {{ new Date().getFullYear() }}.
+            </v-card-text>
+            <v-card-text class="px-0">
+              <v-simple-table>
+                <thead>
+                  <tr>
+                    <th width="30%">Technology</th>
+                    <th>Markt share</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="alternative in technology.alternatives"
+                    :key="alternative.slug"
+                  >
+                    <td>
+                      <nuxt-link
+                        :to="`/technologies/${alternative.categorySlug}/${alternative.slug}/`"
+                        class="body-2 d-flex align-center my-2"
+                      >
+                        <TechnologyIcon :icon="alternative.icon" />
+                        {{ alternative.name }}
+                      </nuxt-link>
+                    </td>
+                    <td>
+                      <Bar
+                        :value="alternative.hostnames"
+                        :max="maxHostnames"
+                        :total="totalHostnames"
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </v-simple-table>
+            </v-card-text>
+          </v-card>
+        </template>
 
-      <p>
-        <small>
-          See the full list of
-          <nuxt-link :to="`/technologies/${categorySlug}/`"
-            >{{ technology.name }} alternatives</nuxt-link
-          >.
-        </small>
-      </p>
+        <p>
+          <small>
+            See the full list of
+            <nuxt-link :to="`/technologies/${categorySlug}/`"
+              >{{ technology.name }} alternatives</nuxt-link
+            >.
+          </small>
+        </p>
+      </template>
 
       <template v-slot:footer>
         <Logos />
@@ -215,31 +220,7 @@ export default {
 
     const technology = (await $axios.get(`technologies/${slug}`)).data
 
-    const alternatives = (
-      await Promise.all(
-        technology.categories.map(async ({ slug }) =>
-          Object.values(
-            (await $axios.get(`categories/${slug}`)).data.technologies
-          ).map((technology) => ({ ...technology, categorySlug: slug }))
-        )
-      )
-    )
-      .flat()
-      .filter(({ slug: _slug }, index, alternatives) => {
-        return (
-          _slug !== slug &&
-          _slug !== 'cart-functionality' &&
-          alternatives.findIndex(({ slug: __slug }) => _slug === __slug) ===
-            index
-        )
-      })
-      .sort(({ hostnames: a }, { hostnames: b }) => (a < b ? 1 : -1))
-      .slice(0, 5)
-
-    return {
-      technology,
-      alternatives,
-    }
+    return { technology }
   },
   data() {
     return {
@@ -286,7 +267,7 @@ export default {
     },
     maxHostnames() {
       return (
-        Object.values(this.alternatives).reduce(
+        Object.values(this.technology.alternatives).reduce(
           (total, { hostnames }) => (total = Math.max(total, hostnames)),
           0
         ) || 1
@@ -294,7 +275,7 @@ export default {
     },
     totalHostnames() {
       return (
-        Object.values(this.alternatives).reduce(
+        Object.values(this.technology.alternatives).reduce(
           (total, { hostnames }) => (total += hostnames),
           0
         ) || 1
