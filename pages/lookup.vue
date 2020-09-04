@@ -124,6 +124,18 @@
                               <template v-else-if="key === 'ipCountry'">
                                 {{ getCountry(attributes[key]) }}
                               </template>
+                              <template v-else-if="key === 'responsive'">
+                                <v-icon
+                                  v-if="attributes[key] === true"
+                                  color="success"
+                                  small
+                                >
+                                  {{ mdiCheck }}
+                                </v-icon>
+                                <v-icon v-else color="error" small>
+                                  {{ mdiClose }}
+                                </v-icon>
+                              </template>
                               <template
                                 v-else-if="
                                   attributes.ipCountry && key === 'ipRegion'
@@ -170,7 +182,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import { mdiLayersOutline, mdiMagnify } from '@mdi/js'
+import { mdiLayersOutline, mdiMagnify, mdiCheck, mdiClose } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import SignIn from '~/components/SignIn.vue'
@@ -201,6 +213,8 @@ export default {
       attributes: {},
       mdiLayersOutline,
       mdiMagnify,
+      mdiCheck,
+      mdiClose,
       url: '',
       rules: {
         url: [

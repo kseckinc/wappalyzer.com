@@ -65,7 +65,7 @@
                 </v-list>
               </v-menu>
             </template>
-            <v-menu offset-y left eager attach>
+            <v-menu class="text-left" offset-y left eager attach>
               <template v-slot:activator="{ on }">
                 <v-btn
                   :icon="!isSignedIn"
