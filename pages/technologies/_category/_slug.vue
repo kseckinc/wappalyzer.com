@@ -152,7 +152,8 @@
                 <thead>
                   <tr>
                     <th width="30%">Technology</th>
-                    <th>Markt share</th>
+                    <th>Market share</th>
+                    <th width="30%" class="text-right">Compare</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -175,6 +176,19 @@
                         :max="maxHostnames"
                         :total="totalHostnames"
                       />
+                    </td>
+                    <td class="text-right">
+                      <small>
+                        <nuxt-link
+                          :to="`/compare/${technology.slug}-vs-${alternative.slug}`"
+                        >
+                          {{ technology.name }} vs.
+                          {{ alternative.name }}
+                          <v-icon color="accent" small>{{
+                            mdiArrowRight
+                          }}</v-icon>
+                        </nuxt-link>
+                      </small>
                     </td>
                   </tr>
                 </tbody>
@@ -201,7 +215,12 @@
 </template>
 
 <script>
-import { mdiFilterVariant, mdiOpenInNew, mdiMagnify } from '@mdi/js'
+import {
+  mdiFilterVariant,
+  mdiOpenInNew,
+  mdiMagnify,
+  mdiArrowRight,
+} from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
@@ -215,10 +234,19 @@ export default {
     Bar,
     Logos,
   },
-  async asyncData({ route, $axios, error }) {
-    const { slug } = route.params
+  async asyncData({ route, $axios, redirect }) {
+    const { category, slug } = route.params
 
     const technology = (await $axios.get(`technologies/${slug}`)).data
+
+    if (
+      technology.categories.length &&
+      !technology.categories.some(({ slug }) => slug === category)
+    ) {
+      const categorySlug = technology.categories[0].slug
+
+      redirect(`/technologies/${categorySlug}/${slug}/`)
+    }
 
     return { technology }
   },
@@ -227,6 +255,7 @@ export default {
       mdiFilterVariant,
       mdiOpenInNew,
       mdiMagnify,
+      mdiArrowRight,
       technology: false,
     }
   },

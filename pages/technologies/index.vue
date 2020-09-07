@@ -8,13 +8,24 @@
     }"
     :loading="!categories"
   >
-    <h2 class="mb-4">Technologies</h2>
+    <h2 class="mt-4 mb-2">Technologies</h2>
 
-    <v-row justify="center">
+    <v-row>
       <v-col sm="8" md="6">
-        <Technologies @select="selectTechnology" />
+        <v-card class="mb-4">
+          <v-card-title class="subtitle-2 pb-0">
+            Search
+          </v-card-title>
+          <v-card-text>
+            <Technologies @select="selectTechnology" />
+          </v-card-text>
+        </v-card>
       </v-col>
     </v-row>
+
+    <p>
+      Or, <nuxt-link to="/compare">compare any two technologies</nuxt-link>.
+    </p>
 
     <template v-if="categories">
       <h2 class="mb-4">Categories</h2>

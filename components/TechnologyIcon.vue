@@ -1,13 +1,13 @@
 <template>
-  <v-avatar color="secondary elevation-1 mr-2" size="32">
+  <v-avatar color="secondary elevation-1 mr-2" :size="large ? 40 : 32">
     <div class="d-flex">
       <v-img
         :src="`/images/icons/${icon}`"
         :alt="`Websites using ${icon.replace(/\.[a-z]+$/i, '')}`"
         class="d-inline-block"
         contain
-        max-height="16"
-        max-width="16"
+        :height="large ? 24 : 16"
+        :width="large ? 24 : 16"
       />
     </div>
   </v-avatar>
@@ -20,7 +20,7 @@ export default {
       type: String,
       default: '',
     },
-    small: {
+    large: {
       type: Boolean,
       default: false,
     },
