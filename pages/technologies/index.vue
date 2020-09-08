@@ -11,7 +11,7 @@
     <h2 class="mt-4 mb-2">Technologies</h2>
 
     <v-row>
-      <v-col sm="8" md="6">
+      <v-col md="8">
         <v-card class="mb-4">
           <v-card-title class="subtitle-2 pb-0">
             Search
@@ -24,7 +24,10 @@
     </v-row>
 
     <p>
-      Or, <nuxt-link to="/compare">compare any two technologies</nuxt-link>.
+      Or,
+      <nuxt-link to="/compare"
+        >compare any two technologies side-by-side</nuxt-link
+      >.
     </p>
 
     <template v-if="categories">

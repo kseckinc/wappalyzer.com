@@ -563,7 +563,7 @@
           color="primary"
           class="mt-4 mb-4"
           large
-          @click="submit"
+          @click="submit()"
           >Get a quote <v-icon right>{{ mdiArrowRight }}</v-icon>
         </v-btn>
 
@@ -575,6 +575,27 @@
           </small>
         </p>
       </template>
+
+      <v-dialog v-model="confirmDialog" max-width="500px">
+        <v-card>
+          <v-card-title>
+            No filters or limits specified
+          </v-card-title>
+          <v-card-text class="pb-0">
+            This list could be very large. Specify a subset to only include the
+            top traficked websites or add a filter to narrow down the results.
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn color="accent" text @click="confirmDialog = false"
+              >Return to form</v-btn
+            >
+            <v-btn color="accent" text @click="submit(true)"
+              >Continue anyway</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
       <v-dialog v-model="signInDialog" max-width="400px">
         <SignIn mode-continue mode-sign-up />
@@ -641,6 +662,7 @@ export default {
     return {
       title: meta.title,
       countries: Object.keys(tlds),
+      confirmDialog: false,
       error: false,
       file: '',
       fileErrors: [],
@@ -784,7 +806,7 @@ export default {
     this.$store.commit('lists/setCategorySlug', false)
   },
   methods: {
-    async submit() {
+    async submit(confirmed = false) {
       this.orderError = ''
       this.ordering = true
 
@@ -792,6 +814,26 @@ export default {
         this.signInDialog = true
 
         return
+      }
+
+      const totalHostnames = this.selected.technologies.reduce(
+        (sum, { hostnames }) => sum + hostnames,
+        0
+      )
+
+      if (
+        !confirmed &&
+        (totalHostnames > 100000 || this.selected.categories.length) &&
+        !this.selected.languages.length &&
+        !this.selected.geoIps.length &&
+        !this.selected.tlds.length &&
+        !this.subset
+      ) {
+        this.confirmDialog = true
+
+        return
+      } else {
+        this.confirmDialog = false
       }
 
       this.$refs.orderDialog.open()

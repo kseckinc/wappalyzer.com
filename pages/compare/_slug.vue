@@ -78,6 +78,35 @@
         </v-col>
       </v-row>
 
+      <v-divider class="my-12" />
+
+      <h2 class="mb-2">
+        <v-row class="align-center px-3">
+          <v-icon color="primary" class="mr-2">{{ mdiFinance }}</v-icon>
+          Usage trends
+        </v-row>
+      </h2>
+
+      <p class="mb-6">
+        This graph shows the growth of
+        {{ technologies.map(({ name }) => name).join(' versus ') }}
+        since
+        {{ formatDate(trendStartDate, 'monthYear') }}.
+      </p>
+
+      <v-card>
+        <v-card-text>
+          <GChart
+            type="LineChart"
+            :data="trend"
+            :options="lineChartOptions"
+            width="100%"
+          />
+        </v-card-text>
+      </v-card>
+
+      <v-divider class="mt-16 mb-12" />
+
       <h2 class="mb-4">
         <v-row class="align-center px-3">
           <v-icon color="primary" class="mr-2">{{ mdiFinance }}</v-icon>
@@ -86,7 +115,7 @@
       </h2>
 
       <v-card class="mb-8">
-        <v-card-title>Install base</v-card-title>
+        <v-card-title class="subtitle-2">Install base</v-card-title>
         <v-card-text class="pb-0">
           <v-row>
             <v-col md="8" class="py-0">
@@ -112,7 +141,7 @@
                       technology.categories.length
                         ? `${technology.categories[0].slug}/`
                         : ''
-                    }/${technology.slug}/`"
+                    }${technology.slug}/`"
                     class="body-2 d-flex align-center my-2"
                   >
                     <TechnologyIcon :icon="technology.icon" />
@@ -143,7 +172,7 @@
 
         <v-divider />
 
-        <v-card-title>Traffic</v-card-title>
+        <v-card-title class="subtitle-2">Traffic</v-card-title>
         <v-card-text class="pb-0">
           <v-row>
             <v-col md="8" class="py-0">
@@ -213,6 +242,7 @@ import {
   mdiFinance,
   mdiArrowRight,
 } from '@mdi/js'
+import { GChart } from 'vue-google-charts'
 
 import Page from '~/components/Page.vue'
 import Bar from '~/components/Bar.vue'
@@ -223,6 +253,7 @@ export default {
     Page,
     Bar,
     TechnologyIcon,
+    GChart,
   },
   async asyncData({ route, $axios, redirect, error }) {
     const { slug } = route.params
@@ -240,6 +271,36 @@ export default {
   },
   data() {
     return {
+      lineChartOptions: {
+        chartArea: {
+          height: '100%',
+          width: '100%',
+        },
+        series: {
+          1: {
+            lineDashStyle: [2, 2],
+            lineWidth: 2,
+          },
+          3: {
+            lineDashStyle: [2, 2],
+            lineWidth: 2,
+          },
+        },
+        lineWidth: 3,
+        colors: ['#4608ad', '#a182d5', '#2196f3', '#8fcaf9'],
+        curveType: 'function',
+        enableInteractivity: false,
+        hAxis: {
+          baselineColor: 'none',
+        },
+        vAxis: {
+          baselineColor: 'none',
+          gridlines: { count: 0 },
+        },
+        legend: {
+          position: 'in',
+        },
+      },
       mdiEarth,
       mdiInformation,
       mdiLink,
@@ -262,6 +323,67 @@ export default {
     },
     crumbs() {
       return [{ title: 'Compare technologies', to: '/compare/' }]
+    },
+    trendStartYearMonth() {
+      return [
+        ...this.technologies.map((technology) => technology.trend).flat(),
+      ].sort(({ yearMonth: a }, { yearMonth: b }) => (a > b ? 1 : -1))[0]
+        .yearMonth
+    },
+    trendStartDate() {
+      const yearMonth = this.trendStartYearMonth
+
+      const month = yearMonth.toString().slice(2, 4)
+      const year = `20${yearMonth.toString().slice(0, 2)}`
+
+      const date = new Date()
+
+      date.setTime(0)
+      date.setFullYear(year)
+      date.setMonth(month)
+
+      return date
+    },
+    trend() {
+      const trend = [
+        [
+          'Month',
+          ...this.technologies
+            .map(({ name }) => [`Websites (${name})`, `Traffic (${name})`])
+            .flat(),
+        ],
+      ]
+
+      const technology = this.technologies.find(({ trend }) =>
+        trend.find(({ yearMonth }) => yearMonth === this.trendStartYearMonth)
+      )
+
+      technology.trend.map(({ yearMonth, hostnames, hits }) => {
+        const month = yearMonth.toString().slice(2, 4)
+        const year = `20${yearMonth.toString().slice(0, 2)}`
+
+        const date = new Date()
+
+        date.setTime(0)
+        date.setFullYear(year)
+        date.setMonth(month)
+
+        const item = [date]
+
+        this.technologies.forEach((technology) => {
+          const trend = technology.trend.find(
+            ({ yearMonth: _yearMonth }) => _yearMonth === yearMonth
+          )
+
+          item.push(trend.hostnames || null, trend.hits || null)
+        })
+
+        console.log(item)
+
+        trend.push(item)
+      })
+
+      return trend
     },
   },
 }

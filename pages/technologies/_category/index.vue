@@ -32,21 +32,25 @@
         </v-col>
       </v-row>
 
-      <v-btn
-        :to="`/lists/${category.slug}`"
-        color="accent"
-        class="mb-6"
-        outlined
-      >
+      <v-btn :to="`/lists/${category.slug}`" color="accent" outlined>
         <v-icon left>{{ mdiFilterVariant }}</v-icon> Create a lead list
       </v-btn>
 
+      <v-divider class="mt-14 mb-12" />
+
+      <h2 class="mb-2">
+        <v-row class="align-center px-3">
+          <v-icon color="primary" class="mr-2">{{ mdiFinance }}</v-icon>
+          {{ category.name }} market share
+        </v-row>
+      </h2>
+
+      <p class="mb-6">
+        These are the top {{ category.name }} technologies based on market share
+        in 2020.
+      </p>
+
       <v-card class="my-4">
-        <v-card-title>{{ category.name }} market share</v-card-title>
-        <v-card-text class="pb-0">
-          These are the top {{ category.name }} technologies based on market
-          share in 2020.
-        </v-card-text>
         <v-card-text class="px-0">
           <v-simple-table>
             <thead>
@@ -101,28 +105,22 @@
           </v-simple-table>
         </v-card-text>
       </v-card>
-
-      <template v-slot:footer>
-        <Logos />
-      </template>
     </Page>
   </div>
 </template>
 
 <script>
-import { mdiFilterVariant, mdiChevronDown } from '@mdi/js'
+import { mdiFilterVariant, mdiChevronDown, mdiFinance } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
 import Bar from '~/components/Bar.vue'
-import Logos from '~/components/Logos.vue'
 
 export default {
   components: {
     Page,
     TechnologyIcon,
     Bar,
-    Logos,
   },
   async asyncData({ route, redirect, $axios }) {
     const { category: slug } = route.params
@@ -148,6 +146,7 @@ export default {
       category: false,
       mdiFilterVariant,
       mdiChevronDown,
+      mdiFinance,
       sort: 'hostnames',
     }
   },

@@ -174,6 +174,10 @@ export default {
 
       if (!this.driftApi) {
         await this.initDrift()
+
+        if (!this.driftApi) {
+          return
+        }
       }
 
       if (this.user.sub) {

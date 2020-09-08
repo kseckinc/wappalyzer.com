@@ -32,8 +32,6 @@
           >
         </v-chip-group>
 
-        <v-divider vertical class="ml-3" />
-
         <v-btn :href="technology.website" color="accent" target="_blank" text>
           {{ formatHostname(technology.website) }}
           <v-icon right small>{{ mdiOpenInNew }}</v-icon>
@@ -79,27 +77,31 @@
           </v-col>
         </v-row>
 
-        <v-btn
-          :to="`/lists/${categorySlug}/${slug}/`"
-          color="accent"
-          class="mb-6"
-          outlined
-        >
+        <v-btn :to="`/lists/${categorySlug}/${slug}/`" color="accent" outlined>
           <v-icon left>{{ mdiFilterVariant }}</v-icon> Create a lead list
         </v-btn>
 
+        <v-divider class="mt-16 mb-12" />
+
+        <h2 class="mb-2">
+          <v-row class="align-center px-3">
+            <v-icon color="primary" class="mr-2">{{ mdiEarth }}</v-icon>
+            Websites using {{ technology.name }}
+          </v-row>
+        </h2>
+
+        <p class="mb-6">
+          These are the top websites usings {{ technology.name }} based on
+          traffic.
+        </p>
+
         <v-card class="my-4">
-          <v-card-title>Websites using {{ technology.name }}</v-card-title>
-          <v-card-text class="pb-0">
-            These are top top websites usings {{ technology.name }}, based on
-            traffic.
-          </v-card-text>
           <v-card-text class="px-0">
             <v-simple-table>
               <thead>
                 <tr>
                   <th width="30%">Website</th>
-                  <th>Traffic *</th>
+                  <th>Traffic</th>
                 </tr>
               </thead>
               <tbody>
@@ -129,10 +131,8 @@
           </v-card-text>
         </v-card>
 
-        <p class="mb-12">
+        <p class="mb-10">
           <small>
-            * Percentage of pageviews across all tracked websites that use
-            {{ technology.name }}.<br />
             Get the full list of
             <nuxt-link :to="`/lists/${categorySlug}/${slug}/`"
               >websites and companies using {{ technology.name }}</nuxt-link
@@ -140,13 +140,91 @@
           </small>
         </p>
 
+        <v-divider class="my-12" />
+
+        <h2 class="mb-2">
+          <v-row class="align-center px-3">
+            <v-icon color="primary" class="mr-2">{{ mdiFinance }}</v-icon>
+            {{ technology.name }} usage trend
+          </v-row>
+        </h2>
+
+        <p class="mb-6">
+          This graph shows the growth of {{ technology.name }} since
+          {{ formatDate(trendStartDate, 'monthYear') }}.
+        </p>
+
+        <v-card>
+          <v-card-text>
+            <GChart
+              type="LineChart"
+              :data="trend"
+              :options="lineChartOptions"
+              width="100%"
+            />
+          </v-card-text>
+        </v-card>
+
+        <v-divider class="mt-14 mb-12" />
+
+        <h2 class="mb-2">
+          <v-row class="align-center px-3">
+            <v-icon color="primary" class="mr-2">{{ mdiMap }}</v-icon>
+            {{ technology.name }} demographics
+          </v-row>
+        </h2>
+
+        <p class="mb-6">
+          A breakdown of countries and languages used by
+          {{ technology.name }} websites.
+        </p>
+
+        <v-row class="mb-16">
+          <v-col cols="12" md="6" class="py-0">
+            <v-card>
+              <v-card-title class="subtitle-2">Countries</v-card-title>
+              <v-card-text class="pb-8">
+                <GChart
+                  type="PieChart"
+                  :data="topIpCountries"
+                  :options="pieChartOptions"
+                  width="100%"
+                />
+              </v-card-text>
+            </v-card>
+          </v-col>
+          <v-col cols="12" md="6" class="py-0">
+            <v-card>
+              <v-card-title class="subtitle-2">Languages</v-card-title>
+              <v-card-text class="pb-8">
+                <GChart
+                  type="PieChart"
+                  :data="topLanguages"
+                  :options="pieChartOptions"
+                />
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+
+        <v-divider class="my-12" />
+
+        <h2 class="mb-2">
+          <v-row class="align-center px-3">
+            <v-icon color="primary" class="mr-2">{{
+              mdiLightbulbOnOutline
+            }}</v-icon>
+            Alternatives to {{ technology.name }}
+          </v-row>
+        </h2>
+
+        <p class="mb-6">
+          These are the most popular {{ technology.name }} alternatives based on
+          market share in {{ new Date().getFullYear() }}.
+        </p>
+
         <template v-if="technology.alternatives.length">
           <v-card class="my-4">
-            <v-card-title>Alternatives to {{ technology.name }}</v-card-title>
-            <v-card-text class="pb-0">
-              These are the top {{ technology.name }} alternatives based on
-              market share in {{ new Date().getFullYear() }}.
-            </v-card-text>
             <v-card-text class="px-0">
               <v-simple-table>
                 <thead>
@@ -206,10 +284,6 @@
           </small>
         </p>
       </template>
-
-      <template v-slot:footer>
-        <Logos />
-      </template>
     </Page>
   </div>
 </template>
@@ -220,19 +294,25 @@ import {
   mdiOpenInNew,
   mdiMagnify,
   mdiArrowRight,
+  mdiEarth,
+  mdiMap,
+  mdiLightbulbOnOutline,
+  mdiFinance,
 } from '@mdi/js'
+import { GChart } from 'vue-google-charts'
 
 import Page from '~/components/Page.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
 import Bar from '~/components/Bar.vue'
-import Logos from '~/components/Logos.vue'
+import countries from '~/assets/json/countries.json'
+import languages from '~/assets/json/languages.json'
 
 export default {
   components: {
     Page,
     TechnologyIcon,
     Bar,
-    Logos,
+    GChart,
   },
   async asyncData({ route, $axios, redirect }) {
     const { category, slug } = route.params
@@ -252,10 +332,56 @@ export default {
   },
   data() {
     return {
+      lineChartOptions: {
+        chartArea: {
+          height: '100%',
+          width: '100%',
+        },
+        series: {
+          1: {
+            lineDashStyle: [2, 2],
+            lineWidth: 2,
+          },
+        },
+        lineWidth: 3,
+        colors: ['#4608ad', '#a182d5'],
+        curveType: 'function',
+        enableInteractivity: false,
+        hAxis: {
+          baselineColor: 'none',
+        },
+        vAxis: {
+          baselineColor: 'none',
+          gridlines: { count: 0 },
+        },
+        legend: {
+          position: 'in',
+        },
+      },
+      pieChartOptions: {
+        chartArea: {
+          height: '100%',
+          width: '100%',
+        },
+        pieHole: 0.7,
+        height: 150,
+        sliceVisibilityThreshold: 0.01,
+        enableInteractivity: false,
+        pieSliceText: 'none',
+        legend: {
+          textStyle: {
+            fontSize: 13,
+          },
+        },
+      },
       mdiFilterVariant,
       mdiOpenInNew,
       mdiMagnify,
       mdiArrowRight,
+      mdiEarth,
+      mdiMap,
+      mdiFinance,
+      mdiLightbulbOnOutline,
       technology: false,
     }
   },
@@ -309,6 +435,118 @@ export default {
           0
         ) || 1
       )
+    },
+    topIpCountries() {
+      const totalHostnames = Object.keys(this.technology.topIpCountries).reduce(
+        (sum, ipCountry) => sum + this.technology.topIpCountries[ipCountry],
+        0
+      )
+
+      return [
+        ['Country', 'Websites'],
+        ...Object.keys(this.technology.topIpCountries).reduce(
+          (topIpCountries, ipCountry) => {
+            const hostnames = this.technology.topIpCountries[ipCountry]
+
+            const country = countries.find(
+              ({ value, text }) =>
+                value.toUpperCase() === ipCountry.toUpperCase()
+            )
+
+            topIpCountries.push([
+              `${country ? country.text : ipCountry} (${Math.round(
+                (100 / totalHostnames) * hostnames
+              )}%)`,
+              hostnames,
+            ])
+
+            return topIpCountries
+          },
+          []
+        ),
+      ]
+    },
+    topLanguages() {
+      const totalHostnames = Object.keys(this.technology.topLanguages).reduce(
+        (sum, language) => sum + this.technology.topLanguages[language],
+        0
+      )
+
+      return [
+        ['Language', 'Websites'],
+        ...Object.keys(this.technology.topLanguages).reduce(
+          (topLanguages, language) => {
+            const hostnames = this.technology.topLanguages[language]
+
+            let _language = language
+
+            for (const name in languages) {
+              if (typeof languages[name] === 'string') {
+                if (languages[name].toUpperCase() === language.toUpperCase()) {
+                  _language = name
+
+                  break
+                }
+              } else {
+                for (const variant in languages[name]) {
+                  if (
+                    languages[name][variant].toUpperCase() ===
+                    language.toUpperCase()
+                  ) {
+                    _language = name
+
+                    break
+                  }
+                }
+              }
+            }
+
+            topLanguages.push([
+              `${_language} (${Math.round(
+                (100 / totalHostnames) * hostnames
+              )}%)`,
+              hostnames,
+            ])
+
+            return topLanguages
+          },
+          []
+        ),
+      ]
+    },
+    trendStartDate() {
+      const yearMonth = [
+        ...this.technology.trend,
+      ].sort(({ yearMonth: a }, { yearMonth: b }) => (a > b ? 1 : -1))[0]
+        .yearMonth
+
+      const month = yearMonth.toString().slice(2, 4)
+      const year = `20${yearMonth.toString().slice(0, 2)}`
+
+      const date = new Date()
+
+      date.setTime(0)
+      date.setFullYear(year)
+      date.setMonth(month)
+
+      return date
+    },
+    trend() {
+      return [
+        ['Month', 'Websites', 'Traffic'],
+        ...this.technology.trend.map(({ yearMonth, hostnames, hits }) => {
+          const month = yearMonth.toString().slice(2, 4)
+          const year = `20${yearMonth.toString().slice(0, 2)}`
+
+          const date = new Date()
+
+          date.setTime(0)
+          date.setFullYear(year)
+          date.setMonth(month)
+
+          return [date, hostnames, hits]
+        }),
+      ]
     },
   },
 }
