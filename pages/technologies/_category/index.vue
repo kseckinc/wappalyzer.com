@@ -137,7 +137,7 @@ export default {
           technology.categories.length
             ? `${technology.categories[0].slug}/`
             : ''
-        }${slug}`
+        }${slug}/`
       )
     }
   },
