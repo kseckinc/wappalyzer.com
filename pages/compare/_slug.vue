@@ -4,6 +4,7 @@
       :title="title"
       :seo-title="`Websites using ${title}`"
       :crumbs="crumbs"
+      :head="{ title, meta }"
       no-head
       hero
     >
@@ -321,6 +322,13 @@ export default {
             .replace(/(?:^|\s)\S/g, (s) => s.toUpperCase())
             .replace(/ Vs /g, ' vs. ')
     },
+    meta() {
+      return `Compare${
+        this.technologies
+          ? ` ${this.technologies.map(({ name }) => name).join(' and ')} `
+          : ''
+      } market share, usage trends and demographics in ${new Date().getFullYear()}.`
+    },
     crumbs() {
       return [{ title: 'Compare technologies', to: '/compare/' }]
     },
@@ -377,8 +385,6 @@ export default {
 
           item.push(trend.hostnames || null, trend.hits || null)
         })
-
-        console.log(item)
 
         trend.push(item)
       })

@@ -18,7 +18,7 @@
       ],
       [
         "Can I hide technologies on my website from Wappalyzer?",
-        [ "Although in many cases it's possible to change a software application's output to obfuscate its charactaristics, it's often impractical and unnecessary. If you're worried about security, ensure your software is always up-to-date." ]
+        [ "Although in many cases it's possible to change a software application's output to obfuscate its charactaristics, it's often impractical and unnecessary. If you're worried about security, ensure your software is always up-to-date. For more information, see <a href='/articles/how-to-hide-technologies-from-wappalyzer/'>How to hide technologies from Wappalyzer</a>." ]
       ],
       [
         "What information do you collect?",
