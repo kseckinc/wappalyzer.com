@@ -1,14 +1,17 @@
 <template>
   <v-card
     v-if="isSignedIn"
-    :color="variant ? 'secondary' : ''"
-    :outlined="!variant"
-    class="mb-4"
+    color="secondary"
+    :class="variant ? 'mb-4' : ''"
     flat
   >
     <v-card-text :class="variant ? '' : 'pa-2 pl-4'">
       <v-row align="center">
-        <v-col class="py-0" cols="7">
+        <v-col
+          :class="`py-0 flex-grow-1 flex-shrink-0 ${
+            variant ? '' : 'text-right'
+          }`"
+        >
           Credit balance:
           <template v-if="!variant">
             <Spinner v-if="credits === null" />
@@ -17,14 +20,20 @@
             </span>
           </template>
         </v-col>
-        <v-col class="py-0 text-right font-weight-medium">
+        <v-col
+          class="py-0 text-right font-weight-medium flex-grow-0 flex-shrink-1"
+        >
           <template v-if="variant">
             <Spinner v-if="credits === null" />
             <template v-else>
               {{ formatNumber(credits) }}
             </template>
           </template>
-          <v-btn v-else :to="{ path: '/credits', query: { buy: true } }" text
+          <v-btn
+            v-else
+            :to="{ path: '/credits', query: { buy: true } }"
+            outlined
+            small
             >Buy credits</v-btn
           >
         </v-col>

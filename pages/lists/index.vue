@@ -174,7 +174,7 @@
                         (v) =>
                           !v || /^[0-9]+$/.test(v) || 'Value must be numeric',
                         (v) =>
-                          !v || v >= 100 || 'Subset size must be at least 100',
+                          !v || v >= 500 || 'Subset size must be at least 500',
                       ]"
                       class="mb-4"
                       placeholder="5000"

@@ -158,6 +158,12 @@ export default {
       }
     },
     async checkDrift() {
+      const offset = new Date().getTimezoneOffset()
+
+      if (offset >= 330 && offset <= 360) {
+        return
+      }
+
       const path = Object.keys(driftRoutes).find((path) =>
         this.$route.path.startsWith(path)
       )

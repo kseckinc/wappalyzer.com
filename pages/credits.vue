@@ -27,6 +27,11 @@
         <v-icon left>{{ mdiForum }}</v-icon>
         FAQs
       </v-btn>
+
+      <v-btn href="/pricing" color="accent" outlined>
+        <v-icon left>{{ mdiCurrencyUsd }}</v-icon>
+        Plans &amp; pricing
+      </v-btn>
     </div>
 
     <template v-if="!loading">
@@ -265,7 +270,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import { mdiAlphaCCircle, mdiForum } from '@mdi/js'
+import { mdiAlphaCCircle, mdiForum, mdiCurrencyUsd } from '@mdi/js'
 import { creditTiers } from '~/assets/json/pricing.json'
 
 import Page from '~/components/Page.vue'
@@ -286,6 +291,7 @@ export default {
       description: 'Complimentary credits',
       mdiAlphaCCircle,
       mdiForum,
+      mdiCurrencyUsd,
       rules: {
         credits: [
           (v) => /^[0-9]+$/.test(v),

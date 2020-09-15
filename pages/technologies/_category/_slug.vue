@@ -110,13 +110,12 @@
                   :key="hostname"
                 >
                   <td>
-                    <a
-                      :href="`http://${hostname}`"
-                      rel="nofollow"
-                      target="_blank"
-                      >{{ hostname.replace(/www\./, '') }}</a
+                    <nuxt-link
+                      :to="`/lookup?url=${encodeURIComponent(
+                        `http://${hostname}`
+                      )}`"
+                      >{{ hostname.replace(/www\./, '') }}</nuxt-link
                     >
-                    <v-icon color="grey" small>{{ mdiOpenInNew }}</v-icon>
                   </td>
                   <td>
                     <Bar
