@@ -39,7 +39,15 @@
       </div>
 
       <template v-if="technology.hostnames < 50">
-        <v-alert color="info" class="mt-8" outlined>
+        <v-row>
+          <v-col md="10" lg="8">
+            <p v-if="technology.description">
+              {{ technology.description }}
+            </p>
+          </v-col>
+        </v-row>
+
+        <v-alert color="info" outlined>
           <h3 class="mb-4">No data available, yet</h3>
 
           <template
