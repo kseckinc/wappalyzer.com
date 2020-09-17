@@ -229,8 +229,10 @@ export default {
       }
     },
   },
-  async created() {
+  async mounted() {
     ;({ url: this.url } = this.$route.query)
+
+    this.$router.replace({ path: this.$route.path })
 
     if (this.$store.state.user.isSignedIn) {
       try {

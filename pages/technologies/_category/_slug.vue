@@ -19,21 +19,6 @@
             property="itemReviewed"
             typeof="Product"
           >
-<<<<<<< Updated upstream
-        </v-chip-group>
-
-        <v-divider vertical class="ml-3" />
-
-        <v-btn :href="technology.website" color="accent" target="_blank" text>
-          Visit website
-          <v-icon right small>{{ mdiOpenInNew }}</v-icon>
-        </v-btn>
-      </div>
-
-      <template v-if="technology.hostnames < 50">
-        <v-alert color="info" class="mt-8" outlined>
-          <h3 class="mb-4">No data available, yet</h3>
-=======
             <TechnologyIcon
               :icon="technology ? technology.icon : 'default.svg'"
             />
@@ -75,7 +60,6 @@
 
             <v-alert color="info" outlined>
               <h3 class="mb-4">No data available, yet</h3>
->>>>>>> Stashed changes
 
               <template
                 v-if="
@@ -104,93 +88,6 @@
             </v-btn>
           </template>
           <template v-else>
-<<<<<<< Updated upstream
-            {{ technology.name }} appears to have a small userbase. Only
-            technologies with considerable usage are displayed.
-          </template>
-        </v-alert>
-
-        <v-btn to="/technologies/" class="mt-4" color="accent" outlined exact>
-          <v-icon left>{{ mdiMagnify }}</v-icon>
-          Browse technologies
-        </v-btn>
-      </template>
-      <template v-else>
-        <v-row>
-          <v-col md="10" lg="8">
-            <p>
-              These are top top websites usings {{ technology.name }}.
-              <nuxt-link :to="`/lists/${categorySlug}/${slug}/`"
-                >Create a list of
-                {{ formatNumber(technology.hostnames, true) }}
-                leads</nuxt-link
-              >
-              with email addresses and phone numbers.
-            </p>
-          </v-col>
-        </v-row>
-
-        <v-btn
-          :to="`/lists/${categorySlug}/${slug}/`"
-          color="accent"
-          class="mb-6"
-          outlined
-        >
-          <v-icon left>{{ mdiFilterVariant }}</v-icon> Create a lead list
-        </v-btn>
-
-        <v-card class="my-4">
-          <v-card-title>Websites using {{ technology.name }}</v-card-title>
-          <v-card-text class="px-0">
-            <v-simple-table>
-              <thead>
-                <tr>
-                  <th width="30%">Website</th>
-                  <th>Traffic *</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="({ hits }, hostname) in technology.topHostnames"
-                  :key="hostname"
-                >
-                  <td>
-                    <a
-                      :href="`http://${hostname}`"
-                      rel="nofollow"
-                      target="_blank"
-                      >{{ hostname.replace(/www\./, '') }}</a
-                    >
-                    <v-icon color="grey" small>{{ mdiOpenInNew }}</v-icon>
-                  </td>
-                  <td>
-                    <Bar
-                      :value="hits"
-                      :max="maxHits"
-                      :total="technology.hits"
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </v-simple-table>
-          </v-card-text>
-        </v-card>
-
-        <p class="mb-8">
-          <small>
-            * Percentage of pageviews across all tracked websites that use
-            {{ technology.name }}.<br />
-            Get the full list of
-            <nuxt-link :to="`/lists/${categorySlug}/${slug}/`"
-              >websites and companies using {{ technology.name }}.</nuxt-link
-            >
-          </small>
-        </p>
-      </template>
-    </Page>
-
-    <Logos />
-=======
             <p v-if="technology.description">
               {{ technology.description }}
             </p>
@@ -519,14 +416,10 @@
 
     <!-- eslint-disable-next-line vue/no-v-html -->
     <script type="application/ld+json" v-html="jsonld" />
->>>>>>> Stashed changes
   </div>
 </template>
 
 <script>
-<<<<<<< Updated upstream
-import { mdiFilterVariant, mdiOpenInNew, mdiMagnify } from '@mdi/js'
-=======
 import { mapState } from 'vuex'
 import {
   mdiFilterVariant,
@@ -539,49 +432,44 @@ import {
   mdiFinance,
 } from '@mdi/js'
 import { GChart } from 'vue-google-charts'
->>>>>>> Stashed changes
 
 import Page from '~/components/Page.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
 import Bar from '~/components/Bar.vue'
-<<<<<<< Updated upstream
-import Logos from '~/components/Logos.vue'
-=======
 import StarRating from '~/components/StarRating.vue'
 import Review from '~/components/Review.vue'
 import SignIn from '~/components/SignIn.vue'
 import countries from '~/assets/json/countries.json'
 import languages from '~/assets/json/languages.json'
->>>>>>> Stashed changes
 
 export default {
   components: {
     Page,
     TechnologyIcon,
     Bar,
-<<<<<<< Updated upstream
-    Logos,
-=======
     GChart,
     StarRating,
     Review,
     SignIn,
->>>>>>> Stashed changes
   },
-  async asyncData({ route, $axios, error }) {
-    const { slug } = route.params
+  async asyncData({ route, $axios, redirect }) {
+    const { category, slug } = route.params
 
-    return {
-      technology: (await $axios.get(`technologies/${slug}`)).data,
+    const technology = (await $axios.get(`technologies/${slug}`)).data
+
+    if (
+      technology.categories.length &&
+      !technology.categories.some(({ slug }) => slug === category)
+    ) {
+      const categorySlug = technology.categories[0].slug
+
+      redirect(`/technologies/${categorySlug}/${slug}/`)
     }
+
+    return { technology }
   },
   data() {
     return {
-<<<<<<< Updated upstream
-      mdiFilterVariant,
-      mdiOpenInNew,
-      mdiMagnify,
-=======
       hoverRating: null,
       lineChartOptions: {
         chartArea: {
@@ -643,7 +531,6 @@ export default {
       reviewError: false,
       signInDialog: false,
       submittingReview: false,
->>>>>>> Stashed changes
       technology: false,
     }
   },
@@ -696,6 +583,134 @@ export default {
           0
         ) || 1
       )
+    },
+    maxHostnames() {
+      return (
+        Object.values(this.technology.alternatives).reduce(
+          (total, { hostnames }) => (total = Math.max(total, hostnames)),
+          0
+        ) || 1
+      )
+    },
+    totalHostnames() {
+      return (
+        Object.values(this.technology.alternatives).reduce(
+          (total, { hostnames }) => (total += hostnames),
+          0
+        ) || 1
+      )
+    },
+    topIpCountries() {
+      const totalHostnames = Object.keys(this.technology.topIpCountries).reduce(
+        (sum, ipCountry) => sum + this.technology.topIpCountries[ipCountry],
+        0
+      )
+
+      return [
+        ['Country', 'Websites'],
+        ...Object.keys(this.technology.topIpCountries).reduce(
+          (topIpCountries, ipCountry) => {
+            const hostnames = this.technology.topIpCountries[ipCountry]
+
+            const country = countries.find(
+              ({ value, text }) =>
+                value.toUpperCase() === ipCountry.toUpperCase()
+            )
+
+            topIpCountries.push([
+              `${country ? country.text : ipCountry} (${Math.round(
+                (100 / totalHostnames) * hostnames
+              )}%)`,
+              hostnames,
+            ])
+
+            return topIpCountries
+          },
+          []
+        ),
+      ]
+    },
+    topLanguages() {
+      const totalHostnames = Object.keys(this.technology.topLanguages).reduce(
+        (sum, language) => sum + this.technology.topLanguages[language],
+        0
+      )
+
+      return [
+        ['Language', 'Websites'],
+        ...Object.keys(this.technology.topLanguages).reduce(
+          (topLanguages, language) => {
+            const hostnames = this.technology.topLanguages[language]
+
+            let _language = language
+
+            for (const name in languages) {
+              if (typeof languages[name] === 'string') {
+                if (languages[name].toUpperCase() === language.toUpperCase()) {
+                  _language = name
+
+                  break
+                }
+              } else {
+                for (const variant in languages[name]) {
+                  if (
+                    languages[name][variant].toUpperCase() ===
+                    language.toUpperCase()
+                  ) {
+                    _language = name
+
+                    break
+                  }
+                }
+              }
+            }
+
+            topLanguages.push([
+              `${_language} (${Math.round(
+                (100 / totalHostnames) * hostnames
+              )}%)`,
+              hostnames,
+            ])
+
+            return topLanguages
+          },
+          []
+        ),
+      ]
+    },
+    trendStartDate() {
+      const yearMonth = [
+        ...this.technology.trend,
+      ].sort(({ yearMonth: a }, { yearMonth: b }) => (a > b ? 1 : -1))[0]
+        .yearMonth
+
+      const month = yearMonth.toString().slice(2, 4)
+      const year = `20${yearMonth.toString().slice(0, 2)}`
+
+      const date = new Date()
+
+      date.setTime(0)
+      date.setFullYear(year)
+      date.setMonth(month)
+
+      return date
+    },
+    trend() {
+      return [
+        ['Month', 'Websites', 'Traffic'],
+        ...this.technology.trend.map(({ yearMonth, hostnames, hits }) => {
+          const month = yearMonth.toString().slice(2, 4)
+          const year = `20${yearMonth.toString().slice(0, 2)}`
+
+          const date = new Date()
+
+          date.setTime(0)
+          date.setFullYear(year)
+          date.setMonth(month)
+
+          return [date, hostnames, hits]
+        }),
+      ]
     },
   },
   watch: {

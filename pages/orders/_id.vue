@@ -721,7 +721,7 @@
             <v-card-actions v-if="credits < order.totalCredits">
               <v-spacer />
               <v-btn color="accent" text @click="billingDialog = true"
-                ><v-icon left>{{ mdiAlphaCCircle }</v-icon> Buy credits</v-btn
+                ><v-icon left>{{ mdiAlphaCCircle }}</v-icon> Buy credits</v-btn
               >
             </v-card-actions>
           </template>
@@ -773,7 +773,7 @@
           <v-card-title>
             Cancel order
           </v-card-title>
-          <v-card-text>
+          <v-card-text class="pb-0">
             <v-alert v-if="cancelError" type="error">
               {{ cancelError }}
             </v-alert>
@@ -888,8 +888,8 @@ export default {
       cancelling: false,
       cardsLoaded: false,
       checks: 0,
-      datasetsBaseUrl: this.$config.DATASETS_BASE_URL,
-      bulkLookupBaseUrl: this.$config.BULK_LOOKUP_BASE_URL,
+      datasetsBaseUrl: process.env.DATASETS_BASE_URL,
+      bulkLookupBaseUrl: process.env.BULK_LOOKUP_BASE_URL,
       declineCodes,
       discount: 0,
       editDialog: false,

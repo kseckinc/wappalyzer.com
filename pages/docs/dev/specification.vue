@@ -44,6 +44,7 @@
   "X-Powered-By": "Example"
   },
   "html": "&lt;link[^&gt;]example\\.css",
+  "css": "\\.example-class",
   "robots": "Disallow: /unique-path/",
   "implies": "PHP\\;confidence:50",
   "meta": {
@@ -235,6 +236,16 @@
               <td><code>"&lt;a [^&gt;]*href=\"index.html"</code></td>
             </tr>
             <tr>
+              <td><code>css</code></td>
+              <td>String | Array</td>
+              <td>
+                CSS rules. Unavailable when a website enforces a same-origin
+                policy. For performance reasons, only a portion of the available
+                CSS rules are used to find matches.
+              </td>
+              <td><code>"\\.example-class"</code></td>
+            </tr>
+            <tr>
               <td><code>robots</code></td>
               <td>String | Array</td>
               <td>
@@ -255,7 +266,7 @@
               <td><code>{ "generator": "^WordPress$" }</code></td>
             </tr>
             <tr>
-              <td><code>script</code></td>
+              <td><code>scripts</code></td>
               <td>String | Array</td>
               <td>
                 URLs of JavaScript files included on the page.
@@ -342,7 +353,7 @@
                 syntax.
               </td>
               <td>
-                <code>"script": "jquery-([0-9.]+)\.js\\;version:\\1"</code>
+                <code>"scripts": "jquery-([0-9.]+)\.js\\;version:\\1"</code>
               </td>
             </tr>
           </tbody>

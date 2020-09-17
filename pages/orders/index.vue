@@ -14,7 +14,7 @@
 
             <v-btn to="/" color="accent" outlined>
               Explore products
-              <v-icon right>mdiArrowRight</v-icon>
+              <v-icon right>{{ mdiArrowRight }}</v-icon>
             </v-btn>
           </v-alert>
         </v-card-text>

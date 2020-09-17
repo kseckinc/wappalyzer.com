@@ -28,9 +28,10 @@ export default {
   mode: 'universal',
   target: 'static',
   generate: {
-    crawler: false,
+    // crawler: false,
     fallback: '200.html',
     concurrency: 20,
+    exclude: [/^\/compare\/.+/],
     async routes() {
       const categories = (
         await axios.get(`${publicRuntimeConfig.BASE_URL}/categories`)
@@ -61,6 +62,10 @@ export default {
         rel: 'author',
         type: 'text/plain',
         href: `${publicRuntimeConfig.WEBSITE_URL}/humans.txt`,
+      },
+      {
+        rel: 'preconnect',
+        href: `https://www.google-analytics.com`,
       },
     ],
   },

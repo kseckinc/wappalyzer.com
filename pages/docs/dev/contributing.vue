@@ -68,9 +68,9 @@
         <li>
           Add a new block to
           <a
-            href="https://github.com/aliasio/wappalyzer/blob/master/src/apps.json"
+            href="https://github.com/aliasio/wappalyzer/blob/master/src/technologies.json"
             target="_blank"
-            ><code>src/apps.json</code></a
+            ><code>src/technologies.json</code></a
           >.
         </li>
         <li>
@@ -105,9 +105,9 @@
       <p>
         To add a category, edit
         <a
-          href="https://github.com/aliasio/wappalyzer/blob/master/src/apps.json"
+          href="https://github.com/aliasio/wappalyzer/blob/master/src/technologies.json"
           target="_blank"
-          ><code>src/apps.json</code></a
+          ><code>src/technologies.json</code></a
         >
         and update every
         <a

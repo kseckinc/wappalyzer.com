@@ -1,16 +1,22 @@
 <template>
-  <div />
+  <Page title="Lead lists">
+    <Progress class="mb-4" />
+  </Page>
 </template>
 
 <script>
-export default {
-  fetch({ app, store, params }) {
-    store.commit('lists/setCategorySlug', params.category)
-    store.commit('lists/setTechnologySlug', params.slug)
+import Page from '~/components/Page'
+import Progress from '~/components/Progress'
 
-    app.router.push('/lists/')
+export default {
+  components: {
+    Page,
+    Progress,
   },
-  created() {
+  mounted() {
+    this.$store.commit('lists/setCategorySlug', this.$route.params.category)
+    this.$store.commit('lists/setTechnologySlug', this.$route.params.slug)
+
     this.$router.replace('/lists/')
   },
 }

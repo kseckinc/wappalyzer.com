@@ -1,16 +1,22 @@
 <template>
   <Page :title="title" :head="meta" no-heading>
-    <Credits class="mt-8 mb-8" />
-
-    <v-card color="secondary" style="overflow: hidden;">
+    <v-card color="secondary" style="overflow: hidden;" class="mt-12 mb-4">
       <v-card-title>
-        <v-icon color="primary" left>{{ mdiLayersOutline }}</v-icon>
-        Lookup
+        <v-row>
+          <v-col cols="12" sm="3" class="py-0">
+            <v-icon color="primary" left>{{ mdiLayersOutline }}</v-icon>
+            Lookup
+          </v-col>
+          <v-col cols="12" sm="9" class="py-0">
+            <Credits />
+          </v-col>
+        </v-row>
       </v-card-title>
 
       <v-card-text class="pb-0">
         <v-form ref="form" v-model="valid" @submit.prevent="submit">
           <v-text-field
+            ref="input"
             v-model="url"
             :rules="rules.url"
             :append-icon="mdiMagnify"
@@ -124,6 +130,18 @@
                               <template v-else-if="key === 'ipCountry'">
                                 {{ getCountry(attributes[key]) }}
                               </template>
+                              <template v-else-if="key === 'responsive'">
+                                <v-icon
+                                  v-if="attributes[key] === true"
+                                  color="success"
+                                  small
+                                >
+                                  {{ mdiCheck }}
+                                </v-icon>
+                                <v-icon v-else color="error" small>
+                                  {{ mdiClose }}
+                                </v-icon>
+                              </template>
                               <template
                                 v-else-if="
                                   attributes.ipCountry && key === 'ipRegion'
@@ -170,7 +188,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import { mdiLayersOutline, mdiMagnify } from '@mdi/js'
+import { mdiLayersOutline, mdiMagnify, mdiCheck, mdiClose } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import SignIn from '~/components/SignIn.vue'
@@ -201,6 +219,8 @@ export default {
       attributes: {},
       mdiLayersOutline,
       mdiMagnify,
+      mdiCheck,
+      mdiClose,
       url: '',
       rules: {
         url: [
@@ -247,7 +267,13 @@ export default {
       }
     },
   },
-  async created() {
+  async mounted() {
+    ;({ url: this.url } = this.$route.query)
+
+    this.$router.replace({ path: this.$route.path })
+
+    this.$refs.input.focus()
+
     if (this.$store.state.user.isSignedIn) {
       try {
         await this.getCredits()

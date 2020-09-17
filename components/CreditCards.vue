@@ -75,7 +75,7 @@
           <v-card-title>
             Remove card
           </v-card-title>
-          <v-card-text>
+          <v-card-text class="pb-0">
             <v-alert v-if="removeError" type="error">
               {{ removeError }}
             </v-alert>

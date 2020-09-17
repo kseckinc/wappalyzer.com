@@ -16,11 +16,12 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.10.1",
     "amazon-cognito-identity-js": "^4.3.4",
-    "nuxt": "^2.12.0",
+    "nuxt": "2.12.0",
     "nuxt-canonical": "^1.0.4",
     "nuxt-stripe-module": "^2.0.0",
     "prismjs": "^1.21.0",
     "stripe": "^8.46.0",
+    "vue-google-charts": "^0.3.3",
     "vue-gtag": "^1.8.0",
     "vue-prism-component": "^1.1.1"
   },

@@ -5,8 +5,8 @@
       title: 'Wappalyzer has been upgraded',
       subtitle: release ? release.version : error ? '' : '...',
     }"
+    :crumbs="false"
     no-head
-    no-crumbs
   >
     <v-row justify="center my-4">
       <v-col cols="12" sm="8" lg="6" class="py-0">
@@ -86,7 +86,7 @@ export default {
     this.set({ hero: false })
 
     try {
-      this.release = (await this.$axios.get(this.$config.RELEASE_URL)).data
+      this.release = (await this.$axios.get(process.env.RELEASE_URL)).data
     } catch (error) {
       this.error = this.getErrorMessage(error)
     }

@@ -8,7 +8,7 @@
       </p>
 
       <v-row align="center">
-        <v-col v-for="(logo, name) in logos" :key="name" sm="2" lg="1">
+        <v-col v-for="(logo, name) in logos" :key="name" cols="3" sm="2" lg="1">
           <component :is="name" class="companies__logo mx-auto" />
         </v-col>
       </v-row>

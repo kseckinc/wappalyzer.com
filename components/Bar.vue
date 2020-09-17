@@ -1,15 +1,14 @@
 <template>
-  <v-sheet class="bar" color="secondary">
-    <span class="bar__value bar__value--background mx-1">
-      {{ percentage }}%
-    </span>
+  <v-sheet class="bar" color="secondary" rounded>
+    <span class="bar__value bar__value--background"> {{ percentage }}% </span>
     <v-sheet
       :width="`${(100 / max) * value}%`"
       color="primary"
       class="bar__span white--text"
-      height="18"
+      height="14"
+      rounded
     >
-      <span class="bar__value bar__value--foreground mx-1">
+      <span class="bar__value bar__value--foreground" data-nosnippet>
         {{ percentage }}%
       </span>
     </v-sheet>
@@ -51,8 +50,9 @@ export default {
 
 .bar__value {
   font-size: 0.6rem;
-  line-height: 18px;
+  line-height: 13px;
   white-space: nowrap;
+  margin-left: 2px;
   position: absolute;
   left: 0;
   top: 0;

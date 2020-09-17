@@ -14,12 +14,21 @@ Vue.mixin({
           maximumFractionDigits: decimal ? 3 : 0,
         }
       )} ${currency.toUpperCase() === 'AUD' ? currency.toUpperCase() : ''}`,
-    formatDate: (date) =>
-      date.toLocaleString(undefined, {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-      }),
+    formatDate: (date, format) => {
+      switch (format) {
+        case 'monthYear':
+          return date.toLocaleString(undefined, {
+            month: 'long',
+            year: 'numeric',
+          })
+        default:
+          return date.toLocaleString(undefined, {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+          })
+      }
+    },
     formatNumber: (number, readable) => {
       if (typeof number !== 'number') {
         return ''
@@ -37,6 +46,15 @@ Vue.mixin({
       return isNaN(parseFloat(number))
         ? ''
         : parseFloat(number).toLocaleString()
+    },
+    formatHostname(url) {
+      try {
+        const { hostname } = new URL(url)
+
+        return hostname.replace(/^www\./, '')
+      } catch (error) {
+        return url.replace(/^https?:\/\/www\./, '')
+      }
     },
     getErrorMessage(error) {
       if (error.response) {

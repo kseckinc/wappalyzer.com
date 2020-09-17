@@ -4,21 +4,31 @@
     :head="{
       title: title,
       subtitle: 'Browse technologies and categories',
-      text: technologiesCount
-        ? `Wappalyzer tracks ${formatNumber(
-            technologiesCount
-          )} technologies across ${formatNumber(categoriesCount)} categories.`
-        : '',
+      text,
     }"
     :loading="!categories"
   >
-    <h2 class="mb-4">Technologies</h2>
+    <h2 class="mt-4 mb-2">Technologies</h2>
 
-    <v-row justify="center">
-      <v-col sm="8" md="6">
-        <Technologies @select="selectTechnology" />
+    <v-row>
+      <v-col md="8">
+        <v-card class="mb-4">
+          <v-card-title class="subtitle-2 pb-0">
+            Search
+          </v-card-title>
+          <v-card-text>
+            <Technologies @select="selectTechnology" />
+          </v-card-text>
+        </v-card>
       </v-col>
     </v-row>
+
+    <p>
+      Or,
+      <nuxt-link to="/compare"
+        >compare any two technologies side-by-side</nuxt-link
+      >.
+    </p>
 
     <template v-if="categories">
       <h2 class="mb-4">Categories</h2>
@@ -70,6 +80,15 @@ export default {
             0
           )
         : 0
+    },
+    text() {
+      return this.technologiesCount
+        ? `Wappalyzer tracks ${this.formatNumber(
+            this.technologiesCount
+          )} web technologies across ${this.formatNumber(
+            this.categoriesCount
+          )} categories. Search for a technology by name or choose a category for information such as market share and traffic.`
+        : ''
     },
   },
   methods: {

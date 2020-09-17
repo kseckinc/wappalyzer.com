@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <div>
-    <Page :title="title" no-crumbs no-head>
+    <Page :title="title" :crumbs="false" no-head>
       <template v-for="(section, index) in sections">
         <v-divider
           v-if="index"

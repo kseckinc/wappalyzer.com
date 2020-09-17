@@ -21,9 +21,11 @@
             :loading="loading"
             :error-messages="errors"
             class="mx-4"
+            :placeholder="
+              noCategories ? `E.g. Shopify` : `E.g. 'CMS' or 'Shopify'`
+            "
             :append-icon="mdiMagnify"
             label="Search"
-            placeholder="E.g. 'CMS' or 'Shopify'"
             required
             hide-details="auto"
             @click:append="search"
@@ -70,6 +72,12 @@ export default {
   components: {
     TechnologyIcon,
   },
+  props: {
+    noCategories: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       errors: [],
@@ -85,10 +93,12 @@ export default {
   computed: {
     results() {
       return [
-        ...this.categories.map((category) => ({
-          ...category,
-          type: 'category',
-        })),
+        ...(!this.noCategories
+          ? this.categories.map((category) => ({
+              ...category,
+              type: 'category',
+            }))
+          : []),
         ...this.technologies.map((technology) => ({
           ...technology,
           type: 'technology',

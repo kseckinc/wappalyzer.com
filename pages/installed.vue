@@ -5,8 +5,8 @@
       title: 'Wappalyzer has been installed',
       subtitle: 'Thank you for installing the browser extension!',
     }"
+    :crumbs="false"
     no-head
-    no-crumbs
   >
     <v-row justify="center" class="my-4">
       <v-col cols="12" sm="8" lg="6" class="py-0">
