@@ -138,6 +138,7 @@ import {
   mdiCart,
   mdiFileDocumentOutline,
   mdiKeyVariant,
+  mdiStar,
   mdiLogoutVariant,
 } from '@mdi/js'
 import Logo from '~/components/Logo.vue'
@@ -183,6 +184,7 @@ export default {
         mdiCart,
         mdiFileDocumentOutline,
         mdiKeyVariant,
+        mdiStar,
         mdiLogoutVariant,
       },
     }

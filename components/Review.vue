@@ -2,25 +2,25 @@
   <v-card v-if="!removed">
     <v-card-text>
       <p property="reviewBody">
-        {{ review.text }}
+        <span style="white-space: pre-line;">{{ formattedText }}</span>
       </p>
 
       <div property="reviewRating" typeof="Rating">
-        <span property="ratingValue" :content="review.stars">
-          <StarRating :stars="review.stars" />
+        <span property="ratingValue" :content="review.rating">
+          <StarRating :stars="review.rating" />
         </span>
       </div>
 
       <div property="publisher" typeof="Person" class="caption">
         <span property="name" class="font-weight-medium">
-          {{ review.name }}
+          {{ review.name || 'Anonymous' }}
         </span>
         - {{ formatDate(new Date(review.createdAt * 1000)) }}
       </div>
     </v-card-text>
     <v-card-actions
-      v-if="isSignedIn && user.sub === review.userId"
-      class="pt-0"
+      v-if="isSignedIn && (isAdmin || user.sub === review.userId)"
+      class="pt-0 mt-n2"
     >
       <v-spacer />
       <v-btn :loading="removing" color="error" text small @click="remove"
@@ -48,7 +48,7 @@ export default {
         return {
           name: 'Anonymous',
           text: '',
-          stars: 0,
+          rating: 0,
           createdAt: Date.now() / 1000,
           userId: '',
         }
@@ -66,7 +66,14 @@ export default {
     ...mapState({
       user: ({ user }) => user.attrs,
       isSignedIn: ({ user }) => user.isSignedIn,
+      isAdmin: ({ user }) => user.attrs.admin || user.impersonating,
     }),
+    formattedText() {
+      return this.review.text
+        .replace(/\n\n+/g, '\n\n')
+        .replace(/[^\S\r\n]+/g, ' ')
+        .trim()
+    },
   },
   methods: {
     async remove() {

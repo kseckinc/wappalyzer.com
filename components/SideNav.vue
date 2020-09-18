@@ -64,6 +64,7 @@ import {
   mdiMonitor,
   mdiConsole,
   mdiTagOutline,
+  mdiStar,
 } from '@mdi/js'
 
 export default {
@@ -89,6 +90,7 @@ export default {
         mdiMonitor,
         mdiConsole,
         mdiTagOutline,
+        mdiStar,
       },
     }
   },

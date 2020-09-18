@@ -6,6 +6,7 @@
       :color="large ? 'amber' : 'grey'"
       :large="large"
       :small="!large"
+      :style="`cursor: ${input ? 'pointer' : 'default'}`"
       @click="rate(index)"
       @mouseover="hover(index)"
       @mouseout="hover(null)"

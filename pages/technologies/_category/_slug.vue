@@ -2,7 +2,7 @@
   <div vocab="https://schema.org/" typeof="Review">
     <Page
       :title="title"
-      :seo-title="`Websites using ${title}`"
+      :seo-title="`Websites using ${title}, reviews and alternatives`"
       :crumbs="crumbs"
       :head="{
         meta: `Download a list of websites${
@@ -13,7 +13,7 @@
       hero
     >
       <v-row>
-        <v-col cols="9">
+        <v-col cols="12" lg="9">
           <h1
             class="d-flex align-center"
             property="itemReviewed"
@@ -128,7 +128,7 @@
                 <v-simple-table>
                   <thead>
                     <tr>
-                      <th width="30%">Website</th>
+                      <th width="40%">Website</th>
                       <th>Traffic</th>
                     </tr>
                   </thead>
@@ -312,21 +312,38 @@
             </p>
           </template>
         </v-col>
-        <v-col cols="3">
+        <v-col cols="12" lg="3">
+          <v-divider class="mt-4 mb-12 d-lg-none" />
+
+          <h2 class="mb-2">User reviews</h2>
+
           <div class="mb-4 caption text--disabled">
             <StarRating :stars="technology.rating" large />
             ({{ formatNumber(technology.reviewCount) }})
           </div>
 
           <div class="mb-6">
-            <v-btn outlined @click="openReviewDialog">Write a review</v-btn>
+            <v-btn outlined @click="openReviewDialog">
+              <v-icon left>{{ mdiFountainPenTip }}</v-icon>
+              Write a review</v-btn
+            >
           </div>
 
-          <Review
-            v-for="(_review, index) in technology.reviews"
-            :key="index"
-            :review="_review"
-          />
+          <template v-if="technology.reviews.length">
+            <Review
+              v-for="(_review, index) in technology.reviews"
+              :key="index"
+              :review="_review"
+              class="mb-4"
+            />
+          </template>
+          <template v-else>
+            <v-card outlined>
+              <v-card-text class="caption text--disabled text-center">
+                No reviews yet!
+              </v-card-text>
+            </v-card>
+          </template>
         </v-col>
       </v-row>
     </Page>
@@ -375,8 +392,10 @@
           <p>Describe your experience with {{ technology.name }}.</p>
 
           <v-textarea
+            ref="reviewText"
             v-model="review.text"
             :hint="`${Math.max(0, 250 - review.text.length)} / 250`"
+            :rules="reviewRules"
             placeholder="Leave blank to only submit a rating."
             outlined
           />
@@ -430,6 +449,7 @@ import {
   mdiMap,
   mdiLightbulbOnOutline,
   mdiFinance,
+  mdiFountainPenTip,
 } from '@mdi/js'
 import { GChart } from 'vue-google-charts'
 
@@ -513,6 +533,15 @@ export default {
           },
         },
       },
+      reviewRules: [
+        (v) => v.length < 250 || 'Maximum length exceeded',
+        (v) =>
+          v.length < 5 ||
+          v.replace(/[^A-Z]/g, '').length <
+            v.replace(/[^a-z]/g, '').length / 2 ||
+          'Too many uppercase characters',
+        (v) => !/(fuck|sucks)/.test(v.toLowerCase()) || 'Stay classy',
+      ],
       mdiFilterVariant,
       mdiOpenInNew,
       mdiMagnify,
@@ -521,6 +550,7 @@ export default {
       mdiMap,
       mdiFinance,
       mdiLightbulbOnOutline,
+      mdiFountainPenTip,
       review: {
         rating: 0,
         text: '',
@@ -725,13 +755,6 @@ export default {
         }
       }
     },
-    'review.text'(text) {
-      setTimeout(() => {
-        if (this.review.text.length > 250) {
-          this.review.text = text.slice(0, 250)
-        }
-      }, 1)
-    },
   },
   mounted() {
     if (this.$store.state.user.isSignedIn) {
@@ -752,11 +775,17 @@ export default {
       this.reviewDialog = true
     },
     async submitReview() {
+      if (!this.$refs.reviewText.validate()) {
+        return
+      }
+
       this.reviewError = ''
       this.submittingReview = true
 
       try {
-        await this.$axios.put('reviews', {
+        this.review.text = this.review.text.trim()
+
+        await this.$axios.put(`reviews/${this.technology.slug}`, {
           ...this.review,
         })
 
@@ -767,9 +796,9 @@ export default {
         this.reviewDialog = false
       } catch (error) {
         this.reviewError = this.getErrorMessage(error)
-
-        this.submittingReview = false
       }
+
+      this.submittingReview = false
     },
   },
 }
