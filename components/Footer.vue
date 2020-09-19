@@ -19,6 +19,7 @@
                     :href="_to.match(/^http/) ? _to : null"
                     :target="_to.match(/^http/) ? '_blank' : '_self'"
                     :to="_to.match(/^http/) ? null : _to"
+                    :rel="_to.match(/^http/) ? `noopener noreferrer` : ''"
                     nuxt
                   >
                     <v-list-item-title class="body-2">
@@ -53,6 +54,7 @@
               :key="icon"
               :href="href"
               target="blank"
+              rel="noopener noreferrer"
               icon
             >
               <v-icon size="20px">{{ mdi[icon] }}</v-icon>

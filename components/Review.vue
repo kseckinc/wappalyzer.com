@@ -47,6 +47,7 @@ export default {
       default() {
         return {
           name: 'Anonymous',
+          slug: '',
           text: '',
           rating: 0,
           createdAt: Date.now() / 1000,

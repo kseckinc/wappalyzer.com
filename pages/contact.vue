@@ -26,7 +26,13 @@
           <v-spacer />
           <v-card-actions>
             <v-spacer />
-            <v-btn :href="item.button.href" color="accent" text>
+            <v-btn
+              :href="item.button.href"
+              color="accent"
+              target="_blank"
+              rel="noopener noreferrer"
+              text
+            >
               <v-icon left>{{ mdi[item.button.icon] }}</v-icon>
               {{ item.button.text }}
             </v-btn>
@@ -50,6 +56,7 @@
               color="accent"
               class="mr-2"
               target="_blank"
+              rel="noopener noreferrer"
               outlined
               small
             >
@@ -60,6 +67,7 @@
               href="https://twitter.com/Wappalyzer"
               color="accent"
               target="_blank"
+              rel="noopener noreferrer"
               outlined
               small
             >

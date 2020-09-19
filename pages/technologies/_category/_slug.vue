@@ -13,7 +13,7 @@
       hero
     >
       <v-row>
-        <v-col cols="12" lg="9">
+        <v-col cols="12" lg="9" class="py-0">
           <h1
             class="d-flex align-center"
             property="itemReviewed"
@@ -312,7 +312,7 @@
             </p>
           </template>
         </v-col>
-        <v-col cols="12" lg="3">
+        <v-col cols="12" lg="3" class="py-0">
           <v-divider class="mt-4 mb-12 d-lg-none" />
 
           <h2 class="mb-2">User reviews</h2>

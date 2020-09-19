@@ -17,9 +17,13 @@
 
       <p>
         The company was founded in Melbourne, Australia by
-        <a href="https://alias.io" target="_blank">Elbert Alias</a> (<a
+        <a href="https://alias.io" target="_blank" rel="noopener noreferrer"
+          >Elbert Alias</a
+        >
+        (<a
           href="https://www.linkedin.com/in/elbertalias/"
           target="_blank"
+          rel="noopener noreferrer"
           ><v-icon color="accent" small> {{ mdiLinkedin }}</v-icon></a
         >), a Dutch expatriate software engineer.
       </p>

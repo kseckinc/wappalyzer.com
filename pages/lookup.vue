@@ -116,6 +116,7 @@
                                     <a
                                       :href="`${socialBaseUrls[key]}${value}`"
                                       target="_blank"
+                                      rel="nofollow noopener noreferrer"
                                       >{{ value }}</a
                                     >
                                   </template>

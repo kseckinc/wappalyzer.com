@@ -13,6 +13,7 @@
           color="primary"
           class="mr-2 mb-4"
           target="_blank"
+          rel="noopener noreferrer"
           outlined
         >
           <v-icon left>{{ mdi[icon] }}</v-icon>
@@ -34,6 +35,7 @@
           <v-btn
             href="https://github.com/aliasio/wappalyzer"
             target="_blank"
+            rel="noopener noreferrer"
             color="accent"
             class="mb-4"
             outlined
