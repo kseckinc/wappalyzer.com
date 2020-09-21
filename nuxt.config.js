@@ -44,13 +44,13 @@ export default {
     async routes() {
       const categories = (
         await axios.get(
-          `${publicRuntimeConfig.BASE_URL}/categories/${publicRuntimeConfig.API_VERSION}`
+          `${publicRuntimeConfig.BASE_URL}categories/${publicRuntimeConfig.API_VERSION}`
         )
       ).data.map(({ slug }) => `/technologies/${slug}`)
 
       const technologies = (
         await axios.get(
-          `${publicRuntimeConfig.BASE_URL}/technologies/${publicRuntimeConfig.API_VERSION}`
+          `${publicRuntimeConfig.BASE_URL}technologies/${publicRuntimeConfig.API_VERSION}`
         )
       ).data
         .filter(({ categories }) => categories.length)
