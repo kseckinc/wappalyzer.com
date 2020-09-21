@@ -73,7 +73,8 @@ Vue.mixin({
             return `Too many requests, please try again later${code}`
           default:
             return `${
-              error.response.data.message || error.response.data
+              error.response.data.message ||
+              error.response.data.toString('utf-8')
             }${code}`
         }
       } else {

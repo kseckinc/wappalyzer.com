@@ -61,14 +61,12 @@
           <v-card-title>
             Delete key
           </v-card-title>
-          <v-card-text>
+          <v-card-text class="pb-0">
             <v-alert v-if="removeError" type="error">
               {{ removeError }}
             </v-alert>
 
-            <p>
-              Any integrations using this key will stop working.
-            </p>
+            Any integrations using this key will stop working.
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>

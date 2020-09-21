@@ -1,11 +1,20 @@
 import axios from 'axios'
 
+require('dotenv').config({
+  path: `.env.${
+    process.env.NODE_ENV === 'development' || process.env.ENVIRONMENT === 'beta'
+      ? 'beta'
+      : 'v2'
+  }`,
+})
+
 const publicRuntimeConfig = {
   AWS_REGION: 'ap-southeast-2',
   COGNITO_USER_POOL_ID: 'ap-southeast-2_Tz6DGDkmB',
   COGNITO_CLIENT_ID: '17uprj6843uiev15qqdkn3l5h7',
   COGNITO_IDENTITY_POOL_ID:
     'ap-southeast-2:6b7b7db4-96fd-450f-88fc-2a6feb55cb8e',
+  BASE_URL: 'https://api.wappalyzer.com/',
   DATASETS_BASE_URL: 'https://datasets.wappalyzer.com/',
   BULK_LOOKUP_BASE_URL: 'https://bulk.wappalyzer.com/',
   RELEASE_URL:
@@ -14,12 +23,12 @@ const publicRuntimeConfig = {
   process.env.ENVIRONMENT === 'beta'
     ? {
         WEBSITE_URL: 'https://beta.wappalyzer.com',
-        BASE_URL: 'https://api.wappalyzer.com/site/beta/',
+        API_VERSION: 'beta',
         STRIPE_PUBLIC_KEY: 'pk_test_m0X44lIHlqdzZNoJ8hY9OOkv',
       }
     : {
         WEBSITE_URL: 'https://www.wappalyzer.com',
-        BASE_URL: 'https://api.wappalyzer.com/site/v2/',
+        API_VERSION: 'v2',
         STRIPE_PUBLIC_KEY: 'pk_live_JVYAmAPFVBvmnes65xsp3itH',
       }),
 }

@@ -10,6 +10,15 @@ export default ({ store: { dispatch, state }, $axios }) => {
   $axios.onRequest((config) => {
     if (!/^https?:/.test(config.url)) {
       config.headers.common.Authorization = getAuth(state)
+
+      if (!config.apiVersioned) {
+        config.url = config.url.replace(
+          /^([^/]+)/,
+          `$1/${process.env.API_VERSION}`
+        )
+
+        config.apiVersioned = true
+      }
     }
 
     return config

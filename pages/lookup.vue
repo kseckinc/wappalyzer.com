@@ -3,11 +3,11 @@
     <v-card color="secondary" style="overflow: hidden;" class="mt-12 mb-4">
       <v-card-title>
         <v-row>
-          <v-col cols="12" sm="3" class="py-0">
+          <v-col cols="12" sm="4" class="py-0">
             <v-icon color="primary" left>{{ mdiLayersOutline }}</v-icon>
             Lookup
           </v-col>
-          <v-col cols="12" sm="9" class="py-0">
+          <v-col cols="12" sm="8" class="py-0">
             <Credits />
           </v-col>
         </v-row>
@@ -271,7 +271,9 @@ export default {
   async mounted() {
     ;({ url: this.url } = this.$route.query)
 
-    this.$router.replace({ path: this.$route.path })
+    if (this.url) {
+      this.$router.replace({ path: this.$route.path })
+    }
 
     this.$refs.input.focus()
 
@@ -308,7 +310,7 @@ export default {
             technologies: this.technologies,
             attributes: this.attributes,
           } = (
-            await this.$axios(`lookup/${encodeURIComponent(this.url)}`)
+            await this.$axios(`lookup-site/${encodeURIComponent(this.url)}`)
           ).data)
 
           this.$store.commit('credits/set', credits)
