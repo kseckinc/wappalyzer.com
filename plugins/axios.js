@@ -21,6 +21,8 @@ export default ({ store: { dispatch, state }, $axios }) => {
       }
     }
 
+    console.log(config.url)
+
     return config
   })
 

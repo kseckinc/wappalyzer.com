@@ -43,11 +43,15 @@ export default {
     exclude: [/^\/compare\/.+/],
     async routes() {
       const categories = (
-        await axios.get(`${publicRuntimeConfig.BASE_URL}/categories`)
+        await axios.get(
+          `${publicRuntimeConfig.BASE_URL}/${publicRuntimeConfig.API_VERSION}/categories`
+        )
       ).data.map(({ slug }) => `/technologies/${slug}`)
 
       const technologies = (
-        await axios.get(`${publicRuntimeConfig.BASE_URL}/technologies`)
+        await axios.get(
+          `${publicRuntimeConfig.BASE_URL}/${publicRuntimeConfig.API_VERSION}/technologies`
+        )
       ).data
         .filter(({ categories }) => categories.length)
         .map(
