@@ -102,7 +102,7 @@ export default {
       updateUserAttrs: 'user/updateAttrs',
     }),
     initDrift() {
-      if (!window) {
+      if (typeof window === 'undefined') {
         return
       }
 
