@@ -21,6 +21,11 @@
       src="https://r.wdfl.co/rw.js"
       data-rewardful="7fd1cb"
     ></script>
+
+    <script
+      async
+      src="https://sc.lfeeder.com/lftracker_v1_lYNOR8xM2GG7WQJZ.js"
+    ></script>
   </v-app>
 </template>
 
@@ -97,6 +102,10 @@ export default {
       updateUserAttrs: 'user/updateAttrs',
     }),
     initDrift() {
+      if (!window) {
+        return
+      }
+
       if (!window.drift) {
         return new Promise((resolve) => {
           const t = (window.driftt = window.drift = window.driftt || [])
