@@ -14,9 +14,8 @@
 
         <v-form ref="form" @submit.prevent="submit">
           <v-text-field
-            v-model="email"
-            :rules="[(v) => !v || /@/.test(v) || 'Enter a valid email address']"
-            label="Email address"
+            v-model="userId"
+            label="Email address or user ID"
             required
             hide-details="auto"
           />
@@ -105,7 +104,7 @@ export default {
   data() {
     return {
       title: 'Administration',
-      email: '',
+      userId: '',
       error: false,
       mdiAccount,
       recentOrders: {},
@@ -135,8 +134,8 @@ export default {
       this.success = false
       this.submitting = true
 
-      if (this.email && this.$refs.form.validate()) {
-        this.$store.commit('user/setImpersonating', this.email)
+      if (this.userId && this.$refs.form.validate()) {
+        this.$store.commit('user/setImpersonating', this.userId)
 
         await new Promise((resolve) => {
           this.$nextTick(async () => {
@@ -145,8 +144,9 @@ export default {
 
               this.$store.commit('user/setAttrs', user)
 
-              this.success = `Signed in as ${this.email}`
-              this.email = ''
+              this.userId = ''
+
+              this.$router.push('/account')
             } catch (error) {
               this.$store.commit('user/setImpersonating', '')
 

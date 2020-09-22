@@ -24,7 +24,7 @@
           <p>
             Create a list of
             {{ formatNumber(totalHostnames, true) }}
-            <nuxt-link :to="`/lists/${category.slug}`"
+            <nuxt-link :to="`/lists/?category=${category.slug}`"
               >{{ category.name }} websites</nuxt-link
             >
             with email addresses and phone numbers.
@@ -32,7 +32,7 @@
         </v-col>
       </v-row>
 
-      <v-btn :to="`/lists/${category.slug}`" color="accent" outlined>
+      <v-btn :to="`/lists/?category=${category.slug}`" color="accent" outlined>
         <v-icon left>{{ mdiFilterVariant }}</v-icon> Create a lead list
       </v-btn>
 

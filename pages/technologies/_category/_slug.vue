@@ -95,17 +95,13 @@
             <p class="mb-8">
               Create a list of
               {{ formatNumber(technology.hostnames, true) }}
-              <nuxt-link :to="`/lists/${categorySlug}/${slug}/`">
+              <nuxt-link :to="`/lists/?technology=${slug}`">
                 {{ technology.name }} websites</nuxt-link
               >
               with email addresses and phone numbers.
             </p>
 
-            <v-btn
-              :to="`/lists/${categorySlug}/${slug}/`"
-              color="accent"
-              outlined
-            >
+            <v-btn :to="`/lists/?technology=${slug}`" color="accent" outlined>
               <v-icon left>{{ mdiFilterVariant }}</v-icon> Create a lead list
             </v-btn>
 
@@ -139,7 +135,7 @@
                     >
                       <td>
                         <nuxt-link
-                          :to="`/lookup?url=${encodeURIComponent(
+                          :to="`/lookup/?url=${encodeURIComponent(
                             `http://${hostname}`
                           )}`"
                           >{{ hostname.replace(/www\./, '') }}</nuxt-link

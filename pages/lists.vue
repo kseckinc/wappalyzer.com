@@ -765,12 +765,17 @@ export default {
       })
     },
   },
-  async created() {
-    const { categorySlug, technologySlug } = this.$store.state.lists
+  async mounted() {
+    const {
+      category: categorySlug,
+      technology: technologySlug,
+    } = this.$route.query
 
-    if (categorySlug) {
-      if (technologySlug) {
-        try {
+    if (categorySlug || technologySlug) {
+      this.$router.replace({ path: this.$route.path })
+
+      try {
+        if (technologySlug) {
           const { slug, name, icon } = (
             await this.$axios.get(`technologies/${technologySlug}`)
           ).data
@@ -781,11 +786,7 @@ export default {
             name,
             icon,
           })
-        } catch (error) {
-          this.error = this.getErrorMessage(error)
-        }
-      } else {
-        try {
+        } else if (categorySlug) {
           const { slug, name, technologies } = (
             await this.$axios.get(`categories/${categorySlug}`)
           ).data
@@ -796,14 +797,11 @@ export default {
             name,
             technologiesCount: Object.keys(technologies).length,
           })
-        } catch (error) {
-          this.error = this.getErrorMessage(error)
         }
+      } catch (error) {
+        this.error = this.getErrorMessage(error)
       }
     }
-
-    this.$store.commit('lists/setTechnologySlug', false)
-    this.$store.commit('lists/setCategorySlug', false)
   },
   methods: {
     async submit(confirmed = false) {
