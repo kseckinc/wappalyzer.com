@@ -26,11 +26,41 @@
       async
       src="https://sc.lfeeder.com/lftracker_v1_lYNOR8xM2GG7WQJZ.js"
     ></script>
+
+    <script>
+      window.pipedriveLeadboosterConfig = {
+        base: 'leadbooster-chat.pipedrive.com',
+        companyId: 7691475,
+        playbookUuid: '635f25e4-8da7-40bd-b3a0-1497505ef443',
+        version: 2,
+      }
+      ;(function () {
+        var w = window
+        if (w.LeadBooster) {
+          console.warn('LeadBooster already exists')
+        } else {
+          w.LeadBooster = {
+            q: [],
+            on: function (n, h) {
+              this.q.push({ t: 'o', n: n, h: h })
+            },
+            trigger: function (n) {
+              this.q.push({ t: 't', n: n })
+            },
+          }
+        }
+      })()
+    </script>
+
+    <script
+      src="https://leadbooster-chat.pipedrive.com/assets/loader.js"
+      async
+    ></script>
   </v-app>
 </template>
 
 <script>
-/* globals drift */
+// /* globals drift */
 
 import { mapState, mapActions } from 'vuex'
 
@@ -40,6 +70,7 @@ import Drawer from '~/components/Drawer.vue'
 import mainNav from '~/assets/json/nav/main.json'
 import userNav from '~/assets/json/nav/user.json'
 
+/*
 const driftRoutes = {
   '/about': null,
   '/account': null,
@@ -56,6 +87,7 @@ const driftRoutes = {
   '/paymentmethods': null,
   '/subscriptions': null,
 }
+*/
 
 export default {
   components: {
@@ -66,9 +98,9 @@ export default {
   data() {
     return {
       mainNav,
-      driftShown: false,
-      driftApi: null,
-      driftIsOnline: false,
+      // driftShown: false,
+      // driftApi: null,
+      // driftIsOnline: false,
     }
   },
   computed: {
@@ -87,20 +119,23 @@ export default {
       return this.isSignedIn ? userNav : userNav.filter((item) => !item.auth)
     },
   },
+  /*
   watch: {
     $route() {
       this.checkDrift()
     },
   },
+  */
   mounted() {
     this.updateUserAttrs()
 
-    this.checkDrift()
+    // this.checkDrift()
   },
   methods: {
     ...mapActions({
       updateUserAttrs: 'user/updateAttrs',
     }),
+    /*
     initDrift() {
       if (typeof window === 'undefined') {
         return
@@ -218,6 +253,7 @@ export default {
         this.driftApi.widget.show()
       }
     },
+    */
   },
 }
 </script>
