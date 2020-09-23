@@ -1,18 +1,14 @@
 <template>
   <v-card v-if="!removed">
     <v-card-text>
-      <p property="reviewBody">
+      <p>
         <span style="white-space: pre-line;">{{ formattedText }}</span>
       </p>
 
-      <div property="reviewRating" typeof="Rating">
-        <span property="ratingValue" :content="review.rating">
-          <StarRating :stars="review.rating" />
-        </span>
-      </div>
+      <StarRating :stars="review.rating" />
 
-      <div property="publisher" typeof="Person" class="caption">
-        <span property="name" class="font-weight-medium">
+      <div>
+        <span class="font-weight-medium">
           {{ review.name || 'Anonymous' }}
         </span>
         - {{ formatDate(new Date(review.createdAt * 1000)) }}

@@ -1,5 +1,5 @@
 <template>
-  <div vocab="https://schema.org/" typeof="Review">
+  <div>
     <Page
       :title="title"
       :seo-title="`Websites using ${title}, reviews and alternatives`"
@@ -14,18 +14,12 @@
     >
       <v-row>
         <v-col cols="12" lg="9" class="py-0">
-          <h1
-            class="d-flex align-center"
-            property="itemReviewed"
-            typeof="Product"
-          >
+          <h1 class="d-flex align-center">
             <TechnologyIcon
               :icon="technology ? technology.icon : 'default.svg'"
             />
 
-            <span property="name">
-              {{ title }}
-            </span>
+            {{ title }}
           </h1>
 
           <div class="d-flex align-center mb-4">
@@ -430,7 +424,7 @@
     </v-dialog>
 
     <!-- eslint-disable-next-line vue/no-v-html -->
-    <script type="application/ld+json" v-html="jsonld" />
+    <script type="application/ld+json" v-html="JSON.stringify(jsonld)" />
   </div>
 </template>
 
@@ -567,12 +561,35 @@ export default {
     jsonld() {
       return {
         '@context': 'https://schema.org/',
-        '@type': 'Product',
+        '@type': 'WebApplication',
         name: this.technology.name,
+        about: {
+          description: this.technology.description,
+        },
+        author: {
+          '@type': 'Organization',
+          url: this.technology.website,
+        },
+        applicationCategory: this.technology.categories[0].name,
+        review: this.technology.reviews.map(
+          ({ name, text, rating, createdAt }) => ({
+            '@type': 'Review',
+            author: {
+              '@type': 'Person',
+              name,
+            },
+            datePublished: new Date(createdAt * 1000).toISOString(),
+            reviewBody: text,
+            reviewRating: {
+              '@type': 'Rating',
+              ratingValue: rating.toString(),
+            },
+          })
+        ),
         aggregateRating: {
           '@type': 'AggregateRating',
-          ratingValue: this.technology.rating,
-          ratingCount: this.technology.reviews.length,
+          ratingValue: this.technology.rating || 5,
+          ratingCount: this.technology.reviews.length || 1,
         },
       }
     },

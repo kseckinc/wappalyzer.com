@@ -63,13 +63,18 @@ export default {
   },
   data() {
     return {
-      title: 'Compare technologies',
+      title: 'Compare',
       text: `Choose any two technologies to compare them side-by-side.`,
       mdiFormatListChecks,
       mdiArrowRight,
       technologyA: null,
       technologyB: null,
     }
+  },
+  computed: {
+    crumbs() {
+      return [{ title: 'Technologies', to: '/technologies/' }]
+    },
   },
 }
 </script>

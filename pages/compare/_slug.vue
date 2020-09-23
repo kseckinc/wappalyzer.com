@@ -22,6 +22,11 @@
 
             {{ technology.name }}
           </h1>
+
+          <div class="mb-4 caption text--disabled">
+            <StarRating :stars="technology.rating" large />
+            ({{ formatNumber(technology.reviewCount) }})
+          </div>
         </v-col>
       </v-row>
 
@@ -247,6 +252,7 @@ import { GChart } from 'vue-google-charts'
 
 import Page from '~/components/Page.vue'
 import Bar from '~/components/Bar.vue'
+import StarRating from '~/components/StarRating.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
 
 export default {
@@ -255,6 +261,7 @@ export default {
     Bar,
     TechnologyIcon,
     GChart,
+    StarRating,
   },
   async asyncData({ route, $axios, redirect, error }) {
     const { slug } = route.params
@@ -330,7 +337,10 @@ export default {
       } market share, usage trends and demographics in ${new Date().getFullYear()}.`
     },
     crumbs() {
-      return [{ title: 'Compare technologies', to: '/compare/' }]
+      return [
+        { title: 'Technologies', to: '/technologies/' },
+        { title: 'Compare', to: '/compare/' },
+      ]
     },
     trendStartYearMonth() {
       return [
