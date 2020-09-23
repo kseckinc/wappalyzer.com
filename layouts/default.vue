@@ -97,7 +97,10 @@ export default {
       updateUserAttrs: 'user/updateAttrs',
     }),
     initDrift() {
-      if (typeof window === 'undefined') {
+      if (
+        typeof window === 'undefined' ||
+        process.env.NODE_ENV === 'development'
+      ) {
         return
       }
 
