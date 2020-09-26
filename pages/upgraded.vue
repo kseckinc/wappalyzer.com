@@ -8,7 +8,7 @@
     :crumbs="false"
     no-head
   >
-    <v-row justify="center my-4">
+    <v-row justify="center" class="my-4">
       <v-col cols="12" sm="8" lg="6" class="py-0">
         <v-card>
           <v-card-title>Changelog</v-card-title>
@@ -61,7 +61,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
 import { mdiPlusBox, mdiAutoFix, mdiStar } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -83,18 +82,11 @@ export default {
     }
   },
   async created() {
-    this.set({ hero: false })
-
     try {
       this.release = (await this.$axios.get(process.env.RELEASE_URL)).data
     } catch (error) {
       this.error = this.getErrorMessage(error)
     }
-  },
-  methods: {
-    ...mapActions({
-      set: 'page/set',
-    }),
   },
   head() {
     return {

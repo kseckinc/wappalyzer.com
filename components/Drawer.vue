@@ -80,6 +80,7 @@ import {
   mdiFileDocumentOutline,
   mdiKeyVariant,
   mdiLogoutVariant,
+  mdiStar,
 } from '@mdi/js'
 
 export default {
@@ -112,6 +113,7 @@ export default {
         mdiFileDocumentOutline,
         mdiKeyVariant,
         mdiLogoutVariant,
+        mdiStar,
       },
     }
   },
