@@ -71,6 +71,26 @@
       </template>
 
       <template v-slot:footer>
+        <v-divider />
+        <v-container>
+          <v-row align="stretch">
+            <v-col
+              v-for="{ name, role, text, image } in testimonials"
+              :key="name"
+              sm="4"
+              class="d-flex py-0"
+            >
+              <Testimonial
+                :name="name"
+                :role="role"
+                :text="text"
+                :image="image"
+                height="100%"
+              />
+            </v-col>
+          </v-row>
+        </v-container>
+
         <Logos />
       </template>
     </Page>
@@ -95,16 +115,20 @@ import {
 import Logos from '~/components/Logos.vue'
 import Page from '~/components/Page.vue'
 import ProductImage from '~/components/ProductImage.vue'
+import Testimonial from '~/components/Testimonial.vue'
 import meta from '~/assets/json/meta.json'
+import testimonials from '~/assets/json/testimonials.json'
 
 export default {
   components: {
     Logos,
     Page,
     ProductImage,
+    Testimonial,
   },
   data() {
     return {
+      title: meta.hero.title,
       mdi: {
         mdiCheck,
         mdiLayersOutline,
@@ -119,7 +143,7 @@ export default {
         mdiPuzzle,
         mdiDownload,
       },
-      title: meta.hero.title,
+      testimonials,
       sections: Object.values(meta).filter((meta) => meta.feature),
     }
   },

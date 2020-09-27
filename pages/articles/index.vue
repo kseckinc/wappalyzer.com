@@ -47,6 +47,12 @@ export default {
       title: 'Articles',
       articles: [
         {
+          title: 'HTTP Archive uses Wappalyzer to track the state of the web',
+          intro: `The HTTP Archive tracks how the web is built. It provides historical data to quantitatively illustrate how the web is evolving over time. The project is open-source and backed by technology giants such as Google, Mozilla and Akamai.`,
+          to:
+            '/articles/http-archive-uses-wappalyzer-to-track-the-state-of-the-web',
+        },
+        {
           title: 'What is technographics?',
           intro: `Technographics is a market research methodology used to profile target accounts based on their technology stack. For many companies, especially those offering a SaaS product, the technology a prospect uses can be a strong qualifying factor.`,
           to: '/articles/what-is-technographics/',

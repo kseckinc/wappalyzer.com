@@ -59,8 +59,8 @@
       </h2>
 
       <p>
-        Once a year, the HTTP Archive produces a comprehensive ‘state of the
-        web’ report called
+        Once a year, the HTTP Archive produces a comprehensive 'state of the
+        web' report called
         <a
           href="https://almanac.httparchive.org/"
           rel="noopener"
@@ -69,8 +69,8 @@
         >, backed by real data and trusted web experts. Its many chapters span
         aspects of page content, user experience, publishing, and distribution.
         While the Web Almanac is primarily the domain of developers and web
-        architects, it’s full of helpful stats for content managers, marketers
-        and publishers. It’s an invaluable resource to understanding how the web
+        architects, it's full of helpful stats for content managers, marketers
+        and publishers. It's an invaluable resource to understanding how the web
         is trending.
       </p>
 
@@ -100,7 +100,7 @@
       </ul>
 
       <p>
-        In addition to tools such as Google’s
+        In addition to tools such as Google's
         <a
           href="https://developers.google.com/web/tools/lighthouse/"
           rel="noopener"
@@ -128,7 +128,7 @@
       </p>
 
       <p>
-        The Web Alamac is the brainchild of
+        The Web Almanac is the brainchild of
         <a
           href="https://twitter.com/rick_viscomi"
           rel="noopener"
@@ -147,11 +147,11 @@
       <p>
         <a href="https://www.webpagetest.org/" rel="noopener" target="_blank"
           >WebPageTest</a
-        >, created by Facebook software engineer
+        >, created by Catchpoint software engineer
         <a href="https://twitter.com/patmeenan" rel="noopener" target="_blank"
           >Patrick Meenan</a
         >, is a prominent web performance testing tool and the backbone of HTTP
-        Archive. It makes use of Wappalyzer’s profiling methods to analyse web
+        Archive. It makes use of Wappalyzer's profiling methods to analyse web
         pages and create security and performance reports.
       </p>
 
@@ -163,7 +163,7 @@
         Successful societies and institutions recognise the need to record their
         history, providing a way to review the past, find explanations for
         current behavior, and spot emerging trends. The HTTP Archive provides a
-        permanent record of how digitized content is constructed and served.
+        permanent record of how digitised content is constructed and served.
       </p>
 
       <p>

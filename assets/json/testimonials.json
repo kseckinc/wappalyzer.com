@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Ilya Grigorik",
+    "role": "Director, Developer Relations at Google",
+    "image": "/images/testimonials/ilya-grigorik.jpg",
+    "text": "Wappalyzer has proven to be a great tool to help us break down the aggregate analysis of how the web is doing by various technologies."
+  },
+  {
+    "name": "Rick Viscomi",
+    "role": "Senior Developer Relations Engineer at Google",
+    "image": "/images/testimonials/rick-viscomi.jpg",
+    "text": "Wappalyzer has been such a useful part of the HTTP Archive dataset. It's enabled us to slice the data in new ways and discover more interesting insights about the state of the web."
+  },
+  {
+    "name": "Patrick Meenan",
+    "role": "Engineering Fellow at Catchpoint",
+    "image": "/images/testimonials/patrick-meenan.jpg",
+    "text": "Wappalyzer has been hugely valuable to slice performance data by the various detected applications at WebPageTest.org."
+  }
+]
