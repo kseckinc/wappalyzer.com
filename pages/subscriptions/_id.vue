@@ -109,16 +109,49 @@
 
       <small>Prices are in United States dollars.</small>
 
-      <v-dialog v-model="cancelDialog" max-width="400px" eager>
+      <v-dialog v-model="cancelDialog" max-width="500px" eager>
         <v-card>
           <v-card-title>
             Cancel subscription
           </v-card-title>
 
-          <v-card-text>
+          <v-card-text class="pb-0">
             <v-alert v-if="cancelError" type="error">
               {{ cancelError }}
             </v-alert>
+
+            Please tell us why:
+
+            <v-form>
+              <v-radio-group v-model="cancelReason">
+                <v-radio
+                  label="I only wanted to subscribe for one month"
+                  value="I only wanted to subscribe for one month"
+                ></v-radio>
+                <v-radio
+                  label="I no longer need this product"
+                  value="I no longer need this product"
+                ></v-radio>
+                <v-radio
+                  label="The product is too expensive"
+                  value="The product is too expensive"
+                ></v-radio>
+                <v-radio
+                  label="It doesn't work as expected"
+                  value="It doesn't work as expected"
+                ></v-radio>
+                <v-radio
+                  label="I'm switching to another plan"
+                  value="I'm switching to another plan"
+                ></v-radio>
+                <v-radio
+                  label="Different reason"
+                  value="Different reason"
+                ></v-radio>
+              </v-radio-group>
+
+              <v-textarea v-model="cancelComment" label="Comments" outlined />
+            </v-form>
 
             Your subscription will be cancelled at the end of the billing
             period.
@@ -225,6 +258,8 @@ export default {
       cancelDialog: false,
       cancelError: false,
       cancelling: false,
+      cancelReason: '',
+      cancelComment: '',
       error: false,
       mdiOpenInNew,
       mdiKeyVariant,
@@ -297,7 +332,12 @@ export default {
       this.cancelling = true
 
       try {
-        await this.$axios.delete(`subscriptions/${this.subscription.id}`)
+        await this.$axios.delete(`subscriptions/${this.subscription.id}`, {
+          data: {
+            reason: this.cancelReason,
+            comment: this.cancelComment,
+          },
+        })
 
         this.subscription = (
           await this.$axios.get(`subscriptions/${this.subscription.id}`)

@@ -250,6 +250,17 @@
                   </td>
                 </tr>
                 <tr>
+                  <th>
+                    Data age
+                  </th>
+                  <td>
+                    {{ order.dataset.query.minAge || 0 }}-{{
+                      order.dataset.query.maxAge || 3
+                    }}
+                    months
+                  </td>
+                </tr>
+                <tr>
                   <th width="30%">
                     Technologies
                     {{
@@ -347,6 +358,14 @@
                     </v-chip-group>
                   </td>
                 </tr>
+                <tr v-if="order.dataset.query.excludeEmptySets">
+                  <th>
+                    Exclude base only results
+                  </th>
+                  <td>
+                    <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
+                  </td>
+                </tr>
                 <tr v-if="order.dataset.query.geoIps.length">
                   <th>
                     IP countries
@@ -413,6 +432,14 @@
                   </th>
                   <td>
                     <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
+                  </td>
+                </tr>
+                <tr v-if="order.dataset.query.subset">
+                  <th>
+                    Subset
+                  </th>
+                  <td>
+                    {{ formatNumber(order.dataset.query.subset) }}
                   </td>
                 </tr>
                 <tr v-if="order.dataset.query.subset">

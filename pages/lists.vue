@@ -147,6 +147,21 @@
                         </tr>
                       </tbody>
                     </v-simple-table>
+
+                    <v-checkbox
+                      v-if="
+                        sets.some(
+                          (set) =>
+                            set.key !== 'base-list' &&
+                            set.key !== 'base-lookup' &&
+                            set.value
+                        )
+                      "
+                      v-model="excludeEmptySets"
+                      class="px-3"
+                      label="Exclude results where only base attributes are available"
+                      hide-details
+                    />
                   </v-card-text>
                 </v-card>
               </v-card-text>
@@ -180,6 +195,52 @@
                       placeholder="5000"
                       hide-details="auto"
                     />
+                  </v-card-text>
+                </v-card>
+
+                <v-card class="mb-8">
+                  <v-card-title class="subtitle-2">
+                    Data age
+                  </v-card-title>
+                  <v-card-text>
+                    <p>
+                      Choose an age range in months. Lower values yield fresher
+                      results. A smaller range yields fewer results. Recommended
+                      range is 0-3.
+                    </p>
+
+                    <v-row>
+                      <v-col class="py-0">
+                        <v-slider
+                          v-model="minAge"
+                          label="Min"
+                          min="0"
+                          max="11"
+                          thumb-size="24"
+                          thumb-label
+                          hint="A non-zero minimum returns historical results only"
+                          :rules="[
+                            (v) => v < maxAge || 'Must be lower than max age',
+                          ]"
+                          :persistent-hint="minAge > 0"
+                          hide-details="auto"
+                        />
+                      </v-col>
+                      <v-col class="py-0">
+                        <v-slider
+                          v-model="maxAge"
+                          label="Max"
+                          min="1"
+                          max="12"
+                          thumb-size="24"
+                          thumb-label
+                          :rules="[
+                            (v) => v > minAge || 'Must be greater than min age',
+                          ]"
+                          hide-details="auto"
+                        />
+                      </v-col>
+                    </v-row>
                   </v-card-text>
                 </v-card>
 
@@ -664,6 +725,7 @@ export default {
       countries: Object.keys(tlds),
       confirmDialog: false,
       error: false,
+      excludeEmptySets: false,
       file: '',
       fileErrors: [],
       matchAll: false,
@@ -682,6 +744,8 @@ export default {
       mdiArrowRight,
       mdiFilterOutline,
       mdiArrowCollapseVertical,
+      minAge: 0,
+      maxAge: 3,
       meta,
       signInDialog: false,
       selectedCountry: '',
@@ -868,6 +932,16 @@ export default {
                 tlds: this.selected.tlds.map(({ value }) => value),
                 matchAll: this.matchAll,
                 subset: this.subset,
+                minAge: this.minAge,
+                maxAge: this.maxAge,
+                excludeEmptySets:
+                  this.excludeEmptySets &&
+                  sets.some(
+                    (set) =>
+                      set.key !== 'base-list' &&
+                      set.key !== 'base-lookup' &&
+                      set.value
+                  ),
               },
               sets: this.sets
                 .filter(({ disabled, value }) => value && !disabled)
