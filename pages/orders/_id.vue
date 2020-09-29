@@ -360,7 +360,7 @@
                 </tr>
                 <tr v-if="order.dataset.query.excludeEmptySets">
                   <th>
-                    Exclude base only results
+                    Exclude base-only
                   </th>
                   <td>
                     <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>

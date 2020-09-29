@@ -49,7 +49,7 @@
                     Technologies
                   </v-card-title>
                   <v-card-text>
-                    <p>
+                    <p class="mb-0">
                       Choose one or more technologies to include.
                     </p>
 
@@ -191,7 +191,7 @@
                         (v) =>
                           !v || v >= 500 || 'Subset size must be at least 500',
                       ]"
-                      class="mb-4"
+                      class="mb-4 pt-0"
                       placeholder="5000"
                       hide-details="auto"
                     />
@@ -259,7 +259,7 @@
                       placeholder="Select a file..."
                       accept="text/plain"
                       hide-details="auto"
-                      class="mb-4"
+                      class="mb-4 pt-0"
                       @change="fileChange"
                     />
                   </v-card-text>
@@ -284,7 +284,7 @@
                     <v-select
                       ref="country"
                       :items="geoIps"
-                      class="mb-4"
+                      class="mb-4 pt-0"
                       label="Select a country"
                       hide-details
                       eager
@@ -370,7 +370,7 @@
                           ref="country"
                           v-model="selectedCountry"
                           :items="countries"
-                          class="mb-4"
+                          class="mb-4 pt-0"
                           label="Select a country"
                           hide-details
                           eager
@@ -480,7 +480,7 @@
                       ref="language"
                       v-model="selectedLanguage"
                       :items="languages"
-                      class="mb-4"
+                      class="mb-4 pt-0"
                       label="Select a language"
                       hide-details
                       eager

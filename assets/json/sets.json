@@ -52,7 +52,7 @@
   },
   {
     "key": "meta",
-    "name": "Meta data",
+    "name": "Metadata",
     "attributes": [
       { "key": "title", "description": "The website's title, as found on the homepage." },
       { "key": "description", "description": "The website's meta description." },
