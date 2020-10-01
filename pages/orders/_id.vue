@@ -998,9 +998,12 @@ export default {
       if (
         this.order &&
         !['Credits', 'Subscription'].includes(this.order.product) &&
+        this.order.totalCredits &&
         this.credits >= this.order.totalCredits
       ) {
         this.paymentMethod = 'credits'
+      } else {
+        this.paymentMethod = 'stripe'
       }
     },
     billingDialog(open) {
@@ -1029,9 +1032,12 @@ export default {
 
         if (
           !['Credits', 'Subscription'].includes(this.order.product) &&
+          this.order.totalCredits &&
           this.credits >= this.order.totalCredits
         ) {
           this.paymentMethod = 'credits'
+        } else {
+          this.paymentMethod = 'stripe'
         }
       }
     },

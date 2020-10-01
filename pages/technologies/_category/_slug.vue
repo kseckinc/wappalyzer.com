@@ -275,7 +275,7 @@
                         <td class="text-right">
                           <small>
                             <nuxt-link
-                              :to="`/compare/${technology.slug}-vs-${alternative.slug}`"
+                              :to="`/compare/${technology.slug}-vs-${alternative.slug}/`"
                             >
                               {{ technology.name }} vs.
                               {{ alternative.name }}

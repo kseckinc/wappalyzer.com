@@ -85,6 +85,14 @@
               unique link. You'll be able to track sales using a personal
               dashboard.
             </p>
+
+            <h3 id="affiliates" class="mt-8 mb-2">
+              Wappalyzer HQ
+            </h3>
+
+            <p>
+              2A Raglan St, North Melbourne, 3051 VIC, Australia
+            </p>
           </v-card-text>
         </v-card>
       </v-col>

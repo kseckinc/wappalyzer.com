@@ -383,6 +383,7 @@
                             :error-messages="tldErrors"
                             :append-icon="mdiPlus"
                             placeholder=".com"
+                            class="pt-0"
                             hide-details="auto"
                             @click:append="addTld"
                           />
