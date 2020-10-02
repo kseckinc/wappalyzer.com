@@ -81,6 +81,7 @@ import {
   mdiKeyVariant,
   mdiLogoutVariant,
   mdiStar,
+  mdiDomain,
 } from '@mdi/js'
 
 export default {
@@ -114,6 +115,7 @@ export default {
         mdiKeyVariant,
         mdiLogoutVariant,
         mdiStar,
+        mdiDomain,
       },
     }
   },

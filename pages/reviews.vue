@@ -73,7 +73,7 @@ export default {
       }
     },
   },
-  async created() {
+  async mounted() {
     if (this.$store.state.user.isSignedIn) {
       try {
         this.reviews = (await this.$axios.get('reviews')).data

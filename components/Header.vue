@@ -140,6 +140,7 @@ import {
   mdiKeyVariant,
   mdiStar,
   mdiLogoutVariant,
+  mdiDomain,
 } from '@mdi/js'
 import Logo from '~/components/Logo.vue'
 
@@ -186,6 +187,7 @@ export default {
         mdiKeyVariant,
         mdiStar,
         mdiLogoutVariant,
+        mdiDomain,
       },
     }
   },

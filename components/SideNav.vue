@@ -8,14 +8,7 @@
   >
     <v-list class="px-0" nav dense>
       <template v-for="(item, i) in items">
-        <v-list-item
-          :key="i"
-          :to="item.to"
-          class="mx-2"
-          color="primary"
-          nuxt
-          exact
-        >
+        <v-list-item :key="i" :to="item.to" class="mx-2" color="primary" nuxt>
           <v-list-item-icon>
             <v-icon>{{ mdi[item.icon] }}</v-icon>
           </v-list-item-icon>
@@ -34,7 +27,6 @@
             class="mx-2"
             color="primary"
             nuxt
-            exact
           >
             <v-list-item-icon />
             <v-list-item-content>
@@ -65,6 +57,7 @@ import {
   mdiConsole,
   mdiTagOutline,
   mdiStar,
+  mdiDomain,
 } from '@mdi/js'
 
 export default {
@@ -91,6 +84,7 @@ export default {
         mdiConsole,
         mdiTagOutline,
         mdiStar,
+        mdiDomain,
       },
     }
   },
