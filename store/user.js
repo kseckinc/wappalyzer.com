@@ -11,6 +11,7 @@ export const state = () => ({
   refreshToken: '',
   isSignedIn: false,
   impersonating: '',
+  impersonator: null,
 })
 
 export const mutations = {
@@ -26,8 +27,11 @@ export const mutations = {
   setIsSignedIn(state, isSignedIn) {
     state.isSignedIn = isSignedIn
   },
-  setImpersonating(state, email) {
-    state.impersonating = email
+  setImpersonating(state, userId) {
+    state.impersonating = userId
+  },
+  setImpersonator(state, attrs) {
+    state.impersonator = attrs
   },
 }
 
@@ -330,7 +334,7 @@ export const actions = {
   async save({ state, commit, dispatch }, attributes) {
     await this.$axios.patch('user', attributes)
 
-    if (state.impersonating) {
+    if (state.impersonator) {
       const user = (await this.$axios.get('user')).data
 
       commit('setAttrs', user)

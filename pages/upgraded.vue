@@ -81,7 +81,7 @@ export default {
       error: false,
     }
   },
-  async created() {
+  async mounted() {
     try {
       this.release = (await this.$axios.get(process.env.RELEASE_URL)).data
     } catch (error) {

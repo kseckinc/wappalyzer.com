@@ -63,7 +63,8 @@ export default {
     ...mapState({
       user: ({ user }) => user.attrs,
       isSignedIn: ({ user }) => user.isSignedIn,
-      isAdmin: ({ user }) => user.attrs.admin || user.impersonating,
+      isAdmin: ({ user }) =>
+        user.attrs.admin || (user.impersonator && user.impersonator.admin),
     }),
     formattedText() {
       return this.review.text

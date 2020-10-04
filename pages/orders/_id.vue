@@ -442,14 +442,6 @@
                     {{ formatNumber(order.dataset.query.subset) }}
                   </td>
                 </tr>
-                <tr v-if="order.dataset.query.subset">
-                  <th>
-                    Subset
-                  </th>
-                  <td>
-                    {{ formatNumber(order.dataset.query.subset) }}
-                  </td>
-                </tr>
               </tbody>
             </v-simple-table>
 
@@ -513,6 +505,7 @@
 
         <template
           v-if="
+            !isMember &&
             !['Calculating', 'Insufficient', 'Failed'].includes(order.status)
           "
         >
@@ -557,6 +550,7 @@
                   <th>
                     Tax ({{
                       order.taxPercent &&
+                      user.billingCountry &&
                       user.billingCountry.toLowerCase() === 'au'
                         ? 'GST '
                         : ''
@@ -584,56 +578,61 @@
         </template>
 
         <template v-if="order.status === 'Open'">
+          <template v-if="!isMember">
+            <v-divider />
+
+            <v-card-title>
+              Billing
+            </v-card-title>
+            <v-card-text class="px-0 pb-0">
+              <v-alert v-if="accountSuccess" type="success" class="mx-4">
+                {{ accountSuccess }}
+              </v-alert>
+              <v-alert
+                v-if="!user.billingEmail"
+                color="info"
+                class="my-0 mx-4"
+                outlined
+              >
+                No billing details provided.
+              </v-alert>
+              <v-simple-table v-else>
+                <tbody>
+                  <tr>
+                    <th width="30%">Name</th>
+                    <td>{{ user.billingName }}</td>
+                  </tr>
+                  <tr>
+                    <th>Email address</th>
+                    <td>{{ user.billingEmail }}</td>
+                  </tr>
+                  <tr>
+                    <th>Address</th>
+                    <td>
+                      {{ billingAddress }}
+                    </td>
+                  </tr>
+                </tbody>
+              </v-simple-table>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer />
+              <v-btn color="accent" text @click="billingDialog = true"
+                ><v-icon left>{{ mdiPencil }}</v-icon> Edit details</v-btn
+              >
+            </v-card-actions>
+          </template>
+
           <v-divider />
 
-          <v-card-title>
-            Billing
-          </v-card-title>
-          <v-card-text class="px-0 pb-0">
-            <v-alert v-if="accountSuccess" type="success" class="mx-4">
-              {{ accountSuccess }}
-            </v-alert>
-            <v-alert
-              v-if="!user.billingEmail"
-              color="info"
-              class="my-0 mx-4"
-              outlined
-            >
-              No billing details provided.
-            </v-alert>
-            <v-simple-table v-else>
-              <tbody>
-                <tr>
-                  <th width="30%">Name</th>
-                  <td>{{ user.billingName }}</td>
-                </tr>
-                <tr>
-                  <th>Email address</th>
-                  <td>{{ user.billingEmail }}</td>
-                </tr>
-                <tr>
-                  <th>Address</th>
-                  <td>
-                    {{ billingAddress }}
-                  </td>
-                </tr>
-              </tbody>
-            </v-simple-table>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer />
-            <v-btn color="accent" text @click="billingDialog = true"
-              ><v-icon left>{{ mdiPencil }}</v-icon> Edit details</v-btn
-            >
-          </v-card-actions>
-
-          <v-divider />
-
-          <v-card-title>
+          <v-card-title v-if="!isMember">
             Payment
           </v-card-title>
 
-          <v-card-text v-if="order.product !== 'Subscription'" class="px-0">
+          <v-card-text
+            v-if="!isMember && order.product !== 'Subscription'"
+            class="px-0"
+          >
             <v-simple-table>
               <tbody>
                 <tr>
@@ -961,7 +960,9 @@ export default {
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
-      isAdmin: ({ user }) => user.attrs.admin || user.impersonating,
+      isAdmin: ({ user }) =>
+        user.attrs.admin || (user.impersonator && user.impersonator.admin),
+      isMember: ({ user }) => !user.attrs.admin && user.impersonator,
       credits: ({ credits: { credits } }) => credits,
     }),
     billingAddress() {
@@ -1044,6 +1045,12 @@ export default {
     paymentMethod() {
       this.cardsLoaded = false
       this.stripePaymentMethod = false
+
+      if (this.isMember && this.paymentMethod !== 'credits') {
+        this.$nextTick(() => {
+          this.paymentMethod = 'credits'
+        })
+      }
     },
   },
   async created() {

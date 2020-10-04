@@ -136,6 +136,7 @@ export default {
 
       if (this.userId && this.$refs.form.validate()) {
         this.$store.commit('user/setImpersonating', this.userId)
+        this.$store.commit('user/setImpersonator', this.user)
 
         await new Promise((resolve) => {
           this.$nextTick(async () => {
@@ -149,6 +150,7 @@ export default {
               this.$router.push('/account')
             } catch (error) {
               this.$store.commit('user/setImpersonating', '')
+              this.$store.commit('user/setImpersonator', null)
 
               this.error = this.getErrorMessage(error)
             }

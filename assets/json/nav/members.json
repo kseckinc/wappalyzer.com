@@ -5,6 +5,11 @@
     "to": "/account/"
   },
   {
+    "title": "Organisation",
+    "icon": "mdiDomain",
+    "to": "/organisation/"
+  },
+  {
     "title": "Credits",
     "icon": "mdiAlphaCCircle",
     "to": "/credits/"
@@ -22,8 +27,7 @@
   {
     "title": "Orders",
     "icon": "mdiCart",
-    "to": "/orders/",
-    "member": true
+    "to": "/orders/"
   },
   {
     "title": "Invoices",
@@ -44,7 +48,6 @@
     "title": "Sign out",
     "icon": "mdiLogoutVariant",
     "to": "/signout/",
-    "auth": true,
-    "member": true
+    "auth": true
   }
 ]

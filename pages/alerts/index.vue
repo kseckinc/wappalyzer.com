@@ -1,7 +1,15 @@
 <template>
   <div>
-    <Page :title="title" :head="meta" :loading="isSignedIn && loading">
-      <v-card class="mt-12">
+    <Page
+      :title="title"
+      :head="meta"
+      :loading="isSignedIn && loading && !error"
+    >
+      <v-alert v-if="error" type="error" class="mt-12">
+        {{ error }}
+      </v-alert>
+
+      <v-card v-if="!error" class="mt-12">
         <v-card-title>
           Websites
         </v-card-title>
@@ -232,7 +240,9 @@ export default {
   async mounted() {
     ;({ url: this.url } = this.$route.query)
 
-    this.$router.replace({ path: this.$route.path })
+    if (this.url) {
+      this.$router.replace({ path: this.$route.path })
+    }
 
     if (this.$store.state.user.isSignedIn) {
       try {

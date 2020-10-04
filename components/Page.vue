@@ -173,12 +173,16 @@ export default {
     ...mapState({
       user: ({ user }) => user.attrs,
       isSignedIn: ({ user }) => user.isSignedIn,
+      isMember: ({ user }) =>
+        !user.admin && user.impersonator && !user.impersonator.admin,
     }),
     sideNav() {
       return this.secure
         ? this.isSignedIn
-          ? userNav
-          : userNav.filter((item) => !item.auth)
+          ? userNav.filter((item) => (this.isMember ? item.member : true))
+          : userNav.filter((item) =>
+              !item.auth && this.isMember ? item.member : true
+            )
         : this.side
     },
     crumbNav() {
