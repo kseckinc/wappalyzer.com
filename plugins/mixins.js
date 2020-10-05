@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 import { creditTiers } from '~/assets/json/pricing.json'
+import userNav from '~/assets/json/nav/user.json'
 
 Vue.mixin({
   methods: {
@@ -135,6 +136,75 @@ Vue.mixin({
 
         return price + credits * creditTiers[tier]
       }, 0)
+    },
+    signInAs(userId) {
+      this.$store.commit('user/setImpersonating', userId)
+      this.$store.commit('user/setImpersonator', this.$store.state.user.attrs)
+
+      return new Promise((resolve, reject) => {
+        this.$nextTick(async () => {
+          try {
+            const user = (await this.$axios.get('user')).data
+
+            this.$store.commit('user/setAttrs', user)
+
+            if (this.$store.state.user.attrs.admin === '1') {
+              this.$store.dispatch('organisations/get')
+            }
+
+            this.$store.dispatch('credits/get')
+
+            this.$cookies.set('impersonate', userId, {
+              path: '/',
+              maxAge: 60 * 60 * 24 * 7,
+            })
+
+            const navItem = userNav.find(({ to }) => to === this.$route.path)
+
+            if (navItem && !navItem.member) {
+              this.$router.push('/orders/')
+            }
+          } catch (error) {
+            this.$store.commit('user/setImpersonating', '')
+            this.$store.commit('user/setImpersonator', null)
+
+            this.$cookies.set('impersonate', '', {
+              path: '/',
+              maxAge: 60 * 60 * 24 * 7,
+            })
+
+            reject(new Error(this.getErrorMessage(error)))
+          }
+
+          resolve()
+        })
+      })
+    },
+    signOutAs() {
+      this.$store.commit('user/setImpersonating', '')
+      this.$store.commit('user/setImpersonator', null)
+
+      this.$cookies.set('impersonate', '', {
+        path: '/',
+        maxAge: 60 * 60 * 24 * 7,
+      })
+
+      return new Promise((resolve, reject) => {
+        this.$nextTick(async () => {
+          try {
+            const user = (await this.$axios.get('user')).data
+
+            this.$store.commit('user/setAttrs', user)
+
+            this.$store.dispatch('organisations/get')
+            this.$store.dispatch('credits/get')
+          } catch (error) {
+            reject(new Error(this.getErrorMessage(error)))
+          }
+
+          resolve()
+        })
+      })
     },
   },
 })

@@ -75,12 +75,64 @@
                   text
                   v-on="on"
                 >
-                  <v-icon :left="isSignedIn" size="20">{{
-                    mdi.mdiAccount
+                  <v-icon
+                    v-if="!isAdmin && !isMember"
+                    :left="isSignedIn"
+                    size="20"
+                    >{{ mdi.mdiAccount }}</v-icon
+                  >
+                  <v-icon v-else-if="isAdmin" left size="20">{{
+                    mdi.mdiLockOpen
                   }}</v-icon>
-                  {{ user.email }}
+                  <v-icon v-else-if="isMember" left size="20">{{
+                    mdi.mdiDomain
+                  }}</v-icon>
+                  {{ user.billingName || user.name || user.email }}
                 </v-btn>
               </template>
+
+              <v-sheet v-if="isMember || isAdmin" tile>
+                <v-list nav dense>
+                  <v-list-item @click="signOutAs">
+                    <v-list-item-icon>
+                      <v-icon dense>{{ mdi.mdiAccountSwitch }}</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                      <v-list-item-title>
+                        {{
+                          impersonator.billingName ||
+                          impersonator.name ||
+                          impersonator.email
+                        }}
+                      </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+                <v-divider />
+              </v-sheet>
+
+              <v-sheet
+                v-if="isSignedIn && !isMember && organisations.length"
+                tile
+              >
+                <v-list nav dense>
+                  <v-list-item
+                    v-for="organisation in organisations"
+                    :key="organisation.id"
+                    @click="signInAs(organisation.organisationId)"
+                  >
+                    <v-list-item-icon>
+                      <v-icon dense>{{ mdi.mdiAccountSwitch }}</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                      <v-list-item-title>
+                        {{ organisation.name }}
+                      </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+                <v-divider />
+              </v-sheet>
 
               <v-sheet tile>
                 <v-list nav dense>
@@ -127,6 +179,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import {
   mdiChevronDown,
   mdiAccount,
@@ -141,6 +194,7 @@ import {
   mdiStar,
   mdiLogoutVariant,
   mdiDomain,
+  mdiAccountSwitch,
 } from '@mdi/js'
 import Logo from '~/components/Logo.vue'
 
@@ -153,10 +207,6 @@ export default {
       type: [Object, Boolean],
       default: true,
     },
-    isSignedIn: {
-      type: Boolean,
-      default: false,
-    },
     mainNav: {
       type: Array,
       default: () => [],
@@ -164,12 +214,6 @@ export default {
     userNav: {
       type: Array,
       default: () => [],
-    },
-    user: {
-      type: Object,
-      default() {
-        return {}
-      },
     },
   },
   data() {
@@ -188,8 +232,25 @@ export default {
         mdiStar,
         mdiLogoutVariant,
         mdiDomain,
+        mdiAccountSwitch,
       },
     }
+  },
+  computed: {
+    ...mapState({
+      user: ({ user }) => user.attrs,
+      isSignedIn: ({ user }) => user.isSignedIn,
+      isAdmin: ({ user }) =>
+        user.isSignedIn &&
+        (user.admin || (user.impersonator && user.impersonator.admin)),
+      isMember: ({ user }) =>
+        user.isSignedIn &&
+        !user.admin &&
+        user.impersonator &&
+        !user.impersonator.admin,
+      impersonator: ({ user }) => user.impersonator,
+      organisations: ({ organisations }) => organisations.memberOf,
+    }),
   },
 }
 </script>

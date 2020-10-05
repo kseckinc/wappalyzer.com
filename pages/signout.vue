@@ -49,6 +49,13 @@ export default {
       try {
         await this.signOut()
 
+        this.$cookies.set('impersonate', '', {
+          path: '/',
+          maxAge: 60 * 60 * 24 * 7,
+        })
+
+        this.setMemberOf([])
+
         this.success = 'You have been signed out.'
       } catch (error) {
         this.error = this.getErrorMessage(error)
@@ -60,6 +67,7 @@ export default {
   methods: {
     ...mapActions({
       signOut: 'user/signOut',
+      setMemberOf: 'organisations/setMemberOf',
     }),
   },
 }

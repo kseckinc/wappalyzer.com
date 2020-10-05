@@ -146,7 +146,9 @@
                     </template>
                     <template v-else>
                       {{ formatNumber(item.attrs[name]) }}
-                      <span class="caption text--disabled"
+                      <span
+                        v-if="attr.type === 'credits'"
+                        class="caption text--disabled"
                         >({{
                           formatCurrency(
                             Math.floor(creditsToCents(item.attrs[name]) / 100)

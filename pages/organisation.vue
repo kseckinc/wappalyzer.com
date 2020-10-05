@@ -8,7 +8,7 @@
       {{ error }}
     </v-alert>
 
-    <v-card v-if="!error">
+    <v-card>
       <v-tabs
         v-model="tab"
         slider-color="primary"
@@ -63,15 +63,23 @@
               <v-simple-table>
                 <thead>
                   <tr>
+                    <th width="1">Enabled</th>
                     <th>Name</th>
                     <th>Email address</th>
-                    <th>Status</th>
-                    <th width="1"></th>
+                    <th></th>
                   </tr>
                   <tr
                     v-for="member in organisation.members"
                     :key="member.user.sub"
                   >
+                    <td>
+                      <v-switch
+                        v-model="member.enabled"
+                        class="ma-0 pa-0 mx-auto"
+                        hide-details
+                        @change="toggle(member)"
+                      />
+                    </td>
                     <td>
                       <template v-if="member.user.name">
                         {{ member.user.name }}
@@ -79,7 +87,7 @@
                       <span v-else class="text--disabled">Not provided</span>
                     </td>
                     <td>{{ member.user.email }}</td>
-                    <td>
+                    <td class="text-right">
                       <v-chip
                         v-if="member.user.sub === member.user.email"
                         color="error"
@@ -87,11 +95,6 @@
                         small
                         >Pending</v-chip
                       >
-                      <v-chip v-else color="success" outlined small
-                        >Active</v-chip
-                      >
-                    </td>
-                    <td>
                       <v-btn
                         icon
                         @click="
@@ -130,10 +133,7 @@
                 <thead>
                   <tr>
                     <th>Organisation</th>
-                    <th>Status</th>
-                    <th width="1"></th>
-                    <th width="1"></th>
-                    <th width="1"></th>
+                    <th></th>
                   </tr>
                   <tr
                     v-for="{ organisationId: id, name, status } in memberOf"
@@ -142,21 +142,19 @@
                     <td>
                       {{ name }}
                     </td>
-                    <td>
-                      <v-chip
+                    <td class="text-right">
+                      <v-btn
                         v-if="status === 'Active'"
-                        color="success"
+                        color="accent"
                         outlined
                         small
-                        >{{ status }}</v-chip
+                        :loading="switching"
+                        @click="switchTo(id)"
+                        ><v-icon left>{{ mdiAccountSwitch }}</v-icon
+                        >Switch to</v-btn
                       >
-                      <v-chip v-else color="error" outlined small>{{
-                        status
-                      }}</v-chip>
-                    </td>
-                    <td>
                       <v-btn
-                        v-if="status === 'Pending'"
+                        v-else
                         color="accent"
                         outlined
                         small
@@ -167,20 +165,6 @@
                         "
                         >Activate</v-btn
                       >
-                    </td>
-                    <td>
-                      <v-btn
-                        v-if="status === 'Active'"
-                        color="accent"
-                        outlined
-                        small
-                        :loading="switching"
-                        @click="switchTo(id)"
-                        ><v-icon left>{{ mdiLoginVariant }}</v-icon
-                        >Switch to</v-btn
-                      >
-                    </td>
-                    <td>
                       <v-btn
                         icon
                         @click="
@@ -289,7 +273,7 @@ import {
   mdiAccountPlus,
   mdiEmail,
   mdiCloseCircle,
-  mdiLoginVariant,
+  mdiAccountSwitch,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -330,7 +314,7 @@ export default {
       mdiAccountPlus,
       mdiEmail,
       mdiCloseCircle,
-      mdiLoginVariant,
+      mdiAccountSwitch,
     }
   },
   computed: {
@@ -349,8 +333,6 @@ export default {
         } catch (error) {
           this.error = this.getErrorMessage(error)
         }
-
-        this.getMemberOf()
       }
     },
     tab(index) {
@@ -372,8 +354,6 @@ export default {
       } catch (error) {
         this.error = this.getErrorMessage(error)
       }
-
-      this.getMemberOf()
     }
 
     if (this.$route.hash === '#memberships') {
@@ -396,9 +376,9 @@ export default {
             `organisation/${this.email.toLowerCase().trim()}`
           )
 
-          this.organisation = (await this.$axios.get('organisation')).data
-
           this.getMemberOf()
+
+          this.organisation = (await this.$axios.get('organisation')).data
 
           this.success = 'The invitation has been sent'
           this.email = ''
@@ -420,9 +400,9 @@ export default {
       try {
         await this.$axios.delete(`organisation/${this.removeUserId}`)
 
-        this.organisation = (await this.$axios.get('organisation')).data
-
         this.getMemberOf()
+
+        this.organisation = (await this.$axios.get('organisation')).data
 
         this.success = 'The member has been removed.'
 
@@ -442,9 +422,9 @@ export default {
       try {
         await this.$axios.delete(`organisation/${this.removeOrganisationId}`)
 
-        this.organisation = (await this.$axios.get('organisation')).data
-
         await this.getMemberOf()
+
+        this.organisation = (await this.$axios.get('organisation')).data
 
         this.success = 'You are no longer a member of the organisation.'
 
@@ -461,11 +441,13 @@ export default {
       this.activating = true
 
       try {
-        await this.$axios.patch(`organisation/${this.activateOrganisationId}`)
-
-        this.organisation = (await this.$axios.get('organisation')).data
+        await this.$axios.patch(
+          `organisation/${this.activateOrganisationId}/activate`
+        )
 
         await this.getMemberOf()
+
+        this.organisation = (await this.$axios.get('organisation')).data
 
         this.success = 'The organisation has been activated.'
       } catch (error) {
@@ -474,34 +456,29 @@ export default {
 
       this.activating = false
     },
+    async toggle(member) {
+      this.error = false
+
+      console.log(member)
+
+      try {
+        await this.$axios.patch(`organisation/${member.user.sub}`, {
+          enabled: member.enabled,
+        })
+      } catch (error) {
+        this.error = this.getErrorMessage(error)
+      }
+    },
     async switchTo(organisationId) {
       this.error = false
       this.success = false
       this.switching = true
 
-      this.$store.commit('user/setImpersonating', organisationId)
-      this.$store.commit('user/setImpersonator', this.user)
-
-      console.log(this.user.sub, organisationId)
-
-      await new Promise((resolve) => {
-        this.$nextTick(() => {
-          try {
-            // const user = (await this.$axios.get('user')).data
-
-            // this.$store.commit('user/setAttrs', user)
-
-            this.$router.push('/orders')
-          } catch (error) {
-            this.$store.commit('user/setImpersonating', '')
-            this.$store.commit('user/setImpersonator', null)
-
-            this.error = this.getErrorMessage(error)
-          }
-
-          resolve()
-        })
-      })
+      try {
+        await this.signInAs(organisationId)
+      } catch (error) {
+        this.error = this.getErrorMessage(error)
+      }
 
       this.switching = false
     },

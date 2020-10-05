@@ -4,8 +4,6 @@
       <Header
         :main-nav="mainNav"
         :user-nav="userNav"
-        :is-signed-in="isSignedIn"
-        :user="user"
         @openDrawer="$refs.drawer.open()"
       />
 
@@ -82,18 +80,33 @@ export default {
     },
   },
   watch: {
+    async '$store.state.user.isSignedIn'(isSignedIn) {
+      if (isSignedIn) {
+        const impersonating = this.$cookies.get('impersonate')
+
+        if (impersonating) {
+          this.signInAs(impersonating)
+        } else {
+          await Promise.all([this.getOrganisations(), this.getCredits()])
+        }
+      }
+    },
     $route() {
       this.checkDrift()
     },
   },
   mounted() {
-    this.updateUserAttrs()
-
     this.checkDrift()
+
+    if (!this.isSignedIn) {
+      this.updateUserAttrs()
+    }
   },
   methods: {
     ...mapActions({
       updateUserAttrs: 'user/updateAttrs',
+      getOrganisations: 'organisations/get',
+      getCredits: 'credits/get',
     }),
     initDrift() {
       if (

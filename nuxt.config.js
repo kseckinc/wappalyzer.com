@@ -131,6 +131,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/sitemap',
     'nuxt-stripe-module',
+    'cookie-universal-nuxt',
     [
       'nuxt-canonical',
       { baseUrl: publicRuntimeConfig.WEBSITE_URL, trailingSlashes: true },

@@ -151,7 +151,7 @@
             <p class="mb-10">
               <small>
                 Get the full list of
-                <nuxt-link :to="`/lists/${categorySlug}/${slug}/`"
+                <nuxt-link :to="`/lists/?technology=${slug}`"
                   >websites and companies using {{ technology.name }}</nuxt-link
                 >.
               </small>

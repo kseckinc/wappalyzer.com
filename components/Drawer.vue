@@ -8,7 +8,7 @@
               Signed in as
             </v-list-item-title>
 
-            <small>{{ user.email }}</small>
+            <small>{{ user.billingName || user.name || user.email }}</small>
           </v-list-item-content>
         </v-list-item>
       </v-list>

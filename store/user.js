@@ -334,7 +334,7 @@ export const actions = {
   async save({ state, commit, dispatch }, attributes) {
     await this.$axios.patch('user', attributes)
 
-    if (state.impersonator) {
+    if (state.impersonating) {
       const user = (await this.$axios.get('user')).data
 
       commit('setAttrs', user)

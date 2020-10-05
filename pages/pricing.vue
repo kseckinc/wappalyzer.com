@@ -162,6 +162,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { mdiForum } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -198,6 +199,11 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      isSignedIn: ({ user }) => user.isSignedIn,
+      isMember: ({ user }) =>
+        !user.admin && user.impersonator && !user.impersonator.admin,
+    }),
     plans() {
       return Object.keys(plans).reduce((_plans, plan) => {
         if (plans[plan].interval === (this.annually ? 'year' : 'month')) {
@@ -223,13 +229,20 @@ export default {
       this.orderError = ''
       this.subscribing = plan
 
-      if (!this.$store.state.user.isSignedIn) {
+      if (!this.isSignedIn) {
         this.signInDialog = true
 
         return
       }
 
       this.$refs.orderDialog.open()
+
+      if (this.isMember) {
+        this.orderError =
+          'Subscriptions can only be created by the account owner.'
+
+        return
+      }
 
       try {
         this.order = (

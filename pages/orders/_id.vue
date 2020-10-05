@@ -727,7 +727,7 @@
             <v-card-text v-if="paymentMethod === 'credits'" class="pa-0">
               <div
                 :class="`d-flex justify-center pt-8${
-                  credits < order.totalCredits ? '' : ' pb-8'
+                  !isMember && credits < order.totalCredits ? '' : ' pb-8'
                 }`"
               >
                 <v-btn
@@ -744,9 +744,9 @@
                 </v-btn>
               </div>
             </v-card-text>
-            <v-card-actions v-if="credits < order.totalCredits">
+            <v-card-actions v-if="!isMember && credits < order.totalCredits">
               <v-spacer />
-              <v-btn color="accent" text @click="billingDialog = true"
+              <v-btn color="accent" to="/credits" text
                 ><v-icon left>{{ mdiAlphaCCircle }}</v-icon> Buy credits</v-btn
               >
             </v-card-actions>
@@ -997,10 +997,11 @@ export default {
     },
     '$store.state.credits.credits'(credits) {
       if (
-        this.order &&
-        !['Credits', 'Subscription'].includes(this.order.product) &&
-        this.order.totalCredits &&
-        this.credits >= this.order.totalCredits
+        this.isMember ||
+        (this.order &&
+          !['Credits', 'Subscription'].includes(this.order.product) &&
+          this.order.totalCredits &&
+          this.credits >= this.order.totalCredits)
       ) {
         this.paymentMethod = 'credits'
       } else {
@@ -1032,9 +1033,10 @@ export default {
         this.orderLoaded = true
 
         if (
-          !['Credits', 'Subscription'].includes(this.order.product) &&
-          this.order.totalCredits &&
-          this.credits >= this.order.totalCredits
+          this.isMember ||
+          (!['Credits', 'Subscription'].includes(this.order.product) &&
+            this.order.totalCredits &&
+            this.credits >= this.order.totalCredits)
         ) {
           this.paymentMethod = 'credits'
         } else {
