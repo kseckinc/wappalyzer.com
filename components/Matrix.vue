@@ -53,12 +53,6 @@
             class="align-center"
           >
             <v-card-text class="py-0 justify-center">
-              <div
-                v-if="item.beforePrice"
-                class="caption text-decoration-line-through red--text text--darken-3 mb-n1"
-              >
-                {{ formatCurrency(item.beforePrice / 100) }}
-              </div>
               <template v-if="item.price === 0">
                 <span class="font-weight-medium">
                   Free forever
@@ -72,7 +66,7 @@
                   {{ formatCurrency(item.price / 100) }}
                 </span>
                 <span class="caption">
-                  / {{ item.interval === 'month' ? 'mo' : 'yr' }}
+                  / mo
                 </span>
               </template>
             </v-card-text>

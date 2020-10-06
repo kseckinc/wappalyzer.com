@@ -12,6 +12,7 @@
         class="d-flex flex-row align-center body-2 font-weight-medium mt-4 mb-6"
       >
         <v-spacer />
+        <span class="font-weight-regular mr-2">Billing </span>
         <span @click="annually = !annually">Monthly</span>
         <v-switch
           v-model="annually"
@@ -19,7 +20,7 @@
           hide-details
         ></v-switch>
         <span @click="annually = !annually">
-          Annually <span class="font-weight-regular ml-1">(2 months free)</span>
+          Annually <span class="font-weight-regular ml-1">(discounted)</span>
         </span>
         <v-spacer />
       </div>
@@ -188,7 +189,7 @@ export default {
       attrs,
       order: false,
       orderError: '',
-      annually: false,
+      annually: true,
       creditsPerUnit,
       creditTiers,
       mdiForum,
