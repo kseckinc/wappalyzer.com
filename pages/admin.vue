@@ -135,29 +135,15 @@ export default {
       this.submitting = true
 
       if (this.userId && this.$refs.form.validate()) {
-        this.$store.commit('user/setImpersonating', this.userId)
-        this.$store.commit('user/setImpersonator', this.user)
+        try {
+          await this.signInAs(this.userId)
 
-        await new Promise((resolve) => {
-          this.$nextTick(async () => {
-            try {
-              const user = (await this.$axios.get('user')).data
+          this.userId = ''
 
-              this.$store.commit('user/setAttrs', user)
-
-              this.userId = ''
-
-              this.$router.push('/account')
-            } catch (error) {
-              this.$store.commit('user/setImpersonating', '')
-              this.$store.commit('user/setImpersonator', null)
-
-              this.error = this.getErrorMessage(error)
-            }
-
-            resolve()
-          })
-        })
+          this.$router.push('/account')
+        } catch (error) {
+          this.error = this.getErrorMessage(error)
+        }
       }
 
       this.submitting = false

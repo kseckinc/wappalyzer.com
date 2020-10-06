@@ -5,6 +5,11 @@
     "to": "/account/"
   },
   {
+    "title": "Organisation",
+    "icon": "mdiDomain",
+    "to": "/organisation/"
+  },
+  {
     "title": "Credits",
     "icon": "mdiAlphaCCircle",
     "to": "/credits/"

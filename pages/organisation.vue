@@ -40,9 +40,9 @@
                     {{ organisation.seats }} seats remaining</small
                   >
                   <v-btn
+                    :disabled="!organisation.seatsRemaining"
                     color="accent"
                     outlined
-                    :disabled="!organisation.seatsRemaining"
                     @click="createDialog = true"
                   >
                     <v-icon left>{{ mdiAccountPlus }}</v-icon>
@@ -52,7 +52,9 @@
               </v-row>
             </v-card-title>
             <v-card-text class="pb-0">
-              Members can create orders and spend credits.
+              Members have
+              <a @click="accessDialog = true">limited access</a> to your
+              account. They can create orders and spend credits.
             </v-card-text>
             <v-card-text v-if="!organisation.members.length">
               <v-alert class="ma-0" color="info" outlined>
@@ -68,6 +70,8 @@
                     <th>Email address</th>
                     <th></th>
                   </tr>
+                </thead>
+                <tbody>
                   <tr
                     v-for="member in organisation.members"
                     :key="member.user.sub"
@@ -75,6 +79,10 @@
                     <td>
                       <v-switch
                         v-model="member.enabled"
+                        :disabled="
+                          !member.enabled && !organisation.seatsRemaining
+                        "
+                        :loading="member.loading"
                         class="ma-0 pa-0 mx-auto"
                         hide-details
                         @change="toggle(member)"
@@ -105,7 +113,7 @@
                       >
                     </td>
                   </tr>
-                </thead>
+                </tbody>
               </v-simple-table>
             </v-card-text>
           </v-card>
@@ -135,6 +143,8 @@
                     <th>Organisation</th>
                     <th></th>
                   </tr>
+                </thead>
+                <tbody>
                   <tr
                     v-for="{ organisationId: id, name, status } in memberOf"
                     :key="id"
@@ -175,7 +185,7 @@
                       >
                     </td>
                   </tr>
-                </thead>
+                </tbody>
               </v-simple-table>
             </v-card-text>
           </v-card>
@@ -189,6 +199,12 @@
           Add member
         </v-card-title>
         <v-card-text class="pb-0">
+          <p>
+            The member will receive an email asking them to join the
+            organisation. They will be listed as 'pending' until they accept the
+            invition.
+          </p>
+
           <v-alert v-if="createError" type="error">
             {{ createError }}
           </v-alert>
@@ -264,6 +280,44 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="accessDialog" max-width="600px" eager>
+      <v-card>
+        <v-card-title>
+          Permissions
+        </v-card-title>
+        <v-card-text class="px-0 pb-0">
+          <v-simple-table dense>
+            <thead>
+              <tr>
+                <th class="px-6">Access</th>
+                <th width="25%" class="px-6 text-center">Owner (you)</th>
+                <th width="25%" class="px-6 text-center">Member</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(member, access) in permissions" :key="access">
+                <td class="px-6">
+                  <small>{{ access }}</small>
+                </td>
+                <td class="px-6 text-center">
+                  <v-icon color="success" small>{{ mdiCheck }}</v-icon>
+                </td>
+                <td class="px-6 text-center">
+                  <v-icon :color="member ? 'success' : 'error'" small>{{
+                    member ? mdiCheck : mdiClose
+                  }}</v-icon>
+                </td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="accent" text @click="accessDialog = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </Page>
 </template>
 
@@ -274,7 +328,11 @@ import {
   mdiEmail,
   mdiCloseCircle,
   mdiAccountSwitch,
+  mdiCheck,
+  mdiClose,
 } from '@mdi/js'
+
+import permissions from '~/assets/json/permissions.json'
 
 import Page from '~/components/Page.vue'
 
@@ -285,6 +343,7 @@ export default {
   data() {
     return {
       title: 'Organisation',
+      accessDialog: false,
       createDialog: false,
       creating: false,
       createError: false,
@@ -298,6 +357,7 @@ export default {
       removeError: false,
       removeOrganisationError: false,
       switching: false,
+      permissions,
       tab: 'manage',
       error: false,
       email: '',
@@ -315,6 +375,8 @@ export default {
       mdiEmail,
       mdiCloseCircle,
       mdiAccountSwitch,
+      mdiCheck,
+      mdiClose,
     }
   },
   computed: {
@@ -458,16 +520,19 @@ export default {
     },
     async toggle(member) {
       this.error = false
-
-      console.log(member)
+      member.loading = true
 
       try {
         await this.$axios.patch(`organisation/${member.user.sub}`, {
           enabled: member.enabled,
         })
+
+        this.organisation = (await this.$axios.get('organisation')).data
       } catch (error) {
         this.error = this.getErrorMessage(error)
       }
+
+      delete member.loading
     },
     async switchTo(organisationId) {
       this.error = false

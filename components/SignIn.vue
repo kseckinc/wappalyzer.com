@@ -24,7 +24,7 @@
         Sign up for free to receive 50 credits every month to spend on any
         product.
       </v-alert>
-      <v-form ref="form" v-model="valid" lazy-validation>
+      <v-form ref="form" v-model="valid">
         <v-text-field
           v-if="mode !== 'verifySignUp' && mode !== 'verifySignIn'"
           v-model="email"

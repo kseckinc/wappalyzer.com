@@ -1,6 +1,7 @@
 {
   "attrs": {
     "credits": { "text": "Credits per month", "type": "credits" },
+    "seats": { "text": "Seats", "type": "number" },
     "lookups": { "text": "Technology lookups", "type": "boolean" },
     "lists": { "text": "Lead lists", "type": "boolean" },
     "apis": { "text": "API access", "type": "boolean" },
