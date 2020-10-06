@@ -68,14 +68,13 @@
       </p>
 
       <h3 class="text-h3 mb-2">
-        License
+        Restrictions
       </h3>
 
       <p>
-        Wappalyzer gives you a personal, worldwide, royalty-free and
-        non-exclusive license to use the data provided to you as part of our
-        commercial Services, subject to our Terms. You may sublicense, resell
-        and share the data you have purchased from us.
+        The data provided to you as part of our commercial Services is licensed,
+        not sold. You may not sublicense, resell or share the data without
+        explicit permission in writing from Wappalyzer.
       </p>
 
       <h2 class="text-h2 mt-8 mb-2">
