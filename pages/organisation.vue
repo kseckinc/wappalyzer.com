@@ -400,10 +400,10 @@ export default {
     tab(index) {
       if (index === 1) {
         if (this.$route.hash !== '#memberships') {
-          this.$router.replace({ name: 'organisation', hash: '#memberships' })
+          this.$router.replace({ path: '/organisation/', hash: '#memberships' })
         }
       } else if (this.$route.hash === '#memberships') {
-        this.$router.replace({ name: 'organisation' })
+        this.$router.replace({ path: '/organisation/' })
       }
     },
   },

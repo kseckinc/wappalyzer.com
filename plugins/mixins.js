@@ -159,7 +159,10 @@ Vue.mixin({
               maxAge: 60 * 60 * 24 * 7,
             })
 
-            const navItem = userNav.find(({ to }) => to === this.$route.path)
+            const navItem = userNav.find(
+              ({ to }) =>
+                to.replace(/\/$/, '') === this.$route.path.replace(/\/$/, '')
+            )
 
             if (navItem && !navItem.member) {
               this.$router.push('/orders/')
