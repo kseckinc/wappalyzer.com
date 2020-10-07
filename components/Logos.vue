@@ -1,5 +1,10 @@
 <template>
   <div>
+    <v-divider />
+    <v-container>
+      <Testimonials />
+    </v-container>
+
     <v-divider class="mb-12" />
 
     <v-container class="logos text-center mb-6">
@@ -17,6 +22,8 @@
 </template>
 
 <script>
+import Testimonials from '~/components/Testimonials.vue'
+
 import Adobe from '~/assets/images/logos/Adobe.svg?inline'
 import Amazon from '~/assets/images/logos/Amazon.svg?inline'
 import Ebay from '~/assets/images/logos/Ebay.svg?inline'
@@ -32,6 +39,7 @@ import Stripe from '~/assets/images/logos/Stripe.svg?inline'
 
 export default {
   components: {
+    Testimonials,
     Google,
     Oracle,
     Amazon,

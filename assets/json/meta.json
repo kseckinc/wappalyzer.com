@@ -89,7 +89,7 @@
     "text": "Monitor your competitor's technology choices with alerts. Be the first to know when they move to a new CMS, ecommerce platform or any other technology.",
     "buttons": [
       {
-        "text": "Compare plans",
+        "text": "Create an alert",
         "to": "/alerts/",
         "icon": "mdiArrowRight"
       }

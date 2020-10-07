@@ -19,10 +19,10 @@
       <p>
         Patterns (regular expressions) are kept in
         <a
-          href="https://github.com/aliasio/wappalyzer/blob/master/src/apps.json"
+          href="https://github.com/aliasio/wappalyzer/blob/master/src/technologies.json"
           target="_blank"
         >
-          <code>src/apps.json</code> </a
+          <code>src/technologies.json</code> </a
         >. The following is an example of an application fingerprint.
       </p>
 
@@ -36,19 +36,30 @@
   "cookies": {
     "cookie_name": "Example"
   },
+  "dom": {
+    "#example-id": {
+      "attributes": {
+        "class": "example-class"
+      }
+      "properties": {
+        "example-property": ""
+      }
+      "content": "Example text content"
+    }
+  },
   "js": {
     "Example.method": ""
   },
   "excludes": "Example",
   "headers": {
-  "X-Powered-By": "Example"
+    "X-Powered-By": "Example"
   },
   "html": "&lt;link[^&gt;]example\\.css",
   "css": "\\.example-class",
   "robots": "Disallow: /unique-path/",
   "implies": "PHP\\;confidence:50",
   "meta": {
-  "generator": "(?:Example|Another Example)"
+    "generator": "(?:Example|Another Example)"
   },
   "script": "example-([0-9.]+)\\.js\\;confidence:50\\;version:\\1",
   "url": ".+\\.example\\.com",
@@ -212,11 +223,31 @@
               <td><code>{ "cookie_name": "Cookie value" }</code></td>
             </tr>
             <tr>
+              <td><code>dom</code></td>
+              <td>Object</td>
+              <td>
+                Uses a
+                <a
+                  href="https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll"
+                  target="_blank"
+                  noopener
+                  >query selector</a
+                >
+                to inspect element properties, attributes and text content.
+              </td>
+              <td>
+                <code
+                  >{ "#example-id": { "property": { "example-prop": "" } }
+                  }</code
+                >
+              </td>
+            </tr>
+            <tr>
               <td><code>js</code></td>
               <td>Object</td>
               <td>
-                JavaScript methods (case sensitive). Avoid short patterns to
-                prevent matching minified code.
+                JavaScript properties (case sensitive). Avoid short property
+                names to prevent matching minified code.
               </td>
               <td><code>{ "jQuery.fn.jquery": "" }</code></td>
             </tr>
@@ -231,7 +262,9 @@
               <td>String | Array</td>
               <td>
                 HTML source code. Patterns must include an HTML opening tag to
-                avoid matching plain text.
+                avoid matching plain text. For performance reasons, avoid
+                <code>html</code> where possible and use
+                <code>dom</code> instead.
               </td>
               <td><code>"&lt;a [^&gt;]*href=\"index.html"</code></td>
             </tr>
