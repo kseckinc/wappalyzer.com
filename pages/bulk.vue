@@ -247,7 +247,8 @@ export default {
 
       this.file = (await file.text())
         .trim()
-        .split('\n')
+        .split(/[\r\n]/)
+        .filter((line) => line)
         .map((line, i) => {
           const a = document.createElement('a')
 
