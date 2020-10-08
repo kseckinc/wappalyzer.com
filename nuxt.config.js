@@ -82,33 +82,6 @@ export default {
       },
     ],
   },
-  csp: {
-    reportOnly: true,
-    hashAlgorithm: 'sha256',
-    policies: {
-      'default-src': ["'self'"],
-      'img-src': ['https:', '*.google-analytics.com'],
-      'worker-src': ["'none'"],
-      'style-src': ["'self'", "'unsafe-inline'"],
-      'script-src': [
-        "'self'",
-        "'unsafe-inline'",
-        '*.google-analytics.com',
-        '*.stripe.com',
-        '*.wdfl.co',
-        '*.driftt.com',
-      ],
-      'connect-src': [
-        '*.google-analytics.com',
-        '*.stripe.com',
-        '*.wappalyzer.com',
-      ],
-      'form-action': ["'self'"],
-      'frame-ancestors': ["'none'"],
-      'frame-src': ['*.stripe.com', '*.driftt.com'],
-      'object-src': ["'none'"],
-    },
-  },
   loading: { color: '#fff' },
   css: ['~/assets/scss/styles.scss'],
   plugins: [
