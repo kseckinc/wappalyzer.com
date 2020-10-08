@@ -92,10 +92,5 @@ export default {
       this.error = this.getErrorMessage(error)
     }
   },
-  head() {
-    return {
-      title: this.title,
-    }
-  },
 }
 </script>

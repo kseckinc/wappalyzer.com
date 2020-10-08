@@ -47,10 +47,5 @@ export default {
       mdiForum,
     }
   },
-  head() {
-    return {
-      title: this.title,
-    }
-  },
 }
 </script>
