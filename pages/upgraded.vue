@@ -83,7 +83,11 @@ export default {
   },
   async mounted() {
     try {
-      this.release = (await this.$axios.get(process.env.RELEASE_URL)).data
+      this.release = (
+        await this.$axios.get(
+          'https://s3.dualstack.ap-southeast-2.amazonaws.com/assets.wappalyzer.com/release.json'
+        )
+      ).data
     } catch (error) {
       this.error = this.getErrorMessage(error)
     }

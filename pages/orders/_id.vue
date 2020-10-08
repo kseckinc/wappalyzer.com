@@ -787,10 +787,7 @@
 
       <v-dialog v-model="billingDialog" width="80%" max-width="700">
         <v-card>
-          <Account
-            class="mx-2"
-            @save="accountSuccess = 'Your billing details have been updated'"
-          />
+          <Account class="mx-2" @save="billingUpdated" />
         </v-card>
       </v-dialog>
 
@@ -1251,6 +1248,11 @@ export default {
     },
     totalRows(rows) {
       return Object.values(rows).reduce((total, rows) => total + rows, 0)
+    },
+    async billingUpdated() {
+      this.accountSuccess = 'Your billing details have been updated'
+
+      this.order = (await this.$axios.get(`orders/${this.order.id}`)).data
     },
   },
 }
