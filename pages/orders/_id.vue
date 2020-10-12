@@ -959,7 +959,8 @@ export default {
       user: ({ user }) => user.attrs,
       isAdmin: ({ user }) =>
         user.attrs.admin || (user.impersonator && user.impersonator.admin),
-      isMember: ({ user }) => !user.attrs.admin && user.impersonator,
+      isMember: ({ user }) =>
+        !user.attrs.admin && user.impersonator && !user.impersonator.admin,
       credits: ({ credits: { credits } }) => credits,
     }),
     billingAddress() {

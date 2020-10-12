@@ -47,6 +47,11 @@
       "content": "Example text content"
     }
   },
+  "dns": {
+    "MX": [
+      "example\\.com"
+    ]
+  },
   "js": {
     "Example.method": ""
   },
@@ -240,6 +245,16 @@
                   >{ "#example-id": { "property": { "example-prop": "" } }
                   }</code
                 >
+              </td>
+            </tr>
+            <tr>
+              <td><code>dns</code></td>
+              <td>Object</td>
+              <td>
+                DNS records: supports MX, TXT, SOA and NS (NPM driver only).
+              </td>
+              <td>
+                <code>{ "MX": "example\\.com" }</code>
               </td>
             </tr>
             <tr>
