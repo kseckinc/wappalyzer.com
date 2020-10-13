@@ -5,7 +5,7 @@
 <script>
 export default {
   created() {
-    this.$router.replace('/faq/extension/')
+    this.$router.replace('/faq/lists/')
   },
 }
 </script>

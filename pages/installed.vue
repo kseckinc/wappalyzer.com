@@ -24,16 +24,6 @@
               Frequently asked questions
             </v-btn>
           </v-card-text>
-          <v-card-text>
-            <iframe
-              width="100%"
-              height="302"
-              src="https://www.youtube.com/embed/sPK-0eu2H2A"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          </v-card-text>
         </v-card>
       </v-col>
     </v-row>

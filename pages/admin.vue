@@ -196,8 +196,6 @@ export default {
         return stats
       }, {})
 
-      console.log(this.stats)
-
       this.recentOrders = (await this.$axios.get('orders/recent')).data
     } catch (error) {
       this.error = this.getErrorMessage(error)

@@ -1,31 +1,4 @@
 {
-  "extension": {
-    "title": "Browser extension",
-    "icon": "mdiPuzzle",
-    "to": "/faq/extension/",
-    "items": [
-      [
-        "Can I suggest a technology to be added?",
-        [ "Anyone can add a new technology: refer to the <a href='/docs/dev/'>documentation</a> on how to contribute. If you're not a developer and don't have access to one, please <a href='https://github.com/AliasIO/wappalyzer/issues/new/choose' target='_blank'>create an issue</a> on GitHub." ]
-      ],
-      [
-        "Where can I report a bug or request a new feature?",
-        [ "Please <a href='https://github.com/AliasIO/wappalyzer/issues/new/choose' target='_blank'>create an issue</a> on GitHub." ]
-      ],
-      [
-        "How does the extension work?",
-        [ "The extension inspects HTML, scripts, cookies, and headers of pages you visit, looking for technology fingerprints. For technical details, refer to the <a href='/docs/dev/specification/'>documentation</a>." ]
-      ],
-      [
-        "Can I hide technologies on my website from Wappalyzer?",
-        [ "Although in many cases it's possible to change a software application's output to obfuscate its charactaristics, it's often impractical and unnecessary. If you're worried about security, ensure your software is always up-to-date. For more information, see <a href='/articles/how-to-hide-technologies-from-wappalyzer/'>How to hide technologies from Wappalyzer</a>." ]
-      ],
-      [
-        "What information do you collect?",
-        [ "We collect information in accordance with our <a href='/privacy/'>privacy policy</a>. By default, when you visit a website, we record the domain name and identified technologies in a way that can't be traced back to you. You can disable this behaviour in the extension's settings." ]
-      ]
-    ]
-  },
   "lists": {
     "title": "Lead lists",
     "icon": "mdiFilterVariant",
@@ -116,6 +89,33 @@
       [
         "What is your refund policy?",
         [ "Credits are generally non-refundable. However, if you're dissatisfied with the quality of our offering we will either work with you to resolve the issue, credit your account or issue a pro-rata refund. Please refer to the <a href='/terms/'>terms of use</a>." ]
+      ]
+    ]
+  },
+  "extension": {
+    "title": "Browser extension",
+    "icon": "mdiPuzzle",
+    "to": "/faq/extension/",
+    "items": [
+      [
+        "Can I suggest a technology to be added?",
+        [ "Anyone can add a new technology: refer to the <a href='/docs/dev/'>documentation</a> on how to contribute. If you're not a developer and don't have access to one, please <a href='https://github.com/AliasIO/wappalyzer/issues/new/choose' target='_blank'>create an issue</a> on GitHub." ]
+      ],
+      [
+        "Where can I report a bug or request a new feature?",
+        [ "Please <a href='https://github.com/AliasIO/wappalyzer/issues/new/choose' target='_blank'>create an issue</a> on GitHub." ]
+      ],
+      [
+        "How does the extension work?",
+        [ "The extension inspects HTML, scripts, cookies, and headers of pages you visit, looking for technology fingerprints. For technical details, refer to the <a href='/docs/dev/specification/'>documentation</a>." ]
+      ],
+      [
+        "Can I hide technologies on my website from Wappalyzer?",
+        [ "Although in many cases it's possible to change a software application's output to obfuscate its charactaristics, it's often impractical and unnecessary. If you're worried about security, ensure your software is always up-to-date. For more information, see <a href='/articles/how-to-hide-technologies-from-wappalyzer/'>How to hide technologies from Wappalyzer</a>." ]
+      ],
+      [
+        "What information do you collect?",
+        [ "We collect information in accordance with our <a href='/privacy/'>privacy policy</a>. By default, when you visit a website, we record the domain name and identified technologies in a way that can't be traced back to you. You can disable this behaviour in the extension's settings." ]
       ]
     ]
   }

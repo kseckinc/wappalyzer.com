@@ -4,29 +4,29 @@
       <h1 class="text-h1 mb-8">{{ title }}</h1>
 
       <p>
-        Wappalyzer started in 2008 as a
-        <nuxt-link to="/download/">browser extension</nuxt-link> for Mozilla
-        Firefox. Since then, the project has become platform independent and
-        grown into a commercial business built around an
-        <a href="https://github.com/aliasio/wappalyzer" target="blank"
-          >open source</a
-        >
-        core. As a company, we're highly specialised in technographic data,
-        continuously seeking ways to expand and improve our offering.
-      </p>
-
-      <p>
-        The company was founded in Melbourne, Australia by
-        <a href="https://alias.io" target="_blank" rel="noopener noreferrer"
-          >Elbert Alias</a
-        >
-        (<a
+        Wappalyzer, founded by
+        <a
           href="https://www.linkedin.com/in/elbertalias/"
           target="_blank"
           rel="noopener noreferrer"
-          ><v-icon color="accent" small> {{ mdiLinkedin }}</v-icon></a
-        >), a Dutch expatriate software engineer.
+          >Elbert Alias<v-icon color="accent" class="ml-1">
+            {{ mdiLinkedin }}</v-icon
+          ></a
+        >
+        in 2008, is a technology profiler and leads data provider. Our products
+        provide sales and marketing teams with technographic insights for lead
+        generation, market analysis and competitor research.
       </p>
+
+      <p>
+        We track over a thousand web technologies across millions of websites.
+        We know who uses your software and that of your competitors.
+      </p>
+
+      <v-btn to="/faq/extension/" color="accent" class="mt-4" outlined>
+        <v-icon left>{{ mdiForum }}</v-icon>
+        Frequently asked questions
+      </v-btn>
 
       <h2 class="text-h2 mt-8 mb-2">Get in touch</h2>
 
@@ -35,22 +35,29 @@
         suggestions, please don't hesitate to
         <nuxt-link to="/contact/">contact us</nuxt-link>.
       </p>
+
+      <template v-slot:footer>
+        <Logos />
+      </template>
     </Page>
   </div>
 </template>
 
 <script>
-import { mdiLinkedin } from '@mdi/js'
+import { mdiLinkedin, mdiForum } from '@mdi/js'
 import Page from '~/components/Page.vue'
+import Logos from '~/components/Logos.vue'
 
 export default {
   components: {
     Page,
+    Logos,
   },
   data() {
     return {
-      title: 'Our story',
+      title: 'About us',
       mdiLinkedin,
+      mdiForum,
     }
   },
 }

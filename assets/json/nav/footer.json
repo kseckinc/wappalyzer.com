@@ -1,14 +1,6 @@
 {
   "icons": [
     {
-      "icon": "mdiGithub",
-      "href": "https://github.com/aliasio/wappalyzer"
-    },
-    {
-      "icon": "mdiSlack",
-      "href": "https://join.slack.com/t/wappalyzer/shared_invite/enQtMjc1MzA2NzE4NzkwLTA5Y2RmMTQxMTFhYzViODQzMzUyNGFkMWIzY2ZhZmFlOWY2NTcyZWY4OWVjYzhiY2JhZTZlMzBiNThlMWJiMjU"
-    },
-    {
       "icon": "mdiTwitter",
       "href": "https://twitter.com/Wappalyzer"
     },
