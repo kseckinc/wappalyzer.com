@@ -95,7 +95,7 @@
 
               <v-card-text>
                 <v-expansion-panels v-model="panelsSelection" multiple>
-                  <v-expansion-panel ref="required">
+                  <v-expansion-panel ref="attributes">
                     <v-expansion-panel-header class="subtitle-2">
                       Required attributes
                       <span class="grey--text font-weight-regular ml-1"
@@ -831,6 +831,7 @@ export default {
     const {
       category: categorySlug,
       technology: technologySlug,
+      attributes,
       minAge,
       maxAge,
       subset,
@@ -839,6 +840,24 @@ export default {
       tlds,
       languages,
     } = this.$route.query
+
+    if (typeof attributes !== 'undefined') {
+      const _attributes = attributes.split(',')
+
+      if (_attributes.includes('email')) {
+        this.requiredSets.email = true
+      }
+
+      if (_attributes.includes('phone')) {
+        this.requiredSets.phone = true
+      }
+
+      if (_attributes.includes('social')) {
+        this.requiredSets.social = true
+      }
+
+      this.$refs.attributes.toggle()
+    }
 
     if (typeof minAge !== 'undefined') {
       this.minAge = Math.max(0, Math.min(11, parseInt(minAge, 10)))
