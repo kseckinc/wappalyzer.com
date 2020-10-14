@@ -143,8 +143,8 @@
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                       <p>
-                        Limit results to a number of the most or least traficked
-                        websites per technology.
+                        Limit results to a number of the most or least
+                        trafficked websites per technology.
                       </p>
 
                       <v-text-field
@@ -166,7 +166,7 @@
                         <v-row align="center">
                           <v-col class="py-0 flex-shrink-1 flex-grow-0">
                             <v-radio
-                              label="Most traficked"
+                              label="Most trafficked"
                               value="top"
                               style="white-space: nowrap;"
                               hide-details
@@ -174,7 +174,7 @@
                           </v-col>
                           <v-col class="py-0">
                             <v-radio
-                              label="Least traficked"
+                              label="Least trafficked"
                               value="bottom"
                               hide-details
                             />
@@ -636,7 +636,7 @@
           </v-card-title>
           <v-card-text class="pb-0">
             This list could be very large. Specify a subset to only include the
-            top traficked websites or add a filter to narrow down the results.
+            top trafficked websites or add a filter to narrow down the results.
           </v-card-text>
           <v-card-actions>
             <v-spacer />
