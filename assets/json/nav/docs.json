@@ -22,28 +22,5 @@
     "title": "Attribute sets",
     "icon": "mdiTagOutline",
     "to": "/docs/sets/"
-  },
-  {
-    "title": "Development",
-    "icon": "mdiMonitor",
-    "to": "/docs/dev/",
-    "items": [
-      {
-        "title": "Contributing",
-        "to": "/docs/dev/contributing/"
-      },
-      {
-        "title": "Setup",
-        "to": "/docs/dev/setup/"
-      },
-      {
-        "title": "Node.js module",
-        "to": "/docs/dev/nodejs/"
-      },
-      {
-        "title": "Specification",
-        "to": "/docs/dev/specification/"
-      }
-    ]
   }
 ]

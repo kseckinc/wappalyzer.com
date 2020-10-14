@@ -58,7 +58,7 @@
       },
       {
         "title": "Developer documentation",
-        "subtitle": "API reference and contributing guide",
+        "subtitle": "API reference",
         "to": "/docs/"
       }
     ]

@@ -756,7 +756,7 @@ export default {
         languages: [],
       },
       subset: null,
-      subsetSlice: 'top',
+      slice: 'top',
       order: false,
       orderError: '',
       ordering: false,
@@ -832,11 +832,11 @@ export default {
       category: categorySlug,
       technology: technologySlug,
       attributes,
-      minAge,
-      maxAge,
+      min,
+      max,
       subset,
-      subsetSlice,
-      ipCountries,
+      traffic,
+      countries,
       tlds,
       languages,
     } = this.$route.query
@@ -859,15 +859,15 @@ export default {
       this.$refs.attributes.toggle()
     }
 
-    if (typeof minAge !== 'undefined') {
-      this.minAge = Math.max(0, Math.min(11, parseInt(minAge, 10)))
+    if (typeof min !== 'undefined') {
+      this.min = Math.max(0, Math.min(11, parseInt(min, 10)))
     }
 
-    if (typeof maxAge !== 'undefined') {
-      this.maxAge = Math.max(1, Math.min(12, parseInt(maxAge, 10)))
+    if (typeof max !== 'undefined') {
+      this.maxA = Math.max(1, Math.min(12, parseInt(max, 10)))
     }
 
-    if (typeof minAge !== 'undefined' || typeof maxAge !== 'undefined') {
+    if (typeof min !== 'undefined' || typeof max !== 'undefined') {
       this.$refs.age.toggle()
     }
 
@@ -877,12 +877,12 @@ export default {
       this.$refs.subset.toggle()
     }
 
-    if (typeof subsetSlice !== 'undefined') {
-      this.subset = subsetSlice === 'bottom' ? 'bottom' : 'top'
+    if (typeof traffic !== 'undefined') {
+      this.subsetSlice = traffic === 'low' ? 'bottom' : 'top'
     }
 
-    if (typeof ipCountries !== 'undefined') {
-      ipCountries.split(',').forEach((ipCountry) => {
+    if (typeof countries !== 'undefined') {
+      countries.split(',').forEach((ipCountry) => {
         const item = this.geoIps.find(
           ({ value }) => value === ipCountry.trim().toUpperCase()
         )
