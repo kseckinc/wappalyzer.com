@@ -95,7 +95,7 @@
 
               <v-card-text>
                 <v-expansion-panels v-model="panelsSelection" multiple>
-                  <v-expansion-panel>
+                  <v-expansion-panel ref="required">
                     <v-expansion-panel-header class="subtitle-2">
                       Required attributes
                       <span class="grey--text font-weight-regular ml-1"
@@ -137,7 +137,7 @@
               </v-card-title>
               <v-card-text>
                 <v-expansion-panels v-model="panelsLimits" multiple>
-                  <v-expansion-panel>
+                  <v-expansion-panel ref="subset">
                     <v-expansion-panel-header class="subtitle-2">
                       Subset
                     </v-expansion-panel-header>
@@ -184,7 +184,7 @@
                     </v-expansion-panel-content>
                   </v-expansion-panel>
 
-                  <v-expansion-panel>
+                  <v-expansion-panel ref="age">
                     <v-expansion-panel-header class="subtitle-2">
                       Data age
                     </v-expansion-panel-header>
@@ -231,7 +231,7 @@
                     </v-expansion-panel-content>
                   </v-expansion-panel>
 
-                  <v-expansion-panel>
+                  <v-expansion-panel ref="exclusions">
                     <v-expansion-panel-header class="subtitle-2">
                       Exclusions
                     </v-expansion-panel-header>
@@ -259,8 +259,8 @@
                 Filters <span class="grey--text ml-1">(optional)</span>
               </v-card-title>
               <v-card-text>
-                <v-expansion-panels>
-                  <v-expansion-panel>
+                <v-expansion-panels multiple>
+                  <v-expansion-panel ref="ipCountries">
                     <v-expansion-panel-header class="subtitle-2">
                       IP countries
                     </v-expansion-panel-header>
@@ -335,7 +335,7 @@
                     </v-expansion-panel-content>
                   </v-expansion-panel>
 
-                  <v-expansion-panel>
+                  <v-expansion-panel ref="tlds">
                     <v-expansion-panel-header class="subtitle-2">
                       Top-level domains
                     </v-expansion-panel-header>
@@ -458,7 +458,7 @@
                     </v-expansion-panel-content>
                   </v-expansion-panel>
 
-                  <v-expansion-panel>
+                  <v-expansion-panel ref="languages">
                     <v-expansion-panel-header class="subtitle-2">
                       Languages
                     </v-expansion-panel-header>
@@ -715,14 +715,6 @@ export default {
       title: meta.title,
       countries: Object.keys(tlds),
       confirmDialog: false,
-      cards: {
-        subset: false,
-        dataAge: false,
-        exclusions: false,
-        ipCountries: false,
-        tlds: false,
-        languages: false,
-      },
       error: false,
       requiredSets: {
         email: false,
@@ -839,11 +831,99 @@ export default {
     const {
       category: categorySlug,
       technology: technologySlug,
+      minAge,
+      maxAge,
+      subset,
+      subsetSlice,
+      ipCountries,
+      tlds,
+      languages,
     } = this.$route.query
 
-    if (categorySlug || technologySlug) {
-      this.$router.replace({ path: this.$route.path })
+    if (typeof minAge !== 'undefined') {
+      this.minAge = Math.max(0, Math.min(11, parseInt(minAge, 10)))
+    }
 
+    if (typeof maxAge !== 'undefined') {
+      this.maxAge = Math.max(1, Math.min(12, parseInt(maxAge, 10)))
+    }
+
+    if (typeof minAge !== 'undefined' || typeof maxAge !== 'undefined') {
+      this.$refs.age.toggle()
+    }
+
+    if (typeof subset !== 'undefined') {
+      this.subset = Math.max(500, parseInt(subset, 10))
+
+      this.$refs.subset.toggle()
+    }
+
+    if (typeof subsetSlice !== 'undefined') {
+      this.subset = subsetSlice === 'bottom' ? 'bottom' : 'top'
+    }
+
+    if (typeof ipCountries !== 'undefined') {
+      ipCountries.split(',').forEach((ipCountry) => {
+        const item = this.geoIps.find(
+          ({ value }) => value === ipCountry.trim().toUpperCase()
+        )
+
+        this.toggleGeoIp(item)
+      })
+
+      if (this.selected.geoIps.length) {
+        this.$refs.ipCountries.toggle()
+      }
+    }
+
+    if (typeof tlds !== 'undefined') {
+      tlds.split(',').forEach((tld) => {
+        this.tld = tld
+
+        this.addTld()
+      })
+
+      if (this.selected.tlds.length) {
+        this.$refs.tlds.toggle()
+      }
+    }
+
+    if (typeof languages !== 'undefined') {
+      languages.split(',').forEach((language) => {
+        language = language.trim().toLowerCase()
+
+        let selected
+
+        this.languages.forEach((item) => {
+          if (typeof item.value === 'object') {
+            Object.keys(item.value).forEach((name) => {
+              if (item.value[name].toLowerCase() === language) {
+                selected = {
+                  parent: item.text,
+                  text: name,
+                  value: item.value[name],
+                  active: true,
+                }
+              }
+            })
+          } else if (item.value.toLowerCase() === language) {
+            item.active = true
+
+            selected = item
+          }
+        })
+
+        if (selected) {
+          this.selected.languages.push(selected)
+        }
+      })
+
+      if (this.selected.languages.length) {
+        this.$refs.languages.toggle()
+      }
+    }
+
+    if (categorySlug || technologySlug) {
       try {
         if (technologySlug) {
           const { slug, name, icon } = (
