@@ -24,6 +24,17 @@
               Frequently asked questions
             </v-btn>
           </v-card-text>
+          <v-card-title class="subtitle-2">Watch the video</v-card-title>
+          <v-card-text>
+            <iframe
+              src="https://player.vimeo.com/video/468326761"
+              width="100%"
+              height="300"
+              frameborder="0"
+              allow="autoplay; fullscreen"
+              allowfullscreen
+            ></iframe>
+          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
