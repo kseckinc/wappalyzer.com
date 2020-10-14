@@ -17,105 +17,39 @@
         Pricing
       </v-btn>
 
-      <h2 class="mb-4">Upload your list</h2>
-
       <v-alert v-if="error" type="error">
         {{ error }}
       </v-alert>
 
       <v-form ref="form">
-        <v-card class="mb-8" color="secondary">
-          <v-card-title>
-            <v-icon color="primary" left>{{ mdiFormatListChecks }}</v-icon>
-            Selection
+        <v-card class="mb-8">
+          <v-card-title class="subtitle-2">
+            Upload your list
           </v-card-title>
           <v-card-text>
-            <v-card class="mb-4">
-              <v-card-title class="subtitle-2">
-                Upload your list
-              </v-card-title>
-              <v-card-text>
-                <ul>
-                  <li>
-                    Upload a .txt file containing URLs, each on a separate line
-                  </li>
-                  <li>URLs must start with http:// or https://</li>
-                  <li>Include up to 5,000 URLs</li>
-                  <li>
-                    The resulting list is in CSV and JSON format (<a
-                      href="/bulk-sample.zip"
-                      download
-                      >sample</a
-                    >)
-                  </li>
-                </ul>
+            <ul>
+              <li>
+                Upload a .txt file containing URLs, each on a separate line
+              </li>
+              <li>URLs must start with http:// or https://</li>
+              <li>Include up to 5,000 URLs</li>
+              <li>
+                The resulting list is in CSV and JSON format (<a
+                  href="/bulk-sample.zip"
+                  download
+                  >sample</a
+                >)
+              </li>
+            </ul>
 
-                <v-file-input
-                  :error-messages="fileErrors"
-                  placeholder="Select a file..."
-                  accept="text/plain"
-                  hide-details="auto"
-                  class="mb-4"
-                  @change="fileChange"
-                />
-              </v-card-text>
-            </v-card>
-
-            <v-card>
-              <v-card-title class="subtitle-2">
-                Attribute sets
-              </v-card-title>
-              <v-card-text class="px-0">
-                <p class="px-4">
-                  Choose one or more
-                  <nuxt-link to="/docs/sets/" target="_blank"
-                    >attribute sets</nuxt-link
-                  >
-                  to include. Limited availability.
-                </p>
-                <v-simple-table dense>
-                  <tbody>
-                    <tr
-                      v-for="set in sets.filter(
-                        ({ key }) => key !== 'base-list'
-                      )"
-                      :key="set.key"
-                    >
-                      <td>
-                        <v-row class="px-2" align="center">
-                          <v-checkbox
-                            v-model="set.value"
-                            :disabled="set.disabled"
-                            class="mt-0 shrink"
-                            dense
-                            hide-details
-                          >
-                            <template v-slot:label>
-                              <small>
-                                {{ set.name }}
-                              </small>
-                            </template>
-                          </v-checkbox>
-                          <v-tooltip :key="set.key" top>
-                            <template v-slot:activator="{ on }">
-                              <v-icon small class="ml-1" v-on="on">{{
-                                mdiInformationOutline
-                              }}</v-icon>
-                            </template>
-
-                            {{
-                              set.attributes
-                                .map(({ name, key }) => name || key)
-                                .join(', ')
-                            }}
-                          </v-tooltip>
-                        </v-row>
-                      </td>
-                    </tr>
-                  </tbody>
-                </v-simple-table>
-              </v-card-text>
-            </v-card>
+            <v-file-input
+              :error-messages="fileErrors"
+              placeholder="Select a file..."
+              accept="text/plain"
+              hide-details="auto"
+              class="mb-4"
+              @change="fileChange"
+            />
           </v-card-text>
         </v-card>
 

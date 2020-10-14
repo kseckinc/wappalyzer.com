@@ -227,7 +227,7 @@
               <tbody>
                 <tr v-if="!['Insufficient', 'Failed'].includes(order.status)">
                   <th>
-                    Rows
+                    Websites
                   </th>
                   <td v-if="order.status === 'Calculating'">
                     <Spinner />
@@ -440,6 +440,11 @@
                   </th>
                   <td>
                     {{ formatNumber(order.dataset.query.subset) }}
+                    {{
+                      formatNumber(order.dataset.query.subsetSlice === 'bottom')
+                        ? 'least trafficked'
+                        : 'most trafficked'
+                    }}
                   </td>
                 </tr>
               </tbody>

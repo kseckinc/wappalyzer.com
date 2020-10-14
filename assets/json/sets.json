@@ -23,6 +23,24 @@
     "disabled": true
   },
   {
+    "key": "email",
+    "name": "Email addresses",
+    "attributes": [
+      { "name": "email addresses", "key": "email", "description": "Email addresses found on the website's contact page. We identify <code>mailto:</code> links and strings that appear to be email addresses based on the website's domain." }
+    ],
+    "value": false
+  },
+  {
+    "key": "phone",
+    "name": "Phone numbers",
+    "attributes": [
+      { "name": "phone numbers", "key": "phone", "description": "Phone numbers found on the website's contact page. We identify <code>tel:</code> links and numbers that appear to be phone numbers." },
+      { "name": "Skype", "key": "skype", "description": "Skype handles found on the website's contact page." },
+      { "name": "WhatsApp", "key": "whatsapp", "description": "WhatsApp numbers found on the website's contact page." }
+    ],
+    "value": false
+  },
+  {
     "key": "contact",
     "name": "Contact details",
     "attributes": [

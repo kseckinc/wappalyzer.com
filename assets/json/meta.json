@@ -44,7 +44,7 @@
     "subtitle": "Look up a number of websites in one go",
     "icon": "mdiFileTableOutline",
     "image": "bulk.svg",
-    "text": "Supply your own list of websites to create a report of the technologies they use, along with contact details and metadata. Gain a better understanding of your target audience with technographic insights.",
+    "text": "Supply your own list of websites to create a report of the technologies they use, along with contact details and social media profiles. Gain a better understanding of your target audience with technographic insights.",
     "buttons": [
       {
         "text": "Upload a list",
@@ -64,7 +64,7 @@
     "subtitle": "Programmatic access to technographic data",
     "icon": "mdiConsole",
     "image": "api.svg",
-    "text": "The Wappalyzer APIs provide instant access to website technology stacks, contact details and metadata. Track your prospects' technology choices, examine large numbers of websites or enrich your own datasets with technographic insights.",
+    "text": "The Wappalyzer APIs provide instant access to website technology stacks, contact details and social media profiles. Track your prospects' technology choices, examine large numbers of websites or enrich your own datasets with technographic insights.",
     "buttons": [
       {
         "text": "Compare APIs",

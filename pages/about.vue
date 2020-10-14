@@ -14,8 +14,8 @@
           ></a
         >
         in 2008, is a technology profiler and leads data provider. Our products
-        provide sales and marketing teams with technographic insights for lead
-        generation, market analysis and competitor research.
+        provide sales and marketing teams with technographic insights and tools
+        for lead generation, market analysis and competitor research.
       </p>
 
       <p>
