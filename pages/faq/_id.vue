@@ -4,50 +4,58 @@
     <Page
       :title="title"
       :side="side"
-      :crumbs="[{ title: 'FAQs', to: '/faq/extension/' }]"
+      :crumbs="[{ title: 'FAQs', to: '/faq/lists/' }]"
       seo-title="Frequently asked questions"
       no-head
     >
       <h1 class="mb-4">Frequently asked questions</h1>
 
-      <div
-        v-for="([question, answer], i) in items"
-        :id="slugify(question)"
-        :key="question"
-      >
-        <Heading
-          :id="slugify(question)"
-          size="3"
-          :class="`${i ? 'mt-8' : ''} mb-2`"
-        >
-          {{ question }}
-        </Heading>
-
-        <p v-for="text in answer" :key="text" class="answer" v-html="text"></p>
-      </div>
+      <Faqs :topic="$route.params.id" />
     </Page>
   </div>
 </template>
 
 <script>
 import Page from '~/components/Page.vue'
-import Heading from '~/components/Heading.vue'
-import faqs from '~/assets/json/faqs.json'
+import Faqs from '~/components/Faqs.vue'
+
+const faqs = {
+  lists: {
+    title: 'Lead lists',
+    icon: 'mdiFilterVariant',
+    to: '/faq/lists/',
+  },
+  api: {
+    title: 'APIs',
+    icon: 'mdiConsole',
+    to: '/faq/api/',
+  },
+  credits: {
+    title: 'Credits',
+    icon: 'mdiAlphaCCircle',
+    to: '/faq/credits/',
+  },
+  extension: {
+    title: 'Browser extension',
+    icon: 'mdiPuzzle',
+    to: '/faq/extension/',
+  },
+}
 
 export default {
   components: {
     Page,
-    Heading,
+    Faqs,
   },
   data() {
     return {
       title: faqs[this.$route.params.id].title,
+
       side: Object.values(faqs).map(({ title, icon, to }) => ({
         title,
         icon,
         to,
       })),
-      items: faqs[this.$route.params.id].items,
     }
   },
   created() {

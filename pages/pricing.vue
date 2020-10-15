@@ -2,7 +2,7 @@
   <div>
     <Page :title="title" :head="meta">
       <div class="mt-4">
-        <v-btn color="accent" to="/faq/credits" class="mb-2" outlined>
+        <v-btn color="accent" class="mb-2" outlined @click="faqDialog = true">
           <v-icon left>{{ mdiForum }}</v-icon>
           FAQs
         </v-btn>
@@ -155,6 +155,21 @@
         @close="orderDialog = false"
       />
 
+      <v-dialog v-model="faqDialog" max-width="600px">
+        <v-card>
+          <v-card-title>
+            Frequently asked questions
+          </v-card-title>
+          <v-card-text class="pb-0">
+            <Faqs topic="credits" />
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn color="accent" text @click="faqDialog = false">Close</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
       <template v-slot:footer>
         <Logos />
       </template>
@@ -171,6 +186,7 @@ import Logos from '~/components/Logos.vue'
 import SignIn from '~/components/SignIn.vue'
 import OrderDialog from '~/components/OrderDialog.vue'
 import Matrix from '~/components/Matrix.vue'
+import Faqs from '~/components/Faqs.vue'
 import { attrs, plans } from '~/assets/json/plans.json'
 import { creditsPerUnit, creditTiers } from '~/assets/json/pricing.json'
 import { pricing as meta } from '~/assets/json/meta.json'
@@ -182,11 +198,13 @@ export default {
     SignIn,
     OrderDialog,
     Matrix,
+    Faqs,
   },
   data() {
     return {
       title: meta.title,
       attrs,
+      faqDialog: false,
       order: false,
       orderError: '',
       annually: true,

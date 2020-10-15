@@ -19,7 +19,7 @@
               <li>Click on a technology or category for more insights</li>
             </ol>
 
-            <v-btn color="accent" to="/faq/extension/" outlined small>
+            <v-btn color="accent" outlined @click="faqDialog = true">
               <v-icon left>{{ mdiForum }}</v-icon>
               Frequently asked questions
             </v-btn>
@@ -29,7 +29,7 @@
             <iframe
               src="https://player.vimeo.com/video/468326761"
               width="100%"
-              height="300"
+              height="302"
               frameborder="0"
               allow="autoplay; fullscreen"
               allowfullscreen
@@ -38,6 +38,21 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <v-dialog v-model="faqDialog" max-width="600px">
+      <v-card>
+        <v-card-title>
+          Frequently asked questions
+        </v-card-title>
+        <v-card-text class="pb-0">
+          <Faqs topic="extension" />
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn color="accent" text @click="faqDialog = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </Page>
 </template>
 
@@ -45,14 +60,17 @@
 import { mdiForum } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
+import Faqs from '~/components/Faqs.vue'
 
 export default {
   components: {
     Page,
+    Faqs,
   },
   data() {
     return {
       title: 'Installation successful',
+      faqDialog: false,
       release: null,
       error: false,
       mdiForum,

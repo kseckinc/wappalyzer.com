@@ -13,12 +13,6 @@
     </v-main>
 
     <Drawer ref="drawer" :main-nav="mainNav" :user-nav="userNav" :user="user" />
-
-    <script
-      async
-      src="https://r.wdfl.co/rw.js"
-      data-rewardful="7fd1cb"
-    ></script>
   </v-app>
 </template>
 

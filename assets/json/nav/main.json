@@ -47,18 +47,18 @@
         "to": "/technologies/"
       },
       {
-        "title": "FAQs",
-        "subtitle": "Answers to frequently asked questions",
-        "to": "/faq/extension/"
-      },
-      {
         "title": "Articles",
         "subtitle": "Free content covering technographics",
         "to": "/articles/"
       },
       {
-        "title": "Developer documentation",
-        "subtitle": "API reference",
+        "title": "FAQs",
+        "subtitle": "Answers to frequently asked questions",
+        "to": "/faq/extension/"
+      },
+      {
+        "title": "API reference",
+        "subtitle": "Developer documentation",
         "to": "/docs/"
       }
     ]

@@ -23,7 +23,7 @@
       </v-card>
 
       <div class="mt-4">
-        <v-btn color="accent" to="/faq/api/" class="mb-2" outlined>
+        <v-btn color="accent" class="mb-2" outlined @click="faqDialog = true">
           <v-icon left>{{ mdiForum }}</v-icon>
           FAQs
         </v-btn>
@@ -85,6 +85,21 @@
         </v-row>
       </template>
 
+      <v-dialog v-model="faqDialog" max-width="600px">
+        <v-card>
+          <v-card-title>
+            Frequently asked questions
+          </v-card-title>
+          <v-card-text class="pb-0">
+            <Faqs topic="api" />
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn color="accent" text @click="faqDialog = false">Close</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
       <template v-slot:footer>
         <Logos />
       </template>
@@ -98,6 +113,7 @@ import { mdiForum, mdiBookOpenPageVariant } from '@mdi/js'
 import Page from '~/components/Page.vue'
 import Logos from '~/components/Logos.vue'
 import Matrix from '~/components/Matrix.vue'
+import Faqs from '~/components/Faqs.vue'
 import { attrs, apis } from '~/assets/json/apis.json'
 import { apis as meta } from '~/assets/json/meta.json'
 
@@ -106,12 +122,14 @@ export default {
     Page,
     Logos,
     Matrix,
+    Faqs,
   },
   data() {
     return {
       title: meta.title,
       attrs,
       apis,
+      faqDialog: false,
       meta,
       mdiForum,
       mdiBookOpenPageVariant,
