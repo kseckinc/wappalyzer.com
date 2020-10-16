@@ -113,34 +113,224 @@
               traffic.
             </p>
 
-            <v-card class="my-4">
+            <v-expansion-panels class="my-4">
+              <v-expansion-panel
+                v-for="(attributes, hostname) in technology.topHostnames"
+                :key="hostname"
+              >
+                <v-expansion-panel-header>
+                  <v-row>
+                    <v-col class="py-0">
+                      {{ hostname }}
+
+                      <a
+                        :href="`http${attributes.https ? 's' : ''}://${
+                          attributes.www ? 'www.' : ''
+                        }${hostname}`"
+                        rel="nofollow noopener"
+                        target="_blank"
+                        ><v-icon color="accent" small>{{
+                          mdiOpenInNew
+                        }}</v-icon></a
+                      >
+                    </v-col>
+                    <v-col class="py-0">
+                      <Bar
+                        :value="attributes.hits"
+                        :max="maxHits"
+                        :total="technology.hits"
+                        class="mr-4"
+                      />
+                    </v-col>
+                  </v-row>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content class="no-padding">
+                  <v-alert
+                    v-if="Object.keys(attributes).length === 4"
+                    color="accent"
+                    class="mx-4 mb-4"
+                    outlined
+                  >
+                    <p>
+                      No meta data available... Yet.
+                    </p>
+
+                    <v-btn
+                      :to="`/lookup/?url=${encodeURIComponent(
+                        `http://${hostname}`
+                      )}`"
+                      color="accent"
+                      outlined
+                      ><v-icon left>{{ mdiMagnify }}</v-icon> Technology
+                      lookup</v-btn
+                    >
+                  </v-alert>
+                  <v-card v-else flat>
+                    <div
+                      v-for="(set, setKey) in transformAttributes(
+                        ['locale', 'email', 'phone', 'social', 'meta'],
+                        attributes
+                      )"
+                      :key="setKey"
+                    >
+                      <v-divider />
+
+                      <v-card-title class="subtitle-2 px-6">{{
+                        set.title
+                      }}</v-card-title>
+                      <v-card-text class="px-0 pb-0">
+                        <v-simple-table dense>
+                          <tbody>
+                            <tr
+                              v-for="(attribute,
+                              attributeKey) in set.attributes"
+                              :key="attributeKey"
+                            >
+                              <th class="pl-6" width="25%">
+                                <small>
+                                  {{ attribute.title }}
+                                </small>
+                              </th>
+                              <td class="pr-6">
+                                <div
+                                  v-for="(value, index) in attribute.values"
+                                  :key="index"
+                                >
+                                  <small>
+                                    <a
+                                      v-if="value.to"
+                                      :href="value.to"
+                                      rel="nofollow noopener"
+                                      target="_blank"
+                                      >{{ value.text }}</a
+                                    >
+                                    <v-icon
+                                      v-else-if="value.text === true"
+                                      color="success"
+                                      small
+                                      >{{ mdiCheck }}</v-icon
+                                    >
+                                    <v-icon
+                                      v-else-if="value.text === false"
+                                      color="error"
+                                      small
+                                      >{{ mdiClose }}</v-icon
+                                    >
+                                    <span
+                                      v-else
+                                      :class="
+                                        attributeKey === 'phone' ? 'blur' : ''
+                                      "
+                                    >
+                                      {{ value.text }}
+                                    </span>
+                                  </small>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+
+                          <tbody></tbody
+                        ></v-simple-table>
+                      </v-card-text>
+                    </div>
+                    <v-card-actions>
+                      <v-spacer />
+                      <v-btn
+                        :to="`/lookup/?url=${encodeURIComponent(
+                          `http://${hostname}`
+                        )}`"
+                        color="accent"
+                        text
+                        ><v-icon left>{{ mdiMagnify }}</v-icon> Technology
+                        lookup</v-btn
+                      >
+                    </v-card-actions>
+                  </v-card>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+
+            <p class="mb-10">
+              <small>
+                Get the full list of
+                <nuxt-link :to="`/lists/?technology=${slug}`"
+                  >websites and companies using {{ technology.name }}</nuxt-link
+                >.
+              </small>
+            </p>
+
+            <h3 class="mb-2">{{ technology.name }} reports</h3>
+
+            <p>
+              Create relevant reports for {{ technology.name }} to find leads or
+              learn more about your target audience.
+            </p>
+
+            <v-card class="mb-4">
+              <v-card-title class="subtitle-2">
+                Example reports
+              </v-card-title>
               <v-card-text class="px-0">
-                <v-simple-table>
-                  <thead>
-                    <tr>
-                      <th width="40%">Website</th>
-                      <th>Traffic</th>
-                    </tr>
-                  </thead>
+                <v-simple-table dense>
                   <tbody>
+                    <tr>
+                      <td>
+                        <nuxt-link
+                          :to="`/lists/?technology=${slug}&countries=us`"
+                          >{{ technology.name }} websites in the United
+                          States</nuxt-link
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <nuxt-link
+                          :to="`/lists/?technology=${slug}&countries=gb`"
+                          >{{ technology.name }} websites in the United
+                          Kindom</nuxt-link
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <nuxt-link
+                          :to="`/lists/?technology=${slug}&attributes=email,phone`"
+                          >Email addresses and phone numbers of
+                          {{ technology.name }} customers
+                        </nuxt-link>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <nuxt-link
+                          :to="`/lists/?technology=${slug}&subset=5000`"
+                          >Top 5,000 most visited
+                          {{ technology.name }} websites</nuxt-link
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <nuxt-link
+                          :to="`/lists/?technology=${slug}&subset=5000&traffic=low`"
+                          >5,000 low-traffic
+                          {{ technology.name }} websites</nuxt-link
+                        >
+                      </td>
+                    </tr>
                     <tr
-                      v-for="({ hits }, hostname) in technology.topHostnames"
-                      :key="hostname"
+                      v-for="category in technology.categories"
+                      :key="category.slug"
                     >
                       <td>
                         <nuxt-link
-                          :to="`/lookup/?url=${encodeURIComponent(
-                            `http://${hostname}`
-                          )}`"
-                          >{{ hostname.replace(/www\./, '') }}</nuxt-link
+                          :to="
+                            (`/lists/?category=${category.slug}&subset=500`)
+                          "
+                          >Top 500 websites for every technology in the category
+                          {{ category.name }}</nuxt-link
                         >
-                      </td>
-                      <td>
-                        <Bar
-                          :value="hits"
-                          :max="maxHits"
-                          :total="technology.hits"
-                        />
                       </td>
                     </tr>
                   </tbody>
@@ -148,11 +338,11 @@
               </v-card-text>
             </v-card>
 
-            <p class="mb-10">
+            <p>
               <small>
-                Get the full list of
-                <nuxt-link :to="`/lists/?technology=${slug}`"
-                  >websites and companies using {{ technology.name }}</nuxt-link
+                Or,
+                <nuxt-link :to="`/lists/?technology=${slug}`">
+                  Create a custom {{ technology.name }} report</nuxt-link
                 >.
               </small>
             </p>
@@ -440,6 +630,8 @@ import {
   mdiLightbulbOnOutline,
   mdiFinance,
   mdiFountainPenTip,
+  mdiCheck,
+  mdiClose,
 } from '@mdi/js'
 import { GChart } from 'vue-google-charts'
 
@@ -541,6 +733,8 @@ export default {
       mdiFinance,
       mdiLightbulbOnOutline,
       mdiFountainPenTip,
+      mdiCheck,
+      mdiClose,
       review: {
         rating: 0,
         text: '',
@@ -816,3 +1010,13 @@ export default {
   },
 }
 </script>
+
+<style>
+.v-expansion-panel-content.no-padding .v-expansion-panel-content__wrap {
+  padding: 0;
+}
+
+.blur {
+  filter: blur(3px);
+}
+</style>

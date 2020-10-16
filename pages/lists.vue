@@ -34,7 +34,7 @@
       </v-btn>
 
       <template v-slot:content>
-        <h2 class="mb-4">Create your list</h2>
+        <h2 id="form" class="mb-4">Create your list</h2>
 
         <v-card class="mb-4" color="secondary">
           <v-card-text v-if="error">
@@ -779,7 +779,7 @@ export default {
         languages: [],
       },
       subset: null,
-      slice: 'top',
+      subsetSlice: 'top',
       order: false,
       orderError: '',
       ordering: false,
@@ -863,6 +863,10 @@ export default {
       tlds,
       languages,
     } = this.$route.query
+
+    if (Object.keys(this.$route.query).length) {
+      this.scrollTo('h1')
+    }
 
     if (typeof attributes !== 'undefined') {
       const _attributes = attributes.split(',')

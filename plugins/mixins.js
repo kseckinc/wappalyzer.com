@@ -2,6 +2,21 @@ import Vue from 'vue'
 
 import { creditTiers } from '~/assets/json/pricing.json'
 import userNav from '~/assets/json/nav/user.json'
+import sets from '~/assets/json/sets.json'
+import countries from '~/assets/json/countries.json'
+import languages from '~/assets/json/languages.json'
+import states from '~/assets/json/states.json'
+
+const socialBaseUrls = {
+  twitter: 'https://www.twitter.com/',
+  facebook: 'https://www.facebook.com/',
+  instagram: 'https://www.instagram.com/',
+  github: 'https://www.github.com/',
+  tiktok: 'https://www.tiktok.com/',
+  youtube: 'https://www.youtube.com/',
+  pinterest: 'https://www.pinterest.com/',
+  linkedin: 'https://www.linkedin.com/',
+}
 
 Vue.mixin({
   methods: {
@@ -81,6 +96,17 @@ Vue.mixin({
       } else {
         return error.message || error.toString()
       }
+    },
+    scrollTo(selector) {
+      this.$nextTick(() =>
+        setTimeout(
+          () =>
+            document
+              .querySelector(selector)
+              .scrollIntoView({ behavior: 'smooth' }),
+          100
+        )
+      )
     },
     scrollToTop() {
       this.$nextTick(() =>
@@ -208,6 +234,133 @@ Vue.mixin({
           resolve()
         })
       })
+    },
+    formatCountry(code) {
+      const country = countries.find(
+        ({ value }) => value.toUpperCase() === code.toUpperCase()
+      )
+
+      return country ? country.text : code
+    },
+    formatRegion(countryCode, regionCode) {
+      if (states[countryCode.toUpperCase()]) {
+        const region = states[countryCode.toUpperCase()].find(
+          ({ value }) => value.toUpperCase() === regionCode.toUpperCase()
+        )
+
+        return region ? region.text : regionCode
+      }
+
+      return regionCode
+    },
+    formatLanguage(code) {
+      for (const name in languages) {
+        if (typeof languages[name] === 'string') {
+          if (languages[name].toUpperCase() === code.toUpperCase()) {
+            return name
+          }
+        } else {
+          for (const variant in languages[name]) {
+            if (languages[name][variant].toUpperCase() === code.toUpperCase()) {
+              return name === variant ? name : `${name} (${variant})`
+            }
+          }
+        }
+      }
+
+      return code
+    },
+    transformAttributes(keys, attributes) {
+      const formatted = {}
+
+      for (const set of sets.filter(
+        ({ key }) => keys === 'all' || keys.includes(key)
+      )) {
+        formatted[set.key] = {
+          title: set.name,
+          attributes: {},
+        }
+
+        for (const attribute of set.attributes) {
+          const title = attribute.name || attribute.key
+
+          formatted[set.key].attributes[attribute.key] = {
+            title: title.charAt(0).toUpperCase() + title.substring(1),
+            values: [],
+          }
+
+          const values = attributes[attribute.key]
+
+          if (Array.isArray(values)) {
+            for (const value of values) {
+              if (!value) {
+                continue
+              }
+
+              switch (set.key) {
+                case 'social':
+                  formatted[set.key].attributes[attribute.key].values.push({
+                    to: `${socialBaseUrls[attribute.key]}${value}`,
+                    text: value,
+                  })
+
+                  break
+                default:
+                  formatted[set.key].attributes[attribute.key].values.push({
+                    text: value,
+                  })
+              }
+            }
+          } else {
+            const value = values
+
+            if (!value) {
+              continue
+            }
+
+            switch (attribute.key) {
+              case 'language':
+                formatted[set.key].attributes[attribute.key].values.push({
+                  text: this.formatLanguage(value),
+                })
+
+                break
+              case 'ipCountry':
+                formatted[set.key].attributes[attribute.key].values.push({
+                  text: this.formatCountry(value),
+                })
+
+                break
+              case 'ipRegion':
+                if (attributes.ipCountry) {
+                  formatted[set.key].attributes[attribute.key].values.push({
+                    text: this.formatRegion(attributes.ipCountry, value),
+                  })
+                }
+
+                break
+              default:
+                formatted[set.key].attributes[attribute.key].values.push({
+                  text: value,
+                })
+            }
+          }
+        }
+      }
+
+      Object.keys(formatted).forEach((key) => {
+        Object.keys(formatted[key].attributes).forEach((attribute) => {
+          if (!formatted[key].attributes[attribute].values.length) {
+            delete formatted[key].attributes[attribute]
+          }
+        })
+
+        if (!Object.keys(formatted[key].attributes).length) {
+          delete formatted[key]
+        }
+      })
+
+      return formatted
     },
   },
 })

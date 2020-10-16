@@ -152,6 +152,19 @@
 
       <v-expansion-panel>
         <v-expansion-panel-header class="subtitle-2">
+          Can I resell the data?
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <p>
+            No, not without explicit permission in writing. Please refer to the
+            <nuxt-link to="/terms/">terms of use</nuxt-link> and
+            <nuxt-link to="/contact/">contact us</nuxt-link> to discuss options.
+          </p>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
+      <v-expansion-panel>
+        <v-expansion-panel-header class="subtitle-2">
           What is your refund policy?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -225,6 +238,19 @@
             users. The install base provides a large enough sample set to
             determine which websites receive more traffic than others, resulting
             in a relative traffic indicator.
+          </p>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
+      <v-expansion-panel>
+        <v-expansion-panel-header class="subtitle-2">
+          Can I resell the data?
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <p>
+            No, not without explicit permission in writing. Please refer to the
+            <nuxt-link to="/terms/">terms of use</nuxt-link> and
+            <nuxt-link to="/contact/">contact us</nuxt-link> to discuss options.
           </p>
         </v-expansion-panel-content>
       </v-expansion-panel>
