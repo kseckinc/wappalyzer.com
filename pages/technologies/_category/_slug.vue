@@ -89,13 +89,13 @@
             <p class="mb-8">
               Create a list of
               {{ formatNumber(technology.hostnames, true) }}
-              <nuxt-link :to="`/lists/?technology=${slug}`">
+              <nuxt-link :to="`/lists/?technologies=${slug}`">
                 {{ technology.name }} websites</nuxt-link
               >
               with email addresses and phone numbers.
             </p>
 
-            <v-btn :to="`/lists/?technology=${slug}`" color="accent" outlined>
+            <v-btn :to="`/lists/?technologies=${slug}`" color="accent" outlined>
               <v-icon left>{{ mdiFilterVariant }}</v-icon> Create a lead list
             </v-btn>
 
@@ -254,7 +254,7 @@
             <p class="mb-10">
               <small>
                 Get the full list of
-                <nuxt-link :to="`/lists/?technology=${slug}`"
+                <nuxt-link :to="`/lists/?technologies=${slug}`"
                   >websites and companies using {{ technology.name }}</nuxt-link
                 >.
               </small>
@@ -277,7 +277,7 @@
                     <tr>
                       <td>
                         <nuxt-link
-                          :to="`/lists/?technology=${slug}&countries=us`"
+                          :to="`/lists/?technologies=${slug}&countries=us`"
                           >{{ technology.name }} websites in the United
                           States</nuxt-link
                         >
@@ -286,7 +286,7 @@
                     <tr>
                       <td>
                         <nuxt-link
-                          :to="`/lists/?technology=${slug}&countries=gb`"
+                          :to="`/lists/?technologies=${slug}&countries=gb&tlds=.uk`"
                           >{{ technology.name }} websites in the United
                           Kindom</nuxt-link
                         >
@@ -295,7 +295,7 @@
                     <tr>
                       <td>
                         <nuxt-link
-                          :to="`/lists/?technology=${slug}&attributes=email,phone`"
+                          :to="`/lists/?technologies=${slug}&attributes=email,phone`"
                           >Email addresses and phone numbers of
                           {{ technology.name }} customers
                         </nuxt-link>
@@ -304,7 +304,17 @@
                     <tr>
                       <td>
                         <nuxt-link
-                          :to="`/lists/?technology=${slug}&subset=5000`"
+                          :to="`/lists/?technologies=${slug}&tlds=.com`"
+                        >
+                          {{ technology.name }} websites with a .com
+                          domain</nuxt-link
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <nuxt-link
+                          :to="`/lists/?technologies=${slug}&subset=5000`"
                           >Top 5,000 most visited
                           {{ technology.name }} websites</nuxt-link
                         >
@@ -313,7 +323,7 @@
                     <tr>
                       <td>
                         <nuxt-link
-                          :to="`/lists/?technology=${slug}&subset=5000&traffic=low`"
+                          :to="`/lists/?technologies=${slug}&subset=5000&traffic=low`"
                           >5,000 low-traffic
                           {{ technology.name }} websites</nuxt-link
                         >
@@ -326,7 +336,7 @@
                       <td>
                         <nuxt-link
                           :to="
-                            (`/lists/?category=${category.slug}&subset=500`)
+                            (`/lists/?categories=${category.slug}&subset=500`)
                           "
                           >Top 500 websites for every technology in the category
                           {{ category.name }}</nuxt-link
@@ -341,7 +351,7 @@
             <p>
               <small>
                 Or,
-                <nuxt-link :to="`/lists/?technology=${slug}`">
+                <nuxt-link :to="`/lists/?technologies=${slug}`">
                   Create a custom {{ technology.name }} report</nuxt-link
                 >.
               </small>

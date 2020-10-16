@@ -223,6 +223,7 @@ export default {
       mdiCheck,
       mdiClose,
       url: '',
+      lastUrl: '',
       rules: {
         url: [
           (v) => {
@@ -262,9 +263,15 @@ export default {
     }),
   },
   watch: {
-    '$store.state.user.isSignedIn'(isSignedIn) {
-      if (isSignedIn && this.signInDialog) {
+    async '$store.state.user.isSignedIn'(isSignedIn) {
+      if (isSignedIn) {
         this.signInDialog = false
+
+        await this.getCredits()
+
+        if (this.url) {
+          this.$nextTick(() => this.submit())
+        }
       }
     },
   },
@@ -273,6 +280,8 @@ export default {
 
     if (this.url) {
       this.$router.replace({ path: this.$route.path })
+
+      this.scrollTo('h1')
     }
 
     this.$refs.input.focus()
@@ -280,6 +289,10 @@ export default {
     if (this.$store.state.user.isSignedIn) {
       try {
         await this.getCredits()
+
+        if (this.url) {
+          this.$nextTick(() => this.submit())
+        }
       } catch (error) {
         this.error = this.getErrorMessage(error)
       }
@@ -290,6 +303,12 @@ export default {
       getCredits: 'credits/get',
     }),
     async submit() {
+      if (this.url === this.lastUrl) {
+        return
+      }
+
+      this.lastUrl = this.url
+
       this.error = false
       this.technologies = false
 

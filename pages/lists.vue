@@ -780,6 +780,7 @@ export default {
       },
       subset: null,
       subsetSlice: 'top',
+      updateQueryTimeout: null,
       order: false,
       orderError: '',
       ordering: false,
@@ -849,11 +850,38 @@ export default {
         })
       })
     },
+    selected: {
+      handler() {
+        this.updateQuery()
+      },
+      deep: true,
+    },
+    requiredSets: {
+      handler() {
+        this.updateQuery()
+      },
+      deep: true,
+    },
+    subset() {
+      this.updateQuery()
+    },
+    subsetSlice() {
+      this.updateQuery()
+    },
+    minAge() {
+      this.updateQuery()
+    },
+    maxAge() {
+      this.updateQuery()
+    },
+    matchAll() {
+      this.updateQuery()
+    },
   },
   async mounted() {
     const {
-      category: categorySlug,
-      technology: technologySlug,
+      categories,
+      technologies,
       attributes,
       min,
       max,
@@ -862,6 +890,7 @@ export default {
       countries,
       tlds,
       languages,
+      filters,
     } = this.$route.query
 
     if (Object.keys(this.$route.query).length) {
@@ -887,11 +916,11 @@ export default {
     }
 
     if (typeof min !== 'undefined') {
-      this.min = Math.max(0, Math.min(11, parseInt(min, 10)))
+      this.minAge = Math.max(0, Math.min(11, parseInt(min || 0, 10)))
     }
 
     if (typeof max !== 'undefined') {
-      this.maxA = Math.max(1, Math.min(12, parseInt(max, 10)))
+      this.maxAge = Math.max(1, Math.min(12, parseInt(max || 0, 10)))
     }
 
     if (typeof min !== 'undefined' || typeof max !== 'undefined') {
@@ -899,13 +928,17 @@ export default {
     }
 
     if (typeof subset !== 'undefined') {
-      this.subset = Math.max(500, parseInt(subset, 10))
+      this.subset = Math.max(500, parseInt(subset || 0, 10)) || null
 
       this.$refs.subset.toggle()
     }
 
     if (typeof traffic !== 'undefined') {
       this.subsetSlice = traffic === 'low' ? 'bottom' : 'top'
+    }
+
+    if (typeof filters !== 'undefined') {
+      this.matchAll = filters === 'and'
     }
 
     if (typeof countries !== 'undefined') {
@@ -969,9 +1002,9 @@ export default {
       }
     }
 
-    if (categorySlug || technologySlug) {
-      try {
-        if (technologySlug) {
+    try {
+      if (technologies) {
+        for (const technologySlug of technologies.split(',')) {
           const { slug, name, icon } = (
             await this.$axios.get(`technologies/${technologySlug}`)
           ).data
@@ -982,7 +1015,11 @@ export default {
             name,
             icon,
           })
-        } else if (categorySlug) {
+        }
+      }
+
+      if (categories) {
+        for (const categorySlug of categories.split(',')) {
           const { slug, name, technologies } = (
             await this.$axios.get(`categories/${categorySlug}`)
           ).data
@@ -994,9 +1031,9 @@ export default {
             technologiesCount: Object.keys(technologies).length,
           })
         }
-      } catch (error) {
-        this.error = this.getErrorMessage(error)
       }
+    } catch (error) {
+      this.error = this.getErrorMessage(error)
     }
   },
   methods: {
@@ -1057,7 +1094,7 @@ export default {
                     value,
                   })
                 ),
-                geoIps: this.selected.geoIps.map(({ value, text }) => ({
+                geoips: this.selected.geoIps.map(({ value, text }) => ({
                   value,
                   text,
                 })),
@@ -1272,6 +1309,54 @@ export default {
       }
 
       this.file = this.file.join('\n')
+    },
+    updateQuery() {
+      clearTimeout(this.updateQueryTimeout)
+
+      this.updateQueryTimeout = setTimeout(() => {
+        const attributes = Object.keys(this.requiredSets).filter(
+          (set) => this.requiredSets[set]
+        )
+
+        const query = {
+          attributes: attributes.length ? attributes.join(',') : undefined,
+          technologies: this.selected.technologies
+            .map(({ slug }) => slug)
+            .join(','),
+          categories: this.selected.categories
+            .map(({ slug }) => slug)
+            .join(','),
+          tlds: this.selected.tlds.map(({ value }) => value).join(','),
+          countries: this.selected.geoIps
+            .map(({ value }) => value)
+            .join(',')
+            .toLowerCase(),
+          languages: this.selected.languages
+            .map(({ value }) => value)
+            .join(','),
+          subset: this.subset,
+          traffic: this.subsetSlice === 'bottom' ? 'low' : undefined,
+          min: this.minAge !== 0 ? this.minAge : undefined,
+          max: this.maxAge !== 3 ? this.maxAge : undefined,
+          filters: this.matchAll ? 'and' : undefined,
+        }
+
+        this.$router.update({
+          path: this.$route.path,
+          query: Object.keys(query).reduce((filtered, key) => {
+            if (
+              typeof query[key] !== 'undefined' &&
+              query[key] !== '' &&
+              query[key] !== null &&
+              query[key].length <= 100
+            ) {
+              filtered[key] = query[key]
+            }
+
+            return filtered
+          }, {}),
+        })
+      }, 100)
     },
   },
 }
