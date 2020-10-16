@@ -1,14 +1,14 @@
 {
   "hero": {
-    "title": "Technology driven lead generation",
-    "text": "Sell and market more effectively with technographic insights. We track over a thousand technologies across websites of millions of companies to help you to identify new prospects and increase your addressable market."
+    "title": "Identify technologies on websites",
+    "text": "Find out the technology stack of any website. Create lists of websites that use certain technologies, with email addresses and phone numbers. Use our tools for lead generation, market analysis and competitor research."
   },
   "lookup": {
     "title": "Technology lookup",
     "subtitle": "Find out what websites are built with",
     "icon": "mdiLayersOutline",
     "image": "lookup.svg",
-    "text": "Instantly reveal the technology stack and contact details of any website.",
+    "text": "Instantly reveal the technology stack and contact details of any website, such as ecommerce platform, content managment system or marketing automation tools.",
     "buttons": [
       {
         "text": "Look up a website",

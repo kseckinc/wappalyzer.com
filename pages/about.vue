@@ -28,7 +28,7 @@
         Frequently asked questions
       </v-btn>
 
-      <h2 class="text-h2 mt-8 mb-2">Get in touch</h2>
+      <h3 class="text-h3 mt-8 mb-2">Get in touch</h3>
 
       <p>
         We love to hear from you. If you have any comments, questions or

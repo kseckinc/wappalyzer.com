@@ -2,7 +2,7 @@
   <div>
     <v-main>
       <Hero
-        v-if="hero && !secure"
+        v-if="hero"
         :title="hero.title || meta.title"
         :subtitle="hero.subtitle || meta.text"
       />
@@ -151,7 +151,7 @@ export default {
     },
     hero: {
       type: [Object, Boolean],
-      default: true,
+      default: false,
     },
     secure: {
       type: Boolean,

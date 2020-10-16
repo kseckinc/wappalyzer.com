@@ -1,7 +1,13 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <div>
-    <Page :title="title" :crumbs="false" no-head>
+    <Page
+      :title="title"
+      :seo-title="seotitle"
+      :crumbs="false"
+      :hero="true"
+      no-head
+    >
       <template v-for="(section, index) in sections">
         <v-divider
           v-if="index"
@@ -106,6 +112,7 @@ export default {
   data() {
     return {
       title: meta.hero.title,
+      seotitle: 'Technology lookup',
       mdi: {
         mdiCheck,
         mdiLayersOutline,
@@ -129,7 +136,8 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: meta.hero.text,
+          content:
+            'Create lists of websites and contacts that use certain technologies, such as ecommerce platform, CMS or CRM.',
         },
       ],
     }

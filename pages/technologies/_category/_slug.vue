@@ -10,7 +10,7 @@
         } with email addresses, phone numbers and LinkedIn profiles.`,
       }"
       no-head
-      hero
+      :hero="false"
     >
       <v-row>
         <v-col cols="12" lg="9" class="py-0">
@@ -82,24 +82,33 @@
             </v-btn>
           </template>
           <template v-else>
-            <p v-if="technology.description">
+            <p v-if="technology.description" class="mb-8">
               {{ technology.description }}
             </p>
 
-            <p class="mb-8">
-              Create a list of
-              {{ formatNumber(technology.hostnames, true) }}
-              <nuxt-link :to="`/lists/?technologies=${slug}`">
-                {{ technology.name }} websites</nuxt-link
+            <v-alert color="primary" outlined>
+              <p>
+                Create a list of
+                {{ formatNumber(technology.hostnames, true) }}
+                <nuxt-link
+                  class="primary--text"
+                  :to="`/lists/?technologies=${slug}`"
+                >
+                  {{ technology.name }} websites</nuxt-link
+                >
+                with email addresses and phone numbers.
+              </p>
+
+              <v-btn
+                :to="`/lists/?technologies=${slug}`"
+                color="primary"
+                depressed
               >
-              with email addresses and phone numbers.
-            </p>
+                <v-icon left>{{ mdiFilterVariant }}</v-icon> Create a lead list
+              </v-btn>
+            </v-alert>
 
-            <v-btn :to="`/lists/?technologies=${slug}`" color="accent" outlined>
-              <v-icon left>{{ mdiFilterVariant }}</v-icon> Create a lead list
-            </v-btn>
-
-            <v-divider class="mt-16 mb-12" />
+            <v-divider class="mt-12 mb-8" />
 
             <h2 class="mb-2">
               <v-row class="align-center px-3">
@@ -251,7 +260,7 @@
               </v-expansion-panel>
             </v-expansion-panels>
 
-            <p class="mb-10">
+            <p class="mb-8">
               <small>
                 Get the full list of
                 <nuxt-link :to="`/lists/?technologies=${slug}`"
@@ -296,7 +305,7 @@
               </small>
             </p>
 
-            <v-divider class="my-12" />
+            <v-divider class="my-8" />
 
             <h2 class="mb-2">
               <v-row class="align-center px-3">
@@ -321,7 +330,7 @@
               </v-card-text>
             </v-card>
 
-            <v-divider class="mt-14 mb-12" />
+            <v-divider class="mt-12 mb-8" />
 
             <h2 class="mb-2">
               <v-row class="align-center px-3">
@@ -335,7 +344,7 @@
               {{ technology.name }} websites.
             </p>
 
-            <v-row class="mb-16">
+            <v-row class="mb-12">
               <v-col cols="12" md="6" class="py-0">
                 <v-card>
                   <v-card-title class="subtitle-2">Countries</v-card-title>
@@ -363,7 +372,7 @@
               </v-col>
             </v-row>
 
-            <v-divider class="my-12" />
+            <v-divider class="my-8" />
 
             <h2 class="mb-2">
               <v-row class="align-center px-3">
@@ -442,7 +451,7 @@
           </template>
         </v-col>
         <v-col cols="12" lg="3" class="py-0">
-          <v-divider class="mt-4 mb-12 d-lg-none" />
+          <v-divider class="mt-4 mb-8 d-lg-none" />
 
           <h2 class="mb-2">User reviews</h2>
 
