@@ -274,73 +274,12 @@
               <v-card-text class="px-0">
                 <v-simple-table dense>
                   <tbody>
-                    <tr>
+                    <tr v-for="{ text, to } in reports" :key="to">
                       <td>
-                        <nuxt-link
-                          :to="`/lists/?technologies=${slug}&countries=us`"
-                          >{{ technology.name }} websites in the United
-                          States</nuxt-link
-                        >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <nuxt-link
-                          :to="`/lists/?technologies=${slug}&countries=gb&tlds=.uk`"
-                          >{{ technology.name }} websites in the United
-                          Kindom</nuxt-link
-                        >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <nuxt-link
-                          :to="`/lists/?technologies=${slug}&attributes=email,phone`"
-                          >Email addresses and phone numbers of
-                          {{ technology.name }} customers
+                        <nuxt-link :to="to">
+                          <v-icon left small>{{ mdiFileTableOutline }}</v-icon
+                          >{{ text }}
                         </nuxt-link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <nuxt-link
-                          :to="`/lists/?technologies=${slug}&tlds=.com`"
-                        >
-                          {{ technology.name }} websites with a .com
-                          domain</nuxt-link
-                        >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <nuxt-link
-                          :to="`/lists/?technologies=${slug}&subset=5000`"
-                          >Top 5,000 most visited
-                          {{ technology.name }} websites</nuxt-link
-                        >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <nuxt-link
-                          :to="`/lists/?technologies=${slug}&subset=5000&traffic=low`"
-                          >5,000 low-traffic
-                          {{ technology.name }} websites</nuxt-link
-                        >
-                      </td>
-                    </tr>
-                    <tr
-                      v-for="category in technology.categories"
-                      :key="category.slug"
-                    >
-                      <td>
-                        <nuxt-link
-                          :to="
-                            (`/lists/?categories=${category.slug}&subset=500`)
-                          "
-                          >Top 500 websites for every technology in the category
-                          {{ category.name }}</nuxt-link
-                        >
                       </td>
                     </tr>
                   </tbody>
@@ -642,6 +581,7 @@ import {
   mdiFountainPenTip,
   mdiCheck,
   mdiClose,
+  mdiFileTableOutline,
 } from '@mdi/js'
 import { GChart } from 'vue-google-charts'
 
@@ -745,6 +685,7 @@ export default {
       mdiFountainPenTip,
       mdiCheck,
       mdiClose,
+      mdiFileTableOutline,
       review: {
         rating: 0,
         text: '',
@@ -958,6 +899,40 @@ export default {
           return [date, hostnames, hits]
         }),
       ]
+    },
+    reports() {
+      return this.technology
+        ? [
+            {
+              text: `${this.technology.name} websites in the United States`,
+              to: `/lists/?technologies=${this.slug}&countries=us`,
+            },
+            {
+              text: `${this.technology.name} websites in the United Kindom`,
+              to: `/lists/?technologies=${this.slug}&countries=gb&tlds=.uk`,
+            },
+            {
+              text: `Email addresses and phone numbers of ${this.technology.name} customers`,
+              to: `/lists/?technologies=${this.slug}&attributes=email,phone`,
+            },
+            {
+              text: `${this.technology.name} websites with a .com domain`,
+              to: `/lists/?technologies=${this.slug}&tlds=.com`,
+            },
+            {
+              text: `Top 5,000 most visited ${this.technology.name} websites`,
+              to: `/lists/?technologies=${this.slug}&subset=5000`,
+            },
+            {
+              text: `5,000 low-traffic ${this.technology.name} websites`,
+              to: `/lists/?technologies=${this.slug}&subset=5000&traffic=low`,
+            },
+            ...this.technology.categories.map(({ name, slug }) => ({
+              text: `Top 500 websites for every technology in the category ${name}`,
+              to: `/lists/?categories=${slug}&subset=500`,
+            })),
+          ]
+        : []
     },
   },
   watch: {
