@@ -1334,14 +1334,14 @@ export default {
           languages: this.selected.languages
             .map(({ value }) => value)
             .join(','),
-          subset: this.subset,
+          subset: this.subset.toString(),
           traffic: this.subsetSlice === 'bottom' ? 'low' : undefined,
-          min: this.minAge !== 0 ? this.minAge : undefined,
-          max: this.maxAge !== 3 ? this.maxAge : undefined,
+          min: this.minAge !== 0 ? this.minAge.toString() : undefined,
+          max: this.maxAge !== 3 ? this.maxAge.toString() : undefined,
           filters: this.matchAll ? 'and' : undefined,
         }
 
-        this.$router.update({
+        this.$router.replace({
           path: this.$route.path,
           query: Object.keys(query).reduce((filtered, key) => {
             if (
