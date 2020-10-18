@@ -6,7 +6,7 @@
       <v-container class="px-0">
         <v-row class="text-left justify-space-between">
           <template v-for="{ to, title, items: _items } in mainNav">
-            <v-col :key="title" cols="12" sm="6" md="auto" lg="3">
+            <v-col :key="title" cols="12" sm="6" md="auto" lg="2">
               <v-list subheader>
                 <v-subheader class="subtitle-2">
                   {{ title }}
@@ -20,15 +20,15 @@
                     :target="_to.match(/^http/) ? '_blank' : '_self'"
                     :to="_to.match(/^http/) ? null : _to"
                     :rel="_to.match(/^http/) ? `noopener noreferrer` : ''"
-                    nuxt
+                    dense
                   >
-                    <v-list-item-title class="body-2">
+                    <v-list-item-title class="font-weight-regular">
                       {{ _title }}
                     </v-list-item-title>
                   </v-list-item>
                 </template>
-                <v-list-item v-else :to="to" color="primary" nuxt>
-                  <v-list-item-title class="body-2">
+                <v-list-item v-else :to="to" color="primary" dense>
+                  <v-list-item-title class="font-weight-regular">
                     {{ title }}
                   </v-list-item-title>
                 </v-list-item>

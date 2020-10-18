@@ -2,7 +2,7 @@
   <v-app light>
     <v-main>
       <Header
-        :main-nav="mainNav"
+        :main-nav="mainNav.filter(({ header }) => header !== false)"
         :user-nav="userNav"
         @openDrawer="$refs.drawer.open()"
       />

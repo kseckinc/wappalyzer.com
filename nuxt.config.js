@@ -36,6 +36,21 @@ const publicRuntimeConfig = {
 export default {
   mode: 'universal',
   target: 'static',
+  router: {
+    scrollBehavior(to) {
+      if (to.hash) {
+        setTimeout(() => {
+          const el = document.querySelector(to.hash)
+
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' })
+          }
+        }, 100)
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+    },
+  },
   generate: {
     // crawler: false,
     fallback: '200.html',

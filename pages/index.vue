@@ -8,6 +8,10 @@
       :hero="true"
       no-head
     >
+      <UseCases />
+
+      <v-divider class="my-4 my-sm-6" />
+
       <template v-for="(section, index) in sections">
         <v-divider
           v-if="index"
@@ -97,10 +101,12 @@ import {
   mdiBullhorn,
   mdiPuzzle,
   mdiDownload,
+  mdiAccountMultiple,
 } from '@mdi/js'
 import Logos from '~/components/Logos.vue'
 import Page from '~/components/Page.vue'
 import ProductImage from '~/components/ProductImage.vue'
+import UseCases from '~/components/UseCases.vue'
 import meta from '~/assets/json/meta.json'
 
 export default {
@@ -108,6 +114,7 @@ export default {
     Logos,
     Page,
     ProductImage,
+    UseCases,
   },
   data() {
     return {
@@ -126,6 +133,7 @@ export default {
         mdiBullhorn,
         mdiPuzzle,
         mdiDownload,
+        mdiAccountMultiple,
       },
       sections: Object.values(meta).filter((meta) => meta.feature),
     }

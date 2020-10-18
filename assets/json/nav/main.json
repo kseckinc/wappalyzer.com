@@ -35,6 +35,32 @@
     ]
   },
   {
+    "title": "Use cases",
+    "header": false,
+    "items": [
+      {
+        "title": "Lead generation",
+        "to": "/use-cases#lead-generation"
+      },
+      {
+        "title": "Market research",
+        "to": "/use-cases/#market-research"
+      },
+      {
+        "title": "Competitor analysis",
+        "to": "/use-cases/#competitor-analysis"
+      },
+      {
+        "title": "Data enrichment",
+        "to": "/use-cases/#data-enrichment"
+      },
+      {
+        "title": "Security recon",
+        "to": "/use-cases/#security-recon"
+      }
+    ]
+  },
+  {
     "title": "Pricing",
     "to": "/pricing/"
   },
