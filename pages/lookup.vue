@@ -280,8 +280,6 @@ export default {
 
     if (this.url) {
       this.$router.replace({ path: this.$route.path })
-
-      this.scrollTo('h1')
     }
 
     this.$refs.input.focus()
@@ -289,13 +287,13 @@ export default {
     if (this.$store.state.user.isSignedIn) {
       try {
         await this.getCredits()
-
-        if (this.url) {
-          this.$nextTick(() => this.submit())
-        }
       } catch (error) {
         this.error = this.getErrorMessage(error)
       }
+    }
+
+    if (this.url) {
+      this.$nextTick(() => this.submit())
     }
   },
   methods: {
@@ -303,7 +301,7 @@ export default {
       getCredits: 'credits/get',
     }),
     async submit() {
-      if (this.url === this.lastUrl) {
+      if (this.url === this.lastUrl && (this.technologies || this.error)) {
         return
       }
 

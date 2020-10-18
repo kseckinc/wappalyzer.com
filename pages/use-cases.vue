@@ -41,7 +41,7 @@
 
             <ul class="body-2 mb-4">
               <li>
-                <nuxt-link to="/articles/what-is-technographics.vue"
+                <nuxt-link to="/articles/what-is-technographics/"
                   >What is technographics?</nuxt-link
                 >
               </li>
@@ -93,7 +93,7 @@
             <ul class="body-2 mb-4">
               <li>
                 <nuxt-link
-                  to="/articles/http-archive-uses-wappalyzer-to-track-the-state-of-the-web.vue/"
+                  to="/articles/http-archive-uses-wappalyzer-to-track-the-state-of-the-web/"
                 >
                   HTTP Archive uses Wappalyzer to track the state of the web
                 </nuxt-link>

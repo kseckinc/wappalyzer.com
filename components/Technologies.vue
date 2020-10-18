@@ -5,7 +5,11 @@
       v-model="selection"
       :items="results"
       class="mb-4"
-      label="Find a technology"
+      :label="
+        acceptUrl
+          ? 'Enter a website address or technology name'
+          : 'Find a technology'
+      "
       item-value="slug"
       hide-details="auto"
       return-object
@@ -20,12 +24,15 @@
             v-model="query"
             :loading="loading"
             :error-messages="errors"
-            class="mx-4"
+            class="pt-0 mx-4"
             :placeholder="
-              noCategories ? `E.g. Shopify` : `E.g. 'CMS' or 'Shopify'`
+              noCategories
+                ? `E.g. Shopify`
+                : acceptUrl
+                ? `E.g. https://example.com, ecommerce or Shopify`
+                : `E.g. ecommerce or Shopify`
             "
             :append-icon="mdiMagnify"
-            label="Search"
             required
             hide-details="auto"
             @click:append="search"
@@ -55,9 +62,7 @@
       </template>
 
       <template v-slot:no-data>
-        <v-list-item class="body-2">
-          Enter a search term.
-        </v-list-item>
+        <div />
       </template>
     </v-select>
   </div>
@@ -74,6 +79,10 @@ export default {
   },
   props: {
     noCategories: {
+      type: Boolean,
+      default: false,
+    },
+    acceptUrl: {
       type: Boolean,
       default: false,
     },
@@ -109,6 +118,12 @@ export default {
   watch: {
     query(query) {
       if (query.length >= 3) {
+        if (this.acceptUrl) {
+          if (query.startsWith('htt') || query.startsWith('www')) {
+            return
+          }
+        }
+
         clearTimeout(this.searchTimeout)
 
         this.searchTimeout = setTimeout(() => this.search(), 300)
@@ -125,6 +140,18 @@ export default {
         this.errors = ['Please enter at least three characters']
 
         return
+      }
+
+      if (this.acceptUrl) {
+        if (this.query.startsWith('www.')) {
+          this.query = `http://${this.query}`
+        }
+
+        if (this.query.startsWith('http')) {
+          this.$emit('select', this.query)
+
+          return
+        }
       }
 
       this.loading = true

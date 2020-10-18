@@ -9,13 +9,7 @@
     "icon": "mdiLayersOutline",
     "image": "lookup.svg",
     "text": "Instantly reveal the technology stack and contact details of any website, such as ecommerce platform, content managment system or marketing automation tools.",
-    "buttons": [
-      {
-        "text": "Look up a website",
-        "to": "/lookup/",
-        "icon": "mdiMagnify"
-      }
-    ],
+    "search": true,
     "features": ["Instant results", "Look up any website", "50 Free monthly lookups"],
     "feature": true
   },
