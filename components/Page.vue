@@ -22,6 +22,8 @@
 
       <Crumbs v-if="crumbs" :crumbs="crumbNav" />
 
+      <slot name="header" />
+
       <v-container class="py-10 py-sm-12">
         <SignIn v-if="secure && !isSignedIn" class="px-2" mode-continue />
         <v-row v-else-if="sideNav.length">

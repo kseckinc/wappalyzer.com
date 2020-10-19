@@ -1,21 +1,27 @@
 <template>
   <v-row class="mb-8" justify="center" justify-md="space-between">
     <v-col
-      v-for="feature in features"
-      :key="feature.text"
+      v-for="(useCase, index) in useCases"
+      :key="useCase.text"
       align="center"
       cols="6"
       sm="4"
       md="auto"
     >
-      <nuxt-link class="primary--text" :to="feature.to">
+      <nuxt-link class="primary--text" :to="useCase.to">
         <div class="mb-2">
-          <v-avatar color="secondary" size="64" class="elevation-2">
-            <v-icon color="primary" large>{{ feature.icon }}</v-icon>
+          <v-avatar
+            :color="active === index + 1 ? 'primary' : 'secondary'"
+            size="64"
+            class="elevation-2"
+          >
+            <v-icon :color="active === index + 1 ? 'white' : 'primary'" large>{{
+              useCase.icon
+            }}</v-icon>
           </v-avatar>
         </div>
         <div class="caption font-weight-medium">
-          {{ feature.text }}
+          {{ useCase.text }}
         </div>
       </nuxt-link>
     </v-col>
@@ -32,33 +38,39 @@ import {
 } from '@mdi/js'
 
 export default {
+  props: {
+    active: {
+      type: Number,
+      default: null,
+    },
+  },
   data() {
     return {
-      features: [
+      useCases: [
         {
           text: 'Lead generation',
           icon: mdiAccountMultiple,
-          to: '/use-cases#lead-generation',
+          to: '/lead-generation',
         },
         {
           text: 'Market research',
           icon: mdiChartDonut,
-          to: '/use-cases/#market-research',
+          to: '/market-research',
         },
         {
           text: 'Competitor analysis',
           icon: mdiChartBoxOutline,
-          to: '/use-cases/#competitor-analysis',
+          to: '/competitor-analysis',
         },
         {
           text: 'Data enrichment',
           icon: mdiFileTableOutline,
-          to: '/use-cases/#data-enrichment',
+          to: '/data-enrichment',
         },
         {
           text: 'Security recon',
           icon: mdiSecurity,
-          to: '/use-cases/#security-recon',
+          to: '/security-recon',
         },
       ],
     }

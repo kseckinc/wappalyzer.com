@@ -10,7 +10,7 @@
         </v-col>
       </v-row>
     </v-col>
-    <v-col cols="12" sm="8" lg="6">
+    <v-col cols="12" sm="8">
       <v-responsive height="30" class="d-flex align-center mb-2">
         <v-icon color="primary" left>{{ mdi[product.icon] }}</v-icon>
 
@@ -28,6 +28,7 @@
         v-if="product.search"
         class="mt-n4"
         accept-url
+        style="max-width: 500px;"
         @select="select"
       />
       <v-btn
@@ -40,6 +41,7 @@
         :outlined="button.secondary"
         color="primary"
         class="mb-2 mr-2"
+        large
         >{{ button.text }}
         <v-icon right>{{ mdi[button.icon] }}</v-icon>
       </v-btn>

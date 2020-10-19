@@ -40,23 +40,23 @@
     "items": [
       {
         "title": "Lead generation",
-        "to": "/use-cases#lead-generation"
+        "to": "/lead-generation"
       },
       {
         "title": "Market research",
-        "to": "/use-cases/#market-research"
+        "to": "/market-research"
       },
       {
         "title": "Competitor analysis",
-        "to": "/use-cases/#competitor-analysis"
+        "to": "/competitor-analysis"
       },
       {
         "title": "Data enrichment",
-        "to": "/use-cases/#data-enrichment"
+        "to": "/data-enrichment"
       },
       {
         "title": "Security recon",
-        "to": "/use-cases/#security-recon"
+        "to": "/security-recon"
       }
     ]
   },
