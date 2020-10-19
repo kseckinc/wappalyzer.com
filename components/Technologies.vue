@@ -188,7 +188,9 @@ export default {
     focus() {
       this.$nextTick(() => {
         setTimeout(() => {
-          this.$refs.search.$el.querySelector('input').focus()
+          if (this.$refs.search) {
+            this.$refs.search.$el.querySelector('input').focus()
+          }
         }, 300)
       })
     },

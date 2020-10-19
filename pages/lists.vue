@@ -1094,7 +1094,7 @@ export default {
                     value,
                   })
                 ),
-                geoips: this.selected.geoIps.map(({ value, text }) => ({
+                geoIps: this.selected.geoIps.map(({ value, text }) => ({
                   value,
                   text,
                 })),
