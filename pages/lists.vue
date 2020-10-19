@@ -1334,7 +1334,7 @@ export default {
           languages: this.selected.languages
             .map(({ value }) => value)
             .join(','),
-          subset: this.subset.toString(),
+          subset: this.subset ? this.subset.toString() : undefined,
           traffic: this.subsetSlice === 'bottom' ? 'low' : undefined,
           min: this.minAge !== 0 ? this.minAge.toString() : undefined,
           max: this.maxAge !== 3 ? this.maxAge.toString() : undefined,
