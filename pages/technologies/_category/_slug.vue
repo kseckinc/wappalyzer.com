@@ -128,8 +128,8 @@
                 :key="hostname"
               >
                 <v-expansion-panel-header>
-                  <v-row>
-                    <v-col class="py-0">
+                  <v-row align="center">
+                    <v-col class="py-0" cols="12" md="6">
                       {{ hostname }}
 
                       <a
@@ -143,12 +143,12 @@
                         }}</v-icon></a
                       >
                     </v-col>
-                    <v-col class="py-0">
+                    <v-col class="py-0" cols="12" md="6">
                       <Bar
                         :value="attributes.hits"
                         :max="maxHits"
                         :total="technology.hits"
-                        class="mr-4"
+                        class="mt-2 mt-md-0 mr-4"
                       />
                     </v-col>
                   </v-row>
