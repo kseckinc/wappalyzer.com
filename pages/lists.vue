@@ -1356,7 +1356,7 @@ export default {
             return filtered
           }, {}),
         })
-      }, 100)
+      }, 101)
     },
   },
 }
