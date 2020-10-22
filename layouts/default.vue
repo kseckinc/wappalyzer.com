@@ -93,7 +93,7 @@ export default {
         return
       }
 
-      window.$crisp = [['safe', true]]
+      window.$crisp = []
       window.CRISP_WEBSITE_ID = 'f2002ef6-c76c-4d05-9eb3-f67d7cb1cb68'
 
       const script = document.createElement('script')
@@ -102,6 +102,8 @@ export default {
       script.async = 1
 
       document.getElementsByTagName('head')[0].appendChild(script)
+
+      $crisp.push(['safe', true])
 
       this.checkChat()
     },
