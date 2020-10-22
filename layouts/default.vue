@@ -17,7 +17,7 @@
 </template>
 
 <script>
-/* globals drift */
+/* globals $crisp */
 
 import { mapState, mapActions } from 'vuex'
 
@@ -26,23 +26,6 @@ import Footer from '~/components/Footer.vue'
 import Drawer from '~/components/Drawer.vue'
 import mainNav from '~/assets/json/nav/main.json'
 import userNav from '~/assets/json/nav/user.json'
-
-const driftRoutes = {
-  '/about': null,
-  '/account': null,
-  '/apikey': null,
-  '/api': `Hi there! Please let me know if you have any questions about our APIs.`,
-  '/bulk': `Hi there! Please let me know if you have any questions about bulk lookups.`,
-  '/contact': `Hi there! Please let me know if you have any questions and I'll be happy to help.`,
-  '/lists': `Hi there! Please let me know if you have any questions about our lead lists.`,
-  '/pricing': `Hi there! Please let me know if you have any questions about our plans and pricing.`,
-  '/docs': null,
-  '/faq': null,
-  '/invoices': null,
-  '/orders': null,
-  '/paymentmethods': null,
-  '/subscriptions': null,
-}
 
 export default {
   components: {
@@ -53,9 +36,6 @@ export default {
   data() {
     return {
       mainNav,
-      driftShown: false,
-      driftApi: null,
-      driftIsOnline: false,
     }
   },
   computed: {
@@ -86,11 +66,11 @@ export default {
       }
     },
     $route() {
-      this.checkDrift()
+      this.checkChat()
     },
   },
   mounted() {
-    this.checkDrift()
+    this.initChat()
 
     if (!this.isSignedIn) {
       this.updateUserAttrs()
@@ -102,124 +82,62 @@ export default {
       getOrganisations: 'organisations/get',
       getCredits: 'credits/get',
     }),
-    initDrift() {
-      if (
-        typeof window === 'undefined' ||
-        process.env.NODE_ENV === 'development'
-      ) {
+    initChat() {
+      if (typeof $crisp !== 'undefined') {
         return
       }
 
-      if (!window.drift) {
-        return new Promise((resolve) => {
-          const t = (window.driftt = window.drift = window.driftt || [])
-
-          t.invoked = true
-
-          t.methods = [
-            'identify',
-            'config',
-            'track',
-            'reset',
-            'debug',
-            'show',
-            'ping',
-            'page',
-            'hide',
-            'off',
-            'on',
-          ]
-
-          t.factory = function (e) {
-            return function () {
-              const n = Array.prototype.slice.call(arguments)
-              n.unshift(e)
-              t.push(n)
-              return t
-            }
-          }
-
-          t.methods.forEach(function (e) {
-            t[e] = t.factory(e)
-          })
-
-          t.load = function (t) {
-            const e = 3e5
-            const n = Math.ceil(new Date() / e) * e
-            const o = document.createElement('script')
-
-            o.type = 'text/javascript'
-            o.async = !0
-            o.crossorigin = 'anonymous'
-            o.src = 'https://js.driftt.com/include/' + n + '/' + t + '.js'
-
-            const i = document.getElementsByTagName('script')[0]
-
-            i.parentNode.insertBefore(o, i)
-          }
-
-          drift.SNIPPET_VERSION = '0.3.1'
-          drift.load('w7g5ksst75mb')
-
-          drift.on('ready', (api, { isOnline }) => {
-            this.driftApi = api
-            this.driftOnline = isOnline
-
-            resolve()
-          })
-        })
-      }
-    },
-    async checkDrift() {
       const offset = new Date().getTimezoneOffset()
 
       if (offset >= 330 && offset <= 360) {
         return
       }
 
-      const path = Object.keys(driftRoutes).find((path) =>
-        this.$route.path.startsWith(path)
-      )
+      window.$crisp = [['safe', true]]
+      window.CRISP_WEBSITE_ID = 'f2002ef6-c76c-4d05-9eb3-f67d7cb1cb68'
 
-      if (!path) {
-        if (this.driftApi) {
-          this.driftApi.hideWelcomeMessage()
+      const script = document.createElement('script')
 
-          setTimeout(() => this.driftApi.widget.hide(), 100)
-        }
+      script.src = 'https://client.crisp.chat/l.js'
+      script.async = 1
 
+      document.getElementsByTagName('head')[0].appendChild(script)
+
+      this.checkChat()
+    },
+    async checkChat() {
+      if (typeof $crisp === 'undefined') {
         return
       }
 
-      if (!this.driftApi) {
-        await this.initDrift()
-
-        if (!this.driftApi) {
-          return
-        }
-      }
-
-      if (this.user.sub) {
-        drift.identify(this.user.sub, {
-          email: this.user.email || '',
-          nickname: this.user.name || this.user.email || '',
-          userId: this.user.sub,
-        })
-      }
-
-      if (driftRoutes[path] && (!this.driftShown || path === '/contact')) {
-        this.driftApi.showWelcomeMessage(
-          `${driftRoutes[path]}${
-            !this.driftOnline
-              ? ` I'm away right now but leave message I'll get back to you soon.`
-              : ''
-          }`
+      if (!$crisp.is) {
+        await new Promise((resolve) =>
+          $crisp.push(['on', 'session:loaded', () => resolve()])
         )
+      }
 
-        this.driftShown = true
-      } else {
-        this.driftApi.hideWelcomeMessage()
-        this.driftApi.widget.show()
+      if (this.isSignedIn) {
+        $crisp.push(['set', 'user:email', [this.user.email]])
+        $crisp.push(['set', 'user:nickname', [this.user.name]])
+        $crisp.push(['set', 'user:company', [this.user.billingName]])
+      }
+
+      if (
+        [
+          '/lists/',
+          '/bulk/',
+          '/api/',
+          '/contact/',
+          '/faq/',
+          '/pricing/',
+          '/orders/',
+        ].some((path) => this.$route.path.startsWith(path))
+      ) {
+        if ($crisp.is('chat:hidden')) {
+          $crisp.push(['do', 'chat:show'])
+        }
+      } else if ($crisp.is('chat:visible') && !$crisp.is('chat:opened')) {
+        $crisp.do('chat:hide')
       }
     },
   },

@@ -50,27 +50,27 @@ export default {
         {
           text: 'Lead generation',
           icon: mdiAccountMultiple,
-          to: '/lead-generation',
+          to: '/lead-generation/',
         },
         {
           text: 'Market research',
           icon: mdiChartDonut,
-          to: '/market-research',
+          to: '/market-research/',
         },
         {
           text: 'Competitor analysis',
           icon: mdiChartBoxOutline,
-          to: '/competitor-analysis',
+          to: '/competitor-analysis/',
         },
         {
           text: 'Data enrichment',
           icon: mdiFileTableOutline,
-          to: '/data-enrichment',
+          to: '/data-enrichment/',
         },
         {
           text: 'Security recon',
           icon: mdiSecurity,
-          to: '/security-recon',
+          to: '/security-recon/',
         },
       ],
     }
