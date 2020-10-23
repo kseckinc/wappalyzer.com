@@ -3,7 +3,12 @@
     <v-card-text>
       <v-row>
         <v-col cols="3">
-          <v-avatar width="100%" height="auto">
+          <v-avatar
+            width="100%"
+            height="auto"
+            max-width="100"
+            class="elevation-2"
+          >
             <v-img :src="image" :alt="name" />
           </v-avatar>
         </v-col>

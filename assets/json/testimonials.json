@@ -6,15 +6,21 @@
     "text": "Wappalyzer has proven to be a great tool to help us break down the aggregate analysis of how the web is doing by various technologies."
   },
   {
-    "name": "Rick Viscomi",
-    "role": "Senior Developer Relations Engineer at Google",
-    "image": "/images/testimonials/rick-viscomi.jpg",
-    "text": "Wappalyzer has been such a useful part of the HTTP Archive dataset. It's enabled us to slice the data in new ways and discover more interesting insights about the state of the web."
+    "name": "Thomas Alibert",
+    "role": "Growth Engineer at PayFit",
+    "image": "/images/testimonials/thomas-alibert.png",
+    "text": "These days you need advanced marketing tools to stand out from the competition. Wappalyzer help us do just that."
   },
   {
     "name": "Patrick Meenan",
     "role": "Engineering Fellow at Catchpoint",
     "image": "/images/testimonials/patrick-meenan.jpg",
     "text": "Wappalyzer has been hugely valuable to slice performance data by the various detected applications at WebPageTest.org."
+  },
+  {
+    "name": "Rick Viscomi",
+    "role": "Senior Developer Relations Engineer at Google",
+    "image": "/images/testimonials/rick-viscomi.jpg",
+    "text": "Wappalyzer has been such a useful part of the HTTP Archive dataset. It's enabled us to slice the data in new ways and discover more interesting insights about the state of the web."
   }
 ]
