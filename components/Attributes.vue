@@ -1,0 +1,127 @@
+<template>
+  <div v-if="Object.keys(attributes).length" style="width: 100%;">
+    <v-expansion-panel v-for="(set, setKey) in attributes" :key="setKey" flat>
+      <v-expansion-panel-header class="subtitle-2" style="line-height: 1em;"
+        >{{ set.title }}
+        <span class="ml-1 text--disabled"
+          >({{
+            Object.values(set.attributes).reduce(
+              (total, { values }) => total + values.length,
+              0
+            )
+          }})</span
+        ></v-expansion-panel-header
+      >
+      <v-expansion-panel-content class="nopadding">
+        <v-simple-table>
+          <tbody>
+            <tr
+              v-for="(attribute, attributeKey) in set.attributes"
+              :key="attributeKey"
+            >
+              <th
+                v-if="!['email', 'phone'].includes(attributeKey)"
+                class="pl-6"
+                width="30%"
+              >
+                {{ attribute.title }}
+              </th>
+              <td class="pr-6">
+                <v-chip-group
+                  v-if="
+                    ['email', 'phone'].includes(attributeKey) ||
+                    setKey === 'social'
+                  "
+                >
+                  <div v-for="(value, index) in attribute.values" :key="index">
+                    <v-chip
+                      v-if="attributeKey === 'email'"
+                      :href="`mailto:${value.text}`"
+                      color="accent"
+                      small
+                      outlined
+                    >
+                      {{ value.text }}
+                    </v-chip>
+                    <v-chip
+                      v-else-if="attributeKey === 'phone'"
+                      :href="`tel:${value.text}`"
+                      color="accent"
+                      small
+                      outlined
+                    >
+                      {{ value.text }}
+                    </v-chip>
+                    <v-chip
+                      v-else-if="value.to"
+                      :href="value.to"
+                      rel="nofollow noopener"
+                      target="_blank"
+                      color="accent"
+                      small
+                      outlined
+                      >{{ value.text }}</v-chip
+                    >
+                  </div>
+                </v-chip-group>
+                <template v-else>
+                  <div v-for="(value, index) in attribute.values" :key="index">
+                    <v-icon v-if="value.text === true" color="success" small>{{
+                      mdiCheck
+                    }}</v-icon>
+                    <v-icon
+                      v-else-if="value.text === false"
+                      color="error"
+                      small
+                      >{{ mdiClose }}</v-icon
+                    >
+                    <div v-else class="my-2">
+                      {{ value.text }}
+                    </div>
+                  </div>
+                </template>
+              </td>
+            </tr>
+          </tbody>
+        </v-simple-table>
+      </v-expansion-panel-content>
+    </v-expansion-panel>
+  </div>
+</template>
+
+<script>
+import { mdiCheck, mdiClose } from '@mdi/js'
+
+export default {
+  props: {
+    hostname: {
+      type: Object,
+      default() {
+        return {}
+      },
+    },
+  },
+  data() {
+    return {
+      mdiCheck,
+      mdiClose,
+    }
+  },
+  computed: {
+    attributes() {
+      return this.transformAttributes(
+        ['locale', 'email', 'phone', 'social', 'meta'],
+        this.hostname
+      )
+    },
+  },
+}
+</script>
+
+<style>
+.nopadding .v-expansion-panel-content__wrap {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+}
+</style>

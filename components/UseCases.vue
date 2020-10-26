@@ -8,8 +8,8 @@
       sm="4"
       md="auto"
     >
-      <nuxt-link class="primary--text" :to="useCase.to">
-        <div class="mb-2">
+      <nuxt-link class="primary--text text-decoration-none" :to="useCase.to">
+        <div class="mb-3">
           <v-avatar
             :color="active === index + 1 ? 'primary' : 'secondary'"
             size="64"
@@ -20,7 +20,7 @@
             }}</v-icon>
           </v-avatar>
         </div>
-        <div class="caption font-weight-medium">
+        <div class="caption text-uppercase font-weight-medium">
           {{ useCase.text }}
         </div>
       </nuxt-link>

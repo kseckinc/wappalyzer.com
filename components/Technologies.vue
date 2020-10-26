@@ -5,11 +5,7 @@
       v-model="selection"
       :items="results"
       class="mb-4"
-      :label="
-        acceptUrl
-          ? 'Enter a website address or technology name'
-          : 'Find a technology'
-      "
+      label="Find a technology"
       item-value="slug"
       hide-details="auto"
       return-object
@@ -26,11 +22,7 @@
             :error-messages="errors"
             class="pt-0 mx-4"
             :placeholder="
-              noCategories
-                ? `E.g. Shopify`
-                : acceptUrl
-                ? `E.g. https://example.com, ecommerce or Shopify`
-                : `E.g. ecommerce or Shopify`
+              noCategories ? `E.g. Shopify` : `E.g. ecommerce or Shopify`
             "
             :append-icon="mdiMagnify"
             required
@@ -82,10 +74,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    acceptUrl: {
-      type: Boolean,
-      default: false,
-    },
   },
   data() {
     return {
@@ -118,12 +106,6 @@ export default {
   watch: {
     query(query) {
       if (query.length >= 3) {
-        if (this.acceptUrl) {
-          if (query.startsWith('htt') || query.startsWith('www')) {
-            return
-          }
-        }
-
         clearTimeout(this.searchTimeout)
 
         this.searchTimeout = setTimeout(() => this.search(), 300)
@@ -140,18 +122,6 @@ export default {
         this.errors = ['Please enter at least three characters']
 
         return
-      }
-
-      if (this.acceptUrl) {
-        if (this.query.startsWith('www.')) {
-          this.query = `http://${this.query}`
-        }
-
-        if (this.query.startsWith('http')) {
-          this.$emit('select', this.query)
-
-          return
-        }
       }
 
       this.loading = true

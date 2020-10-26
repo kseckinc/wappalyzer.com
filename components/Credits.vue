@@ -5,7 +5,7 @@
     :class="variant ? 'mb-4' : ''"
     flat
   >
-    <v-card-text :class="variant ? '' : 'pa-2 pl-4'">
+    <v-card-text :class="variant ? '' : 'pa-0 pl-4'">
       <v-row align="center">
         <v-col
           :class="`py-0 flex-grow-1 flex-shrink-0 ${

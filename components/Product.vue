@@ -23,14 +23,21 @@
 
       <!-- eslint-disable-next-line vue/no-v-html -->
       <p class="mb-8" v-html="product.text" />
-
-      <Technologies
+      <v-form
         v-if="product.search"
-        class="mt-n4"
-        accept-url
-        style="max-width: 500px;"
-        @select="select"
-      />
+        ref="form"
+        @submit.prevent="$router.push({ path: '/lookup/', query: { url } })"
+      >
+        <v-text-field
+          v-model="url"
+          label="Website URL or company name"
+          placeholder="Example or example.com"
+          style="max-width: 500px;"
+          :append-icon="mdi.mdiMagnify"
+          hide-details
+          @click:append="$refs.form.submit()"
+        />
+      </v-form>
       <v-btn
         v-for="(button, index) in product.buttons"
         v-else
@@ -78,13 +85,11 @@ import {
 } from '@mdi/js'
 
 import ProductImage from '~/components/ProductImage.vue'
-import Technologies from '~/components/Technologies.vue'
 import meta from '~/assets/json/meta.json'
 
 export default {
   components: {
     ProductImage,
-    Technologies,
   },
   props: {
     name: {
@@ -98,6 +103,7 @@ export default {
   },
   data() {
     return {
+      url: '',
       mdi: {
         mdiCheck,
         mdiLayersOutline,
