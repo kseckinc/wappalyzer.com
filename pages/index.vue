@@ -6,6 +6,7 @@
       :seo-title="seotitle"
       :crumbs="false"
       :hero="true"
+      :head="{ title, meta }"
       no-head
     >
       <UseCases />
@@ -44,18 +45,8 @@ export default {
       title: meta.hero.title,
       seotitle: 'Technology lookup',
       products: Object.keys(meta).filter((name, index) => meta[name].feature),
-    }
-  },
-  head() {
-    return {
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content:
-            'Create lists of websites and contacts that use certain technologies, such as ecommerce platform, CMS or CRM.',
-        },
-      ],
+      meta:
+        'Find out the technology stack of any website. Create lists of websites and contacts by the technologies they use.',
     }
   },
 }
