@@ -10,7 +10,6 @@ Disallow: /css/
 Disallow: /installed/
 Disallow: /invoices/
 Disallow: /lists/*
-Disallow: /lookup/*
 Disallow: /orders/
 Disallow: /paymentmethods/
 Disallow: /signout/
