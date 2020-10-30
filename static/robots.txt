@@ -10,8 +10,10 @@ Disallow: /css/
 Disallow: /installed/
 Disallow: /invoices/
 Disallow: /lists/*
+Disallow: /organisation/
 Disallow: /orders/
 Disallow: /paymentmethods/
+Disallow: /reviews/
 Disallow: /signout/
 Disallow: /subscriptions/
 Disallow: /technologies/deprecated/
