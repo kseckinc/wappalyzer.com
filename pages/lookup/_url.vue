@@ -1,5 +1,5 @@
 <template>
-  <Page :title="title" :head="meta" no-heading>
+  <Page :title="title" :seo-title="seoTitle" :head="meta" no-heading>
     <v-card
       id="form"
       color="secondary"
@@ -188,6 +188,7 @@ export default {
   },
   data() {
     return {
+      title: 'Technology lookup',
       error: false,
       loading: false,
       meta,
@@ -218,7 +219,7 @@ export default {
       isSignedIn: ({ user }) => user.isSignedIn,
       credits: ({ credits: { credits } }) => credits,
     }),
-    title() {
+    seoTitle() {
       const fullUrl = getFullUrl(this.url)
 
       if (fullUrl) {
@@ -311,10 +312,17 @@ export default {
 
       this.error = false
 
-      // Check credits
+      if (this.isSignedIn) {
+        if (!this.credits) {
+          this.error = 'Insufficient credits.'
+
+          return
+        }
+      }
 
       this.loading = true
       this.technologies = []
+      this.attributes = {}
 
       let credits
 
