@@ -122,143 +122,43 @@
               traffic.
             </p>
 
-            <v-expansion-panels class="my-4">
-              <v-expansion-panel
-                v-for="(attributes, hostname) in technology.topHostnames"
-                :key="hostname"
-              >
-                <v-expansion-panel-header>
-                  <v-row align="center">
-                    <v-col class="py-0" cols="12" md="6">
-                      {{ hostname }}
-
-                      <a
-                        :href="`http${attributes.https ? 's' : ''}://${
-                          attributes.www ? 'www.' : ''
-                        }${hostname}`"
-                        rel="nofollow noopener"
-                        target="_blank"
-                        ><v-icon color="accent" small>{{
-                          mdiOpenInNew
-                        }}</v-icon></a
-                      >
-                    </v-col>
-                    <v-col class="py-0" cols="12" md="6">
-                      <Bar
-                        :value="attributes.hits"
-                        :max="maxHits"
-                        :total="technology.hits"
-                        class="mt-2 mt-md-0 mr-4"
-                      />
-                    </v-col>
-                  </v-row>
-                </v-expansion-panel-header>
-                <v-expansion-panel-content class="no-padding">
-                  <v-alert
-                    v-if="Object.keys(attributes).length === 4"
-                    color="accent"
-                    class="mx-4 mb-4"
-                    outlined
-                  >
-                    <p>
-                      No meta data available... Yet.
-                    </p>
-
-                    <v-btn
-                      :to="`/lookup/?url=${encodeURIComponent(
-                        `http://${hostname}`
-                      )}`"
-                      color="accent"
-                      outlined
-                      ><v-icon left>{{ mdiMagnify }}</v-icon> Technology
-                      lookup</v-btn
+            <v-card class="mb-4">
+              <v-card-text class="px-0">
+                <v-simple-table>
+                  <tbody>
+                    <tr
+                      v-for="(attributes, hostname) in technology.topHostnames"
+                      :key="hostname"
                     >
-                  </v-alert>
-                  <v-card v-else flat>
-                    <div
-                      v-for="(set, setKey) in transformAttributes(
-                        ['locale', 'email', 'phone', 'social', 'meta'],
-                        attributes
-                      )"
-                      :key="setKey"
-                    >
-                      <v-divider />
+                      <td width="50%">
+                        <nuxt-link :to="`/lookup/${hostname}`">
+                          {{ hostname }}</nuxt-link
+                        >
 
-                      <v-card-title class="subtitle-2 px-6">{{
-                        set.title
-                      }}</v-card-title>
-                      <v-card-text class="px-0 pb-0">
-                        <v-simple-table dense>
-                          <tbody>
-                            <tr
-                              v-for="(attribute,
-                              attributeKey) in set.attributes"
-                              :key="attributeKey"
-                            >
-                              <th class="pl-6" width="25%">
-                                <small>
-                                  {{ attribute.title }}
-                                </small>
-                              </th>
-                              <td class="pr-6">
-                                <div
-                                  v-for="(value, index) in attribute.values"
-                                  :key="index"
-                                >
-                                  <small>
-                                    <a
-                                      v-if="value.to"
-                                      :href="value.to"
-                                      rel="nofollow noopener"
-                                      target="_blank"
-                                      >{{ value.text }}</a
-                                    >
-                                    <v-icon
-                                      v-else-if="value.text === true"
-                                      color="success"
-                                      small
-                                      >{{ mdiCheck }}</v-icon
-                                    >
-                                    <v-icon
-                                      v-else-if="value.text === false"
-                                      color="error"
-                                      small
-                                      >{{ mdiClose }}</v-icon
-                                    >
-                                    <span
-                                      v-else
-                                      :class="
-                                        attributeKey === 'phone' ? 'blur' : ''
-                                      "
-                                    >
-                                      {{ value.text }}
-                                    </span>
-                                  </small>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-
-                          <tbody></tbody
-                        ></v-simple-table>
-                      </v-card-text>
-                    </div>
-                    <v-card-actions>
-                      <v-spacer />
-                      <v-btn
-                        :to="`/lookup/?url=${encodeURIComponent(
-                          `http://${hostname}`
-                        )}`"
-                        color="accent"
-                        text
-                        ><v-icon left>{{ mdiMagnify }}</v-icon> Technology
-                        lookup</v-btn
-                      >
-                    </v-card-actions>
-                  </v-card>
-                </v-expansion-panel-content>
-              </v-expansion-panel>
-            </v-expansion-panels>
+                        <a
+                          :href="`http${attributes.https ? 's' : ''}://${
+                            attributes.www ? 'www.' : ''
+                          }${hostname}`"
+                          rel="nofollow noopener"
+                          target="_blank"
+                          ><v-icon color="accent" small>{{
+                            mdiOpenInNew
+                          }}</v-icon></a
+                        >
+                      </td>
+                      <td>
+                        <Bar
+                          :value="attributes.hits"
+                          :max="maxHits"
+                          :total="technology.hits"
+                          class="mt-2 mt-md-0 mr-4"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </v-simple-table>
+              </v-card-text>
+            </v-card>
 
             <p class="mb-8">
               <small>

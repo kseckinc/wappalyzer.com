@@ -26,7 +26,7 @@
       <v-form
         v-if="product.search"
         ref="form"
-        @submit.prevent="$router.push({ path: '/lookup/', query: { url } })"
+        @submit.prevent="$router.push(`/lookup/${encodeURIComponent(url)}/`)"
       >
         <v-text-field
           v-model="url"
@@ -124,19 +124,6 @@ export default {
   computed: {
     product() {
       return meta[this.name]
-    },
-  },
-  methods: {
-    select(item) {
-      if (typeof item === 'string') {
-        this.$router.push(`/lookup/?url=${item}`)
-      } else if (item.type === 'technology') {
-        this.$router.push(
-          `/technologies/${item.categories[0].slug}/${item.slug}/`
-        )
-      } else {
-        this.$router.push(`/technologies/${item.slug}/`)
-      }
     },
   },
 }

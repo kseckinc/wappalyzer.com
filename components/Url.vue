@@ -7,7 +7,9 @@
         v-model="query"
         :loading="loading"
         :error-messages="error"
-        label="Website URL or company name (1 credit per lookup)"
+        :label="`Website URL or company name${
+          isSignedIn ? ' (1 credit per lookup)' : ''
+        }`"
         placeholder="Example or example.com"
         background-color="white"
         :append-icon="mdiMagnify"
@@ -22,7 +24,9 @@
         v-model="selectedUrl"
         :items="urls"
         class="mb-4"
-        label="Website URL or company name (1 credit per lookup)"
+        :label="`Website URL or company name${
+          isSignedIn ? ' (1 credit per lookup)' : ''
+        }`"
         background-color="white"
         item-value="slug"
         hide-details="auto"
@@ -64,10 +68,6 @@
         </template>
       </v-select>
     </v-form>
-
-    <v-dialog v-model="signInDialog" max-width="400px">
-      <SignIn mode-sign-up mode-continue />
-    </v-dialog>
   </div>
 </template>
 
@@ -75,12 +75,7 @@
 import { mapState } from 'vuex'
 import { mdiMagnify } from '@mdi/js'
 
-import SignIn from '~/components/SignIn.vue'
-
 export default {
-  components: {
-    SignIn,
-  },
   props: {
     url: {
       type: String,
@@ -93,7 +88,6 @@ export default {
       mdiMagnify,
       query: '',
       urls: [],
-      signInDialog: false,
       selectedUrl: false,
       error: '',
     }
@@ -104,15 +98,6 @@ export default {
     }),
   },
   watch: {
-    '$store.state.user.isSignedIn'(isSignedIn) {
-      if (isSignedIn) {
-        this.signInDialog = false
-
-        if (this.query) {
-          this.search()
-        }
-      }
-    },
     selectedUrl(url) {
       if (this.selectedUrl) {
         this.query = url
@@ -131,58 +116,32 @@ export default {
       this.query = this.url
     },
   },
+  mounted() {
+    this.query = this.url
+  },
   methods: {
     focus() {
       this.$refs.search.$el.querySelector('input').focus()
     },
     async search() {
       this.error = ''
-
-      let url
-
-      try {
-        new URL(this.query) // eslint-disable-line no-new
-
-        url = this.query
-      } catch (error) {
-        if (this.query.includes('.')) {
-          if (this.query.startsWith('www.')) {
-            this.query = `http://${this.query}`
-          } else {
-            this.query = `http://${
-              this.query.split('.').length > 2 ? '' : 'www.'
-            }${this.query}`
-          }
-
-          new URL(this.query) // eslint-disable-line no-new
-
-          url = this.query
-        }
-      } finally {
-        // continue
-      }
-
-      if (!this.isSignedIn) {
-        this.signInDialog = true
-
-        return
-      }
-
       this.loading = true
 
-      if (url) {
+      if (this.query.includes('.')) {
         this.loading = false
 
-        this.query = url
-
-        this.$emit('change', url)
+        this.$emit('change', this.query)
 
         return
       }
 
       try {
         const { hostnames } = (
-          await this.$axios(`company/${encodeURIComponent(this.query)}`)
+          await this.$axios(
+            `company/${this.isSignedIn ? '' : 'public/'}${encodeURIComponent(
+              this.query
+            )}`
+          )
         ).data
 
         this.urls = hostnames.map(

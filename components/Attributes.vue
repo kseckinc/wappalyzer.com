@@ -1,5 +1,5 @@
 <template>
-  <div v-if="Object.keys(attributes).length" style="width: 100%;">
+  <v-expansion-panels v-if="Object.keys(attributes).length" class="mb-4">
     <v-expansion-panel v-for="(set, setKey) in attributes" :key="setKey" flat>
       <v-expansion-panel-header class="subtitle-2" style="line-height: 1em;"
         >{{ set.title }}
@@ -13,6 +13,16 @@
         ></v-expansion-panel-header
       >
       <v-expansion-panel-content class="nopadding">
+        <v-sheet
+          v-if="limited && ['email', 'phone', 'social'].includes(setKey)"
+          class="py-4 px-6"
+          color="secondary"
+          outlined
+        >
+          <v-btn color="accent" outlined small @click="$emit('signIn')"
+            >Sign up for free to reveal</v-btn
+          >
+        </v-sheet>
         <v-simple-table>
           <tbody>
             <tr
@@ -26,7 +36,7 @@
               >
                 {{ attribute.title }}
               </th>
-              <td class="pr-6">
+              <td class="px-6">
                 <v-chip-group
                   v-if="
                     ['email', 'phone'].includes(attributeKey) ||
@@ -41,7 +51,9 @@
                       small
                       outlined
                     >
-                      {{ value.text }}
+                      <span :class="limited ? 'blurred' : ''">
+                        {{ value.text }}
+                      </span>
                     </v-chip>
                     <v-chip
                       v-else-if="attributeKey === 'phone'"
@@ -50,7 +62,9 @@
                       small
                       outlined
                     >
-                      {{ value.text }}
+                      <span :class="limited ? 'blurred' : ''">
+                        {{ value.text }}
+                      </span>
                     </v-chip>
                     <v-chip
                       v-else-if="value.to"
@@ -60,7 +74,10 @@
                       color="accent"
                       small
                       outlined
-                      >{{ value.text }}</v-chip
+                    >
+                      <span :class="limited ? 'blurred' : ''">
+                        {{ value.text }}
+                      </span></v-chip
                     >
                   </div>
                 </v-chip-group>
@@ -86,7 +103,7 @@
         </v-simple-table>
       </v-expansion-panel-content>
     </v-expansion-panel>
-  </div>
+  </v-expansion-panels>
 </template>
 
 <script>
@@ -99,6 +116,10 @@ export default {
       default() {
         return {}
       },
+    },
+    limited: {
+      type: Boolean,
+      defuault: false,
     },
   },
   data() {
@@ -123,5 +144,9 @@ export default {
   padding-left: 0;
   padding-right: 0;
   padding-top: 0;
+}
+
+.blurred {
+  filter: blur(3px);
 }
 </style>

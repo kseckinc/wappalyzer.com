@@ -167,7 +167,12 @@
 </template>
 
 <script>
-import { mdiFilterVariant, mdiChevronDown, mdiFinance } from '@mdi/js'
+import {
+  mdiFilterVariant,
+  mdiChevronDown,
+  mdiFinance,
+  mdiFileTableOutline,
+} from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
@@ -204,6 +209,7 @@ export default {
       mdiFilterVariant,
       mdiChevronDown,
       mdiFinance,
+      mdiFileTableOutline,
       sort: 'hostnames',
     }
   },

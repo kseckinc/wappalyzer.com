@@ -62,6 +62,13 @@ export default {
       return [...categories, ...technologies]
     },
   },
+  router: {
+    routes: {
+      name: 'lookup',
+      path: '/lookup/:url?',
+      component: 'pages/lookup/_id.vue',
+    },
+  },
   publicRuntimeConfig,
   head: {
     titleTemplate: (title) => `${title ? `${title} - ` : ''}Wappalyzer`,
