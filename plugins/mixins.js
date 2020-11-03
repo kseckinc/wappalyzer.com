@@ -16,6 +16,7 @@ const socialBaseUrls = {
   youtube: 'https://www.youtube.com/',
   pinterest: 'https://www.pinterest.com/',
   linkedin: 'https://www.linkedin.com/',
+  owler: 'https://www.owler.com/',
 }
 
 Vue.mixin({

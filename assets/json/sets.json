@@ -64,7 +64,8 @@
       { "name": "TikTok", "key": "tiktok", "description": "TikTok handles found on the website's contact page." },
       { "name": "YouTube", "key": "youtube", "description": "YouTube handles found on the website's contact page." },
       { "name": "Pinterest", "key": "pinterest", "description": "Pinterest handles found on the website's contact page." },
-      { "name": "LinkedIn", "key": "linkedin", "description": "LinkedIn handles found on the website's contact page." }
+      { "name": "LinkedIn", "key": "linkedin", "description": "LinkedIn handles found on the website's contact page." },
+      { "name": "Owler", "key": "owler", "description": "Owler handles found on the website's contact page." }
     ],
     "value": false
   },
@@ -76,7 +77,8 @@
       { "key": "description", "description": "The website's meta description." },
       { "key": "copyright", "description": "Copyright notice, if found (e.g. \"Copyright © 2018 - 2020\")." },
       { "name": "copyright year", "key": "copyrightYear", "description": "The most recent year extracted from the copyright notice (e.g. \"2020\")." },
-      { "key": "responsive", "description": "Website has a responsive layout, i.e. optimised for various screen sizes." }
+      { "key": "responsive", "description": "Website has a responsive layout, i.e. optimised for various screen sizes." },
+      { "name": "SSL/TLS", "key": "https", "description": "The website is served over a secure connection." }
     ],
     "value": false
   },
