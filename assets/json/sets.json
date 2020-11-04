@@ -77,8 +77,7 @@
       { "key": "description", "description": "The website's meta description." },
       { "key": "copyright", "description": "Copyright notice, if found (e.g. \"Copyright © 2018 - 2020\")." },
       { "name": "copyright year", "key": "copyrightYear", "description": "The most recent year extracted from the copyright notice (e.g. \"2020\")." },
-      { "key": "responsive", "description": "Website has a responsive layout, i.e. optimised for various screen sizes." },
-      { "name": "SSL/TLS", "key": "https", "description": "The website is served over a secure connection." }
+      { "key": "responsive", "description": "Website has a responsive layout, i.e. optimised for various screen sizes." }
     ],
     "value": false
   },
@@ -101,6 +100,17 @@
       { "name": "Medianet", "key": "trackerMedianet", "description": "Medianet tracking ID." },
       { "name": "Facebook", "key": "trackerFacebook", "description": "Facebook tracking ID." },
       { "name": "Optimizely", "key": "trackerOptimizely", "description": "Optimizely tracking ID." }
+    ],
+    "value": false
+  },
+  {
+    "key": "security",
+    "name": "Security",
+    "attributes": [
+      { "name": "Cert issuer", "key": "certInfo.issuer", "description": "Name of the SSL/TLS certificate authority." },
+      { "name": "Cert protocol", "key": "certInfo.protocol", "description": "SSL/TLS protocol and version." },
+      { "name": "Cert expiry", "key": "certInfo.validTo", "description": "Expiry date of the SSL/TLS certificate." },
+      { "name": "SSL/TLS enabled", "key": "https", "description": "The website is served over a secure connection." }
     ],
     "value": false
   }

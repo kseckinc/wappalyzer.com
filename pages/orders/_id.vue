@@ -465,7 +465,7 @@
                     Attribute sets
                   </th>
                   <td>
-                    <v-chip-group>
+                    <v-chip-group column>
                       <v-tooltip
                         v-for="set in sets.filter(
                           ({ key }) =>
