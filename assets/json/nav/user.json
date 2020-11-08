@@ -15,9 +15,10 @@
     "to": "/credits/"
   },
   {
-    "title": "Payment methods",
-    "icon": "mdiCreditCard",
-    "to": "/paymentmethods/"
+    "title": "Lead lists",
+    "icon": "mdiFilterVariant",
+    "to": "/lists/all/",
+    "member": true
   },
   {
     "title": "Subscriptions",
@@ -34,6 +35,11 @@
     "title": "Invoices",
     "icon": "mdiFileDocumentOutline",
     "to": "/invoices/"
+  },
+  {
+    "title": "Payment methods",
+    "icon": "mdiCreditCard",
+    "to": "/paymentmethods/"
   },
   {
     "title": "API Key",

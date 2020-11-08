@@ -363,5 +363,61 @@ Vue.mixin({
 
       return formatted
     },
+    formatAttribute(key, value) {
+      const set = sets.find((set) =>
+        set.attributes.some(({ key: _key }) => key === _key)
+      )
+
+      if (typeof value === 'undefined') {
+        const attribute = set.attributes.find(({ key: _key }) => key === _key)
+
+        const formatted = attribute ? attribute.name || attribute.key : key
+
+        return formatted.charAt(0).toUpperCase() + formatted.substring(1)
+      }
+
+      if (set.key === 'social') {
+        return {
+          to: `${socialBaseUrls[key]}${value}`,
+          text: value,
+        }
+      }
+
+      switch (key) {
+        case 'trafficRank':
+          return this.formatNumber(parseInt(value, 10))
+        case 'url':
+          return {
+            to: value,
+            text: value,
+          }
+        case 'email':
+          return {
+            to: `mailto:${value}`,
+            text: value,
+          }
+        case 'phone':
+          return {
+            to: `tel:${value}`,
+            text: value,
+          }
+        case 'whatsapp':
+          return {
+            to: `whatsapp:${value}`,
+            text: value,
+          }
+        case 'skype':
+          return {
+            to: `skype:${value}`,
+            text: value,
+          }
+        case 'certInfo.validTo':
+          return value
+            ? this.formatDate(new Date(parseInt(value, 10) * 1000))
+            : value
+        default:
+          return value
+      }
+    },
   },
 })

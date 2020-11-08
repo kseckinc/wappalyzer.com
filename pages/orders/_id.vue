@@ -14,11 +14,6 @@
     </v-alert>
 
     <template v-if="order">
-      <v-alert v-if="order.status === 'Calculating'" type="info" outlined>
-        Checking availability and price... This may take a few minutes. We will
-        send you an email when your order is ready.
-      </v-alert>
-
       <v-alert v-if="order.status === 'Failed'" type="error">
         Sorry, something went wrong during the processing of your order. Please
         contact us.
@@ -136,7 +131,7 @@
           >Download list</v-btn
         >
         <v-btn
-          v-else-if="order.dataset.sampleFilename"
+          v-else-if="order.dataset.sampleFilename && !order.listId"
           :href="`${datasetsBaseUrl}${order.dataset.sampleFilename}`"
           color="accent"
           outlined
@@ -225,14 +220,21 @@
 
             <v-simple-table v-if="order.product === 'Lead list'">
               <tbody>
+                <tr v-if="order.listId">
+                  <th>
+                    ID
+                  </th>
+                  <td>
+                    <nuxt-link :to="`/lists/${order.listId}`">{{
+                      order.listId
+                    }}</nuxt-link>
+                  </td>
+                </tr>
                 <tr v-if="!['Insufficient', 'Failed'].includes(order.status)">
                   <th>
                     Websites
                   </th>
-                  <td v-if="order.status === 'Calculating'">
-                    <Spinner />
-                  </td>
-                  <td v-else>
+                  <td>
                     {{ formatNumber(totalRows(order.dataset.rows)) }}
                   </td>
                 </tr>
@@ -263,13 +265,6 @@
                 <tr>
                   <th width="30%">
                     Technologies
-                    {{
-                      ['Calculating', 'Insufficient', 'Failed'].includes(
-                        order.status
-                      )
-                        ? ''
-                        : '(rows)'
-                    }}
                   </th>
                   <td>
                     <v-chip-group class="my-2" column>
@@ -281,16 +276,14 @@
                       >
                         {{ name }}
                         {{
-                          !['Calculating', 'Insufficient', 'Failed'].includes(
-                            order.status
-                          )
+                          !['Insufficient', 'Failed'].includes(order.status)
                             ? ` (${formatNumber(order.dataset.rows[slug])})`
                             : ''
                         }}
                       </v-chip>
 
                       <v-chip
-                        v-if="order.dataset.query.technologies.length > 20"
+                        v-if="order.dataset.query.technologies.length > 10"
                         color="accent"
                         outlined
                         small
@@ -311,13 +304,6 @@
                 <tr>
                   <th>
                     Attribute sets
-                    {{
-                      ['Calculating', 'Insufficient', 'Failed'].includes(
-                        order.status
-                      )
-                        ? ''
-                        : '(rows)'
-                    }}
                   </th>
                   <td>
                     <v-chip-group class="my-2" column>
@@ -334,11 +320,7 @@
                           <v-chip outlined small v-on="on">
                             {{ set.name }}
                             {{
-                              ![
-                                'Calculating',
-                                'Insufficient',
-                                'Failed',
-                              ].includes(order.status)
+                              !['Insufficient', 'Failed'].includes(order.status)
                                 ? ` (${formatNumber(
                                     set.key === 'base-list'
                                       ? totalRows(order.dataset.rows)
@@ -351,7 +333,11 @@
 
                         {{
                           set.attributes
-                            .map(({ name, key }) => name || key)
+                            .map(
+                              ({ name, key }) =>
+                                (name || key).charAt(0).toUpperCase() +
+                                (name || key).substring(1)
+                            )
                             .join(', ')
                         }}
                       </v-tooltip>
@@ -509,10 +495,7 @@
         </template>
 
         <template
-          v-if="
-            !isMember &&
-            !['Calculating', 'Insufficient', 'Failed'].includes(order.status)
-          "
+          v-if="!isMember && !['Insufficient', 'Failed'].includes(order.status)"
         >
           <v-divider />
 
@@ -893,7 +876,6 @@ import Page from '~/components/Page.vue'
 import Account from '~/components/Account.vue'
 import CreditCards from '~/components/CreditCards.vue'
 import Progress from '~/components/Progress.vue'
-import Spinner from '~/components/Spinner.vue'
 import declineCodes from '~/assets/json/declineCodes.json'
 import sets from '~/assets/json/sets.json'
 
@@ -903,7 +885,6 @@ export default {
     Account,
     CreditCards,
     Progress,
-    Spinner,
   },
   data() {
     return {
@@ -945,7 +926,6 @@ export default {
       status: '',
       statusItems: [
         'Open',
-        'Calculating',
         'Pending',
         'Processing',
         'Insufficient',
@@ -983,7 +963,7 @@ export default {
     technologies() {
       return this.technologiesViewAll
         ? this.order.dataset.query.technologies
-        : this.order.dataset.query.technologies.slice(0, 20)
+        : this.order.dataset.query.technologies.slice(0, 10)
     },
   },
   watch: {
@@ -1023,14 +1003,6 @@ export default {
       this.status = status
       this.totalCredits = totalCredits
       this.discount = discount / 100
-
-      if (status === 'Calculating') {
-        setTimeout(async () => {
-          this.checks += 1
-
-          this.order = (await this.$axios.get(`orders/${id}`)).data
-        }, Math.min(20000, 2000 + 100 * this.checks * this.checks))
-      }
 
       if (!this.orderLoaded) {
         this.orderLoaded = true

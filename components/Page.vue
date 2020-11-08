@@ -143,6 +143,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    noSideBar: {
+      type: Boolean,
+      default: false,
+    },
     noSubscribe: {
       type: Boolean,
       default: false,
@@ -179,7 +183,7 @@ export default {
         !user.admin && user.impersonator && !user.impersonator.admin,
     }),
     sideNav() {
-      return this.secure
+      return this.secure && !this.noSideBar
         ? this.isSignedIn
           ? userNav.filter((item) => (this.isMember ? item.member : true))
           : userNav.filter((item) =>

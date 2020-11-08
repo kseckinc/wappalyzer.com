@@ -618,11 +618,12 @@
 
         <v-btn
           :disabled="!selectedItems.length"
+          :loading="creating"
           color="primary"
           class="mt-4 mb-4"
           large
           @click="submit()"
-          >Get a quote <v-icon right>{{ mdiArrowRight }}</v-icon>
+          >Create list <v-icon right>{{ mdiArrowRight }}</v-icon>
         </v-btn>
 
         <p class="mb-8">
@@ -658,13 +659,6 @@
       <v-dialog v-model="signInDialog" max-width="400px">
         <SignIn mode-continue mode-sign-up />
       </v-dialog>
-
-      <OrderDialog
-        :id="order ? order.id : null"
-        ref="orderDialog"
-        :error="orderError"
-        @close="orderDialog = false"
-      />
 
       <PricingDialog ref="pricingDialog" product="list" />
 
@@ -713,7 +707,6 @@ import Technologies from '~/components/Technologies.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
 import Logos from '~/components/Logos.vue'
 import SignIn from '~/components/SignIn.vue'
-import OrderDialog from '~/components/OrderDialog.vue'
 import PricingDialog from '~/components/PricingDialog.vue'
 import Faqs from '~/components/Faqs.vue'
 import { lists as meta } from '~/assets/json/meta.json'
@@ -728,7 +721,6 @@ export default {
     TechnologyIcon,
     Logos,
     SignIn,
-    OrderDialog,
     PricingDialog,
     Faqs,
   },
@@ -743,6 +735,7 @@ export default {
         phone: false,
         social: false,
       },
+      createDialog: false,
       faqDialog: false,
       file: '',
       fileErrors: [],
@@ -781,9 +774,8 @@ export default {
       subset: null,
       subsetSlice: 'top',
       updateQueryTimeout: null,
-      order: false,
-      orderError: '',
-      ordering: false,
+      list: false,
+      creating: false,
       tld: '',
       tldErrors: [],
       languages: Object.keys(languages).reduce(
@@ -833,7 +825,7 @@ export default {
   },
   watch: {
     '$store.state.user.isSignedIn'(isSignedIn) {
-      if (isSignedIn && this.ordering) {
+      if (isSignedIn && this.creating) {
         this.signInDialog = false
 
         this.submit()
@@ -1038,8 +1030,8 @@ export default {
   },
   methods: {
     async submit(confirmed = false) {
-      this.orderError = ''
-      this.ordering = true
+      this.error = ''
+      this.creating = true
 
       if (!this.$store.state.user.isSignedIn) {
         this.signInDialog = true
@@ -1067,56 +1059,55 @@ export default {
         this.confirmDialog = false
       }
 
-      this.$refs.orderDialog.open()
+      this.createDialog = true
 
       try {
-        this.order = (
-          await this.$axios.put('orders', {
-            product: 'Lead list',
-            dataset: {
-              query: {
-                technologies: this.selected.technologies.map(
-                  ({ slug, name, icon, categories }) => ({
-                    slug,
-                    name,
-                    icon,
-                    categories,
-                  })
-                ),
-                categories: this.selected.categories.map(({ slug, name }) => ({
+        const list = (
+          await this.$axios.put('lists', {
+            query: {
+              technologies: this.selected.technologies.map(
+                ({ slug, name, icon, categories }) => ({
                   slug,
                   name,
-                })),
-                languages: this.selected.languages.map(
-                  ({ text, parent, value }) => ({
-                    text:
-                      parent && parent !== text ? `${parent} (${text})` : text,
-                    value,
-                  })
-                ),
-                geoIps: this.selected.geoIps.map(({ value, text }) => ({
+                  icon,
+                  categories,
+                })
+              ),
+              categories: this.selected.categories.map(({ slug, name }) => ({
+                slug,
+                name,
+              })),
+              languages: this.selected.languages.map(
+                ({ text, parent, value }) => ({
+                  text:
+                    parent && parent !== text ? `${parent} (${text})` : text,
                   value,
-                  text,
-                })),
-                tlds: this.selected.tlds.map(({ value }) => value),
-                matchAll: this.matchAll,
-                subset: this.subset,
-                subsetSlice: this.subsetSlice,
-                minAge: this.minAge,
-                maxAge: this.maxAge,
-                requiredSets: Object.keys(this.requiredSets).filter(
-                  (set) => this.requiredSets[set]
-                ),
-              },
-              exclusions: this.file,
+                })
+              ),
+              geoIps: this.selected.geoIps.map(({ value, text }) => ({
+                value,
+                text,
+              })),
+              tlds: this.selected.tlds.map(({ value }) => value),
+              matchAll: this.matchAll,
+              subset: this.subset,
+              subsetSlice: this.subsetSlice,
+              minAge: this.minAge,
+              maxAge: this.maxAge,
+              requiredSets: Object.keys(this.requiredSets).filter(
+                (set) => this.requiredSets[set]
+              ),
             },
+            exclusions: this.file,
           })
         ).data
-      } catch (error) {
-        this.orderError = this.getErrorMessage(error)
-      }
 
-      this.ordering = false
+        this.$router.push(`/lists/${list.id}`)
+      } catch (error) {
+        this.error = this.getErrorMessage(error)
+
+        this.creating = false
+      }
     },
     selectItem(item) {
       item.active = true

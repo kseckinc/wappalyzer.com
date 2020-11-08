@@ -82,6 +82,7 @@ import {
   mdiLogoutVariant,
   mdiStar,
   mdiDomain,
+  mdiFilterVariant,
 } from '@mdi/js'
 
 export default {
@@ -116,6 +117,7 @@ export default {
         mdiLogoutVariant,
         mdiStar,
         mdiDomain,
+        mdiFilterVariant,
       },
     }
   },

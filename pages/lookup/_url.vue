@@ -415,11 +415,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.nopadding .v-expansion-panel-content__wrap {
-  padding-left: 0;
-  padding-right: 0;
-  padding-top: 0;
-}
-</style>

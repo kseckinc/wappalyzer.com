@@ -195,6 +195,7 @@ import {
   mdiLogoutVariant,
   mdiDomain,
   mdiAccountSwitch,
+  mdiFilterVariant,
 } from '@mdi/js'
 import Logo from '~/components/Logo.vue'
 
@@ -233,6 +234,7 @@ export default {
         mdiLogoutVariant,
         mdiDomain,
         mdiAccountSwitch,
+        mdiFilterVariant,
       },
     }
   },
