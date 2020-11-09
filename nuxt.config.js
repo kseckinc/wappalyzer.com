@@ -95,7 +95,7 @@ export default {
     '~/plugins/vuetify.js',
     '~/plugins/axios.js',
     '~/plugins/mixins.js',
-    '~/plugins/gtag.js',
+    // '~/plugins/gtag.js',
     { src: '~/plugins/prism', ssr: false },
   ],
   buildModules: [
@@ -112,11 +112,15 @@ export default {
     '@nuxtjs/sitemap',
     'nuxt-stripe-module',
     'cookie-universal-nuxt',
+    '@nuxtjs/google-gtag',
     [
       'nuxt-canonical',
       { baseUrl: publicRuntimeConfig.WEBSITE_URL, trailingSlashes: true },
     ],
   ],
+  'google-gtag': {
+    id: 'UA-216336-5',
+  },
   axios: {
     baseURL: publicRuntimeConfig.BASE_URL,
     secure: true,
