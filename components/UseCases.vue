@@ -1,7 +1,7 @@
 <template>
   <v-row class="mb-8" justify="center" justify-md="space-between">
     <v-col
-      v-for="(useCase, index) in useCases"
+      v-for="useCase in useCases"
       :key="useCase.text"
       align="center"
       cols="6"
@@ -10,17 +10,11 @@
     >
       <nuxt-link class="primary--text text-decoration-none" :to="useCase.to">
         <div class="mb-3">
-          <v-avatar
-            :color="active === index + 1 ? 'primary' : 'secondary'"
-            size="64"
-            class="elevation-2"
-          >
-            <v-icon :color="active === index + 1 ? 'white' : 'primary'" large>{{
-              useCase.icon
-            }}</v-icon>
+          <v-avatar color="secondary" size="64" class="elevation-1">
+            <v-icon color="primary" large>{{ useCase.icon }}</v-icon>
           </v-avatar>
         </div>
-        <div class="caption text-uppercase font-weight-medium">
+        <div class="body-2 font-weight-medium">
           {{ useCase.text }}
         </div>
       </nuxt-link>
@@ -38,12 +32,6 @@ import {
 } from '@mdi/js'
 
 export default {
-  props: {
-    active: {
-      type: Number,
-      default: null,
-    },
-  },
   data() {
     return {
       useCases: [

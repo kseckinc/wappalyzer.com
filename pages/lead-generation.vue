@@ -15,11 +15,16 @@
         </v-col>
       </v-row>
 
-      <v-btn x-large color="primary" @click="signInDialog = true"
+      <v-btn
+        v-if="!$store.state.user.isSignedIn"
+        x-large
+        color="primary"
+        class="mb-4"
+        @click="signInDialog = true"
         >Sign up for a free account</v-btn
       >
 
-      <v-divider class="mt-12 mb-8" />
+      <v-divider class="my-8" />
 
       <v-row class="mb-8" justify="center" justify-md="space-between">
         <v-col
@@ -39,6 +44,22 @@
           </div>
         </v-col>
       </v-row>
+
+      <v-divider class="my-4 my-sm-6" />
+
+      <v-card style="max-width: 800px; margin: 0 auto;">
+        <div class="iframe-container">
+          <iframe
+            src="https://player.vimeo.com/video/476996233"
+            width="100%"
+            height="600px"
+            max-height="100%"
+            frameborder="0"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </v-card>
 
       <v-divider class="my-4 my-sm-6" />
 
@@ -125,3 +146,22 @@ export default {
   },
 }
 </script>
+
+<style>
+.iframe-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+}
+
+.iframe-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+</style>
