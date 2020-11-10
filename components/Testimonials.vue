@@ -3,6 +3,7 @@
     <v-col
       v-for="{ name, role, text, image } in testimonials"
       :key="name"
+      cols="12"
       sm="6"
       class="d-flex py-0"
     >

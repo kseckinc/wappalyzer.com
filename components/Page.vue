@@ -7,19 +7,6 @@
         :subtitle="hero.subtitle || meta.text"
       />
 
-      <v-sheet v-if="cta" color="primary" tile>
-        <v-container class="white--text text-center body-2 py-6">
-          <p>
-            Sell and market more effectively with technographic insights.<br />
-            Create lists of websites and contacts using certain technologies.
-          </p>
-
-          <v-btn to="/" color="white" small outlined>
-            Explore our products
-          </v-btn>
-        </v-container>
-      </v-sheet>
-
       <Crumbs v-if="crumbs" :crumbs="crumbNav" />
 
       <slot name="header" />
@@ -171,7 +158,6 @@ export default {
   data() {
     return {
       drawer: false,
-      cta: this.$route.path === '/upgraded/',
       meta,
     }
   },
@@ -195,6 +181,7 @@ export default {
       return [...this.crumbs, { title: this.title, to: '' }]
     },
   },
+  mounted() {},
   head() {
     return {
       title: this.seoTitle || this.title,
@@ -209,3 +196,22 @@ export default {
   },
 }
 </script>
+
+<style>
+.iframe-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+}
+
+.iframe-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+</style>

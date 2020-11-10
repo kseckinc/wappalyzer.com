@@ -2,7 +2,7 @@
   <v-card flat>
     <v-card-text>
       <v-row>
-        <v-col cols="3">
+        <v-col cols="12" sm="3">
           <v-avatar
             width="100%"
             height="auto"
@@ -12,7 +12,7 @@
             <v-img :src="image" :alt="name" />
           </v-avatar>
         </v-col>
-        <v-col cols="9">
+        <v-col cols="12" sm="9">
           <p class="font-italic">"{{ text }}"</p>
 
           <span>

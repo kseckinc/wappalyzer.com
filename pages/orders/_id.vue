@@ -344,12 +344,28 @@
                     </v-chip-group>
                   </td>
                 </tr>
-                <tr v-if="order.dataset.query.excludeEmptySets">
+                <tr v-if="order.dataset.query.requiredSets.length">
                   <th>
-                    Exclude base-only
+                    Required attributes
                   </th>
                   <td>
-                    <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
+                    <v-chip-group class="my-2" column>
+                      <v-chip
+                        v-for="key in order.dataset.query.requiredSets"
+                        :key="key"
+                        outlined
+                        small
+                      >
+                        {{
+                          (set = sets.find(({ key: _key }) => _key === key)) &&
+                          null
+                        }}
+                        {{
+                          (set.name || key).charAt(0).toUpperCase() +
+                          (set.name || key).substring(1)
+                        }}
+                      </v-chip>
+                    </v-chip-group>
                   </td>
                 </tr>
                 <tr v-if="order.dataset.query.geoIps.length">
@@ -427,7 +443,7 @@
                   <td>
                     {{ formatNumber(order.dataset.query.subset) }}
                     {{
-                      formatNumber(order.dataset.query.subsetSlice === 'bottom')
+                      order.dataset.query.subsetSlice === 'bottom'
                         ? 'least trafficked'
                         : 'most trafficked'
                     }}
@@ -1045,8 +1061,6 @@ export default {
   },
   mounted() {
     this.stripe = this.$stripe.import()
-
-    this.$gtag.event('begin_checkout')
   },
   methods: {
     ...mapActions({
@@ -1120,20 +1134,6 @@ export default {
               })
 
               if (this.order.status === 'Complete') {
-                if (this.order.paymentMethod !== 'credits') {
-                  this.$gtag.purchase({
-                    transaction_id: this.order.id,
-                    value: this.order.total / 100,
-                    currency: this.order.currency.toUpperCase(),
-                    tax: this.order.tax / 100,
-                    items: [
-                      {
-                        name: this.order.product,
-                      },
-                    ],
-                  })
-                }
-
                 break
               }
             }

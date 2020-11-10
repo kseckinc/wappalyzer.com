@@ -181,14 +181,17 @@
                 Example reports
               </v-card-title>
               <v-card-text class="px-0">
-                <v-simple-table dense>
+                <v-simple-table>
                   <tbody>
-                    <tr v-for="{ text, to } in reports" :key="to">
+                    <tr v-for="(list, index) in lists" :key="index">
                       <td>
-                        <nuxt-link :to="to">
-                          <v-icon left small>{{ mdiFileTableOutline }}</v-icon
-                          >{{ text }}
-                        </nuxt-link>
+                        <a
+                          class="d-flex align-center"
+                          @click="createList(list)"
+                        >
+                          <v-icon left>{{ mdiFileTableOutline }}</v-icon
+                          ><span>{{ list.text }}</span>
+                        </a>
                       </td>
                     </tr>
                   </tbody>
@@ -471,6 +474,29 @@
       <SignIn mode-continue mode-sign-up />
     </v-dialog>
 
+    <v-dialog
+      v-model="createListDialog"
+      :persistent="!createlistError"
+      max-width="400px"
+    >
+      <v-card>
+        <v-card-title>
+          Creating your list&hellip;
+        </v-card-title>
+        <v-card-text class="pb-0">
+          <v-alert v-if="createlistError" type="error" class="mb-0">
+            {{ createlistError }}
+          </v-alert>
+
+          <Progress v-if="!createlistError" class="mx-auto pb-8" />
+        </v-card-text>
+        <v-card-actions v-if="createlistError">
+          <v-spacer />
+          <v-btn v-if="error" color="accent" text @click="close">Ok</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <!-- eslint-disable-next-line vue/no-v-html -->
     <script type="application/ld+json" v-html="JSON.stringify(jsonld)" />
   </div>
@@ -500,6 +526,7 @@ import Bar from '~/components/Bar.vue'
 import StarRating from '~/components/StarRating.vue'
 import Review from '~/components/Review.vue'
 import SignIn from '~/components/SignIn.vue'
+import Progress from '~/components/Progress.vue'
 import countries from '~/assets/json/countries.json'
 import languages from '~/assets/json/languages.json'
 
@@ -512,6 +539,7 @@ export default {
     StarRating,
     Review,
     SignIn,
+    Progress,
   },
   async asyncData({ route, $axios, redirect }) {
     const { category, slug } = route.params
@@ -531,6 +559,9 @@ export default {
   },
   data() {
     return {
+      creatingList: false,
+      createlistError: false,
+      createListDialog: false,
       hoverRating: null,
       lineChartOptions: {
         chartArea: {
@@ -611,6 +642,7 @@ export default {
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
+      isSignedIn: ({ user }) => user.isSignedIn,
     }),
     jsonld() {
       return {
@@ -809,44 +841,76 @@ export default {
         }),
       ]
     },
-    reports() {
+    lists() {
+      const technologies = [
+        {
+          slug: this.slug,
+          name: this.technology.name,
+          icon: this.technology.icon,
+          categories: this.technology.categories,
+        },
+      ]
+
       return this.technology
         ? [
             {
               text: `${this.technology.name} websites in the United States`,
-              to: `/lists/?technologies=${this.slug}&countries=us`,
+              query: {
+                technologies,
+                geoIps: [{ text: 'United States', value: 'US' }],
+              },
             },
             {
               text: `${this.technology.name} websites in the United Kindom`,
-              to: `/lists/?technologies=${this.slug}&countries=gb&tlds=.uk`,
+              query: {
+                technologies,
+                geoIps: [{ text: 'United Kingdom', value: 'GB' }],
+                tlds: ['.uk'],
+              },
             },
             {
               text: `Email addresses and phone numbers of ${this.technology.name} customers`,
-              to: `/lists/?technologies=${this.slug}&attributes=email,phone`,
+              query: {
+                technologies,
+                requiredSets: ['email', 'phone'],
+              },
             },
             {
               text: `${this.technology.name} websites with a .com domain`,
-              to: `/lists/?technologies=${this.slug}&tlds=.com`,
+              query: {
+                technologies,
+                tlds: ['.com'],
+              },
             },
             {
               text: `Top 5,000 most visited ${this.technology.name} websites`,
-              to: `/lists/?technologies=${this.slug}&subset=5000`,
+              query: {
+                technologies,
+                subset: 5000,
+              },
             },
             {
               text: `5,000 low-traffic ${this.technology.name} websites`,
-              to: `/lists/?technologies=${this.slug}&subset=5000&traffic=low`,
+              query: {
+                technologies,
+                subset: 5000,
+                subsetSlice: 'bottom',
+              },
             },
-            ...this.technology.categories.map(({ name, slug }) => ({
-              text: `Top 500 websites for every technology in the category ${name}`,
-              to: `/lists/?categories=${slug}&subset=500`,
+            ...this.technology.categories.map((category) => ({
+              text: `Top 500 websites for every technology in the category ${category.name}`,
+              query: {
+                categories: [category],
+                subset: 500,
+              },
             })),
           ]
         : []
     },
   },
   watch: {
-    '$store.state.user.isSignedIn'(isSignedIn) {
-      if (isSignedIn) {
+    isSignedIn() {
+      if (this.isSignedIn) {
         this.signInDialog = false
 
         this.review.name = this.user.name || 'Anonymous'
@@ -854,20 +918,54 @@ export default {
         if (this.reviewing) {
           this.reviewDialog = true
         }
+
+        if (this.creatingList) {
+          this.createList()
+        }
       }
     },
   },
   mounted() {
-    if (this.$store.state.user.isSignedIn) {
+    if (this.isSignedIn) {
       this.review.name = this.user.name || 'Anonymous'
     }
   },
   methods: {
+    async createList(list = this.creatingList) {
+      this.creatingList = list
+      this.createError = false
+
+      if (!this.isSignedIn) {
+        this.signInDialog = true
+
+        return
+      }
+
+      this.createListDialog = true
+
+      try {
+        const { id } = (
+          await this.$axios.put('lists', {
+            query: {
+              minAge: 0,
+              maxAge: 3,
+              ...list.query,
+            },
+          })
+        ).data
+
+        this.$router.push(`/lists/${id}`)
+      } catch (error) {
+        this.createListError = this.getErrorMessage(error)
+      }
+
+      this.creatingList = false
+    },
     openReviewDialog() {
       this.reviewError = ''
       this.reviewing = true
 
-      if (!this.$store.state.user.isSignedIn) {
+      if (!this.isSignedIn) {
         this.signInDialog = true
 
         return

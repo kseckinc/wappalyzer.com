@@ -56,14 +56,14 @@
               Example reports
             </v-card-title>
             <v-card-text class="px-0">
-              <v-simple-table dense>
+              <v-simple-table>
                 <tbody>
-                  <tr v-for="{ text, to } in reports" :key="to">
+                  <tr v-for="(list, index) in lists" :key="index">
                     <td>
-                      <nuxt-link :to="to">
-                        <v-icon left small>{{ mdiFileTableOutline }}</v-icon
-                        >{{ text }}
-                      </nuxt-link>
+                      <a class="d-flex align-center" @click="createList(list)">
+                        <v-icon left>{{ mdiFileTableOutline }}</v-icon
+                        ><span>{{ list.text }}</span>
+                      </a>
                     </td>
                   </tr>
                 </tbody>
@@ -162,27 +162,68 @@
           </v-simple-table>
         </v-card-text>
       </v-card>
+
+      <div class="text-right mb-4">
+        <v-btn color="accent" outlined @click="showAll = !showAll">
+          <v-icon left>{{ showAll ? mdiMinus : mdiPlus }}</v-icon>
+          {{ showAll ? 'View less' : 'View all' }}
+        </v-btn>
+      </div>
     </Page>
+
+    <v-dialog v-model="signInDialog" max-width="400px">
+      <SignIn mode-continue mode-sign-up />
+    </v-dialog>
+
+    <v-dialog
+      v-model="createListDialog"
+      :persistent="!createlistError"
+      max-width="400px"
+    >
+      <v-card>
+        <v-card-title>
+          Creating your list&hellip;
+        </v-card-title>
+        <v-card-text class="pb-0">
+          <v-alert v-if="createlistError" type="error" class="mb-0">
+            {{ createlistError }}
+          </v-alert>
+
+          <Progress v-if="!createlistError" class="mx-auto pb-8" />
+        </v-card-text>
+        <v-card-actions v-if="createlistError">
+          <v-spacer />
+          <v-btn v-if="error" color="accent" text @click="close">Ok</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import {
   mdiFilterVariant,
   mdiChevronDown,
   mdiFinance,
   mdiFileTableOutline,
+  mdiMinus,
+  mdiPlus,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
 import Bar from '~/components/Bar.vue'
+import SignIn from '~/components/SignIn.vue'
+import Progress from '~/components/Progress.vue'
 
 export default {
   components: {
     Page,
     TechnologyIcon,
     Bar,
+    SignIn,
+    Progress,
   },
   async asyncData({ route, redirect, $axios }) {
     const { category: slug } = route.params
@@ -206,14 +247,25 @@ export default {
   data() {
     return {
       category: false,
+      creatingList: false,
+      createlistError: false,
+      createListDialog: false,
       mdiFilterVariant,
       mdiChevronDown,
       mdiFinance,
       mdiFileTableOutline,
+      mdiMinus,
+      mdiPlus,
+      showAll: false,
+      signInDialog: false,
       sort: 'hostnames',
     }
   },
   computed: {
+    ...mapState({
+      user: ({ user }) => user.attrs,
+      isSignedIn: ({ user }) => user.isSignedIn,
+    }),
     categorySlug() {
       return this.$route.params.category
     },
@@ -235,6 +287,7 @@ export default {
       delete technologies['cart-functionality']
 
       Object.keys(technologies)
+        .filter((name) => this.showAll || technologies[name].hostnames > 50)
         .sort((a, b) => {
           const order = this.sort === 'name' ? 1 : -1
 
@@ -264,35 +317,105 @@ export default {
         ) || 1
       )
     },
-    reports() {
+    lists() {
+      const categories = [
+        {
+          name: this.category.name,
+          slug: this.category.slug,
+        },
+      ]
+
       return this.category
         ? [
             {
               text: `${this.category.name} websites in the United States`,
-              to: `/lists/?categories=${this.categorySlug}&countries=us`,
+              query: {
+                categories,
+                geoIps: [{ text: 'United States', value: 'US' }],
+              },
             },
             {
               text: `${this.category.name} websites in the United Kindom`,
-              to: `/lists/?categories=${this.categorySlug}&countries=gb&tlds=.uk`,
+              query: {
+                categories,
+                geoIps: [{ text: 'United Kingdom', value: 'GB' }],
+                tlds: ['.uk'],
+              },
             },
             {
               text: `Email addresses and phone numbers of ${this.category.name} users`,
-              to: `/lists/?categories=${this.categorySlug}&attributes=email,phone`,
+              query: {
+                categories,
+                requiredSets: ['email', 'phone'],
+              },
             },
             {
               text: `${this.category.name} websites with a .com domain`,
-              to: `/lists/?categories=${this.categorySlug}&tlds=.com`,
+              query: {
+                categories,
+                tlds: ['.com'],
+              },
             },
             {
               text: `Top 5,000 most visited ${this.category.name} websites`,
-              to: `/lists/?categories=${this.categorySlug}&subset=5000`,
+              query: {
+                categories,
+                subset: 5000,
+              },
             },
             {
               text: `5,000 low-traffic ${this.category.name} websites`,
-              to: `/lists/?categories=${this.categorySlug}&subset=5000&traffic=low`,
+              query: {
+                categories,
+                subset: 5000,
+                subsetSlice: 'bottom',
+              },
             },
           ]
         : []
+    },
+  },
+  watch: {
+    isSignedIn() {
+      if (this.isSignedIn) {
+        this.signInDialog = false
+
+        if (this.creatingList) {
+          this.createList()
+        }
+      }
+    },
+  },
+  methods: {
+    async createList(list = this.creatingList) {
+      this.creatingList = list
+      this.createError = false
+
+      if (!this.isSignedIn) {
+        this.signInDialog = true
+
+        return
+      }
+
+      this.createListDialog = true
+
+      try {
+        const { id } = (
+          await this.$axios.put('lists', {
+            query: {
+              minAge: 0,
+              maxAge: 3,
+              ...list.query,
+            },
+          })
+        ).data
+
+        this.$router.push(`/lists/${id}`)
+      } catch (error) {
+        this.createListError = this.getErrorMessage(error)
+      }
+
+      this.creatingList = false
     },
   },
 }

@@ -106,7 +106,7 @@
                       small
                     >
                       <td>
-                        <div class="flex align-center">
+                        <div class="d-flex align-center">
                           <TechnologyIcon :icon="technology.icon" />
                           <nuxt-link
                             :to="`/technologies${
@@ -165,12 +165,22 @@
               <v-expansion-panel-content class="nopadding">
                 <v-simple-table>
                   <tbody>
-                    <tr v-if="list.query.excludeEmptySets">
+                    <tr v-if="list.query.requiredSets.length">
                       <th width="40%">
-                        Exclude base-only
+                        Required
                       </th>
                       <td>
-                        <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
+                        <div v-for="key in list.query.requiredSets" :key="key">
+                          {{
+                            (set = sets.find(
+                              ({ key: _key }) => _key === key
+                            )) && null
+                          }}
+                          {{
+                            (set.name || key).charAt(0).toUpperCase() +
+                            (set.name || key).substring(1)
+                          }}
+                        </div>
                       </td>
                     </tr>
                     <tr v-if="list.query.geoIps.length">
@@ -248,7 +258,7 @@
                       <td>
                         {{ formatNumber(list.query.subset) }}
                         {{
-                          formatNumber(list.query.subsetSlice === 'bottom')
+                          list.query.subsetSlice === 'bottom'
                             ? 'least trafficked'
                             : 'most trafficked'
                         }}
@@ -614,11 +624,11 @@ export default {
           : undefined,
         traffic: this.list.query.subsetSlice === 'bottom' ? 'low' : undefined,
         min:
-          this.list.query.minAge !== 0
+          this.list.query.minAge !== null && this.list.query.minAge !== 0
             ? this.list.query.minAge.toString()
             : undefined,
         max:
-          this.list.query.maxAge !== 3
+          this.list.query.maxAge !== null && this.list.query.maxAge !== 3
             ? this.list.query.maxAge.toString()
             : undefined,
         filters: this.list.query.matchAll ? 'and' : undefined,

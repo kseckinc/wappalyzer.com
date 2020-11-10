@@ -95,7 +95,6 @@ export default {
     '~/plugins/vuetify.js',
     '~/plugins/axios.js',
     '~/plugins/mixins.js',
-    // '~/plugins/gtag.js',
     { src: '~/plugins/prism', ssr: false },
   ],
   buildModules: [

@@ -58,12 +58,62 @@
           </v-card>
         </v-col>
       </v-row>
+
+      <template v-slot:header>
+        <v-sheet color="secondary elevation-1" tile>
+          <v-container class="text-center body-2 py-6">
+            <p>
+              Create lists of websites that use certain technologies.<br />
+              Lead lists include email addressess and phone numbers.
+            </p>
+
+            <v-btn to="/lists/" color="primary">
+              <v-icon left>{{ mdiFilterVariant }}</v-icon>
+              Create a lead list
+            </v-btn>
+
+            <v-btn
+              color="primary"
+              class="ml-2"
+              outlined
+              @click="videoDialog = true"
+            >
+              <v-icon left>{{ mdiPlay }}</v-icon>
+              Watch screencast</v-btn
+            >
+          </v-container>
+        </v-sheet>
+      </template>
+
+      <v-dialog v-model="videoDialog" max-width="1000" eager>
+        <v-card>
+          <div class="iframe-container">
+            <iframe
+              src="https://player.vimeo.com/video/476996233"
+              width="100%"
+              height="800px"
+              max-height="100%"
+              frameborder="0"
+              allow="autoplay; fullscreen"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </v-card>
+      </v-dialog>
+
+      <script src="https://player.vimeo.com/api/player.js"></script>
     </Page>
   </client-only>
 </template>
 
 <script>
-import { mdiPlusBox, mdiAutoFix, mdiStar } from '@mdi/js'
+import {
+  mdiPlusBox,
+  mdiAutoFix,
+  mdiStar,
+  mdiFilterVariant,
+  mdiPlay,
+} from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import Progress from '~/components/Progress.vue'
@@ -81,7 +131,19 @@ export default {
       mdiStar,
       release: null,
       error: false,
+      mdiFilterVariant,
+      mdiPlay,
+      videoDialog: false,
     }
+  },
+  watch: {
+    videoDialog(open) {
+      if (open) {
+        this.player.play()
+      } else {
+        this.player.pause()
+      }
+    },
   },
   async mounted() {
     try {
@@ -89,6 +151,10 @@ export default {
     } catch (error) {
       this.error = this.getErrorMessage(error)
     }
+
+    const iframe = document.querySelector('iframe')
+
+    this.player = new window.Vimeo.Player(iframe)
   },
 }
 </script>

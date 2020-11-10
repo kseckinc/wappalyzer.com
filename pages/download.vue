@@ -5,26 +5,38 @@
       :head="{ ...meta, image: 'extension-2.svg' }"
       no-heading
     >
-      <div class="mt-8 mb-4">
-        <v-btn
+      <v-btn
+        color="accent"
+        class="mt-4 mb-10"
+        outlined
+        @click="faqDialog = true"
+      >
+        <v-icon left>{{ mdi.mdiForum }}</v-icon>
+        FAQs
+      </v-btn>
+
+      <v-row class="mb-4">
+        <v-col
           v-for="{ text, href, icon } in platforms"
           :key="text"
-          :href="href"
-          color="primary"
-          class="mr-2 mb-4"
-          target="_blank"
-          rel="noopener noreferrer"
-          outlined
+          class="py-0"
         >
-          <v-icon left>{{ mdi[icon] }}</v-icon>
-          {{ text }}
-        </v-btn>
-      </div>
-
-      <v-btn color="accent" class="mb-2" outlined @click="faqDialog = true">
-        <v-icon left>{{ mdi.mdiForum }}</v-icon>
-        Frequently asked questions
-      </v-btn>
+          <v-btn
+            :href="href"
+            color="primary"
+            class="mr-2 mb-4"
+            target="_blank"
+            rel="noopener noreferrer"
+            outlined
+            x-large
+            width="100%"
+            height="80px"
+          >
+            <v-icon left size="24">{{ mdi[icon] }}</v-icon>
+            {{ text }}
+          </v-btn>
+        </v-col>
+      </v-row>
 
       <v-dialog v-model="faqDialog" max-width="600px">
         <v-card>
@@ -76,18 +88,18 @@ export default {
       meta,
       platforms: [
         {
-          text: 'Google Chrome',
+          text: 'Chrome',
           href:
             'https://chrome.google.com/webstore/detail/wappalyzer/gppongmhjkpfnbhagpmjfkannfbllamg',
           icon: 'mdiGoogleChrome',
         },
         {
-          text: 'Mozilla Firefox',
+          text: 'Firefox',
           href: 'https://addons.mozilla.org/en-US/firefox/addon/wappalyzer/',
           icon: 'mdiFirefox',
         },
         {
-          text: 'Microsoft Edge',
+          text: 'Edge',
           href:
             'https://microsoftedge.microsoft.com/addons/detail/mnbndgmknlpdjdnjfmfcdjoegcckoikn',
           icon: 'mdiMicrosoftEdge',
