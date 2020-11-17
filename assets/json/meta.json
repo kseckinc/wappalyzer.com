@@ -34,7 +34,7 @@
     "feature": true
   },
   "bulk": {
-    "title": "Bulk lookup",
+    "title": "Bulk technology lookup",
     "subtitle": "Look up a number of websites in one go",
     "icon": "mdiFileTableOutline",
     "image": "bulk.svg",
@@ -76,7 +76,7 @@
     "feature": true
   },
   "alerts": {
-    "title": "Alerts",
+    "title": "Website alerts",
     "subtitle": "Get notified when a website's technology stack changes",
     "icon": "mdiBullhorn",
     "image": "alerts.svg",

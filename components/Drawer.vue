@@ -14,6 +14,7 @@
       </v-list>
       <v-divider />
     </template>
+
     <div v-for="(item, i) in mainNav" :key="i">
       <v-list nav dense>
         <v-subheader v-if="item.items">
@@ -40,9 +41,26 @@
           </v-list-item>
         </template>
       </v-list>
+
       <v-divider />
     </div>
+
     <v-list nav dense>
+      <v-list-item v-if="isMember || isAdmin" @click="signOutAs">
+        <v-list-item-content>
+          <v-list-item-title>
+            {{
+              impersonator.billingName ||
+              impersonator.name ||
+              impersonator.email
+            }}
+          </v-list-item-title>
+        </v-list-item-content>
+        <v-list-item-icon>
+          <v-icon dense>{{ mdi.mdiAccountSwitch }}</v-icon>
+        </v-list-item-icon>
+      </v-list-item>
+
       <v-list-item v-if="user.admin" to="/admin/">
         <v-list-item-title>
           Administration
@@ -51,6 +69,7 @@
           <v-icon color="success" dense>{{ mdi.mdiLockOpen }}</v-icon>
         </v-list-item-icon>
       </v-list-item>
+
       <v-list-item
         v-for="(item, i) in userNav"
         :key="i"
@@ -70,6 +89,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import {
   mdiAccount,
   mdiLockOpen,
@@ -83,6 +103,7 @@ import {
   mdiStar,
   mdiDomain,
   mdiFilterVariant,
+  mdiAccountSwitch,
 } from '@mdi/js'
 
 export default {
@@ -94,12 +115,6 @@ export default {
     userNav: {
       type: Array,
       default: () => [],
-    },
-    user: {
-      type: Object,
-      default() {
-        return {}
-      },
     },
   },
   data() {
@@ -118,8 +133,23 @@ export default {
         mdiStar,
         mdiDomain,
         mdiFilterVariant,
+        mdiAccountSwitch,
       },
     }
+  },
+  computed: {
+    ...mapState({
+      user: ({ user }) => user.attrs,
+      isAdmin: ({ user }) =>
+        user.isSignedIn &&
+        (user.admin || (user.impersonator && user.impersonator.admin)),
+      isMember: ({ user }) =>
+        user.isSignedIn &&
+        !user.admin &&
+        user.impersonator &&
+        !user.impersonator.admin,
+      impersonator: ({ user }) => user.impersonator,
+    }),
   },
   methods: {
     open() {

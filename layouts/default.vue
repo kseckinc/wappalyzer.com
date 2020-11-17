@@ -2,7 +2,7 @@
   <v-app light>
     <v-main>
       <Header
-        :main-nav="mainNav.filter(({ header }) => header !== false)"
+        :main-nav="headerNav"
         :user-nav="userNav"
         @openDrawer="$refs.drawer.open()"
       />
@@ -12,7 +12,7 @@
       <Footer :main-nav="mainNav" />
     </v-main>
 
-    <Drawer ref="drawer" :main-nav="mainNav" :user-nav="userNav" :user="user" />
+    <Drawer ref="drawer" :main-nav="headerNav" :user-nav="userNav" />
   </v-app>
 </template>
 
@@ -42,8 +42,6 @@ export default {
     ...mapState({
       user: ({ user }) => user.attrs,
       isSignedIn: ({ user }) => user.isSignedIn,
-      isAdmin: ({ user }) =>
-        user.admin || (user.impersonator && user.impersonator.admin),
       isMember: ({ user }) =>
         !user.admin && user.impersonator && !user.impersonator.admin,
     }),
@@ -52,9 +50,12 @@ export default {
         ? userNav.filter((item) => (this.isMember ? item.member : true))
         : userNav.filter((item) => !item.auth)
     },
+    headerNav() {
+      return this.mainNav.filter(({ header }) => header !== false)
+    },
   },
   watch: {
-    async '$store.state.user.isSignedIn'(isSignedIn) {
+    async isSignedIn(isSignedIn) {
       if (isSignedIn) {
         const impersonating = this.$cookies.get('impersonate')
 

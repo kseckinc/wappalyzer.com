@@ -20,6 +20,7 @@
           v-for="{ text, href, icon } in platforms"
           :key="text"
           class="py-0"
+          cols="6"
         >
           <v-btn
             :href="href"
@@ -63,6 +64,7 @@ import {
   mdiFirefox,
   mdiGoogleChrome,
   mdiForum,
+  mdiAppleSafari,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -84,6 +86,7 @@ export default {
         mdiFirefox,
         mdiGoogleChrome,
         mdiForum,
+        mdiAppleSafari,
       },
       meta,
       platforms: [
@@ -103,6 +106,11 @@ export default {
           href:
             'https://microsoftedge.microsoft.com/addons/detail/mnbndgmknlpdjdnjfmfcdjoegcckoikn',
           icon: 'mdiMicrosoftEdge',
+        },
+        {
+          text: 'Safari',
+          href: 'https://apps.apple.com/au/app/wappalyzer/id1520333300',
+          icon: 'mdiAppleSafari',
         },
       ],
     }

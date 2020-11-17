@@ -456,7 +456,7 @@
               <tbody>
                 <tr>
                   <th width="30%">
-                    Rows
+                    Websites
                   </th>
                   <td>
                     {{ formatNumber(order.bulk.rows) }}
@@ -868,6 +868,28 @@
         </v-card>
       </v-dialog>
     </template>
+
+    <script type="text/javascript">
+      ;(function () {
+        var capterra_vkey = '830c6c2068776e8f03bb8641826b95d9',
+          capterra_vid = '2152203',
+          capterra_prefix =
+            'https:' == document.location.protocol
+              ? 'https://ct.capterra.com'
+              : 'http://ct.capterra.com'
+        var ct = document.createElement('script')
+        ct.type = 'text/javascript'
+        ct.async = true
+        ct.src =
+          capterra_prefix +
+          '/capterra_tracker.js?vid=' +
+          capterra_vid +
+          '&vkey=' +
+          capterra_vkey
+        var s = document.getElementsByTagName('script')[0]
+        s.parentNode.insertBefore(ct, s)
+      })()
+    </script>
   </Page>
 </template>
 

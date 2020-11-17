@@ -13,7 +13,7 @@
         "to": "/lists/"
       },
       {
-        "title": "Bulk lookup",
+        "title": "Bulk technology lookup",
         "subtitle": "Look up a number of website in one go",
         "to": "/bulk/"
       },
@@ -23,7 +23,7 @@
         "to": "/api/"
       },
       {
-        "title": "Alerts",
+        "title": "Website alerts",
         "subtitle": "Monitor website technology stacks for changes",
         "to": "/alerts/"
       },
