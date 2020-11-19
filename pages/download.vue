@@ -109,7 +109,7 @@ export default {
         },
         {
           text: 'Safari',
-          href: 'https://apps.apple.com/au/app/wappalyzer/id1520333300',
+          href: 'https://apps.apple.com/app/wappalyzer/id1520333300',
           icon: 'mdiAppleSafari',
         },
       ],

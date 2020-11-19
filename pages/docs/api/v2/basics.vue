@@ -170,6 +170,40 @@
           </tbody>
         </v-simple-table>
       </v-card>
+
+      <p class="mt-8">
+        Alternatively, you can get your remaining credit balance by calling a
+        separate endpoint:
+      </p>
+
+      <Heading id="endpoint" size="3" class="mt-8 mb-4">
+        Endpoint
+      </Heading>
+
+      <p>
+        <code>GET</code>
+        <code>https://api.wappalyzer.com/credits/v2/balance/</code>
+      </p>
+
+      <Heading id="examples" size="3" class="mt-8 mb-4">
+        Example
+      </Heading>
+
+      <v-card class="mb-8">
+        <v-card-title class="subtitle-2">Example request</v-card-title>
+        <v-card-text>
+          <pre><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/credits/v2/balance/"</Prism></pre>
+        </v-card-text>
+
+        <v-divider />
+
+        <v-card-title class="subtitle-2">Example response</v-card-title>
+        <v-card-text>
+          <pre><Prism language="json" class="body-2">{
+  "credits": 100000
+}</Prism></pre>
+        </v-card-text>
+      </v-card>
     </Page>
   </div>
 </template>
