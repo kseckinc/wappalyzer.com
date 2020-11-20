@@ -135,6 +135,13 @@
         request.
       </p>
 
+      <v-alert :icon="mdiLightbulbOnOutline" outlined class="mt-8">
+        When a crawl is initiated, subsequent requests for the same URL are free
+        for one hour. Allow for up to 15 minutes for the crawl to complete
+        before re-trying a request. This allows you to get results without the
+        need for a public callback endpoint.
+      </v-alert>
+
       <Heading id="examples" size="2" class="mt-8 mb-4">
         Examples
       </Heading>
@@ -303,6 +310,8 @@
 </template>
 
 <script>
+import { mdiLightbulbOnOutline } from '@mdi/js'
+
 import Page from '~/components/Page.vue'
 import Heading from '~/components/Heading.vue'
 import side from '~/assets/json/nav/docs.json'
@@ -316,6 +325,7 @@ export default {
     return {
       title: 'Developer documentation',
       side,
+      mdiLightbulbOnOutline,
     }
   },
 }
