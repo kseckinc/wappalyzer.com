@@ -282,6 +282,27 @@
                         hide-details
                         eager
                       >
+                        <template v-slot:prepend-item>
+                          <v-list-item
+                            ripple
+                            @click="toggleGeoIps(countriesEurope)"
+                          >
+                            <v-list-item-content>
+                              Europe
+                            </v-list-item-content>
+                          </v-list-item>
+                          <v-list-item
+                            ripple
+                            @click="toggleGeoIps(countriesEU)"
+                          >
+                            <v-list-item-content>
+                              European Union
+                            </v-list-item-content>
+                          </v-list-item>
+
+                          <v-divider class="mt-3 mb-2"></v-divider>
+                        </template>
+
                         <template v-slot:item="{ item }">
                           <v-list-item ripple @click="toggleGeoIp(item)">
                             <v-list-item-action>
@@ -714,6 +735,64 @@ import languages from '~/assets/json/languages.json'
 import tlds from '~/assets/json/tlds.json'
 import countries from '~/assets/json/countries.json'
 
+const countriesEU = [
+  'AT',
+  'BE',
+  'BG',
+  'HR',
+  'CY',
+  'CZ',
+  'DK',
+  'EE',
+  'FI',
+  'FR',
+  'DE',
+  'GR',
+  'HU',
+  'IE',
+  'IT',
+  'LV',
+  'LT',
+  'LU',
+  'MT',
+  'NL',
+  'PL',
+  'PT',
+  'RO',
+  'SK',
+  'SI',
+  'ES',
+  'SE',
+]
+
+const countriesEurope = [
+  ...countriesEU,
+  'AL',
+  'AD',
+  'AM',
+  'BY',
+  'BA',
+  'FO',
+  'GE',
+  'GI',
+  'IS',
+  'IM',
+  'LI',
+  'MK',
+  'MD',
+  'MC',
+  'Mo',
+  'NO',
+  'RU',
+  'SM',
+  'RS',
+  'CH',
+  'TR',
+  'UA',
+  'GB',
+  'VA',
+]
+
 export default {
   components: {
     Page,
@@ -728,6 +807,8 @@ export default {
     return {
       title: meta.title,
       countries: Object.keys(tlds),
+      countriesEU,
+      countriesEurope,
       confirmDialog: false,
       error: false,
       requiredSets: {
@@ -1235,6 +1316,15 @@ export default {
             ({ value: _value }) => _value === value
           ) === index
       )
+    },
+    toggleGeoIps(ipCountries) {
+      ipCountries.forEach((ipCountry) => {
+        const item = this.geoIps.find(
+          ({ value }) => value === ipCountry.trim().toUpperCase()
+        )
+
+        this.toggleGeoIp(item)
+      })
     },
     addTld() {
       const value = this.tld.toLowerCase()

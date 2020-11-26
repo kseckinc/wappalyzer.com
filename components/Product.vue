@@ -35,7 +35,7 @@
           style="max-width: 500px;"
           :append-icon="mdi.mdiMagnify"
           hide-details
-          @click:append="$refs.form.submit()"
+          @click:append="$router.push(`/lookup/${encodeURIComponent(url)}/`)"
         />
       </v-form>
       <v-btn
