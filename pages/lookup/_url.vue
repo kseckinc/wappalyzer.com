@@ -259,8 +259,8 @@ export default {
     },
   },
   watch: {
-    async '$store.state.user.isSignedIn'(isSignedIn) {
-      if (isSignedIn) {
+    async isSignedIn() {
+      if (this.isSignedIn) {
         this.signInDialog = false
 
         this.technologies = []
