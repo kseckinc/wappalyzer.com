@@ -3,7 +3,7 @@
     <Page :title="title" secure>
       <v-card>
         <v-card-text>
-          <nuxt-link to="/integrations/hubspot/">Hubspot</nuxt-link>
+          <nuxt-link to="/integrations/hubspot/">HubSpot</nuxt-link>
         </v-card-text>
       </v-card>
     </Page>
