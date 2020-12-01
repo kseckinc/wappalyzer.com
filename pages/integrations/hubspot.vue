@@ -19,7 +19,7 @@
         <v-simple-table>
           <tbody>
             <tr>
-              <th width="30%">Status</th>
+              <th width="40%">Status</th>
               <td>
                 <template v-if="connecting">
                   <Spinner />
@@ -33,8 +33,22 @@
                   <v-icon small left>
                     {{ hubspotId ? mdiCheck : mdiClose }}
                   </v-icon>
-                  {{ hubspotId ? `Connected (${hubspotId})` : 'Not connected' }}
+                  {{ hubspotId ? `Connected` : 'Not connected' }}
                 </v-chip>
+              </td>
+            </tr>
+            <tr>
+              <th>HubSpot account ID</th>
+              <td>
+                <template v-if="connecting">
+                  <Spinner />
+                </template>
+                <template v-else-if="hubspotId">
+                  {{ hubspotId }}
+                </template>
+                <template v-else class="text--disabled">
+                  -
+                </template>
               </td>
             </tr>
 
@@ -46,7 +60,7 @@
         <v-spacer />
         <v-btn
           v-if="!hubspotId"
-          href="https://app.hubspot.com/oauth/authorize?scope=contacts&redirect_uri=http://localhost:3000/integrations/hubspot/&client_id=cac4bea5-5678-444c-902f-24f1d9f5e235"
+          href="https://app.hubspot.com/oauth/authorize?scope=contacts&redirect_uri=https://www.wappalyzer.com/integrations/hubspot/&client_id=cac4bea5-5678-444c-902f-24f1d9f5e235"
           color="accent"
           _target="blank"
           :loading="connecting"
@@ -132,6 +146,12 @@ export default {
 
     this.code = code
 
+    if (this.code) {
+      this.$router.replace({
+        path: this.$route.path,
+      })
+    }
+
     if (this.isSignedIn) {
       this.connecting = true
 
@@ -156,12 +176,16 @@ export default {
   },
   methods: {
     async authenticate() {
+      this.success = null
+      this.error = null
       this.connecting = true
 
       try {
         ;({ portalId: this.hubspotId } = (
           await this.$axios.post(`hubspot/auth/${this.code}`)
         ).data)
+
+        this.success = 'Connected to HubSpot.'
       } catch (error) {
         this.error = this.getErrorMessage(error)
       }
@@ -169,12 +193,16 @@ export default {
       this.connecting = false
     },
     async disconnect() {
+      this.success = null
+      this.error = null
       this.disconnecting = true
 
       try {
         await this.$axios.delete('hubspot')
 
         this.hubspotId = null
+
+        this.success = 'Disconnected from HubSpot.'
       } catch (error) {
         this.error = this.getErrorMessage(error)
       }
