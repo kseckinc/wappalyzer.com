@@ -2,7 +2,7 @@
   <v-sheet class="bar" color="secondary" rounded>
     <span class="bar__value bar__value--background"> {{ percentage }}% </span>
     <v-sheet
-      :width="`${(100 / max) * value}%`"
+      :width="`${(100 / Math.max(1, max)) * value}%`"
       color="primary"
       class="bar__span white--text"
       height="14"
@@ -20,20 +20,20 @@ export default {
   props: {
     total: {
       type: Number,
-      default: 0,
+      default: 1,
     },
     max: {
       type: Number,
-      default: 0,
+      default: 1,
     },
     value: {
       type: Number,
-      default: 0,
+      default: 1,
     },
   },
   computed: {
     percentage() {
-      const percentage = (100 / this.total) * this.value
+      const percentage = (100 / Math.max(1, this.total)) * this.value
 
       return percentage.toFixed(
         percentage <= 0.9 ? (percentage <= 0.09 ? 2 : 1) : 0
