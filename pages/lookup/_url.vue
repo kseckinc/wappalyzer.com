@@ -89,7 +89,10 @@
         Look up 5,000 websites at once with
         <nuxt-link to="/bulk/">Bulk lookup</nuxt-link>.<br />
         Automate lookups with the
-        <nuxt-link to="/api/">Lookup API</nuxt-link>.<br />
+        <nuxt-link to="/api/">Lookup API</nuxt-link> or
+        <nuxt-link to="/docs/integrations/hubspot/"
+          >HubSpot integration</nuxt-link
+        >.<br />
         Get the free
         <nuxt-link to="/download/">browser extension</nuxt-link>.
       </small>

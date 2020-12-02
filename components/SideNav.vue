@@ -58,6 +58,7 @@ import {
   mdiTagOutline,
   mdiStar,
   mdiDomain,
+  mdiPowerPlug,
 } from '@mdi/js'
 
 export default {
@@ -85,6 +86,7 @@ export default {
         mdiTagOutline,
         mdiStar,
         mdiDomain,
+        mdiPowerPlug,
       },
     }
   },

@@ -22,5 +22,14 @@
     "title": "Attribute sets",
     "icon": "mdiTagOutline",
     "to": "/docs/sets/"
+  },
+  {
+    "title": "Integrations",
+    "icon": "mdiPowerPlug",
+    "to": "/docs/integrations/",
+    "items": [{
+      "title": "HubSpot",
+      "to": "/docs/integrations/hubspot/"
+    }]
   }
 ]

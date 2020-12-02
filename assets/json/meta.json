@@ -70,6 +70,12 @@
         "to": "/docs/api/",
         "icon": "mdiBookOpenPageVariant",
         "secondary": true
+      },
+      {
+        "text": "Integrations",
+        "to": "/docs/integrations/",
+        "icon": "mdiPowerPlug",
+        "secondary": true
       }
     ],
     "features": ["Get started in minutes", "Perform instant lookups", "Real-time analysis"],

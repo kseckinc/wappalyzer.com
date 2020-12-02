@@ -6,6 +6,7 @@
     "lists": { "text": "Lead lists", "type": "boolean" },
     "apis": { "text": "API access", "type": "boolean" },
     "alerts": { "text": "Website alerts", "type": "boolean" },
+    "hubspot": { "text": "HubSpot integration", "type": "boolean" },
     "cancellation": { "text": "Anytime cancellation", "type": "boolean" },
     "support": { "text": "Technical support", "type": "boolean" }
   },
@@ -23,6 +24,7 @@
         "lists": true,
         "apis": true,
         "alerts": true,
+        "hubspot": true,
         "cancellation": true
       }
     },
@@ -38,6 +40,7 @@
         "lists": true,
         "apis": true,
         "alerts": true,
+        "hubspot": true,
         "cancellation": true
       }
     },
@@ -54,6 +57,7 @@
         "lists": true,
         "apis": true,
         "alerts": true,
+        "hubspot": true,
         "cancellation": true
       }
     },
@@ -69,6 +73,7 @@
         "lists": true,
         "apis": true,
         "alerts": true,
+        "hubspot": true,
         "cancellation": true
       }
     },
@@ -85,6 +90,7 @@
         "lists": true,
         "apis": true,
         "alerts": true,
+        "hubspot": true,
         "cancellation": true
       }
     },
@@ -100,6 +106,7 @@
         "lists": true,
         "apis": true,
         "alerts": true,
+        "hubspot": true,
         "cancellation": true
       }
     },
@@ -116,6 +123,7 @@
         "lists": true,
         "apis": true,
         "alerts": true,
+        "hubspot": true,
         "cancellation": true
       }
     },
@@ -131,6 +139,7 @@
         "lists": true,
         "apis": true,
         "alerts": true,
+        "hubspot": true,
         "cancellation": true
       }
     }

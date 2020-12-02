@@ -42,6 +42,11 @@
     "to": "/paymentmethods/"
   },
   {
+    "title": "Integrations",
+    "icon": "mdiPowerPlug",
+    "to": "/integrations/"
+  },
+  {
     "title": "API Key",
     "icon": "mdiKeyVariant",
     "to": "/apikey/"

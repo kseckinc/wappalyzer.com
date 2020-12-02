@@ -82,6 +82,7 @@ import {
   mdiPuzzle,
   mdiDownload,
   mdiAccountMultiple,
+  mdiPowerPlug,
 } from '@mdi/js'
 
 import ProductImage from '~/components/ProductImage.vue'
@@ -118,6 +119,7 @@ export default {
         mdiPuzzle,
         mdiDownload,
         mdiAccountMultiple,
+        mdiPowerPlug,
       },
     }
   },

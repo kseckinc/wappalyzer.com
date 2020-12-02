@@ -104,6 +104,7 @@ import {
   mdiDomain,
   mdiFilterVariant,
   mdiAccountSwitch,
+  mdiPowerPlug,
 } from '@mdi/js'
 
 export default {
@@ -134,6 +135,7 @@ export default {
         mdiDomain,
         mdiFilterVariant,
         mdiAccountSwitch,
+        mdiPowerPlug,
       },
     }
   },

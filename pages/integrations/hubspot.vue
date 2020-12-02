@@ -11,43 +11,53 @@
       {{ error }}
     </v-alert>
 
+    <v-row class="mb-4">
+      <v-col cols="12" md="8" class="py-0">
+        <p>
+          Connect Wappalyzer to HubSpot to see the technology stacks of your
+          leads without leaving your CRM.
+        </p>
+      </v-col>
+    </v-row>
+
+    <div class="mb-4">
+      <v-btn href="/docs/integrations/hubspot/" color="accent" outlined>
+        <v-icon left>{{ mdiBookOpenPageVariant }}</v-icon>
+        Documentation
+      </v-btn>
+    </div>
+
     <v-card>
       <v-card-title>
-        Connection
+        Integration
       </v-card-title>
       <v-card-text class="px-0">
         <v-simple-table>
           <tbody>
             <tr>
-              <th width="40%">Status</th>
+              <th width="30%">Status</th>
               <td>
                 <template v-if="connecting">
                   <Spinner />
                 </template>
                 <v-chip
                   v-else
-                  :color="hubspotId ? 'success' : 'error'"
+                  :color="hubspotId ? 'success' : ''"
                   outlined
                   small
                 >
-                  <v-icon small left>
-                    {{ hubspotId ? mdiCheck : mdiClose }}
+                  <v-icon v-if="hubspotId" small left>
+                    {{ mdiCheck }}
                   </v-icon>
                   {{ hubspotId ? `Connected` : 'Not connected' }}
                 </v-chip>
               </td>
             </tr>
-            <tr>
+            <tr v-if="hubspotId">
               <th>HubSpot account ID</th>
               <td>
-                <template v-if="connecting">
-                  <Spinner />
-                </template>
-                <template v-else-if="hubspotId">
+                <template>
                   {{ hubspotId }}
-                </template>
-                <template v-else class="text--disabled">
-                  -
                 </template>
               </td>
             </tr>
@@ -85,7 +95,13 @@
 </template>
 
 <script>
-import { mdiCheck, mdiClose, mdiPowerPlug, mdiPowerPlugOff } from '@mdi/js'
+import {
+  mdiCheck,
+  mdiClose,
+  mdiPowerPlug,
+  mdiPowerPlugOff,
+  mdiBookOpenPageVariant,
+} from '@mdi/js'
 import { mapState } from 'vuex'
 
 import Page from '~/components/Page.vue'
@@ -109,6 +125,7 @@ export default {
       mdiClose,
       mdiPowerPlug,
       mdiPowerPlugOff,
+      mdiBookOpenPageVariant,
     }
   },
   computed: {

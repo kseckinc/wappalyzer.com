@@ -64,6 +64,11 @@
 
       <p class="mt-4">
         <small>
+          Automate lookups with the
+          <nuxt-link to="/api/">Lookup API</nuxt-link> or
+          <nuxt-link to="/docs/integrations/hubspot/"
+            >HubSpot integration</nuxt-link
+          >.<br />
           By using our services, you agree to our
           <nuxt-link to="/terms/" target="_blank">terms of service</nuxt-link>.
         </small>
