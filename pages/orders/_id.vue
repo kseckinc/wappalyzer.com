@@ -696,7 +696,7 @@
                 ><v-icon left>{{ mdiCreditCard }}</v-icon> Pay now</v-btn
               >
               <v-btn
-                v-if="!order.product !== 'Subscription'"
+                v-if="order.product !== 'Subscription'"
                 :loading="invoicing"
                 :disabled="!user.billingEmail"
                 class="ml-4"
