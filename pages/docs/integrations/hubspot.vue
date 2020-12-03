@@ -7,8 +7,8 @@
 
       <p>
         Connect Wappalyzer to
-        <nuxt-link to="https://www.hubspot.com" rel="noopener" target="_blank"
-          >HubSpot</nuxt-link
+        <a href="https://www.hubspot.com" rel="noopener" target="_blank"
+          >HubSpot</a
         >
         to see the technology stacks of your leads without leaving your CRM.
       </p>
