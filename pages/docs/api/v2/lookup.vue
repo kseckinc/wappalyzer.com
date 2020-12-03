@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Page :title="title" :side="side" no-hero no-head>
+    <Page :title="title" :side="side" :crumbs="crumbs" no-hero no-head>
       <h1 class="mb-4">
         Lookup API
       </h1>
@@ -323,8 +323,12 @@ export default {
   },
   data() {
     return {
-      title: 'Developer documentation',
+      title: 'Lookup API',
       side,
+      crumbs: [
+        { title: 'Developer documentation', to: '/docs/' },
+        { title: 'APIs', to: '/docs/api/' },
+      ],
       mdiLightbulbOnOutline,
     }
   },

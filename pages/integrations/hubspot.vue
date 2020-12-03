@@ -14,16 +14,31 @@
     <v-row class="mb-4">
       <v-col cols="12" md="8" class="py-0">
         <p>
-          Connect Wappalyzer to HubSpot to see the technology stacks of your
-          leads without leaving your CRM.
+          Connect Wappalyzer to
+          <a
+            href="https://app.hubspot.com/ecosystem/8898653/marketplace/apps/marketing/lead-generation/wappalyzer-by-wappalyzer"
+            rel="noopener"
+            target="_blank"
+            >HubSpot</a
+          >
+          to see the technology stacks of your leads without leaving your CRM.
         </p>
       </v-col>
     </v-row>
 
     <div class="mb-4">
-      <v-btn href="/docs/integrations/hubspot/" color="accent" outlined>
+      <v-btn to="/docs/integrations/hubspot/" color="accent" outlined>
         <v-icon left>{{ mdiBookOpenPageVariant }}</v-icon>
         Documentation
+      </v-btn>
+      <v-btn
+        href="https://app.hubspot.com/ecosystem/8898653/marketplace/apps/marketing/lead-generation/wappalyzer-by-wappalyzer"
+        target="_blank"
+        color="accent"
+        outlined
+      >
+        <v-icon left>{{ mdiHubspot }}</v-icon>
+        App marketplace
       </v-btn>
     </div>
 
@@ -101,6 +116,7 @@ import {
   mdiPowerPlug,
   mdiPowerPlugOff,
   mdiBookOpenPageVariant,
+  mdiHubspot,
 } from '@mdi/js'
 import { mapState } from 'vuex'
 
@@ -126,6 +142,7 @@ export default {
       mdiPowerPlug,
       mdiPowerPlugOff,
       mdiBookOpenPageVariant,
+      mdiHubspot,
     }
   },
   computed: {

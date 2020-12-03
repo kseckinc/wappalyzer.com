@@ -27,9 +27,15 @@
     "title": "Integrations",
     "icon": "mdiPowerPlug",
     "to": "/docs/integrations/",
-    "items": [{
-      "title": "HubSpot",
-      "to": "/docs/integrations/hubspot/"
-    }]
+    "items": [
+      {
+        "title": "HubSpot",
+        "to": "/docs/integrations/hubspot/"
+      },
+      {
+        "title": "Zapier",
+        "to": "/docs/integrations/zapier/"
+      }
+    ]
   }
 ]

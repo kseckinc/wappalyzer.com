@@ -1,13 +1,16 @@
 <template>
   <div>
-    <Page :title="title" :side="side" no-hero no-head>
+    <Page :title="title" :side="side" :crumbs="crumbs" no-hero no-head>
       <h1 class="mb-4">
         HubSpot
       </h1>
 
       <p>
         Connect Wappalyzer to
-        <a href="https://www.hubspot.com" rel="noopener" target="_blank"
+        <a
+          href="https://app.hubspot.com/ecosystem/8898653/marketplace/apps/marketing/lead-generation/wappalyzer-by-wappalyzer"
+          rel="noopener"
+          target="_blank"
           >HubSpot</a
         >
         to see the technology stacks of your leads without leaving your CRM.
@@ -26,8 +29,8 @@
         is longer available.
       </v-alert>
 
-      <Heading id="installation" size="2" class="mt-8 mb-2">
-        Installation
+      <Heading id="getting-started" size="2" class="mt-8 mb-2">
+        Getting started
       </Heading>
 
       <ul>
@@ -83,6 +86,10 @@ export default {
       title: 'HubSpot',
       side,
       mdiLightbulbOnOutline,
+      crumbs: [
+        { title: 'Developer documentation', to: '/docs/' },
+        { title: 'Integrations', to: '/docs/integrations/' },
+      ],
     }
   },
 }

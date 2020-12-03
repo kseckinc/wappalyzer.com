@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
-  <Page :title="title" :side="side" no-hero no-head>
+  <Page :title="title" :side="side" :crumbs="crumbs" no-hero no-head>
     <h1 class="mb-4">
       Attribute sets
     </h1>
@@ -63,11 +63,12 @@ export default {
   },
   data() {
     return {
-      title: 'Developer documentation',
+      title: 'Attribute sets',
       mdiInformationOutline,
       mdiLink,
       side,
       sets,
+      crumbs: [{ title: 'Developer documentation', to: '/docs/' }],
     }
   },
 }
