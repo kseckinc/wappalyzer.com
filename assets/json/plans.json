@@ -24,7 +24,7 @@
         "lists": true,
         "apis": true,
         "alerts": true,
-        "hubspot": true,
+        "hubspot": "-",
         "cancellation": true
       }
     },
@@ -40,7 +40,7 @@
         "lists": true,
         "apis": true,
         "alerts": true,
-        "hubspot": true,
+        "hubspot": "-",
         "cancellation": true
       }
     },
@@ -90,7 +90,7 @@
         "lists": true,
         "apis": true,
         "alerts": true,
-        "hubspot": true,
+        "hubspot": "-",
         "cancellation": true
       }
     },
@@ -106,7 +106,7 @@
         "lists": true,
         "apis": true,
         "alerts": true,
-        "hubspot": true,
+        "hubspot": "-",
         "cancellation": true
       }
     },

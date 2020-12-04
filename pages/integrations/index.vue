@@ -56,6 +56,50 @@
             </v-responsive>
           </v-card>
         </v-col>
+        <!--
+        <v-col cols="6" md="4">
+          <v-card @click="goto('https://www.integromat.com/app/wappalyzer/2')">
+            <v-responsive :aspect-ratio="4 / 3">
+              <v-card-text class="pb-0">
+                <div class="mb-4">
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 380 381"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M126.693 11.8183V81.3469C88.8588 103.249 63.3844 144.173 63.3844 191.001C63.3844 260.881 120.119 317.616 190.001 317.616C259.884 317.616 316.618 260.881 316.618 191.001C316.618 144.173 291.144 103.249 253.31 81.3469V11.8183C327.089 37.9173 380 108.329 380 191.001C380 295.863 294.865 381 190.001 381C85.1372 381 3.05176e-05 295.863 3.05176e-05 191.001C3.05176e-05 108.329 52.9154 37.9173 126.693 11.8183V11.8183Z"
+                      fill="#CCCCCC"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M158.347 3.62921C168.643 1.90023 179.216 0.997681 190.001 0.997681C200.786 0.997681 211.36 1.90023 221.655 3.62921V68.3792C211.538 65.7715 200.929 64.3844 190.001 64.3844C179.074 64.3844 168.465 65.7715 158.347 68.3792V3.62921Z"
+                      fill="#308CBB"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M158.347 249.037V101.451C168.251 97.9435 178.905 96.0386 190.001 96.0386C201.097 96.0386 211.752 97.9435 221.655 101.451V249.037C211.752 252.543 201.097 254.45 190.001 254.45C178.905 254.45 168.251 252.543 158.347 249.037Z"
+                      fill="#308CBB"
+                    />
+                  </svg>
+                </div>
+
+                <h2 class="mb-2">Integromat</h2>
+
+                <p>
+                  Automate technology lookups without a developer.
+                </p>
+              </v-card-text>
+            </v-responsive>
+          </v-card>
+        </v-col>
+        -->
       </v-row>
     </Page>
   </div>
@@ -78,7 +122,7 @@ export default {
   },
   methods: {
     goto(url) {
-      window.location.href = url
+      window.open(url)
     },
   },
 }

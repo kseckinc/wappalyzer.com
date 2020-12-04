@@ -188,6 +188,7 @@
             "id": 1,
             "slug": "cms",
             "name": "CMS"
+          }
         ],
         "versions": [
           "3.0.0"
