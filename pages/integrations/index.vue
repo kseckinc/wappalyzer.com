@@ -1,9 +1,12 @@
 <template>
   <div>
     <Page :title="title" secure>
-      <v-row>
+      <v-row align="stretch">
         <v-col cols="6" md="4">
-          <v-card @click="$router.push('/integrations/hubspot/')">
+          <v-card
+            style="height: 100%;"
+            @click="$router.push('/integrations/hubspot/')"
+          >
             <v-responsive :aspect-ratio="4 / 3">
               <v-card-text class="pb-0">
                 <div class="mb-4">

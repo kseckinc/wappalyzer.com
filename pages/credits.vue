@@ -29,7 +29,7 @@
       </v-btn>
 
       <v-btn href="/pricing" color="accent" outlined>
-        <v-icon left>{{ mdiCurrencyUsd }}</v-icon>
+        <v-icon left>{{ mdiCalculator }}</v-icon>
         Plans &amp; pricing
       </v-btn>
     </div>
@@ -270,7 +270,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import { mdiAlphaCCircle, mdiForum, mdiCurrencyUsd } from '@mdi/js'
+import { mdiAlphaCCircle, mdiForum, mdiCalculator } from '@mdi/js'
 import { creditTiers } from '~/assets/json/pricing.json'
 
 import Page from '~/components/Page.vue'
@@ -291,7 +291,7 @@ export default {
       description: 'Complimentary credits',
       mdiAlphaCCircle,
       mdiForum,
-      mdiCurrencyUsd,
+      mdiCalculator,
       rules: {
         credits: [
           (v) => /^[0-9]+$/.test(v),

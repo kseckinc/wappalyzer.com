@@ -47,6 +47,22 @@
         Integration
       </v-card-title>
       <v-card-text class="px-0">
+        <v-alert
+          v-if="!connecting && !eligible"
+          color="accent"
+          class="mx-4"
+          outlined
+        >
+          <p>
+            Please subscribe to an eligible plan to enable this integration.
+          </p>
+
+          <v-btn to="/pricing/" color="accent" outlined>
+            <v-icon left>{{ mdiCalculator }}</v-icon>
+            Plans &amp; pricing</v-btn
+          >
+        </v-alert>
+
         <v-simple-table>
           <tbody>
             <tr>
@@ -89,6 +105,7 @@
           color="accent"
           _target="blank"
           :loading="connecting"
+          :disabled="!eligible"
           text
         >
           <v-icon left>{{ mdiPowerPlug }}</v-icon>
@@ -117,6 +134,7 @@ import {
   mdiPowerPlugOff,
   mdiBookOpenPageVariant,
   mdiHubspot,
+  mdiCalculator,
 } from '@mdi/js'
 import { mapState } from 'vuex'
 
@@ -134,6 +152,7 @@ export default {
       code: null,
       connecting: false,
       disconnecting: false,
+      eligible: false,
       success: null,
       error: null,
       hubspotId: null,
@@ -143,6 +162,7 @@ export default {
       mdiPowerPlugOff,
       mdiBookOpenPageVariant,
       mdiHubspot,
+      mdiCalculator,
     }
   },
   computed: {
@@ -163,7 +183,7 @@ export default {
           }
         } else {
           try {
-            ;({ portalId: this.hubspotId } = (
+            ;({ eligible: this.eligible, portalId: this.hubspotId } = (
               await this.$axios.get('hubspot')
             ).data)
           } catch (error) {
@@ -197,11 +217,11 @@ export default {
         }
       } else {
         try {
-          ;({ portalId: this.hubspotId } = (
+          ;({ eligible: this.eligible, portalId: this.hubspotId } = (
             await this.$axios.get('hubspot')
           ).data)
         } catch (error) {
-          // Continue
+          this.error = this.getErrorMessage(error)
         }
       }
 

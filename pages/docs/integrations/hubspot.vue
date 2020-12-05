@@ -56,9 +56,9 @@
       </p>
 
       <p>
-        The HubSpot integration is available on any plan. There is no setup fee
-        or minimum spend. When you have no remaining credits, no new lookups
-        will be performed until you top-up your account.
+        The HubSpot integration is available on Pro and Business plans. When you
+        have no remaining credits, no new lookups will be performed until you
+        top-up your account.
       </p>
 
       <p>

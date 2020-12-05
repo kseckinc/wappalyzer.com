@@ -6,6 +6,7 @@
 
     <div class="mb-4">
       <v-btn href="/pricing/" color="accent" outlined>
+        <v-icon left>{{ mdiCalculator }}</v-icon>
         Plans &amp; pricing
       </v-btn>
     </div>
@@ -54,6 +55,8 @@
 </template>
 
 <script>
+import { mdiCalculator } from '@mdi/js'
+
 import Page from '~/components/Page.vue'
 
 export default {
@@ -65,6 +68,7 @@ export default {
       title: 'Subscriptions',
       error: false,
       subscriptions: null,
+      mdiCalculator,
     }
   },
   watch: {
