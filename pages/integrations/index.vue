@@ -15,7 +15,12 @@
                   </v-icon>
                 </div>
 
-                <h2 class="mb-2">HubSpot</h2>
+                <div class="mb-2 d-flex align-center">
+                  <h2 class="mr-2">
+                    HubSpot
+                  </h2>
+                  <v-chip color="primary" x-small outlined>PRO</v-chip>
+                </div>
 
                 <p>
                   See the technology stacks of your leads in your CRM.
@@ -35,7 +40,7 @@
           >
             <v-responsive :aspect-ratio="4 / 3">
               <v-card-text class="pb-0">
-                <div class="mb-4">
+                <div class="mb-4" style="height: 40px;">
                   <svg
                     width="40"
                     height="40"
