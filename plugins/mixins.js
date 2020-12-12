@@ -368,6 +368,10 @@ Vue.mixin({
         set.attributes.some(({ key: _key }) => key === _key)
       )
 
+      if (!set) {
+        return value
+      }
+
       if (typeof value === 'undefined') {
         const attribute = set.attributes.find(({ key: _key }) => key === _key)
 

@@ -428,7 +428,7 @@
                         :key="key"
                         style="white-space: nowrap;"
                       >
-                        {{ formatAttribute(key) }}
+                        {{ formatAttribute(key) || key }}
                       </th>
                     </tr>
                   </thead>
