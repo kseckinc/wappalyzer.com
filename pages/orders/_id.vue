@@ -45,8 +45,9 @@
           card issuer to authorise the transaction.
         </template>
         <template v-else>
-          Your order is awaiting payment. Please use the invoice to complete the
-          purchase.
+          Your order is awaiting payment. Please use the
+          <a :href="order.invoiceUrl" target="_blank">invoice</a> to complete
+          the purchase.
         </template>
       </v-alert>
 
@@ -688,6 +689,7 @@
 
             <div class="d-flex justify-center py-8">
               <v-btn
+                v-if="!order.taxPercent || order.product === 'Subscription'"
                 :loading="paying"
                 :disabled="!stripePaymentMethod || !user.billingEmail"
                 color="primary"
@@ -971,7 +973,7 @@ export default {
         'Complete',
       ],
       stripe: null,
-      stripePaymentMethod: false,
+      stripePaymentMethod: null,
       technologiesViewAll: false,
       totalCredits: 0,
       success: false,
@@ -1059,7 +1061,7 @@ export default {
     },
     paymentMethod() {
       this.cardsLoaded = false
-      this.stripePaymentMethod = false
+      this.stripePaymentMethod = null
 
       if (this.isMember && this.paymentMethod !== 'credits') {
         this.$nextTick(() => {
@@ -1098,8 +1100,8 @@ export default {
 
         if (this.order.product === 'Subscription') {
           await this.$axios.patch(`orders/${id}`, {
-            stripePaymentMethod:
-              this.paymentMethod === 'stripe' ? this.stripePaymentMethod : null,
+            paymentMethod: 'stripe',
+            stripePaymentMethod: this.stripePaymentMethod,
           })
 
           this.order = (await this.$axios.get(`orders/${id}`)).data

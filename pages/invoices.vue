@@ -4,6 +4,12 @@
       {{ error }}
     </v-alert>
 
+    <p class="mb-8">
+      Invoices are issued on request when placing an order. If you made a
+      payment and did not request an invoice but require one, please
+      <nuxt-link to="/contact/">contact us</nuxt-link>.
+    </p>
+
     <template v-if="invoices">
       <v-card>
         <v-card-text v-if="!invoices.length">
@@ -24,11 +30,20 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="invoice in invoices" :key="invoice.number">
+              <tr v-for="(invoice, index) in invoices" :key="index">
                 <td>
                   <a :href="invoice.hosted_invoice_url" target="_blank">
-                    {{ invoice.number
-                    }}<v-icon color="accent" right small>{{
+                    {{
+                      invoice.type === 'paypal'
+                        ? 'PayPal invoice'
+                        : invoice.type === 'stripe_invoice'
+                        ? 'Invoice'
+                        : invoice.type === 'stripe_receipt'
+                        ? 'Receipt'
+                        : ''
+                    }}
+                    <span v-if="invoice.number"> ({{ invoice.number }})</span
+                    ><v-icon color="accent" right small>{{
                       mdiOpenInNew
                     }}</v-icon>
                   </a>
