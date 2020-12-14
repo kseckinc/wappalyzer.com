@@ -89,7 +89,7 @@ export default {
       },
       {
         rel: 'apple-touch-icon',
-        href: '/icon.png',
+        href: '/images/logo/icon_192.png',
       },
     ],
   },
@@ -109,7 +109,6 @@ export default {
       '@nuxtjs/dotenv',
       { filename: `.env.${process.env.ENVIRONMENT || 'beta'}` },
     ],
-    '@nuxtjs/pwa',
   ],
   modules: [
     '@nuxtjs/axios',
@@ -161,18 +160,6 @@ export default {
           anchor: '#2196f3',
         },
       },
-    },
-  },
-  pwa: {
-    manifest: {
-      name: 'Wappalyzer',
-      short_name: 'Wappalyzer',
-      description: 'Identify technologies on websites.',
-      theme_color: '#4608ad',
-      start_url: '/twa/?standalone=true',
-    },
-    workbox: {
-      dev: process.env.NODE_ENV !== 'production',
     },
   },
   build: {
