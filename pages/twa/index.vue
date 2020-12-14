@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  layout: 'android',
+  layout: 'twa',
 }
 </script>
