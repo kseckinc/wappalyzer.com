@@ -41,7 +41,6 @@ export default {
     fallback: '200.html',
     concurrency: 20,
     exclude: [/^\/compare\/.+/],
-    /*
     async routes() {
       const categories = (
         await axios.get(
@@ -62,7 +61,6 @@ export default {
 
       return [...categories, ...technologies]
     },
-    */
   },
   router: {
     routes: {
