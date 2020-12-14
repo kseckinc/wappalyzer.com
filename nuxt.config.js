@@ -41,6 +41,7 @@ export default {
     fallback: '200.html',
     concurrency: 20,
     exclude: [/^\/compare\/.+/],
+    /*
     async routes() {
       const categories = (
         await axios.get(
@@ -61,6 +62,7 @@ export default {
 
       return [...categories, ...technologies]
     },
+    */
   },
   router: {
     routes: {
@@ -85,7 +87,11 @@ export default {
       },
       {
         rel: 'preconnect',
-        href: `https://www.google-analytics.com`,
+        href: 'https://www.google-analytics.com',
+      },
+      {
+        rel: 'apple-touch-icon',
+        href: '/images/logo/icon_192.png',
       },
     ],
   },
@@ -105,6 +111,7 @@ export default {
       '@nuxtjs/dotenv',
       { filename: `.env.${process.env.ENVIRONMENT || 'beta'}` },
     ],
+    '@nuxtjs/pwa',
   ],
   modules: [
     '@nuxtjs/axios',
@@ -116,6 +123,7 @@ export default {
       'nuxt-canonical',
       { baseUrl: publicRuntimeConfig.WEBSITE_URL, trailingSlashes: true },
     ],
+    '@nuxtjs/pwa',
   ],
   'google-gtag': {
     id: 'UA-216336-5',
@@ -156,6 +164,18 @@ export default {
           anchor: '#2196f3',
         },
       },
+    },
+  },
+  pwa: {
+    icon: {
+      source: '~/static/images/logo/icon_512.png',
+    },
+    meta: {
+      theme_color: '#4608ad',
+    },
+    manifest: {
+      name: 'Wappalyzer',
+      short_name: 'Wappalyzer',
     },
   },
   build: {
