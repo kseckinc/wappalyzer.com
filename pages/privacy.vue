@@ -38,7 +38,7 @@
 
       <p>
         You do not need to provide any personal information in order to download
-        and use the browser extension.
+        and use the <nuxt-link to="/download/">browser extension</nuxt-link>.
       </p>
 
       <p>
@@ -47,11 +47,28 @@
       </p>
 
       <p>
-        The browser extension periodically sends information about websites you
-        visit to our servers. This information includes domain names, anonymised
-        URLs and the names of identified technologies. This information may be
-        sold to or shared with third parties. You can disable the automatic
-        sending of information in the browser extension settings.
+        The Wappalyzer browser extension periodically sends information about
+        websites you visit to our servers. This information includes domain
+        names, anonymised URLs and the names of identified technologies. This
+        information may be sold to or shared with third parties. You can disable
+        the automatic sending of information in the browser extension settings.
+      </p>
+
+      <h2 class="text-h2 mt-8 mb-2">
+        Gmail add-on
+      </h2>
+
+      <p>
+        By installing the Gmail add-on, you grant us temporary access to message
+        meta data. We use this data to identify the domain name of sender's
+        email addresses. This information is sent to our servers over a secure
+        connection so that we can provide you with information about the domain,
+        such as the technologies in use.
+      </p>
+
+      <p>
+        The use of personal data is limited to providing user-facing features.
+        We do not store or share this information.
       </p>
     </Page>
   </div>
