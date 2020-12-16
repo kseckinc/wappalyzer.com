@@ -22,5 +22,11 @@
     "role": "Senior Developer Relations Engineer at Google",
     "image": "/images/testimonials/rick-viscomi.jpg",
     "text": "Wappalyzer has been such a useful part of the HTTP Archive dataset. It's enabled us to slice the data in new ways and discover more interesting insights about the state of the web."
+  },
+  {
+    "name": "Rabin Nuchtabek",
+    "role": "Chief Growth Engineer at Skedify",
+    "image": "/images/testimonials/rabin-nuchtabek.jpg",
+    "text": "Wappalyzer is helping our sales teams to understand prospects better and faster by having a clear view on their techstack."
   }
 ]
