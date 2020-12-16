@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" width="400">
+  <v-card class="mx-auto" :width="fluid ? '' : '400'">
     <v-card-title v-if="mode === 'signIn' || mode === 'verifySignIn'">
       Sign in {{ modeContinue ? 'to continue' : '' }}
     </v-card-title>
@@ -186,6 +186,10 @@ import { mdiEye, mdiEyeOff } from '@mdi/js'
 
 export default {
   props: {
+    fluid: {
+      type: Boolean,
+      default: false,
+    },
     modeSignUp: {
       type: Boolean,
       default: false,

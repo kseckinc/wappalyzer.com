@@ -74,7 +74,7 @@ export default {
     titleTemplate: (title) => `${title ? `${title} - ` : ''}Wappalyzer`,
     meta: [
       { charset: 'utf-8' },
-      { theme_color: '#4608ad' },
+      { theme_color: '#32067c' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     ],
     link: [
@@ -135,7 +135,7 @@ export default {
   },
   sitemap: {
     hostname: publicRuntimeConfig.WEBSITE_URL,
-    exclude: ['/admin'],
+    exclude: ['/admin', '/twa'],
     trailingSlash: true,
   },
   vuetify: {
