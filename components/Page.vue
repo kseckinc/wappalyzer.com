@@ -12,7 +12,11 @@
       <slot name="header" />
 
       <v-container class="py-10 py-sm-12">
-        <SignIn v-if="secure && !isSignedIn" class="px-2" mode-continue />
+        <Progress
+          v-if="secure && !isSignedIn && !userLoaded"
+          style="margin: 0 auto;"
+        />
+        <SignIn v-else-if="secure && !isSignedIn" class="px-2" mode-continue />
         <v-row v-else-if="sideNav.length">
           <v-col cols="12" sm="4" lg="3" order="2" order-sm="0">
             <Credits v-if="secure && isSignedIn" variant />
@@ -83,6 +87,7 @@ import Crumbs from '~/components/Crumbs.vue'
 import SignIn from '~/components/SignIn.vue'
 import Credits from '~/components/Credits.vue'
 import Hero from '~/components/Hero.vue'
+import Progress from '~/components/Progress.vue'
 import userNav from '~/assets/json/nav/user.json'
 import { hero as meta } from '~/assets/json/meta.json'
 
@@ -95,6 +100,7 @@ export default {
     Crumbs,
     SignIn,
     Credits,
+    Progress,
   },
   props: {
     crumbs: {
@@ -159,6 +165,7 @@ export default {
     return {
       drawer: false,
       meta,
+      userLoaded: false,
     }
   },
   computed: {
@@ -181,7 +188,11 @@ export default {
       return [...this.crumbs, { title: this.title, to: '' }]
     },
   },
-  mounted() {},
+  mounted() {
+    this.$nuxt.$on('userLoaded', () => {
+      this.userLoaded = true
+    })
+  },
   head() {
     return {
       title: this.seoTitle || this.title,

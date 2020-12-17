@@ -70,11 +70,17 @@ export default {
       this.checkChat()
     },
   },
-  mounted() {
+  async mounted() {
     this.initChat()
 
     if (!this.isSignedIn) {
-      this.updateUserAttrs()
+      this.loading = true
+
+      await this.updateUserAttrs()
+
+      this.loading = true
+
+      this.$nuxt.$emit('userLoaded')
     }
   },
   methods: {

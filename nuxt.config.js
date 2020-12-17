@@ -80,7 +80,7 @@ export default {
       },
       {
         rel: 'apple-touch-icon',
-        href: '/images/logo/icon_192.png',
+        href: '/apple-touch-icon.png',
       },
     ],
   },
@@ -92,11 +92,7 @@ export default {
     '~/plugins/mixins.js',
     { src: '~/plugins/prism', ssr: false },
   ],
-  buildModules: [
-    '@nuxtjs/eslint-module',
-    '@nuxtjs/svg',
-    '@nuxtjs/vuetify',
-  ],
+  buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/svg', '@nuxtjs/vuetify'],
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/sitemap',
