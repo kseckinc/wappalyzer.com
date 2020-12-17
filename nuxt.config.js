@@ -1,13 +1,5 @@
 import axios from 'axios'
 
-require('dotenv').config({
-  path: `.env.${
-    process.env.NODE_ENV === 'development' || process.env.ENVIRONMENT === 'beta'
-      ? 'beta'
-      : 'v2'
-  }`,
-})
-
 const publicRuntimeConfig = {
   AWS_REGION: 'ap-southeast-2',
   COGNITO_USER_POOL_ID: 'ap-southeast-2_Tz6DGDkmB',
@@ -37,7 +29,6 @@ export default {
   mode: 'universal',
   target: 'static',
   generate: {
-    // crawler: false,
     fallback: '200.html',
     concurrency: 20,
     exclude: [/^\/compare\/.+/],
@@ -105,10 +96,6 @@ export default {
     '@nuxtjs/eslint-module',
     '@nuxtjs/svg',
     '@nuxtjs/vuetify',
-    [
-      '@nuxtjs/dotenv',
-      { filename: `.env.${process.env.ENVIRONMENT || 'beta'}` },
-    ],
   ],
   modules: [
     '@nuxtjs/axios',
@@ -165,5 +152,13 @@ export default {
   build: {
     extend(config, ctx) {},
     followSymlinks: true,
+  },
+  hooks: {
+    'build:done'() {
+      const modulesToClear = ['vue', 'vue/dist/vue.runtime.common.prod']
+      modulesToClear.forEach((entry) => {
+        delete require.cache[require.resolve(entry)]
+      })
+    },
   },
 }

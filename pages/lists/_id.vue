@@ -574,7 +574,7 @@ export default {
     return {
       title: 'Lead list',
       checks: 0,
-      datasetsBaseUrl: process.env.DATASETS_BASE_URL,
+      datasetsBaseUrl: this.$config.DATASETS_BASE_URL,
       error: false,
       faqDialog: false,
       mdiArrowLeft,
