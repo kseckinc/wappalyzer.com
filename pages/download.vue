@@ -39,6 +39,69 @@
         </v-col>
       </v-row>
 
+      <v-divider class="my-8" />
+
+      <h2 class="mb-2">Mobile apps</h2>
+
+      <p>
+        Wappalyzer is available on mobile devices as a
+        <a
+          href="https://web.dev/progressive-web-apps/"
+          target="_blank"
+          rel="noopener"
+          >Progressive Web App</a
+        >.
+      </p>
+
+      <v-row>
+        <v-col>
+          <v-card height="100%" class="d-flex flex-column">
+            <v-card-title class="subtitle-2">
+              <v-icon left>{{ mdi.mdiAndroid }}</v-icon>
+              Android app
+            </v-card-title>
+            <v-card-text>
+              <ol>
+                <li class="mb-2">
+                  On your Android device, open Chrome and go to
+                  <a href="https://twa.wappalyzer.com" target="_blank"
+                    >twa.wappalyzer.com</a
+                  >.
+                </li>
+                <li class="mb-2">
+                  In the menu, click 'Add to Home screen'.
+                </li>
+                <li class="mb-2">
+                  Share links to the Wappalyzer app from Chrome or any other
+                  app.
+                </li>
+              </ol>
+            </v-card-text>
+          </v-card>
+        </v-col>
+
+        <v-col>
+          <v-card height="100%" class="d-flex flex-column">
+            <v-card-title class="subtitle-2">
+              <v-icon left>{{ mdi.mdiApple }}</v-icon> iOS app
+            </v-card-title>
+            <v-card-text>
+              <ol>
+                <li class="mb-2">
+                  On your iOS device, open Safari and go to
+                  <a href="https://twa.wappalyzer.com" target="_blank"
+                    >twa.wappalyzer.com</a
+                  >.
+                </li>
+                <li>
+                  In the Share menu, click 'Add to Home Screen'.
+                </li>
+              </ol>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+
       <v-dialog v-model="faqDialog" max-width="600px">
         <v-card>
           <v-card-title>
@@ -65,6 +128,8 @@ import {
   mdiGoogleChrome,
   mdiForum,
   mdiAppleSafari,
+  mdiApple,
+  mdiAndroid,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -87,6 +152,8 @@ export default {
         mdiGoogleChrome,
         mdiForum,
         mdiAppleSafari,
+        mdiApple,
+        mdiAndroid,
       },
       meta,
       platforms: [
