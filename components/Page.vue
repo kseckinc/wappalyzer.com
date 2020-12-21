@@ -165,12 +165,12 @@ export default {
     return {
       drawer: false,
       meta,
-      userLoaded: false,
     }
   },
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
+      userLoaded: ({ user }) => user.loaded,
       isSignedIn: ({ user }) => user.isSignedIn,
       isMember: ({ user }) =>
         !user.admin && user.impersonator && !user.impersonator.admin,
@@ -187,11 +187,6 @@ export default {
     crumbNav() {
       return [...this.crumbs, { title: this.title, to: '' }]
     },
-  },
-  mounted() {
-    this.$nuxt.$on('userLoaded', () => {
-      this.userLoaded = true
-    })
   },
   head() {
     return {

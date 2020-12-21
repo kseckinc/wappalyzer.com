@@ -7,6 +7,7 @@ import {
 
 export const state = () => ({
   attrs: {},
+  loaded: false,
   idToken: '',
   refreshToken: '',
   isSignedIn: false,
@@ -17,6 +18,9 @@ export const state = () => ({
 export const mutations = {
   setAttrs(state, attrs) {
     state.attrs = { ...attrs, admin: attrs.admin === '1' }
+  },
+  setLoaded(state, loaded) {
+    state.loaded = loaded
   },
   setIdToken(state, idToken) {
     state.idToken = idToken
@@ -47,6 +51,7 @@ export const actions = {
     if (!cognitoUser) {
       commit('setAttrs', {})
       commit('setIsSignedIn', false)
+      commit('setLoaded', true)
 
       return
     }
@@ -54,11 +59,15 @@ export const actions = {
     return new Promise((resolve, reject) => {
       cognitoUser.getSession((error, session) => {
         if (error) {
+          commit('setLoaded', true)
+
           return reject(error)
         }
 
         cognitoUser.getUserAttributes((error, attributes) => {
           if (error) {
+            commit('setLoaded', true)
+
             return reject(error)
           }
 
@@ -72,6 +81,7 @@ export const actions = {
           commit('setIdToken', session.getIdToken().getJwtToken())
           commit('setRefreshToken', session.getRefreshToken())
           commit('setIsSignedIn', attrs.email_verified === 'true')
+          commit('setLoaded', true)
 
           resolve()
         })
