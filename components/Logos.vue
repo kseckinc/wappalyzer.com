@@ -1,13 +1,24 @@
 <template>
   <div>
-    <v-divider />
-    <v-container>
-      <Testimonials />
-    </v-container>
-
     <v-divider class="mb-12" />
 
-    <v-container class="logos text-center mb-6">
+    <template v-if="integrations">
+      <v-container class="mb-8">
+        <div class="text-h3 mb-4">
+          Apps &amp; integrations
+        </div>
+
+        <p>
+          Wappalyzer works with the tools you use every day.
+        </p>
+
+        <Integrations feature />
+      </v-container>
+
+      <v-divider class="mb-12" />
+    </template>
+
+    <v-container class="logos text-center">
       <p class="overline font-weight-regular">
         Wappalyzer is trusted by thousands of professionals world-wide
       </p>
@@ -18,11 +29,16 @@
         </v-col>
       </v-row>
     </v-container>
+
+    <v-container>
+      <Testimonials class="mb-4" />
+    </v-container>
   </div>
 </template>
 
 <script>
 import Testimonials from '~/components/Testimonials.vue'
+import Integrations from '~/components/Integrations.vue'
 
 import Adobe from '~/assets/images/logos/Adobe.svg?inline'
 import Amazon from '~/assets/images/logos/Amazon.svg?inline'
@@ -40,6 +56,7 @@ import Stripe from '~/assets/images/logos/Stripe.svg?inline'
 export default {
   components: {
     Testimonials,
+    Integrations,
     Google,
     Oracle,
     Amazon,
@@ -52,6 +69,12 @@ export default {
     Microsoft,
     Salesforce,
     Adobe,
+  },
+  props: {
+    integrations: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {

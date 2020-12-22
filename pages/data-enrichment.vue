@@ -70,7 +70,7 @@
       <Product name="apis" mirror />
 
       <template v-slot:footer>
-        <Logos />
+        <Logos integrations />
       </template>
     </Page>
 

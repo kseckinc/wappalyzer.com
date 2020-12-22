@@ -28,8 +28,8 @@
         "to": "/alerts/"
       },
       {
-        "title": "Browser extension",
-        "subtitle": "See the technologies on websites you visit at a glance",
+        "title": "Apps & integrations",
+        "subtitle": "Connect Wappalyzer to the apps you use",
         "to": "/download/"
       }
     ]
@@ -83,8 +83,8 @@
         "to": "/faq/extension/"
       },
       {
-        "title": "API reference",
-        "subtitle": "Developer documentation",
+        "title": "Documentation",
+        "subtitle": "API reference and developer documentation",
         "to": "/docs/"
       }
     ]

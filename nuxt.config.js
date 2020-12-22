@@ -135,6 +135,7 @@ export default {
           primary: {
             base: '#4608ad',
             lighten1: '#f0ebf9',
+            lighten2: '#f4f1fa',
             darken1: '#32067c',
             darken2: '#150233',
           },

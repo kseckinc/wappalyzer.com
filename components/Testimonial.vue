@@ -1,6 +1,6 @@
 <template>
   <v-card flat>
-    <v-card-text>
+    <v-card-text class="pl-0">
       <v-row>
         <v-col cols="12" sm="3">
           <v-avatar

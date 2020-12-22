@@ -1,0 +1,49 @@
+{
+  "chrome": {
+    "name": "Chrome",
+    "image": "chrome.svg",
+    "description": "See the technologies of websites you visit in your browser.",
+    "href": "https://chrome.google.com/webstore/detail/wappalyzer/gppongmhjkpfnbhagpmjfkannfbllamg"
+  },
+  "firefox": {
+    "name": "Firefox",
+    "image": "firefox.svg",
+    "description": "See the technologies of websites you visit in your browser.",
+    "href": "https://addons.mozilla.org/en-US/firefox/addon/wappalyzer/"
+  },
+  "edge": {
+    "name": "Edge",
+    "image": "edge.svg",
+    "description": "See the technologies of websites you visit in your browser.",
+    "href": "https://microsoftedge.microsoft.com/addons/detail/mnbndgmknlpdjdnjfmfcdjoegcckoikn"
+  },
+  "safari": {
+    "name": "Safari",
+    "image": "safari.svg",
+    "description": "See the technologies of websites you visit in your browser.",
+    "href": "https://apps.apple.com/app/wappalyzer/id1520333300"
+  },
+  "hubspot": {
+    "name": "HubSpot",
+    "image": "hubspot.svg",
+    "description": "See the technology stacks of your leads in your CRM.",
+    "settings": "/integrations/hubspot/",
+    "docs": "/docs/integrations/hubspot/",
+    "href": "https://app.hubspot.com/ecosystem/8898653/marketplace/apps/marketing/lead-generation/wappalyzer-by-wappalyzer",
+    "pro": true
+  },
+  "zapier": {
+    "name": "Zapier",
+    "image": "zapier.svg",
+    "description": "Connect Wappalyzer to the apps you use, no code required.",
+    "docs": "/docs/integrations/hubspot/",
+    "href": "https://zapier.com/developer/public-invite/9758/f2e8bd2517895d4ffb869e3281e2050f/"
+  },
+  "gmail": {
+    "name": "Gmail",
+    "image": "gmail.svg",
+    "description": "See the technology stacks of your contacts in Gmail.",
+    "docs": "/docs/integrations/hubspot/",
+    "href": "https://workspace.google.com/marketplace/app/wappalyzer/462079435928"
+  }
+}

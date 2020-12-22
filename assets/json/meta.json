@@ -70,12 +70,6 @@
         "to": "/docs/api/",
         "icon": "mdiBookOpenPageVariant",
         "secondary": true
-      },
-      {
-        "text": "Integrations",
-        "to": "/docs/integrations/",
-        "icon": "mdiPowerPlug",
-        "secondary": true
       }
     ],
     "features": ["Get started in minutes", "Perform instant lookups", "Real-time analysis"],
@@ -97,26 +91,6 @@
     "features": [
       "Same-day notifications",
       "Create up to 500 alerts"
-    ],
-    "feature": true
-  },
-  "download": {
-    "title": "Browser extension",
-    "subtitle": "Get the free browser extension",
-    "icon": "mdiPuzzle",
-    "image": "extension.svg",
-    "text": "Install the Wappalyzer browser extension to see the technologies used on websites you visit at a glance.",
-    "buttons": [
-      {
-        "text": "Download",
-        "to": "/download/",
-        "icon": "mdiDownload"
-      }
-    ],
-    "features": [
-      "Free forever",
-      "Available on Chrome, Firefox and Edge",
-      "Functions locally and offline"
     ],
     "feature": true
   },

@@ -70,7 +70,7 @@
       <Product name="bulk" mirror />
 
       <template v-slot:footer>
-        <Logos />
+        <Logos integrations />
       </template>
     </Page>
 

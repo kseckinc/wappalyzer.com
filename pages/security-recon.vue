@@ -66,12 +66,8 @@
 
       <Product name="apis" mirror />
 
-      <v-divider class="my-4 my-sm-6" />
-
-      <Product name="download" />
-
       <template v-slot:footer>
-        <Logos />
+        <Logos integrations />
       </template>
     </Page>
 

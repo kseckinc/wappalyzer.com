@@ -1,13 +1,9 @@
 <template>
   <div>
-    <Page
-      :title="title"
-      :head="{ ...meta, image: 'extension-2.svg' }"
-      no-heading
-    >
+    <Page :title="title" :head="meta">
       <v-btn
         color="accent"
-        class="mt-4 mb-10"
+        class="mt-4 mb-6"
         outlined
         @click="faqDialog = true"
       >
@@ -15,31 +11,24 @@
         FAQs
       </v-btn>
 
-      <v-row class="mb-4">
-        <v-col
-          v-for="{ text, href, icon } in platforms"
-          :key="text"
-          class="py-0"
-          cols="6"
-        >
-          <v-btn
-            :href="href"
-            color="primary"
-            class="mr-2 mb-4"
-            target="_blank"
-            rel="noopener noreferrer"
-            outlined
-            x-large
-            width="100%"
-            height="80px"
-          >
-            <v-icon left size="24">{{ mdi[icon] }}</v-icon>
-            {{ text }}
-          </v-btn>
-        </v-col>
-      </v-row>
+      <Integrations />
 
-      <v-divider class="my-8" />
+      <v-dialog v-model="faqDialog" max-width="600px">
+        <v-card>
+          <v-card-title>
+            Frequently asked questions
+          </v-card-title>
+          <v-card-text class="pb-0">
+            <Faqs topic="extension" />
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn color="accent" text @click="faqDialog = false">Close</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <v-divider class="mt-12 mb-10" />
 
       <h2 class="mb-2">Mobile apps</h2>
 
@@ -54,8 +43,8 @@
       </p>
 
       <v-row>
-        <v-col>
-          <v-card height="100%" class="d-flex flex-column">
+        <v-col class="py-0">
+          <v-card height="100%" class="d-flex flex-column" flat>
             <v-card-title class="subtitle-2">
               <v-icon left>{{ mdi.mdiAndroid }}</v-icon>
               Android app
@@ -80,8 +69,8 @@
           </v-card>
         </v-col>
 
-        <v-col>
-          <v-card height="100%" class="d-flex flex-column">
+        <v-col class="py-0">
+          <v-card height="100%" class="d-flex flex-column" flat>
             <v-card-title class="subtitle-2">
               <v-icon left>{{ mdi.mdiApple }}</v-icon> iOS app
             </v-card-title>
@@ -101,21 +90,6 @@
           </v-card>
         </v-col>
       </v-row>
-
-      <v-dialog v-model="faqDialog" max-width="600px">
-        <v-card>
-          <v-card-title>
-            Frequently asked questions
-          </v-card-title>
-          <v-card-text class="pb-0">
-            <Faqs topic="extension" />
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer />
-            <v-btn color="accent" text @click="faqDialog = false">Close</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
     </Page>
   </div>
 </template>
@@ -134,16 +108,17 @@ import {
 
 import Page from '~/components/Page.vue'
 import Faqs from '~/components/Faqs.vue'
-import { download as meta } from '~/assets/json/meta.json'
+import Integrations from '~/components/Integrations.vue'
 
 export default {
   components: {
     Page,
     Faqs,
+    Integrations,
   },
   data() {
     return {
-      title: meta.title,
+      title: 'Apps & integrations',
       faqDialog: false,
       mdi: {
         mdiGithub,
@@ -155,31 +130,13 @@ export default {
         mdiApple,
         mdiAndroid,
       },
-      meta,
-      platforms: [
-        {
-          text: 'Chrome',
-          href:
-            'https://chrome.google.com/webstore/detail/wappalyzer/gppongmhjkpfnbhagpmjfkannfbllamg',
-          icon: 'mdiGoogleChrome',
-        },
-        {
-          text: 'Firefox',
-          href: 'https://addons.mozilla.org/en-US/firefox/addon/wappalyzer/',
-          icon: 'mdiFirefox',
-        },
-        {
-          text: 'Edge',
-          href:
-            'https://microsoftedge.microsoft.com/addons/detail/mnbndgmknlpdjdnjfmfcdjoegcckoikn',
-          icon: 'mdiMicrosoftEdge',
-        },
-        {
-          text: 'Safari',
-          href: 'https://apps.apple.com/app/wappalyzer/id1520333300',
-          icon: 'mdiAppleSafari',
-        },
-      ],
+      meta: {
+        title: 'Apps & integrations',
+        text: [
+          'Wappalyzer works with the tools you use every day.',
+          'Install the free browser extension to see the technologies used on websites you visit or install Wappalyzer in your CRM to see the technologies used by your leads.',
+        ],
+      },
     }
   },
 }

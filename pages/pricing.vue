@@ -181,7 +181,7 @@
       </v-dialog>
 
       <template v-slot:footer>
-        <Logos />
+        <Logos integrations />
       </template>
     </Page>
   </div>
