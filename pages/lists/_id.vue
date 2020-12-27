@@ -40,7 +40,11 @@
                       Websites
                     </th>
                     <td>
-                      {{ formatNumber(totalRows(list.rows)) }}
+                      {{
+                        formatNumber(
+                          totalRows(list.rows, list.query.matchAllTechnologies)
+                        )
+                      }}
                     </td>
                   </tr>
                   <tr>
@@ -243,6 +247,14 @@
                         </v-chip-group>
                       </td>
                     </tr>
+                    <tr v-if="list.query.matchAllTechnologies">
+                      <th width="40%">
+                        Match all technologies
+                      </th>
+                      <td>
+                        <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
+                      </td>
+                    </tr>
                     <tr v-if="list.query.matchAll">
                       <th width="40%">
                         Match all filters
@@ -257,11 +269,18 @@
                       </th>
                       <td>
                         {{ formatNumber(list.query.subset) }}
-                        {{
-                          list.query.subsetSlice === 'bottom'
-                            ? 'least trafficked'
-                            : 'most trafficked'
+                        ({{
+                          list.query.subsetSlice === 1
+                            ? 'high'
+                            : list.query.subsetSlice === 2
+                            ? 'medium'
+                            : list.query.subsetSlice === 3
+                            ? 'low'
+                            : list.query.subsetSlice === 4
+                            ? 'lowest'
+                            : 'highest'
                         }}
+                        traffic)
                       </td>
                     </tr>
                     <tr v-if="list.exclusionsFilename">
@@ -337,7 +356,10 @@
                               {{
                                 formatNumber(
                                   set.key === 'base-list'
-                                    ? totalRows(list.rows)
+                                    ? totalRows(
+                                        list.rows,
+                                        list.query.matchAllTechnologies
+                                      )
                                     : list.setRows[set.key] || 0
                                 )
                               }}
@@ -413,7 +435,25 @@
               :key="technology.slug"
             >
               <v-expansion-panel-header>
-                <div class="d-flex align-center">
+                <template v-if="list.query.matchAllTechnologies">
+                  <div class="d-flex align-center">
+                    <div
+                      v-for="_technology in list.query.technologies"
+                      :key="`${_technology.slug}_1`"
+                    >
+                      <TechnologyIcon :icon="_technology.icon" />
+                    </div>
+                    <div
+                      v-for="(_technology, index) in list.query.technologies"
+                      :key="`${_technology.slug}_2`"
+                    >
+                      <span v-if="index" class="ml-1">+</span>
+                      {{ _technology.name }}
+                    </div>
+                    <span class="ml-1 text--disabled">(sample)</span>
+                  </div>
+                </template>
+                <div v-else class="d-flex align-center">
                   <TechnologyIcon :icon="technology.icon" />
                   {{ technology.name }}
                   <span class="ml-1 text--disabled">(sample)</span>
@@ -615,14 +655,14 @@ export default {
 
       const params = {
         attributes: null,
-        technologies: [], // this.list.query.technologies.map(({ slug }) => slug),
+        technologies: this.list.query.technologies.map(({ slug }) => slug),
         tlds: this.list.query.tlds,
         countries: this.list.query.geoIps.map(({ value }) => value),
         languages: this.list.query.languages.map(({ value }) => value),
         subset: this.list.query.subset
           ? this.list.query.subset.toString()
           : undefined,
-        traffic: this.list.query.subsetSlice === 'bottom' ? 'low' : undefined,
+        traffic: this.list.query.subsetSlice,
         min:
           this.list.query.minAge !== null && this.list.query.minAge !== 0
             ? this.list.query.minAge.toString()
@@ -632,6 +672,7 @@ export default {
             ? this.list.query.maxAge.toString()
             : undefined,
         filters: this.list.query.matchAll ? 'and' : undefined,
+        selection: this.list.query.matchAllTechnologies ? 'and' : undefined,
       }
 
       const string = Object.keys(params)
@@ -681,8 +722,10 @@ export default {
   },
 
   methods: {
-    totalRows(rows) {
-      return Object.values(rows).reduce((total, rows) => total + rows, 0)
+    totalRows(rows, matchAllTechnologies) {
+      return matchAllTechnologies
+        ? Object.values(rows)[0]
+        : Object.values(rows).reduce((total, rows) => total + rows, 0)
     },
     async submit() {
       this.error = false

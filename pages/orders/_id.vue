@@ -236,7 +236,14 @@
                     Websites
                   </th>
                   <td>
-                    {{ formatNumber(totalRows(order.dataset.rows)) }}
+                    {{
+                      formatNumber(
+                        totalRows(
+                          order.dataset.rows,
+                          order.dataset.query.matchAllTechnologies
+                        )
+                      )
+                    }}
                   </td>
                 </tr>
                 <tr v-if="order.dataset.exclusionsFilename">
@@ -302,6 +309,14 @@
                     </v-chip-group>
                   </td>
                 </tr>
+                <tr v-if="order.dataset.query.matchAllTechnologies">
+                  <th>
+                    Match all technologies
+                  </th>
+                  <td>
+                    <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
+                  </td>
+                </tr>
                 <tr>
                   <th>
                     Attribute sets
@@ -324,7 +339,11 @@
                               !['Insufficient', 'Failed'].includes(order.status)
                                 ? ` (${formatNumber(
                                     set.key === 'base-list'
-                                      ? totalRows(order.dataset.rows)
+                                      ? totalRows(
+                                          order.dataset.rows,
+                                          order.dataset.query
+                                            .matchAllTechnologies
+                                        )
                                       : order.dataset.setRows[set.key] || 0
                                   )})`
                                 : ''
@@ -443,11 +462,18 @@
                   </th>
                   <td>
                     {{ formatNumber(order.dataset.query.subset) }}
-                    {{
-                      order.dataset.query.subsetSlice === 'bottom'
-                        ? 'least trafficked'
-                        : 'most trafficked'
+                    ({{
+                      order.dataset.query.subsetSlice === 1
+                        ? 'high'
+                        : order.dataset.query.subsetSlice === 2
+                        ? 'medium'
+                        : order.dataset.query.subsetSlice === 3
+                        ? 'low'
+                        : order.dataset.query.subsetSlice === 4
+                        ? 'lowest'
+                        : 'highest'
                     }}
+                    traffic)
                   </td>
                 </tr>
               </tbody>
@@ -1248,8 +1274,10 @@ export default {
 
       this.scrollToTop()
     },
-    totalRows(rows) {
-      return Object.values(rows).reduce((total, rows) => total + rows, 0)
+    totalRows(rows, matchAllTechnologies) {
+      return matchAllTechnologies
+        ? Object.values(rows)[0]
+        : Object.values(rows).reduce((total, rows) => total + rows, 0)
     },
     async billingUpdated() {
       this.accountSuccess = 'Your billing details have been updated'

@@ -48,7 +48,9 @@
                   <td v-if="list.status === 'Calculating'">
                     <Spinner />
                   </td>
-                  <td v-else>{{ formatNumber(list.rows) }}</td>
+                  <td v-else>
+                    {{ list.rows ? formatNumber(list.rows) : '-' }}
+                  </td>
                   <td>{{ formatDate(new Date(list.createdAt * 1000)) }}</td>
                   <td>
                     <v-btn v-if="list.status === 'Complete'" icon>

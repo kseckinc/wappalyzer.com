@@ -95,6 +95,19 @@
                       </tbody>
                     </v-simple-table>
                   </v-card-text>
+
+                  <v-card-text class="pt-0">
+                    <v-checkbox
+                      v-model="matchAllTechnologies"
+                      label="Only include websites that use both technologies (select two)"
+                      class="mt-0"
+                      hide-details
+                      :disabled="
+                        selectedItems.length !== 2 ||
+                        selected.technologies.length !== 2
+                      "
+                    />
+                  </v-card-text>
                 </v-card>
               </v-card-text>
 
@@ -144,12 +157,12 @@
                 <v-expansion-panels v-model="panelsLimits" multiple>
                   <v-expansion-panel ref="subset">
                     <v-expansion-panel-header class="subtitle-2">
-                      Subset
+                      Subset &amp; traffic
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                       <p>
-                        Limit results to a number of the most or least
-                        trafficked websites per technology.
+                        Limit results to a number of more or less trafficked
+                        websites per technology.
                       </p>
 
                       <v-text-field
@@ -162,30 +175,27 @@
                             v >= 500 ||
                             'Subset size must be at least 500',
                         ]"
-                        class="mb-4 pt-0"
+                        class="mb-10 pt-0"
                         placeholder="5000"
                         hide-details="auto"
                       />
 
-                      <v-radio-group v-model="subsetSlice">
-                        <v-row align="center">
-                          <v-col class="py-0 flex-shrink-1 flex-grow-0">
-                            <v-radio
-                              label="Most trafficked"
-                              value="top"
-                              style="white-space: nowrap;"
-                              hide-details
-                            />
-                          </v-col>
-                          <v-col class="py-0">
-                            <v-radio
-                              label="Least trafficked"
-                              value="bottom"
-                              hide-details
-                            />
-                          </v-col>
-                        </v-row>
-                      </v-radio-group>
+                      <v-slider
+                        v-model="subsetSlice"
+                        label="Traffic"
+                        :tick-labels="['Highest', '', 'Medium', '', 'Lowest']"
+                        :disabled="!subset"
+                        min="0"
+                        max="4"
+                        hide-details="auto"
+                        class="mb-10"
+                      />
+
+                      <v-checkbox
+                        v-model="excludeNoTraffic"
+                        label="Exclude websites without traffic data"
+                        hide-details
+                      />
                     </v-expansion-panel-content>
                   </v-expansion-panel>
 
@@ -821,6 +831,7 @@ export default {
       file: '',
       fileErrors: [],
       matchAll: false,
+      matchAllTechnologies: false,
       mdiCalculator,
       mdiDownload,
       mdiForum,
@@ -853,7 +864,8 @@ export default {
         languages: [],
       },
       subset: null,
-      subsetSlice: 'top',
+      subsetSlice: 0,
+      excludeNoTraffic: false,
       updateQueryTimeout: null,
       list: false,
       creating: false,
@@ -941,6 +953,9 @@ export default {
     subsetSlice() {
       this.updateQuery()
     },
+    excludeNoTraffic() {
+      this.updateQuery()
+    },
     minAge() {
       this.updateQuery()
     },
@@ -948,6 +963,9 @@ export default {
       this.updateQuery()
     },
     matchAll() {
+      this.updateQuery()
+    },
+    matchAllTechnologies() {
       this.updateQuery()
     },
   },
@@ -960,10 +978,12 @@ export default {
       max,
       subset,
       traffic,
+      notraffic,
       countries,
       tlds,
       languages,
       filters,
+      selection,
     } = this.$route.query
 
     if (Object.keys(this.$route.query).length) {
@@ -1007,11 +1027,19 @@ export default {
     }
 
     if (typeof traffic !== 'undefined') {
-      this.subsetSlice = traffic === 'low' ? 'bottom' : 'top'
+      this.subsetSlice = Math.min(0, Math.max(4, parseInt(traffic || 0, 10)))
+    }
+
+    if (typeof notraffic !== 'undefined') {
+      this.excludeNoTraffic = notraffic === 'exclude'
     }
 
     if (typeof filters !== 'undefined') {
       this.matchAll = filters === 'and'
+    }
+
+    if (typeof selection !== 'undefined') {
+      this.matchAllTechnologies = selection === 'all'
     }
 
     if (typeof countries !== 'undefined') {
@@ -1028,7 +1056,7 @@ export default {
       }
     }
 
-    if (typeof tlds !== 'undefined') {
+    if (tlds) {
       tlds.split(',').forEach((tld) => {
         this.tld = tld
 
@@ -1040,7 +1068,7 @@ export default {
       }
     }
 
-    if (typeof languages !== 'undefined') {
+    if (languages) {
       languages.split(',').forEach((language) => {
         language = language.trim().toLowerCase()
 
@@ -1171,6 +1199,10 @@ export default {
               })),
               tlds: this.selected.tlds.map(({ value }) => value),
               matchAll: this.matchAll,
+              matchAllTechnologies:
+                this.selectedItems.length === 2 &&
+                this.selected.technologies.length === 2 &&
+                this.matchAllTechnologies,
               subset: this.subset,
               subsetSlice: this.subsetSlice,
               minAge: this.minAge,
@@ -1416,10 +1448,12 @@ export default {
             .map(({ value }) => value)
             .join(','),
           subset: this.subset ? this.subset.toString() : undefined,
-          traffic: this.subsetSlice === 'bottom' ? 'low' : undefined,
+          traffic: this.subsetSlice,
+          notraffic: this.excludeNoTraffic ? 'exclude' : undefined,
           min: this.minAge !== 0 ? this.minAge.toString() : undefined,
           max: this.maxAge !== 3 ? this.maxAge.toString() : undefined,
           filters: this.matchAll ? 'and' : undefined,
+          selection: this.matchAllTechnologies ? 'and' : undefined,
         }
 
         this.$router.replace({

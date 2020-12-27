@@ -894,7 +894,7 @@ export default {
               query: {
                 technologies,
                 subset: 5000,
-                subsetSlice: 'bottom',
+                subsetSlice: 4,
               },
             },
             ...this.technology.categories.map((category) => ({

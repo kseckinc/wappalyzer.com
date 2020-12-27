@@ -368,7 +368,7 @@ export default {
               query: {
                 categories,
                 subset: 5000,
-                subsetSlice: 'bottom',
+                subsetSlice: 4,
               },
             },
           ]
