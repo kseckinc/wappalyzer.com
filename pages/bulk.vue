@@ -187,17 +187,17 @@ export default {
         .split(/[\r\n]/)
         .filter((line) => line)
         .map((line, i) => {
-          const a = document.createElement('a')
+          const url = !/^https?:\/\//.test(line.trim())
+            ? `http://${line.trim()}`
+            : line.trim()
 
-          a.href = line.trim()
-
-          const { hostname } = a
-
-          if (!/^https?:\/\//.test(line) || !hostname) {
+          try {
+            new URL(url) // eslint-disable-line no-new
+          } catch (error) {
             this.fileErrors.push(`Invalid URL on line ${i + 1}: ${line}`)
           }
 
-          return a.href
+          return url
         })
 
       this.fileErrors = this.fileErrors.slice(0, 10)

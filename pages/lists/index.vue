@@ -1448,7 +1448,7 @@ export default {
             .map(({ value }) => value)
             .join(','),
           subset: this.subset ? this.subset.toString() : undefined,
-          traffic: this.subsetSlice,
+          traffic: this.subsetSlice ? this.subsetSlice.toString() : undefined,
           notraffic: this.excludeNoTraffic ? 'exclude' : undefined,
           min: this.minAge !== 0 ? this.minAge.toString() : undefined,
           max: this.maxAge !== 3 ? this.maxAge.toString() : undefined,
