@@ -31,7 +31,6 @@
               <li>
                 Upload a .txt file containing URLs, each on a separate line
               </li>
-              <li>URLs must start with http:// or https://</li>
               <li>Include up to 5,000 URLs</li>
               <li>
                 The resulting list is in CSV and JSON format (<a
