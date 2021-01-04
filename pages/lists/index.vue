@@ -122,8 +122,8 @@
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                       <p>
-                        Only include results that have any of these attributes
-                        available.
+                        Only include results that have <strong>any</strong> of
+                        these attributes available.
                       </p>
 
                       <v-checkbox
@@ -157,26 +157,25 @@
                 <v-expansion-panels v-model="panelsLimits" multiple>
                   <v-expansion-panel ref="subset">
                     <v-expansion-panel-header class="subtitle-2">
-                      Subset &amp; traffic
+                      List size / website traffic
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                       <p>
-                        Limit results to a number of more or less trafficked
-                        websites per technology.
+                        Limit the size of the list to a number of high or low
+                        traffic websites per technology.
                       </p>
 
                       <v-text-field
                         v-model="subset"
                         :rules="[
+                          (v) => /^[0-9]+$/.test(v) || 'Value must be numeric',
                           (v) =>
-                            !v || /^[0-9]+$/.test(v) || 'Value must be numeric',
-                          (v) =>
-                            !v ||
-                            v >= 500 ||
-                            'Subset size must be at least 500',
+                            (parseInt(v, 10) >= 500 &&
+                              (isAdmin || parseInt(v, 10) <= 1000000)) ||
+                            'Subset size must be between at 500 and 1M. For larger lists, please contact us.',
                         ]"
                         class="mb-10 pt-0"
-                        placeholder="5000"
+                        placeholder="500000"
                         hide-details="auto"
                       />
 
@@ -184,7 +183,6 @@
                         v-model="subsetSlice"
                         label="Traffic"
                         :tick-labels="['Highest', '', 'Medium', '', 'Lowest']"
-                        :disabled="!subset"
                         min="0"
                         max="4"
                         hide-details="auto"
@@ -716,6 +714,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import {
   mdiCalculator,
   mdiDownload,
@@ -863,7 +862,7 @@ export default {
         tlds: [],
         languages: [],
       },
-      subset: null,
+      subset: 500000,
       subsetSlice: 0,
       excludeNoTraffic: false,
       updateQueryTimeout: null,
@@ -878,6 +877,10 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      isAdmin: ({ user }) =>
+        user.attrs.admin || (user.impersonator && user.impersonator.admin),
+    }),
     selectedItems() {
       return [...this.selected.categories, ...this.selected.technologies]
     },
@@ -1021,7 +1024,8 @@ export default {
     }
 
     if (typeof subset !== 'undefined') {
-      this.subset = Math.max(500, parseInt(subset || 0, 10)) || null
+      this.subset =
+        Math.min(1000000, Math.max(500, parseInt(subset || 0, 10))) || null
 
       this.$refs.subset.toggle()
     }
@@ -1159,7 +1163,7 @@ export default {
         !this.selected.languages.length &&
         !this.selected.geoIps.length &&
         !this.selected.tlds.length &&
-        !this.subset
+        this.subset >= 500000
       ) {
         this.confirmDialog = true
 
@@ -1447,7 +1451,7 @@ export default {
           languages: this.selected.languages
             .map(({ value }) => value)
             .join(','),
-          subset: this.subset ? this.subset.toString() : undefined,
+          subset: this.subset !== 500000 ? this.subset.toString() : undefined,
           traffic: this.subsetSlice ? this.subsetSlice.toString() : undefined,
           notraffic: this.excludeNoTraffic ? 'exclude' : undefined,
           min: this.minAge !== 0 ? this.minAge.toString() : undefined,

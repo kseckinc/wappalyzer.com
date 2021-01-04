@@ -659,9 +659,10 @@ export default {
         tlds: this.list.query.tlds,
         countries: this.list.query.geoIps.map(({ value }) => value),
         languages: this.list.query.languages.map(({ value }) => value),
-        subset: this.list.query.subset
-          ? this.list.query.subset.toString()
-          : undefined,
+        subset:
+          this.list.query.subset && this.list.query.subset !== 500000
+            ? this.list.query.subset.toString()
+            : undefined,
         traffic: this.list.query.subsetSlice,
         min:
           this.list.query.minAge !== null && this.list.query.minAge !== 0
