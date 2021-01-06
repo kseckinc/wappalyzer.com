@@ -458,7 +458,7 @@
                 </tr>
                 <tr v-if="order.dataset.query.subset">
                   <th>
-                    Subset
+                    List size limit
                   </th>
                   <td>
                     {{ formatNumber(order.dataset.query.subset) }}

@@ -265,7 +265,7 @@
                     </tr>
                     <tr v-if="list.query.subset">
                       <th width="40%">
-                        Subset
+                        List size limit
                       </th>
                       <td>
                         {{ formatNumber(list.query.subset) }}

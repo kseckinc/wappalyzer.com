@@ -50,6 +50,22 @@
               Android app
             </v-card-title>
             <v-card-text>
+              <ol class="mb-4">
+                <li class="mb-2">
+                  Install Wappalyzer from the
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.wappalyzer.twa"
+                    target="_blank"
+                    rel="noopener"
+                    >Google Play store</a
+                  >.
+                </li>
+              </ol>
+
+              <p>
+                Or:
+              </p>
+
               <ol>
                 <li class="mb-2">
                   On your Android device, open Chrome and go to

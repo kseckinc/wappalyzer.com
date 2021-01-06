@@ -45,5 +45,11 @@
     "description": "See the technology stacks of your contacts in Gmail.",
     "docs": "/docs/integrations/hubspot/",
     "href": "https://workspace.google.com/marketplace/app/wappalyzer/462079435928"
+  },
+  "android": {
+    "name": "Android",
+    "image": "android.svg",
+    "description": "Wappalyzer in your pocket.",
+    "href": "https://play.google.com/store/apps/details?id=com.wappalyzer.twa"
   }
 }

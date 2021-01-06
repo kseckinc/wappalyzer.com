@@ -670,12 +670,18 @@
             No filters or limits specified
           </v-card-title>
           <v-card-text class="pb-0">
-            This list could be very large. Specify a subset to only include the
-            top trafficked websites or add a filter to narrow down the results.
+            This list could be very large. Set a list size limit or add a filter
+            to narrow down the results.
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn color="accent" text @click="confirmDialog = false"
+            <v-btn
+              color="accent"
+              text
+              @click="
+                confirmDialog = false
+                creating = false
+              "
               >Return to form</v-btn
             >
             <v-btn color="accent" text @click="submit(true)"
