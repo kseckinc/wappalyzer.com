@@ -1,4 +1,4 @@
-/static/images/icons/*
+/static/images/icons
 /dist
 
 node_modules
