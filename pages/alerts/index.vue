@@ -10,9 +10,7 @@
       </v-alert>
 
       <v-card v-if="!error" class="mt-12">
-        <v-card-title>
-          Websites
-        </v-card-title>
+        <v-card-title> Websites </v-card-title>
         <v-card-text class="pb-0">
           <p>
             Add the websites you want to monitor here and we'll check them
@@ -80,17 +78,13 @@
 
       <v-dialog v-model="createDialog" max-width="400px" eager>
         <v-card>
-          <v-card-title>
-            Create alert
-          </v-card-title>
+          <v-card-title> Create alert </v-card-title>
           <v-card-text class="pb-0">
             <v-alert v-if="createError" type="error">
               {{ createError }}
             </v-alert>
 
-            <p>
-              One alert costs 10 credits per 30 days.
-            </p>
+            <p>One alert costs 10 credits per 30 days.</p>
 
             <Credits class="mb-8" />
 
@@ -124,9 +118,7 @@
 
       <v-dialog v-model="removeDialog" max-width="400px" eager>
         <v-card>
-          <v-card-title>
-            Delete alert
-          </v-card-title>
+          <v-card-title> Delete alert </v-card-title>
           <v-card-text>
             <v-alert v-if="removeError" type="error">
               {{ removeError }}
@@ -150,7 +142,7 @@
         <SignIn mode-continue mode-sign-up />
       </v-dialog>
 
-      <template v-slot:footer>
+      <template #footer>
         <Logos />
       </template>
     </Page>

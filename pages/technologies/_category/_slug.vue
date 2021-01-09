@@ -177,9 +177,7 @@
             </p>
 
             <v-card class="mb-4">
-              <v-card-title class="subtitle-2">
-                Example reports
-              </v-card-title>
+              <v-card-title class="subtitle-2"> Example reports </v-card-title>
               <v-card-text class="px-0">
                 <v-simple-table>
                   <tbody>
@@ -391,9 +389,7 @@
 
     <v-dialog v-model="reviewDialog" max-width="500px">
       <v-card>
-        <v-card-title>
-          Write a review
-        </v-card-title>
+        <v-card-title> Write a review </v-card-title>
         <v-card-text class="pb-0">
           <v-alert v-if="reviewError" type="error">
             {{ reviewError }}
@@ -413,21 +409,11 @@
               @hover="(rating) => (hoverRating = rating)"
             />
 
-            <template v-if="hoverRating === 1">
-              Very unlikely
-            </template>
-            <template v-if="hoverRating === 2">
-              Unlikely
-            </template>
-            <template v-if="hoverRating === 3">
-              Neutral
-            </template>
-            <template v-if="hoverRating === 4">
-              Likely
-            </template>
-            <template v-if="hoverRating === 5">
-              Very likely
-            </template>
+            <template v-if="hoverRating === 1"> Very unlikely </template>
+            <template v-if="hoverRating === 2"> Unlikely </template>
+            <template v-if="hoverRating === 3"> Neutral </template>
+            <template v-if="hoverRating === 4"> Likely </template>
+            <template v-if="hoverRating === 5"> Very likely </template>
           </div>
 
           <p>Describe your experience with {{ technology.name }}.</p>
@@ -480,9 +466,7 @@
       max-width="400px"
     >
       <v-card>
-        <v-card-title>
-          Creating your list&hellip;
-        </v-card-title>
+        <v-card-title> Creating your list&hellip; </v-card-title>
         <v-card-text class="pb-0">
           <v-alert v-if="createlistError" type="error" class="mb-0">
             {{ createlistError }}

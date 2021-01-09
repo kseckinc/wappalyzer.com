@@ -1,9 +1,7 @@
 <template>
   <div>
     <Page :title="title" :side="side" no-hero no-head>
-      <h1 class="mb-4">
-        Lookup API
-      </h1>
+      <h1 class="mb-4">Lookup API</h1>
 
       <p>
         Perform near-instant technology lookups with the Lookup API. Results are
@@ -18,15 +16,11 @@
         traffic data are included.
       </p>
 
-      <Heading id="endpoint" size="2" class="mt-8 mb-4">
-        Endpoint
-      </Heading>
+      <Heading id="endpoint" size="2" class="mt-8 mb-4"> Endpoint </Heading>
 
       <p><code>GET</code> <code>https://api.wappalyzer.com/lookup/v1/</code></p>
 
-      <Heading id="properties" size="2" class="mt-8 mb-4">
-        Properties
-      </Heading>
+      <Heading id="properties" size="2" class="mt-8 mb-4"> Properties </Heading>
 
       <v-card class="my-4" flat outlined>
         <v-simple-table>
@@ -39,9 +33,7 @@
           <tbody>
             <tr>
               <td>Execution</td>
-              <td>
-                Synchronous / Asynchronous (when call yields no results)
-              </td>
+              <td>Synchronous / Asynchronous (when call yields no results)</td>
             </tr>
             <tr>
               <td>Request timeout</td>
@@ -55,9 +47,7 @@
         </v-simple-table>
       </v-card>
 
-      <Heading id="parameters" size="2" class="mt-8 mb-4">
-        Parameters
-      </Heading>
+      <Heading id="parameters" size="2" class="mt-8 mb-4"> Parameters </Heading>
 
       <v-card class="my-4" flat outlined>
         <v-simple-table>
@@ -102,9 +92,7 @@
         </v-simple-table>
       </v-card>
 
-      <Heading id="examples" size="2" class="mt-8 mb-4">
-        Examples
-      </Heading>
+      <Heading id="examples" size="2" class="mt-8 mb-4"> Examples </Heading>
 
       <p><strong>Example request</strong></p>
 

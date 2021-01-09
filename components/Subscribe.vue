@@ -7,7 +7,7 @@
         Subscribe to receive occasional product updates.
       </p>
 
-      <div class="ma-auto" style="max-width: 500px;">
+      <div class="ma-auto" style="max-width: 500px">
         <v-alert v-if="success" type="success" class="mb-0" outlined>
           {{ success }}
         </v-alert>

@@ -10,9 +10,7 @@
           <v-row>
             <v-col class="py-0">
               <v-card>
-                <v-card-title class="subtitle-2">
-                  Technology A
-                </v-card-title>
+                <v-card-title class="subtitle-2"> Technology A </v-card-title>
                 <v-card-text>
                   <Technologies
                     no-categories
@@ -23,9 +21,7 @@
             </v-col>
             <v-col class="py-0">
               <v-card>
-                <v-card-title class="subtitle-2">
-                  Technology B
-                </v-card-title>
+                <v-card-title class="subtitle-2"> Technology B </v-card-title>
                 <v-card-text>
                   <Technologies
                     no-categories

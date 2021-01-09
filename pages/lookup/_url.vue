@@ -3,7 +3,7 @@
     <v-card
       id="form"
       color="secondary"
-      style="overflow: hidden;"
+      style="overflow: hidden"
       class="mt-12 mb-4"
     >
       <v-card-title>
@@ -39,7 +39,7 @@
         />
 
         <v-card v-if="!loading && technologies.length" class="mb-4">
-          <v-card-title class="subtitle-2" style="line-height: 1em;">
+          <v-card-title class="subtitle-2" style="line-height: 1em">
             Technologies
             <span class="ml-1 text--disabled">({{ technologies.length }})</span>
           </v-card-title>

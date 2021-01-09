@@ -54,9 +54,7 @@
           >
             <v-card-text class="py-0 justify-center">
               <template v-if="item.price === 0">
-                <span class="font-weight-medium">
-                  Free forever
-                </span>
+                <span class="font-weight-medium"> Free forever </span>
                 <div class="text--disabled">
                   <small>No credit card required</small>
                 </div>
@@ -65,9 +63,7 @@
                 <span class="font-weight-regular text-h6">
                   {{ formatCurrency(item.price / 100) }}
                 </span>
-                <span class="caption">
-                  / mo
-                </span>
+                <span class="caption"> / mo </span>
               </template>
             </v-card-text>
           </v-responsive>
@@ -118,9 +114,7 @@
               <v-card-text class="text-center">
                 <template v-if="attr.type === 'currency'">
                   <template v-if="item.attrs[name] === 0">
-                    <span class="font-weight-medium">
-                      Free
-                    </span>
+                    <span class="font-weight-medium"> Free </span>
                   </template>
                   <template v-else-if="typeof item.attrs[name] === 'string'">
                     {{ item.attrs[name] }}

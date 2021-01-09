@@ -41,9 +41,7 @@
       <v-row justify="center" class="mt-8">
         <v-col cols="12" sm="6">
           <v-card id="usage">
-            <v-card-title>
-              Credit usage
-            </v-card-title>
+            <v-card-title> Credit usage </v-card-title>
             <v-card-text class="px-0">
               <v-row>
                 <v-col class="py-0" cols="12" md="10">
@@ -82,9 +80,7 @@
 
         <v-col cols="12" sm="6">
           <v-card id="credits">
-            <v-card-title>
-              Credit pricing
-            </v-card-title>
+            <v-card-title> Credit pricing </v-card-title>
             <v-card-text class="px-0">
               <v-row>
                 <v-col class="py-0" cols="12" md="10">
@@ -167,9 +163,7 @@
 
       <v-dialog v-model="faqDialog" max-width="600px">
         <v-card>
-          <v-card-title>
-            Frequently asked questions
-          </v-card-title>
+          <v-card-title> Frequently asked questions </v-card-title>
           <v-card-text class="pb-0">
             <Faqs topic="credits" />
           </v-card-text>
@@ -180,7 +174,7 @@
         </v-card>
       </v-dialog>
 
-      <template v-slot:footer>
+      <template #footer>
         <Logos integrations />
       </template>
     </Page>

@@ -1,9 +1,7 @@
 <template>
   <v-dialog v-model="faqDialog" max-width="600px">
     <v-card>
-      <v-card-title>
-        Frequently asked questions
-      </v-card-title>
+      <v-card-title> Frequently asked questions </v-card-title>
       <v-card-text class="pb-0">
         <Faqs :topic="topic" />
       </v-card-text>

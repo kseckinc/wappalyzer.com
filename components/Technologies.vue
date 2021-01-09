@@ -13,7 +13,7 @@
       @change="(item) => $emit('select', item)"
       @focus="focus"
     >
-      <template v-slot:prepend-item>
+      <template #prepend-item>
         <v-form ref="form" class="search" @submit.prevent="search">
           <v-text-field
             ref="search"
@@ -34,11 +34,11 @@
         <v-divider class="mt-4 mb-2"></v-divider>
       </template>
 
-      <template v-slot:selection="{ item }">
+      <template #selection="{ item }">
         {{ item.name }}
       </template>
 
-      <template v-slot:item="{ item }">
+      <template #item="{ item }">
         <div v-if="item.type === 'technology'" class="d-flex align-center py-2">
           <TechnologyIcon :icon="item.icon" />
           <span>{{ item.name }}</span>
@@ -53,7 +53,7 @@
         </template>
       </template>
 
-      <template v-slot:no-data>
+      <template #no-data>
         <div />
       </template>
     </v-select>

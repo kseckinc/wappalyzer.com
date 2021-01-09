@@ -33,7 +33,7 @@
         FAQs
       </v-btn>
 
-      <template v-slot:content>
+      <template #content>
         <h2 id="form" class="mb-4">Create your list</h2>
 
         <v-card class="mb-4" color="secondary">
@@ -50,9 +50,7 @@
               </v-card-title>
               <v-card-text>
                 <v-card>
-                  <v-card-title class="subtitle-2">
-                    Technologies
-                  </v-card-title>
+                  <v-card-title class="subtitle-2"> Technologies </v-card-title>
                   <v-card-text>
                     <p class="mb-0">
                       Choose one or more technologies to include.
@@ -278,9 +276,7 @@
                       IP countries
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                      <p>
-                        Target countries by website IP address.
-                      </p>
+                      <p>Target countries by website IP address.</p>
 
                       <v-select
                         ref="country"
@@ -290,14 +286,12 @@
                         hide-details
                         eager
                       >
-                        <template v-slot:prepend-item>
+                        <template #prepend-item>
                           <v-list-item
                             ripple
                             @click="toggleGeoIps(countriesEurope)"
                           >
-                            <v-list-item-content>
-                              Europe
-                            </v-list-item-content>
+                            <v-list-item-content> Europe </v-list-item-content>
                           </v-list-item>
                           <v-list-item
                             ripple
@@ -311,7 +305,7 @@
                           <v-divider class="mt-3 mb-2"></v-divider>
                         </template>
 
-                        <template v-slot:item="{ item }">
+                        <template #item="{ item }">
                           <v-list-item ripple @click="toggleGeoIp(item)">
                             <v-list-item-action>
                               <v-icon :color="item.active ? 'primary' : ''">{{
@@ -347,7 +341,7 @@
                           :key="i"
                           bottom
                         >
-                          <template v-slot:activator="{ on }">
+                          <template #activator="{ on }">
                             <v-chip
                               color="primary"
                               outlined
@@ -422,7 +416,7 @@
                         hide-details
                         eager
                       >
-                        <template v-slot:prepend-item>
+                        <template #prepend-item>
                           <v-list-item ripple @click="toggleTlds">
                             <v-list-item-action>
                               <v-icon
@@ -447,7 +441,7 @@
                           <v-divider class="mt-2"></v-divider>
                         </template>
 
-                        <template v-slot:item="{ item }">
+                        <template #item="{ item }">
                           <v-list-item ripple @click="toggleTld(item)">
                             <v-list-item-action>
                               <v-icon :color="item.active ? 'primary' : ''">{{
@@ -474,7 +468,7 @@
                           :key="i"
                           bottom
                         >
-                          <template v-slot:activator="{ on }">
+                          <template #activator="{ on }">
                             <v-chip
                               color="primary"
                               outlined
@@ -497,9 +491,7 @@
                       Languages
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                      <p>
-                        Target websites using specific languages.
-                      </p>
+                      <p>Target websites using specific languages.</p>
 
                       <v-select
                         ref="language"
@@ -510,7 +502,7 @@
                         hide-details
                         eager
                       >
-                        <template v-slot:item="{ item }">
+                        <template #item="{ item }">
                           <v-list-item ripple @click="toggleLanguage(item)">
                             <v-list-item-action>
                               <v-icon :color="item.active ? 'primary' : ''">{{
@@ -551,7 +543,7 @@
                         hide-details
                         eager
                       >
-                        <template v-slot:prepend-item>
+                        <template #prepend-item>
                           <v-list-item ripple @click="toggleVariants">
                             <v-list-item-action>
                               <v-icon
@@ -576,7 +568,7 @@
                           <v-divider class="mt-2"></v-divider>
                         </template>
 
-                        <template v-slot:item="{ item }">
+                        <template #item="{ item }">
                           <v-list-item ripple @click="toggleVariant(item)">
                             <v-list-item-action>
                               <v-icon :color="item.active ? 'primary' : ''">{{
@@ -611,7 +603,7 @@
                           :key="i"
                           bottom
                         >
-                          <template v-slot:activator="{ on }">
+                          <template #activator="{ on }">
                             <v-chip
                               color="primary"
                               outlined
@@ -666,9 +658,7 @@
 
       <v-dialog v-model="confirmDialog" max-width="500px">
         <v-card>
-          <v-card-title>
-            No filters or limits specified
-          </v-card-title>
+          <v-card-title> No filters or limits specified </v-card-title>
           <v-card-text class="pb-0">
             This list could be very large. Set a list size limit or add a filter
             to narrow down the results.
@@ -699,9 +689,7 @@
 
       <v-dialog v-model="faqDialog" max-width="600px">
         <v-card>
-          <v-card-title>
-            Frequently asked questions
-          </v-card-title>
+          <v-card-title> Frequently asked questions </v-card-title>
           <v-card-text class="pb-0">
             <Faqs topic="lists" />
           </v-card-text>
@@ -712,7 +700,7 @@
         </v-card>
       </v-dialog>
 
-      <template v-slot:footer>
+      <template #footer>
         <Logos />
       </template>
     </Page>
@@ -1215,6 +1203,7 @@ export default {
                 this.matchAllTechnologies,
               subset: this.subset,
               subsetSlice: this.subsetSlice,
+              excludeNoTraffic: this.excludeNoTraffic,
               minAge: this.minAge,
               maxAge: this.maxAge,
               requiredSets: Object.keys(this.requiredSets).filter(

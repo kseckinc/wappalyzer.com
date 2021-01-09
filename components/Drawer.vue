@@ -4,9 +4,7 @@
       <v-list nav dense>
         <v-list-item>
           <v-list-item-content>
-            <v-list-item-title class="mb-2">
-              Signed in as
-            </v-list-item-title>
+            <v-list-item-title class="mb-2"> Signed in as </v-list-item-title>
 
             <small>{{ user.billingName || user.name || user.email }}</small>
           </v-list-item-content>
@@ -62,9 +60,7 @@
       </v-list-item>
 
       <v-list-item v-if="user.admin" to="/admin/">
-        <v-list-item-title>
-          Administration
-        </v-list-item-title>
+        <v-list-item-title> Administration </v-list-item-title>
         <v-list-item-icon>
           <v-icon color="success" dense>{{ mdi.mdiLockOpen }}</v-icon>
         </v-list-item-icon>

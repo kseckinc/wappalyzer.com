@@ -8,9 +8,7 @@
       <v-card class="mb-4">
         <v-card-text v-if="!orders.length">
           <v-alert class="ma-0" color="info" outlined>
-            <p>
-              You don't have any orders.
-            </p>
+            <p>You don't have any orders.</p>
 
             <v-btn to="/" color="accent" outlined>
               Explore products
@@ -45,9 +43,7 @@
                   <td v-if="order.status === 'Calculating'">
                     <Spinner />
                   </td>
-                  <td v-else-if="order.status === 'Insufficient'">
-                    -
-                  </td>
+                  <td v-else-if="order.status === 'Insufficient'">-</td>
                   <td v-else-if="order.paymentMethod === 'credits'">
                     {{ formatNumber(order.totalCredits) }}
                     Credits

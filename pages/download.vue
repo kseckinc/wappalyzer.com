@@ -15,9 +15,7 @@
 
       <v-dialog v-model="faqDialog" max-width="600px">
         <v-card>
-          <v-card-title>
-            Frequently asked questions
-          </v-card-title>
+          <v-card-title> Frequently asked questions </v-card-title>
           <v-card-text class="pb-0">
             <Faqs topic="extension" />
           </v-card-text>
@@ -62,9 +60,7 @@
                 </li>
               </ol>
 
-              <p>
-                Or:
-              </p>
+              <p>Or:</p>
 
               <ol>
                 <li class="mb-2">
@@ -73,9 +69,7 @@
                     >twa.wappalyzer.com</a
                   >.
                 </li>
-                <li class="mb-2">
-                  In the menu, click 'Add to Home screen'.
-                </li>
+                <li class="mb-2">In the menu, click 'Add to Home screen'.</li>
                 <li class="mb-2">
                   Share links to the Wappalyzer app from Chrome or any other
                   app.
@@ -98,9 +92,7 @@
                     >twa.wappalyzer.com</a
                   >.
                 </li>
-                <li>
-                  In the Share menu, click 'Add to Home Screen'.
-                </li>
+                <li>In the Share menu, click 'Add to Home Screen'.</li>
               </ol>
             </v-card-text>
           </v-card>

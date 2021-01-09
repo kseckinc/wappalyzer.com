@@ -36,9 +36,7 @@
 
     <template v-if="!loading">
       <v-card>
-        <v-card-title>
-          Packs
-        </v-card-title>
+        <v-card-title> Packs </v-card-title>
         <v-card-text v-if="!adds.length" class="pb-0">
           <v-alert color="info" class="mb-0" outlined>
             You don't have any active credit packs.
@@ -97,9 +95,7 @@
 
         <v-divider />
 
-        <v-card-title>
-          Usage
-        </v-card-title>
+        <v-card-title> Usage </v-card-title>
         <v-card-text class="pb-0">
           These are your credit spends for the last 60 days.
         </v-card-text>
@@ -142,9 +138,7 @@
 
       <v-dialog v-model="orderDialog" max-width="400px" eager>
         <v-card>
-          <v-card-title>
-            Pricing
-          </v-card-title>
+          <v-card-title> Pricing </v-card-title>
           <v-card-text class="px-0">
             <v-alert v-if="orderError" type="error" class="mx-6">
               {{ orderError }}
@@ -194,9 +188,7 @@
 
           <v-divider />
 
-          <v-card-title>
-            Order
-          </v-card-title>
+          <v-card-title> Order </v-card-title>
           <v-card-text class="pb-0">
             <v-form @submit.prevent="submit">
               <v-row>
@@ -238,9 +230,7 @@
 
       <v-dialog v-model="addDialog" max-width="400px" eager>
         <v-card>
-          <v-card-title>
-            Add credits
-          </v-card-title>
+          <v-card-title> Add credits </v-card-title>
           <v-card-text class="pb-0">
             <v-alert v-if="addError" type="error">
               {{ addError }}

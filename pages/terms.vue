@@ -9,9 +9,7 @@
         software and APIs (collectively, '<strong>Services</strong>').
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Privacy
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Privacy</h2>
 
       <p>
         You consent to Wappalyzer's
@@ -19,9 +17,7 @@
         we collect and use the information you provide to us.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Prohibitions on content
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Prohibitions on content</h2>
 
       <p>
         You must not reproduce, duplicate, copy, sell, resell, or otherwise
@@ -29,9 +25,7 @@
         without our consent.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Account registration
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Account registration</h2>
 
       <p>
         When you open an account we will ask you for information, which may
@@ -43,22 +37,16 @@
         the right to suspend or terminate the account.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Using our data services
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Using our data services</h2>
 
-      <h3 class="text-h3 mb-2">
-        Permitted access
-      </h3>
+      <h3 class="text-h3 mb-2">Permitted access</h3>
 
       <p>
         You will only access (or attempt to access) an API by the means
         described in the documentation of that API.
       </p>
 
-      <h3 class="text-h3 mb-2">
-        API limitations
-      </h3>
+      <h3 class="text-h3 mb-2">API limitations</h3>
 
       <p>
         Wappalyzer sets and enforces limits on your use of the APIs (e.g.
@@ -67,9 +55,7 @@
         attempt to circumvent, such limitations documented with each API.
       </p>
 
-      <h3 class="text-h3 mb-2">
-        Restrictions
-      </h3>
+      <h3 class="text-h3 mb-2">Restrictions</h3>
 
       <p>
         The data provided to you as part of our commercial Services is licensed,
@@ -77,9 +63,7 @@
         explicit permission in writing from Wappalyzer.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Payment for services
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Payment for services</h2>
 
       <p>
         Wappalyzer may offer Services to be paid for on a recurring basis or on
@@ -90,9 +74,7 @@
         account.
       </p>
 
-      <h3 class="text-h3 mb-2">
-        Refunds
-      </h3>
+      <h3 class="text-h3 mb-2">Refunds</h3>
 
       <p>
         You cannot get a refund if you change your mind. Your rights for payment
@@ -100,9 +82,7 @@
         is faulty or doesn't provide what is promised.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Publicity
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Publicity</h2>
 
       <p>
         You grant us the right to use your company name and logo as a reference
@@ -111,9 +91,7 @@
         customers, subject to your standard trademark usage guidelines.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Disclaimer of warranties
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Disclaimer of warranties</h2>
 
       <p>
         Our Services are provided on an 'as is' and 'as available' basis without
@@ -121,18 +99,14 @@
         Services will be uninterrupted, timely, secure or error-free.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Limitation of liability
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Limitation of liability</h2>
 
       <p>
         In no event will we have any liability to you or to any third party for
         any lost profits or revenues or for any damages however caused.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Modification and termination
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Modification and termination</h2>
 
       <p>
         We may amend the Terms and the documentation accompanying the applicable
@@ -149,9 +123,7 @@
         use of the Services.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Law and jurisdiction
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Law and jurisdiction</h2>
 
       <p>
         The Terms will be governed by and construed in accordance with

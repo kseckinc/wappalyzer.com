@@ -8,13 +8,13 @@
     >
       <v-card
         class="d-flex flex-column justify-space-between"
-        style="height: 100%;"
+        style="height: 100%"
         :outlined="!feature"
         flat
       >
         <v-card-text
           :class="feature ? 'px-0' : 'pb-0'"
-          style="cursor: pointer;"
+          style="cursor: pointer"
           @click="goto(integration.href)"
         >
           <div class="mb-4">
@@ -36,7 +36,7 @@
           <v-spacer />
 
           <v-tooltip v-if="integration.settings" top>
-            <template v-slot:activator="{ on }">
+            <template #activator="{ on }">
               <v-btn :to="integration.settings" icon v-on="on">
                 <v-icon>{{ mdiCog }}</v-icon>
               </v-btn>
@@ -46,7 +46,7 @@
           </v-tooltip>
 
           <v-tooltip v-if="integration.docs" top>
-            <template v-slot:activator="{ on }">
+            <template #activator="{ on }">
               <v-btn :to="integration.docs" icon v-on="on">
                 <v-icon>{{ mdiInformationOutline }}</v-icon>
               </v-btn>
@@ -56,7 +56,7 @@
           </v-tooltip>
 
           <v-tooltip v-if="integration.href" top>
-            <template v-slot:activator="{ on }">
+            <template #activator="{ on }">
               <v-btn :href="integration.href" target="_blank" icon v-on="on">
                 <v-icon>{{ mdiOpenInNew }}</v-icon>
               </v-btn>

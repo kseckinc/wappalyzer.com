@@ -15,12 +15,8 @@
         background-color="secondary"
         active-class="primary--text"
       >
-        <v-tab key="manage">
-          Manage
-        </v-tab>
-        <v-tab key="memberships">
-          Memberships
-        </v-tab>
+        <v-tab key="manage"> Manage </v-tab>
+        <v-tab key="memberships"> Memberships </v-tab>
       </v-tabs>
 
       <v-tabs-items v-model="tab">
@@ -30,7 +26,7 @@
               <v-row>
                 <v-col
                   class="py-0 flex-shrink-1 flex-grow-0"
-                  style="white-space: nowrap;"
+                  style="white-space: nowrap"
                 >
                   Members
                 </v-col>
@@ -128,9 +124,7 @@
 
         <v-tab-item key="memberships">
           <v-card flat>
-            <v-card-title>
-              Organisations
-            </v-card-title>
+            <v-card-title> Organisations </v-card-title>
             <v-card-text class="px-0">
               <p class="px-4">
                 These are the organisations you're a member of.
@@ -202,9 +196,7 @@
 
     <v-dialog v-model="createDialog" max-width="400px" eager>
       <v-card>
-        <v-card-title>
-          Add member
-        </v-card-title>
+        <v-card-title> Add member </v-card-title>
         <v-card-text class="pb-0">
           <p>
             The member will receive an email asking them to join the
@@ -237,9 +229,7 @@
 
     <v-dialog v-model="removeDialog" max-width="400px" eager>
       <v-card>
-        <v-card-title>
-          Remove member
-        </v-card-title>
+        <v-card-title> Remove member </v-card-title>
         <v-card-text class="pb-0">
           <v-alert v-if="removeError" type="error">
             {{ removeError }}
@@ -261,9 +251,7 @@
 
     <v-dialog v-model="removeOrganisationDialog" max-width="400px" eager>
       <v-card>
-        <v-card-title>
-          Leave organisation
-        </v-card-title>
+        <v-card-title> Leave organisation </v-card-title>
         <v-card-text class="pb-0">
           <v-alert v-if="removeOrganisationError" type="error">
             {{ removeOrganisationError }}
@@ -290,9 +278,7 @@
 
     <v-dialog v-model="accessDialog" max-width="600px" eager>
       <v-card>
-        <v-card-title>
-          Permissions
-        </v-card-title>
+        <v-card-title> Permissions </v-card-title>
         <v-card-text class="px-0 pb-0">
           <v-simple-table dense>
             <thead>

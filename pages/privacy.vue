@@ -9,9 +9,7 @@
         '<strong>Services</strong>').
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Log data
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Log data</h2>
 
       <p>
         As with most websites and technology services delivered over the
@@ -21,9 +19,7 @@
         Services were used, browser type and settings and cookie data.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Account registration
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Account registration</h2>
 
       <p>
         When you open an account, you provide us with personal information that
@@ -32,9 +28,7 @@
         cancel your account at any time.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Browser extension
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Browser extension</h2>
 
       <p>
         You do not need to provide any personal information in order to download
@@ -54,9 +48,7 @@
         the automatic sending of information in the browser extension settings.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Gmail add-on
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Gmail add-on</h2>
 
       <p>
         By installing the Gmail add-on, you grant us temporary access to message

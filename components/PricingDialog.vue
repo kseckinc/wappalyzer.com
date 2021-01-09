@@ -1,9 +1,7 @@
 <template>
   <v-dialog v-model="isOpen" max-width="400px">
     <v-card v-for="({ unit, per, credits }, i) in units" :key="i">
-      <v-card-title>
-        Pricing
-      </v-card-title>
+      <v-card-title> Pricing </v-card-title>
       <v-card-text class="px-0 pb-0">
         <v-alert color="secondary" class="px-6">
           Pay with a credit card, PayPal or credit balance.
@@ -53,9 +51,7 @@
 
       <v-divider />
 
-      <v-card-title>
-        Calculator
-      </v-card-title>
+      <v-card-title> Calculator </v-card-title>
       <v-card-text class="px-0 pb-0">
         <v-form @submit.prevent="submit">
           <v-text-field

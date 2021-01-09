@@ -376,7 +376,7 @@ export default {
         trend.find(({ yearMonth }) => yearMonth === this.trendStartYearMonth)
       )
 
-      technology.trend.map(({ yearMonth, hostnames, hits }) => {
+      technology.trend.forEach(({ yearMonth, hostnames, hits }) => {
         const month = yearMonth.toString().slice(2, 4)
         const year = `20${yearMonth.toString().slice(0, 2)}`
 

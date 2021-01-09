@@ -1,9 +1,7 @@
 <template>
   <div>
     <Page :title="title" :side="side" :crumbs="crumbs" no-hero no-head>
-      <h1 class="mb-4">
-        Zapier
-      </h1>
+      <h1 class="mb-4">Zapier</h1>
 
       <p>
         Connect Wappalyzer to the apps and services you use with
@@ -35,9 +33,7 @@
         page to learn more.
       </p>
 
-      <Heading id="pricing" size="2" class="mt-8 mb-2">
-        Pricing
-      </Heading>
+      <Heading id="pricing" size="2" class="mt-8 mb-2"> Pricing </Heading>
 
       <p>
         A technology lookup costs 1 credit. Refer to the

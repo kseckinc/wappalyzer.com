@@ -58,9 +58,7 @@
 
       <v-dialog v-model="removeDialog" max-width="400px" eager>
         <v-card>
-          <v-card-title>
-            Delete key
-          </v-card-title>
+          <v-card-title> Delete key </v-card-title>
           <v-card-text class="pb-0">
             <v-alert v-if="removeError" type="error">
               {{ removeError }}

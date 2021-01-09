@@ -54,9 +54,7 @@
         with the help of Wappalyzer.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Web Almanac
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Web Almanac</h2>
 
       <p>
         Once a year, the HTTP Archive produces a comprehensive 'state of the
@@ -74,9 +72,7 @@
         is trending.
       </p>
 
-      <p>
-        Notable insights in 2019 include:
-      </p>
+      <p>Notable insights in 2019 include:</p>
 
       <ul class="mb-4">
         <li>
@@ -85,18 +81,10 @@
           >
           is used on 85% of web pages
         </li>
-        <li>
-          10% of pages are on an ecommerce platform
-        </li>
-        <li>
-          40% of pages are powered by a CMS
-        </li>
-        <li>
-          Only 20% of sites serve HTML content via a CDN
-        </li>
-        <li>
-          At the 90th percentile, 91% of bytes on pages are from media
-        </li>
+        <li>10% of pages are on an ecommerce platform</li>
+        <li>40% of pages are powered by a CMS</li>
+        <li>Only 20% of sites serve HTML content via a CDN</li>
+        <li>At the 90th percentile, 91% of bytes on pages are from media</li>
       </ul>
 
       <p>
@@ -140,9 +128,7 @@
         software development.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        WebPageTest
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">WebPageTest</h2>
 
       <p>
         <a href="https://www.webpagetest.org/" rel="noopener" target="_blank"
@@ -155,9 +141,7 @@
         pages and create security and performance reports.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Conclusion
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Conclusion</h2>
 
       <p>
         Successful societies and institutions recognise the need to record their

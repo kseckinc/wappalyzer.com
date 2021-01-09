@@ -25,6 +25,11 @@ export default {
       success: false,
     }
   },
+  head() {
+    return {
+      title: this.title,
+    }
+  },
   async created() {
     const { email } = this.$route.params
 
@@ -37,11 +42,6 @@ export default {
     }
 
     this.unsubscribing = false
-  },
-  head() {
-    return {
-      title: this.title,
-    }
   },
 }
 </script>

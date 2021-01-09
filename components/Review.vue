@@ -2,7 +2,7 @@
   <v-card v-if="!removed">
     <v-card-text>
       <p>
-        <span style="white-space: pre-line;">{{ formattedText }}</span>
+        <span style="white-space: pre-line">{{ formattedText }}</span>
       </p>
 
       <StarRating :stars="review.rating" />

@@ -21,7 +21,7 @@
                 eager
                 attach
               >
-                <template v-slot:activator="{ on }">
+                <template #activator="{ on }">
                   <v-btn :icon="!!icon" class="white--text" text v-on="on">
                     <v-icon v-if="icon" dense>{{ icon }}</v-icon>
                     <template v-else>
@@ -33,8 +33,9 @@
 
                 <v-list v-if="items" class="header__menu">
                   <div
-                    v-for="({ title: _title, subtitle, to: _to },
-                    index2) in items"
+                    v-for="(
+                      { title: _title, subtitle, to: _to }, index2
+                    ) in items"
                     :key="_title"
                   >
                     <v-divider v-if="index2"></v-divider>
@@ -66,7 +67,7 @@
               </v-menu>
             </template>
             <v-menu class="text-left" offset-y left eager attach>
-              <template v-slot:activator="{ on }">
+              <template #activator="{ on }">
                 <v-btn
                   :icon="!isSignedIn"
                   class="font-weight-regular text-left"
@@ -143,9 +144,7 @@
                       }}</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                      <v-list-item-title>
-                        Administration
-                      </v-list-item-title>
+                      <v-list-item-title> Administration </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                   <v-list-item

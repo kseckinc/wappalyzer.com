@@ -59,7 +59,7 @@
         </v-col>
       </v-row>
 
-      <template v-slot:header>
+      <template #header>
         <v-sheet color="secondary elevation-1" tile>
           <v-container class="text-center body-2 py-6">
             <p>

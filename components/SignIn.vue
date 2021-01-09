@@ -100,13 +100,9 @@
           </v-btn>
 
           <div class="mt-4">
-            <a @click.prevent="mode = 'signUp'">
-              Create an account
-            </a>
+            <a @click.prevent="mode = 'signUp'"> Create an account </a>
             <br />
-            <a @click.prevent="mode = 'reset'">
-              Reset password
-            </a>
+            <a @click.prevent="mode = 'reset'"> Reset password </a>
           </div>
         </template>
         <template
@@ -161,17 +157,13 @@
           </v-btn>
 
           <div class="mt-4">
-            <a @click.prevent="mode = 'signIn'">
-              Sign in
-            </a>
+            <a @click.prevent="mode = 'signIn'"> Sign in </a>
           </div>
         </template>
       </v-form>
     </v-card-text>
     <v-card-text v-else>
-      <p>
-        You are signed in.
-      </p>
+      <p>You are signed in.</p>
 
       <v-btn :loading="signingOut" color="primary" nuxt @click.stop="doSignOut">
         Sign out

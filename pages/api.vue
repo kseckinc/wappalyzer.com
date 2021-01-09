@@ -33,7 +33,7 @@
         </v-btn>
       </div>
 
-      <template v-slot:content>
+      <template #content>
         <Matrix
           :items="apis"
           :attrs="attrs"
@@ -87,9 +87,7 @@
 
       <v-dialog v-model="faqDialog" max-width="600px">
         <v-card>
-          <v-card-title>
-            Frequently asked questions
-          </v-card-title>
+          <v-card-title> Frequently asked questions </v-card-title>
           <v-card-text class="pb-0">
             <Faqs topic="api" />
           </v-card-text>
@@ -100,7 +98,7 @@
         </v-card>
       </v-dialog>
 
-      <template v-slot:footer>
+      <template #footer>
         <Logos integrations />
       </template>
     </Page>

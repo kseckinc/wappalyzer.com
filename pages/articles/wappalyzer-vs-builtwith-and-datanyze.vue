@@ -20,9 +20,7 @@
         are of course differences, some of which we'll highlight here.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Open-source core
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Open-source core</h2>
 
       <p>
         Wappalyzer is the only web technology profiler built on an open-source
@@ -50,9 +48,7 @@
         </li>
       </ul>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Data accuracy
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Data accuracy</h2>
 
       <p>
         Wappalyzer is known to be the most accurate technology profiler. While
@@ -72,9 +68,7 @@
         lists.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Browser extensions
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Browser extensions</h2>
 
       <p>
         Wappalyzer's free and immensely popular
@@ -91,9 +85,7 @@
         which means it functions offline and even on local networks.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Organic data
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Organic data</h2>
 
       <p>
         Data collected through the browser extension is entirely organic. In
@@ -109,9 +101,7 @@
         inaccessible to crawlers, such as those behind a login.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Accessible and easy to use
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Accessible and easy to use</h2>
 
       <p>
         Wappalyzer's products are designed to be highly accessible and easy to
@@ -120,9 +110,7 @@
         any of Wappalyzer's products, including its APIs.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Laser focus
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Laser focus</h2>
 
       <p>
         Wappalyzer's mission is to do one thing, and do it extremely well. For

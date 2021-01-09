@@ -11,9 +11,7 @@
       <v-alert v-else-if="error" type="error">
         {{ error }}
       </v-alert>
-      <p v-else>
-        Signing out...
-      </p>
+      <p v-else>Signing out...</p>
     </Page>
   </div>
 </template>

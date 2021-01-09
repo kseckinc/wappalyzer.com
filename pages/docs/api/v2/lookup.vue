@@ -1,9 +1,7 @@
 <template>
   <div>
     <Page :title="title" :side="side" :crumbs="crumbs" no-hero no-head>
-      <h1 class="mb-4">
-        Lookup API
-      </h1>
+      <h1 class="mb-4">Lookup API</h1>
 
       <p>
         Perform near-instant technology lookups with the Lookup API. Results are
@@ -18,15 +16,11 @@
         traffic data are included.
       </p>
 
-      <Heading id="endpoint" size="2" class="mt-8 mb-4">
-        Endpoint
-      </Heading>
+      <Heading id="endpoint" size="2" class="mt-8 mb-4"> Endpoint </Heading>
 
       <p><code>GET</code> <code>https://api.wappalyzer.com/lookup/v2/</code></p>
 
-      <Heading id="properties" size="2" class="mt-8 mb-4">
-        Properties
-      </Heading>
+      <Heading id="properties" size="2" class="mt-8 mb-4"> Properties </Heading>
 
       <v-card class="my-4" flat outlined>
         <v-simple-table>
@@ -55,9 +49,7 @@
         </v-simple-table>
       </v-card>
 
-      <Heading id="parameters" size="2" class="mt-8 mb-4">
-        Parameters
-      </Heading>
+      <Heading id="parameters" size="2" class="mt-8 mb-4"> Parameters </Heading>
 
       <v-card class="my-4" flat outlined>
         <v-simple-table>
@@ -122,9 +114,7 @@
         </v-simple-table>
       </v-card>
 
-      <Heading id="callback" size="2" class="mt-8 mb-4">
-        Callback
-      </Heading>
+      <Heading id="callback" size="2" class="mt-8 mb-4"> Callback </Heading>
 
       <p>
         A callback URL is a public endpoint hosted on your own server. If you
@@ -142,9 +132,7 @@
         need for a public callback endpoint.
       </v-alert>
 
-      <Heading id="examples" size="2" class="mt-8 mb-4">
-        Examples
-      </Heading>
+      <Heading id="examples" size="2" class="mt-8 mb-4"> Examples </Heading>
 
       <v-card class="mb-8">
         <v-card-title class="subtitle-2">Example request</v-card-title>

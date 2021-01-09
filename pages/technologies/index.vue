@@ -13,9 +13,7 @@
     <v-row>
       <v-col md="8">
         <v-card class="mb-4">
-          <v-card-title class="subtitle-2 pb-0">
-            Search
-          </v-card-title>
+          <v-card-title class="subtitle-2 pb-0"> Search </v-card-title>
           <v-card-text>
             <Technologies @select="selectTechnology" />
           </v-card-text>

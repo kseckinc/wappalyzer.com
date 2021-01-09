@@ -10,9 +10,7 @@
         strong qualifying factor.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Why does technograpics matter?
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Why does technograpics matter?</h2>
 
       <p>
         Much like how demographics and firmographics describe people and
@@ -21,9 +19,7 @@
         understanding of a company’s technology investments and buying signals.
       </p>
 
-      <p>
-        Technographics profiling enables you to answer questions like:
-      </p>
+      <p>Technographics profiling enables you to answer questions like:</p>
 
       <ul class="mb-4">
         <li>What commerce software does our target audience use?</li>
@@ -36,9 +32,7 @@
         competitive.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Technographics in sales and marketing
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Technographics in sales and marketing</h2>
 
       <p>
         Technographic data reveals who uses the product or services offered by
@@ -52,9 +46,7 @@
         engaging and converting them into customers.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Accessing technographic data
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Accessing technographic data</h2>
 
       <p>
         Wappalyzer has pioneered the field of technographics for more than a

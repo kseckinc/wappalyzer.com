@@ -1,19 +1,12 @@
 <template>
-  <v-form
-    ref="form"
-    v-model="valid"
-    class="ml-0 mr-0"
-    style="overflow: hidden;"
-  >
+  <v-form ref="form" v-model="valid" class="ml-0 mr-0" style="overflow: hidden">
     <v-alert v-if="error" type="error" class="mt-4 mx-4 mb-0">
       {{ error }}
     </v-alert>
 
     <v-row class="ml-0 mr-0">
       <v-col class="pa-0" cols="12" sm="6" md="12" lg="6">
-        <v-card-title>
-          Personal details
-        </v-card-title>
+        <v-card-title> Personal details </v-card-title>
 
         <v-card-text>
           <v-text-field
@@ -43,9 +36,7 @@
       <v-col class="py-0" cols="12" sm="6" md="12" lg="6">
         <v-divider class="d-sm-none d-md-block d-lg-none" />
 
-        <v-card-title>
-          Billing details
-        </v-card-title>
+        <v-card-title> Billing details </v-card-title>
 
         <v-card-text class="py-0">
           <v-text-field

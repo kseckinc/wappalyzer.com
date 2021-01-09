@@ -36,9 +36,7 @@
               <v-simple-table class="mb-4">
                 <tbody>
                   <tr>
-                    <th width="40%">
-                      Websites
-                    </th>
+                    <th width="40%">Websites</th>
                     <td>
                       {{
                         formatNumber(
@@ -48,9 +46,7 @@
                     </td>
                   </tr>
                   <tr>
-                    <th>
-                      Price
-                    </th>
+                    <th>Price</th>
                     <td v-if="isMember">
                       {{ formatNumber(list.totalCredits) }} credits
                     </td>
@@ -96,12 +92,8 @@
                 <v-simple-table>
                   <tbody>
                     <tr>
-                      <th>
-                        Technology
-                      </th>
-                      <th class="text-right">
-                        Websites
-                      </th>
+                      <th>Technology</th>
+                      <th class="text-right">Websites</th>
                     </tr>
                     <tr
                       v-for="technology in technologies"
@@ -170,9 +162,7 @@
                 <v-simple-table>
                   <tbody>
                     <tr v-if="list.query.requiredSets.length">
-                      <th width="40%">
-                        Required
-                      </th>
+                      <th width="40%">Required</th>
                       <td>
                         <div v-for="key in list.query.requiredSets" :key="key">
                           {{
@@ -188,9 +178,7 @@
                       </td>
                     </tr>
                     <tr v-if="list.query.geoIps.length">
-                      <th width="40%">
-                        IP countries
-                      </th>
+                      <th width="40%">IP countries</th>
                       <td>
                         <v-chip-group class="my-2" column>
                           <v-tooltip
@@ -198,7 +186,7 @@
                             :key="value"
                             bottom
                           >
-                            <template v-slot:activator="{ on }">
+                            <template #activator="{ on }">
                               <v-chip outlined small v-on="on">
                                 {{ value }}
                               </v-chip>
@@ -210,9 +198,7 @@
                       </td>
                     </tr>
                     <tr v-if="list.query.tlds.length">
-                      <th width="40%">
-                        TLDs
-                      </th>
+                      <th width="40%">TLDs</th>
                       <td>
                         <v-chip-group class="my-2" column>
                           <v-chip
@@ -226,9 +212,7 @@
                       </td>
                     </tr>
                     <tr v-if="list.query.languages.length">
-                      <th width="40%">
-                        Languages
-                      </th>
+                      <th width="40%">Languages</th>
                       <td>
                         <v-chip-group class="my-2" column>
                           <v-tooltip
@@ -236,7 +220,7 @@
                             :key="value"
                             bottom
                           >
-                            <template v-slot:activator="{ on }">
+                            <template #activator="{ on }">
                               <v-chip outlined small v-on="on">
                                 {{ value }}
                               </v-chip>
@@ -248,25 +232,19 @@
                       </td>
                     </tr>
                     <tr v-if="list.query.matchAllTechnologies">
-                      <th width="40%">
-                        Match all technologies
-                      </th>
+                      <th width="40%">Match all technologies</th>
                       <td>
                         <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
                       </td>
                     </tr>
                     <tr v-if="list.query.matchAll">
-                      <th width="40%">
-                        Match all filters
-                      </th>
+                      <th width="40%">Match all filters</th>
                       <td>
                         <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
                       </td>
                     </tr>
                     <tr v-if="list.query.subset">
-                      <th width="40%">
-                        List size limit
-                      </th>
+                      <th width="40%">List size limit</th>
                       <td>
                         {{ formatNumber(list.query.subset) }}
                         ({{
@@ -284,9 +262,7 @@
                       </td>
                     </tr>
                     <tr v-if="list.exclusionsFilename">
-                      <th width="40%">
-                        Exclusions
-                      </th>
+                      <th width="40%">Exclusions</th>
                       <td>
                         <v-btn
                           :href="`${datasetsBaseUrl}${list.exclusionsFilename}`"
@@ -297,9 +273,7 @@
                       </td>
                     </tr>
                     <tr>
-                      <th width="40%">
-                        Data age
-                      </th>
+                      <th width="40%">Data age</th>
                       <td>
                         {{ list.query.minAge || 0 }}-{{
                           list.query.maxAge || 3
@@ -320,12 +294,8 @@
                 <v-simple-table dense>
                   <tbody>
                     <tr>
-                      <th>
-                        Attribute set
-                      </th>
-                      <th class="text-right">
-                        Results
-                      </th>
+                      <th>Attribute set</th>
+                      <th class="text-right">Results</th>
                     </tr>
                     <v-tooltip
                       v-for="set in sets.filter(
@@ -335,7 +305,7 @@
                       :key="set.key"
                       top
                     >
-                      <template v-slot:activator="{ on }">
+                      <template #activator="{ on }">
                         <tr v-on="on">
                           <td>
                             <small>
@@ -466,7 +436,7 @@
                       <th
                         v-for="key in Object.keys(technology.sample[0])"
                         :key="key"
-                        style="white-space: nowrap;"
+                        style="white-space: nowrap"
                       >
                         {{ formatAttribute(key) || key }}
                       </th>
@@ -477,7 +447,7 @@
                       <td
                         v-for="(column, attribute) in row"
                         :key="attribute"
-                        style="white-space: nowrap;"
+                        style="white-space: nowrap"
                       >
                         <small>
                           <template v-if="Array.isArray(column)">
@@ -544,15 +514,13 @@
       </v-row>
     </template>
 
-    <template v-slot:footer>
+    <template #footer>
       <Logos />
     </template>
 
     <v-dialog v-model="faqDialog" max-width="600px">
       <v-card>
-        <v-card-title>
-          Frequently asked questions
-        </v-card-title>
+        <v-card-title> Frequently asked questions </v-card-title>
         <v-card-text class="pb-0">
           <Faqs topic="lists" />
         </v-card-text>

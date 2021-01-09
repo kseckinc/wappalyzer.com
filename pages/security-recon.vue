@@ -1,7 +1,7 @@
 <template>
   <div>
     <Page :title="title" no-head no-subscribe>
-      <h1 class="text-h1 mt-4 mb-8" style="font-size: 3rem !important;">
+      <h1 class="text-h1 mt-4 mb-8" style="font-size: 3rem !important">
         {{ title }}
       </h1>
 
@@ -48,7 +48,7 @@
 
       <v-divider class="my-4 my-sm-6" />
 
-      <v-card style="max-width: 800px; margin: 0 auto;">
+      <v-card style="max-width: 800px; margin: 0 auto">
         <div class="iframe-container">
           <iframe
             src="https://player.vimeo.com/video/476996233"
@@ -66,7 +66,7 @@
 
       <Product name="apis" mirror />
 
-      <template v-slot:footer>
+      <template #footer>
         <Logos integrations />
       </template>
     </Page>

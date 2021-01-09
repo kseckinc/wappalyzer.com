@@ -54,9 +54,7 @@
         information.
       </p>
 
-      <p>
-        We'll go through a few examples below.
-      </p>
+      <p>We'll go through a few examples below.</p>
 
       <h3 class="text-h3 mt-8 mb-2">Hide PHP from Wappalyzer</h3>
 

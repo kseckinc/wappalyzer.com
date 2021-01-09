@@ -14,30 +14,30 @@
     "deploy:v2": "ENVIRONMENT=v2 AWS_PROFILE=wappalyzer NODE_OPTIONS=--max-old-space-size=7168 nuxt generate && aws s3 sync dist s3://www.wappalyzer.com --acl public-read --cache-control max-age=31536000,public"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.10.1",
+    "@nuxtjs/axios": "^5.12.5",
     "@nuxtjs/google-gtag": "^1.0.4",
-    "amazon-cognito-identity-js": "^4.3.4",
+    "amazon-cognito-identity-js": "^4.5.7",
     "cookie-universal-nuxt": "^2.1.4",
-    "nuxt": "^2.12.2",
-    "nuxt-canonical": "^1.0.4",
-    "nuxt-stripe-module": "^2.0.0",
-    "prismjs": "^1.21.0",
-    "stripe": "^8.46.0",
+    "nuxt": "^2.14.12",
+    "nuxt-canonical": "^1.0.6",
+    "nuxt-stripe-module": "^3.0.1",
+    "prismjs": "^1.23.0",
+    "stripe": "^8.130.0",
     "vue-google-charts": "^0.3.3",
-    "vue-prism-component": "^1.1.1"
+    "vue-prism-component": "^1.2.0"
   },
   "devDependencies": {
-    "@mdi/js": "^5.5.55",
-    "@nuxtjs/eslint-config": "^3.1.0",
-    "@nuxtjs/eslint-module": "^2.0.0",
+    "@mdi/js": "^5.8.55",
+    "@nuxtjs/eslint-config": "^5.0.0",
+    "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/svg": "^0.1.12",
-    "@nuxtjs/vuetify": "^1.0.0",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^7.7.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-nuxt": ">=0.4.2",
-    "eslint-plugin-prettier": "^3.0.1",
-    "prettier": "^2.0.5"
+    "@nuxtjs/vuetify": "^1.11.2",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.17.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-plugin-nuxt": ">=2.0.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1"
   }
 }

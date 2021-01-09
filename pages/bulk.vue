@@ -23,9 +23,7 @@
 
       <v-form ref="form">
         <v-card class="mb-8">
-          <v-card-title class="subtitle-2">
-            Upload your list
-          </v-card-title>
+          <v-card-title class="subtitle-2"> Upload your list </v-card-title>
           <v-card-text>
             <ul>
               <li>
@@ -84,7 +82,7 @@
 
       <PricingDialog ref="pricingDialog" product="bulk" />
 
-      <template v-slot:footer>
+      <template #footer>
         <Logos />
       </template>
     </Page>

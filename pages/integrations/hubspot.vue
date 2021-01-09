@@ -43,9 +43,7 @@
     </div>
 
     <v-card>
-      <v-card-title>
-        Integration
-      </v-card-title>
+      <v-card-title> Integration </v-card-title>
       <v-card-text class="px-0">
         <v-alert
           v-if="!connecting && !eligible"
@@ -87,9 +85,7 @@
             <tr v-if="hubspotId">
               <th>HubSpot account ID</th>
               <td>
-                <template>
-                  {{ hubspotId }}
-                </template>
+                {{ hubspotId }}
               </td>
             </tr>
 

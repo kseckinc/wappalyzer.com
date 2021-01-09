@@ -24,10 +24,10 @@
 import Page from '~/components/Page.vue'
 
 export default {
-  layout: 'empty',
   components: {
     Page,
   },
+  layout: 'empty',
   props: {
     error: {
       type: Object,

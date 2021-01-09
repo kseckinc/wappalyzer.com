@@ -1,9 +1,7 @@
 <template>
   <div>
     <Page :title="title" :side="side" :crumbs="crumbs" no-hero no-head>
-      <h1 class="mb-4">
-        Crawl API
-      </h1>
+      <h1 class="mb-4">Crawl API</h1>
 
       <p>
         Identify the technologies used on any public website in real-time.
@@ -15,15 +13,11 @@
         domain has been indexed.
       </p>
 
-      <Heading id="endpoint" size="2" class="mt-8 mb-2">
-        Endpoint
-      </Heading>
+      <Heading id="endpoint" size="2" class="mt-8 mb-2"> Endpoint </Heading>
 
       <p><code>GET</code> <code>https://api.wappalyzer.com/crawl/v2/</code></p>
 
-      <Heading id="properties" size="2" class="mt-8 mb-2">
-        Properties
-      </Heading>
+      <Heading id="properties" size="2" class="mt-8 mb-2"> Properties </Heading>
 
       <v-card class="my-4" flat outlined>
         <v-simple-table>
@@ -53,9 +47,7 @@
         </v-simple-table>
       </v-card>
 
-      <Heading id="parameters" size="2" class="mt-8 mb-2">
-        Parameters
-      </Heading>
+      <Heading id="parameters" size="2" class="mt-8 mb-2"> Parameters </Heading>
 
       <v-card class="my-4" flat outlined>
         <v-simple-table>
@@ -106,9 +98,7 @@
         </v-simple-table>
       </v-card>
 
-      <Heading id="callback" size="2" class="mt-8 mb-4">
-        Callback
-      </Heading>
+      <Heading id="callback" size="2" class="mt-8 mb-4"> Callback </Heading>
 
       <p>
         A callback URL is a public endpoint hosted on your own server. If you
@@ -119,9 +109,7 @@
         request.
       </p>
 
-      <Heading id="examples" size="2" class="mt-8 mb-2">
-        Examples
-      </Heading>
+      <Heading id="examples" size="2" class="mt-8 mb-2"> Examples </Heading>
 
       <v-card class="mb-8">
         <v-card-title class="subtitle-2">Example request</v-card-title>

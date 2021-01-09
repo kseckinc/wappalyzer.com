@@ -1,26 +1,20 @@
 <template>
   <div>
     <Page :title="title" :side="side" no-hero no-head>
-      <h1 class="mb-4">
-        Analyze API
-      </h1>
+      <h1 class="mb-4">Analyze API</h1>
 
       <p>
         Identify the technologies used on any public URL in real-time. Results
         are always guaranteed up-to-date and delivered within seconds.
       </p>
 
-      <Heading id="endpoint" size="2" class="mt-8 mb-2">
-        Endpoint
-      </Heading>
+      <Heading id="endpoint" size="2" class="mt-8 mb-2"> Endpoint </Heading>
 
       <p>
         <code>GET</code> <code>https://api.wappalyzer.com/analyze/v1/</code>
       </p>
 
-      <Heading id="properties" size="2" class="mt-8 mb-2">
-        Properties
-      </Heading>
+      <Heading id="properties" size="2" class="mt-8 mb-2"> Properties </Heading>
 
       <v-card class="my-4" flat outlined>
         <v-simple-table>
@@ -41,17 +35,13 @@
             </tr>
             <tr>
               <td>Rate limit</td>
-              <td>
-                1 request / second
-              </td>
+              <td>1 request / second</td>
             </tr>
           </tbody>
         </v-simple-table>
       </v-card>
 
-      <Heading id="parameters" size="2" class="mt-8 mb-2">
-        Parameters
-      </Heading>
+      <Heading id="parameters" size="2" class="mt-8 mb-2"> Parameters </Heading>
 
       <v-card class="my-4" flat outlined>
         <v-simple-table>
@@ -74,9 +64,7 @@
         </v-simple-table>
       </v-card>
 
-      <Heading id="examples" size="2" class="mt-8 mb-2">
-        Examples
-      </Heading>
+      <Heading id="examples" size="2" class="mt-8 mb-2"> Examples </Heading>
 
       <p><strong>Example request</strong></p>
 

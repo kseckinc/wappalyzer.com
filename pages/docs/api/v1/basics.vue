@@ -1,9 +1,7 @@
 <template>
   <div>
     <Page :title="title" :side="side" no-hero no-head>
-      <h1 class="mb-4">
-        Basics
-      </h1>
+      <h1 class="mb-4">Basics</h1>
 
       <p>
         The
@@ -32,9 +30,7 @@
         <li>Endpoints are HTTPS only</li>
       </ul>
 
-      <Heading id="pricing" size="2" class="mt-8 mb-2">
-        Pricing
-      </Heading>
+      <Heading id="pricing" size="2" class="mt-8 mb-2"> Pricing </Heading>
 
       <p>
         API calls deduct credits from your balance. Credits are included in
@@ -102,21 +98,15 @@
           <tbody>
             <tr>
               <td><code>200</code></td>
-              <td>
-                The request was completed successfully
-              </td>
+              <td>The request was completed successfully</td>
             </tr>
             <tr>
               <td><code>202</code></td>
-              <td>
-                The request has been accepted for processing
-              </td>
+              <td>The request has been accepted for processing</td>
             </tr>
             <tr>
               <td><code>400</code></td>
-              <td>
-                There was an error with the request
-              </td>
+              <td>There was an error with the request</td>
             </tr>
             <tr>
               <td><code>403</code></td>
@@ -170,15 +160,11 @@
             </tr>
             <tr>
               <td><code>NO_RESPONSE</code></td>
-              <td>
-                The server did not respond in time
-              </td>
+              <td>The server did not respond in time</td>
             </tr>
             <tr>
               <td><code>NO_HTML_DOCUMENT</code></td>
-              <td>
-                The server response did not include a HTML document
-              </td>
+              <td>The server response did not include a HTML document</td>
             </tr>
           </tbody>
         </v-simple-table>
@@ -188,9 +174,7 @@
         Credit balance
       </Heading>
 
-      <p>
-        Every response includes a header with your credit balance.
-      </p>
+      <p>Every response includes a header with your credit balance.</p>
 
       <v-card class="my-4" flat outlined>
         <v-simple-table>
@@ -205,9 +189,7 @@
               <td>
                 <code>wappalyzer-credits-remaining</code>
               </td>
-              <td>
-                Your credit balance
-              </td>
+              <td>Your credit balance</td>
             </tr>
           </tbody>
         </v-simple-table>

@@ -19,7 +19,7 @@
         <Product :name="name" :mirror="index % 2 !== 0" />
       </div>
 
-      <template v-slot:footer>
+      <template #footer>
         <Logos integrations />
       </template>
     </Page>

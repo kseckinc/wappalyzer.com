@@ -23,9 +23,7 @@
 
     <v-card class="mb-4">
       <template v-if="isAdmin">
-        <v-card-title>
-          Administration
-        </v-card-title>
+        <v-card-title> Administration </v-card-title>
 
         <v-form ref="form" v-model="valid">
           <v-card-text class="py-0">
@@ -59,9 +57,7 @@
         <v-divider />
       </template>
 
-      <v-card-title>
-        Sign in details
-      </v-card-title>
+      <v-card-title> Sign in details </v-card-title>
 
       <v-form ref="form" v-model="valid">
         <v-row>
@@ -121,9 +117,7 @@
 
     <v-dialog v-model="changeEmailDialog" width="80%" max-width="400">
       <v-card>
-        <v-card-title>
-          Email address change
-        </v-card-title>
+        <v-card-title> Email address change </v-card-title>
         <v-card-text>
           You will be signed out. You must to verify your new email address to
           sign back in.
@@ -140,12 +134,8 @@
 
     <v-dialog v-model="deleteAccountDialog" width="80%" max-width="400">
       <v-card>
-        <v-card-title>
-          Delete account
-        </v-card-title>
-        <v-card-text>
-          Your account will be deleted permanently.
-        </v-card-text>
+        <v-card-title> Delete account </v-card-title>
+        <v-card-text> Your account will be deleted permanently. </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="accent" text @click="deleteAccountDialog = false"

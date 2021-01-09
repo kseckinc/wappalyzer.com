@@ -63,9 +63,7 @@
                     :exp-month="subscription.paymentMethodExpMonth"
                     :exp-year="subscription.paymentMethodExpYear"
                   />
-                  <template v-else>
-                    Use default
-                  </template>
+                  <template v-else> Use default </template>
                 </td>
               </tr>
               <tr>
@@ -111,9 +109,7 @@
 
       <v-dialog v-model="cancelDialog" max-width="500px" eager>
         <v-card>
-          <v-card-title>
-            Cancel subscription
-          </v-card-title>
+          <v-card-title> Cancel subscription </v-card-title>
 
           <v-card-text class="pb-0">
             <v-alert v-if="cancelError" type="error">
@@ -175,9 +171,7 @@
 
       <v-dialog v-model="paymentMethodDialog" max-width="600px" eager>
         <v-card>
-          <v-card-title>
-            Payment method
-          </v-card-title>
+          <v-card-title> Payment method </v-card-title>
           <v-card-text class="px-2">
             <v-alert v-if="paymentMethodError" type="error">
               {{ paymentMethodError }}

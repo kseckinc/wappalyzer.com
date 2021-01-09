@@ -1,9 +1,7 @@
 <template>
   <div>
     <Page :title="title" :side="side" :crumbs="crumbs" no-hero no-head>
-      <h1 class="mb-4">
-        Pipedrive
-      </h1>
+      <h1 class="mb-4">Pipedrive</h1>
 
       <p>
         Connect Wappalyzer to
@@ -40,14 +38,10 @@
           >
           in your account.
         </li>
-        <li>
-          Click 'Connect' and follow the prompts.
-        </li>
+        <li>Click 'Connect' and follow the prompts.</li>
       </ul>
 
-      <Heading id="pricing" size="2" class="mt-8 mb-2">
-        Pricing
-      </Heading>
+      <Heading id="pricing" size="2" class="mt-8 mb-2"> Pricing </Heading>
 
       <p>
         A lookup costs 1 credit. A lookup happens when you view a contact in

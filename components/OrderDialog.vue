@@ -1,9 +1,7 @@
 <template>
   <v-dialog v-model="isOpen" :persistent="!error" max-width="400px">
     <v-card>
-      <v-card-title>
-        Creating your order&hellip;
-      </v-card-title>
+      <v-card-title> Creating your order&hellip; </v-card-title>
       <v-card-text class="pb-0">
         <v-alert v-if="error" type="error" class="mb-0">
           {{ error }}

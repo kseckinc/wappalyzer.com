@@ -1,7 +1,7 @@
 <template>
   <v-expansion-panels v-if="Object.keys(attributes).length" class="mb-4">
     <v-expansion-panel v-for="(set, setKey) in attributes" :key="setKey" flat>
-      <v-expansion-panel-header class="subtitle-2" style="line-height: 1em;"
+      <v-expansion-panel-header class="subtitle-2" style="line-height: 1em"
         >{{ set.title }}
         <span class="ml-1 text--disabled"
           >({{

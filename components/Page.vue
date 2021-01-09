@@ -14,7 +14,7 @@
       <v-container class="py-10 py-sm-12">
         <Progress
           v-if="secure && !isSignedIn && !userLoaded"
-          style="margin: 0 auto;"
+          style="margin: 0 auto"
         />
         <SignIn v-else-if="secure && !isSignedIn" class="px-2" mode-continue />
         <v-row v-else-if="sideNav.length">
@@ -167,6 +167,18 @@ export default {
       meta,
     }
   },
+  head() {
+    return {
+      title: this.seoTitle || this.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.head.meta || this.head.text || '',
+        },
+      ],
+    }
+  },
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
@@ -187,18 +199,6 @@ export default {
     crumbNav() {
       return [...this.crumbs, { title: this.title, to: '' }]
     },
-  },
-  head() {
-    return {
-      title: this.seoTitle || this.title,
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: this.head.meta || this.head.text || '',
-        },
-      ],
-    }
   },
 }
 </script>

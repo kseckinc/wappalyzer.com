@@ -36,7 +36,7 @@
         <nuxt-link to="/contact/">contact us</nuxt-link>.
       </p>
 
-      <template v-slot:footer>
+      <template #footer>
         <Logos />
       </template>
     </Page>

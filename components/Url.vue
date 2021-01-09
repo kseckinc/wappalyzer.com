@@ -34,7 +34,7 @@
         outlined
         @focus="focus"
       >
-        <template v-slot:prepend-item>
+        <template #prepend-item>
           <v-form @submit.prevent="search">
             <v-text-field
               ref="search"
@@ -53,17 +53,17 @@
           <v-divider class="mt-4 mb-2"></v-divider>
         </template>
 
-        <template v-slot:selection="{ item }">
+        <template #selection="{ item }">
           {{ item.name }}
         </template>
 
-        <template v-slot:item="{ item }">
+        <template #item="{ item }">
           <div class="d-flex align-center py-2">
             <span>{{ item }}</span>
           </div>
         </template>
 
-        <template v-slot:no-data>
+        <template #no-data>
           <div />
         </template>
       </v-select>

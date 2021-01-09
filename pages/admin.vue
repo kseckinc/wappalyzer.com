@@ -3,9 +3,7 @@
     <v-row>
       <v-col cols="12" md="6">
         <v-card class="mb-6">
-          <v-card-title class="subtitle-2">
-            Sign in as
-          </v-card-title>
+          <v-card-title class="subtitle-2"> Sign in as </v-card-title>
           <v-card-text>
             <v-alert v-if="success" type="success">
               {{ success }}
@@ -92,9 +90,7 @@
         <template v-if="!error">
           <template v-if="stats">
             <v-card class="mb-4">
-              <v-card-title class="subtitle-2">
-                Recent orders
-              </v-card-title>
+              <v-card-title class="subtitle-2"> Recent orders </v-card-title>
 
               <v-card-text>
                 <GChart

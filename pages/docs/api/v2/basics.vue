@@ -1,9 +1,7 @@
 <template>
   <div>
     <Page :title="title" :side="side" :crumbs="crumbs" no-hero no-head>
-      <h1 class="mb-4">
-        Basics
-      </h1>
+      <h1 class="mb-4">Basics</h1>
 
       <p>
         The
@@ -32,9 +30,7 @@
         <li>Endpoints are HTTPS only</li>
       </ul>
 
-      <Heading id="pricing" size="2" class="mt-8 mb-2">
-        Pricing
-      </Heading>
+      <Heading id="pricing" size="2" class="mt-8 mb-2"> Pricing </Heading>
 
       <p>
         API calls deduct credits from your balance. Credits are included in
@@ -68,9 +64,7 @@
           <tbody>
             <tr>
               <td><code>x-api-key</code></td>
-              <td>
-                Your API key
-              </td>
+              <td>Your API key</td>
             </tr>
           </tbody>
         </v-simple-table>
@@ -101,15 +95,11 @@
           <tbody>
             <tr>
               <td><code>200</code></td>
-              <td>
-                The request was completed successfully
-              </td>
+              <td>The request was completed successfully</td>
             </tr>
             <tr>
               <td><code>400</code></td>
-              <td>
-                There was an error with the request
-              </td>
+              <td>There was an error with the request</td>
             </tr>
             <tr>
               <td><code>403</code></td>
@@ -155,17 +145,13 @@
               <td>
                 <code>wappalyzer-credits-spent</code>
               </td>
-              <td>
-                The number of credits deducted
-              </td>
+              <td>The number of credits deducted</td>
             </tr>
             <tr>
               <td>
                 <code>wappalyzer-credits-remaining</code>
               </td>
-              <td>
-                Your credit balance
-              </td>
+              <td>Your credit balance</td>
             </tr>
           </tbody>
         </v-simple-table>
@@ -176,18 +162,14 @@
         separate endpoint:
       </p>
 
-      <Heading id="endpoint" size="3" class="mt-8 mb-4">
-        Endpoint
-      </Heading>
+      <Heading id="endpoint" size="3" class="mt-8 mb-4"> Endpoint </Heading>
 
       <p>
         <code>GET</code>
         <code>https://api.wappalyzer.com/credits/v2/balance/</code>
       </p>
 
-      <Heading id="examples" size="3" class="mt-8 mb-4">
-        Example
-      </Heading>
+      <Heading id="examples" size="3" class="mt-8 mb-4"> Example </Heading>
 
       <v-card class="mb-8">
         <v-card-title class="subtitle-2">Example request</v-card-title>

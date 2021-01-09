@@ -4,13 +4,9 @@
 
     <template v-if="integrations">
       <v-container class="mb-8">
-        <div class="text-h3 mb-4">
-          Apps &amp; integrations
-        </div>
+        <div class="text-h3 mb-4">Apps &amp; integrations</div>
 
-        <p>
-          Wappalyzer works with the tools you use every day.
-        </p>
+        <p>Wappalyzer works with the tools you use every day.</p>
 
         <Integrations feature />
       </v-container>

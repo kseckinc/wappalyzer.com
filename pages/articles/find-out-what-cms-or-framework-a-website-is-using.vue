@@ -31,9 +31,7 @@
         technology lookup is a great way to identify potential customers.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        The hard way
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">The hard way</h2>
 
       <p>
         Wappalyzer identifies technologies by inspecting websites' source code,
@@ -104,9 +102,7 @@
         CloudFlare, Akamai or CloudFront).
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">
-        Conclusion
-      </h2>
+      <h2 class="text-h2 mt-8 mb-2">Conclusion</h2>
 
       <p>
         There are many different ways to find out what CMS or framework is used

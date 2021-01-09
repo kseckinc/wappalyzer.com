@@ -2,10 +2,10 @@
   <v-card flat tile class="header" color="primary">
     <v-container class="body-2 white--text">
       <v-breadcrumbs :items="items" class="pa-0">
-        <template v-slot:divider>
+        <template #divider>
           <span class="caption white--text">/</span>
         </template>
-        <template v-slot:item="{ item }">
+        <template #item="{ item }">
           <nuxt-link v-if="item.to" :to="item.to" class="caption white--text">
             {{ item.title }}
           </nuxt-link>
