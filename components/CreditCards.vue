@@ -176,7 +176,6 @@ export default {
       removing: false,
       saving: false,
       selection: false,
-      stripe: null,
       stripeCard: null,
       stripeClientSecret: null,
       stripeError: false,
@@ -240,7 +239,7 @@ export default {
         }
 
         if (!this.stripeCard) {
-          const elements = this.stripe.elements()
+          const elements = this.$stripe.elements()
 
           this.stripeCard = elements.create('card')
 
@@ -283,7 +282,7 @@ export default {
         this.saving = true
 
         try {
-          const response = await this.stripe.confirmCardSetup(
+          const response = await this.$stripe.confirmCardSetup(
             this.stripeClientSecret,
             {
               payment_method: {

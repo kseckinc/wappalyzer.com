@@ -933,7 +933,6 @@ export default {
         'Failed',
         'Complete',
       ],
-      stripe: null,
       stripePaymentMethod: null,
       technologiesViewAll: false,
       totalCredits: 0,
@@ -1084,12 +1083,12 @@ export default {
 
           const { clientSecret } = this.order.stripePaymentIntent
 
-          const { paymentIntent, error } = await this.stripe.confirmCardPayment(
-            clientSecret,
-            {
-              payment_method: this.stripePaymentMethod,
-            }
-          )
+          const {
+            paymentIntent,
+            error,
+          } = await this.$stripe.confirmCardPayment(clientSecret, {
+            payment_method: this.stripePaymentMethod,
+          })
 
           if (error) {
             if (error.code === 'card_declined') {
