@@ -272,8 +272,6 @@ export default {
     }
   },
   mounted() {
-    this.stripe = this.$stripe.import()
-
     this.billingName = this.user.billingName || this.user.name
   },
   methods: {

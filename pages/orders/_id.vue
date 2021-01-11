@@ -1044,9 +1044,6 @@ export default {
       }
     }
   },
-  mounted() {
-    this.stripe = this.$stripe.import()
-  },
   methods: {
     ...mapActions({
       getCredits: 'credits/get',
