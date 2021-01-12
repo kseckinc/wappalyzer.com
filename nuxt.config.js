@@ -113,7 +113,6 @@ export default {
     retry: { retries: 1, retryDelay: () => 500 },
   },
   stripe: {
-    version: 'v3',
     publishableKey: publicRuntimeConfig.STRIPE_PUBLIC_KEY,
   },
   sitemap: {
