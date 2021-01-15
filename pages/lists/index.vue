@@ -1202,7 +1202,7 @@ export default {
                 this.selected.technologies.length === 2 &&
                 this.matchAllTechnologies,
               subset: this.subset,
-              subsetSlice: this.subsetSlice,
+              subsetSlice: this.subsetSlice || 0,
               excludeNoTraffic: this.excludeNoTraffic,
               minAge: this.minAge,
               maxAge: this.maxAge,

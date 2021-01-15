@@ -29,7 +29,7 @@
               <li>
                 Upload a .txt file containing URLs, each on a separate line
               </li>
-              <li>Include up to 5,000 URLs</li>
+              <li>Include up to 100,000 URLs</li>
               <li>
                 The resulting list is in CSV and JSON format (<a
                   href="/bulk-sample.zip"
@@ -199,8 +199,8 @@ export default {
 
       this.fileErrors = this.fileErrors.slice(0, 10)
 
-      if (this.file.length > 5000) {
-        this.fileErrors.push('Limit of 5,000 URLs exceeded')
+      if (this.file.length > 100000) {
+        this.fileErrors.push('Limit of 100,000 URLs exceeded')
       }
 
       this.file = this.file.join('\n')
