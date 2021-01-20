@@ -246,6 +246,15 @@ export default {
       }
     },
   },
+  mounted() {
+    const { billing } = this.$route.query
+
+    if (billing === 'monthly') {
+      this.annually = false
+
+      this.$router.replace(this.$route.path)
+    }
+  },
   methods: {
     async subscribe(plan) {
       this.order = false

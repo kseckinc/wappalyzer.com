@@ -201,7 +201,13 @@
                   {{
                     formatCurrency(order.plan.amount / 100, order.plan.currency)
                   }}
-                  / {{ order.plan.interval }}
+                  / {{ order.plan.interval
+                  }}<small v-if="order.plan.interval === 'year'" class="ml-2">
+                    (<nuxt-link
+                      :to="{ path: '/pricing', query: { billing: 'monthly' } }"
+                      >change to monthly billing</nuxt-link
+                    >)
+                  </small>
                 </td>
               </tr>
             </tbody>
