@@ -625,8 +625,12 @@ export default {
         attributes: null,
         technologies: this.list.query.technologies.map(({ slug }) => slug),
         tlds: this.list.query.tlds,
-        countries: this.list.query.geoIps.map(({ value }) => value),
-        languages: this.list.query.languages.map(({ value }) => value),
+        countries: this.list.query.geoIps.length
+          ? this.list.query.geoIps.map(({ value }) => value)
+          : undefined,
+        languages: this.list.query.languages.length
+          ? this.list.query.languages.map(({ value }) => value)
+          : undefined,
         subset:
           this.list.query.subset && this.list.query.subset !== 500000
             ? this.list.query.subset.toString()

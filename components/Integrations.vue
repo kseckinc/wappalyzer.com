@@ -74,6 +74,7 @@
 import { mdiInformationOutline, mdiCog, mdiOpenInNew } from '@mdi/js'
 
 import ImageHubspot from '~/assets/images/integrations/hubspot.svg?data'
+import ImagePipedrive from '~/assets/images/integrations/pipedrive.svg?data'
 import ImageZapier from '~/assets/images/integrations/zapier.svg?data'
 import ImageGmail from '~/assets/images/integrations/gmail.svg?data'
 import ImageChrome from '~/assets/images/integrations/chrome.svg?data'
@@ -99,6 +100,7 @@ export default {
       mdiOpenInNew,
       images: {
         'hubspot.svg': ImageHubspot,
+        'pipedrive.svg': ImagePipedrive,
         'zapier.svg': ImageZapier,
         'gmail.svg': ImageGmail,
         'chrome.svg': ImageChrome,

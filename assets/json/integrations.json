@@ -32,6 +32,15 @@
     "href": "https://app.hubspot.com/ecosystem/8898653/marketplace/apps/marketing/lead-generation/wappalyzer-by-wappalyzer",
     "pro": true
   },
+  "pipedrive": {
+    "name": "Pipedrive",
+    "image": "pipedrive.svg",
+    "description": "See the technology stacks of your leads in your CRM.",
+    "settings": "/integrations/pipedrive/",
+    "docs": "/docs/integrations/pipedrive/",
+    "href": "https://marketplace.pipedrive.com/app/wappalyzer/c13f52b93ab427e3",
+    "pro": true
+  },
   "zapier": {
     "name": "Zapier",
     "image": "zapier.svg",

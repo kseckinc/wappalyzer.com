@@ -21,57 +21,127 @@
 
     <template v-if="!loading">
       <v-card>
-        <v-card-text v-if="!apiKey" class="pb-0">
-          <v-alert color="info" class="mb-0" outlined>
-            You haven't created an API key yet
-          </v-alert>
-        </v-card-text>
-        <v-card-text v-else class="pb-0">
-          <v-text-field
-            v-model="apiKey.value"
-            :append-icon="showKey ? mdiEyeOff : mdiEye"
-            :type="showKey ? 'text' : 'password'"
-            class="apikey__value"
-            label=""
-            readonly
-            hide-details
-            dense
-            @click:append="() => (showKey = !showKey)"
-          ></v-text-field>
+        <v-card-title>API Key</v-card-title>
+        <v-card-text class="pb-0">
+          <p>Use your API key to make authenticated API calls.</p>
+
+          <template v-if="!apiKey">
+            <v-alert color="info" class="mb-0" outlined>
+              You haven't created an API key yet
+            </v-alert>
+          </template>
+          <template v-else>
+            <v-text-field
+              v-model="apiKey.value"
+              :append-icon="showKey ? mdiEyeOff : mdiEye"
+              :type="showKey ? 'text' : 'password'"
+              class="secret__value"
+              readonly
+              hide-details
+              dense
+              @click:append="() => (showKey = !showKey)"
+            ></v-text-field>
+          </template>
         </v-card-text>
 
         <v-card-actions>
           <v-spacer />
           <v-btn
             v-if="!apiKey"
-            :loading="creating"
+            :loading="creatingKey"
             color="accent"
             text
-            @click="create"
+            @click="createKey"
             ><v-icon left>{{ mdiKeyPlus }}</v-icon> Create key</v-btn
           >
-          <v-btn v-else color="error" text @click="removeDialog = true"
+          <v-btn v-else color="error" text @click="removeKeyDialog = true"
             ><v-icon left>{{ mdiKeyRemove }}</v-icon> Delete key</v-btn
+          >
+        </v-card-actions>
+
+        <v-divider />
+
+        <v-card-title>Signing secret</v-card-title>
+        <v-card-text class="pb-0">
+          <p>Use your signing secret to verify callback requests.</p>
+
+          <template v-if="!secret">
+            <v-alert color="info" class="mb-0" outlined>
+              You haven't created an signing secret yet
+            </v-alert>
+          </template>
+          <template v-else>
+            <v-text-field
+              v-model="secret"
+              :append-icon="showSecret ? mdiEyeOff : mdiEye"
+              :type="showSecret ? 'text' : 'password'"
+              class="secret__value"
+              readonly
+              hide-details
+              dense
+              @click:append="() => (showSecret = !showSecret)"
+            ></v-text-field>
+          </template>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            v-if="!secret"
+            :loading="creatingSecret"
+            color="accent"
+            text
+            @click="createSecret"
+            ><v-icon left>{{ mdiKeyPlus }}</v-icon> Create secret</v-btn
+          >
+          <v-btn v-else color="error" text @click="removeSecretDialog = true"
+            ><v-icon left>{{ mdiKeyRemove }}</v-icon> Delete secret</v-btn
           >
         </v-card-actions>
       </v-card>
 
-      <v-dialog v-model="removeDialog" max-width="400px" eager>
+      <v-dialog v-model="removeKeyDialog" max-width="400px" eager>
         <v-card>
           <v-card-title> Delete key </v-card-title>
           <v-card-text class="pb-0">
-            <v-alert v-if="removeError" type="error">
-              {{ removeError }}
+            <v-alert v-if="removeKeyError" type="error">
+              {{ removeKeyError }}
             </v-alert>
 
             Any integrations using this key will stop working.
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="accent" text @click="removeDialog = false"
+            <v-btn color="accent" text @click="removeKeyDialog = false"
               >Cancel</v-btn
             >
-            <v-btn :loading="removing" color="error" text @click="remove"
+            <v-btn :loading="removingKey" color="error" text @click="removeKey"
+              >Ok</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <v-dialog v-model="removeSecretDialog" max-width="400px" eager>
+        <v-card>
+          <v-card-title> Delete signing secret </v-card-title>
+          <v-card-text class="pb-0">
+            <v-alert v-if="removeSecretError" type="error">
+              {{ removeSecretError }}
+            </v-alert>
+
+            The signing secret will be deleted.
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="accent" text @click="removeSecretDialog = false"
+              >Cancel</v-btn
+            >
+            <v-btn
+              :loading="removingSecret"
+              color="error"
+              text
+              @click="removeSecret"
               >Ok</v-btn
             >
           </v-card-actions>
@@ -99,17 +169,23 @@ export default {
     return {
       title: 'API key',
       apiKey: null,
-      creating: false,
+      secret: null,
+      creatingKey: false,
+      creatingSecret: false,
       error: false,
       mdiBookOpenPageVariant,
       mdiEye,
       mdiEyeOff,
       mdiKeyPlus,
       mdiKeyRemove,
-      removeDialog: false,
-      removeError: false,
-      removing: false,
+      removeKeyDialog: false,
+      removeSecretDialog: false,
+      removeKeyError: false,
+      removeSecretError: false,
+      removingKey: false,
+      removingSecret: false,
       showKey: false,
+      showSecret: false,
       success: false,
       loading: true,
     }
@@ -130,7 +206,9 @@ export default {
   async created() {
     if (this.$store.state.user.isSignedIn) {
       try {
-        this.apiKey = (await this.$axios.get('apikey')).data
+        ;({ apiKey: this.apiKey, secret: this.secret } = (
+          await this.$axios.get('apikey')
+        ).data)
 
         this.loading = false
       } catch (error) {
@@ -139,49 +217,90 @@ export default {
     }
   },
   methods: {
-    async create() {
+    async createKey() {
       this.success = false
       this.error = false
-      this.creating = true
+      this.creatingKey = true
 
       try {
-        await this.$axios.put(`apikey`)
-
-        this.apiKey = (await this.$axios.get(`apikey`)).data
+        await this.$axios.put('apikey')
+        ;({ apiKey: this.apiKey, secret: this.secret } = (
+          await this.$axios.get('apikey')
+        ).data)
 
         this.success = 'Your API key has been created'
       } catch (error) {
         this.error = this.getErrorMessage(error)
       }
 
-      this.creating = false
+      this.creatingKey = false
     },
-    async remove() {
+    async removeKey() {
       this.success = false
       this.error = false
-      this.removeError = false
-      this.removing = true
+      this.removeKeyError = false
+      this.removingKey = true
 
       try {
-        await this.$axios.delete(`apikey`)
-
-        this.apiKey = (await this.$axios.get(`apikey`)).data
+        await this.$axios.delete('apikey')
+        ;({ apiKey: this.apiKey, secret: this.secret } = (
+          await this.$axios.get('apikey')
+        ).data)
 
         this.success = 'Your API key has been deleted'
 
-        this.removeDialog = false
+        this.removeKeyDialog = false
       } catch (error) {
-        this.removeError = this.getErrorMessage(error)
+        this.removeKeyError = this.getErrorMessage(error)
       }
 
-      this.removing = false
+      this.removingKey = false
+    },
+    async createSecret() {
+      this.success = false
+      this.error = false
+      this.creatingSecret = true
+
+      try {
+        await this.$axios.put(`apikey/secret`)
+        ;({ apiKey: this.apiKey, secret: this.secret } = (
+          await this.$axios.get('apikey')
+        ).data)
+
+        this.success = 'Your signing secret has been created'
+      } catch (error) {
+        this.error = this.getErrorMessage(error)
+      }
+
+      this.creatingSecret = false
+    },
+    async removeSecret() {
+      this.success = false
+      this.error = false
+      this.removeSecretError = false
+      this.removingSecret = true
+
+      try {
+        await this.$axios.delete('apikey/secret')
+        ;({ apiKey: this.apiKey, secret: this.secret } = (
+          await this.$axios.get('apikey')
+        ).data)
+
+        this.success = 'Your signing secret has been deleted'
+
+        this.removeSecretDialog = false
+      } catch (error) {
+        this.removeSecretError = this.getErrorMessage(error)
+      }
+
+      this.removingSecret = false
     },
   },
 }
 </script>
 
 <style>
-.apikey__value {
+.secret__value input {
   font-family: monospace;
 }
 </style>

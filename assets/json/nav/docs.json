@@ -33,6 +33,10 @@
         "to": "/docs/integrations/hubspot/"
       },
       {
+        "title": "Pipedrive",
+        "to": "/docs/integrations/pipedrive/"
+      },
+      {
         "title": "Zapier",
         "to": "/docs/integrations/zapier/"
       }
