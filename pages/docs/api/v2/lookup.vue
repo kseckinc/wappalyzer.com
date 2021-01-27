@@ -132,6 +132,13 @@
         need for a public callback endpoint.
       </v-alert>
 
+      <v-alert :icon="mdiLightbulbOnOutline" outlined>
+        To verify that the request was made by Wappalyzer, enable
+        <nuxt-link :to="{ path: '/docs/api/v2/basics', hash: 'signatures' }"
+          >callback signatures</nuxt-link
+        >.
+      </v-alert>
+
       <Heading id="examples" size="2" class="mt-8 mb-4"> Examples </Heading>
 
       <v-card class="mb-8">

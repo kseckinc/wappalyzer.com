@@ -70,6 +70,42 @@
         </v-simple-table>
       </v-card>
 
+      <Heading id="signatures" size="2" class="mt-8 mb-2">
+        Callback signatures
+      </Heading>
+
+      <p>
+        Requests to your callback endpoint can optionally be signed to allow you
+        to verify the request was made by Wappalyzer. To enable signing,
+        <nuxt-link to="/apikey/">create a signing secret</nuxt-link>.
+      </p>
+
+      <p>
+        To verify a request, create a SHA256 hash of the signing secret appended
+        with the raw JSON request body. The request is valid if the hash matches
+        the hash in the
+        <code>wappalyzer-signature</code> header in the request.
+      </p>
+
+      <pre><Prism language="bash" class="body-2">sha256(secret + body) == signature</Prism></pre>
+
+      <v-card class="my-4" flat outlined>
+        <v-simple-table>
+          <thead>
+            <tr>
+              <th>Request header</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>wappalyzer-signature</code></td>
+              <td>SHA256 hash</td>
+            </tr>
+          </tbody>
+        </v-simple-table>
+      </v-card>
+
       <Heading id="response-codes" size="2" class="mt-8 mb-2">
         Response codes
       </Heading>

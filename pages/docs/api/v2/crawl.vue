@@ -109,6 +109,13 @@
         request.
       </p>
 
+      <v-alert :icon="mdiLightbulbOnOutline" outlined>
+        To verify that the request was made by Wappalyzer, enable
+        <nuxt-link :to="{ path: '/docs/api/v2/basics', hash: 'signatures' }"
+          >callback signatures</nuxt-link
+        >.
+      </v-alert>
+
       <Heading id="examples" size="2" class="mt-8 mb-2"> Examples </Heading>
 
       <v-card class="mb-8">
@@ -206,6 +213,8 @@
 </template>
 
 <script>
+import { mdiLightbulbOnOutline } from '@mdi/js'
+
 import Page from '~/components/Page.vue'
 import Heading from '~/components/Heading.vue'
 import side from '~/assets/json/nav/docs.json'
@@ -218,6 +227,7 @@ export default {
   data() {
     return {
       title: 'Crawl API',
+      mdiLightbulbOnOutline,
       side,
       crumbs: [
         { title: 'Developer documentation', to: '/docs/' },
