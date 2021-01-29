@@ -4,10 +4,10 @@
     :crumbs="[{ title: 'Integrations', to: '/integrations/' }]"
     secure
   >
-    <v-alert v-if="success" type="success">
+    <v-alert v-if="success" type="success" class="mb-4">
       {{ success }}
     </v-alert>
-    <v-alert v-if="error" type="error">
+    <v-alert v-if="error" type="error" class="mb-4">
       {{ error }}
     </v-alert>
 
@@ -16,7 +16,7 @@
         <p>
           Connect Wappalyzer to
           <a
-            href="https://marketplace.pipedrive.com/app/wappalyzer/c13f52b93ab427e3"
+            :href="`https://marketplace.pipedrive.com/app/wappalyzer/${clientId}`"
             rel="noopener"
             target="_blank"
             >Pipedrive</a
@@ -32,7 +32,7 @@
         Documentation
       </v-btn>
       <v-btn
-        href="https://marketplace.pipedrive.com/app/wappalyzer/c13f52b93ab427e3"
+        href="https://marketplace.pipedrive.com/app/wappalyzer/${clientId}"
         target="_blank"
         color="accent"
         outlined
@@ -43,7 +43,7 @@
     </div>
 
     <v-card>
-      <v-card-title> Integration </v-card-title>
+      <v-card-title>Integration</v-card-title>
       <v-card-text class="px-0">
         <v-alert
           v-if="!connecting && !eligible"
@@ -97,7 +97,7 @@
         <v-spacer />
         <v-btn
           v-if="!pipedriveId"
-          href="https://oauth.pipedrive.com/oauth/authorize?redirect_uri=https://www.wappalyzer.com/integrations/pipedrive/&client_id=c13f52b93ab427e3"
+          :href="`https://oauth.pipedrive.com/oauth/authorize?redirect_uri=${websiteUrl}/integrations/pipedrive/&client_id=${clientId}`"
           color="accent"
           _target="blank"
           :loading="connecting"
@@ -118,6 +118,43 @@
           Disconnect</v-btn
         >
       </v-card-actions>
+
+      <template v-if="pipedriveId">
+        <v-divider />
+
+        <v-card-title>Configuration</v-card-title>
+
+        <v-card-text>
+          <p>
+            In
+            <a
+              :href="`${user.pipedriveBaseUrl}/settings/fields`"
+              target="_blank"
+              rel="noopener"
+              >Pipedrive settings</a
+            >, go to
+            <v-chip small>Data fields</v-chip>
+            &rarr; <v-chip small>Organization</v-chip> &rarr;
+            <v-chip small>Custom fields</v-chip> and create or find a custom
+            field that contains the website URL. Hover over the field, click the
+            three-dot menu and copy the API key.
+          </p>
+
+          <v-text-field
+            v-model="orgWebsiteField"
+            label="Organisation website field API key"
+            placeholder="9a13fd5c052a4820a31d4ce097000d61d098fed1"
+            hide-details="auto"
+          />
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn color="accent" :loading="saving" text @click="save">
+            <v-icon left>{{ mdiContentSave }}</v-icon>
+            Save</v-btn
+          >
+        </v-card-actions>
+      </template>
     </v-card>
   </Page>
 </template>
@@ -131,6 +168,7 @@ import {
   mdiBookOpenPageVariant,
   mdiStore,
   mdiCalculator,
+  mdiContentSave,
 } from '@mdi/js'
 import { mapState } from 'vuex'
 
@@ -151,7 +189,9 @@ export default {
       eligible: false,
       success: null,
       error: null,
+      orgWebsiteField: null,
       pipedriveId: null,
+      saving: false,
       mdiCheck,
       mdiClose,
       mdiPowerPlug,
@@ -159,10 +199,14 @@ export default {
       mdiBookOpenPageVariant,
       mdiStore,
       mdiCalculator,
+      mdiContentSave,
+      websiteUrl: this.$config.WEBSITE_URL,
+      clientId: this.$config.PIPEDRIVE_CLIENT_ID,
     }
   },
   computed: {
     ...mapState({
+      user: ({ user }) => user.attrs,
       isSignedIn: ({ user }) => user.isSignedIn,
     }),
   },
@@ -213,9 +257,11 @@ export default {
         }
       } else {
         try {
-          ;({ eligible: this.eligible, id: this.pipedriveId } = (
-            await this.$axios.get('pipedrive')
-          ).data)
+          ;({
+            eligible: this.eligible,
+            id: this.pipedriveId,
+            orgWebsiteField: this.orgWebsiteField,
+          } = (await this.$axios.get('pipedrive')).data)
         } catch (error) {
           this.error = this.getErrorMessage(error)
         }
@@ -243,6 +289,28 @@ export default {
       }
 
       this.connecting = false
+    },
+    async save() {
+      this.success = null
+      this.error = null
+      this.saving = true
+
+      try {
+        await this.$axios.patch('pipedrive', {
+          orgWebsiteField: this.orgWebsiteField,
+        })
+        ;({
+          eligible: this.eligible,
+          id: this.pipedriveId,
+          orgWebsiteField: this.orgWebsiteField,
+        } = (await this.$axios.get('pipedrive')).data)
+
+        this.success = 'Configuration changes have been saved.'
+      } catch (error) {
+        this.error = this.getErrorMessage(error)
+      }
+
+      this.saving = false
     },
     async disconnect() {
       this.success = null

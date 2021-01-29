@@ -14,14 +14,16 @@ const publicRuntimeConfig = {
   ...(process.env.NODE_ENV === 'development' ||
   process.env.ENVIRONMENT === 'beta'
     ? {
-        WEBSITE_URL: 'https://beta.wappalyzer.com',
+        WEBSITE_URL: 'http://localhost:3000',
         API_VERSION: 'beta',
         STRIPE_PUBLIC_KEY: 'pk_test_m0X44lIHlqdzZNoJ8hY9OOkv',
+        PIPEDRIVE_CLIENT_ID: '6406b42d1ba763c8',
       }
     : {
         WEBSITE_URL: 'https://www.wappalyzer.com',
         API_VERSION: 'v2',
         STRIPE_PUBLIC_KEY: 'pk_live_JVYAmAPFVBvmnes65xsp3itH',
+        PIPEDRIVE_CLIENT_ID: 'c13f52b93ab427e3',
       }),
 }
 
