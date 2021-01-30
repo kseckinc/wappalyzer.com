@@ -3,8 +3,10 @@
     <v-col
       v-for="(integration, name) in integrations"
       :key="name"
-      cols="6"
-      md="3"
+      cols="12"
+      sm="6"
+      md="4"
+      lg="3"
     >
       <v-card
         class="d-flex flex-column justify-space-between"
@@ -25,9 +27,6 @@
             <h2 class="mr-2">
               {{ integration.name }}
             </h2>
-            <v-chip v-if="integration.pro" color="primary" x-small outlined
-              >PRO</v-chip
-            >
           </div>
 
           {{ integration.description }}

@@ -44,7 +44,8 @@
   {
     "title": "Integrations",
     "icon": "mdiPowerPlug",
-    "to": "/integrations/"
+    "to": "/integrations/",
+    "member": true
   },
   {
     "title": "API Key",

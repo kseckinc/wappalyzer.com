@@ -25,12 +25,12 @@
             <v-card-title>
               <v-row>
                 <v-col
-                  class="py-0 flex-shrink-1 flex-grow-0"
+                  class="flex-shrink-1 flex-grow-0"
                   style="white-space: nowrap"
                 >
                   Members
                 </v-col>
-                <v-col class="py-0 text-right flex-shrink-0 flex-grow-1">
+                <v-col class="text-right flex-shrink-0 flex-grow-1">
                   <small class="body-2 mr-4"
                     >{{ organisation.seatsRemaining }} of
                     {{ organisation.seats }} seats remaining</small
@@ -39,6 +39,7 @@
                     :disabled="!organisation.seatsRemaining"
                     color="accent"
                     outlined
+                    small
                     @click="createDialog = true"
                   >
                     <v-icon left>{{ mdiAccountPlus }}</v-icon>
@@ -124,7 +125,7 @@
 
         <v-tab-item key="memberships">
           <v-card flat>
-            <v-card-title> Organisations </v-card-title>
+            <v-card-title>Organisations</v-card-title>
             <v-card-text class="px-0">
               <p class="px-4">
                 These are the organisations you're a member of.

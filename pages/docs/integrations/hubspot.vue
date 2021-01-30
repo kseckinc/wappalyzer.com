@@ -50,9 +50,9 @@
       </p>
 
       <p>
-        The HubSpot integration is available on Pro and Business plans. When you
-        have no remaining credits, no new lookups will be performed until you
-        top-up your account.
+        The HubSpot integration is available on Team and Business plans. When
+        you have no remaining credits, no new lookups will be performed until
+        you top-up your account.
       </p>
 
       <p>

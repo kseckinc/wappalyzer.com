@@ -15,15 +15,15 @@
       </p>
 
       <p>
-        When installed, a panel is added to the sidebar on contacts in
-        Pipedrive. Wappalyzer uses the contact's email address to determine the
-        website domain and show the technologies in use for that website.
+        When installed, a panel is added to the sidebar on people and
+        organisations in Pipedrive showing the technologies on used on their
+        website.
       </p>
 
       <v-alert :icon="mdiLightbulbOnOutline" class="mt-6" outlined>
         Pipedrive fetches technology data from Wappalyzer every time you view a
-        company record. When you uninstall the Wappalyzer app, this information
-        is longer available.
+        person or organisation. When you uninstall the Wappalyzer app, this
+        information is longer available.
       </v-alert>
 
       <Heading id="getting-started" size="2" class="mt-8 mb-2">
@@ -41,17 +41,56 @@
         <li>Click 'Connect' and follow the prompts.</li>
       </ul>
 
-      <Heading id="pricing" size="2" class="mt-8 mb-2"> Pricing </Heading>
+      <v-alert :icon="mdiLightbulbOnOutline" class="mt-6" outlined>
+        Each Pipedrive user must connect the app individually. Add members to
+        your <nuxt-link to="/organisation">organisation</nuxt-link> to allow
+        multiple users to use the same plan.
+      </v-alert>
+
+      <Heading id="getting-started" size="2" class="mt-8 mb-2">
+        Configuration
+      </Heading>
 
       <p>
-        A lookup costs 1 credit. A lookup happens when you view a contact in
-        Pipedrive. Subsequent lookups for the same record are free for one day.
+        For people, Wappalyzer uses the persons's email address to determine the
+        website domain and show the technologies in use for that website.
       </p>
 
       <p>
-        The Pipedrive integration is available on Pro and Business plans. When
-        you have no remaining credits, no new lookups will be performed until
-        you top-up your account.
+        For Wappalyzer data to show up on organisations in Pipedrive, you must
+        first specify which custom field is used to store the organisation's
+        website.
+      </p>
+
+      <p>
+        In Pipedrive settings, go to
+        <v-chip small>Data fields</v-chip>
+        &rarr; <v-chip small>Organization</v-chip> &rarr;
+        <v-chip small>Custom fields</v-chip> and create or find a custom field
+        that contains the website URL for organisations. Hover over the field,
+        click the three-dot menu and copy the API key.
+      </p>
+
+      <p>
+        Add the key to the
+        <nuxt-link to="/integrations/pipedrive/"
+          >Pipedrive integration page</nuxt-link
+        >
+        in your account.
+      </p>
+
+      <Heading id="pricing" size="2" class="mt-8 mb-2"> Pricing </Heading>
+
+      <p>
+        A lookup costs 1 credit. A lookup happens when you view a person or
+        organisation in Pipedrive. Subsequent lookups for the same record are
+        free for one day.
+      </p>
+
+      <p>
+        The Pipedrive integration is available on Team and Business plans. When
+        you have no remaining credits, no new lookups can be performed until you
+        top-up your account.
       </p>
 
       <p>

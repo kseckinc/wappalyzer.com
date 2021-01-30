@@ -4,10 +4,10 @@
     :crumbs="[{ title: 'Integrations', to: '/integrations/' }]"
     secure
   >
-    <v-alert v-if="success" type="success" class="mb-4">
+    <v-alert v-if="success" type="success" class="mb-8">
       {{ success }}
     </v-alert>
-    <v-alert v-if="error" type="error" class="mb-4">
+    <v-alert v-if="error" type="error" class="mb-8">
       {{ error }}
     </v-alert>
 
@@ -125,27 +125,30 @@
         <v-card-title>Configuration</v-card-title>
 
         <v-card-text>
-          <p>
-            In
-            <a
-              :href="`${user.pipedriveBaseUrl}/settings/fields`"
-              target="_blank"
-              rel="noopener"
-              >Pipedrive settings</a
-            >, go to
-            <v-chip small>Data fields</v-chip>
-            &rarr; <v-chip small>Organization</v-chip> &rarr;
-            <v-chip small>Custom fields</v-chip> and create or find a custom
-            field that contains the website URL. Hover over the field, click the
-            three-dot menu and copy the API key.
-          </p>
-
           <v-text-field
             v-model="orgWebsiteField"
-            label="Organisation website field API key"
-            placeholder="9a13fd5c052a4820a31d4ce097000d61d098fed1"
+            label="Organisation website field"
+            placeholder="API key, e.g. 9a13fd5c052a4820a31d4ce097000d61d098fed1"
             hide-details="auto"
+            class="mb-4"
           />
+
+          <p>
+            <small>
+              In
+              <a
+                :href="`${user.pipedriveBaseUrl}/settings/fields`"
+                target="_blank"
+                rel="noopener"
+                >Pipedrive settings</a
+              >, go to
+              <v-chip small>Data fields</v-chip>
+              &rarr; <v-chip small>Organization</v-chip> &rarr;
+              <v-chip small>Custom fields</v-chip> and create or find a custom
+              field that contains the website URL for organisations. Hover over
+              the field, click the three-dot menu and copy the API key.
+            </small>
+          </p>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
