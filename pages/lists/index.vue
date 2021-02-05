@@ -111,6 +111,99 @@
 
               <v-card-text>
                 <v-expansion-panels v-model="panelsSelection" multiple>
+                  <v-expansion-panel ref="industries">
+                    <v-expansion-panel-header class="subtitle-2">
+                      Industries
+                      <span class="grey--text font-weight-regular ml-1"
+                        >(optional)</span
+                      >
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                      <p>Choose which website industries to include.</p>
+
+                      <v-select
+                        ref="industry"
+                        v-model="selectedIndustry"
+                        :items="industries"
+                        class="mb-4 pt-0"
+                        label="Select an industry"
+                        hide-details
+                        eager
+                      />
+
+                      <v-select
+                        v-if="subIndustries"
+                        ref="subIndustry"
+                        :items="subIndustries"
+                        class="mb-4 pt-0"
+                        label="Select a secondary industry"
+                        hide-details
+                        eager
+                      >
+                        <template #prepend-item>
+                          {{
+                            (item = selected.industries.find(
+                              ({ value }) => value === selectedIndustry
+                            ) || {
+                              text: industries.find(
+                                ({ value }) => value === selectedIndustry
+                              ).text,
+                              value: selectedIndustry,
+                            }) && null
+                          }}
+                          <v-list-item ripple @click="toggleIndustry(item)">
+                            <v-list-item-action>
+                              <v-icon
+                                :color="item && item.active ? 'primary' : ''"
+                                >{{
+                                  item && item.active
+                                    ? mdiCheckboxMarked
+                                    : mdiCheckboxBlankOutline
+                                }}</v-icon
+                              >
+                            </v-list-item-action>
+                            <v-list-item-content
+                              >{{ item.text }} (all)</v-list-item-content
+                            >
+                          </v-list-item>
+
+                          <v-divider class="mt-3 mb-2"></v-divider>
+                        </template>
+                        <template #item="{ item }">
+                          <v-list-item ripple @click="toggleIndustry(item)">
+                            <v-list-item-action>
+                              <v-icon :color="item.active ? 'primary' : ''">{{
+                                item.active
+                                  ? mdiCheckboxMarked
+                                  : mdiCheckboxBlankOutline
+                              }}</v-icon>
+                            </v-list-item-action>
+                            <v-list-item-content>
+                              {{ item.text }}
+                            </v-list-item-content>
+                          </v-list-item>
+                        </template>
+                      </v-select>
+
+                      <v-chip-group
+                        v-if="selected.industries.length"
+                        class="mt-n1 mb-2"
+                        column
+                      >
+                        <v-chip
+                          v-for="item in selected.industries"
+                          :key="item.value"
+                          color="primary"
+                          outlined
+                          close
+                          @click:close="toggleIndustry(item)"
+                        >
+                          {{ item.text }}
+                        </v-chip>
+                      </v-chip-group>
+                    </v-expansion-panel-content>
+                  </v-expansion-panel>
+
                   <v-expansion-panel ref="attributes">
                     <v-expansion-panel-header class="subtitle-2">
                       Required attributes
@@ -165,6 +258,7 @@
 
                       <v-text-field
                         v-model="subset"
+                        label="Maximum number of websites"
                         :rules="[
                           (v) => /^[0-9]+$/.test(v) || 'Value must be numeric',
                           (v) =>
@@ -172,7 +266,7 @@
                               (isAdmin || parseInt(v, 10) <= 1000000)) ||
                             'Subset size must be between at 500 and 1M. For larger lists, please contact us.',
                         ]"
-                        class="mb-10 pt-0"
+                        class="my-8 pt-0"
                         placeholder="500000"
                         hide-details="auto"
                       />
@@ -291,7 +385,7 @@
                             ripple
                             @click="toggleGeoIps(countriesEurope)"
                           >
-                            <v-list-item-content> Europe </v-list-item-content>
+                            <v-list-item-content>Europe</v-list-item-content>
                           </v-list-item>
                           <v-list-item
                             ripple
@@ -737,6 +831,7 @@ import { lists as meta } from '~/assets/json/meta.json'
 import languages from '~/assets/json/languages.json'
 import tlds from '~/assets/json/tlds.json'
 import countries from '~/assets/json/countries.json'
+import industries from '~/assets/json/iab.json'
 
 const countriesEU = [
   'AT',
@@ -809,6 +904,16 @@ export default {
   data() {
     return {
       title: meta.title,
+      industries: industries.reduce(
+        (industries, { id, category }) => [
+          ...industries,
+          {
+            text: category,
+            value: id,
+          },
+        ],
+        []
+      ),
       countries: Object.keys(tlds),
       countriesEU,
       countriesEurope,
@@ -848,10 +953,12 @@ export default {
       panelsFilters: [],
       signInDialog: false,
       selectedCountry: '',
+      selectedIndustry: '',
       selectedLanguage: {},
       selected: {
         categories: [],
         technologies: [],
+        industries: [],
         geoIps: [],
         tlds: [],
         languages: [],
@@ -887,6 +994,24 @@ export default {
               text,
               parent: this.selectedLanguage.text,
               value: this.selectedLanguage.value[text],
+            },
+          ],
+          []
+        )
+      } else {
+        return false
+      }
+    },
+    subIndustries() {
+      const industry = industries.find(({ id }) => id === this.selectedIndustry)
+
+      if (industry && industry.children) {
+        return industry.children.reduce(
+          (industries, { id, category }) => [
+            ...industries,
+            {
+              text: category,
+              value: id,
             },
           ],
           []
@@ -979,6 +1104,7 @@ export default {
       countries,
       tlds,
       languages,
+      industries: _industries,
       filters,
       selection,
     } = this.$route.query
@@ -1025,7 +1151,7 @@ export default {
     }
 
     if (typeof traffic !== 'undefined') {
-      this.subsetSlice = Math.min(0, Math.max(4, parseInt(traffic || 0, 10)))
+      this.subsetSlice = Math.max(0, Math.min(4, parseInt(traffic || 0, 10)))
     }
 
     if (typeof notraffic !== 'undefined') {
@@ -1101,6 +1227,30 @@ export default {
       }
     }
 
+    if (_industries) {
+      _industries.split(',').forEach((id) => {
+        const industry = this.industries.find(({ value }) => value === id)
+
+        if (industry) {
+          this.toggleIndustry(industry, false)
+        } else {
+          industries
+            .filter(({ children }) => children)
+            .forEach(({ children }) => {
+              children.forEach(({ id: _id, category: text }) => {
+                if (_id === id) {
+                  this.toggleIndustry({ text, value: id }, false)
+                }
+              })
+            })
+        }
+      })
+
+      if (this.selected.industries.length) {
+        this.$refs.industries.toggle()
+      }
+    }
+
     try {
       if (technologies) {
         for (const technologySlug of technologies.split(',')) {
@@ -1157,6 +1307,7 @@ export default {
         !this.selected.languages.length &&
         !this.selected.geoIps.length &&
         !this.selected.tlds.length &&
+        !this.selected.industries.length &&
         this.subset >= 500000
       ) {
         this.confirmDialog = true
@@ -1191,6 +1342,10 @@ export default {
                   value,
                 })
               ),
+              industries: this.selected.industries.map(({ text, value }) => ({
+                text,
+                value,
+              })),
               geoIps: this.selected.geoIps.map(({ value, text }) => ({
                 value,
                 text,
@@ -1348,6 +1503,38 @@ export default {
           ) === index
       )
     },
+    toggleIndustry(item, active) {
+      if (active !== undefined ? active : item.active) {
+        item.active = false
+
+        this.selected.industries = this.selected.industries.filter(
+          ({ value }) => value !== item.value
+        )
+      } else {
+        item.active = true
+
+        this.selected.industries.push(item)
+      }
+
+      this.selected.industries = this.selected.industries.filter(
+        ({ value }, index) =>
+          this.selected.industries.findIndex(
+            ({ value: _value }) => _value === value
+          ) === index
+      )
+
+      this.$nextTick(() => {
+        this.$watch('$refs.subIndustry.isMenuActive', (active) => {
+          if (!active) {
+            this.selectedIndustry = ''
+
+            this.$refs.industry.blur()
+          }
+        })
+
+        this.$refs.industry.blur()
+      })
+    },
     toggleGeoIps(ipCountries) {
       ipCountries.forEach((ipCountry) => {
         const item = this.geoIps.find(
@@ -1444,6 +1631,9 @@ export default {
             .join(',')
             .toLowerCase(),
           languages: this.selected.languages
+            .map(({ value }) => value)
+            .join(','),
+          industries: this.selected.industries
             .map(({ value }) => value)
             .join(','),
           subset: this.subset !== 500000 ? this.subset.toString() : undefined,

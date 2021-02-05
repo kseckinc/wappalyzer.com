@@ -4,10 +4,10 @@
     :crumbs="[{ title: 'Integrations', to: '/integrations/' }]"
     secure
   >
-    <v-alert v-if="success" type="success">
+    <v-alert v-if="success" type="success" class="mb-8">
       {{ success }}
     </v-alert>
-    <v-alert v-if="error" type="error">
+    <v-alert v-if="error" type="error" class="mb-8">
       {{ error }}
     </v-alert>
 
@@ -16,7 +16,7 @@
         <p>
           Connect Wappalyzer to
           <a
-            href="https://app.hubspot.com/ecosystem/8898653/marketplace/apps/marketing/lead-generation/wappalyzer-by-wappalyzer"
+            :href="`https://app.hubspot.com/ecosystem/${appId}/marketplace/apps/marketing/lead-generation/wappalyzer-by-wappalyzer`"
             rel="noopener"
             target="_blank"
             >HubSpot</a
@@ -32,7 +32,7 @@
         Documentation
       </v-btn>
       <v-btn
-        href="https://app.hubspot.com/ecosystem/8898653/marketplace/apps/marketing/lead-generation/wappalyzer-by-wappalyzer"
+        :href="`https://app.hubspot.com/ecosystem/${appId}/marketplace/apps/marketing/lead-generation/wappalyzer-by-wappalyzer`"
         target="_blank"
         color="accent"
         outlined
@@ -97,7 +97,7 @@
         <v-spacer />
         <v-btn
           v-if="!hubspotId"
-          href="https://app.hubspot.com/oauth/authorize?scope=contacts&redirect_uri=https://www.wappalyzer.com/integrations/hubspot/&client_id=cac4bea5-5678-444c-902f-24f1d9f5e235"
+          :href="`https://app.hubspot.com/oauth/authorize?scope=contacts&redirect_uri=${websiteUrl}/integrations/hubspot/&client_id=${clientId}`"
           color="accent"
           _target="blank"
           :loading="connecting"
@@ -159,6 +159,9 @@ export default {
       mdiBookOpenPageVariant,
       mdiHubspot,
       mdiCalculator,
+      websiteUrl: this.$config.WEBSITE_URL,
+      appId: this.$config.HUBSPOT_APP_ID,
+      clientId: this.$config.HUBSPOT_CLIENT_ID,
     }
   },
   computed: {

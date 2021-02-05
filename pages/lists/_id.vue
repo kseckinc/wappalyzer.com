@@ -116,11 +116,7 @@
                         </div>
                       </td>
                       <td
-                        v-if="
-                          !['Calculating', 'Insufficient', 'Failed'].includes(
-                            list.status
-                          )
-                        "
+                        v-if="list.status !== 'Calculating'"
                         class="text-right"
                       >
                         {{ formatNumber(list.rows[technology.slug]) }}
@@ -161,6 +157,71 @@
               <v-expansion-panel-content class="nopadding">
                 <v-simple-table>
                   <tbody>
+                    <tr v-if="list.query.matchAllTechnologies">
+                      <th width="40%">Match all technologies</th>
+                      <td>
+                        <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
+                      </td>
+                    </tr>
+                    <tr v-if="list.query.industries.length">
+                      <th width="40%">Industries</th>
+                      <td>
+                        <v-chip-group class="my-2" column
+                          ><v-chip
+                            v-for="{ text, value } in list.query.industries"
+                            :key="value"
+                            outlined
+                            small
+                          >
+                            {{ text }}
+                          </v-chip>
+                        </v-chip-group>
+                      </td>
+                    </tr>
+                    <tr v-if="list.query.subset">
+                      <th width="40%">List size limit</th>
+                      <td>
+                        {{ formatNumber(list.query.subset) }}
+                        ({{
+                          list.query.subsetSlice === 1
+                            ? 'high'
+                            : list.query.subsetSlice === 2
+                            ? 'medium'
+                            : list.query.subsetSlice === 3
+                            ? 'low'
+                            : list.query.subsetSlice === 4
+                            ? 'lowest'
+                            : 'highest'
+                        }}
+                        traffic)
+                      </td>
+                    </tr>
+                    <tr v-if="list.query.excludeNoTraffic">
+                      <th width="40%">Exclude websites without traffic data</th>
+                      <td>
+                        <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
+                      </td>
+                    </tr>
+                    <tr v-if="list.exclusionsFilename">
+                      <th width="40%">Exclusions</th>
+                      <td>
+                        <v-btn
+                          :href="`${datasetsBaseUrl}${list.exclusionsFilename}`"
+                          color="accent"
+                          icon
+                          ><v-icon>{{ mdiDownload }}</v-icon></v-btn
+                        >
+                      </td>
+                    </tr>
+                    <tr>
+                      <th width="40%">Data age</th>
+                      <td>
+                        {{ list.query.minAge || 0 }}-{{
+                          list.query.maxAge || 3
+                        }}
+                        months
+                      </td>
+                    </tr>
                     <tr v-if="list.query.requiredSets.length">
                       <th width="40%">Required</th>
                       <td>
@@ -231,54 +292,10 @@
                         </v-chip-group>
                       </td>
                     </tr>
-                    <tr v-if="list.query.matchAllTechnologies">
-                      <th width="40%">Match all technologies</th>
-                      <td>
-                        <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
-                      </td>
-                    </tr>
                     <tr v-if="list.query.matchAll">
                       <th width="40%">Match all filters</th>
                       <td>
                         <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
-                      </td>
-                    </tr>
-                    <tr v-if="list.query.subset">
-                      <th width="40%">List size limit</th>
-                      <td>
-                        {{ formatNumber(list.query.subset) }}
-                        ({{
-                          list.query.subsetSlice === 1
-                            ? 'high'
-                            : list.query.subsetSlice === 2
-                            ? 'medium'
-                            : list.query.subsetSlice === 3
-                            ? 'low'
-                            : list.query.subsetSlice === 4
-                            ? 'lowest'
-                            : 'highest'
-                        }}
-                        traffic)
-                      </td>
-                    </tr>
-                    <tr v-if="list.exclusionsFilename">
-                      <th width="40%">Exclusions</th>
-                      <td>
-                        <v-btn
-                          :href="`${datasetsBaseUrl}${list.exclusionsFilename}`"
-                          color="accent"
-                          icon
-                          ><v-icon>{{ mdiDownload }}</v-icon></v-btn
-                        >
-                      </td>
-                    </tr>
-                    <tr>
-                      <th width="40%">Data age</th>
-                      <td>
-                        {{ list.query.minAge || 0 }}-{{
-                          list.query.maxAge || 3
-                        }}
-                        months
                       </td>
                     </tr>
                   </tbody>
@@ -313,13 +330,7 @@
                             </small>
                           </td>
                           <td
-                            v-if="
-                              ![
-                                'Calculating',
-                                'Insufficient',
-                                'Failed',
-                              ].includes(list.status)
-                            "
+                            v-if="list.status !== 'Calculating'"
                             class="text-right"
                           >
                             <small>
@@ -621,8 +632,10 @@ export default {
         return ''
       }
 
+      console.log(this.list)
+
       const params = {
-        attributes: null,
+        attributes: this.list.query.requiredSets || undefined,
         technologies: this.list.query.technologies.map(({ slug }) => slug),
         tlds: this.list.query.tlds,
         countries: this.list.query.geoIps.length
@@ -631,11 +644,15 @@ export default {
         languages: this.list.query.languages.length
           ? this.list.query.languages.map(({ value }) => value)
           : undefined,
+        industries: this.list.query.industries.length
+          ? this.list.query.industries.map(({ value }) => value)
+          : undefined,
         subset:
           this.list.query.subset && this.list.query.subset !== 500000
             ? this.list.query.subset.toString()
             : undefined,
-        traffic: this.list.query.subsetSlice,
+        traffic: this.list.query.subsetSlice.toString(),
+        notraffic: this.list.query.excludeNoTraffic ? 'exclude' : undefined,
         min:
           this.list.query.minAge !== null && this.list.query.minAge !== 0
             ? this.list.query.minAge.toString()
@@ -645,7 +662,7 @@ export default {
             ? this.list.query.maxAge.toString()
             : undefined,
         filters: this.list.query.matchAll ? 'and' : undefined,
-        selection: this.list.query.matchAllTechnologies ? 'and' : undefined,
+        selection: this.list.query.matchAllTechnologies ? 'all' : undefined,
       }
 
       const string = Object.keys(params)
