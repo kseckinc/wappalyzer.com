@@ -116,7 +116,13 @@
                         </div>
                       </td>
                       <td
-                        v-if="list.status !== 'Calculating'"
+                        v-if="list.status === 'Insufficient'"
+                        class="text-right"
+                      >
+                        -
+                      </td>
+                      <td
+                        v-else-if="list.status !== 'Calculating'"
                         class="text-right"
                       >
                         {{ formatNumber(list.rows[technology.slug]) }}
@@ -330,7 +336,13 @@
                             </small>
                           </td>
                           <td
-                            v-if="list.status !== 'Calculating'"
+                            v-if="list.status === 'Insufficient'"
+                            class="text-right"
+                          >
+                            -
+                          </td>
+                          <td
+                            v-else-if="list.status !== 'Calculating'"
                             class="text-right"
                           >
                             <small>
