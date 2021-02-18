@@ -125,31 +125,57 @@
         <v-card-title>Configuration</v-card-title>
 
         <v-card-text>
-          <v-text-field
-            v-model="orgWebsiteField"
-            label="Organisation website field"
-            placeholder="API key, e.g. 9a13fd5c052a4820a31d4ce097000d61d098fed1"
-            hide-details="auto"
-            class="mb-4"
-          />
-
-          <p>
-            <small>
-              In
-              <a
-                :href="`${user.pipedriveBaseUrl}/settings/fields`"
-                target="_blank"
-                rel="noopener"
-                >Pipedrive settings</a
-              >, go to
-              <v-chip small>Data fields</v-chip>
-              &rarr; <v-chip small>Organization</v-chip> &rarr;
-              <v-chip small>Custom fields</v-chip> and create or find a custom
-              field that contains the website URL for organisations. Hover over
-              the field, click the three-dot menu and copy the API key.
-            </small>
+          <p class="mb-8">
+            Manage custom fields in
+            <a
+              :href="`${user.pipedriveBaseUrl}/settings/fields`"
+              target="_blank"
+              rel="noopener"
+              >Pipedrive settings</a
+            >
+            &rarr;
+            <v-chip small>Data fields</v-chip>
+            &rarr; <v-chip small>Organization</v-chip> &rarr;
+            <v-chip small>Custom fields</v-chip>.
           </p>
+
+          <v-select
+            v-model="orgWebsiteField"
+            :items="[
+              { text: 'Select a custom field...', value: '' },
+              ...fields.map(({ key, name }) => ({ text: name, value: key })),
+            ]"
+            label="Organisation website field"
+            hide-details="auto"
+            hint="Select a custom field that contains the website URL for organisations."
+            persistent-hint
+            eager
+          />
         </v-card-text>
+
+        <!--
+        <v-divider />
+
+        <v-card-text>
+          <v-row>
+            <v-col cols="6">
+              <v-select
+                :items="
+                  categories.map(({ slug, name }) => ({
+                    text: name,
+                    value: slug,
+                  }))
+                "
+                class="mb-4"
+                label="Category"
+                hide-details="auto"
+                eager
+              />
+            </v-col>
+            <v-col cols="6"> </v-col>
+          </v-row>
+        </v-card-text>
+        -->
         <v-card-actions>
           <v-spacer />
           <v-btn color="accent" :loading="saving" text @click="save">
@@ -183,6 +209,9 @@ export default {
     Page,
     Spinner,
   },
+  async asyncData({ $axios }) {
+    return { categories: (await $axios.get('categories')).data }
+  },
   data() {
     return {
       title: 'Pipedrive',
@@ -190,6 +219,7 @@ export default {
       connecting: false,
       disconnecting: false,
       eligible: false,
+      fields: [],
       success: null,
       error: null,
       orgWebsiteField: null,
@@ -226,9 +256,12 @@ export default {
           }
         } else {
           try {
-            ;({ eligible: this.eligible, id: this.pipedriveId } = (
-              await this.$axios.get('pipedrive')
-            ).data)
+            ;({
+              eligible: this.eligible,
+              id: this.pipedriveId,
+              orgWebsiteField: this.orgWebsiteField,
+              fields: this.fields,
+            } = (await this.$axios.get('pipedrive')).data)
           } catch (error) {
             // Continue
           }
@@ -264,6 +297,7 @@ export default {
             eligible: this.eligible,
             id: this.pipedriveId,
             orgWebsiteField: this.orgWebsiteField,
+            fields: this.fields,
           } = (await this.$axios.get('pipedrive')).data)
         } catch (error) {
           this.error = this.getErrorMessage(error)
@@ -306,6 +340,7 @@ export default {
           eligible: this.eligible,
           id: this.pipedriveId,
           orgWebsiteField: this.orgWebsiteField,
+          fields: this.fields,
         } = (await this.$axios.get('pipedrive')).data)
 
         this.success = 'Configuration changes have been saved.'

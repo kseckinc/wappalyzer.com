@@ -168,7 +168,8 @@
 
           <p>
             The <code>trafficRank</code> value is a relative traffic indicator.
-            A higher number means a more trafficked website.
+            A higher number means a more trafficked website. A value of zero
+            means traffic information is unavailable.
           </p>
 
           <pre><Prism language="json" class="body-2">[
@@ -188,7 +189,8 @@
         "versions": [
           "3.0.0"
         ],
-        "trafficRank": 0
+        "trafficRank": 1000,
+        "confirmedAt": 1612824037,
       }
     ]
   },
@@ -286,7 +288,8 @@
             "versions": [
               "3.0.0"
             ],
-            "trafficRank": 0
+            "trafficRank": 1000
+            "confirmedAt": 1612824037,
           }
         ]
       },

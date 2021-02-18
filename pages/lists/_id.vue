@@ -644,10 +644,10 @@ export default {
         return ''
       }
 
-      console.log(this.list)
-
       const params = {
-        attributes: this.list.query.requiredSets || undefined,
+        attributes: this.list.query.requiredSets.lengt
+          ? this.list.query.requiredSets
+          : undefined,
         technologies: this.list.query.technologies.map(({ slug }) => slug),
         tlds: this.list.query.tlds,
         countries: this.list.query.geoIps.length
@@ -663,7 +663,9 @@ export default {
           this.list.query.subset && this.list.query.subset !== 500000
             ? this.list.query.subset.toString()
             : undefined,
-        traffic: this.list.query.subsetSlice.toString(),
+        traffic: this.list.query.subsetSlice
+          ? this.list.query.subsetSlice.toString()
+          : undefined,
         notraffic: this.list.query.excludeNoTraffic ? 'exclude' : undefined,
         min:
           this.list.query.minAge !== null && this.list.query.minAge !== 0

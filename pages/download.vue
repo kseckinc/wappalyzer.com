@@ -70,10 +70,6 @@
                   >.
                 </li>
                 <li class="mb-2">In the menu, click 'Add to Home screen'.</li>
-                <li class="mb-2">
-                  Share links to the Wappalyzer app from Chrome or any other
-                  app.
-                </li>
               </ol>
             </v-card-text>
           </v-card>

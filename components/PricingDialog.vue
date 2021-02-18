@@ -19,7 +19,7 @@
           </thead>
           <tbody>
             <template v-for="(tier, index) in Object.keys(creditTiers)">
-              <tr v-if="tier <= limit" :key="index">
+              <tr v-if="tier <= max" :key="index">
                 <td class="pl-6 caption">
                   {{
                     formatNumber(
@@ -51,14 +51,15 @@
 
       <v-divider />
 
-      <v-card-title> Calculator </v-card-title>
+      <v-card-title>Calculator</v-card-title>
       <v-card-text class="px-0 pb-0">
         <v-form @submit.prevent="submit">
           <v-text-field
             v-model="value"
             :rules="[
               (v) => /^[0-9]+$/.test(value) || 'Value should be numeric',
-              (v) => !limit || v <= limit || `Max. ${formatNumber(limit)}`,
+              (v) => !min || v >= min || `Min. ${formatNumber(min)}`,
+              (v) => !max || v <= max || `Max. ${formatNumber(max)}`,
             ]"
             :label="unit"
             class="px-6"
@@ -75,7 +76,9 @@
                     formatCurrency(
                       creditsToCents(
                         parseInt(
-                          (limit ? Math.min(limit, value) : value) * credits,
+                          (min
+                            ? Math.max(min, max ? Math.min(max, value) : value)
+                            : value) * credits,
                           10
                         )
                       ) / 100
@@ -88,7 +91,9 @@
                 <td class="pr-6 caption">
                   {{
                     formatNumber(
-                      (limit ? Math.min(limit, value) : value) * credits
+                      (min
+                        ? Math.max(min, max ? Math.min(max, value) : value)
+                        : value) * credits
                     )
                   }}
                 </td>
@@ -122,7 +127,8 @@ export default {
       creditsPerUnit,
       creditTiers,
       units: creditsPerUnit[this.product].units,
-      limit: creditsPerUnit[this.product].limit,
+      min: creditsPerUnit[this.product].min || 0,
+      max: creditsPerUnit[this.product].max,
       value: '',
     }
   },

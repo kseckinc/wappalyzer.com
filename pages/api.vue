@@ -71,6 +71,8 @@
           "name": "CMS"
         }
       ]
+      "trafficRank": 1000,
+      "confirmedAt": 1612824037,
     }
   ],
   "email": [ "info@example.com" ],
