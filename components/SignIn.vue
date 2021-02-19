@@ -377,6 +377,8 @@ export default {
 
             this.mode = 'signIn'
             this.nextSuccess = 'Thank you for signing up! You can now sign in.'
+
+            this.$gtm.push({ event: 'signUp' })
           } else if (this.mode === 'verifySignIn') {
             await this.verifySignIn({
               code: this.code,

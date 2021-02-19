@@ -64,6 +64,8 @@ export default {
         } else {
           await Promise.all([this.getOrganisations(), this.getCredits()])
         }
+
+        this.$gtm.push({ event: 'signIn', userId: this.user.sub })
       }
     },
     $route() {
