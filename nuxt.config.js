@@ -32,7 +32,6 @@ const publicRuntimeConfig = {
 }
 
 export default {
-  mode: 'universal',
   target: 'static',
   generate: {
     fallback: '200.html',
@@ -82,7 +81,7 @@ export default {
       },
       {
         rel: 'preconnect',
-        href: 'https://www.google-analytics.com',
+        href: 'https://www.googletagmanager.com',
       },
       {
         rel: 'apple-touch-icon',
@@ -104,14 +103,16 @@ export default {
     '@nuxtjs/sitemap',
     'nuxt-stripe-module',
     'cookie-universal-nuxt',
-    '@nuxtjs/google-gtag',
+    '@nuxtjs/gtm',
     [
       'nuxt-canonical',
       { baseUrl: publicRuntimeConfig.WEBSITE_URL, trailingSlashes: true },
     ],
   ],
-  'google-gtag': {
-    id: 'UA-216336-5',
+  gtm: {
+    id: 'GTM-53QHPFF',
+    pageTracking: true,
+    respectDoNotTrack: false,
   },
   axios: {
     baseURL: publicRuntimeConfig.BASE_URL,

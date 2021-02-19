@@ -4,8 +4,8 @@
   "description": "wappalyzer.com",
   "author": "Wappalyzer",
   "scripts": {
-    "dev": "ENVIRONMENT=beta NODE_OPTIONS=--max-old-space-size=4096 nuxt",
-    "prod": "NODE_ENV=production NODE_OPTIONS=--max-old-space-size=4096 ENVIRONMENT=v2 nuxt",
+    "dev": "ENVIRONMENT=beta NODE_OPTIONS=--max-old-space-size=7168 nuxt",
+    "prod": "NODE_ENV=production NODE_OPTIONS=--max-old-space-size=7168 ENVIRONMENT=v2 nuxt",
     "build": "nuxt build",
     "generate": "NODE_OPTIONS=--max-old-space-size=7168 nuxt generate",
     "start": "nuxt start",
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.12.5",
-    "@nuxtjs/google-gtag": "^1.0.4",
+    "@nuxtjs/gtm": "^2.4.0",
     "amazon-cognito-identity-js": "^4.5.7",
     "cookie-universal-nuxt": "^2.1.4",
     "nuxt": "^2.14.12",
