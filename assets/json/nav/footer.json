@@ -1,6 +1,14 @@
 {
   "icons": [
     {
+      "icon": "mdiFacebook",
+      "href": "https://facebook.com/wappalyzer"
+    },
+    {
+      "icon": "mdiInstagram",
+      "href": "https://instagram.com/wappalyzer"
+    },
+    {
       "icon": "mdiTwitter",
       "href": "https://twitter.com/Wappalyzer"
     },

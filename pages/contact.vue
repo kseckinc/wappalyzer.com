@@ -43,28 +43,42 @@
             Follow us
           </v-card-title>
           <v-card-text class="pb-0">
-            Follow us on LinkedIn and Twitter for occasional product updates.
+            Follow us on social media for occasional product updates.
           </v-card-text>
           <v-spacer />
           <v-card-actions>
             <v-spacer />
             <v-btn
-              href="https://www.linkedin.com/company/wappalyzer"
+              href="https://www.facebook.com/wappalyzer"
               color="accent"
               target="_blank"
               rel="noopener"
-              text
-              ><v-icon left>{{ mdiLinkedin }}</v-icon
-              >LinkedIn</v-btn
+              icon
+              ><v-icon>{{ mdiFacebook }}</v-icon></v-btn
+            >
+            <v-btn
+              href="https://www.instagram.com/wappalyzer"
+              color="accent"
+              target="_blank"
+              rel="noopener"
+              icon
+              ><v-icon>{{ mdiInstagram }}</v-icon></v-btn
             >
             <v-btn
               href="https://twitter.com/Wappalyzer"
               color="accent"
               target="_blank"
               rel="noopener"
-              text
-              ><v-icon left>{{ mdiTwitter }}</v-icon
-              >Twitter</v-btn
+              icon
+              ><v-icon>{{ mdiTwitter }}</v-icon></v-btn
+            >
+            <v-btn
+              href="https://www.linkedin.com/company/wappalyzer"
+              color="accent"
+              target="_blank"
+              rel="noopener"
+              icon
+              ><v-icon>{{ mdiLinkedin }}</v-icon></v-btn
             >
           </v-card-actions>
         </v-card>
@@ -77,6 +91,8 @@
 import {
   mdiTwitter,
   mdiLinkedin,
+  mdiFacebook,
+  mdiInstagram,
   mdiEmail,
   mdiFaceAgent,
   mdiForum,
@@ -94,6 +110,8 @@ export default {
       title: 'Get in touch',
       mdiTwitter,
       mdiLinkedin,
+      mdiFacebook,
+      mdiInstagram,
       mdiEmail,
       mdiFaceAgent,
       mdiForum,

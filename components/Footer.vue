@@ -79,7 +79,14 @@
 </template>
 
 <script>
-import { mdiGithub, mdiSlack, mdiTwitter, mdiLinkedin } from '@mdi/js'
+import {
+  mdiGithub,
+  mdiSlack,
+  mdiTwitter,
+  mdiFacebook,
+  mdiInstagram,
+  mdiLinkedin,
+} from '@mdi/js'
 import Logo from '~/components/Logo.vue'
 import { icons, items } from '~/assets/json/nav/footer.json'
 
@@ -100,6 +107,8 @@ export default {
       mdi: {
         mdiSlack,
         mdiTwitter,
+        mdiFacebook,
+        mdiInstagram,
         mdiLinkedin,
         mdiGithub,
       },
