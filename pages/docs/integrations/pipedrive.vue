@@ -26,6 +26,11 @@
         information is longer available.
       </v-alert>
 
+      You can also permanently enrich all organisation records at once with a
+      sync, and automatically update new records using a webhook. This
+      information is yours to keep and can be used to create custom reports in
+      Pipedrive.
+
       <Heading id="getting-started" size="2" class="mt-8 mb-2">
         Getting started
       </Heading>
@@ -48,7 +53,7 @@
       </v-alert>
 
       <Heading id="getting-started" size="2" class="mt-8 mb-2">
-        Configuration
+        Field mappings
       </Heading>
 
       <p>
@@ -67,12 +72,11 @@
         <v-chip small>Data fields</v-chip>
         &rarr; <v-chip small>Organization</v-chip> &rarr;
         <v-chip small>Custom fields</v-chip> and create or find a custom field
-        that contains the website URL for organisations. Hover over the field,
-        click the three-dot menu and copy the API key.
+        that contains the website URL for organisations.
       </p>
 
       <p>
-        Add the key to the
+        Select the field on the
         <nuxt-link to="/integrations/pipedrive/"
           >Pipedrive integration page</nuxt-link
         >
