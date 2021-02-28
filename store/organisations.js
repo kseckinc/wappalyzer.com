@@ -14,4 +14,7 @@ export const actions = {
 
     commit('setMemberOf', memberOf)
   },
+  set({ state, commit, dispatch }, memberOf) {
+    commit('setMemberOf', memberOf)
+  },
 }

@@ -113,6 +113,7 @@ export default {
     id: 'GTM-53QHPFF',
     pageTracking: true,
     respectDoNotTrack: false,
+    debug: process.env.ENVIRONMENT === 'beta',
   },
   axios: {
     baseURL: publicRuntimeConfig.BASE_URL,

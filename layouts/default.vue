@@ -66,6 +66,11 @@ export default {
         }
 
         this.$gtm.push({ event: 'signIn', userId: this.user.sub })
+
+        this.$cookies.set('userId', this.user.sub, {
+          path: '/',
+          maxAge: 60 * 60 * 24 * 30,
+        })
       }
     },
     $route() {

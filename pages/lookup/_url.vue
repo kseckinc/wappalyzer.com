@@ -86,7 +86,7 @@
 
     <p>
       <small>
-        Look up 5,000 websites at once with
+        Look up 100K websites at once with
         <nuxt-link to="/bulk/">Bulk lookup</nuxt-link>.<br />
         Automate lookups with the
         <nuxt-link to="/api/">Lookup API</nuxt-link> or

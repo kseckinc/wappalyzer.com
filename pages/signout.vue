@@ -47,9 +47,12 @@ export default {
       try {
         await this.signOut()
 
-        this.$cookies.set('impersonate', '', {
+        this.$cookies.remove('impersonate', {
           path: '/',
-          maxAge: 60 * 60 * 24 * 7,
+        })
+
+        this.$cookies.remove('userId', {
+          path: '/',
         })
 
         this.setMemberOf([])
@@ -65,7 +68,7 @@ export default {
   methods: {
     ...mapActions({
       signOut: 'user/signOut',
-      setMemberOf: 'organisations/setMemberOf',
+      setMemberOf: 'organisations/set',
     }),
   },
 }

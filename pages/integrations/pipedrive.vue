@@ -42,7 +42,7 @@
       </v-btn>
     </div>
 
-    <v-card>
+    <v-card class="mb-4">
       <v-card-title>Integration</v-card-title>
       <v-card-text class="px-0">
         <v-alert
@@ -118,15 +118,182 @@
           Disconnect</v-btn
         >
       </v-card-actions>
+    </v-card>
 
-      <template v-if="pipedriveId">
-        <v-divider />
+    <v-card v-if="pipedriveId" class="mb-4">
+      <v-divider />
 
-        <v-card-title>Configuration</v-card-title>
+      <v-card-title>Field mappings</v-card-title>
 
-        <v-card-text>
-          <p class="mb-8">
-            Manage custom fields in
+      <v-card-text>
+        <p class="mb-0">
+          Manage custom fields in
+          <a
+            :href="`${user.pipedriveBaseUrl}/settings/fields`"
+            target="_blank"
+            rel="noopener"
+            >Pipedrive settings</a
+          >
+          &rarr;
+          <v-chip small outlined>Data fields</v-chip>
+          &rarr; <v-chip small outlined>Organization</v-chip> &rarr;
+          <v-chip small outlined>Custom fields</v-chip>.
+        </p>
+      </v-card-text>
+
+      <v-divider />
+
+      <v-card-title class="subtitle-2">Website field</v-card-title>
+      <v-card-text>
+        <p>
+          Select the Pipedrive field that contains the website URL for
+          organisations. This URL is used to display the website's technology
+          stack in a panel on organisation pages.
+        </p>
+
+        <v-select
+          v-model="orgWebsiteField"
+          :items="[
+            { text: 'Select a custom field...', value: '' },
+            ...fields.map(({ key, name }) => ({ text: name, value: key })),
+          ]"
+          eager
+        />
+      </v-card-text>
+
+      <v-divider />
+
+      <v-card-title class="subtitle-2">Technologies</v-card-title>
+      <v-card-text class="px-0">
+        <p class="mx-4">
+          Map technology categories to custom Pipedrive fields on organisations.
+          These fields will be populated during a sync.
+        </p>
+
+        <v-simple-table v-if="assignedFields.length" class="mb-4">
+          <thead>
+            <tr>
+              <th width="50%">Technology category</th>
+              <th>Pipedrive field</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="({ categorySlug, key, name }, index) in assignedFields"
+              :key="index"
+            >
+              <td>
+                {{ categories.find(({ slug }) => slug === categorySlug).name }}
+              </td>
+              <td>
+                {{ name }}
+              </td>
+              <td width="1">
+                <v-btn icon @click="removeField(key)">
+                  <v-icon>{{ mdiCloseCircle }}</v-icon>
+                </v-btn>
+              </td>
+            </tr>
+          </tbody>
+        </v-simple-table>
+
+        <v-row class="mx-1">
+          <v-col>
+            <v-select
+              v-model="selectedCategory"
+              :items="
+                categories.map(({ slug, name }) => ({
+                  text: name,
+                  value: slug,
+                }))
+              "
+              label="Technology category"
+              hide-details="auto"
+              eager
+            />
+          </v-col>
+          <v-col>
+            <v-select
+              v-model="selectedField"
+              :items="
+                fields.map(({ key, name }) => ({ text: name, value: key }))
+              "
+              label="Pipedrive field"
+              hide-details="auto"
+              eager
+            />
+          </v-col>
+          <v-col class="flex-grow-0 flex-shrink-1 d-flex flex-row align-end">
+            <v-btn
+              :disabled="!selectedCategory || !selectedField"
+              color="primary"
+              @click="addField"
+              >Add</v-btn
+            >
+          </v-col>
+        </v-row>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer />
+        <v-btn color="accent" :loading="saving" text @click="save">
+          <v-icon left>{{ mdiContentSave }}</v-icon>
+          Save</v-btn
+        >
+      </v-card-actions>
+    </v-card>
+
+    <v-card v-if="pipedriveId">
+      <v-divider />
+
+      <v-card-title>Synchronise</v-card-title>
+
+      <v-card-text>
+        <p>
+          By default, Wappalyzer shows a panel on people and organisations with
+          the most up-to-date technology information. It's also possible to save
+          information to organisation records, which you can use to create
+          custom reports in Pipedrive.
+        </p>
+
+        <p class="mb-0">Each successully updated record cost 1 credit.</p>
+      </v-card-text>
+
+      <v-divider />
+
+      <v-card-title class="subtitle-2">Existing organisations</v-card-title>
+      <v-card-text>
+        <p>
+          Append technology information to all existing organisation records
+          using the above field mappings.
+        </p>
+
+        <v-row>
+          <v-col>
+            <v-btn
+              color="primary"
+              :disabled="!orgWebsiteField || !assignedFields.length"
+              @click="syncDialog = true"
+            >
+              <v-icon left>{{ mdiAutorenew }}</v-icon>
+              Update all organisations</v-btn
+            >
+          </v-col>
+        </v-row>
+      </v-card-text>
+
+      <v-divider />
+
+      <v-card-title class="subtitle-2">New organisations</v-card-title>
+      <v-card-text>
+        <p>
+          To automatically populate technology information on new organisation
+          records, create a webhook:
+        </p>
+
+        <ul>
+          <li>
+            Go to
             <a
               :href="`${user.pipedriveBaseUrl}/settings/fields`"
               target="_blank"
@@ -134,57 +301,42 @@
               >Pipedrive settings</a
             >
             &rarr;
-            <v-chip small>Data fields</v-chip>
-            &rarr; <v-chip small>Organization</v-chip> &rarr;
-            <v-chip small>Custom fields</v-chip>.
-          </p>
+            <v-chip small outlined>Webhooks</v-chip>
+            &rarr;
+            <v-chip small outlined>Create new webhook</v-chip>
+          </li>
+          <li>
+            Set <v-chip small outlined>Event action</v-chip> to 'added' and
+            <v-chip small outlined>Event object</v-chip> to 'organization'.
+          </li>
+          <li>
+            In the <v-chip small outlined>Endpoint URL</v-chip> field, enter
+            <code>https://api.wappalyzer.com/pipedrive/v2/organisation</code>
+          </li>
+        </ul>
+      </v-card-text>
+    </v-card>
 
-          <v-select
-            v-model="orgWebsiteField"
-            :items="[
-              { text: 'Select a custom field...', value: '' },
-              ...fields.map(({ key, name }) => ({ text: name, value: key })),
-            ]"
-            label="Organisation website field"
-            hide-details="auto"
-            hint="Select a custom field that contains the website URL for organisations."
-            persistent-hint
-            eager
-          />
+    <v-dialog v-model="syncDialog" max-width="400px">
+      <v-card>
+        <v-card-title>Update all organisations</v-card-title>
+        <v-card-text class="pb-0">
+          <v-alert v-if="syncError" type="error" class="mb-4">
+            {{ syncError }}
+          </v-alert>
+
+          This sync costs 1 credit per organisation and may take some time to
+          complete.
         </v-card-text>
-
-        <!--
-        <v-divider />
-
-        <v-card-text>
-          <v-row>
-            <v-col cols="6">
-              <v-select
-                :items="
-                  categories.map(({ slug, name }) => ({
-                    text: name,
-                    value: slug,
-                  }))
-                "
-                class="mb-4"
-                label="Category"
-                hide-details="auto"
-                eager
-              />
-            </v-col>
-            <v-col cols="6"> </v-col>
-          </v-row>
-        </v-card-text>
-        -->
         <v-card-actions>
           <v-spacer />
-          <v-btn color="accent" :loading="saving" text @click="save">
-            <v-icon left>{{ mdiContentSave }}</v-icon>
-            Save</v-btn
+          <v-btn color="accent" text @click="syncDialog = false">Cancel</v-btn>
+          <v-btn :loading="syncing" color="accent" text @click="sync"
+            >Continue</v-btn
           >
         </v-card-actions>
-      </template>
-    </v-card>
+      </v-card>
+    </v-dialog>
   </Page>
 </template>
 
@@ -198,6 +350,8 @@ import {
   mdiStore,
   mdiCalculator,
   mdiContentSave,
+  mdiCloseCircle,
+  mdiAutorenew,
 } from '@mdi/js'
 import { mapState } from 'vuex'
 
@@ -224,7 +378,13 @@ export default {
       error: null,
       orgWebsiteField: null,
       pipedriveId: null,
+      recompute: 0,
+      selectedField: null,
+      selectedCategory: null,
       saving: false,
+      syncDialog: false,
+      syncError: false,
+      syncing: false,
       mdiCheck,
       mdiClose,
       mdiPowerPlug,
@@ -233,6 +393,8 @@ export default {
       mdiStore,
       mdiCalculator,
       mdiContentSave,
+      mdiCloseCircle,
+      mdiAutorenew,
       websiteUrl: this.$config.WEBSITE_URL,
       clientId: this.$config.PIPEDRIVE_CLIENT_ID,
     }
@@ -242,6 +404,11 @@ export default {
       user: ({ user }) => user.attrs,
       isSignedIn: ({ user }) => user.isSignedIn,
     }),
+    assignedFields() {
+      return Object.values(this.fields).filter(
+        ({ categorySlug }) => categorySlug
+      )
+    },
   },
   watch: {
     async isSignedIn() {
@@ -335,6 +502,7 @@ export default {
       try {
         await this.$axios.patch('pipedrive', {
           orgWebsiteField: this.orgWebsiteField,
+          fields: this.fields.filter(({ categorySlug }) => categorySlug),
         })
         ;({
           eligible: this.eligible,
@@ -343,12 +511,14 @@ export default {
           fields: this.fields,
         } = (await this.$axios.get('pipedrive')).data)
 
-        this.success = 'Configuration changes have been saved.'
+        this.success = 'Field mappings have been saved.'
       } catch (error) {
         this.error = this.getErrorMessage(error)
       }
 
       this.saving = false
+
+      this.scrollToTop()
     },
     async disconnect() {
       this.success = null
@@ -366,6 +536,44 @@ export default {
       }
 
       this.disconnecting = false
+    },
+    addField() {
+      const index = this.fields.findIndex(
+        ({ key }) => key === this.selectedField
+      )
+
+      this.fields[index].categorySlug = this.selectedCategory
+
+      // Force recompute
+      this.fields = [...this.fields]
+
+      this.selectedField = null
+      this.selectedCategory = null
+    },
+    removeField(key) {
+      delete this.fields.find(({ key: _key }) => _key === key).categorySlug
+
+      // Force recompute
+      this.fields = [...this.fields]
+    },
+    async sync() {
+      this.success = null
+      this.syncError = null
+      this.syncing = true
+
+      try {
+        await this.$axios.post('pipedrive/sync')
+
+        this.success =
+          "Synchronization has started. You'll receive an email upon completion."
+        this.syncDialog = false
+
+        this.scrollToTop()
+      } catch (error) {
+        this.syncError = this.getErrorMessage(error)
+      }
+
+      this.syncing = false
     },
   },
 }
