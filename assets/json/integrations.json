@@ -43,8 +43,15 @@
     "name": "Zapier",
     "image": "zapier.svg",
     "description": "Connect Wappalyzer to the apps you use, no code required.",
-    "docs": "/docs/integrations/hubspot/",
+    "docs": "/docs/integrations/zapier/",
     "href": "https://zapier.com/developer/public-invite/9758/f2e8bd2517895d4ffb869e3281e2050f/"
+  },
+  "integromat": {
+    "name": "Integromat",
+    "image": "integromat.svg",
+    "description": "Connect Wappalyzer to the apps you use, no code required.",
+    "docs": "/docs/integrations/integromat/",
+    "href": "https://www.integromat.com/en/integrations/wappalyzer"
   },
   "gmail": {
     "name": "Gmail",

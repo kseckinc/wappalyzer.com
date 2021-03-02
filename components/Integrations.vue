@@ -81,6 +81,7 @@ import ImageFirefox from '~/assets/images/integrations/firefox.svg?data'
 import ImageEdge from '~/assets/images/integrations/edge.svg?data'
 import ImageSafari from '~/assets/images/integrations/safari.svg?data'
 import ImageAndroid from '~/assets/images/integrations/android.svg?data'
+import ImageIntegromat from '~/assets/images/integrations/integromat.svg?data'
 
 import integrations from '~/assets/json/integrations.json'
 
@@ -107,6 +108,7 @@ export default {
         'edge.svg': ImageEdge,
         'safari.svg': ImageSafari,
         'android.svg': ImageAndroid,
+        'integromat.svg': ImageIntegromat,
       },
     }
   },

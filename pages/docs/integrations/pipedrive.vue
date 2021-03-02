@@ -47,9 +47,10 @@
       </ul>
 
       <v-alert :icon="mdiLightbulbOnOutline" class="mt-6" outlined>
-        Each Pipedrive user must connect the app individually. Add members to
-        your <nuxt-link to="/organisation">organisation</nuxt-link> to allow
-        multiple users to use the same plan.
+        Each Pipedrive user must connect the app individually to use panels. Add
+        members to your
+        <nuxt-link to="/organisation">organisation</nuxt-link> to allow multiple
+        users to use the same plan.
       </v-alert>
 
       <Heading id="getting-started" size="2" class="mt-8 mb-2">

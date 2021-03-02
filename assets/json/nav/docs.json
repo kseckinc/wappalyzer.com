@@ -39,6 +39,10 @@
       {
         "title": "Zapier",
         "to": "/docs/integrations/zapier/"
+      },
+      {
+        "title": "Integromat",
+        "to": "/docs/integrations/integromat/"
       }
     ]
   }
