@@ -21,32 +21,47 @@
           <v-simple-table>
             <thead>
               <tr>
-                <th width="30%">Number</th>
+                <th width="30%">Type</th>
+                <th>Order ID</th>
                 <th>Date</th>
                 <th>Total</th>
                 <th width="1">Paid</th>
-                <th width="1">Order</th>
-                <th width="1">PDF</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(invoice, index) in invoices" :key="index">
                 <td>
-                  <a :href="invoice.hosted_invoice_url" target="_blank">
+                  <nuxt-link
+                    v-if="invoice.type === 'invoice'"
+                    :to="`/invoices/${invoice.orderId}`"
+                    target="_blank"
+                  >
+                    Tax invoice<v-icon color="accent" right small>{{
+                      mdiOpenInNew
+                    }}</v-icon>
+                  </nuxt-link>
+                  <a v-else :href="invoice.hosted_invoice_url" target="_blank">
                     {{
                       invoice.type === 'paypal'
-                        ? 'PayPal invoice'
+                        ? 'Pro forma invoice'
                         : invoice.type === 'stripe_invoice'
-                        ? 'Invoice'
+                        ? 'Pro forma invoice'
                         : invoice.type === 'stripe_receipt'
-                        ? 'Receipt'
+                        ? 'Payment receipt'
                         : ''
-                    }}
-                    <span v-if="invoice.number"> ({{ invoice.number }})</span
-                    ><v-icon color="accent" right small>{{
+                    }}<v-icon color="accent" right small>{{
                       mdiOpenInNew
                     }}</v-icon>
                   </a>
+                </td>
+                <td>
+                  <nuxt-link
+                    v-if="invoice.orderId"
+                    :to="`/orders/${invoice.orderId}/`"
+                  >
+                    {{ invoice.orderId }}
+                  </nuxt-link>
+                  <template v-else>-</template>
                 </td>
                 <td>{{ formatDate(new Date(invoice.created * 1000)) }}</td>
                 <td>
@@ -60,30 +75,6 @@
                   </v-btn>
                   <v-btn v-else disabled icon>
                     <v-icon>{{ mdiCheckboxBlankOutline }}</v-icon>
-                  </v-btn>
-                </td>
-                <td>
-                  <v-btn
-                    v-if="invoice.orderId"
-                    :to="`/orders/${invoice.orderId}/`"
-                    icon
-                  >
-                    <v-icon color="accent">{{ mdiTextBoxOutline }}</v-icon>
-                  </v-btn>
-                  <v-btn v-else disabled icon>
-                    <v-icon>{{ mdiTextBoxRemoveOutline }}</v-icon>
-                  </v-btn>
-                </td>
-                <td>
-                  <v-btn
-                    :href="invoice.invoice_pdf"
-                    :disabled="!invoice.invoice_pdf"
-                    target="_blank"
-                    icon
-                  >
-                    <v-icon color="accent">{{
-                      invoice.invoice_pdf ? mdiDownload : mdiDownloadOff
-                    }}</v-icon>
                   </v-btn>
                 </td>
               </tr>
