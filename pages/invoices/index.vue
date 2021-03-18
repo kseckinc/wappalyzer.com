@@ -4,12 +4,6 @@
       {{ error }}
     </v-alert>
 
-    <p class="mb-8">
-      Invoices are issued on request when placing an order. If you made a
-      payment and did not request an invoice but require one, please
-      <nuxt-link to="/contact/">contact us</nuxt-link>.
-    </p>
-
     <template v-if="invoices">
       <v-card>
         <v-card-text v-if="!invoices.length">
