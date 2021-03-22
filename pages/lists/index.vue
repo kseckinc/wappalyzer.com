@@ -50,7 +50,7 @@
               </v-card-title>
               <v-card-text>
                 <v-card>
-                  <v-card-title class="subtitle-2"> Technologies </v-card-title>
+                  <v-card-title class="subtitle-2">Technologies</v-card-title>
                   <v-card-text>
                     <p class="mb-0">
                       Choose one or more technologies to include.
@@ -58,9 +58,37 @@
 
                     <Technologies ref="selector" @select="selectItem" />
                   </v-card-text>
-                  <v-card-text class="px-0 pt-0 mt-n4">
+                  <v-card-text
+                    v-if="selectedItems.length"
+                    class="px-0 pt-0 mt-n4"
+                  >
                     <v-simple-table>
                       <tbody>
+                        <tr>
+                          <th>Technology</th>
+                          <th width="30%">
+                            Version
+
+                            <v-tooltip max-width="300" top>
+                              <template #activator="{ on }">
+                                <sup>
+                                  <v-icon small v-on="on">{{
+                                    mdiHelpCircleOutline
+                                  }}</v-icon>
+                                </sup>
+                              </template>
+
+                              Optionaly specify a technology version in SemVer
+                              notation, e.g. '2' or '2.0.0'.<br /><br />
+                              <code>&gt;=</code> Equal to or greater than<br />
+                              <code>=&nbsp;</code> Exact match<br />
+                              <code>&lt;=</code> Equal to or lower than<br /><br />
+                              Leave blank to include all versions.<br /><br />
+                              Not available on all technologies.
+                            </v-tooltip>
+                          </th>
+                          <th width="1"></th>
+                        </tr>
                         <tr v-for="item in selectedItems" :key="item.slug">
                           <td>
                             <div
@@ -74,7 +102,7 @@
                               <v-col>
                                 {{ item.name }}
                               </v-col>
-                              <v-col class="text-right">
+                              <v-col class="pr-0 text-right">
                                 <small
                                   >{{
                                     item.technologiesCount
@@ -84,7 +112,37 @@
                               </v-col>
                             </v-row>
                           </td>
-                          <td width="1">
+                          <td>
+                            <v-row v-if="item.type === 'technology'">
+                              <v-col class="py-0 pr-2">
+                                <v-select
+                                  v-model="item.operator"
+                                  :items="[
+                                    { text: '>=', value: '>=' },
+                                    { text: '=', value: '=' },
+                                    { text: '<=', value: '<=' },
+                                  ]"
+                                  class="my-0"
+                                  hide-details="auto"
+                                  dense
+                                />
+                              </v-col>
+                              <v-col class="pa-0">
+                                <v-text-field
+                                  v-model="item.version"
+                                  placeholder="Any"
+                                  class="ma-0"
+                                  hide-details="auto"
+                                  :rules="[
+                                    (v) => !v || /^(\d.?){1,3}$/.test(v),
+                                  ]"
+                                  dense
+                                />
+                              </v-col>
+                            </v-row>
+                            <span v-else class="text--disabled">-</span>
+                          </td>
+                          <td class="pl-0">
                             <v-btn icon @click="removeItem(item)">
                               <v-icon>{{ mdiCloseCircleOutline }}</v-icon>
                             </v-btn>
@@ -468,7 +526,7 @@
                             href="https://en.wikipedia.org/wiki/Top-level_domain"
                             target="_blank"
                             ><v-icon color="accent" small>{{
-                              mdiHelpBox
+                              mdiHelpCircleOutline
                             }}</v-icon></a
                           ></sup
                         >
@@ -809,12 +867,11 @@ import {
   mdiForum,
   mdiFormatListChecks,
   mdiCloseCircleOutline,
-  mdiInformationOutline,
+  mdiHelpCircleOutline,
   mdiCheckboxMarked,
   mdiCheckboxBlankOutline,
   mdiMinusBoxOutline,
   mdiDotsHorizontal,
-  mdiHelpBox,
   mdiPlus,
   mdiArrowRight,
   mdiFilterOutline,
@@ -935,12 +992,11 @@ export default {
       mdiForum,
       mdiFormatListChecks,
       mdiCloseCircleOutline,
-      mdiInformationOutline,
+      mdiHelpCircleOutline,
       mdiCheckboxMarked,
       mdiCheckboxBlankOutline,
       mdiMinusBoxOutline,
       mdiDotsHorizontal,
-      mdiHelpBox,
       mdiPlus,
       mdiArrowRight,
       mdiFilterOutline,
@@ -1181,11 +1237,14 @@ export default {
     }
 
     if (tlds) {
-      tlds.split(',').forEach((tld) => {
-        this.tld = tld
+      tlds
+        .toString()
+        .split(',')
+        .forEach((tld) => {
+          this.tld = tld
 
-        this.addTld()
-      })
+          this.addTld()
+        })
 
       if (this.selected.tlds.length) {
         this.$refs.tlds.toggle()
@@ -1253,7 +1312,26 @@ export default {
 
     try {
       if (technologies) {
-        for (const technologySlug of technologies.split(',')) {
+        for (let technologySlug of technologies.toString().split(',')) {
+          let operator = '='
+          let version = ''
+
+          if (technologySlug.includes('=')) {
+            operator = '='
+          }
+
+          if (technologySlug.includes('>=')) {
+            operator = '>='
+          }
+
+          if (technologySlug.includes('<=')) {
+            operator = '<='
+          }
+
+          if (operator) {
+            ;[technologySlug, version] = technologySlug.split(operator)
+          }
+
           const { slug, name, icon } = (
             await this.$axios.get(`technologies/${technologySlug}`)
           ).data
@@ -1263,12 +1341,14 @@ export default {
             slug,
             name,
             icon,
+            operator,
+            version,
           })
         }
       }
 
       if (categories) {
-        for (const categorySlug of categories.split(',')) {
+        for (const categorySlug of categories.toString().split(',')) {
           const { slug, name, technologies } = (
             await this.$axios.get(`categories/${categorySlug}`)
           ).data
@@ -1324,11 +1404,13 @@ export default {
           await this.$axios.put('lists', {
             query: {
               technologies: this.selected.technologies.map(
-                ({ slug, name, icon, categories }) => ({
+                ({ slug, name, icon, categories, operator, version }) => ({
                   slug,
                   name,
                   icon,
                   categories,
+                  operator,
+                  version,
                 })
               ),
               categories: this.selected.categories.map(({ slug, name }) => ({
@@ -1378,6 +1460,8 @@ export default {
     },
     selectItem(item) {
       item.active = true
+      item.operator = '='
+      item.version = ''
 
       if (item.type === 'technology') {
         this.selected.technologies.push(item)
@@ -1619,13 +1703,12 @@ export default {
 
         const query = {
           attributes: attributes.length ? attributes.join(',') : undefined,
-          technologies: this.selected.technologies
-            .map(({ slug }) => slug)
-            .join(','),
-          categories: this.selected.categories
-            .map(({ slug }) => slug)
-            .join(','),
-          tlds: this.selected.tlds.map(({ value }) => value).join(','),
+          technologies: this.selected.technologies.map(
+            ({ slug, operator, version }) =>
+              `${slug}${version ? `${operator}${version}` : ''}`
+          ),
+          categories: this.selected.categories.map(({ slug }) => slug),
+          tlds: this.selected.tlds.map(({ value }) => value),
           countries: this.selected.geoIps
             .map(({ value }) => value)
             .join(',')

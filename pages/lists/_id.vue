@@ -113,6 +113,12 @@
                           >
                             {{ technology.name }}
                           </nuxt-link>
+                          <template
+                            v-if="technology.operator && technology.version"
+                          >
+                            &nbsp;({{ technology.operator
+                            }}{{ technology.version }})
+                          </template>
                         </div>
                       </td>
                       <td
@@ -648,7 +654,10 @@ export default {
         attributes: this.list.query.requiredSets.lengt
           ? this.list.query.requiredSets
           : undefined,
-        technologies: this.list.query.technologies.map(({ slug }) => slug),
+        technologies: this.list.query.technologies.map(
+          ({ slug, operator, version }) =>
+            `${slug}${version ? `${operator}${version}` : ''}`
+        ),
         tlds: this.list.query.tlds,
         countries: this.list.query.geoIps.length
           ? this.list.query.geoIps.map(({ value }) => value)
