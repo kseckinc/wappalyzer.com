@@ -19,73 +19,35 @@
       }"
       hero
     >
-      <v-row>
-        <v-col md="10" lg="8">
-          <v-alert color="primary" outlined>
-            <p>
-              Create a list of
-              {{ formatNumber(totalHostnames, true) }}
-              <nuxt-link
-                class="primary--text"
-                :to="`/lists/?categories=${categorySlug}`"
-                >{{ category.name }} websites</nuxt-link
-              >
-              with email addresses and phone numbers.
-            </p>
+      <v-alert color="primary" class="mt-6" outlined>
+        <p>
+          Create a list of
+          {{ formatNumber(totalHostnames, true) }}
+          <nuxt-link
+            class="primary--text"
+            :to="`/lists/?categories=${categorySlug}`"
+            >websites using {{ category.name }} technology</nuxt-link
+          >
+          with email addresses and phone numbers.
+        </p>
 
-            <v-btn
-              :to="`/lists/?categories=${categorySlug}`"
-              color="primary"
-              depressed
-            >
-              <v-icon left>{{ mdiFilterVariant }}</v-icon> Create a lead list
-            </v-btn>
-          </v-alert>
+        <v-btn
+          :to="`/lists/?categories=${categorySlug}`"
+          color="primary"
+          class="mt-2"
+          large
+          depressed
+        >
+          <v-icon left>{{ mdiFilterVariant }}</v-icon> Create a lead list
+        </v-btn>
+      </v-alert>
 
-          <v-divider class="mt-10 mb-8" />
-
-          <h3 class="mb-2">{{ category.name }} reports</h3>
-
-          <p>
-            Create relevant {{ category.name }} reports to find leads or learn
-            more about your target audience.
-          </p>
-
-          <v-card class="mb-4">
-            <v-card-title class="subtitle-2"> Example reports </v-card-title>
-            <v-card-text class="px-0">
-              <v-simple-table>
-                <tbody>
-                  <tr v-for="(list, index) in lists" :key="index">
-                    <td>
-                      <a class="d-flex align-center" @click="createList(list)">
-                        <v-icon left>{{ mdiFileTableOutline }}</v-icon
-                        ><span>{{ list.text }}</span>
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </v-simple-table>
-            </v-card-text>
-          </v-card>
-
-          <p class="mb-0">
-            <small>
-              Or,
-              <nuxt-link :to="`/lists/?categories=${categorySlug}`">
-                Create a custom {{ category.name }} report</nuxt-link
-              >.
-            </small>
-          </p>
-        </v-col>
-      </v-row>
-
-      <v-divider class="mt-6 mb-8" />
+      <v-divider class="my-12" />
 
       <h2 class="mb-2">
         <v-row class="align-center px-3">
           <v-icon color="primary" class="mr-2">{{ mdiFinance }}</v-icon>
-          {{ category.name }} market share
+          {{ category.name }} technologies market share
         </v-row>
       </h2>
 
@@ -110,7 +72,7 @@
                     ><v-icon>{{ mdiChevronDown }}</v-icon></v-btn
                   >
                 </th>
-                <th width="15%">Websites tracked</th>
+                <th width="20%">Websites tracked</th>
                 <th>
                   Market share
                   <v-btn
@@ -163,6 +125,42 @@
           {{ showAll ? 'View less' : 'View all' }}
         </v-btn>
       </div>
+
+      <v-divider class="my-12" />
+
+      <h3 class="mb-2">{{ category.name }} technology reports</h3>
+
+      <p>
+        Create relevant {{ category.name }} technology reports to find leads or
+        learn more about your target audience.
+      </p>
+
+      <v-card class="mb-4">
+        <v-card-title class="subtitle-2">Example reports</v-card-title>
+        <v-card-text class="px-0">
+          <v-simple-table dense>
+            <tbody>
+              <tr v-for="(list, index) in lists" :key="index">
+                <td>
+                  <a class="d-flex align-center" @click="createList(list)">
+                    <v-icon left>{{ mdiFileTableOutline }}</v-icon
+                    ><span>{{ list.text }}</span>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+        </v-card-text>
+      </v-card>
+
+      <p class="mb-0">
+        <small>
+          Or,
+          <nuxt-link :to="`/lists/?categories=${categorySlug}`">
+            create a custom {{ category.name }} technology report</nuxt-link
+          >.
+        </small>
+      </p>
     </Page>
 
     <v-dialog v-model="signInDialog" max-width="400px">

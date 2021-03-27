@@ -12,379 +12,367 @@
       no-head
       :hero="false"
     >
-      <v-row>
-        <v-col cols="12" lg="9" class="py-0">
-          <h1 class="d-flex align-center">
-            <TechnologyIcon
-              :icon="technology ? technology.icon : 'default.svg'"
-            />
+      <h1 class="d-flex align-center">
+        <TechnologyIcon
+          :icon="technology ? technology.icon : 'default.svg'"
+          large
+        />
 
-            {{ title }}
-          </h1>
+        {{ title }}
+      </h1>
 
-          <div class="d-flex align-center mb-4">
-            <v-chip-group>
-              <v-chip
-                v-for="{ slug: _slug, name } in technology.categories"
-                :key="_slug"
-                :to="`/technologies/${_slug}/`"
-                color="primary"
-                outlined
-                small
-                exact
-                >{{ name }}</v-chip
-              >
-            </v-chip-group>
+      <div class="d-flex align-center mb-4">
+        <v-chip-group>
+          <v-chip
+            v-for="{ slug: _slug, name } in technology.categories"
+            :key="_slug"
+            :to="`/technologies/${_slug}/`"
+            color="primary"
+            outlined
+            small
+            exact
+            >{{ name }}</v-chip
+          >
+        </v-chip-group>
 
-            <v-btn
-              :href="technology.website"
-              color="accent"
-              target="_blank"
-              text
-            >
-              {{ formatHostname(technology.website) }}
-              <v-icon right small>{{ mdiOpenInNew }}</v-icon>
-            </v-btn>
-          </div>
+        <v-btn :href="technology.website" color="accent" target="_blank" text>
+          {{ formatHostname(technology.website) }}
+          <v-icon right small>{{ mdiOpenInNew }}</v-icon>
+        </v-btn>
+      </div>
 
-          <template v-if="technology.hostnames < 50">
+      <template v-if="technology.hostnames < 50">
+        <v-row align="center">
+          <v-col cols="12" sm="8">
             <p v-if="technology.description">
               {{ technology.description }}
             </p>
+          </v-col>
+        </v-row>
 
-            <v-alert color="info" outlined>
-              <h3 class="mb-4">No data available, yet</h3>
+        <v-alert color="info" outlined>
+          <h3 class="mb-4">No data available, yet</h3>
 
-              <template
-                v-if="
-                  technology.createdAt > Date.now() / 1000 - 60 * 60 * 24 * 30
-                "
-              >
-                We've started tracking {{ technology.name }}. It may take a few
-                weeks to collect a meaningful amount of information, which will
-                be displayed here.
-              </template>
-              <template v-else>
-                {{ technology.name }} appears to have a small userbase. Only
-                technologies with considerable usage are displayed.
-              </template>
-            </v-alert>
-
-            <v-btn
-              to="/technologies/"
-              class="mt-4"
-              color="accent"
-              outlined
-              exact
-            >
-              <v-icon left>{{ mdiMagnify }}</v-icon>
-              Browse technologies
-            </v-btn>
+          <template
+            v-if="technology.createdAt > Date.now() / 1000 - 60 * 60 * 24 * 30"
+          >
+            We've started tracking {{ technology.name }}. It may take a few
+            weeks to collect a meaningful amount of information, which will be
+            displayed here.
           </template>
           <template v-else>
-            <p v-if="technology.description" class="mb-8">
+            {{ technology.name }} appears to have a small userbase. Only
+            technologies with considerable usage are displayed.
+          </template>
+        </v-alert>
+
+        <v-btn to="/technologies/" class="mt-4" color="accent" outlined exact>
+          <v-icon left>{{ mdiMagnify }}</v-icon>
+          Browse technologies
+        </v-btn>
+      </template>
+      <template v-else>
+        <v-row align="center">
+          <v-col cols="12" sm="8">
+            <p v-if="technology.description" class="mb-8 subtitle-1">
               {{ technology.description }}
             </p>
+          </v-col>
+        </v-row>
 
-            <v-alert color="primary" outlined>
-              <p>
-                Create a list of
-                {{ formatNumber(technology.hostnames, true) }}
-                <nuxt-link
-                  class="primary--text"
-                  :to="`/lists/?technologies=${slug}`"
+        <v-alert color="primary" outlined>
+          <p>
+            Create a list of
+            {{ formatNumber(technology.hostnames, true) }}
+            <nuxt-link
+              class="primary--text"
+              :to="`/lists/?technologies=${slug}`"
+            >
+              {{ technology.name }} websites</nuxt-link
+            >
+            with email addresses and phone numbers.
+          </p>
+
+          <v-btn
+            :to="`/lists/?technologies=${slug}`"
+            color="primary"
+            class="mt-2"
+            large
+            depressed
+          >
+            <v-icon left>{{ mdiFilterVariant }}</v-icon> Create a lead list
+          </v-btn>
+        </v-alert>
+
+        <v-divider class="my-12" />
+
+        <h2 class="mb-4">
+          <v-row class="align-center px-3">
+            <v-icon color="primary" class="mr-2">{{ mdiEarth }}</v-icon>
+            Websites using {{ technology.name }}
+          </v-row>
+        </h2>
+
+        <p class="mb-6">
+          These are the top websites usings {{ technology.name }} based on
+          traffic.
+        </p>
+
+        <v-card class="mb-4">
+          <v-card-text class="px-0">
+            <v-simple-table>
+              <tbody>
+                <tr>
+                  <th>Website</th>
+                  <th>Traffic</th>
+                </tr>
+                <tr
+                  v-for="(attributes, hostname) in technology.topHostnames"
+                  :key="hostname"
                 >
-                  {{ technology.name }} websites</nuxt-link
-                >
-                with email addresses and phone numbers.
-              </p>
-
-              <v-btn
-                :to="`/lists/?technologies=${slug}`"
-                color="primary"
-                depressed
-              >
-                <v-icon left>{{ mdiFilterVariant }}</v-icon> Create a lead list
-              </v-btn>
-            </v-alert>
-
-            <v-divider class="mt-12 mb-8" />
-
-            <h2 class="mb-2">
-              <v-row class="align-center px-3">
-                <v-icon color="primary" class="mr-2">{{ mdiEarth }}</v-icon>
-                Websites using {{ technology.name }}
-              </v-row>
-            </h2>
-
-            <p class="mb-6">
-              These are the top websites usings {{ technology.name }} based on
-              traffic.
-            </p>
-
-            <v-card class="mb-4">
-              <v-card-text class="px-0">
-                <v-simple-table>
-                  <tbody>
-                    <tr
-                      v-for="(attributes, hostname) in technology.topHostnames"
-                      :key="hostname"
+                  <td width="50%">
+                    <nuxt-link :to="`/lookup/${hostname}`">
+                      {{ hostname }}</nuxt-link
                     >
-                      <td width="50%">
-                        <nuxt-link :to="`/lookup/${hostname}`">
-                          {{ hostname }}</nuxt-link
-                        >
 
-                        <a
-                          :href="`http${attributes.https ? 's' : ''}://${
-                            attributes.www ? 'www.' : ''
-                          }${hostname}`"
-                          rel="nofollow noopener"
-                          target="_blank"
-                          ><v-icon color="accent" small>{{
-                            mdiOpenInNew
-                          }}</v-icon></a
-                        >
-                      </td>
-                      <td>
-                        <Bar
-                          :value="attributes.hits"
-                          :max="maxHits"
-                          :total="technology.hits"
-                          class="mt-2 mt-md-0 mr-4"
-                        />
-                      </td>
-                    </tr>
-                  </tbody>
-                </v-simple-table>
-              </v-card-text>
-            </v-card>
+                    <a
+                      :href="`http${attributes.https ? 's' : ''}://${
+                        attributes.www ? 'www.' : ''
+                      }${hostname}`"
+                      rel="nofollow noopener"
+                      target="_blank"
+                      ><v-icon color="accent" small>{{
+                        mdiOpenInNew
+                      }}</v-icon></a
+                    >
+                  </td>
+                  <td>
+                    <Bar
+                      :value="attributes.hits"
+                      :max="maxHits"
+                      :total="technology.hits"
+                      class="mt-2 mt-md-0 mr-4"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </v-simple-table>
+          </v-card-text>
+        </v-card>
 
-            <p class="mb-8">
-              <small>
-                Get the full list of
-                <nuxt-link :to="`/lists/?technologies=${slug}`"
-                  >websites and companies using {{ technology.name }}</nuxt-link
-                >.
-              </small>
-            </p>
+        <p class="mb-8">
+          <small>
+            Get the full list of
+            <nuxt-link :to="`/lists/?technologies=${slug}`"
+              >websites and companies using {{ technology.name }}</nuxt-link
+            >.
+          </small>
+        </p>
 
-            <h3 class="mb-2">{{ technology.name }} reports</h3>
+        <h3 class="mb-2">{{ technology.name }} reports</h3>
 
-            <p>
-              Create relevant reports for {{ technology.name }} to find leads or
-              learn more about your target audience.
-            </p>
+        <p>
+          Create relevant reports for {{ technology.name }} to find leads or
+          learn more about your target audience.
+        </p>
 
-            <v-card class="mb-4">
-              <v-card-title class="subtitle-2"> Example reports </v-card-title>
-              <v-card-text class="px-0">
-                <v-simple-table>
-                  <tbody>
-                    <tr v-for="(list, index) in lists" :key="index">
-                      <td>
-                        <a
-                          class="d-flex align-center"
-                          @click="createList(list)"
-                        >
-                          <v-icon left>{{ mdiFileTableOutline }}</v-icon
-                          ><span>{{ list.text }}</span>
-                        </a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </v-simple-table>
-              </v-card-text>
-            </v-card>
+        <v-card class="mb-4">
+          <v-card-title class="subtitle-2"> Example reports </v-card-title>
+          <v-card-text class="px-0">
+            <v-simple-table dense>
+              <tbody>
+                <tr v-for="(list, index) in lists" :key="index">
+                  <td>
+                    <a class="d-flex align-center" @click="createList(list)">
+                      <v-icon left>{{ mdiFileTableOutline }}</v-icon
+                      ><span>{{ list.text }}</span>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </v-simple-table>
+          </v-card-text>
+        </v-card>
 
-            <p>
-              <small>
-                Or,
-                <nuxt-link :to="`/lists/?technologies=${slug}`">
-                  Create a custom {{ technology.name }} report</nuxt-link
-                >.
-              </small>
-            </p>
+        <p>
+          <small>
+            Or,
+            <nuxt-link :to="`/lists/?technologies=${slug}`">
+              Create a custom {{ technology.name }} report</nuxt-link
+            >.
+          </small>
+        </p>
 
-            <v-divider class="my-8" />
+        <v-divider class="my-12" />
 
-            <h2 class="mb-2">
-              <v-row class="align-center px-3">
-                <v-icon color="primary" class="mr-2">{{ mdiFinance }}</v-icon>
-                {{ technology.name }} usage trend
-              </v-row>
-            </h2>
+        <h2 class="mb-4">
+          <v-row class="align-center px-3">
+            <v-icon color="primary" class="mr-2">{{ mdiFinance }}</v-icon>
+            {{ technology.name }} usage trend
+          </v-row>
+        </h2>
 
-            <p class="mb-6">
-              This graph shows the growth of {{ technology.name }} since
-              {{ formatDate(trendStartDate, 'monthYear') }}.
-            </p>
+        <p class="mb-6">
+          This graph shows the growth of {{ technology.name }} since
+          {{ formatDate(trendStartDate, 'monthYear') }}.
+        </p>
 
+        <v-card>
+          <v-card-text>
+            <GChart
+              type="LineChart"
+              :data="trend"
+              :options="lineChartOptions"
+              width="100%"
+            />
+          </v-card-text>
+        </v-card>
+
+        <v-divider class="my-12" />
+
+        <h2 class="mb-4">
+          <v-row class="align-center px-3">
+            <v-icon color="primary" class="mr-2">{{ mdiMap }}</v-icon>
+            {{ technology.name }} demographics
+          </v-row>
+        </h2>
+
+        <p class="mb-10">
+          A breakdown of countries and languages used by
+          {{ technology.name }} websites.
+        </p>
+
+        <v-row class="mb-12">
+          <v-col cols="12" md="6" class="py-0">
             <v-card>
-              <v-card-text>
+              <v-card-title class="subtitle-2">Countries</v-card-title>
+              <v-card-text class="pb-8">
                 <GChart
-                  type="LineChart"
-                  :data="trend"
-                  :options="lineChartOptions"
+                  type="PieChart"
+                  :data="topIpCountries"
+                  :options="pieChartOptions"
                   width="100%"
                 />
               </v-card-text>
             </v-card>
-
-            <v-divider class="mt-12 mb-8" />
-
-            <h2 class="mb-2">
-              <v-row class="align-center px-3">
-                <v-icon color="primary" class="mr-2">{{ mdiMap }}</v-icon>
-                {{ technology.name }} demographics
-              </v-row>
-            </h2>
-
-            <p class="mb-6">
-              A breakdown of countries and languages used by
-              {{ technology.name }} websites.
-            </p>
-
-            <v-row class="mb-12">
-              <v-col cols="12" md="6" class="py-0">
-                <v-card>
-                  <v-card-title class="subtitle-2">Countries</v-card-title>
-                  <v-card-text class="pb-8">
-                    <GChart
-                      type="PieChart"
-                      :data="topIpCountries"
-                      :options="pieChartOptions"
-                      width="100%"
-                    />
-                  </v-card-text>
-                </v-card>
-              </v-col>
-              <v-col cols="12" md="6" class="py-0">
-                <v-card>
-                  <v-card-title class="subtitle-2">Languages</v-card-title>
-                  <v-card-text class="pb-8">
-                    <GChart
-                      type="PieChart"
-                      :data="topLanguages"
-                      :options="pieChartOptions"
-                    />
-                  </v-card-text>
-                </v-card>
-              </v-col>
-            </v-row>
-
-            <v-divider class="my-8" />
-
-            <h2 class="mb-2">
-              <v-row class="align-center px-3">
-                <v-icon color="primary" class="mr-2">{{
-                  mdiLightbulbOnOutline
-                }}</v-icon>
-                Alternatives to {{ technology.name }}
-              </v-row>
-            </h2>
-
-            <p class="mb-6">
-              These are the most popular {{ technology.name }} alternatives
-              based on market share in {{ new Date().getFullYear() }}.
-            </p>
-
-            <template v-if="technology.alternatives.length">
-              <v-card class="my-4">
-                <v-card-text class="px-0">
-                  <v-simple-table>
-                    <thead>
-                      <tr>
-                        <th width="30%">Technology</th>
-                        <th>Market share</th>
-                        <th width="30%" class="text-right">Compare</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr
-                        v-for="alternative in technology.alternatives"
-                        :key="alternative.slug"
-                      >
-                        <td>
-                          <nuxt-link
-                            :to="`/technologies/${alternative.categorySlug}/${alternative.slug}/`"
-                            class="body-2 d-flex align-center my-2"
-                          >
-                            <TechnologyIcon :icon="alternative.icon" />
-                            {{ alternative.name }}
-                          </nuxt-link>
-                        </td>
-                        <td>
-                          <Bar
-                            :value="alternative.hostnames"
-                            :max="maxHostnames"
-                            :total="totalHostnames"
-                          />
-                        </td>
-                        <td class="text-right">
-                          <small>
-                            <nuxt-link
-                              :to="`/compare/${technology.slug}-vs-${alternative.slug}/`"
-                            >
-                              {{ technology.name }} vs.
-                              {{ alternative.name }}
-                              <v-icon color="accent" small>{{
-                                mdiArrowRight
-                              }}</v-icon>
-                            </nuxt-link>
-                          </small>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </v-simple-table>
-                </v-card-text>
-              </v-card>
-            </template>
-
-            <p>
-              <small>
-                See the full list of
-                <nuxt-link :to="`/technologies/${categorySlug}/`"
-                  >{{ technology.name }} alternatives</nuxt-link
-                >.
-              </small>
-            </p>
-          </template>
-        </v-col>
-        <v-col cols="12" lg="3" class="py-0">
-          <v-divider class="mt-4 mb-8 d-lg-none" />
-
-          <h2 class="mb-2">User reviews</h2>
-
-          <div class="mb-4 caption text--disabled">
-            <StarRating :stars="technology.rating" large />
-            ({{ formatNumber(technology.reviewCount) }})
-          </div>
-
-          <div class="mb-6">
-            <v-btn outlined @click="openReviewDialog">
-              <v-icon left>{{ mdiFountainPenTip }}</v-icon>
-              Write a review</v-btn
-            >
-          </div>
-
-          <template v-if="technology.reviews.length">
-            <Review
-              v-for="(_review, index) in technology.reviews"
-              :key="index"
-              :review="_review"
-              class="mb-4"
-            />
-          </template>
-          <template v-else>
-            <v-card outlined>
-              <v-card-text class="caption text--disabled text-center">
-                No reviews yet!
+          </v-col>
+          <v-col cols="12" md="6" class="py-0">
+            <v-card>
+              <v-card-title class="subtitle-2">Languages</v-card-title>
+              <v-card-text class="pb-8">
+                <GChart
+                  type="PieChart"
+                  :data="topLanguages"
+                  :options="pieChartOptions"
+                />
               </v-card-text>
             </v-card>
-          </template>
-        </v-col>
-      </v-row>
+          </v-col>
+        </v-row>
+
+        <v-divider class="my-12" />
+
+        <h2 class="mb-4">
+          <v-row class="align-center px-3">
+            <v-icon color="primary" class="mr-2">{{
+              mdiLightbulbOnOutline
+            }}</v-icon>
+            Alternatives to {{ technology.name }}
+          </v-row>
+        </h2>
+
+        <p class="mb-6">
+          These are the most popular {{ technology.name }} alternatives in
+          {{ new Date().getFullYear() }}.
+        </p>
+
+        <template v-if="technology.alternatives.length">
+          <v-card class="my-4">
+            <v-card-text class="px-0">
+              <v-simple-table>
+                <thead>
+                  <tr>
+                    <th width="1">#</th>
+                    <th>Technology</th>
+                    <th width="30%" class="text-right">Compare</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(alternative, index) in technology.alternatives"
+                    :key="alternative.slug"
+                  >
+                    <th>
+                      {{ index + 1 }}
+                    </th>
+                    <td>
+                      <nuxt-link
+                        :to="`/technologies/${alternative.categorySlug}/${alternative.slug}/`"
+                        class="body-2 d-flex align-center my-2"
+                      >
+                        <TechnologyIcon :icon="alternative.icon" />
+                        {{ alternative.name }}
+                      </nuxt-link>
+                    </td>
+                    <td class="text-right">
+                      <small>
+                        <nuxt-link
+                          :to="`/compare/${technology.slug}-vs-${alternative.slug}/`"
+                          class="black--text"
+                        >
+                          {{ technology.name }} vs.
+                          {{ alternative.name }}
+                        </nuxt-link>
+                      </small>
+                    </td>
+                  </tr>
+                </tbody>
+              </v-simple-table>
+            </v-card-text>
+          </v-card>
+        </template>
+
+        <p>
+          <small>
+            See the full list of
+            <nuxt-link :to="`/technologies/${categorySlug}/`"
+              >{{ technology.name }} alternatives</nuxt-link
+            >.
+          </small>
+        </p>
+      </template>
+
+      <v-divider class="mt-12 mb-10" />
+
+      <h2 class="mb-2">User reviews</h2>
+
+      <div class="mb-4 caption text--disabled">
+        <StarRating :stars="technology.rating" large />
+        ({{ formatNumber(technology.reviewCount) }})
+      </div>
+
+      <div class="mb-6">
+        <v-btn outlined @click="openReviewDialog">
+          <v-icon left>{{ mdiFountainPenTip }}</v-icon>
+          Write a review</v-btn
+        >
+      </div>
+
+      <template v-if="technology.reviews.length">
+        <Review
+          v-for="(_review, index) in technology.reviews"
+          :key="index"
+          :review="_review"
+          class="mb-4"
+        />
+      </template>
+      <template v-else>
+        <v-card outlined>
+          <v-card-text class="caption text--disabled text-center">
+            No reviews yet!
+          </v-card-text>
+        </v-card>
+      </template>
     </Page>
 
     <v-dialog v-model="reviewDialog" max-width="500px">

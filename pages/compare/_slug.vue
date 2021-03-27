@@ -14,7 +14,7 @@
           :key="technology.slug"
           class="py-0"
         >
-          <h1 class="d-flex align-center mb-4">
+          <h1 class="d-flex align-center mb-2">
             <TechnologyIcon
               :icon="technology ? technology.icon : 'default.svg'"
               large
@@ -23,64 +23,74 @@
             {{ technology.name }}
           </h1>
 
-          <div class="mb-4 caption text--disabled">
+          <div class="mb-6 caption text--disabled">
             <StarRating :stars="technology.rating" large />
             ({{ formatNumber(technology.reviewCount) }})
           </div>
         </v-col>
       </v-row>
 
-      <v-row class="mb-8">
+      <v-row class="mb-12">
         <v-col
           v-for="technology in technologies"
           :key="technology.slug"
           class="py-0"
         >
-          <v-row class="align-center px-3 my-2 body-2">
-            <v-icon class="mr-2" small>{{ mdiLink }}</v-icon>
-            <div>
-              <a :href="technology.website" target="_blank">
-                {{ formatHostname(technology.website) }}
-              </a>
-            </div>
-          </v-row>
+          <v-card class="mt-2" height="100%">
+            <v-card-text class="py-2 pb-0">
+              <v-row class="align-center px-3 my-2 body-2">
+                <v-icon class="mr-2" small>{{ mdiLink }}</v-icon>
+                <div>
+                  <a :href="technology.website" target="_blank">
+                    {{ formatHostname(technology.website) }}
+                  </a>
+                </div>
+              </v-row>
 
-          <v-row class="align-center px-3 my-2 body-2">
-            <v-icon class="mr-2" small>{{ mdiShape }}</v-icon>
-            <div>
-              <span
-                v-for="({ slug: _slug, name }, index) in technology.categories"
-                :key="_slug"
-              >
-                <template v-if="index">,</template>
-                <nuxt-link :to="`/technologies/${_slug}/`">{{
-                  name
-                }}</nuxt-link>
-              </span>
-            </div>
-          </v-row>
+              <v-row class="align-center px-3 my-2 body-2">
+                <v-icon class="mr-2" small>{{ mdiShape }}</v-icon>
+                <div>
+                  <span
+                    v-for="(
+                      { slug: _slug, name }, index
+                    ) in technology.categories"
+                    :key="_slug"
+                  >
+                    <template v-if="index">,</template>
+                    <nuxt-link :to="`/technologies/${_slug}/`">{{
+                      name
+                    }}</nuxt-link>
+                  </span>
+                </div>
+              </v-row>
 
-          <v-row class="align-center px-3 my-2 body-2">
-            <v-icon class="mr-2" small>{{ mdiEarth }}</v-icon>
-            <div>
-              <nuxt-link
-                :to="`/technologies/${
-                  technology.categories.length
-                    ? `${technology.categories[0].slug}/`
-                    : ''
-                }${technology.slug}`"
-              >
-                {{ formatNumber(technology.hostnames, true) }} websites
-              </nuxt-link>
-            </div>
-          </v-row>
+              <v-row class="align-center px-3 my-2 body-2">
+                <v-icon class="mr-2" small>{{ mdiEarth }}</v-icon>
+                <div>
+                  <nuxt-link
+                    :to="`/technologies/${
+                      technology.categories.length
+                        ? `${technology.categories[0].slug}/`
+                        : ''
+                    }${technology.slug}`"
+                  >
+                    {{ formatNumber(technology.hostnames, true) }} websites
+                  </nuxt-link>
+                </div>
+              </v-row>
 
-          <v-row class="align-center px-3 my-2 body-2">
-            <v-icon class="mr-2" small>{{ mdiInformation }}</v-icon>
-            <div>
-              {{ technology.description || 'No description available.' }}
-            </div>
-          </v-row>
+              <v-row class="px-3 my-2 body-2">
+                <v-col class="pa-0 flex-grow-0 flex-shrink-1">
+                  <v-icon class="mr-2" small>{{ mdiInformation }}</v-icon>
+                </v-col>
+                <v-col class="pa-0">
+                  <div>
+                    {{ technology.description || 'No description available.' }}
+                  </div>
+                </v-col>
+              </v-row>
+            </v-card-text>
+          </v-card>
         </v-col>
       </v-row>
 
@@ -120,7 +130,7 @@
         </v-row>
       </h2>
 
-      <v-card class="mb-8">
+      <v-card class="mb-4">
         <v-card-title class="subtitle-2">Install base</v-card-title>
         <v-card-text class="pb-0">
           <v-row>
