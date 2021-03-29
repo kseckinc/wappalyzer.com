@@ -27,7 +27,7 @@
     </v-container>
 
     <v-container>
-      <Testimonials class="mb-4" />
+      <Testimonials class="mt-4 mb-8" />
     </v-container>
   </div>
 </template>

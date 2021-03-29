@@ -1,6 +1,6 @@
 <template>
-  <v-card flat>
-    <v-card-text class="pl-0">
+  <v-card class="mb-6" outlined>
+    <v-card-text>
       <v-row>
         <v-col cols="12" sm="3">
           <v-avatar
@@ -13,13 +13,13 @@
           </v-avatar>
         </v-col>
         <v-col cols="12" sm="9">
-          <p class="font-italic">"{{ text }}"</p>
+          <q class="d-block mb-4 font-italic">{{ text }}</q>
 
-          <span>
-            &mdash; <strong>{{ name }}</strong
+          <small>
+            <strong>{{ name }}</strong
             ><br />
-            <small>{{ role }}</small>
-          </span>
+            {{ role }}</small
+          >
         </v-col>
       </v-row>
     </v-card-text>

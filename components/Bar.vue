@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="bar" color="secondary" rounded>
+  <v-sheet class="bar" color="primary lighten-1" rounded>
     <span class="bar__value bar__value--background"> {{ percentage }}% </span>
     <v-sheet
       :width="`${(100 / Math.max(1, max)) * value}%`"

@@ -9,12 +9,12 @@
       :head="{ title, meta }"
       no-head
     >
-      <UseCases />
+      <h1 class="mb-4 text-h2">Empower your sales and marketing teams</h1>
 
-      <v-divider class="my-4 my-sm-6" />
+      <UseCases class="mb-10" />
 
       <div v-for="(name, index) in products" :key="index">
-        <v-divider v-if="index" class="my-4 my-sm-6" />
+        <v-divider v-if="index" class="my-4 my-sm-10" />
 
         <Product :name="name" :mirror="index % 2 !== 0" />
       </div>
