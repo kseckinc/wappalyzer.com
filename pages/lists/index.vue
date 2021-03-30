@@ -53,7 +53,8 @@
                   <v-card-title class="subtitle-2">Technologies</v-card-title>
                   <v-card-text>
                     <p class="mb-0">
-                      Choose one or more technologies to include.
+                      Choose one or more technologies (e.g. 'Shopify') or
+                      categories (e.g. 'Ecommerce').
                     </p>
 
                     <Technologies ref="selector" @select="selectItem" />
@@ -152,10 +153,10 @@
                     </v-simple-table>
                   </v-card-text>
 
-                  <v-card-text class="pt-0">
+                  <v-card-text v-if="selectedItems.length === 2" class="pt-0">
                     <v-checkbox
                       v-model="matchAllTechnologies"
-                      label="Only include websites that use both technologies (select two)"
+                      label="Only include websites that use both technologies"
                       class="mt-0"
                       hide-details
                       :disabled="
@@ -168,7 +169,11 @@
               </v-card-text>
 
               <v-card-text>
-                <v-expansion-panels v-model="panelsSelection" multiple>
+                <v-expansion-panels
+                  v-model="panelsSelection"
+                  :disabled="!selectedItems.length"
+                  multiple
+                >
                   <v-expansion-panel ref="industries">
                     <v-expansion-panel-header class="subtitle-2">
                       Industries
@@ -259,6 +264,19 @@
                           {{ item.text }}
                         </v-chip>
                       </v-chip-group>
+
+                      <v-alert
+                        color="secondary"
+                        border="left"
+                        class="mt-8 mb-2"
+                        dense
+                      >
+                        <small>
+                          We classify website content using machine learning to
+                          best-guess industry. For best results, select all or
+                          as many secondary industries as possible.
+                        </small>
+                      </v-alert>
                     </v-expansion-panel-content>
                   </v-expansion-panel>
 
@@ -290,6 +308,18 @@
                         label="Social media profiles"
                         hide-details
                       />
+
+                      <v-alert
+                        color="secondary"
+                        border="left"
+                        class="mt-8 mb-2"
+                        dense
+                      >
+                        <small>
+                          Leave blank to include all results, including websites
+                          for which we don't have contact information.
+                        </small>
+                      </v-alert>
                     </v-expansion-panel-content>
                   </v-expansion-panel>
                 </v-expansion-panels>
@@ -303,36 +333,47 @@
                 Limits <span class="grey--text ml-1">(optional)</span>
               </v-card-title>
               <v-card-text>
-                <v-expansion-panels v-model="panelsLimits" multiple>
+                <v-expansion-panels
+                  v-model="panelsLimits"
+                  :disabled="!selectedItems.length"
+                  multiple
+                >
                   <v-expansion-panel ref="subset">
                     <v-expansion-panel-header class="subtitle-2">
-                      List size / website traffic
+                      List size &amp; website traffic
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                       <p>
-                        Limit the size of the list to a number of high or low
-                        traffic websites per technology.
+                        Optionally limit the size of the list to a number of
+                        high or low traffic websites per technology.
                       </p>
 
-                      <v-text-field
-                        v-model="subset"
-                        label="Maximum number of websites"
-                        :rules="[
-                          (v) => /^[0-9]+$/.test(v) || 'Value must be numeric',
-                          (v) =>
-                            (parseInt(v, 10) >= 500 &&
-                              (isAdmin || parseInt(v, 10) <= 1000000)) ||
-                            'Subset size must be between at 500 and 1M. For larger lists, please contact us.',
-                        ]"
-                        class="my-8 pt-0"
-                        placeholder="500000"
-                        hide-details="auto"
-                      />
+                      <div style="max-width: 150px">
+                        <v-text-field
+                          v-model="subset"
+                          label="Size limit"
+                          :rules="[
+                            (v) =>
+                              !v ||
+                              /^[0-9]+$/.test(v) ||
+                              'Value must be numeric',
+                            (v) =>
+                              !v ||
+                              (parseInt(v, 10) >= 500 &&
+                                (isAdmin || parseInt(v, 10) <= 1000000)) ||
+                              'Subset size must be between at 500 and 1M. For larger lists, please contact us.',
+                          ]"
+                          class="mt-6 mb-8 pt-0"
+                          placeholder="500000"
+                          hide-details="auto"
+                        />
+                      </div>
 
                       <v-slider
                         v-model="subsetSlice"
                         label="Traffic"
                         :tick-labels="['Highest', '', 'Medium', '', 'Lowest']"
+                        :disabled="!subset"
                         min="0"
                         max="4"
                         hide-details="auto"
@@ -344,6 +385,20 @@
                         label="Exclude websites without traffic data"
                         hide-details
                       />
+
+                      <v-alert
+                        color="secondary"
+                        border="left"
+                        class="mt-6 mb-2"
+                        dense
+                      >
+                        <small>
+                          Set a list size limit to control your budget or to
+                          only include less trafficked websites. The default
+                          limit is 500,000 most trafficked websites per
+                          technology.
+                        </small>
+                      </v-alert>
                     </v-expansion-panel-content>
                   </v-expansion-panel>
 
@@ -353,20 +408,19 @@
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                       <p>
-                        Choose an age range in months. Lower values yield
-                        fresher results. A smaller range yields fewer results.
-                        Recommended range is 0-3.
+                        Choose range in months to only include websites verified
+                        within this range. Recommended range is 0-3.
                       </p>
 
-                      <v-row>
-                        <v-col class="py-0">
+                      <v-row class="mt-6">
+                        <v-col>
                           <v-slider
                             v-model="minAge"
                             label="Min"
                             min="0"
                             max="11"
-                            thumb-size="24"
-                            thumb-label
+                            thumb-size="20"
+                            thumb-label="always"
                             hint="A non-zero minimum returns historical results only"
                             :rules="[
                               (v) => v < maxAge || 'Must be lower than max age',
@@ -375,14 +429,14 @@
                             hide-details="auto"
                           />
                         </v-col>
-                        <v-col class="py-0">
+                        <v-col>
                           <v-slider
                             v-model="maxAge"
                             label="Max"
                             min="1"
                             max="12"
-                            thumb-size="24"
-                            thumb-label
+                            thumb-size="20"
+                            thumb-label="always"
                             :rules="[
                               (v) =>
                                 v > minAge || 'Must be greater than min age',
@@ -391,6 +445,24 @@
                           />
                         </v-col>
                       </v-row>
+
+                      <v-alert
+                        color="secondary"
+                        border="left"
+                        class="mt-6 mb-2"
+                        dense
+                      >
+                        <small>
+                          We attempt to analyse every website at least once a
+                          month. A data age range of 0-3 means we include
+                          websites that have been verified at least once in the
+                          last three months.<br /><br />
+                          A lower maximum yields fresher but fewer results.<br />
+                          A higher maximum yields more but possibly outdated
+                          results.<br />
+                          A higher minimum yields historic data.
+                        </small>
+                      </v-alert>
                     </v-expansion-panel-content>
                   </v-expansion-panel>
 
@@ -412,6 +484,20 @@
                         class="mb-4 pt-0"
                         @change="fileChange"
                       />
+
+                      <v-alert
+                        color="secondary"
+                        border="left"
+                        class="mt-6 mb-2"
+                        dense
+                      >
+                        <small>
+                          If you purchased a similar list before and want to
+                          avoid duplicates, upload a list of websites to
+                          exclude. This way you only pay for results you don't
+                          already have.
+                        </small>
+                      </v-alert>
                     </v-expansion-panel-content>
                   </v-expansion-panel>
                 </v-expansion-panels>
@@ -422,7 +508,7 @@
                 Filters <span class="grey--text ml-1">(optional)</span>
               </v-card-title>
               <v-card-text>
-                <v-expansion-panels multiple>
+                <v-expansion-panels :disabled="!selectedItems.length" multiple>
                   <v-expansion-panel ref="ipCountries">
                     <v-expansion-panel-header class="subtitle-2">
                       IP countries
@@ -512,6 +598,19 @@
                           }}
                         </v-tooltip>
                       </v-chip-group>
+
+                      <v-alert
+                        color="secondary"
+                        border="left"
+                        class="mt-6 mb-2"
+                        dense
+                      >
+                        <small>
+                          We perform a lookup on a website's IP address to
+                          determine the country it's hosted in. This may be
+                          different from the country a business operates from.
+                        </small>
+                      </v-alert>
                     </v-expansion-panel-content>
                   </v-expansion-panel>
 
@@ -520,20 +619,10 @@
                       Top-level domains
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
-                      <p>
-                        Target countries by top-level domain.<sup
-                          ><a
-                            href="https://en.wikipedia.org/wiki/Top-level_domain"
-                            target="_blank"
-                            ><v-icon color="accent" small>{{
-                              mdiHelpCircleOutline
-                            }}</v-icon></a
-                          ></sup
-                        >
-                      </p>
+                      <p>Target countries by top-level domain.</p>
 
                       <v-row>
-                        <v-col class="py-0">
+                        <v-col>
                           <v-select
                             ref="country"
                             v-model="selectedCountry"
@@ -544,7 +633,7 @@
                             eager
                           />
                         </v-col>
-                        <v-col class="py-0">
+                        <v-col>
                           <v-form ref="form" @submit.prevent="addTld">
                             <v-text-field
                               v-model="tld"
@@ -635,6 +724,19 @@
                           {{ item.parent }}
                         </v-tooltip>
                       </v-chip-group>
+
+                      <v-alert
+                        color="secondary"
+                        border="left"
+                        class="mt-4 mb-2"
+                        dense
+                      >
+                        <small>
+                          The top-level domain is the last part of a domain name
+                          (e.g. '.com'). This can be used to target websites in
+                          specific countries (e.g. '.com.au' for Australia).
+                        </small>
+                      </v-alert>
                     </v-expansion-panel-content>
                   </v-expansion-panel>
 
@@ -747,7 +849,7 @@
 
                       <v-chip-group
                         v-if="selected.languages.length"
-                        class="mt-n1 mb-2"
+                        class="mt-n1"
                         column
                       >
                         <v-tooltip
@@ -782,6 +884,7 @@
                   v-model="matchAll"
                   class="mb-4"
                   label="Match all filters (yields fewer results)"
+                  :disabled="!selectedItems.length"
                   hide-details
                 ></v-checkbox>
               </v-card-text>
@@ -1019,7 +1122,7 @@ export default {
         tlds: [],
         languages: [],
       },
-      subset: 500000,
+      subset: null,
       subsetSlice: 0,
       excludeNoTraffic: false,
       updateQueryTimeout: null,
@@ -1240,6 +1343,7 @@ export default {
       tlds
         .toString()
         .split(',')
+        .filter((tld) => tld)
         .forEach((tld) => {
           this.tld = tld
 
@@ -1388,7 +1492,7 @@ export default {
         !this.selected.geoIps.length &&
         !this.selected.tlds.length &&
         !this.selected.industries.length &&
-        this.subset >= 500000
+        parseInt(this.subset || 50000, 10) >= 500000
       ) {
         this.confirmDialog = true
 
@@ -1438,7 +1542,7 @@ export default {
                 this.selectedItems.length === 2 &&
                 this.selected.technologies.length === 2 &&
                 this.matchAllTechnologies,
-              subset: this.subset,
+              subset: this.subset || 50000,
               subsetSlice: this.subsetSlice || 0,
               excludeNoTraffic: this.excludeNoTraffic,
               minAge: this.minAge,
@@ -1719,7 +1823,10 @@ export default {
           industries: this.selected.industries
             .map(({ value }) => value)
             .join(','),
-          subset: this.subset !== 500000 ? this.subset.toString() : undefined,
+          subset:
+            this.subset && this.subset !== 500000
+              ? this.subset.toString()
+              : undefined,
           traffic: this.subsetSlice ? this.subsetSlice.toString() : undefined,
           notraffic: this.excludeNoTraffic ? 'exclude' : undefined,
           min: this.minAge !== 0 ? this.minAge.toString() : undefined,
