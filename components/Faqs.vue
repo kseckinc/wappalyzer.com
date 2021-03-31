@@ -43,16 +43,16 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <p>
-            Lead lists can be filtered by IP country, top-level domain and
-            language. Right now we do not segment by company information such as
-            size, revenu or industry.
+            Lead lists can be filtered by IP country, top-level domain, language
+            and industry. Right now we do not segment by company information
+            such as size or revenue.
           </p>
         </v-expansion-panel-content>
       </v-expansion-panel>
 
       <v-expansion-panel>
         <v-expansion-panel-header class="subtitle-2">
-          The technology I'm looking for is not in the list, can it be added?
+          A technology I'm looking for is not in the list, can it be added?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <p>
@@ -268,7 +268,32 @@
       </v-expansion-panel>
     </v-expansion-panels>
 
-    <v-expansion-panels v-if="topic === 'credits'">
+    <v-expansion-panels v-if="topic === 'pricing'">
+      <v-expansion-panel>
+        <v-expansion-panel-header class="subtitle-2">
+          Do I need to sign up for a paid plan?
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <p>
+            We accept one-time payments for lead lists, bulk technology lookups
+            and credits. A paid plan may work out to be cheaper, particularly
+            when making regular or higher volume purchases.
+          </p>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
+      <v-expansion-panel>
+        <v-expansion-panel-header class="subtitle-2">
+          Can I cancel my plan any time?
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <p>
+            Yes, you can cancel your plan any time without losing access to your
+            credits or past purchases.
+          </p>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
       <v-expansion-panel>
         <v-expansion-panel-header class="subtitle-2">
           What are credits?
@@ -316,10 +341,10 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <p>
-            Credits are generally non-refundable. However, if you're
-            dissatisfied with the quality of our offering we will either work
-            with you to resolve the issue, credit your account or issue a
-            pro-rata refund. Please refer to the
+            If you're dissatisfied with the quality of our offering we will
+            either work with you to resolve the issue, credit your account or
+            issue a pro-rata refund. Credits are generally non-refundable.
+            Please refer to the
             <nuxt-link to="/terms/">terms of use</nuxt-link>.
           </p>
         </v-expansion-panel-content>

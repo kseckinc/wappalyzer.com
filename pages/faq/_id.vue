@@ -30,10 +30,10 @@ const faqs = {
     icon: 'mdiConsole',
     to: '/faq/api/',
   },
-  credits: {
-    title: 'Credits',
-    icon: 'mdiAlphaCCircle',
-    to: '/faq/credits/',
+  pricing: {
+    title: 'Pricing',
+    icon: 'mdiCalculator',
+    to: '/faq/pricing/',
   },
   extension: {
     title: 'Browser extension',

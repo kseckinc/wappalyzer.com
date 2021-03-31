@@ -23,7 +23,12 @@
       </v-card>
 
       <div class="mt-4">
-        <v-btn color="accent" class="mb-2" outlined @click="faqDialog = true">
+        <v-btn
+          color="accent"
+          class="mb-2 mr-2"
+          outlined
+          @click="faqDialog = true"
+        >
           <v-icon left>{{ mdiForum }}</v-icon>
           FAQs
         </v-btn>

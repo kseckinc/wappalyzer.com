@@ -44,7 +44,7 @@
 <script>
 import {
   mdiAccount,
-  mdiAlphaCCircle,
+  mdiCalculator,
   mdiCreditCard,
   mdiCalendarSync,
   mdiCart,
@@ -72,7 +72,7 @@ export default {
     return {
       mdi: {
         mdiAccount,
-        mdiAlphaCCircle,
+        mdiCalculator,
         mdiCreditCard,
         mdiCalendarSync,
         mdiCart,

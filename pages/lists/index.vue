@@ -1,6 +1,35 @@
 <template>
   <div>
     <Page :title="title" :head="meta">
+      <div class="mb-6">
+        <v-btn
+          color="accent"
+          class="mt-4 mr-2"
+          outlined
+          @click="$refs.pricingDialog.open()"
+        >
+          <v-icon left>{{ mdiCalculator }}</v-icon>
+          Pricing
+        </v-btn>
+
+        <v-btn
+          color="accent"
+          href="/list-sample.zip"
+          class="mt-4 mr-2"
+          outlined
+        >
+          <v-icon left>{{ mdiDownload }}</v-icon>
+          Sample list
+        </v-btn>
+
+        <v-btn color="accent" class="mt-4" outlined @click="faqDialog = true">
+          <v-icon left>{{ mdiForum }}</v-icon>
+          FAQs
+        </v-btn>
+      </div>
+
+      <h2 id="form" class="mb-2">Create your list</h2>
+
       <p>
         Get started by selecting one or more technologies. Optionally add
         filters and limits to customise your list. An obligation free quote will
@@ -8,35 +37,8 @@
         order.
       </p>
 
-      <v-btn
-        color="accent"
-        class="mt-4 mb-8"
-        outlined
-        @click="$refs.pricingDialog.open()"
-      >
-        <v-icon left>{{ mdiCalculator }}</v-icon>
-        Pricing
-      </v-btn>
-
-      <v-btn color="accent" href="/list-sample.zip" class="mt-4 mb-8" outlined>
-        <v-icon left>{{ mdiDownload }}</v-icon>
-        Sample list
-      </v-btn>
-
-      <v-btn
-        color="accent"
-        class="mt-4 mb-8"
-        outlined
-        @click="faqDialog = true"
-      >
-        <v-icon left>{{ mdiForum }}</v-icon>
-        FAQs
-      </v-btn>
-
       <template #content>
-        <h2 id="form" class="mb-4">Create your list</h2>
-
-        <v-card class="mb-4" color="secondary">
+        <v-card class="my-4" color="secondary">
           <v-card-text v-if="error">
             <v-alert type="error">
               {{ error }}
@@ -316,8 +318,9 @@
                         dense
                       >
                         <small>
-                          Leave blank to include all results, including websites
-                          for which we don't have contact information.
+                          Contact details are obtained from websites' contact
+                          pages. Leave blank to include all results, including
+                          websites for which we don't have contact information.
                         </small>
                       </v-alert>
                     </v-expansion-panel-content>
@@ -408,8 +411,8 @@
                     </v-expansion-panel-header>
                     <v-expansion-panel-content>
                       <p>
-                        Choose range in months to only include websites verified
-                        within this range. Recommended range is 0-3.
+                        Choose a range in months to only include websites
+                        verified within this range. Recommended range is 0-3.
                       </p>
 
                       <v-row class="mt-6">
@@ -454,9 +457,9 @@
                       >
                         <small>
                           We attempt to analyse every website at least once a
-                          month. A data age range of 0-3 means we include
-                          websites that have been verified at least once in the
-                          last three months.<br /><br />
+                          month. A range of 0-3 means we include websites that
+                          have been verified at least once in the last three
+                          months.<br /><br />
                           A lower maximum yields fresher but fewer results.<br />
                           A higher maximum yields more but possibly outdated
                           results.<br />
@@ -1807,12 +1810,16 @@ export default {
 
         const query = {
           attributes: attributes.length ? attributes.join(',') : undefined,
-          technologies: this.selected.technologies.map(
-            ({ slug, operator, version }) =>
-              `${slug}${version ? `${operator}${version}` : ''}`
-          ),
-          categories: this.selected.categories.map(({ slug }) => slug),
-          tlds: this.selected.tlds.map(({ value }) => value),
+          technologies: this.selected.technologies
+            .map(
+              ({ slug, operator, version }) =>
+                `${slug}${version ? `${operator}${version}` : ''}`
+            )
+            .join(','),
+          categories: this.selected.categories
+            .map(({ slug }) => slug)
+            .join(','),
+          tlds: this.selected.tlds.map(({ value }) => value).join(','),
           countries: this.selected.geoIps
             .map(({ value }) => value)
             .join(',')

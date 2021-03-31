@@ -165,7 +165,7 @@
         <v-card>
           <v-card-title> Frequently asked questions </v-card-title>
           <v-card-text class="pb-0">
-            <Faqs topic="credits" />
+            <Faqs topic="pricing" />
           </v-card-text>
           <v-card-actions>
             <v-spacer />
