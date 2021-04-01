@@ -4,16 +4,29 @@
       {{ error }}
     </v-alert>
 
-    <div class="mb-4">
-      <v-btn href="/lists/" color="accent" outlined>
-        <v-icon left>{{ mdiPlus }}</v-icon>
-        Create a new list
-      </v-btn>
-    </div>
+    <v-row align="center" class="mb-4">
+      <v-col class="py-0">
+        <v-btn href="/lists/" color="accent" outlined>
+          <v-icon left>{{ mdiPlus }}</v-icon>
+          Create a new list
+        </v-btn>
+      </v-col>
+      <v-col
+        v-if="lists && lists.length !== myLists.length"
+        class="py-0 text-right"
+      >
+        <v-switch
+          v-model="viewMine"
+          class="ma-0 d-inline-block"
+          label="Show only my lists"
+          hide-details
+        />
+      </v-col>
+    </v-row>
 
     <template v-if="lists">
       <v-card class="mb-4">
-        <v-card-text v-if="!lists.length">
+        <v-card-text v-if="!filteredLists.length">
           <v-alert class="ma-0" color="info" outlined>
             You don't have any lists.
           </v-alert>
@@ -30,7 +43,7 @@
               </tr>
             </thead>
             <tbody>
-              <template v-for="list in lists">
+              <template v-for="list in filteredLists">
                 <tr :key="list.createdAt">
                   <td>
                     <nuxt-link :to="`/lists/${list.id}`">{{
@@ -73,6 +86,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import {
   mdiPlus,
   mdiCheckboxMarkedOutline,
@@ -94,7 +108,24 @@ export default {
       mdiPlus,
       mdiCheckboxMarkedOutline,
       mdiCheckboxBlankOutline,
+      viewMine: false,
     }
+  },
+  computed: {
+    ...mapState({
+      user: ({ user }) => user.attrs,
+      isMember: ({ user }) =>
+        !user.attrs.admin && user.impersonator && !user.impersonator.admin,
+      impersonator: ({ user }) => user.impersonator,
+    }),
+    myLists() {
+      return this.lists.filter(({ memberId }) =>
+        this.isMember ? memberId === this.impersonator.sub : !memberId
+      )
+    },
+    filteredLists() {
+      return this.viewMine ? this.myLists : this.lists
+    },
   },
   watch: {
     async '$store.state.user.isSignedIn'(isSignedIn) {

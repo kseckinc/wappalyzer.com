@@ -4,9 +4,19 @@
       {{ error }}
     </v-alert>
 
+    <div v-if="isMember" class="mb-4 text-right">
+      <v-switch
+        v-if="orders && orders.length !== myOrders.length"
+        v-model="viewMine"
+        class="ma-0 d-inline-block"
+        label="Show only my orders"
+        hide-details
+      />
+    </div>
+
     <template v-if="orders">
       <v-card class="mb-4">
-        <v-card-text v-if="!orders.length">
+        <v-card-text v-if="!filteredOrders.length">
           <v-alert class="ma-0" color="info" outlined>
             <p>You don't have any orders.</p>
 
@@ -28,7 +38,7 @@
               </tr>
             </thead>
             <tbody>
-              <template v-for="order in orders">
+              <template v-for="order in filteredOrders">
                 <tr :key="order.createdAt">
                   <td>
                     <nuxt-link :to="`/orders/${order.id}`">{{
@@ -64,6 +74,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { mdiArrowRight } from '@mdi/js'
 import Page from '~/components/Page.vue'
 import Spinner from '~/components/Spinner.vue'
@@ -79,7 +90,24 @@ export default {
       error: false,
       orders: null,
       mdiArrowRight,
+      viewMine: false,
     }
+  },
+  computed: {
+    ...mapState({
+      user: ({ user }) => user.attrs,
+      isMember: ({ user }) =>
+        !user.attrs.admin && user.impersonator && !user.impersonator.admin,
+      impersonator: ({ user }) => user.impersonator,
+    }),
+    myOrders() {
+      return this.orders.filter(
+        ({ memberId }) => memberId === this.impersonator.sub
+      )
+    },
+    filteredOrders() {
+      return this.viewMine ? this.myOrders : this.orders
+    },
   },
   watch: {
     async '$store.state.user.isSignedIn'(isSignedIn) {
