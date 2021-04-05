@@ -4,7 +4,7 @@
     "name": "Base",
     "attributes": [
       { "name": "website URLs", "key": "url" },
-      { "name": "technology versions", "key": "versions" },
+      { "key": "versions" },
       { "name": "traffic rank", "key": "trafficRank" }
     ],
     "value": true,

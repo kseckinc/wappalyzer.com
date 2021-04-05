@@ -8,18 +8,18 @@
     >
       <v-card-title>
         <v-row align="center">
-          <v-col cols="12" sm="4" class="py-0">
+          <v-col cols="12" sm="4" class="pb-0">
             <v-icon color="primary" left>{{ mdiLayersOutline }}</v-icon>
             Lookup
           </v-col>
-          <v-col cols="12" sm="8" class="py-0">
+          <v-col cols="12" sm="8" class="pb-0">
             <Credits />
           </v-col>
         </v-row>
       </v-card-title>
 
       <v-card-text class="pb-0">
-        <Url ref="url" :url="url" class="mb-4" @change="submit" />
+        <Url ref="url" :url="url" class="my-4" @change="submit" />
 
         <v-alert v-if="error" color="info" class="mb-4" outlined>
           {{ error }}
@@ -86,13 +86,14 @@
 
     <p>
       <small>
-        Look up 100,000 websites at once with
-        <nuxt-link to="/bulk/">Bulk lookup</nuxt-link>.<br />
+        Get the free
+        <nuxt-link to="/download/">browser extension</nuxt-link> to see the
+        technologies on websites you visit.<br />
+        Look up a large number of websites at once with
+        <nuxt-link to="/bulk/">Bulk technology lookup</nuxt-link>.<br />
         Automate lookups with the
         <nuxt-link to="/api/">Lookup API</nuxt-link> or
-        <nuxt-link to="/download/">CRM integration</nuxt-link>.<br />
-        Get the free
-        <nuxt-link to="/download/">browser extension</nuxt-link>.
+        <nuxt-link to="/download/">CRM integrations</nuxt-link>.
       </small>
     </p>
 

@@ -8,7 +8,7 @@
         </v-card-title>
         <v-card-text>
           <v-row>
-            <v-col class="py-0">
+            <v-col>
               <v-card>
                 <v-card-title class="subtitle-2"> Technology A </v-card-title>
                 <v-card-text>
@@ -19,7 +19,7 @@
                 </v-card-text>
               </v-card>
             </v-col>
-            <v-col class="py-0">
+            <v-col>
               <v-card>
                 <v-card-title class="subtitle-2"> Technology B </v-card-title>
                 <v-card-text>

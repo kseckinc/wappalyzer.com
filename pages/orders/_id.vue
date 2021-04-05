@@ -293,10 +293,30 @@
                   </v-chip-group>
                 </td>
               </tr>
-              <tr v-if="order.dataset.query.matchAllTechnologies">
-                <th>Match all technologies</th>
+              <tr v-if="order.dataset.query.technologies.length >= 2">
+                <th>Match technologies</th>
                 <td>
-                  <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
+                  <div
+                    v-if="order.dataset.query.technologies.length >= 2"
+                    class="font-weight-regular"
+                  >
+                    <template
+                      v-if="order.dataset.query.matchAllTechnologies === 'and'"
+                    >
+                      Match all
+                    </template>
+                    <template
+                      v-else-if="
+                        order.dataset.query.matchAllTechnologies === 'not'
+                      "
+                    >
+                      Exclude
+                      <v-chip outlined small>{{
+                        order.dataset.query.technologies[1].name
+                      }}</v-chip>
+                    </template>
+                    <template v-else>Match any</template>
+                  </div>
                 </td>
               </tr>
               <tr>
@@ -516,10 +536,14 @@
         >
           <v-divider />
 
-          <v-card-title> Price </v-card-title>
+          <v-card-title>Price</v-card-title>
 
           <v-card-text class="px-0">
-            <v-simple-table v-if="order.paymentMethod === 'credits'">
+            <v-simple-table
+              v-if="
+                paymentMethod === 'credits' || order.paymentMethod === 'credits'
+              "
+            >
               <tbody>
                 <tr>
                   <th width="30%">Credits</th>
@@ -624,7 +648,7 @@
 
           <v-divider />
 
-          <v-card-title v-if="!isMember"> Payment </v-card-title>
+          <v-card-title v-if="!isMember">Payment</v-card-title>
 
           <v-card-text
             v-if="!isMember && order.product !== 'Subscription'"
@@ -982,7 +1006,9 @@ export default {
         .join(', ')
     },
     technologies() {
-      return this.technologiesViewAll
+      return this.order.dataset.query.matchAllTechnologies === 'not'
+        ? this.order.dataset.query.technologies.slice(0, 1)
+        : this.technologiesViewAll
         ? this.order.dataset.query.technologies
         : this.order.dataset.query.technologies.slice(0, 10)
     },

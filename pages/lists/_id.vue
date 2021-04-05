@@ -6,11 +6,7 @@
     secure
     no-side-bar
   >
-    <v-alert v-if="success" type="success">
-      {{ success }}
-    </v-alert>
-
-    <v-alert v-if="error" type="error">
+    <v-alert v-if="error" type="error" class="mb-8">
       {{ error }}
     </v-alert>
 
@@ -68,7 +64,7 @@
                   @click="submit"
                 >
                   <v-icon left size="20">{{ mdiCart }}</v-icon>
-                  Buy the full list
+                  Checkout
                 </v-btn>
 
                 <v-btn
@@ -159,6 +155,33 @@
                     }}
                   </v-btn>
                 </div>
+
+                <v-card-text
+                  v-if="list.query.technologies.length >= 2"
+                  class="px-6 pb-0"
+                >
+                  <small>
+                    <template v-if="list.query.matchAllTechnologies === 'and'">
+                      Matching <strong>all</strong> of the above.
+                    </template>
+                    <template
+                      v-else-if="list.query.matchAllTechnologies === 'not'"
+                    >
+                      Excluding
+                      <nuxt-link
+                        :to="`/technologies${
+                          list.query.technologies[1].categories[0]
+                            ? `/${list.query.technologies[1].categories[0].slug}`
+                            : ''
+                        }/${list.query.technologies[1].slug}/`"
+                        >{{ list.query.technologies[1].name }}</nuxt-link
+                      >.
+                    </template>
+                    <template v-else
+                      >Matching <strong>any</strong> of the above.</template
+                    >
+                  </small>
+                </v-card-text>
               </v-expansion-panel-content>
             </v-expansion-panel>
 
@@ -169,12 +192,6 @@
               <v-expansion-panel-content class="nopadding">
                 <v-simple-table>
                   <tbody>
-                    <tr v-if="list.query.matchAllTechnologies">
-                      <th width="40%">Match all technologies</th>
-                      <td>
-                        <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
-                      </td>
-                    </tr>
                     <tr v-if="list.query.industries.length">
                       <th width="40%">Industries</th>
                       <td>
@@ -434,7 +451,7 @@
               :key="technology.slug"
             >
               <v-expansion-panel-header>
-                <template v-if="list.query.matchAllTechnologies">
+                <template v-if="list.query.matchAllTechnologies !== 'or'">
                   <div class="d-flex align-center">
                     <div
                       v-for="_technology in list.query.technologies"
@@ -446,7 +463,16 @@
                       v-for="(_technology, index) in list.query.technologies"
                       :key="`${_technology.slug}_2`"
                     >
-                      <span v-if="index" class="ml-1">+</span>
+                      <span v-if="index" class="ml-1">
+                        <template
+                          v-if="list.query.matchAllTechnologies === 'and'"
+                          >+</template
+                        >
+                        <template
+                          v-if="list.query.matchAllTechnologies === 'not'"
+                          >-</template
+                        >
+                      </span>
                       {{ _technology.name }}
                     </div>
                     <span class="ml-1 text--disabled">(sample)</span>
@@ -629,7 +655,6 @@ export default {
       sets,
       status: '',
       technologiesViewAll: false,
-      success: false,
     }
   },
   computed: {
@@ -641,7 +666,9 @@ export default {
         !user.attrs.admin && user.impersonator && !user.impersonator.admin,
     }),
     technologies() {
-      return this.technologiesViewAll
+      return this.list.query.matchAllTechnologies === 'not'
+        ? this.list.query.technologies.slice(0, 1)
+        : this.technologiesViewAll
         ? this.list.query.technologies
         : this.list.query.technologies.slice(0, 10)
     },
@@ -651,7 +678,7 @@ export default {
       }
 
       const params = {
-        attributes: this.list.query.requiredSets.lengt
+        attributes: this.list.query.requiredSets.length
           ? this.list.query.requiredSets
           : undefined,
         technologies: this.list.query.technologies.map(
@@ -685,7 +712,11 @@ export default {
             ? this.list.query.maxAge.toString()
             : undefined,
         filters: this.list.query.matchAll ? 'and' : undefined,
-        selection: this.list.query.matchAllTechnologies ? 'all' : undefined,
+        selection:
+          this.list.query.matchAllTechnologies === 'and' ||
+          this.list.query.matchAllTechnologies === 'not'
+            ? this.list.query.matchAllTechnologies
+            : undefined,
       }
 
       const string = Object.keys(params)
@@ -736,9 +767,9 @@ export default {
 
   methods: {
     totalRows(rows, matchAllTechnologies) {
-      return matchAllTechnologies
-        ? Object.values(rows)[0]
-        : Object.values(rows).reduce((total, rows) => total + rows, 0)
+      return matchAllTechnologies === 'or'
+        ? Object.values(rows).reduce((total, rows) => total + rows, 0)
+        : Object.values(rows)[0]
     },
     async submit() {
       this.error = false

@@ -9,7 +9,7 @@
           href="https://www.linkedin.com/in/elbertalias/"
           target="_blank"
           rel="noopener noreferrer"
-          >Elbert Alias<v-icon color="accent" class="ml-1">
+          >Elbert Alias<v-icon color="accent" class="ml-1 mb-2" small>
             {{ mdiLinkedin }}</v-icon
           ></a
         >
@@ -23,7 +23,7 @@
         We know who uses your software and that of your competitors.
       </p>
 
-      <v-btn to="/faq/extension/" color="accent" class="mt-4" outlined>
+      <v-btn to="/faq/lists/" color="accent" class="mt-4" outlined>
         <v-icon left>{{ mdiForum }}</v-icon>
         Frequently asked questions
       </v-btn>

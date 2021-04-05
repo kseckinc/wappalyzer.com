@@ -8,32 +8,29 @@
     }"
     :loading="!categories"
   >
-    <h2 class="mt-4 mb-2">Technologies</h2>
+    <h2 class="mt-6">Search by name</h2>
 
     <v-row>
-      <v-col md="8">
-        <v-card class="mb-4">
-          <v-card-title class="subtitle-2 pb-0"> Search </v-card-title>
-          <v-card-text>
-            <Technologies @select="selectTechnology" />
-          </v-card-text>
-        </v-card>
+      <v-col md="6">
+        <Technologies @select="selectTechnology" />
       </v-col>
     </v-row>
 
-    <p>
-      Or,
-      <nuxt-link to="/compare"
-        >compare any two technologies side-by-side</nuxt-link
-      >.
+    <p class="mt-2">
+      <small>
+        Or,
+        <nuxt-link to="/compare"
+          >compare any two technologies side-by-side</nuxt-link
+        >.
+      </small>
     </p>
 
     <template v-if="categories">
-      <h2 class="mb-4">Categories</h2>
+      <h2 class="mt-8 mb-6">Browse by category</h2>
 
       <v-row>
         <v-col
-          v-for="{ name, slug, technologiesCount: count } in categories"
+          v-for="{ name, slug } in categories"
           :key="slug"
           class="py-1 body-2"
           cols="12"
@@ -42,7 +39,6 @@
           lg="3"
         >
           <nuxt-link :to="`/technologies/${slug}/`">{{ name }}</nuxt-link>
-          <span class="grey--text">({{ count }})</span>
         </v-col>
       </v-row>
     </template>

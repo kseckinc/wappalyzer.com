@@ -8,17 +8,19 @@
     <v-card-text :class="variant ? '' : 'pa-0 pl-4'">
       <v-row align="center">
         <v-col
-          :class="`py-0 flex-grow-1 flex-shrink-0 ${
+          :class="`py-0 pr-0 flex-grow-1 flex-shrink-0 ${
             variant ? '' : 'text-right'
           }`"
         >
-          Credit balance:
-          <template v-if="!variant">
-            <Spinner v-if="credits === null" />
-            <span v-else class="font-weight-medium">
-              {{ formatNumber(credits) }}
-            </span>
-          </template>
+          <small>
+            Credit balance:
+            <template v-if="!variant">
+              <Spinner v-if="credits === null" />
+              <span v-else class="font-weight-medium">
+                {{ formatNumber(credits) }}
+              </span>
+            </template>
+          </small>
         </v-col>
         <v-col
           class="py-0 text-right font-weight-medium flex-grow-0 flex-shrink-1"

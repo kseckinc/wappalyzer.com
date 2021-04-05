@@ -155,18 +155,47 @@
                     </v-simple-table>
                   </v-card-text>
 
-                  <v-card-text v-if="selectedItems.length === 2" class="pt-0">
-                    <v-checkbox
-                      v-model="matchAllTechnologies"
-                      label="Only include websites that use both technologies"
-                      class="mt-0"
-                      hide-details
-                      :disabled="
-                        selectedItems.length !== 2 ||
-                        selected.technologies.length !== 2
-                      "
-                    />
-                  </v-card-text>
+                  <template v-if="selectedItems.length === 2">
+                    <v-divider />
+
+                    <v-card-text>
+                      Create a list of websites that use...
+                      <v-radio-group
+                        v-model="matchAllTechnologies"
+                        hide-details
+                        :disabled="
+                          selectedItems.length !== 2 ||
+                          selected.technologies.length !== 2
+                        "
+                      >
+                        <v-radio class="mt-0" value="or" hide-details>
+                          <template #label>
+                            <div>
+                              {{ selectedItems[0].name }} <strong>or</strong>
+                              {{ selectedItems[1].name }}
+                            </div>
+                          </template>
+                        </v-radio>
+                        <v-radio class="mt-0" value="and" hide-details>
+                          <template #label>
+                            <div>
+                              {{ selectedItems[0].name }} <strong>and</strong>
+                              {{ selectedItems[1].name }}
+                            </div>
+                          </template>
+                        </v-radio>
+                        <v-radio class="mt-0" value="not" hide-details>
+                          <template #label>
+                            <div>
+                              {{ selectedItems[0].name }} and
+                              <strong>not</strong>
+                              {{ selectedItems[1].name }}
+                            </div>
+                          </template>
+                        </v-radio>
+                      </v-radio-group>
+                    </v-card-text>
+                  </template>
                 </v-card>
               </v-card-text>
 
@@ -329,8 +358,12 @@
               </v-card-text>
             </v-col>
             <v-col class="py-0 pl-sm-0" cols="12" sm="6">
-              <v-card-title class="subtitle-1">
-                <v-icon color="primary" left>{{
+              <v-card-title
+                :class="`subtitle-1 ${
+                  selectedItems.length ? '' : 'text--disabled'
+                }`"
+              >
+                <v-icon :color="selectedItems.length ? 'primary' : ''" left>{{
                   mdiArrowCollapseVertical
                 }}</v-icon>
                 Limits <span class="grey--text ml-1">(optional)</span>
@@ -506,8 +539,14 @@
                 </v-expansion-panels>
               </v-card-text>
 
-              <v-card-title class="subtitle-1">
-                <v-icon color="primary" left>{{ mdiFilterOutline }}</v-icon>
+              <v-card-title
+                :class="`subtitle-1 ${
+                  selectedItems.length ? '' : 'text--disabled'
+                }`"
+              >
+                <v-icon :color="selectedItems.length ? 'primary' : ''" left>{{
+                  mdiFilterOutline
+                }}</v-icon>
                 Filters <span class="grey--text ml-1">(optional)</span>
               </v-card-title>
               <v-card-text>
@@ -1092,7 +1131,7 @@ export default {
       file: '',
       fileErrors: [],
       matchAll: false,
-      matchAllTechnologies: false,
+      matchAllTechnologies: 'or',
       mdiCalculator,
       mdiDownload,
       mdiForum,
@@ -1305,7 +1344,7 @@ export default {
       this.$refs.age.toggle()
     }
 
-    if (typeof subset !== 'undefined') {
+    if (typeof subset !== 'undefined' && subset !== '500000') {
       this.subset =
         Math.min(1000000, Math.max(500, parseInt(subset || 0, 10))) || null
 
@@ -1324,9 +1363,8 @@ export default {
       this.matchAll = filters === 'and'
     }
 
-    if (typeof selection !== 'undefined') {
-      this.matchAllTechnologies = selection === 'all'
-    }
+    this.matchAllTechnologies =
+      selection === 'and' || selection === 'not' ? selection : 'or'
 
     if (typeof countries !== 'undefined') {
       countries.split(',').forEach((ipCountry) => {
@@ -1439,7 +1477,7 @@ export default {
             ;[technologySlug, version] = technologySlug.split(operator)
           }
 
-          const { slug, name, icon } = (
+          const { slug, name, icon, categories } = (
             await this.$axios.get(`technologies/${technologySlug}`)
           ).data
 
@@ -1447,6 +1485,7 @@ export default {
             type: 'technology',
             slug,
             name,
+            categories,
             icon,
             operator,
             version,
@@ -1495,7 +1534,7 @@ export default {
         !this.selected.geoIps.length &&
         !this.selected.tlds.length &&
         !this.selected.industries.length &&
-        parseInt(this.subset || 50000, 10) >= 500000
+        parseInt(this.subset || 500000, 10) >= 500000
       ) {
         this.confirmDialog = true
 
@@ -1543,9 +1582,10 @@ export default {
               matchAll: this.matchAll,
               matchAllTechnologies:
                 this.selectedItems.length === 2 &&
-                this.selected.technologies.length === 2 &&
-                this.matchAllTechnologies,
-              subset: this.subset || 50000,
+                this.selected.technologies.length === 2
+                  ? this.matchAllTechnologies
+                  : '',
+              subset: this.subset || 500000,
               subsetSlice: this.subsetSlice || 0,
               excludeNoTraffic: this.excludeNoTraffic,
               minAge: this.minAge,
@@ -1839,7 +1879,11 @@ export default {
           min: this.minAge !== 0 ? this.minAge.toString() : undefined,
           max: this.maxAge !== 3 ? this.maxAge.toString() : undefined,
           filters: this.matchAll ? 'and' : undefined,
-          selection: this.matchAllTechnologies ? 'and' : undefined,
+          selection:
+            this.matchAllTechnologies === 'and' ||
+            this.matchAllTechnologies === 'not'
+              ? this.matchAllTechnologies
+              : undefined,
         }
 
         this.$router.replace({
