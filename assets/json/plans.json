@@ -1,14 +1,12 @@
 {
   "attrs": {
-    "credits": { "text": "Credits per month", "type": "credits" },
-    "seats": { "text": "Seats", "type": "number" },
-    "lookups": { "text": "Technology lookups", "type": "boolean" },
-    "lists": { "text": "Lead lists", "type": "boolean" },
+    "seats": { "text": "Seats", "type": "number", "description": ["Number of users who can access the account with their own login."] },
+    "credits": { "text": "Credits per month", "type": "credits", "description": ["Credits can be spent on lead lists, technology lookups and APIs. See 'credit usage' below."] },
+    "lists": { "text": "Lead lists", "type": "string" },
+    "crm": { "text": "CRM integration", "type": "boolean", "description": ["HubSpot / Pipedrive"] },
     "apis": { "text": "API access", "type": "boolean" },
-    "alerts": { "text": "Website alerts", "type": "boolean" },
-    "crm": { "text": "HubSpot / Pipedrive", "type": "boolean" },
     "cancellation": { "text": "Anytime cancellation", "type": "boolean" },
-    "support": { "text": "Technical support", "type": "boolean" }
+    "support": { "text": "Email & phone support", "type": "boolean" }
   },
   "plans": {
     "credits_free_mo": {
@@ -19,60 +17,65 @@
       "attrs": {
         "credits": 50,
         "seats": 1,
-        "support": "-",
+        "support": false,
         "lookups": true,
-        "lists": true,
+        "lists": "Pay per list",
         "apis": true,
-        "alerts": true,
         "crm": "-",
         "cancellation": true
       }
     },
-    "credits_starter_v3_mo": {
+    "credits_starter_v4_mo": {
       "name": "Starter",
       "interval": "month",
-      "price": 4900,
+      "price": 9900,
       "attrs": {
-        "credits": 2000,
+        "credits": 5000,
         "seats": 1,
-        "support": "Email",
+        "support": true,
         "lookups": true,
-        "lists": true,
+        "lists": {
+          "value": "Use credits",
+          "tooltip": ["Create lists using the included credits. See 'credit usage' below."]
+        },
         "apis": true,
-        "alerts": true,
         "crm": "-",
         "cancellation": true
       }
     },
-    "credits_team_mo": {
+    "credits_team_v2_mo": {
       "name": "Team",
       "interval": "month",
       "raised": true,
-      "price": 14900,
+      "price": 24900,
       "attrs": {
-        "credits": 20000,
+        "credits": 50000,
         "seats": 5,
-        "support": "Email & phone",
+        "support": true,
         "lookups": true,
-        "lists": true,
+        "lists": {
+          "value": "+ 1 Free / mo",
+          "tooltip": ["Free lists include:", "• Lead lists (any technology, up to 500K sites each)", "• Bulk technology lookup (up to 100K sites each)", "", "Create more lists using the included credits. See 'credit usage' below."]
+        },
         "apis": true,
-        "alerts": true,
         "crm": true,
         "cancellation": true
       }
     },
-    "credits_business_v3_mo": {
+    "credits_business_v4_mo": {
       "name": "Business",
       "interval": "month",
-      "price": 29900,
+      "price": 44900,
       "attrs": {
-        "credits": 100000,
+        "credits": 200000,
         "seats": 15,
-        "support": "Priority email & phone",
+        "support": true,
         "lookups": true,
-        "lists": true,
+        "lists": {
+          "value": "+ 3 Free / mo",
+          "tooltip": ["Free lists include:", "• Lead lists (any technology, up to 500K sites each)", "• Bulk technology lookup (up to 100K sites each)", "", "Create more lists using the included credits. See 'credit usage' below."]
+        },
         "apis": true,
-        "alerts": true,
         "crm": true,
         "cancellation": true
       }
@@ -87,58 +90,63 @@
         "seats": 1,
         "support": "-",
         "lookups": true,
-        "lists": true,
+        "lists": "Pay per list",
         "apis": true,
-        "alerts": true,
         "crm": "-",
         "cancellation": true
       }
     },
-    "credits_starter_v4_yr": {
+    "credits_starter_v5_yr": {
       "name": "Starter",
       "interval": "year",
-      "price": 3900,
+      "price": 7900,
       "attrs": {
-        "credits": 2000,
+        "credits": 5000,
         "seats": 1,
-        "support": "Email",
+        "support": true,
         "lookups": true,
-        "lists": true,
+        "lists": {
+          "value": "Use credits",
+          "tooltip": ["Create lists using the included credits. See 'credit usage' below."]
+        },
         "apis": true,
-        "alerts": true,
         "crm": "-",
         "cancellation": true
       }
     },
-    "credits_team_yr": {
+    "credits_team_v2_yr": {
       "name": "Team",
       "interval": "year",
       "raised": true,
-      "price": 12900,
+      "price": 19900,
       "attrs": {
-        "credits": 20000,
+        "credits": 50000,
         "seats": 5,
-        "support": "Email & phone",
+        "support": true,
         "lookups": true,
-        "lists": true,
+        "lists": {
+          "value": "+ 1 Free / mo",
+          "tooltip": ["Free lists include:", "• Lead lists (any technology, up to 500K sites each)", "• Bulk technology lookup (up to 100K sites each)", "", "Create more lists using the included credits. See 'credit usage' below."]
+        },
         "apis": true,
-        "alerts": true,
         "crm": true,
         "cancellation": true
       }
     },
-    "credits_business_v3_yr": {
+    "credits_business_v4_yr": {
       "name": "Business",
       "interval": "year",
-      "price": 24900,
+      "price": 39900,
       "attrs": {
-        "credits": 100000,
+        "credits": 200000,
         "seats": 15,
-        "support": "Priority email & phone",
+        "support": true,
         "lookups": true,
-        "lists": true,
+        "lists": {
+          "value": "+ 3 Free / mo",
+          "tooltip": ["Free lists include:", "• Lead lists (any technology, up to 500K sites each)", "• Bulk technology lookup (up to 100K sites each)", "", "Create more lists using the included credits. See 'credit usage' below."]
+        },
         "apis": true,
-        "alerts": true,
         "crm": true,
         "cancellation": true
       }

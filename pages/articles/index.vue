@@ -47,10 +47,16 @@ export default {
       title: 'Articles',
       articles: [
         {
+          title:
+            'Get the technology stack of new leads to your Slack instantly',
+          intro: `Lead qualification can be a long process with many steps. Save time by automating research into your clients' current technical stack. So when a client wants your help in updating their website, you'll instantly know what CMS or framework they are using without having to ask the client first.`,
+          to: '/articles/get-the-technology-stack-of-new-leads-in-slack/',
+        },
+        {
           title: 'HTTP Archive uses Wappalyzer to track the state of the web',
           intro: `The HTTP Archive tracks how the web is built. It provides historical data to quantitatively illustrate how the web is evolving over time. The project is open-source and backed by technology giants such as Google, Mozilla and Akamai.`,
           to:
-            '/articles/http-archive-uses-wappalyzer-to-track-the-state-of-the-web',
+            '/articles/http-archive-uses-wappalyzer-to-track-the-state-of-the-web/',
         },
         {
           title: 'What is technographics?',

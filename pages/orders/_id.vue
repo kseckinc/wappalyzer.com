@@ -196,16 +196,13 @@
                 </td>
               </tr>
               <tr>
-                <th>Price</th>
+                <th>Billing cycle</th>
                 <td>
-                  {{
-                    formatCurrency(order.plan.amount / 100, order.plan.currency)
-                  }}
-                  / {{ order.plan.interval
-                  }}<small v-if="order.plan.interval === 'year'" class="ml-2">
+                  {{ order.plan.interval === 'year' ? 'Annually' : 'Monthly'
+                  }}<small v-if="order.plan.interval === 'year'" class="ml-1">
                     (<nuxt-link
                       :to="{ path: '/pricing', query: { billing: 'monthly' } }"
-                      >change to monthly billing</nuxt-link
+                      >change to monthly</nuxt-link
                     >)
                   </small>
                 </td>
@@ -540,7 +537,17 @@
 
           <v-card-text class="px-0">
             <v-simple-table
-              v-if="
+              v-if="paymentMethod === 'free' || order.paymentMethod === 'free'"
+            >
+              <tbody>
+                <tr>
+                  <th width="30%">Total</th>
+                  <td>Free</td>
+                </tr>
+              </tbody>
+            </v-simple-table>
+            <v-simple-table
+              v-else-if="
                 paymentMethod === 'credits' || order.paymentMethod === 'credits'
               "
             >
@@ -603,10 +610,16 @@
         </template>
 
         <template v-if="order.status === 'Open'">
-          <template v-if="!isMember">
+          <template
+            v-if="
+              !isMember &&
+              !['credits', 'free'].includes(paymentMethod) &&
+              !['credits', 'free'].includes(order.paymentMethod)
+            "
+          >
             <v-divider />
 
-            <v-card-title> Billing </v-card-title>
+            <v-card-title>Billing</v-card-title>
             <v-card-text class="px-0 pb-0">
               <v-alert v-if="accountSuccess" type="success" class="mx-4">
                 {{ accountSuccess }}
@@ -663,7 +676,6 @@
                       v-model="paymentMethod"
                       class="my-0"
                       hide-details
-                      row
                     >
                       <v-radio label="Credit card" value="stripe" />
                       <v-radio label="PayPal" value="paypal" />
@@ -671,6 +683,13 @@
                         v-if="order.product !== 'Credits'"
                         label="Credit balance"
                         value="credits"
+                      />
+                      <v-radio
+                        v-if="
+                          ['Lead list', 'Bulk lookup'].includes(order.product)
+                        "
+                        label="Claim free list"
+                        value="free"
                       />
                     </v-radio-group>
                   </td>
@@ -746,7 +765,7 @@
             </div>
           </v-card-text>
           <template v-if="paymentMethod === 'credits'">
-            <v-card-text v-if="paymentMethod === 'credits'" class="pa-0">
+            <v-card-text class="pa-0">
               <div
                 :class="`d-flex justify-center pt-8${
                   !isMember && credits < order.totalCredits ? '' : ' pb-8'
@@ -773,12 +792,46 @@
               >
             </v-card-actions>
           </template>
+          <template v-if="paymentMethod === 'free'">
+            <v-card-text class="pa-0 text-center">
+              <v-alert
+                v-if="freeLists.total === 0"
+                color="secondary"
+                class="text-center mb-0"
+              >
+                Free lists are included in selected plans. See
+                <nuxt-link to="/pricing/">plans &amp; pricing</nuxt-link>.
+              </v-alert>
+              <v-alert
+                v-else-if="freeLists.availableAt"
+                color="secondary"
+                class="text-center mb-0"
+              >
+                You next free list will be available from
+                {{ formatDate(new Date(freeLists.availableAt * 1000)) }}.
+              </v-alert>
+
+              <v-btn
+                :loading="paying"
+                :disabled="
+                  !freeLists.remaining ||
+                  (order.product === 'Lead list' && order.dataset.rows > 500000)
+                "
+                class="primary my-8"
+                large
+                @click="pay"
+              >
+                <v-icon left>{{ mdiGift }}</v-icon>
+                Claim free list
+              </v-btn>
+            </v-card-text>
+          </template>
         </template>
 
         <template v-if="order.status === 'Complete'">
           <v-divider />
 
-          <v-card-title> Payment </v-card-title>
+          <v-card-title>Payment</v-card-title>
           <v-card-text class="px-0">
             <v-simple-table>
               <tbody>
@@ -789,6 +842,7 @@
                   <td v-if="order.paymentMethod === 'credits'">
                     Credit balance
                   </td>
+                  <td v-if="order.paymentMethod === 'free'">Free list</td>
                   <td v-else></td>
                 </tr>
               </tbody>
@@ -916,6 +970,7 @@ import {
   mdiMinus,
   mdiCheckboxMarked,
   mdiAlphaCCircle,
+  mdiGift,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -964,6 +1019,7 @@ export default {
       mdiMinus,
       mdiCheckboxMarked,
       mdiAlphaCCircle,
+      mdiGift,
       order: null,
       orderLoaded: false,
       paymentMethod: 'stripe',
@@ -992,6 +1048,7 @@ export default {
       isMember: ({ user }) =>
         !user.attrs.admin && user.impersonator && !user.impersonator.admin,
       credits: ({ credits: { credits } }) => credits,
+      freeLists: ({ credits: { freeLists } }) => freeLists,
     }),
     billingAddress() {
       return [
@@ -1026,7 +1083,9 @@ export default {
       }
     },
     '$store.state.credits.credits'(credits) {
-      if (
+      if (this.freeLists.remaining) {
+        this.paymentMethod = 'free'
+      } else if (
         this.isMember ||
         (this.order &&
           !['Credits', 'Subscription'].includes(this.order.product) &&
@@ -1054,7 +1113,9 @@ export default {
       if (!this.orderLoaded) {
         this.orderLoaded = true
 
-        if (
+        if (this.freeLists.remaining) {
+          this.paymentMethod = 'free'
+        } else if (
           this.isMember ||
           (!['Credits', 'Subscription'].includes(this.order.product) &&
             this.order.totalCredits &&
@@ -1070,7 +1131,11 @@ export default {
       this.cardsLoaded = false
       this.stripePaymentMethod = null
 
-      if (this.isMember && this.paymentMethod !== 'credits') {
+      if (
+        this.isMember &&
+        this.paymentMethod !== 'credits' &&
+        this.paymentMethod !== 'free'
+      ) {
         this.$nextTick(() => {
           this.paymentMethod = 'credits'
         })
@@ -1109,9 +1174,12 @@ export default {
           })
 
           this.order = (await this.$axios.get(`orders/${id}`)).data
-        } else if (this.paymentMethod === 'credits') {
+        } else if (
+          this.paymentMethod === 'credits' ||
+          this.paymentMethod === 'free'
+        ) {
           await this.$axios.patch(`orders/${id}`, {
-            paymentMethod: 'credits',
+            paymentMethod: this.paymentMethod,
           })
 
           this.order = (await this.$axios.get(`orders/${id}`)).data

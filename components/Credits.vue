@@ -1,41 +1,76 @@
 <template>
   <v-card
     v-if="isSignedIn"
-    color="secondary"
+    :color="variant ? 'primary lighten-2' : 'secondary'"
     :class="variant ? 'mb-4' : ''"
     flat
   >
-    <v-card-text :class="variant ? '' : 'pa-0 pl-4'">
+    <v-card-title v-if="variant" class="subtitle-2 primary--text">
+      Balances
+    </v-card-title>
+    <v-card-text v-if="variant">
+      <v-row align="center" class="py-2 primary--text">
+        <v-col class="py-0">Credits</v-col>
+        <v-col class="py-0 text-right">
+          <Spinner v-if="credits === null" />
+          <template v-else>
+            {{ formatNumber(credits) }}
+          </template>
+        </v-col>
+      </v-row>
+      <v-row align="center" class="py-2 primary--text">
+        <v-col class="py-0">
+          Free lists
+
+          <v-tooltip v-if="freeLists.total === 0" max-width="250" right>
+            <template #activator="{ on }">
+              <sup>
+                <v-icon color="primary" small v-on="on">{{
+                  mdiHelpCircleOutline
+                }}</v-icon>
+              </sup>
+            </template>
+
+            Free lists are included in selected plans. See the pricing page for
+            more information.
+          </v-tooltip>
+          <v-tooltip v-else-if="freeLists.availableAt" max-width="250" right>
+            <template #activator="{ on }">
+              <sup>
+                <v-icon color="primary" small v-on="on">{{
+                  mdiCalendarBlank
+                }}</v-icon>
+              </sup>
+            </template>
+
+            Your next free list will be available from
+            {{ formatDate(new Date(freeLists.availableAt * 1000)) }}
+          </v-tooltip>
+        </v-col>
+        <v-col class="py-0 text-right">
+          <Spinner v-if="!freeLists" />
+          <template v-else>
+            {{ formatNumber(freeLists.remaining) }} /
+            {{ formatNumber(freeLists.total) }}
+          </template>
+        </v-col>
+      </v-row>
+    </v-card-text>
+    <v-card-text v-else>
       <v-row align="center">
-        <v-col
-          :class="`py-0 pr-0 flex-grow-1 flex-shrink-0 ${
-            variant ? '' : 'text-right'
-          }`"
-        >
+        <v-col class="py-0 text-right pr-0 flex-grow-1 flex-shrink-0">
           <small>
             Credit balance:
-            <template v-if="!variant">
-              <Spinner v-if="credits === null" />
-              <span v-else class="font-weight-medium">
-                {{ formatNumber(credits) }}
-              </span>
-            </template>
+            <Spinner v-if="credits === null" />
+            <span v-else class="font-weight-medium">
+              {{ formatNumber(credits) }}
+            </span>
           </small>
         </v-col>
         <v-col
-          class="py-0 text-right font-weight-medium flex-grow-0 flex-shrink-1"
+          class="py-0 pr-0 text-right font-weight-medium flex-grow-0 flex-shrink-1"
         >
-          <template v-if="variant">
-            <Spinner v-if="credits === null" />
-            <template v-else>
-              {{ formatNumber(credits) }}
-            </template>
-          </template>
-          <v-btn
-            v-else
-            :to="{ path: '/credits', query: { buy: true } }"
-            outlined
-            small
+          <v-btn :to="{ path: '/credits', query: { buy: true } }" outlined small
             >Buy credits</v-btn
           >
         </v-col>
@@ -45,6 +80,8 @@
 </template>
 
 <script>
+import { mdiCalendarBlank, mdiHelpCircleOutline } from '@mdi/js'
+
 import { mapState, mapActions } from 'vuex'
 import Spinner from '~/components/Spinner.vue'
 
@@ -58,10 +95,17 @@ export default {
       default: false,
     },
   },
+  data() {
+    return {
+      mdiCalendarBlank,
+      mdiHelpCircleOutline,
+    }
+  },
   computed: {
     ...mapState({
       isSignedIn: ({ user }) => user.isSignedIn,
       credits: ({ credits: { credits } }) => credits,
+      freeLists: ({ credits: { freeLists } }) => freeLists,
     }),
   },
   watch: {

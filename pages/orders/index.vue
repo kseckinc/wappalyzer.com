@@ -58,6 +58,7 @@
                     {{ formatNumber(order.totalCredits) }}
                     Credits
                   </td>
+                  <td v-else-if="order.paymentMethod === 'free'">Free</td>
                   <td v-else>
                     {{ formatCurrency(order.total / 100, order.currency) }}
                   </td>

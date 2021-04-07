@@ -12,6 +12,20 @@
           <v-responsive height="60" class="align-center">
             <v-card-text class="py-0">
               {{ attr.text }}
+
+              <v-tooltip v-if="attr.description" max-width="450" right>
+                <template #activator="{ on }">
+                  <sup>
+                    <v-icon small v-on="on">{{ mdiHelpCircleOutline }}</v-icon>
+                  </sup>
+                </template>
+
+                <div v-for="(line, index) in attr.description" :key="index">
+                  <br v-if="!line" />
+
+                  {{ line }}
+                </div>
+              </v-tooltip>
             </v-card-text>
           </v-responsive>
         </div>
@@ -114,7 +128,7 @@
               <v-card-text class="text-center">
                 <template v-if="attr.type === 'currency'">
                   <template v-if="item.attrs[name] === 0">
-                    <span class="font-weight-medium"> Free </span>
+                    <span class="font-weight-medium">Free</span>
                   </template>
                   <template v-else-if="typeof item.attrs[name] === 'string'">
                     {{ item.attrs[name] }}
@@ -134,16 +148,6 @@
                     </template>
                     <template v-else>
                       {{ formatNumber(item.attrs[name]) }}
-                      <span
-                        v-if="attr.type === 'credits'"
-                        class="caption text--disabled"
-                        >({{
-                          formatCurrency(
-                            Math.floor(creditsToCents(item.attrs[name]) / 100)
-                          )
-                        }}
-                        value)</span
-                      >
                     </template>
                   </template>
                 </template>
@@ -162,7 +166,30 @@
                   {{ item.attrs[name] }}
                 </small>
                 <template v-else>
-                  {{ item.attrs[name] }}
+                  {{ item.attrs[name].value || item.attrs[name] }}
+
+                  <v-tooltip
+                    v-if="item.attrs[name].tooltip"
+                    max-width="400"
+                    top
+                  >
+                    <template #activator="{ on }">
+                      <sup>
+                        <v-icon small v-on="on">{{
+                          mdiHelpCircleOutline
+                        }}</v-icon>
+                      </sup>
+                    </template>
+
+                    <div
+                      v-for="(line, index) in item.attrs[name].tooltip"
+                      :key="index"
+                    >
+                      <br v-if="!line" />
+
+                      {{ line }}
+                    </div>
+                  </v-tooltip>
                 </template>
               </v-card-text>
             </v-responsive>
@@ -180,7 +207,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { mdiCheck } from '@mdi/js'
+import { mdiCheck, mdiHelpCircleOutline } from '@mdi/js'
 
 import SignIn from '~/components/SignIn.vue'
 
@@ -210,6 +237,7 @@ export default {
     return {
       signInDialog: false,
       mdiCheck,
+      mdiHelpCircleOutline,
     }
   },
   computed: {

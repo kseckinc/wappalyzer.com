@@ -55,7 +55,7 @@
               <v-simple-table>
                 <thead>
                   <tr>
-                    <th width="33%">Product</th>
+                    <th width="40%">Product</th>
                     <th>Credit spend per unit</th>
                   </tr>
                 </thead>
@@ -84,7 +84,7 @@
             <v-card-text class="px-0">
               <v-row>
                 <v-col class="py-0" cols="12" md="10">
-                  <p class="px-4">
+                  <p class="px-4 pb-2">
                     Additional credits can be purchased at tiered pricing. For
                     example, the price for 1,000 credits is (100 x $0.20) + (400
                     x $0.10) + (500 x $0.06) = $90.
