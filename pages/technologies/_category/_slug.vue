@@ -50,8 +50,10 @@
           </v-col>
         </v-row>
 
-        <v-alert color="info" outlined>
-          <h3 class="mb-4">No data available, yet</h3>
+        <v-alert color="accent" class="mt-2" outlined>
+          <p class="subtitle-1 font-weight-medium mb-2">
+            No data available, yet.
+          </p>
 
           <template
             v-if="technology.createdAt > Date.now() / 1000 - 60 * 60 * 24 * 30"
@@ -80,8 +82,12 @@
           </v-col>
         </v-row>
 
-        <v-alert color="primary" outlined>
-          <p>
+        <v-alert color="primary lighten-1">
+          <p class="subtitle-1 font-weight-medium primary--text mb-2">
+            Reach out to {{ technology.name }} users
+          </p>
+
+          <p class="primary--text">
             Create a list of
             {{ formatNumber(technology.hostnames, true) }}
             <nuxt-link
@@ -172,8 +178,8 @@
         <h3 class="mb-2">{{ technology.name }} reports</h3>
 
         <p>
-          Create relevant reports for {{ technology.name }} to find leads or
-          learn more about your target audience.
+          Create relevant reports for {{ technology.name }} to find sales leads
+          or learn more about your target audience.
         </p>
 
         <v-card class="mb-4">

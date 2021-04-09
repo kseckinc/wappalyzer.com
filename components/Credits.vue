@@ -48,7 +48,7 @@
           </v-tooltip>
         </v-col>
         <v-col class="py-0 text-right">
-          <Spinner v-if="!freeLists" />
+          <Spinner v-if="freeLists.total === null" />
           <template v-else>
             {{ formatNumber(freeLists.remaining) }} /
             {{ formatNumber(freeLists.total) }}

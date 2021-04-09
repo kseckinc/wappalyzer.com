@@ -685,7 +685,7 @@ export default {
           ({ slug, operator, version }) =>
             `${slug}${version ? `${operator}${version}` : ''}`
         ),
-        tlds: this.list.query.tlds,
+        tlds: this.list.query.tlds.length ? this.list.query.tlds : undefined,
         countries: this.list.query.geoIps.length
           ? this.list.query.geoIps.map(({ value }) => value)
           : undefined,

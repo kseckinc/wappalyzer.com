@@ -1321,9 +1321,9 @@ export default {
       this.scrollToTop()
     },
     totalRows(rows, matchAllTechnologies) {
-      return matchAllTechnologies
-        ? Object.values(rows)[0]
-        : Object.values(rows).reduce((total, rows) => total + rows, 0)
+      return matchAllTechnologies === 'or'
+        ? Object.values(rows).reduce((total, rows) => total + rows, 0)
+        : Object.values(rows)[0]
     },
     async billingUpdated() {
       this.accountSuccess = 'Your billing details have been updated'

@@ -37,6 +37,15 @@
         page to learn more.
       </p>
 
+      <v-alert :icon="mdiLightbulbOnOutline" class="mt-8" outlined>
+        For an in-depth example, see:
+        <nuxt-link
+          to="/articles/get-the-technology-stack-of-new-leads-in-slack/"
+          >Get the technology stack of new leads to your Slack
+          instantly</nuxt-link
+        >.
+      </v-alert>
+
       <Heading id="pricing" size="2" class="mt-8 mb-2"> Pricing </Heading>
 
       <p>
@@ -49,6 +58,8 @@
 </template>
 
 <script>
+import { mdiLightbulbOnOutline } from '@mdi/js'
+
 import Page from '~/components/Page.vue'
 import Heading from '~/components/Heading.vue'
 import side from '~/assets/json/nav/docs.json'
@@ -66,6 +77,7 @@ export default {
         { title: 'Developer documentation', to: '/docs/' },
         { title: 'Integrations', to: '/docs/integrations/' },
       ],
+      mdiLightbulbOnOutline,
     }
   },
 }

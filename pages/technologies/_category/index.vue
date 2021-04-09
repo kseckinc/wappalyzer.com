@@ -19,8 +19,12 @@
       }"
       hero
     >
-      <v-alert color="primary" class="mt-6" outlined>
-        <p>
+      <v-alert color="primary lighten-1" class="mt-6">
+        <p class="subtitle-1 font-weight-medium primary--text mb-2">
+          Reach out to {{ category.name }} users
+        </p>
+
+        <p class="primary--text">
           Create a list of
           {{ formatNumber(totalHostnames, true) }}
           <nuxt-link
@@ -131,8 +135,8 @@
       <h3 class="mb-2">{{ category.name }} technology reports</h3>
 
       <p>
-        Create relevant {{ category.name }} technology reports to find leads or
-        learn more about your target audience.
+        Create relevant {{ category.name }} technology reports to find sales
+        leads or learn more about your target audience.
       </p>
 
       <v-card class="mb-4">
