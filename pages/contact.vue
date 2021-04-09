@@ -6,7 +6,7 @@
       comments, questions and suggestions.
     </p>
 
-    <v-btn to="/faq/extension/" color="accent" outlined>
+    <v-btn to="/faq/lists/" color="accent" outlined>
       <v-icon left>{{ mdiForum }}</v-icon>
       Frequently asked questions
     </v-btn>

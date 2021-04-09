@@ -56,12 +56,10 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <p>
-            If a web technology is unavaible, please
-            <nuxt-link to="/contact/">contact us</nuxt-link> and we may be able
-            to add it in. You can help us providing examples of websites that
-            use it and/or code snippets unique to the technology. Once a
-            technology has been added, it can take a few weeks for a meaningful
-            amount of data to be collected.
+            You can
+            <nuxt-link to="/technologies/suggest/"
+              >suggest a new technology</nuxt-link
+            >. We only accept web technologies with an established user base.
           </p>
         </v-expansion-panel-content>
       </v-expansion-panel>

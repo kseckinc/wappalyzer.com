@@ -18,15 +18,34 @@
       </p>
 
       <ul class="mb-4">
-        <li><strong>Integromat</strong> to set up the workflow</li>
-        <li><strong>Typeform</strong> for lead capture</li>
         <li>
-          <strong>Wappalyzer</strong> to fetch the technology stack of your
-          lead's website
+          <strong
+            ><a href="https://www.integromat.com" target="_blank" rel="noopener"
+              >Integromat</a
+            ></strong
+          >
+          to set up the workflow
         </li>
         <li>
-          <strong>Slack</strong> to send your team a message whenever a new lead
-          has filled out the form, containing the URL and webstack
+          <strong
+            ><a href="https://www.typeform.com/" target="_blank" rel="noopener"
+              >Typeform</a
+            ></strong
+          >
+          for lead capture
+        </li>
+        <li>
+          <strong><a href="https://www.wappalyzer.com/">Wappalyzer</a></strong>
+          to fetch the technology stack of your lead's website
+        </li>
+        <li>
+          <strong
+            ><a href="https://slack.com" target="_blank" rel="noopener"
+              >Slack</a
+            ></strong
+          >
+          to send your team a message whenever a new lead has filled out the
+          form, containing the URL and webstack
         </li>
       </ul>
 
