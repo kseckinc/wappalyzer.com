@@ -76,9 +76,114 @@
       <template v-else>
         <v-row align="center">
           <v-col cols="12" sm="8">
-            <p v-if="technology.description" class="mb-8 subtitle-1">
-              {{ technology.description }}
-            </p>
+            <div class="mb-6">
+              <p v-if="technology.description" class="subtitle-1">
+                {{ technology.description }}
+              </p>
+
+              <v-chip-group
+                v-if="
+                  technology.saas || technology.oss || technology.pricing.length
+                "
+              >
+                <v-chip v-if="technology.saas" label small outlined
+                  >Software as a service</v-chip
+                >
+
+                <v-chip v-if="technology.oss" label small outlined
+                  >Open-source software</v-chip
+                >
+
+                <v-tooltip top>
+                  <template #activator="{ on }">
+                    <v-chip
+                      v-if="
+                        technology.pricing.includes('low') ||
+                        technology.pricing.includes('mid') ||
+                        technology.pricing.includes('high')
+                      "
+                      label
+                      small
+                      outlined
+                      v-on="on"
+                      ><v-icon small>{{ mdiCurrencyUsd }}</v-icon>
+                      <v-icon
+                        :disabled="technology.pricing.includes('low')"
+                        small
+                        >{{
+                          technology.pricing.includes('low')
+                            ? mdiCurrencyUsdOff
+                            : mdiCurrencyUsd
+                        }}</v-icon
+                      >
+                      <v-icon
+                        :disabled="
+                          technology.pricing.includes('low') ||
+                          technology.pricing.includes('mid')
+                        "
+                        small
+                        >{{
+                          technology.pricing.includes('low') ||
+                          technology.pricing.includes('mid')
+                            ? mdiCurrencyUsdOff
+                            : mdiCurrencyUsd
+                        }}</v-icon
+                      >
+                    </v-chip>
+                  </template>
+
+                  {{
+                    `Typically costs ${
+                      technology.pricing.includes('mid')
+                        ? 'less than US $1,000/mo'
+                        : technology.pricing.includes('high')
+                        ? 'more than US $1,000/mo'
+                        : 'less than US $100/mo'
+                    } (indicative)`
+                  }}
+                </v-tooltip>
+
+                <v-chip
+                  v-if="technology.pricing.includes('recurring')"
+                  label
+                  small
+                  outlined
+                  >Offers paid plans</v-chip
+                >
+
+                <v-chip
+                  v-if="technology.pricing.includes('freemium')"
+                  label
+                  small
+                  outlined
+                  >Free plan available</v-chip
+                >
+
+                <v-chip
+                  v-if="technology.pricing.includes('poa')"
+                  label
+                  small
+                  outlined
+                  >Price on asking</v-chip
+                >
+
+                <v-chip
+                  v-if="technology.pricing.includes('payg')"
+                  label
+                  small
+                  outlined
+                  >Pay as you go</v-chip
+                >
+
+                <v-chip
+                  v-if="technology.pricing.includes('onetime')"
+                  label
+                  small
+                  outlined
+                  >One-time payments accepted</v-chip
+                >
+              </v-chip-group>
+            </div>
           </v-col>
         </v-row>
 
@@ -495,6 +600,8 @@ import {
   mdiCheck,
   mdiClose,
   mdiFileTableOutline,
+  mdiCurrencyUsd,
+  mdiCurrencyUsdOff,
 } from '@mdi/js'
 import { GChart } from 'vue-google-charts'
 
@@ -604,6 +711,8 @@ export default {
       mdiCheck,
       mdiClose,
       mdiFileTableOutline,
+      mdiCurrencyUsd,
+      mdiCurrencyUsdOff,
       review: {
         rating: 0,
         text: '',
@@ -676,7 +785,7 @@ export default {
         {
           title: this.technology
             ? this.technology.categories.find(
-                ({ slug }) => (slug = this.categorySlug)
+                ({ slug }) => slug === this.categorySlug
               ).name
             : this.categorySlug,
           to: `/technologies/${this.categorySlug}/`,
