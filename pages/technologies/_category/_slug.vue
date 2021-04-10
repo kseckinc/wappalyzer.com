@@ -22,7 +22,7 @@
       </h1>
 
       <div class="d-flex align-center mb-4">
-        <v-chip-group>
+        <v-chip-group column>
           <v-chip
             v-for="{ slug: _slug, name } in technology.categories"
             :key="_slug"
@@ -33,12 +33,90 @@
             exact
             >{{ name }}</v-chip
           >
-        </v-chip-group>
 
-        <v-btn :href="technology.website" color="accent" target="_blank" text>
-          {{ formatHostname(technology.website) }}
-          <v-icon right small>{{ mdiOpenInNew }}</v-icon>
-        </v-btn>
+          <v-chip
+            :href="technology.website"
+            color="accent"
+            target="_blank"
+            outlined
+            small
+          >
+            Visit {{ formatHostname(technology.website) }}
+            <v-icon right x-small>{{ mdiOpenInNew }}</v-icon>
+          </v-chip>
+
+          <v-chip v-if="technology.saas" small outlined
+            >Software as a service</v-chip
+          >
+
+          <v-chip v-if="technology.oss" small outlined
+            >Open-source software</v-chip
+          >
+
+          <v-tooltip top>
+            <template #activator="{ on }">
+              <v-chip
+                v-if="
+                  technology.pricing.includes('low') ||
+                  technology.pricing.includes('mid') ||
+                  technology.pricing.includes('high')
+                "
+                small
+                outlined
+                v-on="on"
+                ><v-icon small>{{ mdiCurrencyUsd }}</v-icon>
+                <v-icon :disabled="technology.pricing.includes('low')" small>{{
+                  technology.pricing.includes('low')
+                    ? mdiCurrencyUsdOff
+                    : mdiCurrencyUsd
+                }}</v-icon>
+                <v-icon
+                  :disabled="
+                    technology.pricing.includes('low') ||
+                    technology.pricing.includes('mid')
+                  "
+                  small
+                  >{{
+                    technology.pricing.includes('low') ||
+                    technology.pricing.includes('mid')
+                      ? mdiCurrencyUsdOff
+                      : mdiCurrencyUsd
+                  }}</v-icon
+                >
+              </v-chip>
+            </template>
+
+            {{
+              `Typically costs ${
+                technology.pricing.includes('mid')
+                  ? 'less than US $1,000/mo'
+                  : technology.pricing.includes('high')
+                  ? 'more than US $1,000/mo'
+                  : 'less than US $100/mo'
+              } (indicative)`
+            }}
+          </v-tooltip>
+
+          <v-chip v-if="technology.pricing.includes('recurring')" small outlined
+            >Offers paid plans</v-chip
+          >
+
+          <v-chip v-if="technology.pricing.includes('freemium')" small outlined
+            >Offers a free plan</v-chip
+          >
+
+          <v-chip v-if="technology.pricing.includes('poa')" small outlined
+            >Price on asking</v-chip
+          >
+
+          <v-chip v-if="technology.pricing.includes('payg')" small outlined
+            >Pay as you go</v-chip
+          >
+
+          <v-chip v-if="technology.pricing.includes('onetime')" small outlined
+            >Accepts one-time payments</v-chip
+          >
+        </v-chip-group>
       </div>
 
       <template v-if="technology.hostnames < 50">
@@ -80,109 +158,6 @@
               <p v-if="technology.description" class="subtitle-1">
                 {{ technology.description }}
               </p>
-
-              <v-chip-group
-                v-if="
-                  technology.saas || technology.oss || technology.pricing.length
-                "
-              >
-                <v-chip v-if="technology.saas" label small outlined
-                  >Software as a service</v-chip
-                >
-
-                <v-chip v-if="technology.oss" label small outlined
-                  >Open-source software</v-chip
-                >
-
-                <v-tooltip top>
-                  <template #activator="{ on }">
-                    <v-chip
-                      v-if="
-                        technology.pricing.includes('low') ||
-                        technology.pricing.includes('mid') ||
-                        technology.pricing.includes('high')
-                      "
-                      label
-                      small
-                      outlined
-                      v-on="on"
-                      ><v-icon small>{{ mdiCurrencyUsd }}</v-icon>
-                      <v-icon
-                        :disabled="technology.pricing.includes('low')"
-                        small
-                        >{{
-                          technology.pricing.includes('low')
-                            ? mdiCurrencyUsdOff
-                            : mdiCurrencyUsd
-                        }}</v-icon
-                      >
-                      <v-icon
-                        :disabled="
-                          technology.pricing.includes('low') ||
-                          technology.pricing.includes('mid')
-                        "
-                        small
-                        >{{
-                          technology.pricing.includes('low') ||
-                          technology.pricing.includes('mid')
-                            ? mdiCurrencyUsdOff
-                            : mdiCurrencyUsd
-                        }}</v-icon
-                      >
-                    </v-chip>
-                  </template>
-
-                  {{
-                    `Typically costs ${
-                      technology.pricing.includes('mid')
-                        ? 'less than US $1,000/mo'
-                        : technology.pricing.includes('high')
-                        ? 'more than US $1,000/mo'
-                        : 'less than US $100/mo'
-                    } (indicative)`
-                  }}
-                </v-tooltip>
-
-                <v-chip
-                  v-if="technology.pricing.includes('recurring')"
-                  label
-                  small
-                  outlined
-                  >Offers paid plans</v-chip
-                >
-
-                <v-chip
-                  v-if="technology.pricing.includes('freemium')"
-                  label
-                  small
-                  outlined
-                  >Offers a free plan</v-chip
-                >
-
-                <v-chip
-                  v-if="technology.pricing.includes('poa')"
-                  label
-                  small
-                  outlined
-                  >Price on asking</v-chip
-                >
-
-                <v-chip
-                  v-if="technology.pricing.includes('payg')"
-                  label
-                  small
-                  outlined
-                  >Pay as you go</v-chip
-                >
-
-                <v-chip
-                  v-if="technology.pricing.includes('onetime')"
-                  label
-                  small
-                  outlined
-                  >Accepts one-time payments</v-chip
-                >
-              </v-chip-group>
             </div>
           </v-col>
         </v-row>
