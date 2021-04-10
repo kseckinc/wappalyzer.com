@@ -154,11 +154,9 @@
       <template v-else>
         <v-row align="center">
           <v-col cols="12" sm="8">
-            <div class="mb-6">
-              <p v-if="technology.description" class="subtitle-1">
-                {{ technology.description }}
-              </p>
-            </div>
+            <p v-if="technology.description" class="subtitle-1 mb-8">
+              {{ technology.description }}
+            </p>
           </v-col>
         </v-row>
 
