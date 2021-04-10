@@ -156,7 +156,7 @@
                   label
                   small
                   outlined
-                  >Free plan available</v-chip
+                  >Offers a free plan</v-chip
                 >
 
                 <v-chip
@@ -180,7 +180,7 @@
                   label
                   small
                   outlined
-                  >One-time payments accepted</v-chip
+                  >Accepts one-time payments</v-chip
                 >
               </v-chip-group>
             </div>
