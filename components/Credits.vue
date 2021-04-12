@@ -1,7 +1,7 @@
 <template>
   <v-card
     v-if="isSignedIn"
-    :color="variant ? 'primary lighten-2' : 'secondary'"
+    :color="variant ? 'primary lighten-2' : ''"
     :class="variant ? 'mb-4' : ''"
     flat
   >
@@ -56,7 +56,7 @@
         </v-col>
       </v-row>
     </v-card-text>
-    <v-card-text v-else>
+    <v-card-text v-else class="py-0 pr-3">
       <v-row align="center">
         <v-col class="py-0 text-right pr-0 flex-grow-1 flex-shrink-0">
           <small>
@@ -70,7 +70,11 @@
         <v-col
           class="py-0 pr-0 text-right font-weight-medium flex-grow-0 flex-shrink-1"
         >
-          <v-btn :to="{ path: '/credits', query: { buy: true } }" outlined small
+          <v-btn
+            color="primary"
+            :to="{ path: '/credits', query: { buy: true } }"
+            outlined
+            small
             >Buy credits</v-btn
           >
         </v-col>

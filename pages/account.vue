@@ -23,7 +23,7 @@
 
     <v-card class="mb-4">
       <template v-if="isAdmin">
-        <v-card-title> Administration </v-card-title>
+        <v-card-title>Administration</v-card-title>
 
         <v-form ref="form" v-model="valid">
           <v-card-text class="py-0">

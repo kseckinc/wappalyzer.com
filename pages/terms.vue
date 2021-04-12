@@ -63,6 +63,8 @@
         explicit permission in writing from Wappalyzer.
       </p>
 
+      <p>Do not use contact details included in the data to send spam.</p>
+
       <h2 class="text-h2 mt-8 mb-2">Payment for services</h2>
 
       <p>
@@ -129,6 +131,11 @@
         The Terms will be governed by and construed in accordance with
         Australian law, and any disputes relating to this notice shall be
         subject to the exclusive jurisdiction of the courts of Australia.
+      </p>
+
+      <p>
+        To comply with Spam Act 2003, we do not supply contact details to
+        customers in Australia.
       </p>
     </Page>
   </div>

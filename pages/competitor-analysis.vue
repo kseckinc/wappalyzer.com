@@ -72,15 +72,11 @@
 
       <v-divider class="my-4 my-sm-6" />
 
-      <Product name="bulk" />
+      <Product name="apis" />
 
       <v-divider class="my-4 my-sm-6" />
 
-      <Product name="apis" mirror />
-
-      <v-divider class="my-4 my-sm-6" />
-
-      <Product name="alerts" />
+      <Product name="alerts" mirror />
 
       <template #footer>
         <Logos integrations />

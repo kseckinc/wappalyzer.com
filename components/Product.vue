@@ -26,6 +26,7 @@
       <v-form
         v-if="product.search"
         ref="form"
+        class="d-flex align-center"
         @submit.prevent="$router.push(`/lookup/${encodeURIComponent(url)}/`)"
       >
         <v-text-field
@@ -39,6 +40,15 @@
           dense
           @click:append="$router.push(`/lookup/${encodeURIComponent(url)}/`)"
         />
+
+        <small class="ml-4 text--disabled">
+          Or,
+          <nuxt-link
+            class="text--disabled"
+            :to="{ path: '/lookup', hash: '#bulk' }"
+            >upload a list</nuxt-link
+          >
+        </small>
       </v-form>
       <v-btn
         v-for="(button, index) in product.buttons"

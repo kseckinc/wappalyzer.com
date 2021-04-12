@@ -328,11 +328,13 @@
                         v-model="requiredSets.email"
                         label="Email address"
                         hide-details
+                        :disabled="australia"
                       />
                       <v-checkbox
                         v-model="requiredSets.phone"
                         label="Phone number"
                         hide-details
+                        :disabled="australia"
                       />
                       <v-checkbox
                         v-model="requiredSets.social"
@@ -350,6 +352,63 @@
                           Contact details are obtained from websites' contact
                           pages. Leave blank to include all results, including
                           websites for which we don't have contact information.
+                        </small>
+                      </v-alert>
+                    </v-expansion-panel-content>
+                  </v-expansion-panel>
+
+                  <v-expansion-panel ref="compliance">
+                    <v-expansion-panel-header class="subtitle-2">
+                      Compliance
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                      <v-radio-group
+                        v-model="compliance"
+                        class="my-0"
+                        mandatory
+                      >
+                        <v-radio
+                          value="include"
+                          class="mt-0"
+                          hide-details
+                          :disabled="australia"
+                        >
+                          <template #label>Include contact details</template>
+                        </v-radio>
+                        <v-radio
+                          value="excludeEU"
+                          class="mt-0"
+                          hide-details
+                          :disabled="australia"
+                        >
+                          <template #label>
+                            Exclude contact details of EU websites
+                          </template>
+                        </v-radio>
+                        <v-radio value="exclude" class="mt-0" hide-details>
+                          <template #label>
+                            Exclude all contact details
+                          </template>
+                        </v-radio>
+                      </v-radio-group>
+
+                      <v-checkbox
+                        v-model="australia"
+                        label="I'm in or do business in Australia"
+                        class="mt-0"
+                        hide-details
+                      />
+
+                      <v-alert
+                        color="secondary"
+                        border="left"
+                        class="mt-8 mb-2"
+                        dense
+                      >
+                        <small>
+                          We're unable to supply email addresses and phone
+                          numbers if you're in Australia or carry on business or
+                          activities in Australia.
                         </small>
                       </v-alert>
                     </v-expansion-panel-content>
@@ -1116,6 +1175,8 @@ export default {
         ],
         []
       ),
+      australia: false,
+      compliance: 'include',
       countries: Object.keys(tlds),
       countriesEU,
       countriesEurope,
@@ -1180,6 +1241,8 @@ export default {
   },
   computed: {
     ...mapState({
+      user: ({ user }) => user.attrs,
+      isSignedIn: ({ user }) => user.isSignedIn,
       isAdmin: ({ user }) =>
         user.attrs.admin || (user.impersonator && user.impersonator.admin),
     }),
@@ -1240,11 +1303,25 @@ export default {
     },
   },
   watch: {
-    '$store.state.user.isSignedIn'(isSignedIn) {
-      if (isSignedIn && this.creating) {
+    isSignedIn() {
+      if (this.isSignedIn) {
+        if (this.user.billingCountry.toLowerCase() === 'au') {
+          this.australia = true
+        }
+      }
+
+      if (this.isSignedIn && this.creating) {
         this.signInDialog = false
 
         this.submit()
+      }
+    },
+    australia() {
+      if (this.australia) {
+        this.compliance = 'exclude'
+
+        this.requiredSets.email = false
+        this.requiredSets.phone = false
       }
     },
     selectedCountry() {
@@ -1291,6 +1368,9 @@ export default {
     matchAllTechnologies() {
       this.updateQuery()
     },
+    compliance() {
+      this.updateQuery()
+    },
   },
   async mounted() {
     const {
@@ -1308,6 +1388,7 @@ export default {
       industries: _industries,
       filters,
       selection,
+      contacts,
     } = this.$route.query
 
     if (Object.keys(this.$route.query).length) {
@@ -1361,6 +1442,12 @@ export default {
 
     if (typeof filters !== 'undefined') {
       this.matchAll = filters === 'and'
+    }
+
+    if (contacts === 'exclude' || contacts === 'excludeEU') {
+      this.compliance = contacts
+
+      this.$refs.compliance.toggle()
     }
 
     this.matchAllTechnologies =
@@ -1510,13 +1597,17 @@ export default {
     } catch (error) {
       this.error = this.getErrorMessage(error)
     }
+
+    if (this.isSignedIn && this.user.billingCountry.toLowerCase() === 'au') {
+      this.australia = true
+    }
   },
   methods: {
     async submit(confirmed = false) {
       this.error = ''
       this.creating = true
 
-      if (!this.$store.state.user.isSignedIn) {
+      if (!this.isSignedIn) {
         this.signInDialog = true
 
         return
@@ -1593,6 +1684,7 @@ export default {
               requiredSets: Object.keys(this.requiredSets).filter(
                 (set) => this.requiredSets[set]
               ),
+              compliance: this.compliance,
             },
             exclusions: this.file,
           })
@@ -1883,6 +1975,10 @@ export default {
             this.matchAllTechnologies === 'and' ||
             this.matchAllTechnologies === 'not'
               ? this.matchAllTechnologies
+              : undefined,
+          contacts:
+            this.compliance === 'exclude' || this.compliance === 'excludeEU'
+              ? this.compliance
               : undefined,
         }
 

@@ -13,11 +13,6 @@
         "to": "/lists/"
       },
       {
-        "title": "Bulk technology lookup",
-        "subtitle": "Look up a number of website in one go",
-        "to": "/bulk/"
-      },
-      {
         "title": "APIs",
         "subtitle": "Programmatic access to technographic data",
         "to": "/api/"

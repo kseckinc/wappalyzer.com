@@ -54,7 +54,7 @@ export default {
           text:
             'Upload a list of websites to get a report of the technologies in use, such as CMS or ecommerce platforms.',
           buttonText: 'Upload a list',
-          to: '/bulk/',
+          to: { path: '/lookup/', hash: '#bulk' },
         },
         {
           title: 'Automate with ease',

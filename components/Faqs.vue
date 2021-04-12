@@ -273,9 +273,9 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content>
           <p>
-            We accept one-time payments for lead lists, bulk technology lookups
-            and credits. A paid plan may work out to be cheaper, particularly
-            when making regular or higher volume purchases.
+            We accept one-time payments for lead lists, technology lookups and
+            credits. A paid plan may work out to be cheaper, particularly when
+            making regular or higher volume purchases.
           </p>
         </v-expansion-panel-content>
       </v-expansion-panel>

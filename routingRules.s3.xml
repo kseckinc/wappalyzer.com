@@ -34,4 +34,13 @@
 			<ReplaceKeyPrefixWith>technologies/</ReplaceKeyPrefixWith>
 		</Redirect>
 	</RoutingRule>
+	<RoutingRule>
+		<Condition>
+			<KeyPrefixEquals>bulk/</KeyPrefixEquals>
+		</Condition>
+		<Redirect>
+			<HostName>www.wappalyzer.com</HostName>
+			<ReplaceKeyPrefixWith>lookup/#bulk</ReplaceKeyPrefixWith>
+		</Redirect>
+	</RoutingRule>
 </RoutingRules>

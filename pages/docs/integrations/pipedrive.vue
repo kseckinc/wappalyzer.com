@@ -93,9 +93,9 @@
       </p>
 
       <p>
-        The Pipedrive integration is available on Team and Business plans. When
-        you have no remaining credits, no new lookups can be performed until you
-        top-up your account.
+        The Pipedrive integration is available on any paid plan. When you have
+        no remaining credits, no new lookups can be performed until you top-up
+        your account.
       </p>
 
       <p>

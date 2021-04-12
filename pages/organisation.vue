@@ -15,12 +15,12 @@
         background-color="secondary"
         active-class="primary--text"
       >
-        <v-tab key="manage"> Manage </v-tab>
-        <v-tab key="memberships"> Memberships </v-tab>
+        <v-tab><small>Manage</small></v-tab>
+        <v-tab><small>Memberships</small></v-tab>
       </v-tabs>
 
       <v-tabs-items v-model="tab">
-        <v-tab-item key="manage">
+        <v-tab-item>
           <v-card flat>
             <v-card-title>
               <v-row>
@@ -123,7 +123,7 @@
           </v-card>
         </v-tab-item>
 
-        <v-tab-item key="memberships">
+        <v-tab-item>
           <v-card flat>
             <v-card-title>Organisations</v-card-title>
             <v-card-text class="px-0">
@@ -352,7 +352,7 @@ export default {
       removeOrganisationError: false,
       switching: false,
       permissions,
-      tab: 'manage',
+      tab: null,
       error: false,
       email: '',
       loading: true,
@@ -401,6 +401,11 @@ export default {
       }
     },
   },
+  created() {
+    if (this.$route.hash === '#memberships') {
+      this.tab = 1
+    }
+  },
   async mounted() {
     if (this.$store.state.user.isSignedIn) {
       try {
@@ -410,10 +415,6 @@ export default {
       } catch (error) {
         this.error = this.getErrorMessage(error)
       }
-    }
-
-    if (this.$route.hash === '#memberships') {
-      this.tab = 1
     }
   },
   methods: {

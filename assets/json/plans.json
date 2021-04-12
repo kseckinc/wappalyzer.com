@@ -39,7 +39,7 @@
           "tooltip": ["Create lists using the included credits. See 'credit usage' below."]
         },
         "apis": true,
-        "crm": "-",
+        "crm": true,
         "cancellation": true
       }
     },
@@ -110,7 +110,7 @@
           "tooltip": ["Create lists using the included credits. See 'credit usage' below."]
         },
         "apis": true,
-        "crm": "-",
+        "crm": true,
         "cancellation": true
       }
     },

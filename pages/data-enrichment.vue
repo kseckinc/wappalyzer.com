@@ -63,10 +63,6 @@
 
       <v-divider class="my-4 my-sm-6" />
 
-      <Product name="bulk" />
-
-      <v-divider class="my-4 my-sm-6" />
-
       <Product name="apis" mirror />
 
       <template #footer>

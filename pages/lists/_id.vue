@@ -337,6 +337,25 @@
                 Included attributes
               </v-expansion-panel-header>
               <v-expansion-panel-content class="nopadding">
+                <v-alert
+                  v-if="
+                    list.query.compliance === 'exclude' ||
+                    list.query.compliance === 'excludeEU'
+                  "
+                  color="warning"
+                  class="mx-6"
+                  dense
+                  outlined
+                >
+                  <div class="subtitle-2">Compliance</div>
+                  <small v-if="list.query.compliance === 'exclude'">
+                    Contact details are excluded.
+                  </small>
+                  <small v-else-if="list.query.compliance === 'excludeEU'">
+                    Contact details are excluded for EU websites.
+                  </small>
+                </v-alert>
+
                 <v-simple-table dense>
                   <tbody>
                     <tr>
@@ -422,21 +441,23 @@
             Please contact us.
           </v-alert>
 
-          <v-alert v-if="list.status === 'Insufficient'" type="warning">
+          <v-alert
+            v-if="list.status === 'Insufficient'"
+            color="warning lighten-2"
+          >
             <p>
-              Sorry, we don't have data available matching your requirements.
+              Sorry, we don't have results available matching your requirements.
               Please try it again with different or no filters.
             </p>
 
-            <v-btn :to="`/lists/${queryParams}`" outlined exact>
+            <v-btn :to="`/lists/${queryParams}`" color="white" exact>
               <v-icon left>{{ mdiArrowLeft }}</v-icon>
               Change requirements
             </v-btn>
           </v-alert>
 
           <v-alert v-if="list.status === 'Ready'" type="success" outlined>
-            Your list is ready. Please review the samples and availability
-            below.
+            Your list is ready. Please review the samples and availability.
           </v-alert>
 
           <v-expansion-panels
@@ -556,7 +577,10 @@
           </v-expansion-panels>
 
           <v-btn
-            v-if="list.status !== 'Complete' && list.sampleFilename"
+            v-if="
+              !['Complete', 'Failed', 'Insufficient'].includes(list.status) &&
+              list.sampleFilename
+            "
             :href="`${datasetsBaseUrl}${list.sampleFilename}`"
             color="accent"
             class="mb-4"
@@ -716,6 +740,11 @@ export default {
           this.list.query.matchAllTechnologies === 'and' ||
           this.list.query.matchAllTechnologies === 'not'
             ? this.list.query.matchAllTechnologies
+            : undefined,
+        contacts:
+          this.list.query.compliance === 'exclude' ||
+          this.list.query.compliance === 'excludeEU'
+            ? this.list.query.compliance
             : undefined,
       }
 

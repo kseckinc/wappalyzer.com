@@ -69,10 +69,6 @@
 
       <Product name="lists" mirror />
 
-      <v-divider class="my-4 my-sm-6" />
-
-      <Product name="bulk" />
-
       <template #footer>
         <Logos integrations />
       </template>

@@ -3,7 +3,7 @@
     <v-expansion-panel v-for="(set, setKey) in attributes" :key="setKey" flat>
       <v-expansion-panel-header class="subtitle-2" style="line-height: 1em"
         >{{ set.title }}
-        <span class="ml-1 text--disabled"
+        <span class="ml-1 font-weight-regular text--disabled"
           >({{
             Object.values(set.attributes).reduce(
               (total, { values }) => total + values.length,

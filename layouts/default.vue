@@ -133,7 +133,7 @@ export default {
       if (
         [
           '/lists/',
-          '/bulk/',
+          '/lookup/',
           '/api/',
           '/contact/',
           '/faq/',

@@ -10,7 +10,7 @@
     "image": "lookup.svg",
     "text": "Instantly reveal the technology stack and contact details of any website, such as ecommerce platform, content managment system or marketing automation tools.",
     "search": true,
-    "features": ["Instant results", "Look up any website", "50 Free monthly lookups"],
+    "features": ["Instant results", "50 Free monthly lookups", "Perform up to 100,000 lookups at once"],
     "feature": true
   },
   "lists": {
@@ -29,26 +29,6 @@
     "features": [
       "Over a thousand technologies tracked",
       "Organic data with traffic markers and contacts",
-      "Fresh and accurate data"
-    ],
-    "feature": true
-  },
-  "bulk": {
-    "title": "Bulk technology lookup",
-    "subtitle": "Look up a number of websites in one go",
-    "icon": "mdiFileTableOutline",
-    "image": "bulk.svg",
-    "text": "Supply your own list of websites to create a report of the technologies they use, along with contact details and social media profiles. Gain a better understanding of your target audience with technographic insights.",
-    "buttons": [
-      {
-        "text": "Upload a list",
-        "to": "/bulk/",
-        "icon": "mdiUpload"
-      }
-    ],
-    "features": [
-      "Perform up to 100,000 lookups at once",
-      "Effortless and integration free",
       "Fresh and accurate data"
     ],
     "feature": true

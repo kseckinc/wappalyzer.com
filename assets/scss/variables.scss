@@ -39,6 +39,3 @@ $headings: (
 
 $btn-text-transform: none;
 $btn-letter-spacing: normal;
-
-$tab-font-size: map-deep-get($headings, 'caption', 'size');
-$tab-font-weight: map-deep-get($headings, 'caption', 'weight');

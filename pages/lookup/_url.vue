@@ -1,87 +1,155 @@
 <template>
   <Page :title="title" :seo-title="seoTitle" :head="meta" no-heading>
-    <v-card
-      id="form"
-      color="secondary"
-      style="overflow: hidden"
-      class="mt-12 mb-4"
-    >
-      <v-card-title>
-        <v-row align="center">
-          <v-col cols="12" sm="4" class="pb-0">
-            <v-icon color="primary" left>{{ mdiLayersOutline }}</v-icon>
-            Lookup
-          </v-col>
-          <v-col cols="12" sm="8" class="pb-0">
-            <Credits />
-          </v-col>
-        </v-row>
-      </v-card-title>
+    <v-card class="mt-8 mb-4">
+      <v-tabs
+        v-model="tab"
+        slider-color="primary"
+        background-color="secondary"
+        active-class="primary--text"
+      >
+        <v-tab><small>Single</small></v-tab>
+        <v-tab><small>Multiple</small></v-tab>
+      </v-tabs>
 
-      <v-card-text class="pb-0">
-        <Url ref="url" :url="url" class="my-4" @change="submit" />
-
-        <v-alert v-if="error" color="info" class="mb-4" outlined>
-          {{ error }}
-        </v-alert>
-
-        <v-card v-if="loading" class="mb-4">
-          <v-card-text class="d-flex justify-center">
-            <Progress />
-          </v-card-text>
-        </v-card>
-
-        <Attributes
-          v-if="!loading"
-          :hostname="attributes"
-          :limited="!isSignedIn"
-          @signIn="signInDialog = true"
-        />
-
-        <v-card v-if="!loading && technologies.length" class="mb-4">
-          <v-card-title class="subtitle-2" style="line-height: 1em">
-            Technologies
-            <span class="ml-1 text--disabled">({{ technologies.length }})</span>
+      <v-tabs-items v-model="tab">
+        <v-tab-item>
+          <v-card-title>
+            <v-row align="center">
+              <v-col cols="12" sm="4" class="pb-0">
+                <v-icon color="primary" left>{{ mdiLayersOutline }}</v-icon>
+                Lookup
+              </v-col>
+              <v-col cols="12" sm="8" class="pb-0">
+                <Credits />
+              </v-col>
+            </v-row>
           </v-card-title>
-          <v-card-text class="px-0">
-            <v-simple-table>
-              <tbody>
-                <tr v-for="category in categorised" :key="category.slug">
-                  <td>
-                    <div
-                      v-for="{
-                        name,
-                        slug,
-                        categories,
-                        icon,
-                      } in category.technologies"
-                      :key="name"
-                    >
-                      <nuxt-link
-                        :to="`/technologies/${
-                          categories.length ? `${categories[0].slug}/` : ''
-                        }${slug}/`"
-                        class="d-flex align-center body-2 my-2"
-                      >
-                        <TechnologyIcon :icon="icon" />
-                        {{ name }}
-                      </nuxt-link>
-                    </div>
-                  </td>
-                  <th class="text-right font-weight-regular">
-                    <nuxt-link
-                      :to="`/technologies/${category.slug}/`"
-                      class="black--text"
-                    >
-                      {{ category.name }}
-                    </nuxt-link>
-                  </th>
-                </tr>
-              </tbody>
-            </v-simple-table>
+
+          <v-card-text>
+            <Url ref="url" :url="url" class="mt-4" @change="submit" />
+
+            <v-alert v-if="error" color="info" class="mt-4 mb-0" outlined>
+              {{ error }}
+            </v-alert>
+
+            <v-card v-if="loading" class="mt-4">
+              <v-card-text class="d-flex justify-center">
+                <Progress />
+              </v-card-text>
+            </v-card>
+
+            <Attributes
+              v-if="!loading"
+              class="mt-4"
+              :hostname="attributes"
+              :limited="!isSignedIn"
+              @signIn="signInDialog = true"
+            />
+
+            <v-card v-if="!loading && technologies.length">
+              <v-card-title class="subtitle-2" style="line-height: 1em">
+                Technologies
+                <span class="ml-1 font-weight-regular text--disabled"
+                  >({{ technologies.length }})</span
+                >
+              </v-card-title>
+              <v-card-text class="px-0">
+                <v-simple-table>
+                  <tbody>
+                    <tr v-for="category in categorised" :key="category.slug">
+                      <td>
+                        <div
+                          v-for="{
+                            name,
+                            slug,
+                            categories,
+                            icon,
+                          } in category.technologies"
+                          :key="name"
+                        >
+                          <nuxt-link
+                            :to="`/technologies/${
+                              categories.length ? `${categories[0].slug}/` : ''
+                            }${slug}/`"
+                            class="d-flex align-center body-2 my-2"
+                          >
+                            <TechnologyIcon :icon="icon" />
+                            {{ name }}
+                          </nuxt-link>
+                        </div>
+                      </td>
+                      <th class="text-right font-weight-regular">
+                        <nuxt-link
+                          :to="`/technologies/${category.slug}/`"
+                          class="black--text"
+                        >
+                          {{ category.name }}
+                        </nuxt-link>
+                      </th>
+                    </tr>
+                  </tbody>
+                </v-simple-table>
+              </v-card-text>
+            </v-card>
           </v-card-text>
-        </v-card>
-      </v-card-text>
+        </v-tab-item>
+
+        <v-tab-item>
+          <v-card-title>
+            <v-row align="center">
+              <v-col class="pb-0 flex-grow-1 flex-shrink-0">
+                <v-icon color="primary" left>{{ mdiLayersOutline }}</v-icon>
+                Bulk lookup
+              </v-col>
+              <v-col class="pb-0 flex-grow-0 flex-shrink-1">
+                <v-btn
+                  color="primary"
+                  outlined
+                  small
+                  @click="$refs.pricingDialog.open()"
+                >
+                  <v-icon left>{{ mdiCalculator }}</v-icon>
+                  Pricing
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-card-title>
+          <v-card-title class="subtitle-2"
+            >Upload a list of websites</v-card-title
+          >
+          <v-card-text>
+            <p>
+              We'll report back with the technologies they use, as well as any
+              contact details and meta data we find. The resulting list is in
+              CSV and JSON format (<a href="/bulk-sample.zip" download>sample</a
+              >).
+            </p>
+
+            <p class="mb-2">
+              Upload a <code>.txt</code> file with up to 100,000 URLs, each on a
+              separate line.<br />
+            </p>
+
+            <v-file-input
+              :error-messages="fileErrors"
+              placeholder="Select a file..."
+              accept="text/plain"
+              hide-details="auto"
+              class="mb-8"
+              background-color="white"
+              style="max-width: 500px"
+              @change="fileChange"
+            />
+
+            <v-btn
+              :disabled="!!(!file || fileErrors.length)"
+              color="primary"
+              @click="submitBulk"
+              >Get a quote <v-icon right>{{ mdiArrowRight }}</v-icon>
+            </v-btn>
+          </v-card-text>
+        </v-tab-item>
+      </v-tabs-items>
     </v-card>
 
     <p>
@@ -89,8 +157,6 @@
         Get the free
         <nuxt-link to="/download/">browser extension</nuxt-link> to see the
         technologies on websites you visit.<br />
-        Look up a large number of websites at once with
-        <nuxt-link to="/bulk/">Bulk technology lookup</nuxt-link>.<br />
         Automate lookups with the
         <nuxt-link to="/api/">Lookup API</nuxt-link> or
         <nuxt-link to="/download/">CRM integrations</nuxt-link>.
@@ -100,12 +166,28 @@
     <v-dialog v-model="signInDialog" max-width="400px">
       <SignIn mode-sign-up mode-continue />
     </v-dialog>
+
+    <OrderDialog
+      :id="order ? order.id : null"
+      ref="orderDialog"
+      :error="orderError"
+      @close="orderDialog = false"
+    />
+
+    <PricingDialog ref="pricingDialog" product="bulk" />
   </Page>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import { mdiLayersOutline, mdiMagnify, mdiCheck, mdiClose } from '@mdi/js'
+import {
+  mdiLayersOutline,
+  mdiMagnify,
+  mdiCheck,
+  mdiClose,
+  mdiCalculator,
+  mdiArrowRight,
+} from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import Progress from '~/components/Progress.vue'
@@ -114,6 +196,8 @@ import Credits from '~/components/Credits.vue'
 import Url from '~/components/Url.vue'
 import Attributes from '~/components/Attributes.vue'
 import SignIn from '~/components/SignIn.vue'
+import OrderDialog from '~/components/OrderDialog.vue'
+import PricingDialog from '~/components/PricingDialog.vue'
 import { lookup as meta } from '~/assets/json/meta.json'
 import sets from '~/assets/json/sets.json'
 import countries from '~/assets/json/countries.json'
@@ -159,6 +243,8 @@ export default {
     Url,
     Attributes,
     SignIn,
+    OrderDialog,
+    PricingDialog,
   },
   async asyncData({
     route,
@@ -203,6 +289,8 @@ export default {
     return {
       title: 'Technology lookup',
       error: false,
+      file: '',
+      fileErrors: [],
       loading: false,
       meta,
       sets,
@@ -211,6 +299,11 @@ export default {
       mdiMagnify,
       mdiCheck,
       mdiClose,
+      mdiCalculator,
+      mdiArrowRight,
+      order: false,
+      orderError: '',
+      ordering: false,
       url: '',
       lastUrl: '',
       signInDialog: false,
@@ -224,6 +317,7 @@ export default {
         pinterest: 'https://www.pinterest.com/',
         linkedin: 'https://www.linkedin.com/',
       },
+      tab: null,
       technologies: [],
     }
   },
@@ -270,10 +364,14 @@ export default {
 
         await this.getCredits()
 
-        if (this.url) {
+        if (this.tab === 0 && this.url) {
           this.lastUrl = null
 
           this.submit()
+        }
+
+        if (this.tab === 1 && this.ordering) {
+          this.submitBulk()
         }
       }
     },
@@ -286,6 +384,20 @@ export default {
         history.pushState({}, null, `/lookup/${hostname.replace(/^www\./, '')}`)
       }
     },
+    tab(index) {
+      if (index === 1) {
+        if (this.$route.hash !== '#bulk') {
+          this.$router.replace({ path: '/lookup/', hash: '#bulk' })
+        }
+      } else if (this.$route.hash === '#bulk') {
+        this.$router.replace({ path: '/lookup/' })
+      }
+    },
+  },
+  created() {
+    if (this.$route.hash === '#bulk') {
+      this.tab = 1
+    }
   },
   async mounted() {
     if (this.isSignedIn) {
@@ -413,6 +525,71 @@ export default {
       }
 
       return code
+    },
+    async submitBulk() {
+      this.orderError = ''
+      this.ordering = true
+
+      if (!this.$store.state.user.isSignedIn) {
+        this.signInDialog = true
+
+        return
+      }
+
+      this.$refs.orderDialog.open()
+
+      try {
+        this.order = (
+          await this.$axios.put('orders', {
+            product: 'Bulk lookup',
+            bulk: {
+              input: this.file,
+              sets: this.sets
+                .filter(({ disabled, value }) => value && !disabled)
+                .map(({ key }) => key),
+            },
+          })
+        ).data
+      } catch (error) {
+        this.orderError = this.getErrorMessage(error)
+      }
+
+      this.ordering = false
+    },
+
+    async fileChange(file) {
+      this.file = ''
+      this.fileErrors = []
+
+      if (!file) {
+        return
+      }
+
+      this.file = (await file.text())
+        .trim()
+        .split(/[\r\n]/)
+        .filter((line) => line)
+        .map((line, i) => {
+          const url = !/^https?:\/\//.test(line.trim())
+            ? `http://${line.trim()}`
+            : line.trim()
+
+          try {
+            new URL(url) // eslint-disable-line no-new
+          } catch (error) {
+            this.fileErrors.push(`Invalid URL on line ${i + 1}: ${line}`)
+          }
+
+          return url
+        })
+
+      this.fileErrors = this.fileErrors.slice(0, 10)
+
+      if (this.file.length > 100000) {
+        this.fileErrors.push('Limit of 100,000 URLs exceeded')
+      }
+
+      this.file = this.file.join('\n')
     },
   },
 }
