@@ -152,7 +152,7 @@
       </v-tabs-items>
     </v-card>
 
-    <p>
+    <p class="text--disabled">
       <small>
         Get the free
         <nuxt-link to="/download/">browser extension</nuxt-link> to see the

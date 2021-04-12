@@ -32,7 +32,7 @@
         @select="subscribe"
       />
 
-      <small>
+      <small class="text--disabled">
         <nuxt-link to="/contact/">Contact us</nuxt-link> for tailored plans.<br />
         Prices are in United States dollars.<br />
         Credits included in plans expire after 60 days.
@@ -145,7 +145,7 @@
         </v-col>
       </v-row>
 
-      <small>
+      <small class="text--disabled">
         By using our services, you agree to our
         <nuxt-link to="/terms/">terms of service</nuxt-link>.
       </small>

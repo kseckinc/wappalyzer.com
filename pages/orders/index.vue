@@ -69,7 +69,7 @@
         </v-card-text>
       </v-card>
 
-      <small>Prices are in United States dollars.</small>
+      <small class="text--disabled">Prices are in United States dollars.</small>
     </template>
   </Page>
 </template>

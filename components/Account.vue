@@ -94,7 +94,10 @@
           ></v-select>
 
           <v-alert
-            v-if="attrs.billingCountry.toUpperCase() === 'AU'"
+            v-if="
+              attrs.billingCountry &&
+              attrs.billingCountry.toUpperCase() === 'AU'
+            "
             color="warning"
             dense
             outlined

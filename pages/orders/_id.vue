@@ -853,7 +853,7 @@
         </template>
       </v-card>
 
-      <small>Prices are in United States dollars.</small>
+      <small class="text--disabled">Prices are in United States dollars.</small>
 
       <v-dialog v-model="billingDialog" width="80%" max-width="700">
         <v-card>

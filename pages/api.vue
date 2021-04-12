@@ -47,7 +47,7 @@
         />
 
         <v-container>
-          <small>* Subject to availability</small>
+          <small class="text--disabled">* Subject to availability</small>
         </v-container>
 
         <v-row class="mb-4 mt-4 mt-sm-8">

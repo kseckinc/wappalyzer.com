@@ -1003,7 +1003,7 @@
           >Create list <v-icon right>{{ mdiArrowRight }}</v-icon>
         </v-btn>
 
-        <p class="mb-8">
+        <p class="mb-8 text--disabled">
           <small>
             By using our services, you agree to our
             <nuxt-link to="/terms/" target="_blank">terms of service</nuxt-link

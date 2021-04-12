@@ -9,7 +9,7 @@
         {{ error }}
       </v-alert>
 
-      <v-card v-if="!error" class="mt-12">
+      <v-card v-if="!error" class="mt-12 mb-4">
         <v-card-title> Websites </v-card-title>
         <v-card-text class="pb-0">
           <p>
