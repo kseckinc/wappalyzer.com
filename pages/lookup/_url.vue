@@ -7,8 +7,8 @@
         background-color="secondary"
         active-class="primary--text"
       >
-        <v-tab><small>Single</small></v-tab>
-        <v-tab><small>Multiple</small></v-tab>
+        <v-tab><small>Single website</small></v-tab>
+        <v-tab><small>Multiple websites</small></v-tab>
       </v-tabs>
 
       <v-tabs-items v-model="tab">
