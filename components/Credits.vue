@@ -1,7 +1,7 @@
 <template>
   <v-card
     v-if="isSignedIn"
-    :color="variant ? 'primary lighten-2' : ''"
+    :color="variant ? 'primary lighten-2' : 'secondary'"
     :class="variant ? 'mb-4' : ''"
     flat
   >

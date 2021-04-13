@@ -19,6 +19,8 @@
         <v-tab><small>Memberships</small></v-tab>
       </v-tabs>
 
+      <v-divider />
+
       <v-tabs-items v-model="tab">
         <v-tab-item>
           <v-card flat>

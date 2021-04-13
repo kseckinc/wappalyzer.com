@@ -342,6 +342,24 @@
 
         <v-divider />
 
+        <v-card-title class="subtitle-2">Dependencies</v-card-title>
+        <v-card-text>
+          <p>
+            If the technology is built on other technologies, such as a
+            framework, programming language or database, list them here. We use
+            these to identify technologies that may otherwise be invisible.
+          </p>
+
+          <v-textarea
+            v-model="form.implies"
+            label="Technologies"
+            rows="2"
+            :placeholder="`PHP\nMySQL`"
+          />
+        </v-card-text>
+
+        <v-divider />
+
         <v-card-title class="subtitle-2">Your contact details</v-card-title>
         <v-card-text>
           <p>We'll follow up when your submission has been processed.</p>
@@ -419,6 +437,7 @@ export default {
         price: '',
         fingerprints: '',
         examples: '',
+        implies: '',
         name: '',
         email: '',
       },

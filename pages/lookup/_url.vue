@@ -11,8 +11,10 @@
         <v-tab><small>Multiple websites</small></v-tab>
       </v-tabs>
 
+      <v-divider />
+
       <v-tabs-items v-model="tab">
-        <v-tab-item>
+        <v-tab-item active-class="secondary">
           <v-card-title>
             <v-row align="center">
               <v-col cols="12" sm="4" class="pb-0">
@@ -94,7 +96,7 @@
           </v-card-text>
         </v-tab-item>
 
-        <v-tab-item>
+        <v-tab-item active-class="secondary">
           <v-card-title>
             <v-row align="center">
               <v-col class="pb-0 flex-grow-1 flex-shrink-0">
@@ -114,36 +116,96 @@
               </v-col>
             </v-row>
           </v-card-title>
-          <v-card-title class="subtitle-2"
-            >Upload a list of websites</v-card-title
-          >
-          <v-card-text>
-            <p>
-              We'll report back with the technologies they use, as well as any
-              contact details and meta data we find. The resulting list is in
-              CSV and JSON format (<a href="/bulk-sample.zip" download>sample</a
+          <v-card-text class="pt-4">
+            <p class="mb-6" style="max-width: 600px">
+              Supply your own list of websites and we'll report back with the
+              technologies they use, as well as any contact details and meta
+              data we find. The resulting list is in CSV and JSON format (<a
+                href="/bulk-sample.zip"
+                download
+                >sample</a
               >).
             </p>
 
-            <p class="mb-2">
-              Upload a <code>.txt</code> file with up to 100,000 URLs, each on a
-              separate line.<br />
-            </p>
+            <v-card class="mb-8">
+              <v-card-title class="subtitle-2"
+                >Upload a list of websites</v-card-title
+              >
+              <v-card-text>
+                <p class="mb-2">
+                  Upload a .txt file with up to 100,000 URLs, each on a separate
+                  line.<br />
+                </p>
 
-            <v-file-input
-              :error-messages="fileErrors"
-              placeholder="Select a file..."
-              accept="text/plain"
-              hide-details="auto"
-              class="mb-8"
-              background-color="white"
-              style="max-width: 500px"
-              @change="fileChange"
-            />
+                <v-file-input
+                  :error-messages="fileErrors"
+                  placeholder="Select a file..."
+                  accept="text/plain"
+                  hide-details="auto"
+                  class="mb-4"
+                  background-color="white"
+                  @change="fileChange"
+                />
+              </v-card-text>
+            </v-card>
+
+            <v-expansion-panels class="mb-8">
+              <v-expansion-panel ref="compliance">
+                <v-expansion-panel-header class="subtitle-2">
+                  Compliance
+                </v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  <v-radio-group v-model="compliance" class="my-0" mandatory>
+                    <v-radio
+                      value="include"
+                      class="mt-0"
+                      hide-details
+                      :disabled="australia"
+                    >
+                      <template #label>Include contact details</template>
+                    </v-radio>
+                    <v-radio
+                      value="excludeEU"
+                      class="mt-0"
+                      hide-details
+                      :disabled="australia"
+                    >
+                      <template #label>
+                        Exclude contact details of EU websites
+                      </template>
+                    </v-radio>
+                    <v-radio value="exclude" class="mt-0" hide-details>
+                      <template #label> Exclude all contact details </template>
+                    </v-radio>
+                  </v-radio-group>
+
+                  <v-checkbox
+                    v-model="australia"
+                    label="I'm in or do business in Australia"
+                    class="mt-0"
+                    hide-details
+                  />
+
+                  <v-alert
+                    color="secondary"
+                    border="left"
+                    class="mt-8 mb-2"
+                    dense
+                  >
+                    <small>
+                      We're unable to supply email addresses and phone numbers
+                      if you're in Australia or carry on business or activities
+                      in Australia.
+                    </small>
+                  </v-alert>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
 
             <v-btn
               :disabled="!!(!file || fileErrors.length)"
               color="primary"
+              large
               @click="submitBulk"
               >Get a quote <v-icon right>{{ mdiArrowRight }}</v-icon>
             </v-btn>
@@ -288,6 +350,8 @@ export default {
   data() {
     return {
       title: 'Technology lookup',
+      australia: false,
+      compliance: 'include',
       error: false,
       file: '',
       fileErrors: [],
@@ -323,6 +387,7 @@ export default {
   },
   computed: {
     ...mapState({
+      user: ({ user }) => user.attrs,
       isSignedIn: ({ user }) => user.isSignedIn,
       credits: ({ credits: { credits } }) => credits,
     }),
@@ -357,6 +422,10 @@ export default {
   watch: {
     async isSignedIn() {
       if (this.isSignedIn) {
+        if (this.user.billingCountry.toLowerCase() === 'au') {
+          this.australia = true
+        }
+
         this.signInDialog = false
 
         this.technologies = []
@@ -393,6 +462,11 @@ export default {
         this.$router.replace({ path: '/lookup/' })
       }
     },
+    australia() {
+      if (this.australia) {
+        this.compliance = 'exclude'
+      }
+    },
   },
   created() {
     if (this.$route.hash === '#bulk') {
@@ -401,6 +475,10 @@ export default {
   },
   async mounted() {
     if (this.isSignedIn) {
+      if (this.user.billingCountry.toLowerCase() === 'au') {
+        this.australia = true
+      }
+
       try {
         await this.getCredits()
       } catch (error) {
@@ -547,6 +625,7 @@ export default {
               sets: this.sets
                 .filter(({ disabled, value }) => value && !disabled)
                 .map(({ key }) => key),
+              compliance: this.compliance,
             },
           })
         ).data

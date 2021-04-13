@@ -425,7 +425,17 @@
           <div v-if="list.status !== 'Complete'" class="mb-4 text-right">
             <v-btn :to="`/lists/${queryParams}`" color="accent" outlined small>
               <v-icon left>{{ mdiPencil }}</v-icon>
-              Modify
+              Edit
+            </v-btn>
+            <v-btn
+              color="error"
+              class="ml-2"
+              outlined
+              small
+              @click="cancelDialog = true"
+            >
+              <v-icon left>{{ mdiDelete }}</v-icon>
+              Delete
             </v-btn>
           </div>
         </v-col>
@@ -609,6 +619,28 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="cancelDialog" max-width="400px" eager>
+      <v-card>
+        <v-card-title>Delete list</v-card-title>
+        <v-card-text class="pb-0">
+          <v-alert v-if="cancelError" type="error">
+            {{ cancelError }}
+          </v-alert>
+
+          <div>The list will be deleted.</div>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn color="accent" text @click="cancelDialog = false"
+            >Cancel</v-btn
+          >
+          <v-btn :loading="cancelling" color="error" text @click="cancel"
+            >Ok</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </Page>
 </template>
 
@@ -623,6 +655,7 @@ import {
   mdiCheckboxMarked,
   mdiPencil,
   mdiCart,
+  mdiDelete,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -662,6 +695,9 @@ export default {
       title: 'Lead list',
       checks: 0,
       datasetsBaseUrl: this.$config.DATASETS_BASE_URL,
+      cancelDialog: false,
+      cancelError: false,
+      cancelling: false,
       error: false,
       faqDialog: false,
       mdiArrowLeft,
@@ -672,6 +708,7 @@ export default {
       mdiCheckboxMarked,
       mdiPencil,
       mdiCart,
+      mdiDelete,
       panelIndex: 0,
       sidePanelIndex: 0,
       submitting: false,
@@ -824,6 +861,23 @@ export default {
 
         this.submitting = false
       }
+    },
+    async cancel() {
+      this.cancelError = false
+      this.cancelling = true
+      this.success = false
+
+      try {
+        const { id } = this.$route.params
+
+        await this.$axios.delete(`lists/${id}`)
+
+        this.$router.push({ path: '/lists/all/' })
+      } catch (error) {
+        this.cancelError = this.getErrorMessage(error)
+      }
+
+      this.cancelling = false
     },
   },
 }

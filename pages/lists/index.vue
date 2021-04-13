@@ -1305,15 +1305,15 @@ export default {
   watch: {
     isSignedIn() {
       if (this.isSignedIn) {
+        this.signInDialog = false
+
         if (this.user.billingCountry.toLowerCase() === 'au') {
           this.australia = true
         }
-      }
 
-      if (this.isSignedIn && this.creating) {
-        this.signInDialog = false
-
-        this.submit()
+        if (this.creating) {
+          this.submit()
+        }
       }
     },
     australia() {
