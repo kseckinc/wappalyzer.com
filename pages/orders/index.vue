@@ -45,7 +45,23 @@
                       order.id
                     }}</nuxt-link>
                   </td>
-                  <td>{{ order.status }}</td>
+                  <td>
+                    <v-chip
+                      :color="
+                        order.status === 'Complete'
+                          ? 'success'
+                          : order.status === 'Pending'
+                          ? 'warning'
+                          : order.status === 'Failed'
+                          ? 'error'
+                          : 'accent'
+                      "
+                      label
+                      outlined
+                      small
+                      >{{ order.status }}</v-chip
+                    >
+                  </td>
                   <td>{{ formatDate(new Date(order.createdAt * 1000)) }}</td>
                   <td>
                     {{ order.product }}

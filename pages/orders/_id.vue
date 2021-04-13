@@ -169,7 +169,21 @@
               <tr>
                 <th>Status</th>
                 <td>
-                  {{ order.status }}
+                  <v-chip
+                    :color="
+                      order.status === 'Complete'
+                        ? 'success'
+                        : order.status === 'Pending'
+                        ? 'warning'
+                        : order.status === 'Failed'
+                        ? 'error'
+                        : 'accent'
+                    "
+                    label
+                    outlined
+                    small
+                    >{{ order.status }}</v-chip
+                  >
                 </td>
               </tr>
               <tr>
@@ -284,6 +298,7 @@
                         :key="slug"
                         outlined
                         small
+                        label
                       >
                         {{ name }}
                         {{
@@ -298,6 +313,7 @@
                         color="accent"
                         outlined
                         small
+                        label
                         @click="technologiesViewAll = !technologiesViewAll"
                       >
                         <v-icon small left>{{
@@ -332,7 +348,7 @@
                         "
                       >
                         Exclude
-                        <v-chip outlined small>{{
+                        <v-chip outlined small label>{{
                           order.dataset.query.technologies[1].name
                         }}</v-chip>
                       </template>
@@ -354,7 +370,7 @@
                         bottom
                       >
                         <template #activator="{ on }">
-                          <v-chip outlined small v-on="on">
+                          <v-chip outlined small label v-on="on">
                             {{ set.name }}
                             {{
                               !['Insufficient', 'Failed'].includes(order.status)
@@ -394,6 +410,7 @@
                         :key="key"
                         outlined
                         small
+                        label
                       >
                         {{
                           (set = sets.find(({ key: _key }) => _key === key)) &&
@@ -417,7 +434,7 @@
                         bottom
                       >
                         <template #activator="{ on }">
-                          <v-chip outlined small v-on="on">
+                          <v-chip outlined small label v-on="on">
                             {{ value }}
                           </v-chip>
                         </template>
@@ -436,6 +453,7 @@
                         :key="tld"
                         outlined
                         small
+                        label
                         >{{ tld }}</v-chip
                       >
                     </v-chip-group>
@@ -451,6 +469,7 @@
                         :key="value"
                         outlined
                         small
+                        label
                       >
                         {{ text }}
                       </v-chip>
@@ -467,7 +486,7 @@
                         bottom
                       >
                         <template #activator="{ on }">
-                          <v-chip outlined small v-on="on">
+                          <v-chip outlined small label v-on="on">
                             {{ value }}
                           </v-chip>
                         </template>

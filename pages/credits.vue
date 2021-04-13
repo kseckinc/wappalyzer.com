@@ -14,21 +14,27 @@
     </p>
 
     <div class="mb-4">
-      <v-btn v-if="isAdmin" color="success" outlined @click="addDialog = true">
+      <v-btn
+        v-if="isAdmin"
+        color="success"
+        class="mr-2"
+        outlined
+        @click="addDialog = true"
+      >
         <v-icon left>{{ mdiAlphaCCircle }}</v-icon>
         Add credits
       </v-btn>
 
-      <v-btn color="accent" outlined @click="orderDialog = true"
+      <v-btn color="accent" class="mr-2" depressed @click="orderDialog = true"
         ><v-icon left>{{ mdiAlphaCCircle }}</v-icon> Buy credits</v-btn
       >
 
-      <v-btn href="/faq/credits" color="accent" outlined>
+      <v-btn href="/faq/credits" color="accent" class="mr-2" outlined>
         <v-icon left>{{ mdiForum }}</v-icon>
         FAQs
       </v-btn>
 
-      <v-btn href="/pricing" color="accent" outlined>
+      <v-btn href="/pricing" color="accent" class="mr-2" outlined>
         <v-icon left>{{ mdiCalculator }}</v-icon>
         Plans &amp; pricing
       </v-btn>
@@ -86,12 +92,6 @@
             </tbody>
           </v-simple-table>
         </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="accent" text @click="orderDialog = true"
-            ><v-icon left>{{ mdiAlphaCCircle }}</v-icon> Buy credits</v-btn
-          >
-        </v-card-actions>
 
         <v-divider />
 
