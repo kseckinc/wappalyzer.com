@@ -33,9 +33,10 @@
           />
           <v-btn
             :loading="subscribing"
-            color="primary"
-            class="ml-2"
+            color="primary lighten-1"
+            class="ml-2 primary--text"
             large
+            depressed
             @click="subscribe"
           >
             <v-icon left>{{ mdiEmail }}</v-icon> Subscribe

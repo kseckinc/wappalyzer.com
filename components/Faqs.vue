@@ -1,8 +1,8 @@
 <template>
   <div>
-    <v-expansion-panels v-if="topic === 'lists'">
+    <v-expansion-panels v-if="topic === 'lists'" flat>
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           What are lead lists?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -18,7 +18,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           What information is included in the lists?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -38,7 +38,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           What segmentation options are available?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -51,7 +51,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           A technology I'm looking for is not in the list, can it be added?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -65,7 +65,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           What is IP country?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -79,7 +79,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           How is the information being collected?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -96,7 +96,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           How accurate is the data?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -109,7 +109,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           How fresh is the data?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -122,7 +122,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           How do you determine website traffic?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -137,7 +137,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           Can I use a different payment method?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -149,7 +149,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           Can I resell the data?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -162,7 +162,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           What is your refund policy?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -175,9 +175,9 @@
       </v-expansion-panel>
     </v-expansion-panels>
 
-    <v-expansion-panels v-if="topic === 'api'">
+    <v-expansion-panels v-if="topic === 'api'" flat>
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           What information is included in API responses?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -196,7 +196,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           How is the information being collected?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -213,7 +213,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           How fresh is the data?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -226,7 +226,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           How do you determine website traffic?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -241,7 +241,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           Can I resell the data?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -254,7 +254,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           Do you offer a free trial?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -266,9 +266,9 @@
       </v-expansion-panel>
     </v-expansion-panels>
 
-    <v-expansion-panels v-if="topic === 'pricing'">
+    <v-expansion-panels v-if="topic === 'pricing'" flat>
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           Do I need to sign up for a paid plan?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -281,7 +281,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           Can I cancel my plan any time?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -293,9 +293,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
-          What are credits?
-        </v-expansion-panel-header>
+        <v-expansion-panel-header> What are credits? </v-expansion-panel-header>
         <v-expansion-panel-content>
           <p>
             Credits can be spent on a range of products, including lead lists
@@ -306,7 +304,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           When do credits expire?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -319,7 +317,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           Can I use a different payment method?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -334,7 +332,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           What is your refund policy?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -349,9 +347,9 @@
       </v-expansion-panel>
     </v-expansion-panels>
 
-    <v-expansion-panels v-if="topic === 'extension'">
+    <v-expansion-panels v-if="topic === 'extension'" flat>
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           Can I suggest a technology to be added?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -376,7 +374,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           Where can I report a bug or request a new feature?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -394,7 +392,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           How does the extension work?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -407,7 +405,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           Can I hide technologies on my website from Wappalyzer?
         </v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -424,7 +422,7 @@
       </v-expansion-panel>
 
       <v-expansion-panel>
-        <v-expansion-panel-header class="subtitle-2">
+        <v-expansion-panel-header>
           What information do you collect?
         </v-expansion-panel-header>
         <v-expansion-panel-content>

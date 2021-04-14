@@ -54,7 +54,7 @@
         receive an email when it's ready.
       </v-alert>
 
-      <v-alert v-if="order.status === 'Complete'" type="success" outlined>
+      <v-alert v-if="order.status === 'Complete'" type="success">
         <template v-if="order.product === 'Subscription'">
           Thank you for your payment, your subscription has been created.
         </template>
@@ -97,8 +97,8 @@
         <v-btn
           v-if="order.dataset.filename"
           :href="`${datasetsBaseUrl}${order.dataset.filename}`"
-          color="accent"
-          class="mr-2"
+          color="primary lighten-1"
+          class="mr-2 primary--text"
           depressed
           ><v-icon left>{{ mdiDownload }}</v-icon
           >Download list</v-btn
@@ -106,9 +106,8 @@
         <v-btn
           v-else-if="order.dataset.sampleFilename && !order.listId"
           :href="`${datasetsBaseUrl}${order.dataset.sampleFilename}`"
-          color="accent"
           class="mr-2"
-          outlined
+          depressed
           ><v-icon left>{{ mdiDownload }}</v-icon
           >Download sample</v-btn
         >
@@ -118,8 +117,8 @@
         <v-btn
           v-if="order.status === 'Complete'"
           :href="`${bulkLookupBaseUrl}${order.bulk.filename}`"
-          color="accent"
-          class="mr-2"
+          color="primary lighten-1"
+          class="mr-2 primary--text"
           depressed
           ><v-icon left>{{ mdiDownload }}</v-icon
           >Download list</v-btn
@@ -137,9 +136,8 @@
         :href="order.status === 'Pending' && order.invoiceUrl"
         :to="order.status === 'Complete' && `/invoices/${order.id}`"
         :target="order.status === 'Pending' && '_blank'"
-        color="accent"
         class="mb-2"
-        outlined
+        depressed
       >
         <v-icon left>{{ mdiFileDocumentOutline }}</v-icon>
         Invoice
@@ -148,9 +146,9 @@
       <template v-if="order.stripeSubscription">
         <v-btn
           :to="`/subscriptions/${order.stripeSubscription}/`"
-          color="accent"
-          class="mr-2"
-          outlined
+          color="primary lighten-1"
+          class="mr-2 primary--text"
+          depressed
           ><v-icon left>{{ mdiCalendarSync }}</v-icon
           >Subscription</v-btn
         >

@@ -1,30 +1,12 @@
 <template>
   <div>
     <Page :title="title" :head="meta">
-      <v-btn
-        color="accent"
-        class="mt-4 mb-6"
-        outlined
-        @click="faqDialog = true"
-      >
+      <v-btn class="mt-4 mb-6" depressed @click="$refs.faqDialog.open()">
         <v-icon left>{{ mdi.mdiForum }}</v-icon>
         FAQs
       </v-btn>
 
       <Integrations />
-
-      <v-dialog v-model="faqDialog" max-width="600px">
-        <v-card>
-          <v-card-title> Frequently asked questions </v-card-title>
-          <v-card-text class="pb-0">
-            <Faqs topic="extension" />
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer />
-            <v-btn color="accent" text @click="faqDialog = false">Close</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
 
       <v-divider class="mt-12 mb-10" />
 
@@ -95,6 +77,8 @@
         </v-col>
       </v-row>
     </Page>
+
+    <FaqDialog ref="faqDialog" topic="extension" />
   </div>
 </template>
 
@@ -111,13 +95,13 @@ import {
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
-import Faqs from '~/components/Faqs.vue'
+import FaqDialog from '~/components/FaqDialog.vue'
 import Integrations from '~/components/Integrations.vue'
 
 export default {
   components: {
     Page,
-    Faqs,
+    FaqDialog,
     Integrations,
   },
   data() {

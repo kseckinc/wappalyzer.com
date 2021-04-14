@@ -8,6 +8,31 @@
     }"
     :loading="!categories"
   >
+    <h2 class="mt-6 mb-4">Popular</h2>
+
+    <v-row class="mb-2">
+      <v-col
+        v-for="{ name, slug, categorySlug, icon } in technologies"
+        :key="slug"
+        cols="6"
+        sm="4"
+        md="3"
+        lg="2"
+      >
+        <nuxt-link
+          class="text-decoration-none"
+          :to="`/technologies/${categorySlug}/${slug}/`"
+        >
+          <v-card color="primary lighten-1" flat>
+            <v-card-text class="d-flex flex-column align-center">
+              <TechnologyIcon class="mb-4" :icon="icon" large />
+              <span class="primary--text font-weight-medium">{{ name }}</span>
+            </v-card-text>
+          </v-card>
+        </nuxt-link>
+      </v-col>
+    </v-row>
+
     <h2 class="mt-6">Search by name</h2>
 
     <v-row>
@@ -48,11 +73,13 @@
 <script>
 import Page from '~/components/Page.vue'
 import Technologies from '~/components/Technologies.vue'
+import TechnologyIcon from '~/components/TechnologyIcon.vue'
 
 export default {
   components: {
     Page,
     Technologies,
+    TechnologyIcon,
   },
   async asyncData({ $axios }) {
     return { categories: (await $axios.get('categories')).data }
@@ -61,6 +88,80 @@ export default {
     return {
       title: 'Technologies',
       categories: false,
+      technologies: [
+        {
+          name: 'Shopify',
+          slug: 'shopify',
+          categorySlug: 'ecommerce',
+          icon: 'Shopify.svg',
+        },
+        {
+          name: 'Magento',
+          slug: 'magento',
+          categorySlug: 'ecommerce',
+          icon: 'Magento.svg',
+        },
+        {
+          name: 'WooCommerce',
+          slug: 'woocommerce',
+          categorySlug: 'ecommerce',
+          icon: 'WooCommerce.svg',
+        },
+        {
+          name: 'PrestaShop',
+          slug: 'prestashop',
+          categorySlug: 'ecommerce',
+          icon: 'Prestashop.svg',
+        },
+        {
+          name: 'Shopware',
+          slug: 'shopware',
+          categorySlug: 'ecommerce',
+          icon: 'Shopware.svg',
+        },
+        {
+          name: 'OpenCart',
+          slug: 'opencart',
+          categorySlug: 'ecommerce',
+          icon: 'OpenCart.png',
+        },
+        {
+          name: 'BigCommerce',
+          slug: 'bigcommerce',
+          categorySlug: 'ecommerce',
+          icon: 'BigCommerce.svg',
+        },
+        {
+          name: 'WordPress',
+          slug: 'wordpress',
+          categorySlug: 'cms',
+          icon: 'WordPress.svg',
+        },
+        {
+          name: 'Drupal',
+          slug: 'drupal',
+          categorySlug: 'cms',
+          icon: 'Drupal.svg',
+        },
+        {
+          name: 'Wix',
+          slug: 'wix',
+          categorySlug: 'cms',
+          icon: 'Wix.svg',
+        },
+        {
+          name: 'Stripe',
+          slug: 'stripe',
+          categorySlug: 'payment-processors',
+          icon: 'Stripe.svg',
+        },
+        {
+          name: 'Klarna',
+          slug: 'klarna-checkout',
+          categorySlug: 'payment-processors',
+          icon: 'Klarna.svg',
+        },
+      ],
     }
   },
   computed: {

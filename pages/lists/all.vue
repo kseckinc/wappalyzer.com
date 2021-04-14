@@ -6,7 +6,7 @@
 
     <v-row align="center" class="mb-4">
       <v-col class="py-0">
-        <v-btn href="/lists/" color="accent" outlined>
+        <v-btn href="/lists/" depressed>
           <v-icon left>{{ mdiPlus }}</v-icon>
           Create a new list
         </v-btn>

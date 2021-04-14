@@ -5,7 +5,7 @@
       :key="useCase.text"
       cols="12"
       sm="6"
-      md="3"
+      lg="3"
     >
       <v-card
         class="d-flex flex-column justify-space-between"

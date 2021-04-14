@@ -5,7 +5,7 @@
     </v-alert>
 
     <div class="mb-4">
-      <v-btn href="/pricing/" color="accent" outlined>
+      <v-btn href="/pricing/" depressed>
         <v-icon left>{{ mdiCalculator }}</v-icon>
         Plans &amp; pricing
       </v-btn>

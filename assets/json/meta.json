@@ -8,17 +8,17 @@
     "subtitle": "Find out what websites are built with",
     "icon": "mdiLayersOutline",
     "image": "lookup.svg",
-    "text": "Instantly reveal the technology stack and contact details of any website, such as ecommerce platform, content managment system or marketing automation tools.",
+    "text": "Instantly reveal the technology stack and contact details of any website, such as CMS, ecommerce platform or payment processor.",
     "search": true,
     "features": ["Instant results", "50 Free monthly lookups", "Perform up to 100,000 lookups at once"],
     "feature": true
   },
   "lists": {
     "title": "Lead lists",
-    "subtitle": "Create lists of websites that use certain technologies",
+    "subtitle": "Create lists of websites and contacts",
     "icon": "mdiFilterVariant",
     "image": "list.svg",
-    "text": "Find new prospects by the technologies they use. Lead lists contain websites, email addresses, phone numbers and social media profiles. Create and export custom reports for any web technology based on website traffic, location and language.",
+    "text": "Find prospects by the technologies they use. Lead lists contain websites, email addresses, phone numbers and social media profiles. Create and export custom reports for any web technology based on website traffic, location and industry.",
     "buttons": [
       {
         "text": "Create a lead list",
@@ -27,15 +27,15 @@
       }
     ],
     "features": [
-      "Over a thousand technologies tracked",
-      "Organic data with traffic markers and contacts",
+      "Millions of companies tracked globally",
+      "Organic data with traffic markers",
       "Fresh and accurate data"
     ],
     "feature": true
   },
   "apis": {
     "title": "APIs",
-    "subtitle": "Programmatic access to technographic data",
+    "subtitle": "Automate technology lookups",
     "icon": "mdiConsole",
     "image": "api.svg",
     "text": "The Wappalyzer APIs provide instant access to website technology stacks, contact details and social media profiles. Track your prospects' technology choices, examine large numbers of websites or enrich your own datasets with technographic insights.",
@@ -52,15 +52,15 @@
         "secondary": true
       }
     ],
-    "features": ["Get started in minutes", "Perform instant lookups", "Real-time analysis"],
+    "features": ["Split second results", "Crawl websites in real-time", "Free trial"],
     "feature": true
   },
   "alerts": {
     "title": "Website alerts",
-    "subtitle": "Get notified when a website's technology stack changes",
+    "subtitle": "Monitor your competitors' websites",
     "icon": "mdiBullhorn",
     "image": "alerts.svg",
-    "text": "Monitor your competitor's technology choices with alerts. Be the first to know when they move to a new CMS, ecommerce platform or any other technology.",
+    "text": "Get notified when a website's technolopgy stack changes. Be the first to know when a competitor moves to a new CMS, ecommerce platform or any other technology.",
     "buttons": [
       {
         "text": "Create an alert",
@@ -70,7 +70,8 @@
     ],
     "features": [
       "Same-day notifications",
-      "Create up to 500 alerts"
+      "Create up to 500 alerts",
+      "Get 5 alerts free"
     ],
     "feature": true
   },

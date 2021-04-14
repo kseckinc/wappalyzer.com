@@ -60,6 +60,7 @@
                 <v-btn
                   color="primary"
                   x-large
+                  depressed
                   :loading="submitting"
                   @click="submit"
                 >
@@ -71,7 +72,7 @@
                   class="font-weight-regular mt-2"
                   text
                   small
-                  @click="faqDialog = true"
+                  @click="$refs.faqDialog.open()"
                 >
                   Frequently asked questions
                 </v-btn>
@@ -592,9 +593,8 @@
               list.sampleFilename
             "
             :href="`${datasetsBaseUrl}${list.sampleFilename}`"
-            color="accent"
             class="mb-4"
-            outlined
+            depressed
           >
             <v-icon left>{{ mdiDownload }}</v-icon>
             Download all samples
@@ -607,18 +607,7 @@
       <Logos />
     </template>
 
-    <v-dialog v-model="faqDialog" max-width="600px">
-      <v-card>
-        <v-card-title>Frequently asked questions</v-card-title>
-        <v-card-text class="pb-0">
-          <Faqs topic="lists" />
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="accent" text @click="faqDialog = false">Close</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <FaqDialog ref="faqDialog" topic="lists" />
 
     <v-dialog v-model="cancelDialog" max-width="400px" eager>
       <v-card>
@@ -662,7 +651,7 @@ import Page from '~/components/Page.vue'
 import Spinner from '~/components/Spinner.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
 import Logos from '~/components/Logos.vue'
-import Faqs from '~/components/Faqs.vue'
+import FaqDialog from '~/components/FaqDialog.vue'
 import sets from '~/assets/json/sets.json'
 
 export default {
@@ -671,7 +660,7 @@ export default {
     Spinner,
     TechnologyIcon,
     Logos,
-    Faqs,
+    FaqDialog,
   },
   async asyncData({
     route,
@@ -699,7 +688,6 @@ export default {
       cancelError: false,
       cancelling: false,
       error: false,
-      faqDialog: false,
       mdiArrowLeft,
       mdiDownload,
       mdiCreditCard,

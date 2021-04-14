@@ -110,6 +110,7 @@
                 :text="!item.raised"
                 color="primary white-text"
                 class="mx-auto"
+                depressed
                 >{{ buttonText }}</v-btn
               >
               <v-btn
@@ -117,6 +118,7 @@
                 :text="!item.raised"
                 color="primary white-text"
                 class="mx-auto"
+                depressed
                 @click="$emit('select', id)"
                 >{{ buttonText }}</v-btn
               >

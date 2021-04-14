@@ -23,7 +23,7 @@
         We know who uses your software and that of your competitors.
       </p>
 
-      <v-btn to="/faq/lists/" color="accent" class="mt-4" outlined>
+      <v-btn to="/faq/lists/" class="mt-4" depressed>
         <v-icon left>{{ mdiForum }}</v-icon>
         Frequently asked questions
       </v-btn>

@@ -23,16 +23,11 @@
       </v-card>
 
       <div class="mt-4">
-        <v-btn
-          color="accent"
-          class="mb-2 mr-2"
-          outlined
-          @click="faqDialog = true"
-        >
+        <v-btn class="mb-2 mr-2" depressed @click="$refs.faqDialog.open()">
           <v-icon left>{{ mdiForum }}</v-icon>
           FAQs
         </v-btn>
-        <v-btn color="accent" to="/docs/api/" class="mb-2" outlined>
+        <v-btn to="/docs/api/" class="mb-2" depressed>
           <v-icon left>{{ mdiBookOpenPageVariant }}</v-icon>
           API reference
         </v-btn>
@@ -92,18 +87,7 @@
         </v-row>
       </template>
 
-      <v-dialog v-model="faqDialog" max-width="600px">
-        <v-card>
-          <v-card-title> Frequently asked questions </v-card-title>
-          <v-card-text class="pb-0">
-            <Faqs topic="api" />
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer />
-            <v-btn color="accent" text @click="faqDialog = false">Close</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+      <FaqDialog ref="faqDialog" topic="api" />
 
       <template #footer>
         <Logos integrations />
@@ -118,7 +102,7 @@ import { mdiForum, mdiBookOpenPageVariant } from '@mdi/js'
 import Page from '~/components/Page.vue'
 import Logos from '~/components/Logos.vue'
 import Matrix from '~/components/Matrix.vue'
-import Faqs from '~/components/Faqs.vue'
+import FaqDialog from '~/components/FaqDialog.vue'
 import { attrs, apis } from '~/assets/json/apis.json'
 import { apis as meta } from '~/assets/json/meta.json'
 
@@ -127,7 +111,7 @@ export default {
     Page,
     Logos,
     Matrix,
-    Faqs,
+    FaqDialog,
   },
   data() {
     return {

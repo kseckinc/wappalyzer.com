@@ -1,6 +1,12 @@
 <template>
   <v-row align="center" justify="center" class="pt-lg-4 pb-lg-6">
-    <v-col :order-sm="mirror ? 0 : 12" cols="12" order="12" sm="4">
+    <v-col
+      class="d-none d-md-block"
+      :order-sm="mirror ? 0 : 12"
+      cols="12"
+      order="12"
+      md="4"
+    >
       <v-row justify="center">
         <v-col cols="8" sm="12" class="py-0">
           <ProductImage
@@ -10,7 +16,7 @@
         </v-col>
       </v-row>
     </v-col>
-    <v-col cols="12" sm="8">
+    <v-col cols="12" md="8">
       <v-responsive height="30" class="d-flex align-center mb-2">
         <v-icon color="primary" left>{{ mdi[product.icon] }}</v-icon>
 
@@ -23,10 +29,11 @@
 
       <!-- eslint-disable-next-line vue/no-v-html -->
       <p class="mb-8" v-html="product.text" />
+
       <v-form
         v-if="product.search"
         ref="form"
-        class="d-flex align-center"
+        class="d-flex align-center mb-2"
         @submit.prevent="$router.push(`/lookup/${encodeURIComponent(url)}/`)"
       >
         <v-text-field
@@ -57,10 +64,10 @@
         :to="button.to"
         :href="button.href"
         :target="button.href ? '_blank' : '_self'"
-        :outlined="button.secondary"
-        color="primary"
-        class="mb-2 mr-2"
+        :color="button.secondary ? 'primary lighten-1' : 'primary'"
+        :class="`mb-2 mr-4${button.secondary ? ' primary--text' : ''}`"
         large
+        depressed
         >{{ button.text }}
         <v-icon right>{{ mdi[button.icon] }}</v-icon>
       </v-btn>

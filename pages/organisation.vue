@@ -39,8 +39,9 @@
                   >
                   <v-btn
                     :disabled="!organisation.seatsRemaining"
-                    color="accent"
-                    outlined
+                    color="primary lighten-1"
+                    class="primary--text"
+                    depressed
                     small
                     @click="createDialog = true"
                   >

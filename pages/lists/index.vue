@@ -2,27 +2,17 @@
   <div>
     <Page :title="title" :head="meta">
       <div class="mb-6">
-        <v-btn
-          color="accent"
-          class="mt-4 mr-2"
-          outlined
-          @click="$refs.pricingDialog.open()"
-        >
+        <v-btn class="mt-4 mr-2" depressed @click="$refs.pricingDialog.open()">
           <v-icon left>{{ mdiCalculator }}</v-icon>
           Pricing
         </v-btn>
 
-        <v-btn
-          color="accent"
-          href="/list-sample.zip"
-          class="mt-4 mr-2"
-          outlined
-        >
+        <v-btn href="/list-sample.zip" class="mt-4 mr-2" depressed>
           <v-icon left>{{ mdiDownload }}</v-icon>
           Sample list
         </v-btn>
 
-        <v-btn color="accent" class="mt-4" outlined @click="faqDialog = true">
+        <v-btn class="mt-4" depressed @click="$refs.faqDialog.open()">
           <v-icon left>{{ mdiForum }}</v-icon>
           FAQs
         </v-btn>
@@ -1043,18 +1033,7 @@
 
       <PricingDialog ref="pricingDialog" product="list" />
 
-      <v-dialog v-model="faqDialog" max-width="600px">
-        <v-card>
-          <v-card-title> Frequently asked questions </v-card-title>
-          <v-card-text class="pb-0">
-            <Faqs topic="lists" />
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer />
-            <v-btn color="accent" text @click="faqDialog = false">Close</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+      <FaqDialog ref="faqDialog" topic="lists" />
 
       <template #footer>
         <Logos />
@@ -1087,7 +1066,7 @@ import TechnologyIcon from '~/components/TechnologyIcon.vue'
 import Logos from '~/components/Logos.vue'
 import SignIn from '~/components/SignIn.vue'
 import PricingDialog from '~/components/PricingDialog.vue'
-import Faqs from '~/components/Faqs.vue'
+import FaqDialog from '~/components/FaqDialog.vue'
 import { lists as meta } from '~/assets/json/meta.json'
 import languages from '~/assets/json/languages.json'
 import tlds from '~/assets/json/tlds.json'
@@ -1160,7 +1139,7 @@ export default {
     Logos,
     SignIn,
     PricingDialog,
-    Faqs,
+    FaqDialog,
   },
   data() {
     return {

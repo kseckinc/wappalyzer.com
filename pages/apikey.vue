@@ -13,7 +13,7 @@
     </p>
 
     <div class="mb-4">
-      <v-btn href="/docs/api" color="accent" outlined>
+      <v-btn href="/docs/api" depressed>
         <v-icon left>{{ mdiBookOpenPageVariant }}</v-icon>
         API reference
       </v-btn>

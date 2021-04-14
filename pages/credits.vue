@@ -25,16 +25,20 @@
         Add credits
       </v-btn>
 
-      <v-btn color="accent" class="mr-2" depressed @click="orderDialog = true"
+      <v-btn
+        class="mr-2 primary--text"
+        color="primary lighten-1"
+        depressed
+        @click="orderDialog = true"
         ><v-icon left>{{ mdiAlphaCCircle }}</v-icon> Buy credits</v-btn
       >
 
-      <v-btn href="/faq/credits" color="accent" class="mr-2" outlined>
+      <v-btn href="/faq/credits" class="mr-2" depressed>
         <v-icon left>{{ mdiForum }}</v-icon>
         FAQs
       </v-btn>
 
-      <v-btn href="/pricing" color="accent" class="mr-2" outlined>
+      <v-btn href="/pricing" class="mr-2" depressed>
         <v-icon left>{{ mdiCalculator }}</v-icon>
         Plans &amp; pricing
       </v-btn>
