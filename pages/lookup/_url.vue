@@ -127,7 +127,7 @@
               >).
             </p>
 
-            <v-card class="mb-8">
+            <v-card class="mb-4">
               <v-card-title class="subtitle-2"
                 >Upload a list of websites</v-card-title
               >
@@ -149,7 +149,7 @@
               </v-card-text>
             </v-card>
 
-            <v-expansion-panels class="mb-8">
+            <v-expansion-panels class="mb-4">
               <v-expansion-panel ref="compliance">
                 <v-expansion-panel-header class="subtitle-2">
                   Compliance

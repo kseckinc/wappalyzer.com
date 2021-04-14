@@ -18,15 +18,6 @@
         </v-btn>
       </div>
 
-      <h2 id="form" class="mb-2">Create your list</h2>
-
-      <p>
-        Get started by selecting one or more technologies. Optionally add
-        filters and limits to customise your list. An obligation free quote will
-        be created and your list is available immediately upon completing the
-        order.
-      </p>
-
       <template #content>
         <v-card class="my-4" color="secondary">
           <v-card-text v-if="error">
@@ -34,13 +25,30 @@
               {{ error }}
             </v-alert>
           </v-card-text>
+
+          <v-card-title>
+            <v-icon color="primary" left>{{ mdiFilterVariant }}</v-icon>
+            Create your list
+          </v-card-title>
+
+          <v-card-text>
+            <p class="mb-0" style="max-width: 600px">
+              Get started by selecting one or more technologies. Optionally add
+              filters and limits to customise your list. An obligation free
+              quote will be created and your list is available immediately upon
+              completing the order.
+            </p>
+          </v-card-text>
+
+          <v-divider class="mb-4" />
+
           <v-row>
             <v-col class="py-0 pr-sm-0" cols="12" sm="6">
               <v-card-title class="subtitle-1">
                 <v-icon color="primary" left>{{ mdiFormatListChecks }}</v-icon>
                 Selection
               </v-card-title>
-              <v-card-text>
+              <v-card-text class="pb-0">
                 <v-card>
                   <v-card-title class="subtitle-2">Technologies</v-card-title>
                   <v-card-text>
@@ -981,17 +989,19 @@
               </v-card-text>
             </v-col>
           </v-row>
-        </v-card>
 
-        <v-btn
-          :disabled="!selectedItems.length"
-          :loading="creating"
-          color="primary"
-          class="mt-4 mb-4"
-          large
-          @click="submit()"
-          >Create list <v-icon right>{{ mdiArrowRight }}</v-icon>
-        </v-btn>
+          <v-card-text class="py-0">
+            <v-btn
+              :disabled="!selectedItems.length"
+              :loading="creating"
+              color="primary"
+              class="mt-4 mb-4"
+              large
+              @click="submit()"
+              >Create list <v-icon right>{{ mdiArrowRight }}</v-icon>
+            </v-btn>
+          </v-card-text>
+        </v-card>
 
         <p class="mb-8 text--disabled">
           <small>
@@ -1059,6 +1069,7 @@ import {
   mdiArrowRight,
   mdiFilterOutline,
   mdiArrowCollapseVertical,
+  mdiFilterVariant,
 } from '@mdi/js'
 import Page from '~/components/Page.vue'
 import Technologies from '~/components/Technologies.vue'
@@ -1186,6 +1197,7 @@ export default {
       mdiArrowRight,
       mdiFilterOutline,
       mdiArrowCollapseVertical,
+      mdiFilterVariant,
       minAge: 0,
       maxAge: 3,
       meta,

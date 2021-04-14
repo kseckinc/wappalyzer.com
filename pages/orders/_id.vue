@@ -73,7 +73,7 @@
         v-if="isAdmin"
         :disabled="order.status === 'Complete'"
         color="success"
-        class="mb-2"
+        class="mr-2"
         outlined
         @click="
           {
@@ -136,7 +136,7 @@
         :href="order.status === 'Pending' && order.invoiceUrl"
         :to="order.status === 'Complete' && `/invoices/${order.id}`"
         :target="order.status === 'Pending' && '_blank'"
-        class="mb-2"
+        class="mr-2"
         depressed
       >
         <v-icon left>{{ mdiFileDocumentOutline }}</v-icon>
