@@ -197,6 +197,18 @@
 
       <v-expansion-panel>
         <v-expansion-panel-header>
+          Where do I find my API key?
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <p>
+            You can create your API in the
+            <nuxt-link to="/apikey/">API key</nuxt-link> tab in your account.
+          </p>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
+      <v-expansion-panel>
+        <v-expansion-panel-header>
           How is the information being collected?
         </v-expansion-panel-header>
         <v-expansion-panel-content>

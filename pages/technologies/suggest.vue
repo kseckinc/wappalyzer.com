@@ -23,12 +23,13 @@
     </v-alert>
 
     <v-card class="mb-4">
-      <v-form v-model="criteria">
+      <v-form ref="form" v-model="criteria">
         <v-card-title class="subtitle-2">Criteria</v-card-title>
         <v-card-text>
           <p>The technology&hellip;</p>
 
           <v-checkbox
+            v-model="web"
             hide-details="auto"
             required
             :rules="[
@@ -53,6 +54,7 @@
             </template>
           </v-checkbox>
           <v-checkbox
+            v-model="userbase"
             label="Has an established userbase of at least 1,000 users"
             hide-details="auto"
             required
@@ -420,9 +422,11 @@ export default {
       success: '',
       error: '',
       submitting: false,
+      web: false,
+      userbase: false,
       criteria: false,
       icon: [],
-      form: {
+      formInit: {
         technology: '',
         category: '',
         description: '',
@@ -441,6 +445,7 @@ export default {
         name: '',
         email: '',
       },
+      form: {},
       mdiHelpCircleOutline,
     }
   },
@@ -456,6 +461,7 @@ export default {
     },
   },
   mounted() {
+    this.form = { ...this.formInit }
     this.form.name = this.user.name
     this.form.email = this.user.email
   },
@@ -487,6 +493,12 @@ export default {
         data.pricing = pricing
 
         await this.$axios.post('technologies/suggest', data)
+
+        this.$refs.form.reset()
+        this.icon = []
+        this.form = { ...this.formInit }
+        this.form.name = this.user.name
+        this.form.email = this.user.email
 
         this.success = "Thank you! We'll follow up via email soon."
       } catch (error) {
