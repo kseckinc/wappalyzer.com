@@ -66,22 +66,25 @@
                 </v-list>
               </v-menu>
             </template>
-            <v-menu class="text-left" offset-y left eager attach>
+            <v-menu
+              v-if="isSignedIn"
+              class="text-left"
+              offset-y
+              left
+              eager
+              attach
+            >
               <template #activator="{ on }">
                 <v-btn
-                  :icon="!isSignedIn"
                   class="font-weight-regular text-left"
                   color="white"
                   dark
                   text
                   v-on="on"
                 >
-                  <v-icon
-                    v-if="!isAdmin && !isMember"
-                    :left="isSignedIn"
-                    size="20"
-                    >{{ mdi.mdiAccount }}</v-icon
-                  >
+                  <v-icon v-if="!isAdmin && !isMember" left size="20">{{
+                    mdi.mdiAccount
+                  }}</v-icon>
                   <v-icon v-else-if="isAdmin" left size="20">{{
                     mdi.mdiLockOpen
                   }}</v-icon>
@@ -164,6 +167,14 @@
                 </v-list>
               </v-sheet>
             </v-menu>
+            <v-btn
+              v-else
+              color="white "
+              class="ml-2"
+              outlined
+              @click="signInDialog = true"
+              >Sign up free</v-btn
+            >
           </v-col>
 
           <v-col class="text-right d-md-none">
@@ -174,6 +185,10 @@
         </v-row>
       </v-container>
     </v-sheet>
+
+    <v-dialog v-model="signInDialog" max-width="400px">
+      <SignIn mode-sign-up />
+    </v-dialog>
   </div>
 </template>
 
@@ -198,10 +213,12 @@ import {
   mdiPowerPlug,
 } from '@mdi/js'
 import Logo from '~/components/Logo.vue'
+import SignIn from '~/components/SignIn.vue'
 
 export default {
   components: {
     Logo,
+    SignIn,
   },
   props: {
     hero: {
@@ -219,6 +236,7 @@ export default {
   },
   data() {
     return {
+      signInDialog: false,
       mdi: {
         mdiChevronDown,
         mdiAccount,
@@ -254,6 +272,13 @@ export default {
       impersonator: ({ user }) => user.impersonator,
       organisations: ({ organisations }) => organisations.memberOf,
     }),
+  },
+  watch: {
+    isSignedIn() {
+      if (this.isSignedIn) {
+        this.signInDialog = false
+      }
+    },
   },
 }
 </script>

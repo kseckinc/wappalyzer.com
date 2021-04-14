@@ -4,7 +4,11 @@
       <template v-if="success">
         <p>{{ success }}</p>
 
-        <v-btn to="/" color="accent" class="mt-4" outlined
+        <v-btn
+          to="/"
+          color="primary lighten-1"
+          class="mt-4 primary--text"
+          depressed
           >Return to home</v-btn
         >
       </template>

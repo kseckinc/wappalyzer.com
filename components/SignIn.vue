@@ -18,8 +18,8 @@
       </v-alert>
       <v-alert
         v-if="!noBanner && mode === 'signUp'"
-        color="secondary"
-        class="mx-n6 px-6"
+        color="primary lighten-1"
+        class="mx-n6 px-6 primary--text"
       >
         Sign up for free to receive 50 credits every month to spend on any
         product.
@@ -75,7 +75,7 @@
             :loading="signingUp"
             type="submit"
             color="primary"
-            large
+            depressed
             @click.prevent.stop="doSignUp"
           >
             Sign up
@@ -93,7 +93,7 @@
             :loading="signingIn"
             type="submit"
             color="primary"
-            large
+            depressed
             @click.prevent.stop="doSignIn"
           >
             Sign in
@@ -117,7 +117,7 @@
             :loading="verifying"
             type="submit"
             color="primary"
-            large
+            depressed
             @click.prevent.stop="
               () => (mode === 'reset' ? doReset() : doVerify())
             "
@@ -129,7 +129,7 @@
             v-if="mode !== 'reset'"
             :loading="reverifying"
             text
-            large
+            depressed
             @click.prevent.stop="doReverify"
           >
             Resend code
@@ -150,7 +150,7 @@
             :loading="resetting"
             type="submit"
             color="primary"
-            large
+            depressed
             @click.prevent.stop="doVerify"
           >
             Reset password
@@ -165,7 +165,12 @@
     <v-card-text v-else>
       <p>You are signed in.</p>
 
-      <v-btn :loading="signingOut" color="primary" nuxt @click.stop="doSignOut">
+      <v-btn
+        :loading="signingOut"
+        color="primary"
+        depressed
+        @click.stop="doSignOut"
+      >
         Sign out
       </v-btn>
     </v-card-text>
