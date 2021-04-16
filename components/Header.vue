@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-sheet class="header" color="primary darken-1" tile>
+    <v-sheet class="header" color="primary" tile>
       <v-container tag="header">
         <v-row class="align-center">
           <v-col class="flex-grow-0 flex-shrink-1">
@@ -34,7 +34,7 @@
                 <v-list v-if="items" class="header__menu">
                   <div
                     v-for="(
-                      { title: _title, subtitle, to: _to }, index2
+                      { title: _title, subtitle, icon: _icon, to: _to }, index2
                     ) in items"
                     :key="_title"
                   >
@@ -45,6 +45,11 @@
                       :to="_to.match(/^http/) ? null : _to"
                       color="primary"
                     >
+                      <v-list-item-action v-if="_icon"
+                        ><v-icon color="primary" dense>{{
+                          mdi[_icon]
+                        }}</v-icon></v-list-item-action
+                      >
                       <v-list-item-content class="py-4">
                         <v-list-item-title class="subtitle-2">
                           {{ _title }}
@@ -147,7 +152,7 @@
                       }}</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
-                      <v-list-item-title> Administration </v-list-item-title>
+                      <v-list-item-title>Admin</v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                   <v-list-item
@@ -211,6 +216,10 @@ import {
   mdiAccountSwitch,
   mdiFilterVariant,
   mdiPowerPlug,
+  mdiLayersOutline,
+  mdiApps,
+  mdiConsole,
+  mdiBellOutline,
 } from '@mdi/js'
 import Logo from '~/components/Logo.vue'
 import SignIn from '~/components/SignIn.vue'
@@ -254,6 +263,10 @@ export default {
         mdiAccountSwitch,
         mdiFilterVariant,
         mdiPowerPlug,
+        mdiLayersOutline,
+        mdiApps,
+        mdiConsole,
+        mdiBellOutline,
       },
     }
   },

@@ -286,8 +286,8 @@
         <v-expansion-panel-content>
           <p>
             We accept one-time payments for lead lists, technology lookups and
-            credits. A paid plan may work out to be cheaper, particularly when
-            making regular or higher volume purchases.
+            credits. A paid plan is usually more cost-effective, particularly
+            when making regular or higher volume purchases.
           </p>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -310,7 +310,10 @@
           <p>
             Credits can be spent on a range of products, including lead lists
             and APIs. Each product has a fixed spend per unit, detailed on the
-            <nuxt-link to="/pricing/">pricing</nuxt-link> page.
+            <nuxt-link :to="{ path: '/pricing/', hash: '#usage' }"
+              >pricing</nuxt-link
+            >
+            page.
           </p>
         </v-expansion-panel-content>
       </v-expansion-panel>

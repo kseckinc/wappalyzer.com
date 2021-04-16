@@ -2,7 +2,7 @@
   <div>
     <Page
       :title="title"
-      :seo-title="`Websites using ${title}, reviews and alternatives`"
+      :seo-title="`Websites using ${title}`"
       :crumbs="crumbs"
       :head="{
         meta: `Download a list of websites${

@@ -58,7 +58,7 @@
   "alerts": {
     "title": "Website alerts",
     "subtitle": "Monitor your competitors' websites",
-    "icon": "mdiBullhorn",
+    "icon": "mdiBellOutline",
     "image": "alerts.svg",
     "text": "Get notified when a website's technolopgy stack changes. Be the first to know when a competitor moves to a new CMS, ecommerce platform or any other technology.",
     "buttons": [

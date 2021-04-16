@@ -5,26 +5,31 @@
       {
         "title": "Technology lookup",
         "subtitle": "Find out what websites are built with",
+        "icon": "mdiLayersOutline",
         "to": "/lookup/"
       },
       {
         "title": "Lead lists",
         "subtitle": "Create lists of sites using certain technologies",
+        "icon": "mdiFilterVariant",
         "to": "/lists/"
       },
       {
         "title": "APIs",
         "subtitle": "Programmatic access to technographic data",
+        "icon": "mdiConsole",
         "to": "/api/"
       },
       {
         "title": "Website alerts",
         "subtitle": "Monitor website technology stacks for changes",
+        "icon": "mdiBellOutline",
         "to": "/alerts/"
       },
       {
         "title": "Apps",
         "subtitle": "Connect Wappalyzer to the apps you use",
+        "icon": "mdiApps",
         "to": "/apps/"
       }
     ]

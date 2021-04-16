@@ -38,7 +38,7 @@ export default {
         {
           title: 'Generate sales leads',
           text:
-            "Find new prospects by the technologies they use. Discover who's using your software and that of your competitors.",
+            'Find new prospects by the technologies they use. Reach out to customers of Shopify, Magento, Salesforce and others.',
           buttonText: 'Create a list',
           icon: mdiFilterVariant,
           to: '/lists/',

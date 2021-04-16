@@ -60,7 +60,7 @@
       </v-list-item>
 
       <v-list-item v-if="user.admin" to="/admin/">
-        <v-list-item-title> Administration </v-list-item-title>
+        <v-list-item-title>Admin</v-list-item-title>
         <v-list-item-icon>
           <v-icon color="success" dense>{{ mdi.mdiLockOpen }}</v-icon>
         </v-list-item-icon>

@@ -14,25 +14,22 @@
           <v-text-field
             v-model="userId"
             label="Email address or user ID"
+            class="mb-8"
             required
             hide-details="auto"
           />
+
+          <v-btn :loading="submitting" color="primary" @click="submit">
+            Sign in
+          </v-btn>
         </v-form>
       </v-card-text>
-      <v-card-actions>
-        <v-spacer />
-        <v-btn :loading="submitting" color="accent" text @click="submit">
-          <v-icon left>{{ mdiAccount }}</v-icon>
-          Sign in
-        </v-btn>
-      </v-card-actions>
     </v-card>
   </Page>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import { mdiAccount } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 
@@ -42,10 +39,9 @@ export default {
   },
   data() {
     return {
-      title: 'Administration',
+      title: 'Admin',
       userId: '',
       error: false,
-      mdiAccount,
       recentOrders: {},
       submitting: false,
       success: false,

@@ -53,7 +53,7 @@
     <template v-if="categories">
       <h2 class="mt-8 mb-6">Browse by category</h2>
 
-      <v-row>
+      <v-row class="mb-4">
         <v-col
           v-for="{ name, slug } in categories"
           :key="slug"
