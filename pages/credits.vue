@@ -7,7 +7,7 @@
       {{ error }}
     </v-alert>
 
-    <p class="mb-8">
+    <p class="mb-8" style="max-width: 600px">
       Credits can be spent on any product, including technology lookups, APIs
       and datasets. <nuxt-link to="/pricing/">Sign up for a plan</nuxt-link> to
       get monthly credits at a lower price.
@@ -46,10 +46,10 @@
 
     <template v-if="!loading">
       <v-card>
-        <v-card-title> Packs </v-card-title>
+        <v-card-title>Bundles</v-card-title>
         <v-card-text v-if="!adds.length" class="pb-0">
           <v-alert color="info" class="mb-0" outlined>
-            You don't have any active credit packs.
+            You don't have any active credit bundles.
           </v-alert>
         </v-card-text>
         <v-card-text v-else class="px-0">

@@ -34,7 +34,7 @@
 
           <v-alert
             v-if="attrs.useCase === 'Reselling'"
-            color="warning"
+            color="accent"
             class="mb-0"
             dense
             outlined
@@ -98,7 +98,7 @@
               attrs.billingCountry &&
               attrs.billingCountry.toUpperCase() === 'AU'
             "
-            color="warning"
+            color="accent"
             dense
             outlined
           >

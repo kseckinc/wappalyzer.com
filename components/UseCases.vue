@@ -1,12 +1,6 @@
 <template>
   <v-row class="mb-8">
-    <v-col
-      v-for="useCase in useCases"
-      :key="useCase.text"
-      cols="12"
-      sm="6"
-      lg="3"
-    >
+    <v-col v-for="useCase in useCases" :key="useCase.text" cols="12" sm="4">
       <v-card
         class="d-flex flex-column justify-space-between"
         style="height: 100%"
@@ -25,8 +19,8 @@
         <v-card-actions>
           <v-spacer />
           <v-btn :to="useCase.to" color="primary" text>
+            <v-icon left>{{ useCase.icon }}</v-icon>
             {{ useCase.buttonText }}
-            <v-icon right small>{{ mdiArrowRight }}</v-icon>
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -35,39 +29,34 @@
 </template>
 
 <script>
-import { mdiArrowRight } from '@mdi/js'
+import { mdiFilterVariant, mdiApps, mdiFileOutline } from '@mdi/js'
 
 export default {
   data() {
     return {
-      mdiArrowRight,
       useCases: [
         {
           title: 'Generate sales leads',
           text:
             "Find new prospects by the technologies they use. Discover who's using your software and that of your competitors.",
           buttonText: 'Create a list',
+          icon: mdiFilterVariant,
           to: '/lists/',
         },
         {
-          title: 'Enrich your own data',
+          title: 'Enrich your data',
           text:
             'Upload a list of websites to get a report of the technologies in use, such as CMS or ecommerce platforms.',
           buttonText: 'Upload a list',
+          icon: mdiFileOutline,
           to: { path: '/lookup/', hash: '#bulk' },
-        },
-        {
-          title: 'Automate with ease',
-          text:
-            'Get instant access to website technology stacks, contact details and metadata using our highly scalable APIs.',
-          buttonText: 'Explore options',
-          to: '/api/',
         },
         {
           title: 'Connect to your tools',
           text:
-            "See your leads' tech stacks in your CRM, browser, mobile device or email client.",
+            'See the technology stacks of your leads in your browser, CRM, mobile device or email client.',
           buttonText: 'See all apps',
+          icon: mdiApps,
           to: '/apps/',
         },
       ],

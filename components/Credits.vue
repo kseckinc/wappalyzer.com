@@ -34,23 +34,24 @@
             Free lists are included in selected plans. See the pricing page for
             more information.
           </v-tooltip>
-          <v-tooltip v-else-if="freeLists.availableAt" max-width="250" right>
-            <template #activator="{ on }">
-              <sup>
-                <v-icon color="primary" small v-on="on">{{
-                  mdiCalendarBlank
-                }}</v-icon>
-              </sup>
-            </template>
-
-            Your next free list will be available from
-            {{ formatDate(new Date(freeLists.availableAt * 1000)) }}
-          </v-tooltip>
         </v-col>
         <v-col class="py-0 text-right">
           <Spinner v-if="freeLists.total === null" />
           <template v-else>
-            {{ formatNumber(freeLists.remaining) }} /
+            <v-tooltip v-if="freeLists.availableAt" max-width="250" top>
+              <template #activator="{ on }">
+                <sup>
+                  <v-icon color="primary" small left v-on="on">{{
+                    mdiCalendarBlank
+                  }}</v-icon>
+                </sup>
+              </template>
+
+              Your next free list will be available from
+              {{
+                formatDate(new Date(freeLists.availableAt * 1000))
+              }} </v-tooltip
+            >{{ formatNumber(freeLists.remaining) }} /
             {{ formatNumber(freeLists.total) }}
           </template>
         </v-col>

@@ -57,22 +57,20 @@
         <v-divider />
       </template>
 
-      <v-card-title> Sign in details </v-card-title>
+      <v-card-title>Sign in details</v-card-title>
 
       <v-form ref="form" v-model="valid">
-        <v-row>
-          <v-col class="py-0" cols="12" sm="6">
-            <v-card-text class="py-0">
+        <v-card-text class="py-0">
+          <v-row>
+            <v-col class="py-0" cols="12" sm="6">
               <v-text-field
                 v-model="email"
                 :rules="rules.email"
                 label="Email address"
                 required
               />
-            </v-card-text>
-          </v-col>
-          <v-col class="py-0">
-            <v-card-text class="py-0">
+            </v-col>
+            <v-col class="py-0">
               <v-text-field
                 v-model="oldPassword"
                 :append-icon="showPassword ? mdiEyeOff : mdiEye"
@@ -88,9 +86,9 @@
                 label="New password (optional)"
                 @click:append="() => (showPassword = !showPassword)"
               />
-            </v-card-text>
-          </v-col>
-        </v-row>
+            </v-col>
+          </v-row>
+        </v-card-text>
       </v-form>
 
       <v-card-actions>

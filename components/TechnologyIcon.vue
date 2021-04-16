@@ -1,6 +1,6 @@
 <template>
   <v-avatar
-    color="secondary elevation-1 mr-2"
+    :color="`${white ? 'white' : 'secondary'} elevation-1 mr-2`"
     :size="xLarge ? 80 : large ? 40 : 32"
   >
     <div class="d-flex">
@@ -32,6 +32,10 @@ export default {
       default: false,
     },
     xLarge: {
+      type: Boolean,
+      default: false,
+    },
+    white: {
       type: Boolean,
       default: false,
     },

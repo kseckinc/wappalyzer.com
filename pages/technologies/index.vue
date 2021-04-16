@@ -23,10 +23,10 @@
           class="text-decoration-none"
           :to="`/technologies/${categorySlug}/${slug}/`"
         >
-          <v-card color="primary lighten-1" flat>
+          <v-card color="secondary" flat>
             <v-card-text class="d-flex flex-column align-center">
-              <TechnologyIcon class="mb-4" :icon="icon" large />
-              <span class="primary--text font-weight-medium">{{ name }}</span>
+              <TechnologyIcon class="mb-4" :icon="icon" large white />
+              <span class="font-weight-medium">{{ name }}</span>
             </v-card-text>
           </v-card>
         </nuxt-link>
