@@ -15,7 +15,7 @@
       <p>
         To instantly find out what CMS, framework or ecommerce platform a
         website is using, install the
-        <nuxt-link to="/download/">Wappalyzer browser extension</nuxt-link>. The
+        <nuxt-link to="/apps/">Wappalyzer browser extension</nuxt-link>. The
         extension automatically checks pages you visit and reveals the
         technologies the website is built with. Click on any category or
         technology for more insights, such as market share and the top websites

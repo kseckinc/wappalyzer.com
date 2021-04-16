@@ -79,7 +79,7 @@
       <Product name="alerts" mirror />
 
       <template #footer>
-        <Logos integrations />
+        <Logos apps />
       </template>
     </Page>
 

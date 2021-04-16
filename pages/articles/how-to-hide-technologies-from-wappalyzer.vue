@@ -124,8 +124,8 @@
 
       <p>
         Install the free
-        <nuxt-link to="/download/">browser extension</nuxt-link> to see
-        technologies used on websites you visit at glance.
+        <nuxt-link to="/apps/">browser extension</nuxt-link> to see technologies
+        used on websites you visit at glance.
       </p>
     </article>
   </Page>

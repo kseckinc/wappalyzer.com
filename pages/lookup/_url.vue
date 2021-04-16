@@ -217,11 +217,11 @@
     <p class="text--disabled">
       <small>
         Get the free
-        <nuxt-link to="/download/">browser extension</nuxt-link> to see the
+        <nuxt-link to="/apps/">browser extension</nuxt-link> to see the
         technologies on websites you visit.<br />
         Automate lookups with the
         <nuxt-link to="/api/">Lookup API</nuxt-link> or
-        <nuxt-link to="/download/">CRM integrations</nuxt-link>.
+        <nuxt-link to="/apps/">CRM integrations</nuxt-link>.
       </small>
     </p>
 

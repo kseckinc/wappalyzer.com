@@ -43,4 +43,13 @@
 			<ReplaceKeyPrefixWith>lookup/#bulk</ReplaceKeyPrefixWith>
 		</Redirect>
 	</RoutingRule>
+	<RoutingRule>
+		<Condition>
+			<KeyPrefixEquals>download/</KeyPrefixEquals>
+		</Condition>
+		<Redirect>
+			<HostName>www.wappalyzer.com</HostName>
+      <ReplaceKeyPrefixWith>apps/</ReplaceKeyPrefixWith>
+		</Redirect>
+	</RoutingRule>
 </RoutingRules>

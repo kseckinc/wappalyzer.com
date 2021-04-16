@@ -2,13 +2,13 @@
   <div>
     <v-divider class="mb-12" />
 
-    <template v-if="integrations">
+    <template v-if="apps">
       <v-container class="mb-8">
-        <div class="text-h3 mb-4">Apps &amp; integrations</div>
+        <div class="text-h3 mb-4">Apps</div>
 
         <p>Wappalyzer works with the tools you use every day.</p>
 
-        <Integrations feature />
+        <Apps feature />
       </v-container>
 
       <v-divider class="mb-12" />
@@ -34,7 +34,7 @@
 
 <script>
 import Testimonials from '~/components/Testimonials.vue'
-import Integrations from '~/components/Integrations.vue'
+import Apps from '~/components/Apps.vue'
 
 import Adobe from '~/assets/images/logos/Adobe.svg?inline'
 import Amazon from '~/assets/images/logos/Amazon.svg?inline'
@@ -52,7 +52,7 @@ import Stripe from '~/assets/images/logos/Stripe.svg?inline'
 export default {
   components: {
     Testimonials,
-    Integrations,
+    Apps,
     Google,
     Oracle,
     Amazon,
@@ -67,7 +67,7 @@ export default {
     Adobe,
   },
   props: {
-    integrations: {
+    apps: {
       type: Boolean,
       default: false,
     },

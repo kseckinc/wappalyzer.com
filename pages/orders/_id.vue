@@ -125,6 +125,17 @@
         >
       </template>
 
+      <template v-if="order.stripeSubscription">
+        <v-btn
+          :to="`/subscriptions/${order.stripeSubscription}/`"
+          color="primary lighten-1"
+          class="mr-2 primary--text"
+          depressed
+          ><v-icon left>{{ mdiCalendarSync }}</v-icon
+          >Subscription</v-btn
+        >
+      </template>
+
       <v-btn
         v-if="
           (order.status === 'Pending' && order.invoiceUrl) ||
@@ -142,17 +153,6 @@
         <v-icon left>{{ mdiFileDocumentOutline }}</v-icon>
         Invoice
       </v-btn>
-
-      <template v-if="order.stripeSubscription">
-        <v-btn
-          :to="`/subscriptions/${order.stripeSubscription}/`"
-          color="primary lighten-1"
-          class="mr-2 primary--text"
-          depressed
-          ><v-icon left>{{ mdiCalendarSync }}</v-icon
-          >Subscription</v-btn
-        >
-      </template>
 
       <v-card class="my-4">
         <v-card-text class="px-0 pb-0">

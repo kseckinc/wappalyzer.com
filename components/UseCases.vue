@@ -68,7 +68,7 @@ export default {
           text:
             "See your leads' tech stacks in your CRM, browser, mobile device or email client.",
           buttonText: 'See all apps',
-          to: '/download/',
+          to: '/apps/',
         },
       ],
     }

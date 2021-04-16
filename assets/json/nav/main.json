@@ -23,9 +23,9 @@
         "to": "/alerts/"
       },
       {
-        "title": "Apps & integrations",
+        "title": "Apps",
         "subtitle": "Connect Wappalyzer to the apps you use",
-        "to": "/download/"
+        "to": "/apps/"
       }
     ]
   },

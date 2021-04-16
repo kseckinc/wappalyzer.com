@@ -70,7 +70,7 @@
       <Product name="lists" />
 
       <template #footer>
-        <Logos integrations />
+        <Logos apps />
       </template>
     </Page>
 

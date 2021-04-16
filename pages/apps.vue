@@ -6,7 +6,7 @@
         FAQs
       </v-btn>
 
-      <Integrations />
+      <Apps />
 
       <v-divider class="mt-12 mb-10" />
 
@@ -96,17 +96,17 @@ import {
 
 import Page from '~/components/Page.vue'
 import FaqDialog from '~/components/FaqDialog.vue'
-import Integrations from '~/components/Integrations.vue'
+import Apps from '~/components/Apps.vue'
 
 export default {
   components: {
     Page,
     FaqDialog,
-    Integrations,
+    Apps,
   },
   data() {
     return {
-      title: 'Apps & integrations',
+      title: 'Apps',
       faqDialog: false,
       mdi: {
         mdiGithub,
@@ -119,7 +119,7 @@ export default {
         mdiAndroid,
       },
       meta: {
-        title: 'Apps & integrations',
+        title: 'Apps',
         text: [
           'Wappalyzer works with the tools you use every day.',
           'Install the free browser extension to see the technologies used on websites you visit or install Wappalyzer in your CRM to see the technologies used by your leads.',

@@ -3,10 +3,12 @@
     <v-card v-for="({ unit, per, credits }, i) in units" :key="i">
       <v-card-title> Pricing </v-card-title>
       <v-card-text class="px-0 pb-0">
-        <v-alert color="secondary" class="px-6">
+        <v-alert color="primary lighten-1 primary--text" class="px-6">
           Pay with a credit card, PayPal or credit balance.
-          <nuxt-link to="/pricing">Sign up for a plan</nuxt-link> to get monthly
-          credits at a lower price.
+          <nuxt-link to="/pricing" class="primary--text"
+            >Sign up for a plan</nuxt-link
+          >
+          to get monthly credits at a lower price.
         </v-alert>
       </v-card-text>
       <v-card-text class="px-0 pb-0">

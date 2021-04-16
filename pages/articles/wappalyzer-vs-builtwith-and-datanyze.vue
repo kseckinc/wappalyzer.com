@@ -72,9 +72,9 @@
 
       <p>
         Wappalyzer's free and immensely popular
-        <nuxt-link to="/download/">browser extension</nuxt-link> has more users
-        than all the competition combined: more than a million people use it on
-        a daily basis. The reason this matters is because more users results in
+        <nuxt-link to="/apps/">browser extension</nuxt-link> has more users than
+        all the competition combined: more than a million people use it on a
+        daily basis. The reason this matters is because more users results in
         more websites being discovered and a larger sample size to accurately
         determine website traffic. A passionate user base also provides
         invaluable feedback that helps improve the product.

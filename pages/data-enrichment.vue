@@ -66,7 +66,7 @@
       <Product name="apis" mirror />
 
       <template #footer>
-        <Logos integrations />
+        <Logos apps />
       </template>
     </Page>
 

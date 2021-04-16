@@ -90,7 +90,7 @@
       <FaqDialog ref="faqDialog" topic="api" />
 
       <template #footer>
-        <Logos integrations />
+        <Logos apps />
       </template>
     </Page>
   </div>

@@ -32,7 +32,7 @@
 
       <p>
         You do not need to provide any personal information in order to download
-        and use the <nuxt-link to="/download/">browser extension</nuxt-link>.
+        and use the <nuxt-link to="/apps/">browser extension</nuxt-link>.
       </p>
 
       <p>

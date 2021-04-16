@@ -85,7 +85,7 @@
         <v-expansion-panel-content>
           <p>
             We collect limited information through our
-            <nuxt-link to="/download/">browser extension</nuxt-link>
+            <nuxt-link to="/apps/">browser extension</nuxt-link>
             in accordance with our
             <nuxt-link to="/privacy/">privacy policy</nuxt-link> and perform
             in-depth analysis using in-house crawlers. Our unique methods ensure
@@ -128,7 +128,7 @@
         <v-expansion-panel-content>
           <p>
             Website traffic is tracked using our
-            <nuxt-link to="/download/">browser extensions</nuxt-link> with 1.5M
+            <nuxt-link to="/apps/">browser extensions</nuxt-link> with 1.5M
             users. The install base provides a large enough sample set to
             determine which websites receive more traffic than others, resulting
             in a relative traffic indicator.
@@ -214,7 +214,7 @@
         <v-expansion-panel-content>
           <p>
             We collect limited information through our
-            <nuxt-link to="/download/">browser extension</nuxt-link>
+            <nuxt-link to="/apps/">browser extension</nuxt-link>
             in accordance with our
             <nuxt-link to="/privacy/">privacy policy</nuxt-link> and perform
             in-depth analysis using in-house crawlers. Our unique methods ensure
@@ -244,7 +244,7 @@
         <v-expansion-panel-content>
           <p>
             Website traffic is tracked using our
-            <nuxt-link to="/download/">browser extensions</nuxt-link> with 1.5M
+            <nuxt-link to="/apps/">browser extensions</nuxt-link> with 1.5M
             users. The install base provides a large enough sample set to
             determine which websites receive more traffic than others, resulting
             in a relative traffic indicator.

@@ -126,7 +126,7 @@
 
       <p>
         The <code>hits</code> value is the number of times users of the
-        <nuxt-link to="/download/">browser extension</nuxt-link>
+        <nuxt-link to="/apps/">browser extension</nuxt-link>
         have visited the website that month. It can be used as an indicator of
         traffic.
       </p>
