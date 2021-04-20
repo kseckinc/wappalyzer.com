@@ -85,7 +85,7 @@
               <v-expansion-panel-header class="subtitle-2">
                 Technologies
               </v-expansion-panel-header>
-              <v-expansion-panel-content class="nopadding">
+              <v-expansion-panel-content class="no-x-padding">
                 <v-simple-table>
                   <tbody>
                     <tr>
@@ -190,7 +190,7 @@
               <v-expansion-panel-header class="subtitle-2">
                 Filters and limits
               </v-expansion-panel-header>
-              <v-expansion-panel-content class="nopadding">
+              <v-expansion-panel-content class="no-x-padding">
                 <v-simple-table>
                   <tbody>
                     <tr v-if="list.query.industries.length">
@@ -202,6 +202,7 @@
                             :key="value"
                             outlined
                             small
+                            label
                           >
                             {{ text }}
                           </v-chip>
@@ -278,7 +279,7 @@
                             bottom
                           >
                             <template #activator="{ on }">
-                              <v-chip outlined small v-on="on">
+                              <v-chip outlined small label v-on="on">
                                 {{ value }}
                               </v-chip>
                             </template>
@@ -297,6 +298,7 @@
                             :key="tld"
                             outlined
                             small
+                            label
                             >{{ tld }}</v-chip
                           >
                         </v-chip-group>
@@ -312,7 +314,7 @@
                             bottom
                           >
                             <template #activator="{ on }">
-                              <v-chip outlined small v-on="on">
+                              <v-chip outlined small label v-on="on">
                                 {{ value }}
                               </v-chip>
                             </template>
@@ -337,7 +339,7 @@
               <v-expansion-panel-header class="subtitle-2">
                 Included attributes
               </v-expansion-panel-header>
-              <v-expansion-panel-content class="nopadding">
+              <v-expansion-panel-content class="no-x-padding">
                 <v-alert
                   v-if="
                     list.query.compliance === 'exclude' ||
@@ -516,8 +518,8 @@
                   <span class="ml-1 text--disabled">(sample)</span>
                 </div>
               </v-expansion-panel-header>
-              <v-expansion-panel-content class="nopadding">
-                <v-simple-table dense>
+              <v-expansion-panel-content class="no-x-padding no-b-padding">
+                <v-simple-table>
                   <thead>
                     <tr>
                       <th
@@ -534,7 +536,12 @@
                       <td
                         v-for="(column, attribute) in row"
                         :key="attribute"
-                        style="white-space: nowrap"
+                        style="
+                          white-space: nowrap;
+                          max-width: 300px;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                        "
                       >
                         <small>
                           <template v-if="Array.isArray(column)">
@@ -872,18 +879,22 @@ export default {
 </script>
 
 <style>
-.nopadding .v-expansion-panel-content__wrap {
+.no-x-padding .v-expansion-panel-content__wrap {
   padding-left: 0;
   padding-right: 0;
 }
 
-.nopadding th:first-child,
-.nopadding td:first-child {
+.no-b-padding .v-expansion-panel-content__wrap {
+  padding-bottom: 0;
+}
+
+.no-x-padding th:first-child,
+.no-x-padding td:first-child {
   padding-left: 24px !important;
 }
 
-.nopadding th:last-child,
-.nopadding td:last-child {
+.no-x-padding th:last-child,
+.no-x-padding td:last-child {
   padding-right: 24px !important;
 }
 </style>

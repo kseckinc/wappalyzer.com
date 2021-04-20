@@ -20,17 +20,25 @@
             style="cursor: pointer"
             @click="goto(integrations ? app.settings : app.href)"
           >
-            <div class="mb-4">
-              <img :src="images[app.image]" width="40" height="40" />
-            </div>
+            <v-row>
+              <v-col cols="3" sm="12" class="d-flex align-center">
+                <img
+                  :src="images[app.image]"
+                  width="40"
+                  height="40"
+                  class="d-block"
+                />
+              </v-col>
+              <v-col>
+                <div class="mb-2 d-flex align-center">
+                  <h2 class="mr-2">
+                    {{ app.name }}
+                  </h2>
+                </div>
 
-            <div class="mb-2 d-flex align-center">
-              <h2 class="mr-2">
-                {{ app.name }}
-              </h2>
-            </div>
-
-            {{ app.description }}
+                {{ app.description }}
+              </v-col>
+            </v-row>
           </v-card-text>
           <v-card-actions v-if="!feature">
             <v-spacer />

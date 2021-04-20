@@ -31,7 +31,7 @@
     </v-row>
     <template v-else>
       <v-row>
-        <v-col md="10" lg="8" class="py-0">
+        <v-col :md="narrow ? 12 : 10" :lg="narrow ? 10 : 8" class="py-0">
           <h1 v-if="title" class="mb-4">{{ title }}</h1>
 
           <p v-if="subtitle" class="subtitle-2 mt-n4">{{ subtitle }}</p>
@@ -88,6 +88,10 @@ export default {
     image: {
       type: String,
       default: '',
+    },
+    narrow: {
+      type: Boolean,
+      default: false,
     },
   },
   mounted() {

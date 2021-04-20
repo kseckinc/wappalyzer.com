@@ -12,6 +12,12 @@
         }`"
         placeholder="Example or example.com"
         background-color="white"
+        :rules="[
+          (v) =>
+            !v ||
+            !/^(https?:\/\/)?([0-9.]|[A-F0-9:])+$/i.test(v) ||
+            'IP addresses are not supported',
+        ]"
         :append-icon="mdiMagnify"
         required
         outlined
@@ -125,6 +131,11 @@ export default {
     },
     async search() {
       this.error = ''
+
+      if (!this.$refs.form.validate()) {
+        return
+      }
+
       this.loading = true
 
       if (this.query.includes('.')) {

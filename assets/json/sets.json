@@ -41,6 +41,14 @@
     "value": false
   },
   {
+    "key": "address",
+    "name": "Addresses",
+    "attributes": [
+      { "name": "addressed", "key": "address", "description": "Addresses found on the website's contact page." }
+    ],
+    "value": false
+  },
+  {
     "key": "contact",
     "name": "Contact details",
     "attributes": [
@@ -48,7 +56,8 @@
       { "name": "email addresses", "key": "email", "description": "Email addresses found on the website's contact page. We identify <code>mailto:</code> links and strings that appear to be email addresses based on the website's domain." },
       { "name": "Skype", "key": "skype", "description": "Skype handles found on the website's contact page." },
       { "name": "WhatsApp", "key": "whatsapp", "description": "WhatsApp numbers found on the website's contact page." },
-      { "name": "company name", "key": "inferredCompanyName", "description": "Best guess company name, inferred from the website's content and social media handles. Indicative only." }
+      { "name": "company name", "key": "inferredCompanyName", "description": "Best guess company name, inferred from the website's content and social media handles. Indicative only." },
+      { "name": "addresses", "key": "address", "description": "Addresses found on the website's contact page." }
     ],
     "value": false
   },

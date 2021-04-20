@@ -12,7 +12,7 @@
       no-head
       :hero="false"
     >
-      <h1 class="d-flex align-center">
+      <h1 class="d-flex align-center mt-n3">
         <TechnologyIcon
           :icon="technology ? technology.icon : 'default.svg'"
           large

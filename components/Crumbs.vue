@@ -1,5 +1,5 @@
 <template>
-  <v-card flat tile class="header" color="primary lighten-1">
+  <v-card flat tile class="header" color="secondary">
     <v-container class="body-2">
       <v-breadcrumbs :items="items" class="pa-0">
         <template #divider>

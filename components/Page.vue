@@ -39,7 +39,7 @@
           </v-col>
         </v-row>
         <v-row v-else-if="narrow" justify="center" no-gutters>
-          <v-col sm="10" md="10" lg="8">
+          <v-col sm="10" lg="8">
             <PageHead
               v-if="!noHead"
               :loading="loading"
@@ -47,6 +47,7 @@
               :subtitle="head.subtitle"
               :text="head.text"
               :image="head.image"
+              :narrow="narrow"
             >
               <slot />
             </PageHead>
@@ -62,6 +63,7 @@
             :subtitle="head.subtitle"
             :text="head.text"
             :image="head.image"
+            :narrow="narrow"
           >
             <slot />
           </PageHead>

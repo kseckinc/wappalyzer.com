@@ -486,7 +486,7 @@ export default {
       }
     }
 
-    if (this.url && !this.technologies.length) {
+    if (this.url && this.$refs.url && !this.technologies.length) {
       this.$refs.url.search()
     }
   },

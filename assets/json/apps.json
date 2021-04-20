@@ -29,7 +29,7 @@
     "description": "See the technology stacks of your leads in your CRM.",
     "settings": "/integrations/hubspot/",
     "docs": "/docs/integrations/hubspot/",
-    "href": "https://app.hubspot.com/ecosystem/8898653/marketplace/apps/marketing/lead-generation/wappalyzer-by-wappalyzer"
+    "href": "https://ecosystem.hubspot.com/marketplace/apps/marketing/lead-generation/wappalyzer-by-wappalyzer"
   },
   "pipedrive": {
     "name": "Pipedrive",
