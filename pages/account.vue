@@ -108,7 +108,12 @@
       <Account @save="accountDetailsSaved" />
     </v-card>
 
-    <v-btn color="error" outlined @click="deleteAccountDialog = true">
+    <v-btn
+      v-if="!isImpersonator"
+      color="error"
+      outlined
+      @click="deleteAccountDialog = true"
+    >
       <v-icon left>{{ mdiAccountRemove }}</v-icon>
       Delete account
     </v-btn>
@@ -196,6 +201,7 @@ export default {
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
+      isImpersonator: ({ user }) => user.impersonator,
       isAdmin: ({ user }) =>
         user.attrs.admin || (user.impersonator && user.impersonator.admin),
     }),

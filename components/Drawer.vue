@@ -81,7 +81,17 @@
           </v-list-item-icon>
         </v-list-item>
       </template>
+      <v-list-item v-else @click="signInDialog = true">
+        <v-list-item-title>Sign up free</v-list-item-title>
+        <v-list-item-icon>
+          <v-icon dense>{{ mdi.mdiAccount }}</v-icon>
+        </v-list-item-icon>
+      </v-list-item>
     </v-list>
+
+    <v-dialog v-model="signInDialog" max-width="400px">
+      <SignIn mode-sign-up />
+    </v-dialog>
   </v-navigation-drawer>
 </template>
 
@@ -104,7 +114,12 @@ import {
   mdiPowerPlug,
 } from '@mdi/js'
 
+import SignIn from '~/components/SignIn.vue'
+
 export default {
+  components: {
+    SignIn,
+  },
   props: {
     mainNav: {
       type: Array,
@@ -118,6 +133,7 @@ export default {
   data() {
     return {
       isOpen: false,
+      signInDialog: false,
       mdi: {
         mdiAccount,
         mdiLockOpen,
@@ -150,6 +166,13 @@ export default {
         !user.impersonator.admin,
       impersonator: ({ user }) => user.impersonator,
     }),
+  },
+  watch: {
+    isSignedIn() {
+      if (this.isSignedIn) {
+        this.signInDialog = false
+      }
+    },
   },
   methods: {
     open() {

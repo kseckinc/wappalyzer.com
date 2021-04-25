@@ -1,7 +1,7 @@
 <template>
   <Page :title="title" :hero="false" narrow no-subscribe>
     <v-card class="mb-6">
-      <v-card-title class="subtitle-2"> Sign in as </v-card-title>
+      <v-card-title class="subtitle-2">Sign in as</v-card-title>
       <v-card-text>
         <v-alert v-if="success" type="success">
           {{ success }}
@@ -10,7 +10,7 @@
           {{ error }}
         </v-alert>
 
-        <v-form ref="form" @submit.prevent="submit">
+        <v-form ref="form" :disabled="isImpersonator" @submit.prevent="submit">
           <v-text-field
             v-model="userId"
             label="Email address or user ID"
@@ -71,10 +71,13 @@ export default {
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
+      isImpersonator: ({ user }) => user.impersonator,
+      isAdmin: ({ user }) =>
+        user.attrs.admin || (user.impersonator && user.impersonator.admin),
     }),
   },
   created() {
-    if (!this.user.admin) {
+    if (!this.isAdmin || this.isImpersonator) {
       return this.$nuxt.error({ statusCode: 404 })
     }
   },
