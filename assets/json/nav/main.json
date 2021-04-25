@@ -10,19 +10,19 @@
       },
       {
         "title": "Lead lists",
-        "subtitle": "Create lists of sites using certain technologies",
+        "subtitle": "Create a list of sites for a technology or keyword",
         "icon": "mdiFilterVariant",
         "to": "/lists/"
       },
       {
         "title": "APIs",
-        "subtitle": "Programmatic access to technographic data",
+        "subtitle": "Automate technology lookups",
         "icon": "mdiConsole",
         "to": "/api/"
       },
       {
         "title": "Website alerts",
-        "subtitle": "Monitor website technology stacks for changes",
+        "subtitle": "Monitor websites for technology changes",
         "icon": "mdiBellOutline",
         "to": "/alerts/"
       },

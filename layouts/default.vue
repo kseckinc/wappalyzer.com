@@ -133,13 +133,15 @@ export default {
       if (
         [
           '/lists/',
-          '/lookup/',
+          '/lookup/#bulk',
           '/api/',
           '/contact/',
           '/faq/',
           '/pricing/',
           '/orders/',
-        ].some((path) => this.$route.path.startsWith(path))
+        ].some((path) =>
+          `${this.$route.path}${this.$route.hash}`.startsWith(path)
+        )
       ) {
         if ($crisp.is('chat:hidden')) {
           $crisp.push(['do', 'chat:show'])

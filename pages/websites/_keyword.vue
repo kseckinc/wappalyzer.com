@@ -1,6 +1,6 @@
 <template>
   <Page :title="title" :seo-title="seoTitle" :head="meta" narrow no-heading>
-    <v-card color="secondary" class="mt-8">
+    <v-card color="secondary" class="mt-8 mb-4">
       <v-card-title>
         <v-icon color="primary" left>{{ mdiMagnify }}</v-icon>
         Search
@@ -12,6 +12,7 @@
             label="Keyword"
             background-color="white"
             :append-icon="mdiMagnify"
+            :error-messages="keywordError ? [keywordError] : []"
             required
             outlined
             hide-details="auto"
@@ -146,13 +147,25 @@ export default {
           await $axios.get(`websites${isSignedIn ? '' : '/public'}/${keyword}`)
         ).data
 
-        return { input: keyword, lastKeyword: keyword, websites, results }
+        return {
+          keyword,
+          input: keyword,
+          lastKeyword: keyword,
+          websites,
+          results,
+        }
       } catch (error) {
         if (error.response && error.response.status === 401) {
-          return { input: keyword, lastKeyword: keyword, signInDialog: true }
+          return {
+            keyword,
+            input: keyword,
+            lastKeyword: keyword,
+            signInDialog: true,
+          }
         }
 
         return {
+          keyword,
           input: keyword,
           lastKeyword: keyword,
           error: error.message || error.toString(),
@@ -164,6 +177,7 @@ export default {
     return {
       title: 'Find websites',
       error: false,
+      keywordError: false,
       loading: false,
       meta: {
         title: 'Find websites',
@@ -210,6 +224,9 @@ export default {
         history.pushState({}, null, `/websites/${this.keyword}`)
       }
     },
+    input() {
+      this.keywordError = false
+    },
   },
   mounted() {
     if (this.isSignedIn && this.keyword && !this.websites.length) {
@@ -226,6 +243,12 @@ export default {
         .filter((word) => word.length >= 3)
         .join(' ')
         .trim()
+
+      if (this.input && !this.keyword.length) {
+        this.keywordError = 'Keyword is too short'
+
+        return
+      }
 
       if (
         !this.keyword ||
@@ -249,7 +272,7 @@ export default {
 
           if (!this.websites.length) {
             this.error =
-              'No results found. Try a different variation like singular or plural.'
+              'No results found. Try a variation, e.g. shop, shops or shopping.'
           }
         } else {
           try {

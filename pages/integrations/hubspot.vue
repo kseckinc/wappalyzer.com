@@ -74,6 +74,7 @@
                   :color="hubspotId ? 'success' : ''"
                   outlined
                   small
+                  label
                 >
                   <v-icon v-if="hubspotId" small left>
                     {{ mdiCheck }}

@@ -63,11 +63,11 @@
 
       <v-divider class="my-4 my-sm-6" />
 
-      <Product name="lookup" mirror />
+      <Product name="lookup" />
 
       <v-divider class="my-4 my-sm-6" />
 
-      <Product name="lists" />
+      <Product name="lists" mirror />
 
       <template #footer>
         <Logos apps />

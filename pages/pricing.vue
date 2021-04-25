@@ -87,7 +87,7 @@
                   <p class="px-4 pb-2">
                     Additional credits can be purchased at tiered pricing. For
                     example, the price for 1,000 credits is (100 x $0.20) + (400
-                    x $0.10) + (500 x $0.06) = $90.
+                    x $0.05) + (500 x $0.03) = $55.
                   </p>
                 </v-col>
               </v-row>

@@ -21,7 +21,7 @@
 
       <v-row align="center">
         <v-col v-for="(logo, name) in logos" :key="name" cols="3" sm="2" lg="1">
-          <component :is="name" class="companies__logo mx-auto" />
+          <component :is="name" class="companies__logo mx-auto d-block" />
         </v-col>
       </v-row>
     </v-container>

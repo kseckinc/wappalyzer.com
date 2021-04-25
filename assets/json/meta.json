@@ -18,7 +18,7 @@
     "subtitle": "Create lists of websites and contacts",
     "icon": "mdiFilterVariant",
     "image": "list.svg",
-    "text": "Find prospects by the technologies they use. Lead lists contain websites, email addresses, phone numbers and social media profiles. Create and export custom reports for any web technology based on website traffic, location and industry.",
+    "text": "Find prospects by the technologies they use. Lead lists contain websites, email addresses, phone numbers and social media profiles. Create and export custom reports for any web technology or keyword based on website traffic, location and industry.",
     "buttons": [
       {
         "text": "Create a lead list",

@@ -34,15 +34,15 @@
 
             <v-card-text>
               <p style="max-width: 600px">
-                Get started by selecting one or more technologies. Optionally
-                add filters and limits to get exactly what you need. Within
-                minutes, you get a free sample and quote to review. Complete the
-                order to download the full list immediately.
+                Get started by selecting one or more technologies or keywords.
+                Optionally add filters and limits to get exactly what you need.
+                Within minutes, you get a free sample and quote to review.
+                Complete the order to download the full list immediately.
               </p>
 
               <p class="mb-2">
                 Not sure what to do?
-                <a @click="suggestionsDialog = true">Browse suggestions</a>.
+                <a @click="suggestionsDialog = true">Start with these ideas</a>.
               </p>
             </v-card-text>
 
@@ -57,158 +57,231 @@
                   Selection
                 </v-card-title>
                 <v-card-text class="pb-0">
-                  <v-card>
-                    <v-card-title class="subtitle-2">Technologies</v-card-title>
-                    <v-card-text>
-                      <p class="mb-0">
-                        Choose one or more technologies (e.g. 'Shopify') or
-                        categories (e.g. 'Ecommerce').
-                      </p>
+                  <v-expansion-panels
+                    v-model="panelsMain"
+                    :disabled="loading"
+                    multiple
+                  >
+                    <v-expansion-panel ref="technologies" value="technologies">
+                      <v-expansion-panel-header class="subtitle-2">
+                        Technologies
+                      </v-expansion-panel-header>
+                      <v-expansion-panel-content>
+                        <p class="mb-0">
+                          Choose one or more technologies (e.g. 'Shopify') or
+                          categories (e.g. 'Ecommerce').
+                        </p>
 
-                      <Technologies ref="selector" @select="selectItem" />
-                    </v-card-text>
-                    <v-card-text
-                      v-if="selectedItems.length"
-                      class="px-0 pt-0 mt-n4"
-                    >
-                      <v-simple-table>
-                        <tbody>
-                          <tr>
-                            <th>Technology</th>
-                            <th width="30%">
-                              Version
+                        <Technologies ref="selector" @select="selectItem" />
 
-                              <v-tooltip max-width="300" top>
-                                <template #activator="{ on }">
-                                  <sup>
-                                    <v-icon small v-on="on">{{
-                                      mdiHelpCircleOutline
-                                    }}</v-icon>
-                                  </sup>
-                                </template>
+                        <template v-if="selectedItems.length">
+                          <v-simple-table
+                            class="mx-n6 pt-0"
+                            style="max-width: none"
+                          >
+                            <tbody>
+                              <tr>
+                                <th class="pl-6">Technology</th>
+                                <th width="30%">
+                                  Version
 
-                                Optionaly specify a technology version in SemVer
-                                notation, e.g. '2' or '2.0.0'.<br /><br />
-                                <code>&gt;=</code> Equal to or greater than<br />
-                                <code>=&nbsp;</code> Exact match<br />
-                                <code>&lt;=</code> Equal to or lower than<br /><br />
-                                Leave blank to include all versions.<br /><br />
-                                Not available on all technologies.
-                              </v-tooltip>
-                            </th>
-                            <th width="1"></th>
-                          </tr>
-                          <tr v-for="item in selectedItems" :key="item.slug">
-                            <td>
-                              <div
-                                v-if="item.type === 'technology'"
-                                class="d-flex align-center py-2"
+                                  <v-tooltip max-width="300" top>
+                                    <template #activator="{ on }">
+                                      <sup>
+                                        <v-icon small v-on="on">{{
+                                          mdiHelpCircleOutline
+                                        }}</v-icon>
+                                      </sup>
+                                    </template>
+
+                                    Optionaly specify a technology version in
+                                    SemVer notation, e.g. '2' or '2.0.0'.<br /><br />
+                                    <code>&gt;=</code> Equal to or greater
+                                    than<br />
+                                    <code>=&nbsp;</code> Exact match<br />
+                                    <code>&lt;=</code> Equal to or lower than<br /><br />
+                                    Leave blank to include all versions.<br /><br />
+                                    Not available on all technologies.
+                                  </v-tooltip>
+                                </th>
+                                <th width="1"></th>
+                              </tr>
+                              <tr
+                                v-for="item in selectedItems"
+                                :key="item.slug"
                               >
-                                <TechnologyIcon :icon="item.icon" />
-                                <span>{{ item.name }}</span>
-                              </div>
-                              <v-row v-else>
-                                <v-col>
-                                  {{ item.name }}
-                                </v-col>
-                                <v-col class="pr-0 text-right">
-                                  <small
-                                    >{{
-                                      item.technologiesCount
-                                    }}
-                                    technologies</small
+                                <td class="pl-6">
+                                  <div
+                                    v-if="item.type === 'technology'"
+                                    class="d-flex align-center py-2"
                                   >
-                                </v-col>
-                              </v-row>
-                            </td>
-                            <td>
-                              <v-row v-if="item.type === 'technology'">
-                                <v-col class="py-0 pr-2">
-                                  <v-select
-                                    v-model="item.operator"
-                                    :items="[
-                                      { text: '>=', value: '>=' },
-                                      { text: '=', value: '=' },
-                                      { text: '<=', value: '<=' },
-                                    ]"
-                                    class="my-0"
-                                    hide-details="auto"
-                                    dense
-                                  />
-                                </v-col>
-                                <v-col class="pa-0">
-                                  <v-text-field
-                                    v-model="item.version"
-                                    placeholder="Any"
-                                    class="ma-0"
-                                    hide-details="auto"
-                                    :rules="[
-                                      (v) => !v || /^(\d.?){1,3}$/.test(v),
-                                    ]"
-                                    dense
-                                  />
-                                </v-col>
-                              </v-row>
-                              <span v-else class="text--disabled">-</span>
-                            </td>
-                            <td class="pl-0">
-                              <v-btn icon @click="removeItem(item)">
-                                <v-icon>{{ mdiCloseCircleOutline }}</v-icon>
-                              </v-btn>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </v-simple-table>
-                    </v-card-text>
+                                    <TechnologyIcon :icon="item.icon" />
+                                    <span>{{ item.name }}</span>
+                                  </div>
+                                  <v-row v-else>
+                                    <v-col>
+                                      {{ item.name }}
+                                    </v-col>
+                                    <v-col class="pr-0 text-right">
+                                      <small
+                                        >{{
+                                          item.technologiesCount
+                                        }}
+                                        technologies</small
+                                      >
+                                    </v-col>
+                                  </v-row>
+                                </td>
+                                <td>
+                                  <v-row v-if="item.type === 'technology'">
+                                    <v-col class="py-0 pr-2">
+                                      <v-select
+                                        v-model="item.operator"
+                                        :items="[
+                                          { text: '>=', value: '>=' },
+                                          { text: '=', value: '=' },
+                                          { text: '<=', value: '<=' },
+                                        ]"
+                                        class="my-0"
+                                        hide-details="auto"
+                                        dense
+                                      />
+                                    </v-col>
+                                    <v-col class="pa-0">
+                                      <v-text-field
+                                        v-model="item.version"
+                                        placeholder="Any"
+                                        class="ma-0"
+                                        hide-details="auto"
+                                        :rules="[
+                                          (v) => !v || /^(\d.?){1,3}$/.test(v),
+                                        ]"
+                                        dense
+                                      />
+                                    </v-col>
+                                  </v-row>
+                                  <span v-else class="text--disabled">-</span>
+                                </td>
+                                <td class="pl-0 pr-6">
+                                  <v-btn icon @click="removeItem(item)">
+                                    <v-icon>{{ mdiCloseCircleOutline }}</v-icon>
+                                  </v-btn>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </v-simple-table>
+                        </template>
 
-                    <template v-if="selectedItems.length === 2">
-                      <v-divider />
+                        <template v-if="selectedItems.length === 2">
+                          <v-divider class="mx-n6 mb-6" />
 
-                      <v-card-text>
-                        Create a list of websites that use...
-                        <v-radio-group
-                          v-model="matchAllTechnologies"
-                          hide-details
-                          :disabled="
-                            selectedItems.length !== 2 ||
-                            selected.technologies.length !== 2
-                          "
+                          Create a list of websites that use...
+                          <v-radio-group
+                            v-model="matchAllTechnologies"
+                            class="mb-2"
+                            hide-details
+                          >
+                            <v-radio class="mt-0" value="or" hide-details>
+                              <template #label>
+                                <div>
+                                  {{ selectedItems[0].name }}
+                                  <strong>or</strong>
+                                  {{ selectedItems[1].name }}
+                                </div>
+                              </template>
+                            </v-radio>
+                            <v-radio class="mt-0" value="and" hide-details>
+                              <template #label>
+                                <div>
+                                  {{ selectedItems[0].name }}
+                                  <strong>and</strong>
+                                  {{ selectedItems[1].name }}
+                                </div>
+                              </template>
+                            </v-radio>
+                            <v-radio class="mt-0" value="not" hide-details>
+                              <template #label>
+                                <div>
+                                  {{ selectedItems[0].name }} and
+                                  <strong>not</strong>
+                                  {{ selectedItems[1].name }}
+                                </div>
+                              </template>
+                            </v-radio>
+                          </v-radio-group>
+                        </template>
+                      </v-expansion-panel-content>
+                    </v-expansion-panel>
+
+                    <v-expansion-panel ref="keywords" value="keywords">
+                      <v-expansion-panel-header class="subtitle-2">
+                        Keywords
+                        <span
+                          ><v-chip
+                            class="ml-2 text--disabled"
+                            small
+                            label
+                            outlined
+                            >experimental</v-chip
+                          ></span
                         >
-                          <v-radio class="mt-0" value="or" hide-details>
-                            <template #label>
-                              <div>
-                                {{ selectedItems[0].name }} <strong>or</strong>
-                                {{ selectedItems[1].name }}
-                              </div>
-                            </template>
-                          </v-radio>
-                          <v-radio class="mt-0" value="and" hide-details>
-                            <template #label>
-                              <div>
-                                {{ selectedItems[0].name }} <strong>and</strong>
-                                {{ selectedItems[1].name }}
-                              </div>
-                            </template>
-                          </v-radio>
-                          <v-radio class="mt-0" value="not" hide-details>
-                            <template #label>
-                              <div>
-                                {{ selectedItems[0].name }} and
-                                <strong>not</strong>
-                                {{ selectedItems[1].name }}
-                              </div>
-                            </template>
-                          </v-radio>
-                        </v-radio-group>
-                      </v-card-text>
-                    </template>
-                  </v-card>
+                      </v-expansion-panel-header>
+                      <v-expansion-panel-content>
+                        <p>
+                          Target websites that use certain keywords, such as a
+                          brand, product, profession, or any noun.
+                        </p>
+
+                        <v-form @submit.prevent="addKeyword()">
+                          <v-text-field
+                            v-model="keyword"
+                            :error-messages="keywordErrors"
+                            :append-icon="mdiPlus"
+                            placeholder="E.g. education"
+                            class="pt-0"
+                            hide-details="auto"
+                            @click:append="addKeyword()"
+                          />
+                        </v-form>
+
+                        <v-chip-group
+                          v-if="selected.keywords.length"
+                          class="mb-n4 mt-4"
+                          column
+                        >
+                          <v-chip
+                            v-for="_keyword in selected.keywords"
+                            :key="_keyword"
+                            color="primary lighten-1 primary--text"
+                            label
+                            close
+                            @click:close="removeKeyword(_keyword)"
+                          >
+                            {{ _keyword }}
+                          </v-chip>
+                        </v-chip-group>
+
+                        <v-alert
+                          color="secondary"
+                          border="left"
+                          class="mt-8 mb-2"
+                          dense
+                        >
+                          <small>
+                            We select relevant keywords we find on websites
+                            using machine learning. For best results, include
+                            multiple variations (e.g. shop, shops and shopping).
+                          </small>
+                        </v-alert>
+                      </v-expansion-panel-content>
+                    </v-expansion-panel>
+                  </v-expansion-panels>
                 </v-card-text>
 
                 <v-card-text>
                   <v-expansion-panels
                     v-model="panelsSelection"
-                    :disabled="!selectedItems.length"
+                    :disabled="!selection"
                     multiple
                   >
                     <v-expansion-panel ref="industries" value="industries">
@@ -287,14 +360,14 @@
 
                         <v-chip-group
                           v-if="selected.industries.length"
-                          class="mt-n1 mb-2"
+                          class="mb-n4 mb-2"
                           column
                         >
                           <v-chip
                             v-for="item in selected.industries"
                             :key="item.value"
-                            color="primary"
-                            outlined
+                            color="primary lighten-1 primary--text"
+                            label
                             close
                             @click:close="toggleIndustry(item)"
                           >
@@ -334,13 +407,13 @@
                           v-model="requiredSets.email"
                           label="Email address"
                           hide-details
-                          :disabled="australia"
+                          :disabled="compliance === 'exclude'"
                         />
                         <v-checkbox
                           v-model="requiredSets.phone"
                           label="Phone number"
                           hide-details
-                          :disabled="australia"
+                          :disabled="compliance === 'exclude'"
                         />
                         <v-checkbox
                           v-model="requiredSets.social"
@@ -425,11 +498,9 @@
               </v-col>
               <v-col class="py-0 pl-sm-0" cols="12" sm="6">
                 <v-card-title
-                  :class="`subtitle-1 ${
-                    selectedItems.length ? '' : 'text--disabled'
-                  }`"
+                  :class="`subtitle-1 ${selection ? '' : 'text--disabled'}`"
                 >
-                  <v-icon :color="selectedItems.length ? 'primary' : ''" left>{{
+                  <v-icon :color="selection ? 'primary' : ''" left>{{
                     mdiArrowCollapseVertical
                   }}</v-icon>
                   Limits <span class="grey--text ml-1">(optional)</span>
@@ -437,7 +508,7 @@
                 <v-card-text>
                   <v-expansion-panels
                     v-model="panelsLimits"
-                    :disabled="!selectedItems.length"
+                    :disabled="!selection"
                     multiple
                   >
                     <v-expansion-panel ref="subset" value="subset">
@@ -475,7 +546,7 @@
                           v-model="subsetSlice"
                           label="Traffic"
                           :tick-labels="['Highest', '', 'Medium', '', 'Lowest']"
-                          :disabled="!subset"
+                          :disabled="!subset || !selectedItems.length"
                           min="0"
                           max="4"
                           hide-details="auto"
@@ -486,6 +557,7 @@
                           v-model="excludeNoTraffic"
                           label="Exclude websites without traffic data"
                           hide-details
+                          :disabled="!selectedItems.length"
                         />
 
                         <v-alert
@@ -504,7 +576,11 @@
                       </v-expansion-panel-content>
                     </v-expansion-panel>
 
-                    <v-expansion-panel ref="age" value="age">
+                    <v-expansion-panel
+                      ref="age"
+                      value="age"
+                      :disabled="!selectedItems.length"
+                    >
                       <v-expansion-panel-header class="subtitle-2">
                         Data age
                       </v-expansion-panel-header>
@@ -607,11 +683,9 @@
                 </v-card-text>
 
                 <v-card-title
-                  :class="`subtitle-1 ${
-                    selectedItems.length ? '' : 'text--disabled'
-                  }`"
+                  :class="`subtitle-1 ${selection ? '' : 'text--disabled'}`"
                 >
-                  <v-icon :color="selectedItems.length ? 'primary' : ''" left>{{
+                  <v-icon :color="selection ? 'primary' : ''" left>{{
                     mdiFilterOutline
                   }}</v-icon>
                   Filters <span class="grey--text ml-1">(optional)</span>
@@ -619,7 +693,7 @@
                 <v-card-text>
                   <v-expansion-panels
                     v-model="panelsFilters"
-                    :disabled="!selectedItems.length"
+                    :disabled="!selection"
                     multiple
                   >
                     <v-expansion-panel ref="ipCountries" value="ipCountries">
@@ -694,8 +768,8 @@
                           >
                             <template #activator="{ on }">
                               <v-chip
-                                color="primary"
-                                outlined
+                                color="primary lighten-1 primary--text"
+                                label
                                 close
                                 v-on="on"
                                 @click:close="toggleGeoIp(item)"
@@ -826,8 +900,8 @@
                           >
                             <template #activator="{ on }">
                               <v-chip
-                                color="primary"
-                                outlined
+                                color="primary lighten-1 primary--text"
+                                label
                                 close
                                 v-on="item.parent ? on : undefined"
                                 @click:close="toggleTld(item)"
@@ -979,8 +1053,8 @@
                           >
                             <template #activator="{ on }">
                               <v-chip
-                                color="primary"
-                                outlined
+                                color="primary lighten-1 primary--text"
+                                label
                                 close
                                 v-on="on"
                                 @click:close="toggleVariant(item)"
@@ -1004,7 +1078,7 @@
                     v-model="matchAll"
                     class="mb-4"
                     label="Match all filters (yields fewer results)"
-                    :disabled="!selectedItems.length"
+                    :disabled="!selection"
                     hide-details
                   ></v-checkbox>
                 </v-card-text>
@@ -1013,7 +1087,7 @@
 
             <v-card-text class="py-0">
               <v-btn
-                :disabled="!selectedItems.length"
+                :disabled="!selection"
                 :loading="creating"
                 color="primary"
                 class="mt-4 mb-4"
@@ -1235,6 +1309,8 @@ export default {
       faqDialog: false,
       file: '',
       fileErrors: [],
+      keyword: '',
+      keywordErrors: [],
       matchAll: false,
       matchAllTechnologies: 'or',
       mdiCalculator,
@@ -1255,10 +1331,11 @@ export default {
       minAge: 0,
       maxAge: 3,
       meta,
+      panelsMain: [],
       panelsSelection: [],
       panelsLimits: [],
       panelsFilters: [],
-      pauseUpdateQuery: false,
+      loading: false,
       signInDialog: false,
       selectedCountry: '',
       selectedIndustry: '',
@@ -1270,6 +1347,7 @@ export default {
         geoIps: [],
         tlds: [],
         languages: [],
+        keywords: [],
       },
       subset: null,
       subsetSlice: 0,
@@ -1288,6 +1366,11 @@ export default {
         {
           text: 'Websites using Klarna <strong>in United States</strong>',
           query: { technologies: 'klarna-checkout', countries: 'us' },
+        },
+        {
+          text:
+            'Websites mentioning <strong>Education</strong> related keywords',
+          query: { keywords: 'education,learning,school,university' },
         },
         {
           text: 'Ecommerce websites in the <strong>fashion</strong> industry',
@@ -1339,6 +1422,12 @@ export default {
       isAdmin: ({ user }) =>
         user.attrs.admin || (user.impersonator && user.impersonator.admin),
     }),
+    selection() {
+      return (
+        !this.loading &&
+        (this.selectedItems.length || this.selected.keywords.length)
+      )
+    },
     selectedItems() {
       return [...this.selected.categories, ...this.selected.technologies]
     },
@@ -1423,7 +1512,7 @@ export default {
           if (!active) {
             this.selectedCountry = ''
 
-            this.$refs.country.blur()
+            this.$refs.country && this.$refs.country.blur()
           }
         })
       })
@@ -1520,6 +1609,7 @@ export default {
                 slug,
                 name,
               })),
+              keywords: this.selected.keywords,
               languages: this.selected.languages.map(
                 ({ text, parent, value }) => ({
                   text:
@@ -1594,7 +1684,7 @@ export default {
           )
       )
 
-      this.$refs.selector.clear()
+      this.$refs.selector && this.$refs.selector.clear()
     },
     removeItem(item) {
       item.active = false
@@ -1616,7 +1706,7 @@ export default {
         this.$nextTick(() => {
           this.selectedLanguage = ''
 
-          this.$refs.language.blur()
+          this.$refs.language && this.$refs.language.blur()
         })
       } else {
         this.selectedLanguage = item
@@ -1626,11 +1716,11 @@ export default {
             if (!active) {
               this.selectedLanguage = ''
 
-              this.$refs.language.blur()
+              this.$refs.language && this.$refs.language.blur()
             }
           })
 
-          this.$refs.language.blur()
+          this.$refs.language && this.$refs.language.blur()
         })
       }
     },
@@ -1720,11 +1810,11 @@ export default {
           if (!active) {
             this.selectedIndustry = ''
 
-            this.$refs.industry.blur()
+            this.$refs.industry && this.$refs.industry.blur()
           }
         })
 
-        this.$refs.industry.blur()
+        this.$refs.industry && this.$refs.industry.blur()
       })
     },
     toggleGeoIps(ipCountries) {
@@ -1768,6 +1858,42 @@ export default {
       this.tld = ''
       this.tldErrors = []
     },
+    addKeyword(keyword = this.keyword) {
+      this.keywordErrors = []
+
+      keyword = keyword
+        .trim()
+        .toLowerCase()
+        .replace(/[\u{0080}-\u{FFFF}]/gu, '')
+
+      if (!/^[a-z]+$/.test(keyword)) {
+        this.keywordErrors = ['Letters only, e.g. shopping']
+
+        return
+      }
+
+      if (keyword.length < 4) {
+        this.keywordErrors = ['Must be at least 4 characters']
+
+        return
+      }
+
+      if (!this.selected.keywords.includes(keyword)) {
+        this.selected.keywords.push(keyword)
+      }
+
+      this.keyword = ''
+      this.keywordErrors = []
+    },
+    removeKeyword(keyword) {
+      const index = this.selected.keywords.findIndex(
+        (_keyword) => _keyword === keyword
+      )
+
+      if (index !== -1) {
+        this.selected.keywords.splice(index, 1)
+      }
+    },
     async fileChange(file) {
       this.file = ''
       this.fileErrors = []
@@ -1805,7 +1931,7 @@ export default {
       clearTimeout(this.updateQueryTimeout)
 
       this.updateQueryTimeout = setTimeout(() => {
-        if (this.pauseUpdateQuery) {
+        if (this.loading) {
           return
         }
 
@@ -1853,6 +1979,7 @@ export default {
             this.compliance === 'exclude' || this.compliance === 'excludeEU'
               ? this.compliance
               : undefined,
+          keywords: this.selected.keywords.join(','),
         }
 
         this.$router.replace({
@@ -1879,7 +2006,7 @@ export default {
         this.suggestionsDialog = false
       }
 
-      this.pauseUpdateQuery = true
+      this.loading = true
 
       const {
         categories,
@@ -1897,12 +2024,14 @@ export default {
         filters,
         selection,
         contacts,
+        keywords,
       } = query || this.$route.query
 
       if (Object.keys(query || this.$route.query).length) {
         this.scrollTo('h1')
       }
 
+      this.panelsMain = []
       this.panelsSelection = []
       this.panelsLimits = []
       this.panelsFilters = []
@@ -1915,10 +2044,6 @@ export default {
 
       this.requiredSets.social = _attributes.includes('social')
 
-      if (attributes) {
-        this.$refs.attributes.toggle()
-      }
-
       this.minAge = Math.max(0, Math.min(11, parseInt(min || 0, 10)))
 
       this.maxAge = Math.max(
@@ -1926,18 +2051,10 @@ export default {
         Math.min(12, parseInt(typeof max === 'undefined' ? 3 : max || 0, 10))
       )
 
-      if (this.minAge || this.maxAge !== 3) {
-        this.$refs.age.toggle()
-      }
-
       this.subset =
         typeof subset === 'undefined'
           ? null
           : Math.min(1000000, Math.max(500, parseInt(subset || 0, 10))) || null
-
-      if (this.subset) {
-        this.$refs.subset.toggle()
-      }
 
       this.subsetSlice = Math.max(0, Math.min(4, parseInt(traffic || 0, 10)))
 
@@ -1949,8 +2066,6 @@ export default {
 
       if (contacts === 'exclude' || contacts === 'excludeEU') {
         this.compliance = contacts
-
-        this.$refs.compliance.toggle()
       }
 
       this.matchAllTechnologies =
@@ -1968,10 +2083,6 @@ export default {
         })
       }
 
-      if (this.selected.geoIps.length) {
-        this.$refs.ipCountries.toggle()
-      }
-
       this.selected.tlds = []
 
       if (tlds) {
@@ -1984,10 +2095,6 @@ export default {
 
             this.addTld()
           })
-      }
-
-      if (this.selected.tlds.length) {
-        this.$refs.tlds.toggle()
       }
 
       this.selected.languages = []
@@ -2023,10 +2130,6 @@ export default {
         })
       }
 
-      if (this.selected.languages.length) {
-        this.$refs.languages.toggle()
-      }
-
       this.selected.industries = []
 
       if (_industries) {
@@ -2047,10 +2150,6 @@ export default {
               })
           }
         })
-      }
-
-      if (this.selected.industries.length) {
-        this.$refs.industries.toggle()
       }
 
       this.selected.technologies = []
@@ -2112,11 +2211,57 @@ export default {
         this.error = this.getErrorMessage(error)
       }
 
+      this.selected.keywords = []
+
+      if (keywords) {
+        keywords
+          .split(',')
+          .forEach((keyword) =>
+            this.addKeyword(keyword.toLowerCase().replace(/[^a-z]/g, ''))
+          )
+      }
+
       if (this.isSignedIn && this.user.billingCountry.toLowerCase() === 'au') {
         this.australia = true
       }
 
-      this.pauseUpdateQuery = false
+      if (attributes) {
+        this.$refs.attributes.toggle()
+      }
+
+      if (this.minAge || this.maxAge !== 3) {
+        this.$refs.age.toggle()
+      }
+
+      if (this.subset) {
+        this.$refs.subset.toggle()
+      }
+
+      if (this.selected.geoIps.length) {
+        this.$refs.ipCountries.toggle()
+      }
+
+      if (this.selected.tlds.length) {
+        this.$refs.tlds.toggle()
+      }
+
+      if (this.selected.languages.length) {
+        this.$refs.languages.toggle()
+      }
+
+      if (this.selected.industries.length) {
+        this.$refs.industries.toggle()
+      }
+
+      if (this.selected.keywords.length) {
+        this.$refs.keywords.toggle()
+      }
+
+      if (this.selectedItems.length || !this.selected.keywords.length) {
+        this.$refs.technologies.toggle()
+      }
+
+      this.loading = false
     },
   },
 }

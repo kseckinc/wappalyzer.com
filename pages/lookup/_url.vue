@@ -40,20 +40,57 @@
               </v-card-text>
             </v-card>
 
-            <Attributes
-              v-if="!loading"
+            <v-expansion-panels
+              v-if="
+                !loading && (Object.keys(attributes).length || keywords.length)
+              "
               class="mt-4"
-              :hostname="attributes"
-              :limited="!isSignedIn"
-              @signIn="signInDialog = true"
-            />
+            >
+              <Attributes
+                v-if="Object.keys(attributes).length"
+                :hostname="attributes"
+                :limited="!isSignedIn"
+                @signIn="signInDialog = true"
+              />
 
-            <v-card v-if="!loading && technologies.length">
+              <v-expansion-panel v-if="keywords && keywords.length" flat>
+                <v-expansion-panel-header
+                  class="subtitle-2"
+                  style="line-height: 1em"
+                >
+                  Keywords
+                  <span>
+                    <v-chip class="ml-2 text--disabled" small outlined>{{
+                      keywords.length
+                    }}</v-chip>
+                  </span>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  <v-chip-group column>
+                    <v-chip
+                      v-for="keyword in keywords"
+                      :key="keyword"
+                      :to="`/websites/${keyword}/`"
+                      color="accent"
+                      small
+                      outlined
+                      label
+                    >
+                      {{ keyword }}
+                    </v-chip>
+                  </v-chip-group>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+
+            <v-card v-if="!loading && technologies.length" class="mt-4">
               <v-card-title class="subtitle-2" style="line-height: 1em">
                 Technologies
-                <span class="ml-1 font-weight-regular text--disabled"
-                  >({{ technologies.length }})</span
-                >
+                <span>
+                  <v-chip class="ml-2 text--disabled" small outlined>{{
+                    technologies.length
+                  }}</v-chip>
+                </span>
               </v-card-title>
               <v-card-text class="px-0">
                 <v-simple-table>
@@ -83,7 +120,7 @@
                       <th class="text-right font-weight-regular">
                         <nuxt-link
                           :to="`/technologies/${category.slug}/`"
-                          class="black--text"
+                          class="text--disabled"
                         >
                           {{ category.name }}
                         </nuxt-link>
@@ -324,14 +361,20 @@ export default {
 
     if (fullUrl) {
       try {
-        const { technologies, attributes } = (
+        const { technologies, attributes, keywords } = (
           await $axios.get(
             `lookup-site${isSignedIn ? '' : '/public'}/${encodeURIComponent(
               fullUrl
             )}`
           )
         ).data
-        return { url: fullUrl, lastUrl: fullUrl, technologies, attributes }
+        return {
+          url: fullUrl,
+          lastUrl: fullUrl,
+          technologies,
+          attributes,
+          keywords,
+        }
       } catch (error) {
         if (error.response && error.response.status === 401) {
           return { url: fullUrl, lastUrl: fullUrl, signInDialog: true }
@@ -359,6 +402,7 @@ export default {
       meta,
       sets,
       attributes: {},
+      keywords: [],
       mdiLayersOutline,
       mdiMagnify,
       mdiCheck,
@@ -430,6 +474,7 @@ export default {
 
         this.technologies = []
         this.attributes = {}
+        this.keywords = []
 
         await this.getCredits()
 
@@ -504,7 +549,26 @@ export default {
       this.url = url
 
       try {
-        new URL(url) // eslint-disable-line no-new
+        const { hostname } = new URL(url) // eslint-disable-line no-new
+
+        if (
+          [
+            'wappalyzer',
+            'google',
+            'facebook',
+            'twitter',
+            'reddit',
+            'yahoo',
+            'wikipedia',
+            'amazon',
+            'youtube',
+          ].some((ignore) => hostname.includes(ignore))
+        ) {
+          this.error =
+            'This website is excluded from lookups for technical reasons. Please use our free browser extension instead.'
+
+          return
+        }
       } catch (error) {
         this.error = 'Please enter a valid URL, including http:// or https://'
 
@@ -526,6 +590,7 @@ export default {
       this.loading = true
       this.technologies = []
       this.attributes = {}
+      this.keywords = []
 
       let credits
 
@@ -535,6 +600,7 @@ export default {
             credits,
             technologies: this.technologies,
             attributes: this.attributes,
+            keywords: this.keywords,
           } = (
             await this.$axios(`lookup-site/${encodeURIComponent(url)}`)
           ).data)
@@ -543,6 +609,7 @@ export default {
             ;({
               technologies: this.technologies,
               attributes: this.attributes,
+              keywords: this.keywords,
             } = (
               await this.$axios(`lookup-site/public/${encodeURIComponent(url)}`)
             ).data)

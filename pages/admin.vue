@@ -19,7 +19,12 @@
             hide-details="auto"
           />
 
-          <v-btn :loading="submitting" color="primary" @click="submit">
+          <v-btn
+            :loading="submitting"
+            color="primary"
+            depressed
+            @click="submit"
+          >
             Sign in
           </v-btn>
         </v-form>

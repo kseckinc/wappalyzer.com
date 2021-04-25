@@ -194,7 +194,9 @@
           </v-simple-table>
         </v-card-text>
 
-        <v-card-actions v-if="order.status !== 'Complete'">
+        <v-card-actions
+          v-if="['Complete', 'Processing'].includes(order.status)"
+        >
           <v-spacer />
           <v-btn color="error" text @click="cancelDialog = true">
             <v-icon left>{{ mdiCartRemove }}</v-icon>
@@ -287,7 +289,7 @@
                     months
                   </td>
                 </tr>
-                <tr>
+                <tr v-if="technologies.length">
                   <th>Technologies</th>
                   <td>
                     <v-chip-group class="my-2" column>
@@ -322,6 +324,22 @@
                             ? 'View less'
                             : `View all ${order.dataset.query.technologies.length}`
                         }}
+                      </v-chip>
+                    </v-chip-group>
+                  </td>
+                </tr>
+                <tr v-if="order.dataset.query.keywords.length">
+                  <th>Keywords</th>
+                  <td>
+                    <v-chip-group class="my-2" column>
+                      <v-chip
+                        v-for="keyword in order.dataset.query.keywords"
+                        :key="keyword"
+                        outlined
+                        small
+                        label
+                      >
+                        {{ keyword }}
                       </v-chip>
                     </v-chip-group>
                   </td>
@@ -504,18 +522,20 @@
                   <th>List size limit</th>
                   <td>
                     {{ formatNumber(order.dataset.query.subset) }}
-                    ({{
-                      order.dataset.query.subsetSlice === 1
-                        ? 'high'
-                        : order.dataset.query.subsetSlice === 2
-                        ? 'medium'
-                        : order.dataset.query.subsetSlice === 3
-                        ? 'low'
-                        : order.dataset.query.subsetSlice === 4
-                        ? 'lowest'
-                        : 'highest'
-                    }}
-                    traffic)
+                    <template v-if="order.dataset.query.technologies.length">
+                      ({{
+                        order.dataset.query.subsetSlice === 1
+                          ? 'high'
+                          : order.dataset.query.subsetSlice === 2
+                          ? 'medium'
+                          : order.dataset.query.subsetSlice === 3
+                          ? 'low'
+                          : order.dataset.query.subsetSlice === 4
+                          ? 'lowest'
+                          : 'highest'
+                      }}
+                      traffic)
+                    </template>
                   </td>
                 </tr>
               </template>

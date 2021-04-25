@@ -4,6 +4,7 @@
       ref="results"
       v-model="selection"
       :items="results"
+      :prepend-icon="mdiMagnify"
       class="mb-4"
       label="Find a technology"
       item-value="slug"

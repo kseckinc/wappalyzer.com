@@ -30,6 +30,45 @@
       <!-- eslint-disable-next-line vue/no-v-html -->
       <p class="mb-8" v-html="product.text" />
 
+      <v-alert
+        v-if="name === 'lists'"
+        color="secondary"
+        class="mt-n2 mb-6 py-2"
+      >
+        List all
+        <v-chip
+          color="primary lighten-1 primary--text"
+          class="my-1"
+          style="vertical-align: inherit"
+          label
+          >Fashion</v-chip
+        >
+        websites that use
+        <v-chip
+          color="primary lighten-1 primary--text"
+          class="my-1"
+          style="vertical-align: inherit"
+          label
+          >Shopify</v-chip
+        >
+        in
+        <v-chip
+          color="primary lighten-1 primary--text"
+          class="my-1"
+          style="vertical-align: inherit"
+          label
+          >United States</v-chip
+        >
+        with
+        <v-chip
+          color="primary lighten-1 primary--text"
+          class="my-1"
+          style="vertical-align: inherit"
+          label
+          >high traffic</v-chip
+        >
+      </v-alert>
+
       <v-form
         v-if="product.search"
         ref="form"

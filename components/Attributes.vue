@@ -1,17 +1,18 @@
 <template>
-  <v-expansion-panels v-if="Object.keys(attributes).length" class="mb-4">
+  <div style="width: 100%">
     <v-expansion-panel v-for="(set, setKey) in attributes" :key="setKey" flat>
       <v-expansion-panel-header class="subtitle-2" style="line-height: 1em"
         >{{ set.title }}
-        <span class="ml-1 font-weight-regular text--disabled"
-          >({{
+
+        <span>
+          <v-chip class="ml-2 text--disabled" small outlined>{{
             Object.values(set.attributes).reduce(
               (total, { values }) => total + values.length,
               0
             )
-          }})</span
-        ></v-expansion-panel-header
-      >
+          }}</v-chip>
+        </span>
+      </v-expansion-panel-header>
       <v-expansion-panel-content class="nopadding">
         <v-sheet
           v-if="limited && ['email', 'phone', 'social'].includes(setKey)"
@@ -42,6 +43,7 @@
                     ['email', 'phone'].includes(attributeKey) ||
                     setKey === 'social'
                   "
+                  column
                 >
                   <div v-for="(value, index) in attribute.values" :key="index">
                     <v-chip
@@ -50,6 +52,7 @@
                       color="accent"
                       small
                       outlined
+                      label
                     >
                       <span :class="limited ? 'blurred' : ''">
                         {{ value.text }}
@@ -61,6 +64,7 @@
                       color="accent"
                       small
                       outlined
+                      label
                     >
                       <span :class="limited ? 'blurred' : ''">
                         {{ value.text }}
@@ -74,6 +78,7 @@
                       color="accent"
                       small
                       outlined
+                      label
                     >
                       <span :class="limited ? 'blurred' : ''">
                         {{ value.text }}
@@ -103,7 +108,7 @@
         </v-simple-table>
       </v-expansion-panel-content>
     </v-expansion-panel>
-  </v-expansion-panels>
+  </div>
 </template>
 
 <script>

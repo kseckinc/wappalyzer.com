@@ -27,15 +27,14 @@
     </v-row>
 
     <div class="mb-4">
-      <v-btn to="/docs/integrations/pipedrive/" color="accent" outlined>
+      <v-btn to="/docs/integrations/pipedrive/" depressed>
         <v-icon left>{{ mdiBookOpenPageVariant }}</v-icon>
         Documentation
       </v-btn>
       <v-btn
         href="https://marketplace.pipedrive.com/app/wappalyzer/${clientId}"
         target="_blank"
-        color="accent"
-        outlined
+        depressed
       >
         <v-icon left>{{ mdiStore }}</v-icon>
         Marketplace
@@ -74,6 +73,7 @@
                   :color="pipedriveId ? 'success' : ''"
                   outlined
                   small
+                  label
                 >
                   <v-icon v-if="pipedriveId" small left>
                     {{ mdiCheck }}
@@ -135,9 +135,9 @@
             >Pipedrive settings</a
           >
           &rarr;
-          <v-chip small outlined>Data fields</v-chip>
-          &rarr; <v-chip small outlined>Organization</v-chip> &rarr;
-          <v-chip small outlined>Custom fields</v-chip>.
+          <v-chip small label outlined>Data fields</v-chip>
+          &rarr; <v-chip small label outlined>Organization</v-chip> &rarr;
+          <v-chip small label outlined>Custom fields</v-chip>.
         </p>
       </v-card-text>
 
@@ -271,8 +271,9 @@
         <v-row>
           <v-col>
             <v-btn
-              color="primary"
+              color="primary lighten-1 primary--text"
               :disabled="!orgWebsiteField || !assignedFields.length"
+              depressed
               @click="syncDialog = true"
             >
               <v-icon left>{{ mdiAutorenew }}</v-icon>
@@ -301,16 +302,18 @@
               >Pipedrive settings</a
             >
             &rarr;
-            <v-chip small outlined>Webhooks</v-chip>
+            <v-chip small label outlined>Webhooks</v-chip>
             &rarr;
-            <v-chip small outlined>Create new webhook</v-chip>
+            <v-chip small label outlined>Create new webhook</v-chip>
           </li>
           <li>
-            Set <v-chip small outlined>Event action</v-chip> to 'added' and
-            <v-chip small outlined>Event object</v-chip> to 'organization'.
+            Set <v-chip small label outlined>Event action</v-chip> to 'added'
+            and <v-chip small label outlined>Event object</v-chip> to
+            'organization'.
           </li>
           <li>
-            In the <v-chip small outlined>Endpoint URL</v-chip> field, enter
+            In the <v-chip small label outlined>Endpoint URL</v-chip> field,
+            enter
             <code>https://api.wappalyzer.com/pipedrive/v2/organisation</code>
           </li>
         </ul>

@@ -28,7 +28,7 @@
           </div>
 
           <v-card v-if="list.status === 'Ready'" class="mb-4">
-            <v-card-text class="px-0 pb-2">
+            <v-card-text class="px-0">
               <v-simple-table class="mb-4">
                 <tbody>
                   <tr>
@@ -36,7 +36,7 @@
                     <td>
                       {{
                         formatNumber(
-                          totalRows(list.rows, list.query.matchAllTechnologies)
+                          totalRows(list.rows, list.query.matchAllechnologies)
                         )
                       }}
                     </td>
@@ -67,21 +67,12 @@
                   <v-icon left size="20">{{ mdiCart }}</v-icon>
                   Checkout
                 </v-btn>
-
-                <v-btn
-                  class="font-weight-regular mt-2"
-                  text
-                  small
-                  @click="$refs.faqDialog.open()"
-                >
-                  Frequently asked questions
-                </v-btn>
               </div>
             </v-card-text>
           </v-card>
 
           <v-expansion-panels v-model="sidePanelIndex" class="mb-4">
-            <v-expansion-panel>
+            <v-expansion-panel v-if="technologies.length">
               <v-expansion-panel-header class="subtitle-2">
                 Technologies
               </v-expansion-panel-header>
@@ -110,12 +101,15 @@
                           >
                             {{ technology.name }}
                           </nuxt-link>
-                          <template
+                          <v-chip
                             v-if="technology.operator && technology.version"
+                            class="ml-2"
+                            small
+                            label
+                            outlined
                           >
-                            &nbsp;({{ technology.operator
-                            }}{{ technology.version }})
-                          </template>
+                            {{ technology.operator }} v{{ technology.version }}
+                          </v-chip>
                         </div>
                       </td>
                       <td
@@ -186,6 +180,24 @@
               </v-expansion-panel-content>
             </v-expansion-panel>
 
+            <v-expansion-panel v-if="list.query.keywords.length">
+              <v-expansion-panel-header class="subtitle-2">
+                Keywords
+              </v-expansion-panel-header>
+              <v-expansion-panel-content>
+                <v-chip-group column>
+                  <v-chip
+                    v-for="keyword in list.query.keywords"
+                    :key="keyword"
+                    color="primary lighten-1 primary--text"
+                    label
+                  >
+                    {{ keyword }}
+                  </v-chip>
+                </v-chip-group>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+
             <v-expansion-panel>
               <v-expansion-panel-header class="subtitle-2">
                 Filters and limits
@@ -213,21 +225,28 @@
                       <th width="40%">List size limit</th>
                       <td>
                         {{ formatNumber(list.query.subset) }}
-                        ({{
-                          list.query.subsetSlice === 1
-                            ? 'high'
-                            : list.query.subsetSlice === 2
-                            ? 'medium'
-                            : list.query.subsetSlice === 3
-                            ? 'low'
-                            : list.query.subsetSlice === 4
-                            ? 'lowest'
-                            : 'highest'
-                        }}
-                        traffic)
+                        <template v-if="list.query.technologies.length">
+                          ({{
+                            list.query.subsetSlice === 1
+                              ? 'high'
+                              : list.query.subsetSlice === 2
+                              ? 'medium'
+                              : list.query.subsetSlice === 3
+                              ? 'low'
+                              : list.query.subsetSlice === 4
+                              ? 'lowest'
+                              : 'highest'
+                          }}
+                          traffic)
+                        </template>
                       </td>
                     </tr>
-                    <tr v-if="list.query.excludeNoTraffic">
+                    <tr
+                      v-if="
+                        list.query.technologies.length &&
+                        list.query.excludeNoTraffic
+                      "
+                    >
                       <th width="40%">Exclude websites without traffic data</th>
                       <td>
                         <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
@@ -244,7 +263,7 @@
                         >
                       </td>
                     </tr>
-                    <tr>
+                    <tr v-if="list.query.technologies.length">
                       <th width="40%">Data age</th>
                       <td>
                         {{ list.query.minAge || 0 }}-{{
@@ -371,7 +390,8 @@
                           key === 'base-list' || list.sets.includes(key)
                       )"
                       :key="set.key"
-                      top
+                      max-width="200"
+                      left
                     >
                       <template #activator="{ on }">
                         <tr v-on="on">
@@ -425,7 +445,12 @@
             </v-expansion-panel>
           </v-expansion-panels>
 
-          <div v-if="list.status !== 'Complete'" class="mb-4 text-right">
+          <div v-if="list.status !== 'Complete'" class="mb-4 d-flex">
+            <v-btn small depressed @click="$refs.faqDialog.open()">
+              <v-icon left>{{ mdiForum }}</v-icon>
+              FAQs
+            </v-btn>
+            <v-spacer />
             <v-btn :to="`/lists/${queryParams}`" color="accent" outlined small>
               <v-icon left>{{ mdiPencil }}</v-icon>
               Edit
@@ -444,7 +469,7 @@
         </v-col>
 
         <v-col cols="12" md="8" class="py-0">
-          <v-alert v-if="list.status === 'Calculating'" type="info" outlined>
+          <v-alert v-if="list.status === 'Calculating'" color="accent" outlined>
             Your list is being created. This may take a few minutes, we'll send
             you an email when it's ready.
           </v-alert>
@@ -463,136 +488,100 @@
               Please try it again with different or no filters.
             </p>
 
-            <v-btn :to="`/lists/${queryParams}`" color="white" exact>
+            <v-btn :to="`/lists/${queryParams}`" color="white" exact depressed>
               <v-icon left>{{ mdiArrowLeft }}</v-icon>
               Change requirements
             </v-btn>
           </v-alert>
 
-          <v-alert v-if="list.status === 'Ready'" type="success" outlined>
+          <v-alert v-if="list.status === 'Ready'" color="accent" outlined>
             Your list is ready. Please review the samples and availability.
           </v-alert>
 
-          <v-expansion-panels
-            v-if="['Ready', 'Complete'].includes(list.status)"
-            v-model="panelIndex"
-            class="mb-6"
+          <div
+            v-if="list.status === 'Calculating'"
+            class="text-center mb-n6"
+            style="padding: 100px 0"
           >
-            <v-expansion-panel
-              v-for="technology in list.query.technologies.filter(
-                ({ sample }) => sample && sample.length
-              )"
-              :key="technology.slug"
+            <v-progress-circular
+              size="100"
+              width="5"
+              style="opacity: 0.2"
+              indeterminate
+            />
+          </div>
+
+          <template v-if="['Ready', 'Complete'].includes(list.status)">
+            <v-expansion-panels
+              v-if="list.query.technologies.length"
+              v-model="panelIndex"
+              class="mb-6"
             >
-              <v-expansion-panel-header>
-                <template v-if="list.query.matchAllTechnologies !== 'or'">
-                  <div class="d-flex align-center">
-                    <div
-                      v-for="_technology in list.query.technologies"
-                      :key="`${_technology.slug}_1`"
-                    >
-                      <TechnologyIcon :icon="_technology.icon" />
+              <v-expansion-panel
+                v-for="technology in list.query.technologies.filter(
+                  ({ sample }) => sample && sample.length
+                )"
+                :key="technology.slug"
+              >
+                <v-expansion-panel-header>
+                  <template v-if="list.query.matchAllTechnologies !== 'or'">
+                    <div class="d-flex align-center">
+                      <div
+                        v-for="_technology in list.query.technologies"
+                        :key="`${_technology.slug}_1`"
+                      >
+                        <TechnologyIcon :icon="_technology.icon" />
+                      </div>
+                      <div
+                        v-for="(_technology, index) in list.query.technologies"
+                        :key="`${_technology.slug}_2`"
+                      >
+                        <span v-if="index" class="ml-1">
+                          <template
+                            v-if="list.query.matchAllTechnologies === 'and'"
+                            >+</template
+                          >
+                          <template
+                            v-if="list.query.matchAllTechnologies === 'not'"
+                            >-</template
+                          >
+                        </span>
+                        {{ _technology.name }}
+                      </div>
+                      <span
+                        ><v-chip
+                          class="ml-2 text--disabled"
+                          small
+                          label
+                          outlined
+                          >sample</v-chip
+                        ></span
+                      >
                     </div>
-                    <div
-                      v-for="(_technology, index) in list.query.technologies"
-                      :key="`${_technology.slug}_2`"
+                  </template>
+                  <div v-else class="d-flex align-center">
+                    <TechnologyIcon :icon="technology.icon" />
+                    {{ technology.name }}
+                    <span
+                      ><v-chip class="ml-2 text--disabled" small label outlined
+                        >sample</v-chip
+                      ></span
                     >
-                      <span v-if="index" class="ml-1">
-                        <template
-                          v-if="list.query.matchAllTechnologies === 'and'"
-                          >+</template
-                        >
-                        <template
-                          v-if="list.query.matchAllTechnologies === 'not'"
-                          >-</template
-                        >
-                      </span>
-                      {{ _technology.name }}
-                    </div>
-                    <span class="ml-1 text--disabled">(sample)</span>
                   </div>
-                </template>
-                <div v-else class="d-flex align-center">
-                  <TechnologyIcon :icon="technology.icon" />
-                  {{ technology.name }}
-                  <span class="ml-1 text--disabled">(sample)</span>
-                </div>
-              </v-expansion-panel-header>
-              <v-expansion-panel-content class="no-x-padding no-b-padding">
-                <v-simple-table>
-                  <thead>
-                    <tr>
-                      <th
-                        v-for="key in Object.keys(technology.sample[0])"
-                        :key="key"
-                        style="white-space: nowrap"
-                      >
-                        {{ formatAttribute(key) || key }}
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(row, index) in technology.sample" :key="index">
-                      <td
-                        v-for="(column, attribute) in row"
-                        :key="attribute"
-                        style="
-                          white-space: nowrap;
-                          max-width: 300px;
-                          overflow: hidden;
-                          text-overflow: ellipsis;
-                        "
-                      >
-                        <small>
-                          <template v-if="Array.isArray(column)">
-                            <div
-                              v-for="(value, index2) in column"
-                              :key="index2"
-                            >
-                              {{
-                                (formatted = formatAttribute(
-                                  attribute,
-                                  value
-                                )) && null
-                              }}
-                              <a
-                                v-if="formatted.to"
-                                :href="formatted.to"
-                                rel="noopener nofollow"
-                                target="_blank"
-                                >{{ formatted.text }}</a
-                              >
-                              <template v-else>
-                                {{ formatted }}
-                              </template>
-                            </div>
-                          </template>
-                          <template v-else>
-                            {{
-                              (formatted = formatAttribute(
-                                attribute,
-                                column
-                              )) && null
-                            }}
-                            <a
-                              v-if="formatted.to"
-                              :href="formatted.to"
-                              rel="noopener nofollow"
-                              target="_blank"
-                              >{{ formatted.text }}</a
-                            >
-                            <template v-else>
-                              {{ formatted }}
-                            </template>
-                          </template>
-                        </small>
-                      </td>
-                    </tr>
-                  </tbody>
-                </v-simple-table>
-              </v-expansion-panel-content>
-            </v-expansion-panel>
-          </v-expansion-panels>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content class="no-x-padding no-b-padding">
+                  <ListSample :sample="technology.sample" />
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+
+            <v-card v-else class="mb-6">
+              <v-card-title>Sample</v-card-title>
+              <v-card-text class="px-0 pb-0">
+                <ListSample :sample="list.query.sample" />
+              </v-card-text>
+            </v-card>
+          </template>
 
           <v-btn
             v-if="
@@ -600,11 +589,12 @@
               list.sampleFilename
             "
             :href="`${datasetsBaseUrl}${list.sampleFilename}`"
+            color="primary lighten-1 primary--text"
             class="mb-4"
             depressed
           >
             <v-icon left>{{ mdiDownload }}</v-icon>
-            Download all samples
+            Download samples
           </v-btn>
         </v-col>
       </v-row>
@@ -652,6 +642,7 @@ import {
   mdiPencil,
   mdiCart,
   mdiDelete,
+  mdiForum,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -659,6 +650,7 @@ import Spinner from '~/components/Spinner.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
 import Logos from '~/components/Logos.vue'
 import FaqDialog from '~/components/FaqDialog.vue'
+import ListSample from '~/components/ListSample.vue'
 import sets from '~/assets/json/sets.json'
 
 export default {
@@ -668,6 +660,7 @@ export default {
     TechnologyIcon,
     Logos,
     FaqDialog,
+    ListSample,
   },
   async asyncData({
     route,
@@ -704,12 +697,12 @@ export default {
       mdiPencil,
       mdiCart,
       mdiDelete,
+      mdiForum,
       panelIndex: 0,
       sidePanelIndex: 0,
       submitting: false,
       list: null,
       sets,
-      status: '',
       technologiesViewAll: false,
     }
   },
@@ -737,10 +730,15 @@ export default {
         attributes: this.list.query.requiredSets.length
           ? this.list.query.requiredSets
           : undefined,
-        technologies: this.list.query.technologies.map(
-          ({ slug, operator, version }) =>
-            `${slug}${version ? `${operator}${version}` : ''}`
-        ),
+        technologies: this.list.query.technologies.length
+          ? this.list.query.technologies.map(
+              ({ slug, operator, version }) =>
+                `${slug}${version ? `${operator}${version}` : ''}`
+            )
+          : undefined,
+        keywords: this.list.query.keywords.length
+          ? this.list.query.keywords
+          : undefined,
         tlds: this.list.query.tlds.length ? this.list.query.tlds : undefined,
         countries: this.list.query.geoIps.length
           ? this.list.query.geoIps.map(({ value }) => value)
@@ -814,18 +812,20 @@ export default {
       }
     },
     list({ id, status, totalCredits }) {
-      this.status = status
-
       if (status === 'Calculating') {
         setTimeout(async () => {
           this.checks += 1
 
           this.list = (await this.$axios.get(`lists/${id}`)).data
-        }, Math.min(20000, 2000 + 100 * this.checks * this.checks))
+        }, Math.min(10000, 2000 + 100 * this.checks * this.checks))
       }
     },
   },
-
+  mounted() {
+    if (this.list) {
+      this.list = { ...this.list }
+    }
+  },
   methods: {
     totalRows(rows, matchAllTechnologies) {
       return matchAllTechnologies === 'or'

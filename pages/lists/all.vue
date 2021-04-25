@@ -36,7 +36,7 @@
             <thead>
               <tr>
                 <th width="20%">ID</th>
-                <th>Technologies</th>
+                <th>Technologies or keywords</th>
                 <th width="20%">Websites</th>
                 <th width="20%">Date</th>
                 <th width="1">Paid</th>
@@ -51,10 +51,16 @@
                     }}</nuxt-link>
                   </td>
                   <td>
-                    <small>
+                    <small v-if="list.technologies.length">
                       {{ list.technologies.slice(0, 10).join(', ') }}
                       <template v-if="list.technologies.length > 10">
                         (+{{ list.technologies.length - 10 }} more)
+                      </template>
+                    </small>
+                    <small v-else-if="list.keywords.length">
+                      {{ list.keywords.slice(0, 10).join(', ') }}
+                      <template v-if="list.keywords.length > 10">
+                        (+{{ list.keywords.length - 10 }} more)
                       </template>
                     </small>
                   </td>
