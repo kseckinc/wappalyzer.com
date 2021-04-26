@@ -1489,7 +1489,10 @@ export default {
       if (this.isSignedIn) {
         this.signInDialog = false
 
-        if (this.user.billingCountry.toLowerCase() === 'au') {
+        if (
+          this.user.billingCountry &&
+          this.user.billingCountry.toLowerCase() === 'au'
+        ) {
           this.australia = true
         }
 
@@ -2221,7 +2224,11 @@ export default {
           )
       }
 
-      if (this.isSignedIn && this.user.billingCountry.toLowerCase() === 'au') {
+      if (
+        this.isSignedIn &&
+        this.user.billingCountry &&
+        this.user.billingCountry.toLowerCase() === 'au'
+      ) {
         this.australia = true
       }
 
