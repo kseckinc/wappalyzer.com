@@ -328,7 +328,12 @@
                     </v-chip-group>
                   </td>
                 </tr>
-                <tr v-if="order.dataset.query.keywords.length">
+                <tr
+                  v-if="
+                    order.dataset.query.keywords &&
+                    order.dataset.query.keywords.length
+                  "
+                >
                   <th>Keywords</th>
                   <td>
                     <v-chip-group class="my-2" column>

@@ -228,6 +228,8 @@
             <v-btn
               :disabled="!selectedCategory || !selectedField"
               color="primary"
+              small
+              depressed
               @click="addField"
               >Add</v-btn
             >
