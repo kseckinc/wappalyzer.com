@@ -39,7 +39,7 @@
                 </template>
               </div>
               <div v-if="column.length >= 5" class="text--disabled">
-                (+{{ column.length - 5 }} more)
+                (+{{ column.length - 4 }} more)
               </div>
             </template>
             <template v-else>

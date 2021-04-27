@@ -12,10 +12,10 @@
     "text": "These days you need advanced marketing tools to stand out from the competition. Wappalyzer help us do just that."
   },
   {
-    "name": "Patrick Meenan",
-    "role": "Engineering Fellow at Catchpoint",
-    "image": "/images/testimonials/patrick-meenan.jpg",
-    "text": "Wappalyzer has been hugely valuable to slice performance data by the various detected applications at WebPageTest.org."
+    "name": "Roman Schweiger",
+    "role": "Head of Business Development at Boomerank",
+    "image": "/images/testimonials/roman-schweiger.jpg",
+    "text": "Wappalyzer is an integral part of our sales process, enabling us to optimise lead segmentation at scale. It’s a total game changer for our organisation."
   },
   {
     "name": "Rick Viscomi",
@@ -28,5 +28,11 @@
     "role": "Chief Growth Engineer at Skedify",
     "image": "/images/testimonials/rabin-nuchtabek.jpg",
     "text": "Wappalyzer is helping our sales teams to understand prospects better and faster by having a clear view on their tech stack."
+  },
+  {
+    "name": "Patrick Meenan",
+    "role": "Engineering Fellow at Catchpoint",
+    "image": "/images/testimonials/patrick-meenan.jpg",
+    "text": "Wappalyzer has been hugely valuable to slice performance data by the various detected applications at WebPageTest.org."
   }
 ]

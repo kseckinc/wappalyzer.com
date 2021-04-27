@@ -71,7 +71,7 @@ export default {
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
-      isImpersonator: ({ user }) => user.impersonator,
+      isImpersonator: ({ user }) => !!user.impersonator,
       isAdmin: ({ user }) =>
         user.attrs.admin || (user.impersonator && user.impersonator.admin),
     }),
