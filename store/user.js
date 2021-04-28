@@ -353,7 +353,11 @@ export const actions = {
     }
   },
 
-  async delete({ state, commit, dispatch }, attributes) {
+  async delete({ state, commit, dispatch }) {
+    if (state.impersonating) {
+      return
+    }
+
     const Pool = new CognitoUserPool({
       UserPoolId: this.$config.COGNITO_USER_POOL_ID,
       ClientId: this.$config.COGNITO_CLIENT_ID,
@@ -376,5 +380,17 @@ export const actions = {
     }
 
     await dispatch('updateAttrs')
+  },
+
+  async disable({ state, commit, dispatch }) {
+    if (state.impersonating && state.impersonator.admin) {
+      await this.$axios.delete('user')
+
+      const user = (await this.$axios.get('user')).data
+
+      commit('setAttrs', user)
+    } else {
+      await dispatch('updateAttrs')
+    }
   },
 }

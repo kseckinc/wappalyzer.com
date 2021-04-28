@@ -1,5 +1,12 @@
 <template>
   <div>
+    <v-sheet
+      v-if="isAdmin && user.disabled"
+      color="error white--text"
+      class="pb-1 text-center"
+      tile
+      ><small>User disabled</small></v-sheet
+    >
     <v-sheet class="header" color="primary" tile>
       <v-container tag="header">
         <v-row class="align-center">

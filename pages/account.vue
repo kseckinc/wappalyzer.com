@@ -8,18 +8,24 @@
       {{ error }}
     </v-alert>
 
-    <v-btn
-      v-if="isAdmin"
-      :href="`https://dashboard.stripe.com/customers/${user.stripeCustomer}`"
-      :disabled="!user.stripeCustomer"
-      color="success"
-      class="mb-4"
-      target="_blank"
-      outlined
-    >
-      Stripe customer
-      <v-icon right>{{ mdiOpenInNew }}</v-icon>
-    </v-btn>
+    <div v-if="isAdmin" class="mb-4">
+      <v-btn
+        :href="`https://dashboard.stripe.com/customers/${user.stripeCustomer}`"
+        :disabled="!user.stripeCustomer"
+        color="success"
+        class="mr-2"
+        target="_blank"
+        outlined
+      >
+        Stripe customer
+        <v-icon right>{{ mdiOpenInNew }}</v-icon>
+      </v-btn>
+
+      <v-btn :loading="disabling" color="error" outlined @click="disable">
+        <v-icon left>{{ mdiAccountRemove }}</v-icon>
+        Disable user
+      </v-btn>
+    </div>
 
     <v-card class="mb-4">
       <template v-if="isAdmin">
@@ -185,6 +191,7 @@ export default {
       mdiEyeOff,
       newPassword: '',
       oldPassword: '',
+      disabling: false,
       removing: false,
       stripeCustomer: '',
       rules: {
@@ -218,6 +225,7 @@ export default {
     ...mapActions({
       saveUser: 'user/save',
       deleteUser: 'user/delete',
+      disableUser: 'user/disable',
       changePassword: 'user/changePassword',
     }),
     async submit(emailChange) {
@@ -269,6 +277,20 @@ export default {
 
       this.removing = false
       this.deleteAccountDialog = false
+
+      this.scrollToTop()
+    },
+    async disable() {
+      this.disabling = true
+      this.error = false
+
+      try {
+        await this.disableUser()
+      } catch (error) {
+        this.error = this.getErrorMessage(error)
+      }
+
+      this.disabling = false
 
       this.scrollToTop()
     },

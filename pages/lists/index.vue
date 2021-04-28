@@ -302,46 +302,7 @@
                           label="Select an industry"
                           hide-details
                           eager
-                        />
-
-                        <v-select
-                          v-if="subIndustries"
-                          ref="subIndustry"
-                          :items="subIndustries"
-                          class="mb-4 pt-0"
-                          label="Select a secondary industry"
-                          hide-details
-                          eager
                         >
-                          <template #prepend-item>
-                            {{
-                              (item = selected.industries.find(
-                                ({ value }) => value === selectedIndustry
-                              ) || {
-                                text: industries.find(
-                                  ({ value }) => value === selectedIndustry
-                                ).text,
-                                value: selectedIndustry,
-                              }) && null
-                            }}
-                            <v-list-item ripple @click="toggleIndustry(item)">
-                              <v-list-item-action>
-                                <v-icon
-                                  :color="item && item.active ? 'primary' : ''"
-                                  >{{
-                                    item && item.active
-                                      ? mdiCheckboxMarked
-                                      : mdiCheckboxBlankOutline
-                                  }}</v-icon
-                                >
-                              </v-list-item-action>
-                              <v-list-item-content
-                                >{{ item.text }} (all)</v-list-item-content
-                              >
-                            </v-list-item>
-
-                            <v-divider class="mt-3 mb-2"></v-divider>
-                          </template>
                           <template #item="{ item }">
                             <v-list-item ripple @click="toggleIndustry(item)">
                               <v-list-item-action>
@@ -383,8 +344,7 @@
                         >
                           <small>
                             We classify website content using machine learning
-                            to best-guess industry. For best results, select all
-                            or as many secondary industries as possible.
+                            to best-guess industry.
                           </small>
                         </v-alert>
                       </v-expansion-panel-content>
@@ -1440,24 +1400,6 @@ export default {
               text,
               parent: this.selectedLanguage.text,
               value: this.selectedLanguage.value[text],
-            },
-          ],
-          []
-        )
-      } else {
-        return false
-      }
-    },
-    subIndustries() {
-      const industry = industries.find(({ id }) => id === this.selectedIndustry)
-
-      if (industry && industry.children) {
-        return industry.children.reduce(
-          (industries, { id, category }) => [
-            ...industries,
-            {
-              text: category,
-              value: id,
             },
           ],
           []
