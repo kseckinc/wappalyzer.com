@@ -20,7 +20,7 @@
             ref="search"
             v-model="query"
             :loading="loading"
-            :error-messages="errors"
+            :error-messages="!results.length && errors"
             class="pt-0 mx-4"
             :placeholder="
               noCategories ? `E.g. Shopify` : `E.g. ecommerce or Shopify`
@@ -34,7 +34,10 @@
 
         <v-divider class="mt-4 mb-2"></v-divider>
 
-        <div v-if="errors.length" class="pt-1 pb-2 px-4 text--disabled">
+        <div
+          v-if="!results.length && errors.length"
+          class="pt-1 pb-2 px-4 text--disabled"
+        >
           <small>
             Can't find what you're looking for?
             <nuxt-link to="/technologies/suggest"
