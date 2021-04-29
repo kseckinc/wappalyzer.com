@@ -13,7 +13,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async get({ state, commit, dispatch }, attributes) {
+  async get({ state, commit, dispatch }) {
     try {
       const { credits, freeLists } = (await this.$axios.get('credits')).data
 

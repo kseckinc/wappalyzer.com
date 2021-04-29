@@ -625,7 +625,7 @@ export default {
           }
         }
 
-        this.$store.commit('credits/set', credits)
+        this.$store.commit('credits/setCredits', credits)
       } catch (error) {
         this.error =
           (error.response &&
