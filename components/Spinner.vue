@@ -1,5 +1,5 @@
 <template>
-  <v-btn class="spinner ml-n1" icon disabled small>
+  <v-btn class="spinner ml-n1" icon :disabled="!color" :color="color" small>
     <v-icon>{{ mdiAutorenew }}</v-icon>
   </v-btn>
 </template>
@@ -8,6 +8,12 @@
 import { mdiAutorenew } from '@mdi/js'
 
 export default {
+  props: {
+    color: {
+      type: String,
+      default: '',
+    },
+  },
   data() {
     return { mdiAutorenew }
   },

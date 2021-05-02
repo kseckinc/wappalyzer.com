@@ -78,8 +78,9 @@
                 </v-list>
               </v-menu>
             </template>
+            <Spinner v-if="isLoading" color="white" />
             <v-menu
-              v-if="isSignedIn"
+              v-else-if="isSignedIn"
               class="text-left"
               offset-y
               left
@@ -230,11 +231,13 @@ import {
 } from '@mdi/js'
 import Logo from '~/components/Logo.vue'
 import SignIn from '~/components/SignIn.vue'
+import Spinner from '~/components/Spinner.vue'
 
 export default {
   components: {
     Logo,
     SignIn,
+    Spinner,
   },
   props: {
     hero: {
@@ -280,6 +283,7 @@ export default {
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
+      isLoading: ({ user }) => user.loading,
       isSignedIn: ({ user }) => user.isSignedIn,
       isAdmin: ({ user }) =>
         user.isSignedIn &&

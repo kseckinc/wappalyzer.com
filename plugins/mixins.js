@@ -165,6 +165,7 @@ Vue.mixin({
       }, 0)
     },
     signInAs(userId) {
+      this.$store.commit('user/setLoading', true)
       this.$store.commit('user/setImpersonating', userId)
       this.$store.commit('user/setImpersonator', this.$store.state.user.attrs)
 
@@ -174,6 +175,7 @@ Vue.mixin({
             const user = (await this.$axios.get('user')).data
 
             this.$store.commit('user/setAttrs', user)
+            this.$store.commit('user/setLoading', false)
 
             if (this.$store.state.user.attrs.admin === '1') {
               this.$store.dispatch('organisations/get')
@@ -197,6 +199,7 @@ Vue.mixin({
           } catch (error) {
             this.$store.commit('user/setImpersonating', '')
             this.$store.commit('user/setImpersonator', null)
+            this.$store.commit('user/setLoading', false)
 
             this.$cookies.set('impersonate', '', {
               path: '/',
@@ -211,6 +214,7 @@ Vue.mixin({
       })
     },
     signOutAs() {
+      this.$store.commit('user/setLoading', true)
       this.$store.commit('user/setImpersonating', '')
       this.$store.commit('user/setImpersonator', null)
 
@@ -225,6 +229,7 @@ Vue.mixin({
             const user = (await this.$axios.get('user')).data
 
             this.$store.commit('user/setAttrs', user)
+            this.$store.commit('user/setLoading', false)
 
             this.$store.dispatch('organisations/get')
             this.$store.dispatch('credits/get')

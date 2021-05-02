@@ -36,7 +36,10 @@
                     <td>
                       {{
                         formatNumber(
-                          totalRows(list.rows, list.query.matchAllechnologies)
+                          totalRows(
+                            list.rows || 0,
+                            list.query.matchAllechnologies
+                          )
                         )
                       }}
                     </td>
@@ -113,7 +116,7 @@
                         </div>
                       </td>
                       <td
-                        v-if="list.status === 'Insufficient'"
+                        v-if="['Insufficient', 'Failed'].includes(list.status)"
                         class="text-right"
                       >
                         -
@@ -415,10 +418,12 @@
                                 formatNumber(
                                   set.key === 'base-list'
                                     ? totalRows(
-                                        list.rows,
+                                        list.rows || 0,
                                         list.query.matchAllTechnologies
                                       )
-                                    : list.setRows[set.key] || 0
+                                    : list.setRows
+                                    ? list.setRows[set.key] || 0
+                                    : 0
                                 )
                               }}
                             </small>

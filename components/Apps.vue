@@ -92,6 +92,7 @@ import ImageEdge from '~/assets/images/apps/edge.svg?data'
 import ImageSafari from '~/assets/images/apps/safari.svg?data'
 import ImageAndroid from '~/assets/images/apps/android.svg?data'
 import ImageIntegromat from '~/assets/images/apps/integromat.svg?data'
+import ImagePabbly from '~/assets/images/apps/pabbly.svg?data'
 
 import apps from '~/assets/json/apps.json'
 
@@ -123,6 +124,7 @@ export default {
         'safari.svg': ImageSafari,
         'android.svg': ImageAndroid,
         'integromat.svg': ImageIntegromat,
+        'pabbly.svg': ImagePabbly,
       },
     }
   },

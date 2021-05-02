@@ -262,7 +262,7 @@
       </small>
     </p>
 
-    <v-dialog v-model="signInDialog" max-width="400px">
+    <v-dialog v-if="!isLoading" v-model="signInDialog" max-width="400px">
       <SignIn mode-sign-up mode-continue />
     </v-dialog>
 
@@ -432,6 +432,7 @@ export default {
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
+      isLoading: ({ user }) => user.loading,
       isSignedIn: ({ user }) => user.isSignedIn,
       credits: ({ credits: { credits } }) => credits,
     }),
@@ -466,7 +467,7 @@ export default {
   watch: {
     async isSignedIn() {
       if (this.isSignedIn) {
-        if (this.user.billingCountry.toLowerCase() === 'au') {
+        if (this.user && this.user.billingCountry.toLowerCase() === 'au') {
           this.australia = true
         }
 
@@ -520,7 +521,7 @@ export default {
   },
   async mounted() {
     if (this.isSignedIn) {
-      if (this.user.billingCountry.toLowerCase() === 'au') {
+      if (this.user && this.user.billingCountry.toLowerCase() === 'au') {
         this.australia = true
       }
 

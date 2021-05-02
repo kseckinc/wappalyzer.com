@@ -53,6 +53,12 @@
     "docs": "/docs/integrations/integromat/",
     "href": "https://www.integromat.com/en/integrations/wappalyzer"
   },
+  "pabbly": {
+    "name": "Pabbly",
+    "image": "pabbly.svg",
+    "description": "Automated workflows and email marketing.",
+    "href": "https://www.pabbly.com/connect/integrations/wappalyzer/"
+  },
   "gmail": {
     "name": "Gmail",
     "image": "gmail.svg",

@@ -570,7 +570,7 @@ export default {
         await this.$axios.post('pipedrive/sync')
 
         this.success =
-          "Synchronization has started. You'll receive an email upon completion."
+          "The sync will start shortly. You'll receive an email upon start and finish."
         this.syncDialog = false
 
         this.scrollToTop()
