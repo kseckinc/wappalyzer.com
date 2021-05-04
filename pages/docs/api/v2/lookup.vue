@@ -125,14 +125,22 @@
         request.
       </p>
 
-      <v-alert :icon="mdiLightbulbOnOutline" outlined class="mt-8">
+      <v-alert
+        :icon="mdiLightbulbOnOutline"
+        color="secondary"
+        class="my-8 elevation-1"
+      >
         When a crawl is initiated, subsequent requests for the same URL are free
         for one hour. Allow for up to 15 minutes for the crawl to complete
         before re-trying a request. This allows you to get results without the
         need for a public callback endpoint.
       </v-alert>
 
-      <v-alert :icon="mdiLightbulbOnOutline" outlined>
+      <v-alert
+        :icon="mdiLightbulbOnOutline"
+        color="secondary"
+        class="my-8 elevation-1"
+      >
         To verify that the request was made by Wappalyzer, enable
         <nuxt-link :to="{ path: '/docs/api/v2/basics', hash: 'signatures' }"
           >callback signatures</nuxt-link

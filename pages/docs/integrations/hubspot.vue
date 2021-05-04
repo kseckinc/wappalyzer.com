@@ -21,7 +21,11 @@
         meta data we have on record.
       </p>
 
-      <v-alert :icon="mdiLightbulbOnOutline" class="mt-6" outlined>
+      <v-alert
+        :icon="mdiLightbulbOnOutline"
+        color="secondary"
+        class="my-8 elevation-1"
+      >
         HubSpot fetches technology data from Wappalyzer every time you view a
         company record. When you uninstall the Wappalyzer app, this information
         is longer available.
@@ -42,22 +46,12 @@
         <li>Click 'Connect' and follow the prompts.</li>
       </ul>
 
-      <Heading id="pricing" size="2" class="mt-8 mb-2"> Pricing </Heading>
+      <Heading id="pricing" size="2" class="mt-8 mb-2">Pricing</Heading>
 
       <p>
-        A lookup costs 1 credit. A lookup happens when you view a company record
-        in HubSpot. Subsequent lookups for the same record are free for one day.
-      </p>
-
-      <p>
-        The HubSpot integration is available on any paid plan. When you have no
-        remaining credits, no new lookups will be performed until you top-up
-        your account.
-      </p>
-
-      <p>
-        Refer to the <nuxt-link to="/pricing/">Pricing</nuxt-link> page for more
-        information about credits and plans.
+        The HubSpot integration and usage is included with any paid plan. Refer
+        to the <nuxt-link to="/pricing/">Pricing</nuxt-link> page for more
+        information.
       </p>
     </Page>
   </div>

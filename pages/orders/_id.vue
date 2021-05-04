@@ -195,7 +195,7 @@
         </v-card-text>
 
         <v-card-actions
-          v-if="['Complete', 'Processing'].includes(order.status)"
+          v-if="!['Complete', 'Processing'].includes(order.status)"
         >
           <v-spacer />
           <v-btn color="error" text @click="cancelDialog = true">

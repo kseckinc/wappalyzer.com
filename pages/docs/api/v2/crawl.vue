@@ -98,7 +98,7 @@
         </v-simple-table>
       </v-card>
 
-      <Heading id="callback" size="2" class="mt-8 mb-4"> Callback </Heading>
+      <Heading id="callback" size="2" class="mt-8 mb-4">Callback</Heading>
 
       <p>
         A callback URL is a public endpoint hosted on your own server. If you
@@ -109,14 +109,18 @@
         request.
       </p>
 
-      <v-alert :icon="mdiLightbulbOnOutline" outlined>
+      <v-alert
+        :icon="mdiLightbulbOnOutline"
+        color="secondary"
+        class="my-8 elevation-1"
+      >
         To verify that the request was made by Wappalyzer, enable
         <nuxt-link :to="{ path: '/docs/api/v2/basics', hash: 'signatures' }"
           >callback signatures</nuxt-link
         >.
       </v-alert>
 
-      <Heading id="examples" size="2" class="mt-8 mb-2"> Examples </Heading>
+      <Heading id="examples" size="2" class="mt-8 mb-2">Examples</Heading>
 
       <v-card class="mb-8">
         <v-card-title class="subtitle-2">Example request</v-card-title>

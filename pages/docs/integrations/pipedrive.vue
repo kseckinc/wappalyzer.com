@@ -20,7 +20,11 @@
         website.
       </p>
 
-      <v-alert :icon="mdiLightbulbOnOutline" class="mt-6" outlined>
+      <v-alert
+        :icon="mdiLightbulbOnOutline"
+        color="secondary"
+        class="my-8 elevation-1"
+      >
         Pipedrive fetches technology data from Wappalyzer every time you view a
         person or organisation. When you uninstall the Wappalyzer app, this
         information is longer available.
@@ -46,7 +50,11 @@
         <li>Click 'Connect' and follow the prompts.</li>
       </ul>
 
-      <v-alert :icon="mdiLightbulbOnOutline" class="mt-6" outlined>
+      <v-alert
+        :icon="mdiLightbulbOnOutline"
+        color="secondary"
+        class="my-8 elevation-1"
+      >
         Each Pipedrive user must connect the app individually to use panels. Add
         members to your
         <nuxt-link to="/organisation">organisation</nuxt-link> to allow multiple
@@ -70,10 +78,10 @@
 
       <p>
         In Pipedrive settings, go to
-        <v-chip small>Data fields</v-chip>
-        &rarr; <v-chip small>Organization</v-chip> &rarr;
-        <v-chip small>Custom fields</v-chip> and create or find a custom field
-        that contains the website URL for organisations.
+        <v-chip small label outlined>Data fields</v-chip>
+        &rarr; <v-chip small label outlined>Organization</v-chip> &rarr;
+        <v-chip small label outlined>Custom fields</v-chip> and create or find a
+        custom field that contains the website URL for organisations.
       </p>
 
       <p>
@@ -84,18 +92,13 @@
         in your account.
       </p>
 
-      <Heading id="pricing" size="2" class="mt-8 mb-2"> Pricing </Heading>
+      <Heading id="pricing" size="2" class="mt-8 mb-2">Pricing</Heading>
+
+      <p>The Pipedrive integration is available on any paid plan.</p>
 
       <p>
-        A lookup costs 1 credit. A lookup happens when you view a person or
-        organisation in Pipedrive. Subsequent lookups for the same record are
-        free for one day.
-      </p>
-
-      <p>
-        The Pipedrive integration is available on any paid plan. When you have
-        no remaining credits, no new lookups can be performed until you top-up
-        your account.
+        Permanently enriched record cost 1 credit each. Records can be enriched
+        using a sync or organisation webhook. Panel usage is free.
       </p>
 
       <p>

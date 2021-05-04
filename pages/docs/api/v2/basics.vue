@@ -152,7 +152,11 @@
         </v-simple-table>
       </v-card>
 
-      <v-alert :icon="mdiLightbulbOnOutline" outlined>
+      <v-alert
+        :icon="mdiLightbulbOnOutline"
+        color="secondary"
+        class="my-8 elevation-1"
+      >
         In less common scenarios, other status codes may be used. To verify if a
         request was successful, check for a <code>2xx</code> code. A
         <code>4xx</code> code indicates a problem with the request. A

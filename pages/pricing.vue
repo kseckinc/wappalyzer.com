@@ -33,9 +33,10 @@
       />
 
       <small class="text--disabled">
-        <nuxt-link to="/contact/">Contact us</nuxt-link> for tailored plans.<br />
-        Prices are in United States dollars.<br />
-        Credits included in plans expire after 60 days.
+        <nuxt-link to="/contact/">Contact us</nuxt-link> for tailored plans.
+        Discounted plans available for startups, students and nonprofits.<br />
+        Credits included in plans expire after 60 days.<br />
+        Prices are in United States dollars.
       </small>
 
       <v-row justify="center" class="mt-8">
@@ -136,7 +137,6 @@
 
               <p class="px-4 mb-0">
                 <small>
-                  Prices are in United States dollars.<br />
                   Credits purchased without a plan expire after 365 days.
                 </small>
               </p>
