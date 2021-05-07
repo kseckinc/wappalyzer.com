@@ -25,7 +25,7 @@
         >
           <small>
             <template v-if="Array.isArray(column)">
-              <div v-for="(value, index2) in column.slice(0, 5)" :key="index2">
+              <div v-for="(value, index2) in column.slice(0, 3)" :key="index2">
                 {{ (formatted = formatAttribute(attribute, value)) && null }}
                 <a
                   v-if="formatted.to"
@@ -38,8 +38,8 @@
                   {{ formatted }}
                 </template>
               </div>
-              <div v-if="column.length >= 5" class="text--disabled">
-                (+{{ column.length - 4 }} more)
+              <div v-if="column.length > 3" class="text--disabled">
+                (+{{ column.length - 3 }} more)
               </div>
             </template>
             <template v-else>

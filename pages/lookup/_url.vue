@@ -14,7 +14,7 @@
       <v-divider />
 
       <v-tabs-items v-model="tab">
-        <v-tab-item active-class="secondary">
+        <v-tab-item active-class="secondary" eager>
           <v-card-title>
             <v-row align="center">
               <v-col cols="12" sm="4" class="pb-0">
@@ -133,7 +133,7 @@
           </v-card-text>
         </v-tab-item>
 
-        <v-tab-item active-class="secondary">
+        <v-tab-item active-class="secondary" eager>
           <v-card-title>
             <v-row align="center">
               <v-col class="pb-0 flex-grow-1 flex-shrink-0">
@@ -514,12 +514,11 @@ export default {
       }
     },
   },
-  created() {
+  async mounted() {
     if (this.$route.hash === '#bulk') {
       this.tab = 1
     }
-  },
-  async mounted() {
+
     if (this.isSignedIn) {
       if (this.user && this.user.billingCountry.toLowerCase() === 'au') {
         this.australia = true

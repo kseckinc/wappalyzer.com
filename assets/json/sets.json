@@ -44,7 +44,7 @@
     "key": "address",
     "name": "Addresses",
     "attributes": [
-      { "name": "addressed", "key": "address", "description": "Addresses found on the website's contact page." }
+      { "name": "addresses", "key": "address", "description": "Addresses found on the website's contact page (experimental)." }
     ],
     "value": false
   },
