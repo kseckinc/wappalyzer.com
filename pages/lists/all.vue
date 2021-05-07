@@ -35,34 +35,79 @@
           <v-simple-table>
             <thead>
               <tr>
-                <th width="20%">ID</th>
-                <th>Technologies or keywords</th>
-                <th width="20%">Websites</th>
-                <th width="20%">Date</th>
+                <th width="15%">ID</th>
+                <th>Tech / keywords</th>
+                <th width="15%">Websites</th>
+                <th width="15%">Date</th>
+                <th width="1">Repeat</th>
                 <th width="1">Paid</th>
               </tr>
             </thead>
             <tbody>
               <template v-for="list in filteredLists">
                 <tr :key="list.createdAt">
-                  <td>
+                  <td style="white-space: nowrap">
                     <nuxt-link :to="`/lists/${list.id}`">{{
                       list.id
                     }}</nuxt-link>
+
+                    <v-tooltip v-if="list.repeatListId" max-width="250" top>
+                      <template #activator="{ on }">
+                        <nuxt-link
+                          v-if="list.repeatListId"
+                          :to="`/lists/${list.repeatListId}`"
+                        >
+                          <sup>
+                            <v-icon color="accent" small v-on="on">{{
+                              mdiCreation
+                            }}</v-icon>
+                          </sup>
+                        </nuxt-link>
+                      </template>
+
+                      Weekly update of list {{ list.repeatListId }}. Click to
+                      manage.
+                    </v-tooltip>
                   </td>
                   <td>
-                    <small v-if="list.technologies.length">
-                      {{ list.technologies.slice(0, 10).join(', ') }}
-                      <template v-if="list.technologies.length > 10">
+                    <v-chip-group v-if="list.technologies.length" column>
+                      <v-chip
+                        v-for="technology in list.technologies.slice(0, 10)"
+                        :key="technology"
+                        small
+                        outlined
+                        label
+                      >
+                        {{ technology }}
+                      </v-chip>
+                      <v-chip
+                        v-if="list.technologies.length > 10"
+                        small
+                        outlined
+                        label
+                      >
                         (+{{ list.technologies.length - 10 }} more)
-                      </template>
-                    </small>
-                    <small v-else-if="list.keywords.length">
-                      {{ list.keywords.slice(0, 10).join(', ') }}
-                      <template v-if="list.keywords.length > 10">
+                      </v-chip>
+                    </v-chip-group>
+                    <v-chip-group v-else-if="list.keywords.length" column>
+                      <v-chip
+                        v-for="keyword in list.keywords.slice(0, 10)"
+                        :key="keyword"
+                        small
+                        outlined
+                        label
+                      >
+                        {{ keyword }}
+                      </v-chip>
+                      <v-chip
+                        v-if="list.keywords.length > 10"
+                        small
+                        outlined
+                        label
+                      >
                         (+{{ list.keywords.length - 10 }} more)
-                      </template>
-                    </small>
+                      </v-chip>
+                    </v-chip-group>
                   </td>
                   <td v-if="list.status === 'Calculating'">
                     <Spinner />
@@ -71,15 +116,13 @@
                     {{ list.rows ? formatNumber(list.rows) : '-' }}
                   </td>
                   <td>{{ formatDate(new Date(list.createdAt * 1000)) }}</td>
-                  <td>
-                    <v-btn v-if="list.status === 'Complete'" icon>
-                      <v-icon color="success">{{
-                        mdiCheckboxMarkedOutline
-                      }}</v-icon>
-                    </v-btn>
-                    <v-btn v-else disabled icon>
-                      <v-icon>{{ mdiCheckboxBlankOutline }}</v-icon>
-                    </v-btn>
+                  <td class="text-center">
+                    <v-icon v-if="list.repeat">{{ mdiRepeat }}</v-icon>
+                  </td>
+                  <td class="text-center">
+                    <v-icon v-if="list.status === 'Complete'" color="success">{{
+                      mdiCheck
+                    }}</v-icon>
                   </td>
                 </tr>
               </template>
@@ -93,11 +136,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import {
-  mdiPlus,
-  mdiCheckboxMarkedOutline,
-  mdiCheckboxBlankOutline,
-} from '@mdi/js'
+import { mdiPlus, mdiCheck, mdiRepeat, mdiCreation } from '@mdi/js'
 import Page from '~/components/Page.vue'
 import Spinner from '~/components/Spinner.vue'
 
@@ -112,8 +151,9 @@ export default {
       error: false,
       lists: null,
       mdiPlus,
-      mdiCheckboxMarkedOutline,
-      mdiCheckboxBlankOutline,
+      mdiCheck,
+      mdiRepeat,
+      mdiCreation,
       viewMine: false,
     }
   },

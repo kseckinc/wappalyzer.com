@@ -21,6 +21,7 @@
               color="primary"
               :href="`${datasetsBaseUrl}${list.filename}`"
               x-large
+              depressed
             >
               <v-icon left size="20">{{ mdiDownload }}</v-icon>
               Download list
@@ -73,6 +74,36 @@
               </div>
             </v-card-text>
           </v-card>
+
+          <v-switch
+            v-if="
+              !list.repeatListId && ['Ready', 'Complete'].includes(list.status)
+            "
+            v-model="repeat"
+            :loading="repeating"
+            class="my-6 pt-0"
+            inset
+            hide-details
+          >
+            <template #label>
+              Recreate weekly with new websites
+              <v-tooltip max-width="300" left>
+                <template #activator="{ on }">
+                  <sup>
+                    <v-icon class="ml-1" small v-on="on">{{
+                      mdiHelpCircleOutline
+                    }}</v-icon>
+                  </sup>
+                </template>
+
+                Automatically recreate this list every week, with only newly
+                discovered websites.<br /><br />
+
+                Costs 1 credit per website. Subscribe to a plan to get monthly
+                credits.
+              </v-tooltip>
+            </template>
+          </v-switch>
 
           <v-expansion-panels v-model="sidePanelIndex" class="mb-4">
             <v-expansion-panel v-if="technologies.length">
@@ -503,6 +534,19 @@
             Your list is ready. Please review the samples and availability.
           </v-alert>
 
+          <v-alert
+            v-if="list.status === 'Complete' && list.repeatListId"
+            color="accent"
+            :icon="mdiCreation"
+            outlined
+          >
+            This is an automatically created weekly update for the list
+            <nuxt-link :to="`/lists/${list.repeatListId}`">{{
+              list.repeatListId
+            }}</nuxt-link
+            >.
+          </v-alert>
+
           <div
             v-if="list.status === 'Calculating'"
             class="text-center mb-n6"
@@ -632,6 +676,30 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="repeatDialog" max-width="600px" eager>
+      <v-card>
+        <v-card-title>Weekly updates enabled</v-card-title>
+        <v-card-text class="pb-0">
+          <p>
+            This list will be recreated with newly discovered domains every
+            week.
+          </p>
+
+          <p class="mb-0">
+            The lists will be paid for automatically using your credit balance.
+            If you have insufficient credits, this feature is turned off
+            automatically.
+            <nuxt-link to="/pricing/">Subscribe to a plan</nuxt-link> to get
+            monthly credits.
+          </p>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn color="accent" text @click="repeatDialog = false">Ok</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </Page>
 </template>
 
@@ -648,6 +716,8 @@ import {
   mdiCart,
   mdiDelete,
   mdiForum,
+  mdiHelpCircleOutline,
+  mdiCreation,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -681,7 +751,9 @@ export default {
 
       const list = (await $axios.get(`lists/${id}`)).data
 
-      return { list }
+      const repeat = !!list.repeat
+
+      return { list, repeat }
     }
   },
   data() {
@@ -703,7 +775,12 @@ export default {
       mdiCart,
       mdiDelete,
       mdiForum,
+      mdiHelpCircleOutline,
+      mdiCreation,
       panelIndex: 0,
+      repeat: false,
+      repeatDialog: false,
+      repeating: false,
       sidePanelIndex: 0,
       submitting: false,
       list: null,
@@ -825,6 +902,9 @@ export default {
         }, Math.min(10000, 2000 + 100 * this.checks * this.checks))
       }
     },
+    repeat() {
+      this.toggleRepeat()
+    },
   },
   mounted() {
     if (this.list) {
@@ -878,6 +958,24 @@ export default {
       }
 
       this.cancelling = false
+    },
+    async toggleRepeat() {
+      this.error = false
+      this.repeating = true
+
+      try {
+        await this.$axios.patch(`lists/${this.list.id}`, {
+          repeat: this.repeat,
+        })
+
+        if (this.repeat) {
+          this.repeatDialog = true
+        }
+      } catch (error) {
+        this.error = this.getErrorMessage(error)
+      }
+
+      this.repeating = false
     },
   },
 }

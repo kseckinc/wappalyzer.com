@@ -99,7 +99,7 @@
 
         <v-divider />
 
-        <v-card-title> Usage </v-card-title>
+        <v-card-title>Usage</v-card-title>
         <v-card-text class="pb-0">
           These are your credit spends for the last 60 days.
         </v-card-text>
@@ -192,7 +192,7 @@
 
           <v-divider />
 
-          <v-card-title> Order </v-card-title>
+          <v-card-title>Order</v-card-title>
           <v-card-text class="pb-0">
             <v-form @submit.prevent="submit">
               <v-row>

@@ -61,15 +61,10 @@
                 <td>
                   {{ formatCurrency(invoice.total / 100, invoice.currency) }}
                 </td>
-                <td>
-                  <v-btn v-if="invoice.status === 'paid'" icon>
-                    <v-icon color="success">{{
-                      mdiCheckboxMarkedOutline
-                    }}</v-icon>
-                  </v-btn>
-                  <v-btn v-else disabled icon>
-                    <v-icon>{{ mdiCheckboxBlankOutline }}</v-icon>
-                  </v-btn>
+                <td class="text-center">
+                  <v-icon v-if="invoice.status === 'paid'" color="success">{{
+                    mdiCheck
+                  }}</v-icon>
                 </td>
               </tr>
             </tbody>
@@ -83,8 +78,7 @@
 <script>
 import {
   mdiOpenInNew,
-  mdiCheckboxMarkedOutline,
-  mdiCheckboxBlankOutline,
+  mdiCheck,
   mdiTextBoxOutline,
   mdiTextBoxRemoveOutline,
   mdiDownload,
@@ -102,8 +96,7 @@ export default {
       error: false,
       invoices: null,
       mdiOpenInNew,
-      mdiCheckboxMarkedOutline,
-      mdiCheckboxBlankOutline,
+      mdiCheck,
       mdiTextBoxOutline,
       mdiTextBoxRemoveOutline,
       mdiDownload,
