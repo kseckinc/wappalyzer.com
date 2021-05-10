@@ -467,7 +467,7 @@ export default {
   watch: {
     async isSignedIn() {
       if (this.isSignedIn) {
-        if (this.user && this.user.billingCountry.toLowerCase() === 'au') {
+        if (this.user?.billingCountry?.toLowerCase() === 'au') {
           this.australia = true
         }
 
@@ -520,7 +520,7 @@ export default {
     }
 
     if (this.isSignedIn) {
-      if (this.user && this.user.billingCountry.toLowerCase() === 'au') {
+      if (this.user?.billingCountry?.toLowerCase() === 'au') {
         this.australia = true
       }
 

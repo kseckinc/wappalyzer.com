@@ -1085,9 +1085,9 @@
                 confirmDialog = false
                 creating = false
               "
-              >Return to form</v-btn
+              >Go back</v-btn
             >
-            <v-btn color="accent" text @click="submit(true)"
+            <v-btn color="error" text @click="submit(true)"
               >Continue anyway</v-btn
             >
           </v-card-actions>

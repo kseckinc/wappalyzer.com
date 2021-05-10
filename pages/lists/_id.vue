@@ -39,7 +39,7 @@
                         formatNumber(
                           totalRows(
                             list.rows || 0,
-                            list.query.matchAllechnologies
+                            list.query.matchAllTechnologies
                           )
                         )
                       }}
@@ -153,7 +153,7 @@
                         -
                       </td>
                       <td
-                        v-else-if="list.status !== 'Calculating'"
+                        v-else-if="list.status === 'Calculating'"
                         class="text-right"
                       >
                         {{ formatNumber(list.rows[technology.slug]) }}

@@ -20,7 +20,7 @@
             ref="search"
             v-model="query"
             :loading="loading"
-            :error-messages="!results.length && errors"
+            :error-messages="results.length ? [] : errors"
             class="pt-0 mx-4"
             :placeholder="
               noCategories ? `E.g. Shopify` : `E.g. ecommerce or Shopify`

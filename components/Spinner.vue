@@ -1,7 +1,12 @@
 <template>
-  <v-btn class="spinner ml-n1" icon :disabled="!color" :color="color" small>
-    <v-icon>{{ mdiAutorenew }}</v-icon>
-  </v-btn>
+  <v-btn
+    class="spinner ml-n1"
+    icon
+    x-small
+    loading
+    :disabled="!color"
+    :color="color"
+  />
 </template>
 
 <script>
@@ -11,7 +16,7 @@ export default {
   props: {
     color: {
       type: String,
-      default: '',
+      default: 'grey',
     },
   },
   data() {
@@ -19,19 +24,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.spinner {
-  animation: spinner 1.5s infinite;
-}
-
-@keyframes spinner {
-  from {
-    transform: rotate(0);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-</style>
