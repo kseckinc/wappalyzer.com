@@ -1,6 +1,6 @@
 <template>
-  <Page :title="title" :hero="false" narrow no-subscribe>
-    <v-card class="mb-6">
+  <Page :title="title" :hero="false" no-subscribe>
+    <v-card class="mb-6" max-width="600px">
       <v-card-title class="subtitle-2">Sign in as</v-card-title>
       <v-card-text>
         <v-alert v-if="success" type="success">
@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       title: 'Admin',
-      userId: '',
+      userId: this.$route.params.userId || '',
       error: false,
       recentOrders: {},
       submitting: false,

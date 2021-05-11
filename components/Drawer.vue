@@ -1,17 +1,48 @@
 <template>
   <v-navigation-drawer v-model="isOpen" right temporary app>
-    <template v-if="user.email">
-      <v-list nav dense>
-        <v-list-item>
+    <v-list nav dense>
+      <v-list-item v-if="isLoading">
+        <v-list-item-content>
+          <Spinner />
+        </v-list-item-content>
+      </v-list-item>
+      <template v-else>
+        <v-list-item v-if="isSignedIn">
           <v-list-item-content>
-            <v-list-item-title class="mb-2"> Signed in as </v-list-item-title>
+            <v-list-item-title class="mb-2">Signed in as</v-list-item-title>
 
             <small>{{ user.billingName || user.name || user.email }}</small>
           </v-list-item-content>
         </v-list-item>
-      </v-list>
-      <v-divider />
-    </template>
+
+        <v-list-item v-else @click="signInDialog = true">
+          <v-list-item-title>Sign up free</v-list-item-title>
+        </v-list-item>
+
+        <v-list-item v-if="isMember || isAdmin" @click="signOutAs">
+          <v-list-item-content>
+            <v-list-item-title>
+              {{
+                impersonator.billingName ||
+                impersonator.name ||
+                impersonator.email
+              }}
+            </v-list-item-title>
+          </v-list-item-content>
+          <v-list-item-icon>
+            <v-icon dense>{{ mdi.mdiAccountSwitch }}</v-icon>
+          </v-list-item-icon>
+        </v-list-item>
+
+        <v-list-item v-if="user.admin" to="/admin/">
+          <v-list-item-title>Admin</v-list-item-title>
+          <v-list-item-icon>
+            <v-icon color="success" dense>{{ mdi.mdiLockOpen }}</v-icon>
+          </v-list-item-icon>
+        </v-list-item>
+      </template>
+    </v-list>
+    <v-divider />
 
     <div v-for="(item, i) in mainNav" :key="i">
       <v-list nav dense>
@@ -43,48 +74,18 @@
       <v-divider />
     </div>
 
-    <v-list nav dense>
-      <v-list-item v-if="isMember || isAdmin" @click="signOutAs">
-        <v-list-item-content>
-          <v-list-item-title>
-            {{
-              impersonator.billingName ||
-              impersonator.name ||
-              impersonator.email
-            }}
-          </v-list-item-title>
-        </v-list-item-content>
-        <v-list-item-icon>
-          <v-icon dense>{{ mdi.mdiAccountSwitch }}</v-icon>
-        </v-list-item-icon>
-      </v-list-item>
-
-      <v-list-item v-if="user.admin" to="/admin/">
-        <v-list-item-title>Admin</v-list-item-title>
-        <v-list-item-icon>
-          <v-icon color="success" dense>{{ mdi.mdiLockOpen }}</v-icon>
-        </v-list-item-icon>
-      </v-list-item>
-
-      <template v-if="isSignedIn">
-        <v-list-item
-          v-for="(item, i) in userNav"
-          :key="i"
-          :to="item.to"
-          color="primary"
-        >
-          <v-list-item-title>
-            {{ item.title }}
-          </v-list-item-title>
-          <v-list-item-icon v-if="item.icon">
-            <v-icon dense>{{ mdi[item.icon] }}</v-icon>
-          </v-list-item-icon>
-        </v-list-item>
-      </template>
-      <v-list-item v-else @click="signInDialog = true">
-        <v-list-item-title>Sign up free</v-list-item-title>
-        <v-list-item-icon>
-          <v-icon dense>{{ mdi.mdiAccount }}</v-icon>
+    <v-list v-if="isSignedIn" nav dense>
+      <v-list-item
+        v-for="(item, i) in userNav"
+        :key="i"
+        :to="item.to"
+        color="primary"
+      >
+        <v-list-item-title>
+          {{ item.title }}
+        </v-list-item-title>
+        <v-list-item-icon v-if="item.icon">
+          <v-icon dense>{{ mdi[item.icon] }}</v-icon>
         </v-list-item-icon>
       </v-list-item>
     </v-list>
@@ -115,10 +116,12 @@ import {
 } from '@mdi/js'
 
 import SignIn from '~/components/SignIn.vue'
+import Spinner from '~/components/Spinner.vue'
 
 export default {
   components: {
     SignIn,
+    Spinner,
   },
   props: {
     mainNav: {
@@ -155,6 +158,7 @@ export default {
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
+      isLoading: ({ user }) => user.loading,
       isSignedIn: ({ user }) => user.isSignedIn,
       isAdmin: ({ user }) =>
         user.isSignedIn &&
