@@ -172,7 +172,7 @@
                           </v-simple-table>
                         </template>
 
-                        <template v-if="selectedItems.length === 2">
+                        <template v-if="selectedItems.length == 2">
                           <v-divider class="mx-n6 mb-6" />
 
                           Create a list of websites that use...
@@ -205,6 +205,34 @@
                                   {{ selectedItems[0].name }} and
                                   <strong>not</strong>
                                   {{ selectedItems[1].name }}
+                                </div>
+                              </template>
+                            </v-radio>
+                          </v-radio-group>
+                        </template>
+
+                        <template v-if="selectedItems.length == 3">
+                          <v-divider class="mx-n6 mb-6" />
+
+                          Create a list of websites that use...
+                          <v-radio-group
+                            v-model="matchAllTechnologies"
+                            class="mb-2"
+                            hide-details
+                          >
+                            <v-radio class="mt-0" value="or" hide-details>
+                              <template #label>
+                                <div>
+                                  <strong>Any</strong> of the selected
+                                  technologies
+                                </div>
+                              </template>
+                            </v-radio>
+                            <v-radio class="mt-0" value="and" hide-details>
+                              <template #label>
+                                <div>
+                                  <strong>All</strong> of the selected
+                                  technologies
                                 </div>
                               </template>
                             </v-radio>
@@ -1573,10 +1601,13 @@ export default {
               tlds: this.selected.tlds.map(({ value }) => value),
               matchAll: this.matchAll,
               matchAllTechnologies:
-                this.selectedItems.length === 2 &&
-                this.selected.technologies.length === 2
+                (this.selected.technologies.length === 2 &&
+                  (this.matchAllTechnologies === 'and' ||
+                    this.matchAllTechnologies === 'not')) ||
+                (this.selected.technologies.length === 3 &&
+                  this.matchAllTechnologies === 'and')
                   ? this.matchAllTechnologies
-                  : '',
+                  : 'or',
               subset: this.subset || 500000,
               subsetSlice: this.subsetSlice || 0,
               excludeNoTraffic: this.excludeNoTraffic,
