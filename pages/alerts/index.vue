@@ -3,14 +3,14 @@
     <Page
       :title="title"
       :head="meta"
-      :loading="isSignedIn && loading && !error"
+      :loading="isLoading || (isSignedIn && loading && !error)"
     >
       <v-alert v-if="error" type="error" class="mt-12">
         {{ error }}
       </v-alert>
 
       <v-card v-if="!error" class="mt-12 mb-4">
-        <v-card-title> Websites </v-card-title>
+        <v-card-title>Websites</v-card-title>
         <v-card-text class="pb-0">
           <p>
             Add the websites you want to monitor here and we'll check them
@@ -84,9 +84,10 @@
               {{ createError }}
             </v-alert>
 
-            <p>One alert costs 10 credits per 30 days.</p>
-
-            <Credits class="mb-8" />
+            <p>
+              One alert costs 10 credits per 30 days. You currently have
+              {{ formatNumber(credits) }} credits.
+            </p>
 
             <v-form ref="form" @submit.prevent="create">
               <v-text-field
@@ -161,7 +162,6 @@ import {
 import Page from '~/components/Page.vue'
 import Logos from '~/components/Logos.vue'
 import SignIn from '~/components/SignIn.vue'
-import Credits from '~/components/Credits.vue'
 import { alerts as meta } from '~/assets/json/meta.json'
 
 export default {
@@ -169,7 +169,6 @@ export default {
     Page,
     Logos,
     SignIn,
-    Credits,
   },
   data() {
     return {
@@ -209,6 +208,7 @@ export default {
   },
   computed: {
     ...mapState({
+      isLoading: ({ user }) => user.loading,
       isSignedIn: ({ user }) => user.isSignedIn,
       credits: ({ credits: { credits } }) => credits,
     }),
@@ -218,8 +218,14 @@ export default {
       if (isSignedIn) {
         this.signInDialog = false
 
-        await this.getCredits()
-        ;({ alerts: this.alerts } = (await this.$axios.get('alerts')).data)
+        try {
+          await this.getCredits()
+
+          //
+          ;({ alerts: this.alerts } = (await this.$axios.get('alerts')).data)
+        } catch (error) {
+          this.error = this.getErrorMessage(error)
+        }
 
         this.loading = false
 
@@ -273,6 +279,8 @@ export default {
             url: this.url.trim(),
             enabled: true,
           })
+
+          //
           ;({ alerts: this.alerts } = (await this.$axios.get('alerts')).data)
 
           this.success = 'The alert has been created'
@@ -294,6 +302,8 @@ export default {
 
       try {
         await this.$axios.delete(`alerts/${encodeURIComponent(this.removeUrl)}`)
+
+        //
         ;({ alerts: this.alerts } = (await this.$axios.get('alerts')).data)
 
         this.success = 'The alert has been deleted.'

@@ -552,6 +552,12 @@ export default {
         const { hostname } = new URL(url) // eslint-disable-line no-new
 
         if (
+          /^(?:[\d.]+|(?:[a-f0-9:]+:+)+[a-f0-9]+|localhost)$/.test(hostname)
+        ) {
+          throw new Error('Invalid URL')
+        }
+
+        if (
           [
             'wappalyzer',
             'google',

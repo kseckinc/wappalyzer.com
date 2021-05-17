@@ -125,7 +125,7 @@
 
       <v-card-title>Field mappings</v-card-title>
 
-      <v-card-text>
+      <v-card-text style="max-width: 600px">
         <p class="mb-0">
           Manage custom fields in
           <a
@@ -145,7 +145,7 @@
 
       <v-card-title class="subtitle-2">Website field</v-card-title>
       <v-card-text>
-        <p>
+        <p style="max-width: 600px">
           Select the Pipedrive field that contains the website URL for
           organisations. This URL is used to display the website's technology
           stack in a panel on organisation pages.
@@ -165,7 +165,7 @@
 
       <v-card-title class="subtitle-2">Technologies</v-card-title>
       <v-card-text class="px-0">
-        <p class="mx-4">
+        <p class="mx-4" style="max-width: 600px">
           Map technology categories to custom Pipedrive fields on organisations.
           These fields will be populated during a sync.
         </p>
@@ -250,7 +250,7 @@
 
       <v-card-title>Synchronise</v-card-title>
 
-      <v-card-text>
+      <v-card-text style="max-width: 600px">
         <p>
           By default, Wappalyzer shows a panel on people and organisations with
           the most up-to-date technology information. It's also possible to save
@@ -264,7 +264,7 @@
       <v-divider />
 
       <v-card-title class="subtitle-2">Existing organisations</v-card-title>
-      <v-card-text>
+      <v-card-text style="max-width: 600px">
         <p>
           Append technology information to all existing organisation records
           using the above field mappings.
@@ -289,7 +289,7 @@
 
       <v-card-title class="subtitle-2">New organisations</v-card-title>
       <v-card-text>
-        <p>
+        <p style="max-width: 600px">
           To automatically populate technology information on new organisation
           records, create a webhook:
         </p>

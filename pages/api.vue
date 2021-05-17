@@ -41,23 +41,24 @@
           class="mt-8"
         />
 
-        <v-container>
-          <small class="text--disabled">* Subject to availability</small>
-        </v-container>
+        <p class="text--disabled mb-8">
+          <small>* Subject to availability</small>
+        </p>
 
-        <v-row class="mb-4 mt-4 mt-sm-8">
-          <v-col md="6">
-            <h3>Example request</h3>
+        <v-card class="mb-4" color="secondary">
+          <v-card-title class="subtitle-2 pb-0 mb-n2"
+            >Example request</v-card-title
+          >
 
-            <small>
-              <pre><Prism language="bash">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com&amp;sets=locale,social,contact"</Prism></pre>
-            </small>
-          </v-col>
-          <v-col md="6">
-            <h3>Example response</h3>
+          <pre><Prism language="bash">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com&amp;sets=locale,social,contact"</Prism></pre>
 
-            <small>
-              <pre><Prism language="json">{
+          <v-divider />
+
+          <v-card-title class="subtitle-2 pb-0 mb-n2"
+            >Example response</v-card-title
+          >
+
+          <pre><Prism language="json">{
   "url": "https://example.com",
   "technologies": [
     {
@@ -82,9 +83,7 @@
   "ipRegion": "CA",
   "language": "en"
 }</Prism></pre>
-            </small>
-          </v-col>
-        </v-row>
+        </v-card>
       </template>
 
       <FaqDialog ref="faqDialog" topic="api" />

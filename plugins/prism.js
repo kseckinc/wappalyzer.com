@@ -3,7 +3,7 @@ import Prism from 'vue-prism-component'
 
 import 'prismjs'
 
-import 'prismjs/themes/prism-tomorrow.css'
+import 'prismjs/themes/prism.css'
 
 import 'prismjs/components/prism-json.min'
 import 'prismjs/components/prism-bash.min'

@@ -27,23 +27,22 @@
     </v-row>
 
     <div class="mb-4">
-      <v-btn to="/docs/integrations/hubspot/" color="accent" outlined>
+      <v-btn to="/docs/integrations/hubspot/" depressed>
         <v-icon left>{{ mdiBookOpenPageVariant }}</v-icon>
         Documentation
       </v-btn>
       <v-btn
         :href="`https://app.hubspot.com/ecosystem/${appId}/marketplace/apps/marketing/lead-generation/wappalyzer-by-wappalyzer`"
         target="_blank"
-        color="accent"
-        outlined
+        depressed
       >
         <v-icon left>{{ mdiHubspot }}</v-icon>
         App marketplace
       </v-btn>
     </div>
 
-    <v-card>
-      <v-card-title> Integration </v-card-title>
+    <v-card class="mb-4">
+      <v-card-title>Integration</v-card-title>
       <v-card-text class="px-0">
         <v-alert
           v-if="!connecting && !eligible"
@@ -98,7 +97,7 @@
         <v-spacer />
         <v-btn
           v-if="!hubspotId"
-          :href="`https://app.hubspot.com/oauth/authorize?scope=contacts&redirect_uri=${websiteUrl}/integrations/hubspot/&client_id=${clientId}`"
+          :href="`https://app.hubspot.com/oauth/authorize?scope=contacts%20crm.objects.custom.read%20crm.objects.custom.write&redirect_uri=${websiteUrl}/integrations/hubspot/&client_id=${clientId}`"
           color="accent"
           _target="blank"
           :loading="connecting"
@@ -120,6 +119,181 @@
         >
       </v-card-actions>
     </v-card>
+
+    <v-card v-if="hubspotId" class="mb-4">
+      <v-divider />
+
+      <v-card-title>Field mappings</v-card-title>
+
+      <v-card-text style="max-width: 600px">
+        <p class="mb-0">
+          Manage company properties in
+          <a
+            :href="`https://app.hubspot.com/property-settings/${hubspotId}/properties?type=0-2`"
+            target="_blank"
+            rel="noopener"
+            >HubSpot settings</a
+          >. Refer to the
+          <a
+            target="_blank"
+            rel="noopener"
+            href="https://knowledge.hubspot.com/crm-setup/manage-your-properties#create-custom-properties"
+            >documentation</a
+          >.
+        </p>
+      </v-card-text>
+
+      <v-divider />
+
+      <v-card-title class="subtitle-2">Technologies</v-card-title>
+      <v-card-text class="px-0">
+        <p class="mx-4" style="max-width: 600px">
+          Map technology categories to custom HubSpot company properties. These
+          properties will be populated during a sync.
+        </p>
+
+        <v-simple-table v-if="assignedFields.length" class="mb-4">
+          <thead>
+            <tr>
+              <th width="50%">Technology category</th>
+              <th>HubSpot property</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="({ categorySlug, key, name }, index) in assignedFields"
+              :key="index"
+            >
+              <td>
+                {{ categories.find(({ slug }) => slug === categorySlug).name }}
+              </td>
+              <td>
+                {{ name }}
+              </td>
+              <td width="1">
+                <v-btn icon @click="removeField(key)">
+                  <v-icon>{{ mdiCloseCircle }}</v-icon>
+                </v-btn>
+              </td>
+            </tr>
+          </tbody>
+        </v-simple-table>
+
+        <v-row class="mx-1">
+          <v-col>
+            <v-select
+              v-model="selectedCategory"
+              :items="
+                categories.map(({ slug, name }) => ({
+                  text: name,
+                  value: slug,
+                }))
+              "
+              label="Technology category"
+              hide-details="auto"
+              eager
+            />
+          </v-col>
+          <v-col>
+            <v-select
+              v-model="selectedField"
+              :items="
+                fields.map(({ key, name }) => ({ text: name, value: key }))
+              "
+              label="HubSpot property"
+              hide-details="auto"
+              eager
+            />
+          </v-col>
+          <v-col class="flex-grow-0 flex-shrink-1 d-flex flex-row align-end">
+            <v-btn
+              :disabled="!selectedCategory || !selectedField"
+              color="primary"
+              small
+              depressed
+              @click="addField"
+              >Add</v-btn
+            >
+          </v-col>
+        </v-row>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer />
+        <v-btn color="accent" :loading="saving" text @click="save">
+          <v-icon left>{{ mdiContentSave }}</v-icon>
+          Save</v-btn
+        >
+      </v-card-actions>
+    </v-card>
+
+    <v-card v-if="hubspotId" class="mb-4">
+      <v-card-title>Synchronise</v-card-title>
+
+      <v-card-text style="max-width: 600px">
+        <p>
+          By default, Wappalyzer shows a card on companies with the most
+          up-to-date technology information. It's also possible to save
+          information to company records, which you can use to create custom
+          reports in HubSpot.
+        </p>
+
+        <p class="mb-0">Each successully updated record cost 1 credit.</p>
+      </v-card-text>
+      <v-divider />
+
+      <v-card-title class="subtitle-2">Existing companies</v-card-title>
+      <v-card-text style="max-width: 600px">
+        <p>
+          Append technology information to all existing company records using
+          the above field mappings.
+        </p>
+
+        <v-row>
+          <v-col>
+            <v-btn
+              color="primary lighten-1 primary--text"
+              depressed
+              @click="syncDialog = true"
+            >
+              <v-icon left>{{ mdiAutorenew }}</v-icon>
+              Update all companies</v-btn
+            >
+          </v-col>
+        </v-row>
+      </v-card-text>
+
+      <v-divider />
+
+      <v-card-title class="subtitle-2">New companies</v-card-title>
+      <v-card-text>
+        <p style="max-width: 600px" class="mb-0">
+          If you created field mappings above, new companies are automatically
+          populated with technology information.
+        </p>
+      </v-card-text>
+    </v-card>
+
+    <v-dialog v-model="syncDialog" max-width="400px">
+      <v-card>
+        <v-card-title>Update all companies</v-card-title>
+        <v-card-text class="pb-0">
+          <v-alert v-if="syncError" type="error" class="mb-4">
+            {{ syncError }}
+          </v-alert>
+
+          This sync costs 1 credit per company and may take some time to
+          complete.
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn color="accent" text @click="syncDialog = false">Cancel</v-btn>
+          <v-btn :loading="syncing" color="accent" text @click="sync"
+            >Continue</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </Page>
 </template>
 
@@ -132,6 +306,9 @@ import {
   mdiBookOpenPageVariant,
   mdiHubspot,
   mdiCalculator,
+  mdiAutorenew,
+  mdiContentSave,
+  mdiCloseCircle,
 } from '@mdi/js'
 import { mapState } from 'vuex'
 
@@ -143,6 +320,9 @@ export default {
     Page,
     Spinner,
   },
+  async asyncData({ $axios }) {
+    return { categories: (await $axios.get('categories')).data }
+  },
   data() {
     return {
       title: 'HubSpot',
@@ -150,9 +330,16 @@ export default {
       connecting: false,
       disconnecting: false,
       eligible: false,
+      fields: [],
       success: null,
       error: null,
       hubspotId: null,
+      selectedField: null,
+      selectedCategory: null,
+      saving: false,
+      syncDialog: false,
+      syncError: false,
+      syncing: false,
       mdiCheck,
       mdiClose,
       mdiPowerPlug,
@@ -160,6 +347,9 @@ export default {
       mdiBookOpenPageVariant,
       mdiHubspot,
       mdiCalculator,
+      mdiAutorenew,
+      mdiContentSave,
+      mdiCloseCircle,
       websiteUrl: this.$config.WEBSITE_URL,
       appId: this.$config.HUBSPOT_APP_ID,
       clientId: this.$config.HUBSPOT_CLIENT_ID,
@@ -167,8 +357,14 @@ export default {
   },
   computed: {
     ...mapState({
+      user: ({ user }) => user.attrs,
       isSignedIn: ({ user }) => user.isSignedIn,
     }),
+    assignedFields() {
+      return Object.values(this.fields).filter(
+        ({ categorySlug }) => categorySlug
+      )
+    },
   },
   watch: {
     async isSignedIn() {
@@ -183,9 +379,11 @@ export default {
           }
         } else {
           try {
-            ;({ eligible: this.eligible, portalId: this.hubspotId } = (
-              await this.$axios.get('hubspot')
-            ).data)
+            ;({
+              eligible: this.eligible,
+              portalId: this.hubspotId,
+              fields: this.fields,
+            } = (await this.$axios.get('hubspot')).data)
           } catch (error) {
             // Continue
           }
@@ -217,9 +415,11 @@ export default {
         }
       } else {
         try {
-          ;({ eligible: this.eligible, portalId: this.hubspotId } = (
-            await this.$axios.get('hubspot')
-          ).data)
+          ;({
+            eligible: this.eligible,
+            portalId: this.hubspotId,
+            fields: this.fields,
+          } = (await this.$axios.get('hubspot')).data)
         } catch (error) {
           this.error = this.getErrorMessage(error)
         }
@@ -248,6 +448,30 @@ export default {
 
       this.connecting = false
     },
+    async save() {
+      this.success = null
+      this.error = null
+      this.saving = true
+
+      try {
+        await this.$axios.patch('hubspot', {
+          fields: this.fields.filter(({ categorySlug }) => categorySlug),
+        })
+        ;({
+          eligible: this.eligible,
+          portalId: this.hubspotId,
+          fields: this.fields,
+        } = (await this.$axios.get('hubspot')).data)
+
+        this.success = 'Field mappings have been saved.'
+      } catch (error) {
+        this.error = this.getErrorMessage(error)
+      }
+
+      this.saving = false
+
+      this.scrollToTop()
+    },
     async disconnect() {
       this.success = null
       this.error = null
@@ -264,6 +488,44 @@ export default {
       }
 
       this.disconnecting = false
+    },
+    addField() {
+      const index = this.fields.findIndex(
+        ({ key }) => key === this.selectedField
+      )
+
+      this.fields[index].categorySlug = this.selectedCategory
+
+      // Force recompute
+      this.fields = [...this.fields]
+
+      this.selectedField = null
+      this.selectedCategory = null
+    },
+    removeField(key) {
+      delete this.fields.find(({ key: _key }) => _key === key).categorySlug
+
+      // Force recompute
+      this.fields = [...this.fields]
+    },
+    async sync() {
+      this.success = null
+      this.syncError = null
+      this.syncing = true
+
+      try {
+        await this.$axios.post('hubspot/sync')
+
+        this.success =
+          "The sync will start shortly. You'll receive an email upon start and finish."
+        this.syncDialog = false
+
+        this.scrollToTop()
+      } catch (error) {
+        this.syncError = this.getErrorMessage(error)
+      }
+
+      this.syncing = false
     },
   },
 }
