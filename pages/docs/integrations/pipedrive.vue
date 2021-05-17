@@ -97,7 +97,7 @@
       <p>The Pipedrive integration is available on any paid plan.</p>
 
       <p>
-        Permanently enriched record cost 1 credit each. Records can be enriched
+        Permanently enriched records cost 1 credit each. Records can be enriched
         using a sync or organisation webhook. Panel usage is free.
       </p>
 

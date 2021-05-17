@@ -31,6 +31,10 @@
         is longer available.
       </v-alert>
 
+      You can also permanently enrich all company records at once with a sync,
+      and automatically update new records using a webhook. This information is
+      yours to keep and can be used to create custom reports in HubSpot.
+
       <Heading id="getting-started" size="2" class="mt-8 mb-2">
         Getting started
       </Heading>
@@ -46,12 +50,42 @@
         <li>Click 'Connect' and follow the prompts.</li>
       </ul>
 
-      <Heading id="pricing" size="2" class="mt-8 mb-2">Pricing</Heading>
+      <Heading id="getting-started" size="2" class="mt-8 mb-2">
+        Field mappings
+      </Heading>
 
       <p>
-        The HubSpot integration and usage is included with any paid plan. Refer
-        to the <nuxt-link to="/pricing/">Pricing</nuxt-link> page for more
-        information.
+        To permanently enrich company records in HubSpot, you must first map
+        technology categories in custom company properties in HubSpot (<a
+          href="https://knowledge.hubspot.com/crm-setup/manage-your-properties#create-custom-properties"
+          target="_blank"
+          rel="noopen"
+          >see the documentation</a
+        >
+        on how to create custom properties). The properties can be in any group
+        but must of type 'single line text'.
+      </p>
+
+      <p>
+        To set up field mappings, go to the
+        <nuxt-link to="/integrations/hubspot/"
+          >HubSpot integration page</nuxt-link
+        >
+        in your account.
+      </p>
+
+      <Heading id="pricing" size="2" class="mt-8 mb-2">Pricing</Heading>
+
+      <p>The HubSpot integration is available on any paid plan.</p>
+
+      <p>
+        Permanently enriched records cost 1 credit each. Records can be enriched
+        using a sync or organisation webhook. Card usage is free.
+      </p>
+
+      <p>
+        Refer to the <nuxt-link to="/pricing/">Pricing</nuxt-link> page for more
+        information about credits and plans.
       </p>
     </Page>
   </div>
