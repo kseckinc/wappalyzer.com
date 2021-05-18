@@ -19,7 +19,7 @@
               <li>Click on a technology or category for more insights</li>
             </ol>
 
-            <v-btn color="accent" outlined @click="faqDialog = true">
+            <v-btn depressed @click="faqDialog = true">
               <v-icon left>{{ mdiForum }}</v-icon>
               Frequently asked questions
             </v-btn>
@@ -28,6 +28,7 @@
           <v-card-text>
             <iframe
               src="https://player.vimeo.com/video/468326761"
+              class="mb-n1"
               width="100%"
               height="302"
               frameborder="0"

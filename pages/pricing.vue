@@ -16,7 +16,8 @@
         <span @click="annually = !annually">Monthly</span>
         <v-switch
           v-model="annually"
-          class="my-0 ml-3 mr-1"
+          class="my-0 ml-4"
+          inset
           hide-details
         ></v-switch>
         <span @click="annually = !annually">
@@ -149,6 +150,12 @@
         By using our services, you agree to our
         <nuxt-link to="/terms/">terms of service</nuxt-link>.
       </small>
+
+      <div class="mt-12 pa-8 text-center">
+        <v-btn to="/contact/" color="primary" depressed x-large
+          >Contact us to book a demo</v-btn
+        >
+      </div>
 
       <v-dialog v-model="signInDialog" max-width="400px">
         <SignIn mode-continue mode-sign-up />

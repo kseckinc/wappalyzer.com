@@ -78,7 +78,9 @@
                 </v-list>
               </v-menu>
             </template>
-            <Spinner v-if="isLoading" color="white" />
+            <span v-if="isLoading" class="px-4">
+              <Spinner color="white" />
+            </span>
             <v-menu
               v-else-if="isSignedIn"
               class="text-left"

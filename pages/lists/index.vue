@@ -244,15 +244,6 @@
                     <v-expansion-panel ref="keywords" value="keywords">
                       <v-expansion-panel-header class="subtitle-2">
                         Keywords
-                        <span
-                          ><v-chip
-                            class="ml-2 text--disabled"
-                            small
-                            label
-                            outlined
-                            >experimental</v-chip
-                          ></span
-                        >
                       </v-expansion-panel-header>
                       <v-expansion-panel-content>
                         <p>
@@ -296,9 +287,8 @@
                           dense
                         >
                           <small>
-                            We select relevant keywords we find on websites
-                            using machine learning. For best results, include
-                            multiple variations (e.g. shop, shops and shopping).
+                            For best results, include multiple variations (e.g.
+                            shop, shops and shopping).
                           </small>
                         </v-alert>
                       </v-expansion-panel-content>
@@ -1848,8 +1838,8 @@ export default {
         return
       }
 
-      if (keyword.length < 4) {
-        this.keywordErrors = ['Must be at least 4 characters']
+      if (keyword.length < 3) {
+        this.keywordErrors = ['Must be at least 3 characters']
 
         return
       }

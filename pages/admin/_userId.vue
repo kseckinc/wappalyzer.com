@@ -77,7 +77,7 @@ export default {
     }),
   },
   created() {
-    if (!this.isAdmin || this.isImpersonator) {
+    if ((!this.isAdmin || this.isImpersonator) && !this.$route.params.userId) {
       return this.$nuxt.error({ statusCode: 404 })
     }
   },
