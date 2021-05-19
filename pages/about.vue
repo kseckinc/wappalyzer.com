@@ -13,7 +13,7 @@
             {{ mdiLinkedin }}</v-icon
           ></a
         >
-        in 2008, is a technology profiler and leads data provider. Our products
+        in 2008, is a technology profiler and lead data provider. Our products
         provide sales and marketing teams with technographic insights and tools
         for lead generation, market analysis and competitor research.
       </p>
@@ -36,11 +36,12 @@
         <nuxt-link to="/contact/">contact us</nuxt-link>.
       </p>
 
-      <p class="mt-8">
+      <p class="mt-12 font-italic">
         <small>
-          Wappalyzer Pty Ltd is a Proprietary Limited company registered in
-          Australia (ACN 645916043). Wappalyzer is a registered trademark in
-          Australia (2082302) and the United States (1588109).
+          <strong>Wappalyzer Pty Ltd</strong> is a Proprietary Limited company
+          registered in Australia (ACN 645916043).
+          <strong>Wappalyzer</strong> is a registered trademark in Australia
+          (2082302) and the United States (1588109).
         </small>
       </p>
 

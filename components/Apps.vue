@@ -45,18 +45,18 @@
 
             <v-tooltip v-if="app.settings" top>
               <template #activator="{ on }">
-                <v-btn :to="app.settings" icon v-on="on">
-                  <v-icon>{{ mdiCog }}</v-icon>
+                <v-btn :to="app.settings" icon small v-on="on">
+                  <v-icon small>{{ mdiCog }}</v-icon>
                 </v-btn>
               </template>
 
-              Manage
+              Manage integration
             </v-tooltip>
 
             <v-tooltip v-if="app.docs" top>
               <template #activator="{ on }">
-                <v-btn :to="app.docs" icon v-on="on">
-                  <v-icon>{{ mdiInformationOutline }}</v-icon>
+                <v-btn :to="app.docs" icon small v-on="on">
+                  <v-icon small>{{ mdiBookOpenPageVariant }}</v-icon>
                 </v-btn>
               </template>
 
@@ -65,8 +65,8 @@
 
             <v-tooltip v-if="app.href" top>
               <template #activator="{ on }">
-                <v-btn :href="app.href" target="_blank" icon v-on="on">
-                  <v-icon>{{ mdiOpenInNew }}</v-icon>
+                <v-btn :href="app.href" target="_blank" icon small v-on="on">
+                  <v-icon small>{{ mdiOpenInNew }}</v-icon>
                 </v-btn>
               </template>
 
@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { mdiInformationOutline, mdiCog, mdiOpenInNew } from '@mdi/js'
+import { mdiBookOpenPageVariant, mdiCog, mdiOpenInNew } from '@mdi/js'
 
 import ImageHubspot from '~/assets/images/apps/hubspot.svg?data'
 import ImagePipedrive from '~/assets/images/apps/pipedrive.svg?data'
@@ -110,7 +110,7 @@ export default {
   data() {
     return {
       apps,
-      mdiInformationOutline,
+      mdiBookOpenPageVariant,
       mdiCog,
       mdiOpenInNew,
       images: {
