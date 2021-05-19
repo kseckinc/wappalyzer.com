@@ -9,7 +9,15 @@
       </div>
 
       <div
-        class="d-flex flex-row align-center body-2 font-weight-medium mb-6 mt-4 mt-md-0"
+        class="
+          d-flex
+          flex-row
+          align-center
+          body-2
+          font-weight-medium
+          mb-6
+          mt-4 mt-md-0
+        "
       >
         <v-spacer />
         <span class="font-weight-regular mr-2">Billing </span>

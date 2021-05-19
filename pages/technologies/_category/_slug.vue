@@ -868,10 +868,9 @@ export default {
       ]
     },
     trendStartDate() {
-      const yearMonth = [
-        ...this.technology.trend,
-      ].sort(({ yearMonth: a }, { yearMonth: b }) => (a > b ? 1 : -1))[0]
-        .yearMonth
+      const yearMonth = [...this.technology.trend].sort(
+        ({ yearMonth: a }, { yearMonth: b }) => (a > b ? 1 : -1)
+      )[0].yearMonth
 
       const month = yearMonth.toString().slice(2, 4)
       const year = `20${yearMonth.toString().slice(0, 2)}`

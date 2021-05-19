@@ -55,8 +55,7 @@ export default {
         {
           title: 'HTTP Archive uses Wappalyzer to track the state of the web',
           intro: `The HTTP Archive tracks how the web is built. It provides historical data to quantitatively illustrate how the web is evolving over time. The project is open-source and backed by technology giants such as Google, Mozilla and Akamai.`,
-          to:
-            '/articles/http-archive-uses-wappalyzer-to-track-the-state-of-the-web/',
+          to: '/articles/http-archive-uses-wappalyzer-to-track-the-state-of-the-web/',
         },
         {
           title: 'What is technographics?',

@@ -37,24 +37,21 @@ export default {
       useCases: [
         {
           title: 'Generate sales leads',
-          text:
-            'Find new prospects by the technologies they use. Reach out to customers of Shopify, Magento, Salesforce and others.',
+          text: 'Find new prospects by the technologies they use. Reach out to customers of Shopify, Magento, Salesforce and others.',
           buttonText: 'Create a list',
           icon: mdiFilterVariant,
           to: '/lists/',
         },
         {
           title: 'Enrich your data',
-          text:
-            'Upload a list of websites to get a report of the technologies in use, such as CMS or ecommerce platforms.',
+          text: 'Upload a list of websites to get a report of the technologies in use, such as CMS or ecommerce platforms.',
           buttonText: 'Upload a list',
           icon: mdiFileOutline,
           to: { path: '/lookup/', hash: '#bulk' },
         },
         {
           title: 'Connect to your tools',
-          text:
-            'See the technology stacks of your leads in your browser, CRM, mobile device or email client.',
+          text: 'See the technology stacks of your leads in your browser, CRM, mobile device or email client.',
           buttonText: 'See all apps',
           icon: mdiApps,
           to: '/apps/',

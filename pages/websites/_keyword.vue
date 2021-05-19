@@ -181,8 +181,7 @@ export default {
       loading: false,
       meta: {
         title: 'Find websites',
-        text:
-          'Find websites that use a certain keyword, such as a brand, product, profession or industry. Segment lists by technology, traffic, location and more.',
+        text: 'Find websites that use a certain keyword, such as a brand, product, profession or industry. Segment lists by technology, traffic, location and more.',
       },
       input: '',
       keyword: '',

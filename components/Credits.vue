@@ -69,7 +69,13 @@
           </small>
         </v-col>
         <v-col
-          class="py-0 pr-0 text-right font-weight-medium flex-grow-0 flex-shrink-1"
+          class="
+            py-0
+            pr-0
+            text-right
+            font-weight-medium
+            flex-grow-0 flex-shrink-1
+          "
         >
           <v-btn
             color="primary"

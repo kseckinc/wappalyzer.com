@@ -724,7 +724,13 @@
                                     {{ item.text }}
                                   </v-col>
                                   <v-col
-                                    class="py-0 nowrap text-right body-2 flex-grow-0"
+                                    class="
+                                      py-0
+                                      nowrap
+                                      text-right
+                                      body-2
+                                      flex-grow-0
+                                    "
                                   >
                                     {{ item.value }}
                                   </v-col>
@@ -942,7 +948,13 @@
                                     {{ item.text }}
                                   </v-col>
                                   <v-col
-                                    class="py-0 nowrap text-right body-2 flex-grow-0"
+                                    class="
+                                      py-0
+                                      nowrap
+                                      text-right
+                                      body-2
+                                      flex-grow-0
+                                    "
                                   >
                                     {{
                                       typeof item.value === 'object'
@@ -1010,7 +1022,13 @@
                                     {{ item.text }}
                                   </v-col>
                                   <v-col
-                                    class="py-0 nowrap text-right body-2 flex-grow-0"
+                                    class="
+                                      py-0
+                                      nowrap
+                                      text-right
+                                      body-2
+                                      flex-grow-0
+                                    "
                                     >{{ item.value }}</v-col
                                   >
                                 </v-row>
@@ -1346,8 +1364,7 @@ export default {
           query: { technologies: 'klarna-checkout', countries: 'us' },
         },
         {
-          text:
-            'Websites mentioning <strong>Education</strong> related keywords',
+          text: 'Websites mentioning <strong>Education</strong> related keywords',
           query: { keywords: 'education,learning,school,university' },
         },
         {
@@ -1371,8 +1388,7 @@ export default {
           },
         },
         {
-          text:
-            '<strong>Low traffic</strong> websites using WooCommerce <strong>in Australia</strong>',
+          text: '<strong>Low traffic</strong> websites using WooCommerce <strong>in Australia</strong>',
           query: {
             technologies: 'woocommerce',
             tlds: '.au',

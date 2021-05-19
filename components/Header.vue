@@ -63,7 +63,11 @@
                         </v-list-item-title>
                         <v-list-item-subtitle
                           v-if="subtitle"
-                          class="subtitle-2 font-weight-regular header__subtitle"
+                          class="
+                            subtitle-2
+                            font-weight-regular
+                            header__subtitle
+                          "
                         >
                           {{ subtitle }}
                         </v-list-item-subtitle>

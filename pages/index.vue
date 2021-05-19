@@ -45,8 +45,7 @@ export default {
       title: meta.hero.title,
       seotitle: 'Find out what websites are built with',
       products: Object.keys(meta).filter((name, index) => meta[name].feature),
-      meta:
-        'Find out the technology stack of any website. Create lists of websites and contacts by the technologies they use.',
+      meta: 'Find out the technology stack of any website. Create lists of websites and contacts by the technologies they use.',
     }
   },
 }
