@@ -377,6 +377,17 @@
                         </v-chip-group>
                       </td>
                     </tr>
+                    <tr
+                      v-if="
+                        list.query.languages.length &&
+                        list.query.excludeMultilingual
+                      "
+                    >
+                      <th width="40%">Exclude multilingual</th>
+                      <td>
+                        <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
+                      </td>
+                    </tr>
                     <tr v-if="list.query.matchAll">
                       <th width="40%">Match all filters</th>
                       <td>
@@ -839,6 +850,9 @@ export default {
           ? this.list.query.subsetSlice.toString()
           : undefined,
         notraffic: this.list.query.excludeNoTraffic ? 'exclude' : undefined,
+        multilingual: this.list.query.excludeMultilingual
+          ? 'exclude'
+          : undefined,
         min:
           this.list.query.minAge !== null && this.list.query.minAge !== 0
             ? this.list.query.minAge.toString()

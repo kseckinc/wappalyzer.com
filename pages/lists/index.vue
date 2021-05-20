@@ -1066,6 +1066,14 @@
                             }}
                           </v-tooltip>
                         </v-chip-group>
+
+                        <v-checkbox
+                          v-if="selected.languages.length"
+                          v-model="excludeMultilingual"
+                          class="mt-2 mb-2"
+                          label="Exclude multilingual websites"
+                          hide-details
+                        />
                       </v-expansion-panel-content>
                     </v-expansion-panel>
                   </v-expansion-panels>
@@ -1349,6 +1357,7 @@ export default {
       subsetSlice: 0,
       suggestionsDialog: false,
       excludeNoTraffic: false,
+      excludeMultilingual: false,
       updateQueryTimeout: null,
       list: false,
       creating: false,
@@ -1517,6 +1526,9 @@ export default {
     excludeNoTraffic() {
       this.updateQuery()
     },
+    excludeMultilingual() {
+      this.updateQuery()
+    },
     minAge() {
       this.updateQuery()
     },
@@ -1617,6 +1629,7 @@ export default {
               subset: this.subset || 500000,
               subsetSlice: this.subsetSlice || 0,
               excludeNoTraffic: this.excludeNoTraffic,
+              excludeMultilingual: this.excludeMultilingual,
               minAge: this.minAge,
               maxAge: this.maxAge,
               requiredSets: Object.keys(this.requiredSets).filter(
@@ -1949,6 +1962,7 @@ export default {
               : undefined,
           traffic: this.subsetSlice ? this.subsetSlice.toString() : undefined,
           notraffic: this.excludeNoTraffic ? 'exclude' : undefined,
+          multilingual: this.excludeMultilingual ? 'exclude' : undefined,
           min: this.minAge !== 0 ? this.minAge.toString() : undefined,
           max: this.maxAge !== 3 ? this.maxAge.toString() : undefined,
           filters: this.matchAll ? 'and' : undefined,
@@ -1999,6 +2013,7 @@ export default {
         subset,
         traffic,
         notraffic,
+        multilingual,
         countries,
         tlds,
         languages,
@@ -2041,6 +2056,8 @@ export default {
       this.subsetSlice = Math.max(0, Math.min(4, parseInt(traffic || 0, 10)))
 
       this.excludeNoTraffic = notraffic === 'exclude'
+
+      this.multilingual = multilingual === 'exclude'
 
       this.matchAll = filters === 'and'
 
