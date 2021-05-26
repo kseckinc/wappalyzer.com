@@ -4,14 +4,14 @@
       {{ error }}
     </v-alert>
 
-    <div class="mb-4">
-      <v-btn href="/pricing/" depressed>
-        <v-icon left>{{ mdiCalculator }}</v-icon>
-        Plans &amp; pricing
-      </v-btn>
-    </div>
-
     <template v-if="subscriptions">
+      <div class="mb-4">
+        <v-btn href="/pricing/" depressed>
+          <v-icon left>{{ mdiCalculator }}</v-icon>
+          Plans &amp; pricing
+        </v-btn>
+      </div>
+
       <v-card>
         <v-card-text v-if="!subscriptions.length">
           <v-alert class="ma-0" color="info" outlined>

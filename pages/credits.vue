@@ -13,38 +13,38 @@
       get monthly credits at a lower price.
     </p>
 
-    <div class="mb-4">
-      <v-btn
-        v-if="isAdmin"
-        color="success"
-        class="mr-2"
-        outlined
-        @click="addDialog = true"
-      >
-        <v-icon left>{{ mdiAlphaCCircle }}</v-icon>
-        Add credits
-      </v-btn>
-
-      <v-btn
-        class="mr-2 primary--text"
-        color="primary lighten-1"
-        depressed
-        @click="orderDialog = true"
-        ><v-icon left>{{ mdiAlphaCCircle }}</v-icon> Buy credits</v-btn
-      >
-
-      <v-btn href="/faq/credits" class="mr-2" depressed>
-        <v-icon left>{{ mdiForum }}</v-icon>
-        FAQs
-      </v-btn>
-
-      <v-btn href="/pricing" class="mr-2" depressed>
-        <v-icon left>{{ mdiCalculator }}</v-icon>
-        Plans &amp; pricing
-      </v-btn>
-    </div>
-
     <template v-if="!loading">
+      <div class="mb-4">
+        <v-btn
+          v-if="isAdmin"
+          color="success"
+          class="mr-2"
+          outlined
+          @click="addDialog = true"
+        >
+          <v-icon left>{{ mdiAlphaCCircle }}</v-icon>
+          Add credits
+        </v-btn>
+
+        <v-btn
+          class="mr-2 primary--text"
+          color="primary lighten-1"
+          depressed
+          @click="orderDialog = true"
+          ><v-icon left>{{ mdiAlphaCCircle }}</v-icon> Buy credits</v-btn
+        >
+
+        <v-btn href="/faq/credits" class="mr-2" depressed>
+          <v-icon left>{{ mdiForum }}</v-icon>
+          FAQs
+        </v-btn>
+
+        <v-btn href="/pricing" class="mr-2" depressed>
+          <v-icon left>{{ mdiCalculator }}</v-icon>
+          Plans &amp; pricing
+        </v-btn>
+      </div>
+
       <v-card>
         <v-card-title>Bundles</v-card-title>
         <v-card-text v-if="!adds.length" class="pb-0">

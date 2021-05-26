@@ -4,14 +4,14 @@
       {{ error }}
     </v-alert>
 
-    <div class="mb-4">
-      <v-btn href="/technologies/" depressed>
-        <v-icon left>{{ mdiMagnify }}</v-icon>
-        Browse technologies
-      </v-btn>
-    </div>
-
     <template v-if="!loading">
+      <div class="mb-4">
+        <v-btn href="/technologies/" depressed>
+          <v-icon left>{{ mdiMagnify }}</v-icon>
+          Browse technologies
+        </v-btn>
+      </div>
+
       <template v-if="reviews.length">
         <div v-for="(review, index) in reviews" :key="index">
           <h3 class="mb-2 subtitle-2">

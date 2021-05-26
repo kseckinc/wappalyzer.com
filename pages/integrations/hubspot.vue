@@ -232,8 +232,8 @@
 
       <v-card-text style="max-width: 600px">
         <p>
-          By default, Wappalyzer shows a card on companies with the most
-          up-to-date technology information. It's also possible to save
+          By default, Wappalyzer shows a card on companies and contacts with the
+          most up-to-date technology information. It's also possible to save
           information to company records, which you can use to create custom
           reports in HubSpot.
         </p>

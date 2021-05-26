@@ -102,19 +102,31 @@
                             name,
                             slug,
                             categories,
+                            versions,
                             icon,
                           } in category.technologies"
                           :key="name"
+                          class="d-flex align-center"
                         >
                           <nuxt-link
                             :to="`/technologies/${
                               categories.length ? `${categories[0].slug}/` : ''
                             }${slug}/`"
-                            class="d-flex align-center body-2 my-2"
+                            class="d-inline-flex align-center body-2 my-2"
                           >
                             <TechnologyIcon :icon="icon" />
                             {{ name }}
                           </nuxt-link>
+
+                          <v-chip
+                            v-for="version in versions"
+                            :key="version"
+                            class="ml-2 text--disabled"
+                            color="secondary"
+                            small
+                            label
+                            >{{ version }}</v-chip
+                          >
                         </div>
                       </td>
                       <th class="text-right font-weight-regular">

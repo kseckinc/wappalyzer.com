@@ -5,7 +5,7 @@
       :head="meta"
       :loading="isLoading || (isSignedIn && loading && !error)"
     >
-      <v-alert v-if="error" type="error" class="mt-12">
+      <v-alert v-if="error" type="error" class="mt-8">
         {{ error }}
       </v-alert>
 

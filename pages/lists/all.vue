@@ -1,30 +1,30 @@
 <template>
   <Page :title="title" :loading="!lists && !error" secure>
-    <v-alert v-if="error" type="error">
+    <v-alert v-if="error" type="error" class="mb-4">
       {{ error }}
     </v-alert>
 
-    <v-row align="center" class="mb-4">
-      <v-col class="py-0">
-        <v-btn href="/lists/" depressed>
-          <v-icon left>{{ mdiPlus }}</v-icon>
-          Create a new list
-        </v-btn>
-      </v-col>
-      <v-col
-        v-if="lists && lists.length !== myLists.length"
-        class="py-0 text-right"
-      >
-        <v-switch
-          v-model="viewMine"
-          class="ma-0 d-inline-block"
-          label="Show only my lists"
-          hide-details
-        />
-      </v-col>
-    </v-row>
-
     <template v-if="lists">
+      <v-row align="center" class="mb-4">
+        <v-col class="py-0">
+          <v-btn href="/lists/" depressed>
+            <v-icon left>{{ mdiPlus }}</v-icon>
+            Create a new list
+          </v-btn>
+        </v-col>
+        <v-col
+          v-if="lists && lists.length !== myLists.length"
+          class="py-0 text-right"
+        >
+          <v-switch
+            v-model="viewMine"
+            class="ma-0 d-inline-block"
+            label="Show only my lists"
+            hide-details
+          />
+        </v-col>
+      </v-row>
+
       <v-card class="mb-4">
         <v-card-text v-if="!filteredLists.length">
           <v-alert class="ma-0" color="info" outlined>

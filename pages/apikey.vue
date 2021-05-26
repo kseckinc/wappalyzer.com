@@ -12,14 +12,14 @@
       <nuxt-link to="/api/">APIs</nuxt-link>.
     </p>
 
-    <div class="mb-4">
-      <v-btn href="/docs/api" depressed>
-        <v-icon left>{{ mdiBookOpenPageVariant }}</v-icon>
-        API reference
-      </v-btn>
-    </div>
-
     <template v-if="!loading">
+      <div class="mb-4">
+        <v-btn href="/docs/api" depressed>
+          <v-icon left>{{ mdiBookOpenPageVariant }}</v-icon>
+          API reference
+        </v-btn>
+      </div>
+
       <v-card>
         <v-card-title>API Key</v-card-title>
         <v-card-text class="pb-0">

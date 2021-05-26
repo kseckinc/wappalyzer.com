@@ -17,15 +17,21 @@
         Reference: {{ code }}
       </template>
     </v-alert>
+
+    <v-divider class="my-12" />
+
+    <TicTacToe />
   </Page>
 </template>
 
 <script>
 import Page from '~/components/Page.vue'
+import TicTacToe from '~/components/TicTacToe.vue'
 
 export default {
   components: {
     Page,
+    TicTacToe,
   },
   layout: 'empty',
   props: {
