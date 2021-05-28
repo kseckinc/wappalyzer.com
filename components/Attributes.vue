@@ -49,11 +49,13 @@
                     <v-chip
                       v-if="attributeKey === 'email'"
                       :href="`mailto:${value.text}`"
-                      color="accent"
-                      small
+                      color="accent--text"
                       outlined
                       label
                     >
+                      <v-icon small left>
+                        {{ mdiEmail }}
+                      </v-icon>
                       <span :class="limited ? 'blurred' : ''">
                         {{ value.text }}
                       </span>
@@ -61,11 +63,13 @@
                     <v-chip
                       v-else-if="attributeKey === 'phone'"
                       :href="`tel:${value.text}`"
-                      color="accent"
-                      small
+                      color="accent--text"
                       outlined
                       label
                     >
+                      <v-icon small left>
+                        {{ mdiPhone }}
+                      </v-icon>
                       <span :class="limited ? 'blurred' : ''">
                         {{ value.text }}
                       </span>
@@ -75,11 +79,24 @@
                       :href="value.to"
                       rel="nofollow noopener"
                       target="_blank"
-                      color="accent"
-                      small
+                      color="accent--text"
                       outlined
                       label
                     >
+                      <v-icon
+                        v-if="
+                          [
+                            'twitter',
+                            'instagram',
+                            'facebook',
+                            'linkedin',
+                          ].includes(attributeKey)
+                        "
+                        small
+                        left
+                      >
+                        {{ mdi[attributeKey] }}
+                      </v-icon>
                       <span :class="limited ? 'blurred' : ''">
                         {{ value.text }}
                       </span></v-chip
@@ -112,7 +129,16 @@
 </template>
 
 <script>
-import { mdiCheck, mdiClose } from '@mdi/js'
+import {
+  mdiCheck,
+  mdiClose,
+  mdiTwitter,
+  mdiFacebook,
+  mdiInstagram,
+  mdiLinkedin,
+  mdiPhone,
+  mdiEmail,
+} from '@mdi/js'
 
 export default {
   props: {
@@ -131,6 +157,14 @@ export default {
     return {
       mdiCheck,
       mdiClose,
+      mdiPhone,
+      mdiEmail,
+      mdi: {
+        twitter: mdiTwitter,
+        facebook: mdiFacebook,
+        instagram: mdiInstagram,
+        linkedin: mdiLinkedin,
+      },
     }
   },
   computed: {

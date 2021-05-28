@@ -21,14 +21,14 @@
           </v-card-title>
           <v-card-text class="pb-0">
             Email us at
-            <a href="mailto:info@wappalyzer.com">info@wappalyzer.com</a> for
+            <a href="mailto:hello@wappalyzer.com">hello@wappalyzer.com</a> for
             sales enquiries and technical support for paid products, or just to
             say hi.
           </v-card-text>
           <v-spacer />
           <v-card-actions>
             <v-spacer />
-            <v-btn href="mailto:info@wappalyzer.com" color="accent" text>
+            <v-btn href="mailto:hello@wappalyzer.com" color="accent" text>
               <v-icon left>{{ mdiEmail }}</v-icon>
               Email us</v-btn
             >

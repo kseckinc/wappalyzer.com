@@ -71,8 +71,7 @@
                       v-for="keyword in keywords"
                       :key="keyword"
                       :to="`/websites/${keyword}/`"
-                      color="accent"
-                      small
+                      color="accent--text"
                       outlined
                       label
                     >
