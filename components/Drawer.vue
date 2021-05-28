@@ -113,6 +113,7 @@ import {
   mdiFilterVariant,
   mdiAccountSwitch,
   mdiPowerPlug,
+  mdiMagnify,
 } from '@mdi/js'
 
 import SignIn from '~/components/SignIn.vue'
@@ -152,6 +153,7 @@ export default {
         mdiFilterVariant,
         mdiAccountSwitch,
         mdiPowerPlug,
+        mdiMagnify,
       },
     }
   },

@@ -64,8 +64,9 @@
               (v) => !max || v <= max || `Max. ${formatNumber(max)}`,
             ]"
             :label="unit"
-            class="px-6"
+            class="px-6 mb-n2"
             placeholder="1000"
+            outlined
             dense
           />
 
@@ -76,12 +77,18 @@
                 <td class="pr-6 caption">
                   {{
                     formatCurrency(
-                      creditsToCents(
-                        parseInt(
-                          (min
-                            ? Math.max(min, max ? Math.min(max, value) : value)
-                            : value) * credits,
-                          10
+                      Math.max(
+                        minPrice,
+                        creditsToCents(
+                          parseInt(
+                            (min
+                              ? Math.max(
+                                  min,
+                                  max ? Math.min(max, value) : value
+                                )
+                              : value) * credits,
+                            10
+                          )
                         )
                       ) / 100
                     )
@@ -129,9 +136,10 @@ export default {
       creditsPerUnit,
       creditTiers,
       units: creditsPerUnit[this.product].units,
+      minPrice: creditsPerUnit[this.product].minPrice || 0,
       min: creditsPerUnit[this.product].min || 0,
       max: creditsPerUnit[this.product].max,
-      value: '',
+      value: 1000,
     }
   },
   methods: {

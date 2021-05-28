@@ -234,6 +234,7 @@ import {
   mdiApps,
   mdiConsole,
   mdiBellOutline,
+  mdiMagnify,
 } from '@mdi/js'
 import Logo from '~/components/Logo.vue'
 import SignIn from '~/components/SignIn.vue'
@@ -283,6 +284,7 @@ export default {
         mdiApps,
         mdiConsole,
         mdiBellOutline,
+        mdiMagnify,
       },
     }
   },

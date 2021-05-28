@@ -196,16 +196,17 @@
           <v-card-text class="pb-0">
             <v-form @submit.prevent="submit">
               <v-row>
-                <v-col cols="7" class="py-0">
+                <v-col cols="7" class="pb-0">
                   <v-text-field
                     v-model="credits"
                     :rules="rules.credits"
                     label="Credits"
                     placeholder="1000"
+                    outlined
                     dense
                   />
                 </v-col>
-                <v-col class="py-0">
+                <v-col class="pb-0">
                   <v-text-field
                     :value="
                       formatCurrency(
@@ -214,6 +215,7 @@
                     "
                     label="Price"
                     disabled
+                    outlined
                     dense
                   />
                 </v-col>
@@ -280,7 +282,7 @@ export default {
       addDialog: false,
       adding: false,
       addError: false,
-      credits: 100,
+      credits: 5000,
       creditTiers,
       description: 'Complimentary credits',
       mdiAlphaCCircle,

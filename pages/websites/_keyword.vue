@@ -30,7 +30,31 @@
           </v-card-text>
         </v-card>
 
-        <template v-if="!loading && websites.length">
+        <div v-if="!loading && !websites.length" class="mt-4">
+          E.g.
+
+          <v-chip
+            v-for="example in [
+              'fashion',
+              'health',
+              'software',
+              'education',
+              'finance',
+              'insurance',
+              'travel',
+            ]"
+            :key="example"
+            color="primary lighten-1 primary--text"
+            class="mr-2"
+            label
+            @click="
+              input = example
+              search()
+            "
+            >{{ example }}</v-chip
+          >
+        </div>
+        <template v-else-if="!loading && websites.length">
           <v-card class="my-4">
             <v-card-text class="px-0 pb-0">
               <v-alert
@@ -141,46 +165,50 @@ export default {
   }) {
     const { keyword } = route.params
 
-    if (keyword) {
-      try {
-        const { websites, results } = (
+    try {
+      let websites = []
+      let results = []
+
+      if (keyword) {
+        ;({ websites, results } = (
           await $axios.get(`websites${isSignedIn ? '' : '/public'}/${keyword}`)
-        ).data
+        ).data)
+      }
 
+      return {
+        keyword,
+        input: keyword,
+        lastKeyword: keyword,
+        websites,
+        results,
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
         return {
           keyword,
           input: keyword,
           lastKeyword: keyword,
-          websites,
-          results,
+          signInDialog: true,
         }
-      } catch (error) {
-        if (error.response && error.response.status === 401) {
-          return {
-            keyword,
-            input: keyword,
-            lastKeyword: keyword,
-            signInDialog: true,
-          }
-        }
+      }
 
-        return {
-          keyword,
-          input: keyword,
-          lastKeyword: keyword,
-          error: error.message || error.toString(),
-        }
+      return {
+        keyword,
+        input: keyword,
+        lastKeyword: keyword,
+        error: error.message || error.toString(),
       }
     }
   },
   data() {
     return {
-      title: 'Find websites',
+      title: 'Keyword search',
       error: false,
       keywordError: false,
       loading: false,
       meta: {
-        title: 'Find websites',
+        title: 'Keyword search',
+        subtitle: 'Find and create lists of websites by keyword',
         text: 'Find websites that use a certain keyword, such as a brand, product, profession or industry. Segment lists by technology, traffic, location and more.',
       },
       input: '',
@@ -205,7 +233,7 @@ export default {
         return `List of ${this.keyword} websites`
       }
 
-      return 'Find websites'
+      return 'Keyword search'
     },
   },
   watch: {
@@ -234,6 +262,8 @@ export default {
   },
   methods: {
     async search() {
+      this.websites = []
+
       this.keyword = this.input
         .toLowerCase()
         .replace(/[^A-Z0-9 -.]/i, '')
@@ -261,7 +291,6 @@ export default {
       this.error = false
 
       this.loading = true
-      this.websites = []
 
       try {
         if (this.isSignedIn) {

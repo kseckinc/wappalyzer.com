@@ -15,6 +15,12 @@
         "to": "/lists/"
       },
       {
+        "title": "Keyword search",
+        "subtitle": "Find websites by keyword",
+        "icon": "mdiMagnify",
+        "to": "/websites/"
+      },
+      {
         "title": "APIs",
         "subtitle": "Automate technology lookups",
         "icon": "mdiConsole",
