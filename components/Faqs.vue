@@ -5,7 +5,7 @@
         <v-expansion-panel-header>
           What are lead lists?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             Our <nuxt-link to="/lists/">lead lists</nuxt-link> are lists of
             websites that use a certain
@@ -21,7 +21,7 @@
         <v-expansion-panel-header>
           What information is included in the lists?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             Lead lists include domain names, version numbers, website country
             and language, a traffic indicator, email addresses, phone numbers
@@ -41,7 +41,7 @@
         <v-expansion-panel-header>
           What segmentation options are available?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             Lead lists can be filtered by IP country, top-level domain, language
             and industry. Right now we do not segment by company information
@@ -54,7 +54,7 @@
         <v-expansion-panel-header>
           A technology I'm looking for is not in the list, can it be added?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             You can
             <nuxt-link to="/technologies/suggest/"
@@ -68,7 +68,7 @@
         <v-expansion-panel-header>
           What is IP country?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             IP country is the country a website's IP address belongs to.
             Typically this is where the website is hosted, which can be
@@ -82,7 +82,7 @@
         <v-expansion-panel-header>
           How is the information being collected?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             We collect limited information through our
             <nuxt-link to="/apps/">browser extension</nuxt-link>
@@ -99,7 +99,7 @@
         <v-expansion-panel-header>
           How accurate is the data?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             Out technology data is of a very high standard and corroborated
             across multiple sources. Email addresses and phone numbers obtain
@@ -112,7 +112,7 @@
         <v-expansion-panel-header>
           How fresh is the data?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             The data is being updated and added to every day. By default, data
             in the lead lists can be up to three months old but this can be
@@ -125,7 +125,7 @@
         <v-expansion-panel-header>
           How do you determine website traffic?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             Website traffic is tracked using our
             <nuxt-link to="/apps/">browser extensions</nuxt-link> with 1.5M
@@ -140,7 +140,7 @@
         <v-expansion-panel-header>
           Can I use a different payment method?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             Please <nuxt-link to="/contact/">contact us</nuxt-link> if you wish
             to pay via bank transfer or Bitcoin, or discuss options.
@@ -152,7 +152,7 @@
         <v-expansion-panel-header>
           Can I resell the data?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             No, not without explicit permission in writing. Please refer to the
             <nuxt-link to="/terms/">terms of use</nuxt-link> and
@@ -165,7 +165,7 @@
         <v-expansion-panel-header>
           What is your refund policy?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             If you're not satisfied with the quality of a list for any reason,
             we'll work with you to resolve the problem or issue a refund. Please
@@ -180,7 +180,7 @@
         <v-expansion-panel-header>
           What information is included in API responses?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             The APIs return domain names, version numbers, website country and
             language, a traffic indicator, email addresses, phone numbers and
@@ -199,7 +199,7 @@
         <v-expansion-panel-header>
           Where do I find my API key?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             You can create your API in the
             <nuxt-link to="/apikey/">API key</nuxt-link> tab in your account.
@@ -211,7 +211,7 @@
         <v-expansion-panel-header>
           How is the information being collected?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             We collect limited information through our
             <nuxt-link to="/apps/">browser extension</nuxt-link>
@@ -228,7 +228,7 @@
         <v-expansion-panel-header>
           How fresh is the data?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             The data is being updated and added to every day. By default, lookup
             results can be up to three months old but this can be lowered down
@@ -241,7 +241,7 @@
         <v-expansion-panel-header>
           How do you determine website traffic?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             Website traffic is tracked using our
             <nuxt-link to="/apps/">browser extensions</nuxt-link> with 1.5M
@@ -256,7 +256,7 @@
         <v-expansion-panel-header>
           Can I resell the data?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             No, not without explicit permission in writing. Please refer to the
             <nuxt-link to="/terms/">terms of use</nuxt-link> and
@@ -269,7 +269,7 @@
         <v-expansion-panel-header>
           Do you offer a free trial?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             Sign up for <nuxt-link to="/pricing/">free plan</nuxt-link> to get
             50 credits every month to use with the APIs and other products.
@@ -283,7 +283,7 @@
         <v-expansion-panel-header>
           Do I need to sign up for a paid plan?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             We accept one-time payments for lead lists, technology lookups and
             credits. A paid plan is usually more cost-effective, particularly
@@ -296,7 +296,7 @@
         <v-expansion-panel-header>
           Can I cancel my plan any time?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             Yes, you can cancel your plan any time without losing access to your
             credits or past purchases.
@@ -306,7 +306,7 @@
 
       <v-expansion-panel>
         <v-expansion-panel-header> What are credits? </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             Credits can be spent on a range of products, including lead lists
             and APIs. Each product has a fixed spend per unit, detailed on the
@@ -322,7 +322,7 @@
         <v-expansion-panel-header>
           When do credits expire?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             Credits included in plans expire after 60 days. Credits purchased
             directly expire after 365 days. Expired credits can no longer be
@@ -335,7 +335,7 @@
         <v-expansion-panel-header>
           Can I use a different payment method?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             Plans can only be purchased with a credit card. Credits and other
             products can be purchased directly using a credit card or PayPal
@@ -350,7 +350,7 @@
         <v-expansion-panel-header>
           What is your refund policy?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             If you're dissatisfied with the quality of our offering we will
             either work with you to resolve the issue, credit your account or
@@ -367,7 +367,7 @@
         <v-expansion-panel-header>
           Can I suggest a technology to be added?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             The browser extension is open-source. If you are a developer or have
             access to one, please refer to our
@@ -392,7 +392,7 @@
         <v-expansion-panel-header>
           Where can I report a bug or request a new feature?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             Please
             <a
@@ -410,7 +410,7 @@
         <v-expansion-panel-header>
           How does the extension work?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             The extension inspects HTML, scripts, cookies and network requests
             and certificates of pages you visit, looking for unique technology
@@ -423,7 +423,7 @@
         <v-expansion-panel-header>
           Can I hide technologies on my website from Wappalyzer?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             Although in many cases it's possible to change a software
             application's output to obfuscate its charactaristics, it's often
@@ -440,7 +440,7 @@
         <v-expansion-panel-header>
           What information do you collect?
         </v-expansion-panel-header>
-        <v-expansion-panel-content>
+        <v-expansion-panel-content eager>
           <p>
             We collect information in accordance with our
             <nuxt-link to="/privacy/">privacy policy</nuxt-link>. By default,

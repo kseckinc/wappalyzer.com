@@ -13,7 +13,7 @@
           }}</v-chip>
         </span>
       </v-expansion-panel-header>
-      <v-expansion-panel-content class="nopadding">
+      <v-expansion-panel-content class="nopadding" eager>
         <v-sheet
           v-if="limited && ['email', 'phone', 'social'].includes(setKey)"
           class="py-4 px-6"
@@ -90,6 +90,8 @@
                             'instagram',
                             'facebook',
                             'linkedin',
+                            'youtube',
+                            'github',
                           ].includes(attributeKey)
                         "
                         small
@@ -138,6 +140,8 @@ import {
   mdiLinkedin,
   mdiPhone,
   mdiEmail,
+  mdiYoutube,
+  mdiGithub,
 } from '@mdi/js'
 
 export default {
@@ -164,6 +168,8 @@ export default {
         facebook: mdiFacebook,
         instagram: mdiInstagram,
         linkedin: mdiLinkedin,
+        youtube: mdiYoutube,
+        github: mdiGithub,
       },
     }
   },

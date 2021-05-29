@@ -65,7 +65,7 @@
                     }}</v-chip>
                   </span>
                 </v-expansion-panel-header>
-                <v-expansion-panel-content>
+                <v-expansion-panel-content eager>
                   <v-chip-group column>
                     <v-chip
                       v-for="keyword in keywords"
@@ -118,7 +118,7 @@
                           </nuxt-link>
 
                           <v-chip
-                            v-for="version in versions"
+                            v-for="version in versions.slice(-3)"
                             :key="version"
                             class="ml-2 text--disabled"
                             color="secondary"
@@ -223,7 +223,7 @@
                       </template>
                     </v-radio>
                     <v-radio value="exclude" class="mt-0" hide-details>
-                      <template #label> Exclude all contact details </template>
+                      <template #label>Exclude all contact details</template>
                     </v-radio>
                   </v-radio-group>
 
