@@ -30,22 +30,27 @@
           </v-card-text>
         </v-card>
 
-        <div v-if="!loading && !websites.length" class="mt-4">
-          E.g.
-
+        <div v-if="!loading && !websites.length" class="mt-4 mb-n2">
           <v-chip
             v-for="example in [
               'fashion',
+              'beauty',
               'health',
               'software',
               'education',
               'finance',
               'insurance',
               'travel',
+              'b2b',
+              'b2c',
+              'wholesale',
+              'retail',
+              'marketplace',
+              'adidas',
             ]"
             :key="example"
             color="primary lighten-1 primary--text"
-            class="mr-2"
+            class="mr-2 mb-2"
             label
             @click="
               input = example

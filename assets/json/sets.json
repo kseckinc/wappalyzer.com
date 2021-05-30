@@ -81,8 +81,6 @@
     "key": "meta",
     "name": "Metadata",
     "attributes": [
-      { "key": "category", "description": "The website's content category (industry)." },
-      { "name": "Category ID", "key": "categoryId", "description": "The website's content category ID." },
       { "key": "title", "description": "The website's title, as found on the homepage." },
       { "key": "description", "description": "The website's meta description." },
       { "key": "copyright", "description": "Copyright notice, if found (e.g. \"Copyright © 2018 - 2020\")." },

@@ -239,22 +239,6 @@
               <v-expansion-panel-content class="no-x-padding">
                 <v-simple-table>
                   <tbody>
-                    <tr v-if="list.query.industries.length">
-                      <th width="40%">Industries</th>
-                      <td>
-                        <v-chip-group class="my-2" column
-                          ><v-chip
-                            v-for="{ text, value } in list.query.industries"
-                            :key="value"
-                            outlined
-                            small
-                            label
-                          >
-                            {{ text }}
-                          </v-chip>
-                        </v-chip-group>
-                      </td>
-                    </tr>
                     <tr v-if="list.query.subset">
                       <th width="40%">List size limit</th>
                       <td>
@@ -548,7 +532,7 @@
           <v-alert
             v-if="list.status === 'Complete' && list.repeatListId"
             color="accent"
-            :icon="mdiCreation"
+            :icon="mdiUpdate"
             outlined
           >
             This is an automatically created weekly update for the list
@@ -728,7 +712,7 @@ import {
   mdiDelete,
   mdiForum,
   mdiHelpCircleOutline,
-  mdiCreation,
+  mdiUpdate,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -787,7 +771,7 @@ export default {
       mdiDelete,
       mdiForum,
       mdiHelpCircleOutline,
-      mdiCreation,
+      mdiUpdate,
       panelIndex: 0,
       repeat: false,
       repeatDialog: false,
@@ -802,6 +786,7 @@ export default {
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
+      isSignedIn: ({ user }) => user.isSignedIn,
       isAdmin: ({ user }) =>
         user.attrs.admin || (user.impersonator && user.impersonator.admin),
       isMember: ({ user }) =>
@@ -838,9 +823,6 @@ export default {
           : undefined,
         languages: this.list.query.languages.length
           ? this.list.query.languages.map(({ value }) => value)
-          : undefined,
-        industries: this.list.query.industries.length
-          ? this.list.query.industries.map(({ value }) => value)
           : undefined,
         subset:
           this.list.query.subset && this.list.query.subset !== 500000
@@ -896,8 +878,8 @@ export default {
     },
   },
   watch: {
-    async '$store.state.user.isSignedIn'(isSignedIn) {
-      if (isSignedIn) {
+    async isSignedIn() {
+      if (this.isSignedIn) {
         const { id } = this.$route.params
 
         try {

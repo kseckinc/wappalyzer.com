@@ -13,7 +13,7 @@
 
       <v-container class="py-10 py-sm-12">
         <Progress
-          v-if="secure && !isSignedIn && !userLoaded"
+          v-if="secure && !isSignedIn && isLoading"
           style="margin: 0 auto"
         />
         <SignIn v-else-if="secure && !isSignedIn" class="px-2" mode-continue />
@@ -184,7 +184,7 @@ export default {
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
-      userLoaded: ({ user }) => user.loaded,
+      isLoading: ({ user }) => user.loading,
       isSignedIn: ({ user }) => user.isSignedIn,
       isMember: ({ user }) =>
         !user.admin && user.impersonator && !user.impersonator.admin,

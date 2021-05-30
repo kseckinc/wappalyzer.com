@@ -59,13 +59,13 @@
                         >
                           <sup>
                             <v-icon color="accent" small v-on="on">{{
-                              mdiCreation
+                              mdiUpdate
                             }}</v-icon>
                           </sup>
                         </nuxt-link>
                       </template>
 
-                      Weekly update of list {{ list.repeatListId }}. Click to
+                      Weekly update for list {{ list.repeatListId }}. Click to
                       manage.
                     </v-tooltip>
                   </td>
@@ -117,7 +117,7 @@
                   </td>
                   <td>{{ formatDate(new Date(list.createdAt * 1000)) }}</td>
                   <td class="text-center">
-                    <v-icon v-if="list.repeat">{{ mdiRepeat }}</v-icon>
+                    <v-icon v-if="list.repeat">{{ mdiUpdate }}</v-icon>
                   </td>
                   <td class="text-center">
                     <v-icon v-if="list.status === 'Complete'" color="success">{{
@@ -136,7 +136,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { mdiPlus, mdiCheck, mdiRepeat, mdiCreation } from '@mdi/js'
+import { mdiPlus, mdiCheck, mdiUpdate } from '@mdi/js'
 import Page from '~/components/Page.vue'
 import Spinner from '~/components/Spinner.vue'
 
@@ -152,8 +152,7 @@ export default {
       lists: null,
       mdiPlus,
       mdiCheck,
-      mdiRepeat,
-      mdiCreation,
+      mdiUpdate,
       viewMine: false,
     }
   },

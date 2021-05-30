@@ -43,8 +43,8 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content eager>
           <p>
-            Lead lists can be filtered by IP country, top-level domain, language
-            and industry. Right now we do not segment by company information
+            Lead lists can be filtered by keyword, IP country, top-level domain
+            and language. Right now we do not segment by company information
             such as size or revenue.
           </p>
         </v-expansion-panel-content>

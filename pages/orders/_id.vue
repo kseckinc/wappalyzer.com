@@ -480,23 +480,6 @@
                     </v-chip-group>
                   </td>
                 </tr>
-                <tr v-if="order.dataset.query.industries.length">
-                  <th>Industries</th>
-                  <td>
-                    <v-chip-group class="my-2" column>
-                      <v-chip
-                        v-for="{ text, value } in order.dataset.query
-                          .industries"
-                        :key="value"
-                        outlined
-                        small
-                        label
-                      >
-                        {{ text }}
-                      </v-chip>
-                    </v-chip-group>
-                  </td>
-                </tr>
                 <tr v-if="order.dataset.query.languages.length">
                   <th>Languages</th>
                   <td>

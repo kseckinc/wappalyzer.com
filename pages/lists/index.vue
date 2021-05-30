@@ -288,7 +288,13 @@
                         >
                           <small>
                             For best results, include multiple variations (e.g.
-                            shop, shops and shopping).
+                            shop, shops and shopping).<br />
+                            Use the
+                            <nuxt-link to="/websites/"
+                              >keyword search</nuxt-link
+                            >
+                            function to see how many websites we have on record
+                            for a given keyword.
                           </small>
                         </v-alert>
                       </v-expansion-panel-content>
@@ -302,72 +308,6 @@
                     :disabled="!selection"
                     multiple
                   >
-                    <v-expansion-panel ref="industries" value="industries">
-                      <v-expansion-panel-header class="subtitle-2">
-                        Industries
-                        <span class="grey--text font-weight-regular ml-1"
-                          >(optional)</span
-                        >
-                      </v-expansion-panel-header>
-                      <v-expansion-panel-content>
-                        <p>Choose which website industries to include.</p>
-
-                        <v-select
-                          ref="industry"
-                          v-model="selectedIndustry"
-                          :items="industries"
-                          class="mb-4 pt-0"
-                          label="Select an industry"
-                          hide-details
-                          eager
-                        >
-                          <template #item="{ item }">
-                            <v-list-item ripple @click="toggleIndustry(item)">
-                              <v-list-item-action>
-                                <v-icon :color="item.active ? 'primary' : ''">{{
-                                  item.active
-                                    ? mdiCheckboxMarked
-                                    : mdiCheckboxBlankOutline
-                                }}</v-icon>
-                              </v-list-item-action>
-                              <v-list-item-content>
-                                {{ item.text }}
-                              </v-list-item-content>
-                            </v-list-item>
-                          </template>
-                        </v-select>
-
-                        <v-chip-group
-                          v-if="selected.industries.length"
-                          class="mb-n4 mb-2"
-                          column
-                        >
-                          <v-chip
-                            v-for="item in selected.industries"
-                            :key="item.value"
-                            color="primary lighten-1 primary--text"
-                            label
-                            close
-                            @click:close="toggleIndustry(item)"
-                          >
-                            {{ item.text }}
-                          </v-chip>
-                        </v-chip-group>
-
-                        <v-alert
-                          color="secondary"
-                          border="left"
-                          class="mt-8 mb-2"
-                          dense
-                        >
-                          <small>
-                            We classify website content using machine learning
-                            to best-guess industry.
-                          </small>
-                        </v-alert>
-                      </v-expansion-panel-content>
-                    </v-expansion-panel>
-
                     <v-expansion-panel ref="attributes" value="attributes">
                       <v-expansion-panel-header class="subtitle-2">
                         Required attributes
@@ -1214,7 +1154,6 @@ import { lists as meta } from '~/assets/json/meta.json'
 import languages from '~/assets/json/languages.json'
 import tlds from '~/assets/json/tlds.json'
 import countries from '~/assets/json/countries.json'
-import industries from '~/assets/json/iab.json'
 
 const countriesEU = [
   'AT',
@@ -1287,16 +1226,6 @@ export default {
   data() {
     return {
       title: meta.title,
-      industries: industries.reduce(
-        (industries, { id, category }) => [
-          ...industries,
-          {
-            text: category,
-            value: id,
-          },
-        ],
-        []
-      ),
       australia: false,
       compliance: 'include',
       countries: Object.keys(tlds),
@@ -1342,12 +1271,10 @@ export default {
       loading: false,
       signInDialog: false,
       selectedCountry: '',
-      selectedIndustry: '',
       selectedLanguage: {},
       selected: {
         categories: [],
         technologies: [],
-        industries: [],
         geoIps: [],
         tlds: [],
         languages: [],
@@ -1375,10 +1302,6 @@ export default {
         {
           text: 'Websites mentioning <strong>Education</strong> related keywords',
           query: { keywords: 'education,learning,school,university' },
-        },
-        {
-          text: 'Ecommerce websites in the <strong>fashion</strong> industry',
-          query: { categories: 'ecommerce', industries: '552' },
         },
         {
           text: 'Websites using Shopify <strong>and</strong> Klaviyo',
@@ -1570,7 +1493,6 @@ export default {
         !this.selected.languages.length &&
         !this.selected.geoIps.length &&
         !this.selected.tlds.length &&
-        !this.selected.industries.length &&
         parseInt(this.subset || 500000, 10) >= 500000
       ) {
         this.confirmDialog = true
@@ -1608,10 +1530,6 @@ export default {
                   value,
                 })
               ),
-              industries: this.selected.industries.map(({ text, value }) => ({
-                text,
-                value,
-              })),
               geoIps: this.selected.geoIps.map(({ value, text }) => ({
                 value,
                 text,
@@ -1780,38 +1698,6 @@ export default {
           ) === index
       )
     },
-    toggleIndustry(item, active) {
-      if (active !== undefined ? active : item.active) {
-        item.active = false
-
-        this.selected.industries = this.selected.industries.filter(
-          ({ value }) => value !== item.value
-        )
-      } else {
-        item.active = true
-
-        this.selected.industries.push(item)
-      }
-
-      this.selected.industries = this.selected.industries.filter(
-        ({ value }, index) =>
-          this.selected.industries.findIndex(
-            ({ value: _value }) => _value === value
-          ) === index
-      )
-
-      this.$nextTick(() => {
-        this.$watch('$refs.subIndustry.isMenuActive', (active) => {
-          if (!active) {
-            this.selectedIndustry = ''
-
-            this.$refs.industry && this.$refs.industry.blur()
-          }
-        })
-
-        this.$refs.industry && this.$refs.industry.blur()
-      })
-    },
     toggleGeoIps(ipCountries) {
       ipCountries.forEach((ipCountry) => {
         const item = this.geoIps.find(
@@ -1953,9 +1839,6 @@ export default {
           languages: this.selected.languages
             .map(({ value }) => value)
             .join(','),
-          industries: this.selected.industries
-            .map(({ value }) => value)
-            .join(','),
           subset:
             this.subset && this.subset !== 500000
               ? this.subset.toString()
@@ -2017,7 +1900,6 @@ export default {
         countries,
         tlds,
         languages,
-        industries: _industries,
         filters,
         selection,
         contacts,
@@ -2129,28 +2011,6 @@ export default {
         })
       }
 
-      this.selected.industries = []
-
-      if (_industries) {
-        _industries.split(',').forEach((id) => {
-          const industry = this.industries.find(({ value }) => value === id)
-
-          if (industry) {
-            this.toggleIndustry(industry, false)
-          } else {
-            industries
-              .filter(({ children }) => children)
-              .forEach(({ children }) => {
-                children.forEach(({ id: _id, category: text }) => {
-                  if (_id === id) {
-                    this.toggleIndustry({ text, value: id }, false)
-                  }
-                })
-              })
-          }
-        })
-      }
-
       this.selected.technologies = []
       this.selected.categories = []
 
@@ -2250,10 +2110,6 @@ export default {
 
       if (this.selected.languages.length) {
         this.$refs.languages.toggle()
-      }
-
-      if (this.selected.industries.length) {
-        this.$refs.industries.toggle()
       }
 
       if (this.selected.keywords.length) {
