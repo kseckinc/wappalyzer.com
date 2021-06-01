@@ -52,7 +52,7 @@
         "secondary": true
       }
     ],
-    "features": ["Split second results", "Crawl websites in real-time", "Free trial"],
+    "features": ["Split second results", "Analyse websites in real-time", "Free trial"],
     "feature": true
   },
   "alerts": {

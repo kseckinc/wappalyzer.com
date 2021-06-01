@@ -157,7 +157,7 @@
             default options.
           </p>
 
-          <pre><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com,https://example.org&amp;callback_url=https://yourdomain.com"</Prism></pre>
+          <pre><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com,https://example.org&amp;callback_url=https://yourdomain.com"</Code></pre>
         </v-card-text>
 
         <v-divider />
@@ -180,7 +180,7 @@
             means traffic information is unavailable.
           </p>
 
-          <pre><Prism language="json" class="body-2">[
+          <pre><Code>[
   {
     "url": "https://example.com",
     "technologies": [
@@ -208,21 +208,21 @@
     "crawl": true // Crawl initiated
   }
 ]
-</Prism></pre>
+</Code></pre>
         </v-card-text>
 
         <v-divider />
 
         <v-card-title class="subtitle-2">Example response (error)</v-card-title>
         <v-card-text>
-          <pre><Prism language="json" class="body-2">[
+          <pre><Code>[
   {
     "url": "https://example.com",
     "errors": [
       "Something went wrong"
     ]
   }
-]</Prism></pre>
+]</Code></pre>
         </v-card-text>
 
         <v-divider />
@@ -237,7 +237,7 @@
             requested URL.
           </p>
 
-          <pre><Prism language="json" class="body-2">{
+          <pre><Code>{
   "url": "https://example.com",
   "technologies": [
     {
@@ -255,7 +255,7 @@
       ]
     }
   ]
-}</Prism></pre>
+}</Code></pre>
         </v-card-text>
       </v-card>
 
@@ -270,14 +270,14 @@
             availability).
           </p>
 
-          <pre><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com&amp;callback_url=https://yourdomain.com&amp;squash=false&amp;max_age=12"</Prism></pre>
+          <pre><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com&amp;callback_url=https://yourdomain.com&amp;squash=false&amp;max_age=12"</Code></pre>
         </v-card-text>
 
         <v-divider />
 
         <v-card-title class="subtitle-2">Example response</v-card-title>
         <v-card-text>
-          <pre><Prism language="json" class="body-2">[
+          <pre><Code>[
   {
     "url": "https://example.com",
     "results": [
@@ -309,7 +309,7 @@
       }
     ]
   }
-]</Prism></pre>
+]</Code></pre>
         </v-card-text>
       </v-card>
     </Page>
@@ -321,12 +321,14 @@ import { mdiLightbulbOnOutline } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import Heading from '~/components/Heading.vue'
+import Code from '~/components/Code.vue'
 import side from '~/assets/json/nav/docs.json'
 
 export default {
   components: {
     Page,
     Heading,
+    Code,
   },
   data() {
     return {

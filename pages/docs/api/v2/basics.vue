@@ -87,7 +87,11 @@
         <code>wappalyzer-signature</code> header in the request.
       </p>
 
-      <pre><Prism language="bash" class="body-2">sha256(secret + body) == signature</Prism></pre>
+      <v-card class="my-8">
+        <v-card-text>
+          <pre><Code>sha256(secret + body) == signature</Code></pre>
+        </v-card-text>
+      </v-card>
 
       <v-card class="my-4" flat outlined>
         <v-simple-table>
@@ -214,16 +218,16 @@
       <v-card class="mb-8">
         <v-card-title class="subtitle-2">Example request</v-card-title>
         <v-card-text>
-          <pre><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/credits/v2/balance/"</Prism></pre>
+          <pre><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/credits/v2/balance/"</Code></pre>
         </v-card-text>
 
         <v-divider />
 
         <v-card-title class="subtitle-2">Example response</v-card-title>
         <v-card-text>
-          <pre><Prism language="json" class="body-2">{
+          <pre><Code>{
   "credits": 100000
-}</Prism></pre>
+}</Code></pre>
         </v-card-text>
       </v-card>
     </Page>
@@ -235,12 +239,14 @@ import { mdiLightbulbOnOutline } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import Heading from '~/components/Heading.vue'
+import Code from '~/components/Code.vue'
 import side from '~/assets/json/nav/docs.json'
 
 export default {
   components: {
     Page,
     Heading,
+    Code,
   },
   data() {
     return {

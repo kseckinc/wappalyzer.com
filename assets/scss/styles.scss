@@ -38,16 +38,9 @@ body {
   overflow-x: hidden;
 }
 
-.v-application pre {
-  background-color: #fafafa !important;
-}
-
 .v-application code {
-  background-color: #fafafa !important;
-  font-size: .8rem !important;
+  background-color: #f0ebf9 !important;
+  color: #4608ad !important;
+  font-size: .75rem !important;
   padding: 0.1rem 0.2rem;
-}
-
-pre {
-  border-radius: 4px;
 }

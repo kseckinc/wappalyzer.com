@@ -52,9 +52,11 @@
         for the generator meta tag.
       </p>
 
-      <pre
-        class="mb-4"
-      ><Prism language="html" class="body-2">&lt;meta name="generator" content="WordPress 4.9.8" /&gt;</Prism></pre>
+      <v-card class="my-8">
+        <v-card-text>
+          <pre><Code>&lt;meta name="generator" content="WordPress 4.9.8" /&gt;</Code></pre>
+        </v-card-text>
+      </v-card>
 
       <p>
         The tag is used by other platforms as well, making it a good first thing
@@ -122,10 +124,12 @@
 
 <script>
 import Page from '~/components/Page.vue'
+import Code from '~/components/Code.vue'
 
 export default {
   components: {
     Page,
+    Code,
   },
   data() {
     return {

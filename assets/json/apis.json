@@ -30,11 +30,11 @@
         "dataFormat": "JSON"
       }
     },
-    "crawl": {
-      "name": "Crawl API",
+    "live": {
+      "name": "Live API",
       "to": "/pricing/",
-      "readMore": "/docs/api/v2/crawl/",
-      "description": "Crawl and analyse websites in real-time.",
+      "readMore": "/docs/api/v2/live/",
+      "description": "Analyse websites in real-time.",
       "text": "Identify the technologies used on any public website in real-time. Results are always guaranteed up-to-date and delivered within minutes.",
       "attrs": {
         "instant": "Results ready in minutes",

@@ -58,19 +58,12 @@ export default {
       return [...categories, ...technologies]
     },
   },
-  router: {
-    routes: {
-      name: 'lookup',
-      path: '/lookup/:url?',
-      component: 'pages/lookup/_id.vue',
-    },
-  },
   publicRuntimeConfig,
   head: {
     titleTemplate: (title) => `${title ? `${title} - ` : ''}Wappalyzer`,
     meta: [
       { charset: 'utf-8' },
-      { theme_color: '#32067c' },
+      { theme_color: '#4608ad' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     ],
     link: [
@@ -95,7 +88,6 @@ export default {
     '~/plugins/vuetify.js',
     '~/plugins/axios.js',
     '~/plugins/mixins.js',
-    { src: '~/plugins/prism', ssr: false },
   ],
   buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/svg', '@nuxtjs/vuetify'],
   modules: [

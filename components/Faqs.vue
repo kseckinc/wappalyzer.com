@@ -232,7 +232,7 @@
           <p>
             The data is being updated and added to every day. By default, lookup
             results can be up to three months old but this can be lowered down
-            to one month. Crawl results are real-time.
+            to one month. Live results are real-time.
           </p>
         </v-expansion-panel-content>
       </v-expansion-panel>

@@ -19,11 +19,7 @@
         )"
       >
         <Heading :id="set.key" :key="set.key" size="2" class="mt-8 mb-2">
-          {{ set.name }}
-          <template v-if="set.key"
-            >(<code>{{ set.key }}</code
-            >)</template
-          >
+          {{ set.name }}<code v-if="set.key" class="ml-2">{{ set.key }}</code>
         </Heading>
 
         <v-card :key="set.key" class="my-4" flat outlined>

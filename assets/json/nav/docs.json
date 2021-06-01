@@ -13,8 +13,8 @@
         "to": "/docs/api/v2/lookup/"
       },
       {
-        "title": "Crawl API",
-        "to": "/docs/api/v2/crawl/"
+        "title": "Live API",
+        "to": "/docs/api/v2/live/"
       }
     ]
   },

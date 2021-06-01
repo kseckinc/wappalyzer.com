@@ -51,11 +51,11 @@
       <v-row justify="center" class="mt-8">
         <v-col cols="12" sm="6">
           <v-card id="usage">
-            <v-card-title> Credit usage </v-card-title>
+            <v-card-title>Credit usage</v-card-title>
             <v-card-text class="px-0">
               <v-row>
                 <v-col class="py-0" cols="12" md="10">
-                  <p class="px-4">
+                  <p class="px-4 pb-2">
                     Credits can be spent on a range of products, including lead
                     lists, technology lookups and APIs.
                   </p>
@@ -90,11 +90,11 @@
 
         <v-col cols="12" sm="6">
           <v-card id="credits">
-            <v-card-title> Credit pricing </v-card-title>
+            <v-card-title>Credit pricing</v-card-title>
             <v-card-text class="px-0">
               <v-row>
                 <v-col class="py-0" cols="12" md="10">
-                  <p class="px-4 pb-2">
+                  <p class="px-4 pb-4">
                     Additional credits can be purchased at tiered pricing. For
                     example, the price for 1,000 credits is (100 x $0.20) + (400
                     x $0.05) + (500 x $0.03) = $55.

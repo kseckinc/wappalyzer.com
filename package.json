@@ -21,10 +21,8 @@
     "nuxt": "^2.15.6",
     "nuxt-canonical": "^1.0.6",
     "nuxt-stripe-module": "^3.2.0",
-    "prismjs": "^1.23.0",
     "stripe": "^8.148.0",
-    "vue-google-charts": "^0.3.3",
-    "vue-prism-component": "^1.2.0"
+    "vue-google-charts": "^0.3.3"
   },
   "devDependencies": {
     "@mdi/js": "^5.9.55",

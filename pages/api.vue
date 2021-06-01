@@ -49,8 +49,11 @@
           <v-card-title class="subtitle-2 pb-0 mb-n2"
             >Example request</v-card-title
           >
-
-          <pre><Prism language="bash">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com&amp;sets=locale,social,contact"</Prism></pre>
+          <v-card-text>
+            <pre><Code>
+curl -H "x-api-key: &lt;your api key&gt;" \
+"https://api.wappalyzer.com/lookup/v2/?urls=https://example.com&amp;sets=locale,social,contact"</Code></pre>
+          </v-card-text>
 
           <v-divider />
 
@@ -58,7 +61,9 @@
             >Example response</v-card-title
           >
 
-          <pre><Prism language="json">{
+          <v-card-text>
+            <pre><Code>
+{
   "url": "https://example.com",
   "technologies": [
     {
@@ -73,7 +78,7 @@
         }
       ]
       "trafficRank": 1000,
-      "confirmedAt": 1612824037,
+      "confirmedAt": 1612824037
     }
   ],
   "email": [ "info@example.com" ],
@@ -82,7 +87,8 @@
   "ipCountry": "US",
   "ipRegion": "CA",
   "language": "en"
-}</Prism></pre>
+}</Code></pre>
+          </v-card-text>
         </v-card>
       </template>
 
@@ -102,6 +108,7 @@ import Page from '~/components/Page.vue'
 import Logos from '~/components/Logos.vue'
 import Matrix from '~/components/Matrix.vue'
 import FaqDialog from '~/components/FaqDialog.vue'
+import Code from '~/components/Code.vue'
 import { attrs, apis } from '~/assets/json/apis.json'
 import { apis as meta } from '~/assets/json/meta.json'
 
@@ -111,6 +118,7 @@ export default {
     Logos,
     Matrix,
     FaqDialog,
+    Code,
   },
   data() {
     return {

@@ -52,4 +52,13 @@
       <ReplaceKeyPrefixWith>apps/</ReplaceKeyPrefixWith>
 		</Redirect>
 	</RoutingRule>
+	<RoutingRule>
+		<Condition>
+      <KeyPrefixEquals>api/v2/crawl</KeyPrefixEquals>
+		</Condition>
+		<Redirect>
+			<HostName>www.wappalyzer.com</HostName>
+      <ReplaceKeyPrefixWith>api/v2/live/</ReplaceKeyPrefixWith>
+		</Redirect>
+	</RoutingRule>
 </RoutingRules>

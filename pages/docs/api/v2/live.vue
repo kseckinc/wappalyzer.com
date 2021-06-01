@@ -1,7 +1,7 @@
 <template>
   <div>
     <Page :title="title" :side="side" :crumbs="crumbs" no-hero no-head>
-      <h1 class="mb-4">Crawl API</h1>
+      <h1 class="mb-4">Live API</h1>
 
       <p>
         Identify the technologies used on any public website in real-time.
@@ -15,7 +15,7 @@
 
       <Heading id="endpoint" size="2" class="mt-8 mb-2"> Endpoint </Heading>
 
-      <p><code>GET</code> <code>https://api.wappalyzer.com/crawl/v2/</code></p>
+      <p><code>GET</code> <code>https://api.wappalyzer.com/live/v2/</code></p>
 
       <Heading id="properties" size="2" class="mt-8 mb-2"> Properties </Heading>
 
@@ -130,7 +130,7 @@
             the page and a callback URL is required.
           </p>
 
-          <pre><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/crawl/v2/?urls=https://example.com,https://example.org&amp;callback_url=https://yourdomain.com"</Prism></pre>
+          <pre><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/live/v2/?urls=https://example.com,https://example.org&amp;callback_url=https://yourdomain.com"</Code></pre>
         </v-card-text>
 
         <v-divider />
@@ -142,7 +142,7 @@
             available. The callback URL will be invoked seperately for each
             requested URL.
           </p>
-          <pre><Prism language="json" class="body-2">[
+          <pre><Code>[
   {
     "url": "https://example.com",
     "crawl": true // Crawl initiated
@@ -151,7 +151,7 @@
     "url": "https://example.org",
     "crawl": true // Crawl initiated
   }
-]</Prism></pre>
+]</Code></pre>
         </v-card-text>
       </v-card>
 
@@ -166,7 +166,7 @@
             but results are less comprehensive.
           </p>
 
-          <pre><Prism language="bash" class="body-2">curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/crawl/v2/?urls=https://example.com&amp;recursive=false"</Prism></pre>
+          <pre><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/live/v2/?urls=https://example.com&amp;recursive=false"</Code></pre>
         </v-card-text>
 
         <v-divider />
@@ -175,7 +175,7 @@
           >Example response (success)</v-card-title
         >
         <v-card-text>
-          <pre><Prism language="json" class="body-2">[
+          <pre><Code>[
   {
     "url": "https://example.com",
     "technologies": [
@@ -195,21 +195,21 @@
       }
     ]
   }
-]</Prism></pre>
+]</Code></pre>
         </v-card-text>
 
         <v-divider />
 
         <v-card-title class="subtitle-2">Example response (error)</v-card-title>
         <v-card-text>
-          <pre><Prism language="json" class="body-2">[
+          <pre><Code>[
   {
     "url": "https://example.com",
     "errors": [
       "No response from server"
     ]
   }
-]</Prism></pre>
+]</Code></pre>
         </v-card-text>
       </v-card>
     </Page>
@@ -221,16 +221,18 @@ import { mdiLightbulbOnOutline } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import Heading from '~/components/Heading.vue'
+import Code from '~/components/Code.vue'
 import side from '~/assets/json/nav/docs.json'
 
 export default {
   components: {
     Page,
     Heading,
+    Code,
   },
   data() {
     return {
-      title: 'Crawl API',
+      title: 'Live API',
       mdiLightbulbOnOutline,
       side,
       crumbs: [
