@@ -1,28 +1,23 @@
 <template>
   <div>
     <Page :title="title" :head="meta" no-heading>
-      <v-card flat>
-        <v-card-text>
-          <h2 class="mb-2 subtitle-2">Lookup API</h2>
+      <h2 class="mt-6 mb-2 subtitle-2">Lookup API</h2>
 
-          <p>
-            Perform near-instant technology lookups with the Lookup API. Results
-            are fetched from our comprehensive database of millions of websites.
-            If we haven't seen a domain before, we'll index it immediately and
-            report back within minutes.
-          </p>
+      <p class="body-2">
+        Perform near-instant technology lookups with the Lookup API. Results are
+        fetched from our comprehensive database of millions of websites. If we
+        haven't seen a domain before, we'll index it immediately and report back
+        within minutes.
+      </p>
 
-          <h3 class="mb-2 subtitle-2">Crawl API</h3>
+      <h2 class="mb-2 subtitle-2">Live API</h2>
 
-          <p class="mb-0">
-            Identify the technologies used on any public website in real-time.
-            Results are always guaranteed up-to-date and delivered within
-            minutes.
-          </p>
-        </v-card-text>
-      </v-card>
+      <p class="body-2">
+        Identify the technologies used on any public website in real-time.
+        Results are always guaranteed up-to-date and delivered within minutes.
+      </p>
 
-      <div class="mt-4">
+      <div class="mt-8">
         <v-btn class="mb-2 mr-2" depressed @click="$refs.faqDialog.open()">
           <v-icon left>{{ mdiForum }}</v-icon>
           FAQs
@@ -37,7 +32,7 @@
         <Matrix
           :items="apis"
           :attrs="attrs"
-          button-text="Compare plans"
+          button-text="Pricing"
           class="mt-8"
         />
 
@@ -45,7 +40,7 @@
           <small>* Subject to availability</small>
         </p>
 
-        <v-card class="mb-4" color="secondary">
+        <v-card class="mb-4">
           <v-card-title class="subtitle-2 pb-0 mb-n2"
             >Example request</v-card-title
           >

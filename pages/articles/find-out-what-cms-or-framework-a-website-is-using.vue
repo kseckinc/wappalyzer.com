@@ -45,14 +45,15 @@
       </h3>
 
       <p>
-        WordPress sites can usually be identified by looking at the website's
-        source code. Out of the box, the CMS conveniently adds a meta tag
-        explicitly mentioning the name and version of the CMS. All you need to
-        do is right-click the page, click 'view page source' and search the HTML
-        for the generator meta tag.
+        <nuxt-link to="/technologies/cms/wordpress/"> WordPress</nuxt-link>
+        sites can usually be identified by looking at the website's source code.
+        Out of the box, the CMS conveniently adds a meta tag explicitly
+        mentioning the name and version of the CMS. All you need to do is
+        right-click the page, click 'view page source' and search the HTML for
+        the generator meta tag.
       </p>
 
-      <v-card class="my-8">
+      <v-card class="mt-8 mb-10">
         <v-card-text>
           <pre><Code>&lt;meta name="generator" content="WordPress 4.9.8" /&gt;</Code></pre>
         </v-card-text>
@@ -66,10 +67,11 @@
       <h3 class="text-h3 mt-8 mb-2">Find out if a website is using Shopify</h3>
 
       <p>
-        Shopify is a popular ecommerce solution that makes it easy to set up an
-        online store. Websites using Shopify often use a shopify.io subdomain,
-        making the platform easy to identify. However, professional websites
-        will often use a custom domain.
+        <nuxt-link to="/technologies/ecommerce/shopify/">Shopify</nuxt-link> is
+        a popular ecommerce solution that makes it easy to set up an online
+        store. Websites using Shopify often use a shopify.io subdomain, making
+        the platform easy to identify. However, professional websites will often
+        use a custom domain.
       </p>
 
       <p>
@@ -87,10 +89,10 @@
       </h3>
 
       <p>
-        Web servers and CDNs can often be identified by inspecting HTTP headers.
-        When you navigate to a web page, both the request and response include
-        headers containing additional information such as content type or
-        cookies.
+        Web servers and <nuxt-link to="/technologies/cdn/">CDNs</nuxt-link> can
+        often be identified by inspecting HTTP headers. When you navigate to a
+        web page, both the request and response include headers containing
+        additional information such as content type or cookies.
       </p>
 
       <p>
@@ -100,15 +102,24 @@
         itself. The requests that follow are to load resources such as images
         and scripts. When you click the first request, you'll see a section with
         response headers. Often there will be a header called 'server', exposing
-        the name of the web server (e.g. Apache or Nginx) or CDN (e.g.
-        CloudFlare, Akamai or CloudFront).
+        the name of the web server (e.g.
+        <nuxt-link to="/technologies/web-servers/apache/">Apache</nuxt-link> or
+        <nuxt-link to="/technologies/web-servers/nginx/">Nginx</nuxt-link>) or
+        CDN (e.g.
+        <nuxt-link to="/technologies/cdn/cloudflare/">CloudFlare</nuxt-link>,
+        <nuxt-link to="/technologies/cdn/akamai/">Akamai</nuxt-link> or
+        <nuxt-link to="/technologies/cdn/amazon-cloudfront/"
+          >Amazon CloudFront</nuxt-link
+        >).
       </p>
 
       <h2 class="text-h2 mt-8 mb-2">Conclusion</h2>
 
       <p>
-        There are many different ways to find out what CMS or framework is used
-        on a given website. By far the easiest way is to use a technology
+        There are many different ways to find out what
+        <nuxt-link to="/technologies/cms/">CMS</nuxt-link> or
+        <nuxt-link to="/technologies/web-frameworks/">framework</nuxt-link> is
+        used on a given website. By far the easiest way is to use a technology
         checker like Wappalyzer but it's possible to do it by hand.
       </p>
 

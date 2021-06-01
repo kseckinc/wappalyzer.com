@@ -12,8 +12,11 @@ export default {
         /("|'|`)([^"]+)("|'|`)/g,
         '$1<span class="code__value">$2</span>$3'
       )
-      .replace(/(": )(\d+)(,?)/g, '$1<span class="code__value">$2</span>$3')
-      .replace(/\/\/ (.+)/g, '<span class="code__comment">// $2</span>')
+      .replace(
+        /(": )([^\s"'`{[,]+)(,?)/g,
+        '$1<span class="code__value">$2</span>$3'
+      )
+      .replace(/(\/\/|#) (.+)/g, '<span class="code__comment">$1 $2</span>')
   },
 }
 </script>

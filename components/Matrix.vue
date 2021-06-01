@@ -99,7 +99,7 @@
                 v-if="item.buttonAction === 'signUp'"
                 :disabled="isSignedIn"
                 color="primary"
-                class="mx-auto"
+                class="mx-auto px-4"
                 text
                 @click="signInDialog = true"
                 >Sign up</v-btn
@@ -109,7 +109,7 @@
                 :to="item.to"
                 :text="!item.raised"
                 color="primary white-text"
-                class="mx-auto"
+                class="mx-auto px-4"
                 depressed
                 >{{ buttonText }}</v-btn
               >
@@ -117,7 +117,7 @@
                 v-else
                 :text="!item.raised"
                 color="primary white-text"
-                class="mx-auto"
+                class="mx-auto px-4"
                 depressed
                 @click="$emit('select', id)"
                 >{{ buttonText }}</v-btn
