@@ -269,26 +269,6 @@
                     }}
                   </td>
                 </tr>
-                <tr v-if="order.dataset.exclusionsFilename">
-                  <th>Exclusions</th>
-                  <td>
-                    <v-btn
-                      :href="`${datasetsBaseUrl}${order.dataset.exclusionsFilename}`"
-                      color="accent"
-                      icon
-                      ><v-icon>{{ mdiDownload }}</v-icon></v-btn
-                    >
-                  </td>
-                </tr>
-                <tr>
-                  <th>Data age</th>
-                  <td>
-                    {{ order.dataset.query.minAge || 0 }}-{{
-                      order.dataset.query.maxAge || 3
-                    }}
-                    months
-                  </td>
-                </tr>
                 <tr v-if="technologies.length">
                   <th>Technologies</th>
                   <td>
@@ -378,7 +358,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <th>Attribute sets</th>
+                  <th>Fields</th>
                   <td>
                     <v-chip-group class="my-2" column>
                       <v-tooltip
@@ -423,7 +403,7 @@
                   </td>
                 </tr>
                 <tr v-if="order.dataset.query.requiredSets.length">
-                  <th>Required attributes</th>
+                  <th>Required fields</th>
                   <td>
                     <v-chip-group class="my-2" column>
                       <v-chip
@@ -445,6 +425,52 @@
                     </v-chip-group>
                   </td>
                 </tr>
+                <tr v-if="order.dataset.query.industries.length">
+                  <th>Industries</th>
+                  <td>
+                    <v-chip-group class="my-2" column>
+                      <v-chip
+                        v-for="industry in order.dataset.query.industries"
+                        :key="industry"
+                        outlined
+                        small
+                        label
+                        >{{ industry }}</v-chip
+                      >
+                    </v-chip-group>
+                  </td>
+                </tr>
+                <tr v-if="order.dataset.query.companySizes.length">
+                  <th>Company sizes</th>
+                  <td>
+                    <v-chip-group class="my-2" column>
+                      <v-chip
+                        v-for="{ value, text } in order.dataset.query
+                          .companySizes"
+                        :key="value"
+                        outlined
+                        small
+                        label
+                        >{{ text }}</v-chip
+                      >
+                    </v-chip-group>
+                  </td>
+                </tr>
+                <tr v-if="order.dataset.query.tlds.length">
+                  <th>TLDs</th>
+                  <td>
+                    <v-chip-group class="my-2" column>
+                      <v-chip
+                        v-for="tld in order.dataset.query.tlds"
+                        :key="tld"
+                        outlined
+                        small
+                        label
+                        >{{ tld }}</v-chip
+                      >
+                    </v-chip-group>
+                  </td>
+                </tr>
                 <tr v-if="order.dataset.query.geoIps.length">
                   <th>IP countries</th>
                   <td>
@@ -462,21 +488,6 @@
 
                         {{ text }}
                       </v-tooltip>
-                    </v-chip-group>
-                  </td>
-                </tr>
-                <tr v-if="order.dataset.query.tlds.length">
-                  <th>TLDs</th>
-                  <td>
-                    <v-chip-group class="my-2" column>
-                      <v-chip
-                        v-for="tld in order.dataset.query.tlds"
-                        :key="tld"
-                        outlined
-                        small
-                        label
-                        >{{ tld }}</v-chip
-                      >
                     </v-chip-group>
                   </td>
                 </tr>
@@ -501,7 +512,7 @@
                   </td>
                 </tr>
                 <tr v-if="order.dataset.query.matchAll">
-                  <th>Match all filters</th>
+                  <th>Match IP country and language</th>
                   <td>
                     <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
                   </td>
@@ -524,6 +535,26 @@
                       }}
                       traffic)
                     </template>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Freshness</th>
+                  <td>
+                    {{ order.dataset.query.minAge || 0 }}-{{
+                      order.dataset.query.maxAge || 3
+                    }}
+                    months
+                  </td>
+                </tr>
+                <tr v-if="order.dataset.exclusionsFilename">
+                  <th>Exclusions</th>
+                  <td>
+                    <v-btn
+                      :href="`${datasetsBaseUrl}${order.dataset.exclusionsFilename}`"
+                      color="accent"
+                      icon
+                      ><v-icon>{{ mdiDownload }}</v-icon></v-btn
+                    >
                   </td>
                 </tr>
               </template>
@@ -619,7 +650,7 @@
                 </tr>
                 <tr>
                   <th>
-                    Total {{ order.status === 'Complete' ? '' : 'payable now' }}
+                    Total {{ order.status === 'Open' ? 'payable now' : '' }}
                   </th>
                   <td>
                     <span class="font-weight-bold">
@@ -634,7 +665,7 @@
           </v-card-text>
         </template>
 
-        <template v-if="order.status === 'Open'">
+        <template v-if="['Open', 'Processing'].includes(order.status)">
           <template
             v-if="
               !isMember &&
@@ -722,19 +753,22 @@
               </tbody>
             </v-simple-table>
 
-            <v-divider class="mt-4 mb-n4" />
+            <v-divider class="mt-4" />
+
+            <v-alert
+              v-if="!isPro && paymentMethod !== 'free'"
+              color="primary lighten-1 primary--text"
+              class="text-center mt-4 mb-0"
+              tile
+            >
+              Come here often? Save with a plan. See
+              <nuxt-link class="primary--text" to="/pricing/"
+                >plans &amp; pricing</nuxt-link
+              >.
+            </v-alert>
           </v-card-text>
 
           <v-card-text v-if="paymentMethod === 'stripe'" class="pa-0">
-            <v-alert
-              v-if="order.product !== 'Subscription'"
-              color="secondary"
-              class="text-center"
-            >
-              Come here often? Save with a plan. See
-              <nuxt-link to="/pricing/">plans &amp; pricing</nuxt-link>.
-            </v-alert>
-
             <div v-if="!cardsLoaded" class="d-flex justify-center pt-2 pb-6">
               <Progress />
             </div>
@@ -754,6 +788,7 @@
                 :disabled="!stripePaymentMethod || !user.billingEmail"
                 color="primary"
                 large
+                depressed
                 @click="pay"
                 ><v-icon left>{{ mdiCreditCard }}</v-icon> Pay now</v-btn
               >
@@ -762,26 +797,22 @@
                 :loading="invoicing"
                 :disabled="!user.billingEmail"
                 class="ml-4"
-                color="primary"
+                color="primary lighten-1 primary--text"
                 large
-                outlined
+                depressed
                 @click="invoice"
                 ><v-icon left>{{ mdiEmail }}</v-icon> Send invoice</v-btn
               >
             </div>
           </v-card-text>
           <v-card-text v-if="paymentMethod === 'paypal'" class="pa-0">
-            <v-alert color="secondary" class="text-center">
-              Come here often? Save with a plan. See
-              <nuxt-link to="/pricing/">plans &amp; pricing</nuxt-link>.
-            </v-alert>
-
             <div class="d-flex justify-center mt-n4 py-8">
               <v-btn
                 :loading="invoicing"
                 :disabled="!user.billingEmail"
                 class="primary"
                 large
+                depressed
                 @click="invoice"
               >
                 <v-icon left>{{ mdiEmail }}</v-icon>
@@ -792,7 +823,7 @@
           <template v-if="paymentMethod === 'credits'">
             <v-card-text class="pa-0">
               <div
-                :class="`d-flex justify-center pt-8${
+                :class="`d-flex justify-center pt-4${
                   !isMember && credits < order.totalCredits ? '' : ' pb-8'
                 }`"
               >
@@ -803,6 +834,7 @@
                   "
                   class="primary"
                   large
+                  depressed
                   @click="pay"
                 >
                   <v-icon left>{{ mdiAlphaCCircle }}</v-icon>
@@ -821,16 +853,20 @@
             <v-card-text class="pa-0 text-center">
               <v-alert
                 v-if="freeLists.total === 0"
-                color="secondary"
-                class="text-center mb-0"
+                color="primary lighten-1 primary--text"
+                class="text-center mb-4"
+                tile
               >
                 Free lists are included in selected plans. See
-                <nuxt-link to="/pricing/">plans &amp; pricing</nuxt-link>.
+                <nuxt-link class="primary--text" to="/pricing/"
+                  >plans &amp; pricing</nuxt-link
+                >.
               </v-alert>
               <v-alert
                 v-else-if="freeLists.availableAt"
-                color="secondary"
-                class="text-center mb-0"
+                color="primary lighten-1 primary--text"
+                class="text-center mb-4"
+                tile
               >
                 You next free list will be available from
                 {{ formatDate(new Date(freeLists.availableAt * 1000)) }}.
@@ -842,8 +878,9 @@
                   !freeLists.remaining ||
                   (order.product === 'Lead list' && order.dataset.rows > 500000)
                 "
-                class="primary my-8"
+                class="primary mt-4 mb-8"
                 large
+                depressed
                 @click="pay"
               >
                 <v-icon left>{{ mdiGift }}</v-icon>
@@ -1073,6 +1110,7 @@ export default {
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
+      isPro: ({ credits }) => credits.pro,
       isAdmin: ({ user }) =>
         user.attrs.admin || (user.impersonator && user.impersonator.admin),
       isMember: ({ user }) =>
@@ -1106,6 +1144,8 @@ export default {
         const { id } = this.$route.params
 
         try {
+          this.getCredits()
+
           this.order = (await this.$axios.get(`orders/${id}`)).data
         } catch (error) {
           this.error = this.getErrorMessage(error)

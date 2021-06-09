@@ -44,3 +44,22 @@ body {
   font-size: .75rem !important;
   padding: 0.1rem 0.2rem;
 }
+
+.no-x-padding .v-expansion-panel-content__wrap {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.no-b-padding .v-expansion-panel-content__wrap {
+  padding-bottom: 0;
+}
+
+.no-x-padding th:first-child,
+.no-x-padding td:first-child {
+  padding-left: 24px !important;
+}
+
+.no-x-padding th:last-child,
+.no-x-padding td:last-child {
+  padding-right: 24px !important;
+}

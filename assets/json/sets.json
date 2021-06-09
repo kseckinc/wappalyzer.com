@@ -23,43 +23,16 @@
     "disabled": true
   },
   {
-    "key": "email",
-    "name": "Email addresses",
-    "attributes": [
-      { "name": "email addresses", "key": "email", "description": "Email addresses found on the website's contact page. We identify <code>mailto:</code> links and strings that appear to be email addresses based on the website's domain." }
-    ],
-    "value": false
-  },
-  {
-    "key": "phone",
-    "name": "Phone numbers",
-    "attributes": [
-      { "name": "phone numbers", "key": "phone", "description": "Phone numbers found on the website's contact page. We identify <code>tel:</code> links and numbers that appear to be phone numbers." },
-      { "name": "Skype", "key": "skype", "description": "Skype handles found on the website's contact page." },
-      { "name": "WhatsApp", "key": "whatsapp", "description": "WhatsApp numbers found on the website's contact page." }
-    ],
-    "value": false
-  },
-  {
-    "key": "address",
-    "name": "Addresses",
-    "attributes": [
-      { "name": "addresses", "key": "address", "description": "Addresses found on the website's contact page (experimental)." }
-    ],
-    "value": false
-  },
-  {
     "key": "contact",
     "name": "Contact details",
     "attributes": [
       { "name": "phone numbers", "key": "phone", "description": "Phone numbers found on the website's contact page. We identify <code>tel:</code> links and numbers that appear to be phone numbers." },
       { "name": "email addresses", "key": "email", "description": "Email addresses found on the website's contact page. We identify <code>mailto:</code> links and strings that appear to be email addresses based on the website's domain." },
       { "name": "Skype", "key": "skype", "description": "Skype handles found on the website's contact page." },
-      { "name": "WhatsApp", "key": "whatsapp", "description": "WhatsApp numbers found on the website's contact page." },
-      { "name": "company name", "key": "inferredCompanyName", "description": "Best guess company name, inferred from the website's content and social media handles. Indicative only." },
-      { "name": "addresses", "key": "address", "description": "Addresses found on the website's contact page." }
+      { "name": "WhatsApp", "key": "whatsapp", "description": "WhatsApp numbers found on the website's contact page." }
     ],
-    "value": false
+    "value": false,
+    "pro": true
   },
   {
     "key": "social",
@@ -75,7 +48,34 @@
       { "name": "LinkedIn", "key": "linkedin", "description": "LinkedIn handles found on the website's contact page." },
       { "name": "Owler", "key": "owler", "description": "Owler handles found on the website's contact page." }
     ],
-    "value": false
+    "value": false,
+    "pro": true
+  },
+  {
+    "key": "company",
+    "name": "Company information",
+    "attributes": [
+      { "name": "company name", "key": "companyName", "description": "Company name." },
+      { "name": "inferred company name", "key": "inferredCompanyName", "description": "Company name, inferred from website content (best guess)." },
+      { "key": "industry", "description": "Company industry, e.g. 'Design'." },
+      { "key": "about", "description": "Company description." },
+      { "key": "locations", "description": "Business locations." },
+      { "name": "company size", "key": "companySize", "description": "Number of employees at the company." },
+      { "name": "company type", "key": "companyType", "description": "The type of company, e.g. 'Public Company' or 'Privately Held'." },
+      { "name": "company founded", "key": "companyFounded", "description": "The year the company was founded." },
+      { "key": "employees", "description": "Names and titles of employees." }
+    ],
+    "value": false,
+    "pro": true
+  },
+  {
+    "key": "keywords",
+    "name": "Keywords",
+    "attributes": [
+      { "key": "keywords", "description": "Relevant keywords found in website content." }
+    ],
+    "value": false,
+    "pro": true
   },
   {
     "key": "meta",

@@ -11,7 +11,13 @@
           <v-list-item-content>
             <v-list-item-title class="mb-2">Signed in as</v-list-item-title>
 
-            <small>{{ user.billingName || user.name || user.email }}</small>
+            <span>
+              <small>{{ user.billingName || user.name || user.email }}</small>
+
+              <v-chip v-if="isPro" color="primary" class="ml-1" outlined x-small
+                >PRO</v-chip
+              >
+            </span>
           </v-list-item-content>
         </v-list-item>
 
@@ -22,11 +28,22 @@
         <v-list-item v-if="isMember || isAdmin" @click="signOutAs">
           <v-list-item-content>
             <v-list-item-title>
-              {{
-                impersonator.billingName ||
-                impersonator.name ||
-                impersonator.email
-              }}
+              <span>
+                {{
+                  impersonator.billingName ||
+                  impersonator.name ||
+                  impersonator.email
+                }}
+
+                <v-chip
+                  v-if="isPro"
+                  color="primary"
+                  class="ml-1"
+                  outlined
+                  x-small
+                  >PRO</v-chip
+                >
+              </span>
             </v-list-item-title>
           </v-list-item-content>
           <v-list-item-icon>
@@ -160,6 +177,7 @@ export default {
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
+      isPro: ({ credits }) => credits.pro,
       isLoading: ({ user }) => user.loading,
       isSignedIn: ({ user }) => user.isSignedIn,
       isAdmin: ({ user }) =>

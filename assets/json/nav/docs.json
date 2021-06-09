@@ -19,9 +19,9 @@
     ]
   },
   {
-    "title": "Attribute sets",
+    "title": "Fields",
     "icon": "mdiTagOutline",
-    "to": "/docs/sets/"
+    "to": "/docs/fields/"
   },
   {
     "title": "Integrations",

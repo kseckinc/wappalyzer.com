@@ -18,9 +18,11 @@
       </template>
     </v-alert>
 
-    <v-divider class="my-12" />
+    <template v-if="statusCode === 404">
+      <v-divider class="my-12" />
 
-    <TicTacToe />
+      <TicTacToe />
+    </template>
   </Page>
 </template>
 

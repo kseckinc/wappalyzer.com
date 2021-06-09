@@ -47,7 +47,7 @@
           <v-card-text>
             <pre><Code>
 curl -H "x-api-key: &lt;your api key&gt;" \
-"https://api.wappalyzer.com/lookup/v2/?urls=https://example.com&amp;sets=locale,social,contact"</Code></pre>
+"https://api.wappalyzer.com/lookup/v2/?urls=https://www.wappalyzer.com&amp;sets=all"</Code></pre>
           </v-card-text>
 
           <v-divider />
@@ -59,29 +59,59 @@ curl -H "x-api-key: &lt;your api key&gt;" \
           <v-card-text>
             <pre><Code>
 {
-  "url": "https://example.com",
+  "url": "https://www.wapplyzer.com",
   "technologies": [
     {
-      "slug": "craft-cms",
-      "name": "Craft CMS",
-      "versions": [ "3.0.0" ],
+      "slug": "stripe",
+      "name": "Stripe",
+      "versions": [ "3" ],
       "categories": [
         {
           "id": 1,
-          "slug": "cms",
-          "name": "CMS"
+          "slug": "payment-processors",
+          "name": "Payment processors"
         }
-      ]
+      ],
       "trafficRank": 1000,
       "confirmedAt": 1612824037
-    }
+    },
+    ...
   ],
-  "email": [ "info@example.com" ],
-  "phone": [ "+1 (555) 555-5555" ],
-  "linkedin": [ "company/example" ],
+  "email": [ "hello@wappalyzer.com" ],
+  "phone": [ "+61 ..." ],
+  "linkedin": [ "company/wappalyzer", "in/elbertalias" ],
+  "twitter": [ "Wappalyzer" ],
+  "facebook": [ "wappalyzer" ],
+  "title": "Find out what websites are built with",
+  "description": "Find out the technology stack of any website.",
+  "companyName": "Wappalyzer",
+  "inferredCompanyName": "WAPPALYZER",
+  "industry": "Internet",
+  "about": "Wappalyzer uncovers the technologies used on websites.",
+  "locations": [ "Melbourne, VIC 3000, AU" ],
+  "companySize": "2-10 employees",
+  "companyType": "Privately Held",
+  "companyFounded": 2008,
+  "employees": [
+    {
+      "name": "Elbert Alias",
+      "title": "Founder of Wappalyzer"
+    },
+    ...
+  ],
+  "keywords": [ "WAPPALYZER", "TECHNOLOGY", "WEBSITES", ... ],
+  "certInfo": {
+    "subjectName": "*.wappalyzer.com",
+    "issuer": "Amazon",
+    "validFrom": 1599436800,
+    "validTo": 1633737600,
+    "protocol": "TLS 1.3",
+    "hashes": [ ... ]
+  },
   "ipCountry": "US",
-  "ipRegion": "CA",
-  "language": "en"
+  "ipRegion": "WA",
+  "language": "en",
+  "responsive": true
 }</Code></pre>
           </v-card-text>
         </v-card>

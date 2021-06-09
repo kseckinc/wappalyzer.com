@@ -1,11 +1,11 @@
 {
   "creditsPerUnit": {
-    "list": { "name": "Lead lists", "to": "/lists/", "units": [ { "unit": "Domains", "per": "domain", "credits": 1 } ], "min": 500, "max": 1000000, "minPrice": 5000 },
-    "lookup": { "name": "Technology lookup", "to": "/lookup/",  "units": [ { "unit": "Domains", "per": "domain", "credits": 1 } ] },
-    "bulk": { "name": "Bulk lookup", "to": { "path": "/lookup/", "hash": "#bulk" }, "units": [ { "unit": "Domains", "per": "domain", "credits": 2 } ], "max": 100000 },
+    "list": { "name": "Lead lists", "to": "/lists/", "units": [ { "unit": "Websites", "per": "website", "credits": 1 } ], "min": 500, "max": 1000000, "minPrice": 5000 },
+    "lookup": { "name": "Technology lookup", "to": "/lookup/",  "units": [ { "unit": "Websites", "per": "website", "credits": 1 } ] },
+    "bulk": { "name": "Bulk lookup", "to": { "path": "/lookup/", "hash": "#bulk" }, "units": [ { "unit": "Websites", "per": "website", "credits": 2 } ], "max": 100000 },
     "alert": { "name": "Alerts", "to": "/alerts/", "units": [ { "unit": "Websites", "per": "alert every 30 days", "credits": 10 } ] },
-    "apiLookup": { "name": "Lookup API", "to": "/api/", "units": [ { "unit": "Domains", "per": "domain", "credits": 1 } ] },
-    "apiLive": { "name": "Live API", "to": "/api/", "units": [ { "unit": "Pages", "per": "page", "credits": 1 }, { "unit": "Domains", "per": "domain", "credits": 2 } ] }
+    "apiLookup": { "name": "Lookup API", "to": "/api/", "units": [ { "unit": "Websites", "per": "website", "credits": 1 } ] },
+    "apiLive": { "name": "Live API", "to": "/api/", "units": [ { "unit": "Pages", "per": "page", "credits": 1 }, { "unit": "Websites", "per": "website", "credits": 2 } ] }
   },
   "creditTiers": {
     "100": 20,

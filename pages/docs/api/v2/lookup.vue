@@ -105,9 +105,10 @@
             <tr>
               <td><code>sets</code></td>
               <td>
-                Comma-separated list of additional attribute sets to include in
-                the results (e.g. <code>meta,social</code>). See
-                <nuxt-link to="/docs/sets/">Attribute sets</nuxt-link>.
+                Comma-separated list of additional field sets to include in the
+                results (e.g. <code>meta,social</code>). See
+                <nuxt-link to="/docs/fields/">Fields</nuxt-link>. Use
+                <code>all</code> to include all fields.
               </td>
             </tr>
           </tbody>

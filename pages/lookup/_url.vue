@@ -49,7 +49,7 @@
               <Attributes
                 v-if="Object.keys(attributes).length"
                 :hostname="attributes"
-                :limited="!isSignedIn"
+                :masked-sets="maskedSets"
                 @signIn="signInDialog = true"
               />
 
@@ -59,11 +59,6 @@
                   style="line-height: 1em"
                 >
                   Keywords
-                  <span>
-                    <v-chip class="ml-2 text--disabled" small outlined>{{
-                      keywords.length
-                    }}</v-chip>
-                  </span>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content eager>
                   <v-chip-group column>
@@ -85,11 +80,6 @@
             <v-card v-if="!loading && technologies.length" class="mt-4">
               <v-card-title class="subtitle-2" style="line-height: 1em">
                 Technologies
-                <span>
-                  <v-chip class="ml-2 text--disabled" small outlined>{{
-                    technologies.length
-                  }}</v-chip>
-                </span>
               </v-card-title>
               <v-card-text class="px-0">
                 <v-simple-table>
@@ -165,10 +155,17 @@
             </v-row>
           </v-card-title>
           <v-card-text class="pt-4">
-            <p class="mb-6" style="max-width: 600px">
+            <p style="max-width: 600px">
               Supply your own list of websites and we'll report back with the
-              technologies they use, as well as any contact details and meta
-              data we find. The resulting list is in CSV and JSON format (<a
+              technologies they use, as well as any metadata we find. On a
+              <v-chip to="/pricing" color="primary" x-small outlined
+                >PRO</v-chip
+              >
+              plan, company and contact information is included where available.
+            </p>
+
+            <p class="mb-6" style="max-width: 600px">
+              The resulting list is in CSV and JSON format (<a
                 href="/bulk-sample.zip"
                 download
                 >sample</a
@@ -197,13 +194,25 @@
               </v-card-text>
             </v-card>
 
-            <v-expansion-panels class="mb-4">
+            <v-expansion-panels class="mb-8">
               <v-expansion-panel ref="compliance">
                 <v-expansion-panel-header class="subtitle-2">
                   Compliance
+                  <span class="body-2">
+                    <v-chip color="primary" class="ml-2" x-small outlined
+                      >PRO</v-chip
+                    >
+                  </span>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
-                  <v-radio-group v-model="compliance" class="my-0" mandatory>
+                  <Pro class="mx-n6 mb-4" small />
+
+                  <v-radio-group
+                    v-model="compliance"
+                    class="my-0"
+                    :disabled="!isPro"
+                    mandatory
+                  >
                     <v-radio
                       value="include"
                       class="mt-0"
@@ -216,7 +225,7 @@
                       value="excludeEU"
                       class="mt-0"
                       hide-details
-                      :disabled="australia"
+                      :disabled="!isPro || australia"
                     >
                       <template #label>
                         Exclude contact details of EU websites
@@ -231,6 +240,7 @@
                     v-model="australia"
                     label="I'm in or do business in Australia"
                     class="mt-0"
+                    :disabled="!isPro"
                     hide-details
                   />
 
@@ -249,6 +259,30 @@
                 </v-expansion-panel-content>
               </v-expansion-panel>
             </v-expansion-panels>
+
+            <v-card
+              v-if="!isPro"
+              color="primary lighten-1 primary--text"
+              class="mb-4"
+              flat
+            >
+              <v-card-title class="subtitle-2">
+                <v-icon color="primary" size="20" left>{{
+                  mdiLockOpenVariantOutline
+                }}</v-icon>
+                Unlock pro features
+              </v-card-title>
+              <v-card-text class="primary--text pb-0">
+                Subscribe to a
+                <v-chip color="primary" x-small outlined>PRO</v-chip> plan to
+                include company and contact information in lookups.
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer />
+
+                <v-btn color="primary" text>Compare plans</v-btn>
+              </v-card-actions>
+            </v-card>
 
             <v-btn
               :disabled="!!(!file || fileErrors.length)"
@@ -273,7 +307,11 @@
       </small>
     </p>
 
-    <v-dialog v-if="!isLoading" v-model="signInDialog" max-width="400px">
+    <v-dialog
+      v-if="!isLoading && !isSignedIn"
+      v-model="signInDialog"
+      max-width="400px"
+    >
       <SignIn mode-sign-up mode-continue />
     </v-dialog>
 
@@ -297,6 +335,7 @@ import {
   mdiClose,
   mdiCalculator,
   mdiArrowRight,
+  mdiLockOpenVariantOutline,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -308,6 +347,7 @@ import Attributes from '~/components/Attributes.vue'
 import SignIn from '~/components/SignIn.vue'
 import OrderDialog from '~/components/OrderDialog.vue'
 import PricingDialog from '~/components/PricingDialog.vue'
+import Pro from '~/components/Pro.vue'
 import { lookup as meta } from '~/assets/json/meta.json'
 import sets from '~/assets/json/sets.json'
 import countries from '~/assets/json/countries.json'
@@ -355,6 +395,7 @@ export default {
     SignIn,
     OrderDialog,
     PricingDialog,
+    Pro,
   },
   async asyncData({
     route,
@@ -372,7 +413,7 @@ export default {
 
     if (fullUrl) {
       try {
-        const { technologies, attributes, keywords } = (
+        const { maskedSets, technologies, attributes, keywords } = (
           await $axios.get(
             `lookup-site${isSignedIn ? '' : '/public'}/${encodeURIComponent(
               fullUrl
@@ -382,6 +423,7 @@ export default {
         return {
           url: fullUrl,
           lastUrl: fullUrl,
+          maskedSets,
           technologies,
           attributes,
           keywords,
@@ -414,12 +456,14 @@ export default {
       sets,
       attributes: {},
       keywords: [],
+      maskedSets: [],
       mdiLayersOutline,
       mdiMagnify,
       mdiCheck,
       mdiClose,
       mdiCalculator,
       mdiArrowRight,
+      mdiLockOpenVariantOutline,
       order: false,
       orderError: '',
       ordering: false,
@@ -443,7 +487,9 @@ export default {
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
-      isLoading: ({ user }) => user.loading,
+      isLoading: ({ user, credits }) =>
+        user.loading || (user.signingIn && credits.loading),
+      isPro: ({ credits }) => credits.pro,
       isSignedIn: ({ user }) => user.isSignedIn,
       credits: ({ credits: { credits } }) => credits,
     }),
@@ -499,6 +545,13 @@ export default {
         if (this.tab === 1 && this.ordering) {
           this.submitBulk()
         }
+
+        this.compliance = this.isPro && !this.australia ? 'include' : 'exclude'
+      }
+    },
+    isLoading() {
+      if (!this.isLoading) {
+        this.compliance = this.isPro && !this.australia ? 'include' : 'exclude'
       }
     },
     url() {
@@ -539,6 +592,12 @@ export default {
         await this.getCredits()
       } catch (error) {
         this.error = this.getErrorMessage(error)
+      }
+    }
+
+    if (!this.isLoading) {
+      if (!this.isLoading) {
+        this.compliance = this.isPro && !this.australia ? 'include' : 'exclude'
       }
     }
 
@@ -614,6 +673,7 @@ export default {
       try {
         if (this.isSignedIn) {
           ;({
+            maskedSets: this.maskedSets,
             credits,
             technologies: this.technologies,
             attributes: this.attributes,
@@ -624,6 +684,7 @@ export default {
         } else {
           try {
             ;({
+              maskedSets: this.maskedSets,
               technologies: this.technologies,
               attributes: this.attributes,
               keywords: this.keywords,

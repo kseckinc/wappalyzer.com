@@ -28,6 +28,30 @@
             </v-btn>
           </div>
 
+          <v-card
+            v-if="!isPro"
+            color="primary lighten-1 primary--text"
+            class="mb-4"
+            flat
+          >
+            <v-card-title class="subtitle-2">
+              <v-icon color="primary" size="20" left>{{
+                mdiLockOpenVariantOutline
+              }}</v-icon>
+              Unlock pro features
+            </v-card-title>
+            <v-card-text class="primary--text pb-0">
+              Subscribe to a
+              <v-chip color="primary" x-small outlined>PRO</v-chip> plan to
+              include company and contact information in lead lists.
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer />
+
+              <v-btn color="primary" text>Compare plans</v-btn>
+            </v-card-actions>
+          </v-card>
+
           <v-card v-if="list.status === 'Ready'" class="mb-4">
             <v-card-text class="px-0">
               <v-simple-table class="mb-4">
@@ -51,10 +75,19 @@
                       {{ formatNumber(list.totalCredits) }} credits
                     </td>
                     <td v-else>
-                      {{ formatCurrency(list.total / 100) }}
-                      <span class="text--disabled"
-                        >/ {{ formatNumber(list.totalCredits) }} credits</span
-                      >
+                      <template v-if="credits >= list.totalCredits">
+                        {{ formatNumber(list.totalCredits) }} credits
+                        <span class="text--disabled"
+                          >(or {{ formatCurrency(list.total / 100) }})</span
+                        >
+                      </template>
+                      <template v-else>
+                        {{ formatCurrency(list.total / 100) }}
+                        <span class="text--disabled"
+                          >(or
+                          {{ formatNumber(list.totalCredits) }} credits)</span
+                        >
+                      </template>
                     </td>
                   </tr>
                 </tbody>
@@ -234,11 +267,52 @@
 
             <v-expansion-panel>
               <v-expansion-panel-header class="subtitle-2">
-                Filters and limits
+                Filters
               </v-expansion-panel-header>
               <v-expansion-panel-content class="no-x-padding">
                 <v-simple-table>
                   <tbody>
+                    <tr
+                      v-if="
+                        list.query.industries && list.query.industries.length
+                      "
+                    >
+                      <th width="40%">Industries</th>
+                      <td>
+                        <v-chip-group class="my-2" column>
+                          <v-chip
+                            v-for="industry in list.query.industries"
+                            :key="industry"
+                            outlined
+                            small
+                            label
+                          >
+                            {{ industry }}
+                          </v-chip>
+                        </v-chip-group>
+                      </td>
+                    </tr>
+                    <tr
+                      v-if="
+                        list.query.companySizes &&
+                        list.query.companySizes.length
+                      "
+                    >
+                      <th width="40%">Company sizes</th>
+                      <td>
+                        <v-chip-group class="my-2" column>
+                          <v-chip
+                            v-for="{ value, text } in list.query.companySizes"
+                            :key="value"
+                            outlined
+                            small
+                            label
+                          >
+                            {{ text }}
+                          </v-chip>
+                        </v-chip-group>
+                      </td>
+                    </tr>
                     <tr v-if="list.query.subset">
                       <th width="40%">List size limit</th>
                       <td>
@@ -268,42 +342,6 @@
                       <th width="40%">Exclude websites without traffic data</th>
                       <td>
                         <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
-                      </td>
-                    </tr>
-                    <tr v-if="list.exclusionsFilename">
-                      <th width="40%">Exclusions</th>
-                      <td>
-                        <v-btn
-                          :href="`${datasetsBaseUrl}${list.exclusionsFilename}`"
-                          color="accent"
-                          icon
-                          ><v-icon>{{ mdiDownload }}</v-icon></v-btn
-                        >
-                      </td>
-                    </tr>
-                    <tr v-if="list.query.technologies.length">
-                      <th width="40%">Data age</th>
-                      <td>
-                        {{ list.query.minAge || 0 }}-{{
-                          list.query.maxAge || 3
-                        }}
-                        months
-                      </td>
-                    </tr>
-                    <tr v-if="list.query.requiredSets.length">
-                      <th width="40%">Required</th>
-                      <td>
-                        <div v-for="key in list.query.requiredSets" :key="key">
-                          {{
-                            (set = sets.find(
-                              ({ key: _key }) => _key === key
-                            )) && null
-                          }}
-                          {{
-                            (set.name || key).charAt(0).toUpperCase() +
-                            (set.name || key).substring(1)
-                          }}
-                        </div>
                       </td>
                     </tr>
                     <tr v-if="list.query.geoIps.length">
@@ -373,9 +411,45 @@
                       </td>
                     </tr>
                     <tr v-if="list.query.matchAll">
-                      <th width="40%">Match all filters</th>
+                      <th width="40%">Match IP country and language</th>
                       <td>
                         <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
+                      </td>
+                    </tr>
+                    <tr v-if="list.query.technologies.length">
+                      <th width="40%">Freshness</th>
+                      <td>
+                        {{ list.query.minAge || 0 }}-{{
+                          list.query.maxAge || 3
+                        }}
+                        months
+                      </td>
+                    </tr>
+                    <tr v-if="list.exclusionsFilename">
+                      <th width="40%">Exclusions</th>
+                      <td>
+                        <v-btn
+                          :href="`${datasetsBaseUrl}${list.exclusionsFilename}`"
+                          color="accent"
+                          icon
+                          ><v-icon>{{ mdiDownload }}</v-icon></v-btn
+                        >
+                      </td>
+                    </tr>
+                    <tr v-if="list.query.requiredSets.length">
+                      <th width="40%">Required</th>
+                      <td>
+                        <div v-for="key in list.query.requiredSets" :key="key">
+                          {{
+                            (set = sets.find(
+                              ({ key: _key }) => _key === key
+                            )) && null
+                          }}
+                          {{
+                            (set.name || key).charAt(0).toUpperCase() +
+                            (set.name || key).substring(1)
+                          }}
+                        </div>
                       </td>
                     </tr>
                   </tbody>
@@ -385,7 +459,7 @@
 
             <v-expansion-panel>
               <v-expansion-panel-header class="subtitle-2">
-                Included attributes
+                Fields
               </v-expansion-panel-header>
               <v-expansion-panel-content class="no-x-padding">
                 <v-alert
@@ -394,11 +468,10 @@
                     list.query.compliance === 'excludeEU'
                   "
                   color="warning"
-                  class="mx-6"
+                  class="mx-6 pb-3"
                   dense
                   outlined
                 >
-                  <div class="subtitle-2">Compliance</div>
                   <small v-if="list.query.compliance === 'exclude'">
                     Contact details are excluded.
                   </small>
@@ -410,7 +483,7 @@
                 <v-simple-table dense>
                   <tbody>
                     <tr>
-                      <th>Attribute set</th>
+                      <th>Field set</th>
                       <th class="text-right">Results</th>
                     </tr>
                     <v-tooltip
@@ -699,7 +772,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import {
   mdiArrowLeft,
   mdiDownload,
@@ -713,6 +786,7 @@ import {
   mdiForum,
   mdiHelpCircleOutline,
   mdiUpdate,
+  mdiLockOpenVariantOutline,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -772,6 +846,7 @@ export default {
       mdiForum,
       mdiHelpCircleOutline,
       mdiUpdate,
+      mdiLockOpenVariantOutline,
       panelIndex: 0,
       repeat: false,
       repeatDialog: false,
@@ -786,11 +861,13 @@ export default {
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
+      isPro: ({ credits }) => credits.pro,
       isSignedIn: ({ user }) => user.isSignedIn,
       isAdmin: ({ user }) =>
         user.attrs.admin || (user.impersonator && user.impersonator.admin),
       isMember: ({ user }) =>
         !user.attrs.admin && user.impersonator && !user.impersonator.admin,
+      credits: ({ credits: { credits } }) => credits,
     }),
     technologies() {
       return this.list.query.matchAllTechnologies === 'not'
@@ -824,6 +901,12 @@ export default {
         languages: this.list.query.languages.length
           ? this.list.query.languages.map(({ value }) => value)
           : undefined,
+        industries: this.list.query.industries.length
+          ? this.list.query.industries
+          : undefined,
+        sizes: this.list.query.companySizes.length
+          ? this.list.query.companySizes.map(({ value }) => value)
+          : undefined,
         subset:
           this.list.query.subset && this.list.query.subset !== 500000
             ? this.list.query.subset.toString()
@@ -850,8 +933,9 @@ export default {
             ? this.list.query.matchAllTechnologies
             : undefined,
         contacts:
-          this.list.query.compliance === 'exclude' ||
-          this.list.query.compliance === 'excludeEU'
+          this.isPro &&
+          (this.list.query.compliance === 'exclude' ||
+            this.list.query.compliance === 'excludeEU')
             ? this.list.query.compliance
             : undefined,
       }
@@ -883,6 +967,8 @@ export default {
         const { id } = this.$route.params
 
         try {
+          this.getCredits()
+
           this.list = (await this.$axios.get(`lists/${id}`)).data
         } catch (error) {
           this.error = this.getErrorMessage(error)
@@ -907,7 +993,15 @@ export default {
       this.list = { ...this.list }
     }
   },
+  created() {
+    if (this.isSignedIn) {
+      this.getCredits()
+    }
+  },
   methods: {
+    ...mapActions({
+      getCredits: 'credits/get',
+    }),
     totalRows(rows, matchAllTechnologies) {
       return matchAllTechnologies === 'or'
         ? Object.values(rows).reduce((total, rows) => total + rows, 0)
@@ -976,24 +1070,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.no-x-padding .v-expansion-panel-content__wrap {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.no-b-padding .v-expansion-panel-content__wrap {
-  padding-bottom: 0;
-}
-
-.no-x-padding th:first-child,
-.no-x-padding td:first-child {
-  padding-left: 24px !important;
-}
-
-.no-x-padding th:last-child,
-.no-x-padding td:last-child {
-  padding-right: 24px !important;
-}
-</style>

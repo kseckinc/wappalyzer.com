@@ -34,6 +34,9 @@
                   <h2 class="mr-2">
                     {{ app.name }}
                   </h2>
+                  <span v-if="app.pro && !feature"
+                    ><v-chip color="primary" x-small outlined>PRO</v-chip>
+                  </span>
                 </div>
 
                 {{ app.description }}
@@ -99,6 +102,10 @@ import apps from '~/assets/json/apps.json'
 export default {
   props: {
     feature: {
+      type: Boolean,
+      default: false,
+    },
+    pro: {
       type: Boolean,
       default: false,
     },

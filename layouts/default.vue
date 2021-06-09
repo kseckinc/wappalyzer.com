@@ -71,6 +71,8 @@ export default {
           path: '/',
           maxAge: 60 * 60 * 24 * 30,
         })
+      } else {
+        this.resetCredits()
       }
     },
     $route() {
@@ -87,6 +89,7 @@ export default {
       updateUserAttrs: 'user/updateAttrs',
       getOrganisations: 'organisations/get',
       getCredits: 'credits/get',
+      resetCredits: 'credits/reset',
     }),
     initChat() {
       if (typeof $crisp !== 'undefined') {

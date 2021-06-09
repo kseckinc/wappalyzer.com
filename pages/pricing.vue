@@ -66,7 +66,7 @@
                 <thead>
                   <tr>
                     <th width="40%">Product</th>
-                    <th>Credit spend per unit</th>
+                    <th>Credits</th>
                   </tr>
                 </thead>
                 <tbody>

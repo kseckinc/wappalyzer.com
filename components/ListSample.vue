@@ -25,7 +25,16 @@
         >
           <small>
             <template v-if="Array.isArray(column)">
-              <div v-for="(value, index2) in column.slice(0, 3)" :key="index2">
+              <div
+                v-for="(value, index2) in column.slice(0, 3)"
+                :key="index2"
+                style="
+                  white-space: nowrap;
+                  max-width: 300px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                "
+              >
                 {{ (formatted = formatAttribute(attribute, value)) && null }}
                 <a
                   v-if="formatted.to"

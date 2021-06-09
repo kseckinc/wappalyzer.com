@@ -4,37 +4,28 @@
       <v-expansion-panel-header class="subtitle-2" style="line-height: 1em"
         >{{ set.title }}
 
-        <span>
-          <v-chip class="ml-2 text--disabled" small outlined>{{
-            Object.values(set.attributes).reduce(
-              (total, { values }) => total + values.length,
-              0
-            )
-          }}</v-chip>
+        <span class="body-2 my-n2">
+          <v-chip
+            v-if="['contact', 'company', 'social'].includes(setKey)"
+            color="primary"
+            class="ml-2"
+            x-small
+            outlined
+          >
+            PRO</v-chip
+          >
         </span>
       </v-expansion-panel-header>
       <v-expansion-panel-content class="nopadding" eager>
-        <v-sheet
-          v-if="limited && ['email', 'phone', 'social'].includes(setKey)"
-          class="py-4 px-6"
-          color="secondary"
-          outlined
-        >
-          <v-btn color="accent" outlined small @click="$emit('signIn')"
-            >Sign up for free to reveal</v-btn
-          >
-        </v-sheet>
+        <Pro class="mb-4" />
+
         <v-simple-table>
           <tbody>
             <tr
               v-for="(attribute, attributeKey) in set.attributes"
               :key="attributeKey"
             >
-              <th
-                v-if="!['email', 'phone'].includes(attributeKey)"
-                class="pl-6"
-                width="30%"
-              >
+              <th class="pl-6" width="30%">
                 {{ attribute.title }}
               </th>
               <td class="px-6">
@@ -48,7 +39,11 @@
                   <div v-for="(value, index) in attribute.values" :key="index">
                     <v-chip
                       v-if="attributeKey === 'email'"
-                      :href="`mailto:${value.text}`"
+                      :href="
+                        maskedSets.includes(setKey)
+                          ? ''
+                          : `mailto:${value.text}`
+                      "
                       color="accent--text"
                       outlined
                       label
@@ -56,13 +51,17 @@
                       <v-icon small left>
                         {{ mdiEmail }}
                       </v-icon>
-                      <span :class="limited ? 'blurred' : ''">
+                      <span
+                        :class="maskedSets.includes(setKey) ? 'blurred' : ''"
+                      >
                         {{ value.text }}
                       </span>
                     </v-chip>
                     <v-chip
                       v-else-if="attributeKey === 'phone'"
-                      :href="`tel:${value.text}`"
+                      :href="
+                        maskedSets.includes(setKey) ? '' : `tel:${value.text}`
+                      "
                       color="accent--text"
                       outlined
                       label
@@ -70,13 +69,15 @@
                       <v-icon small left>
                         {{ mdiPhone }}
                       </v-icon>
-                      <span :class="limited ? 'blurred' : ''">
+                      <span
+                        :class="maskedSets.includes(setKey) ? 'blurred' : ''"
+                      >
                         {{ value.text }}
                       </span>
                     </v-chip>
                     <v-chip
                       v-else-if="value.to"
-                      :href="value.to"
+                      :href="maskedSets.includes(setKey) ? '' : value.to"
                       rel="nofollow noopener"
                       target="_blank"
                       color="accent--text"
@@ -99,7 +100,9 @@
                       >
                         {{ mdi[attributeKey] }}
                       </v-icon>
-                      <span :class="limited ? 'blurred' : ''">
+                      <span
+                        :class="maskedSets.includes(setKey) ? 'blurred' : ''"
+                      >
                         {{ value.text }}
                       </span></v-chip
                     >
@@ -116,7 +119,39 @@
                       small
                       >{{ mdiClose }}</v-icon
                     >
-                    <div v-else class="my-2">
+                    <div
+                      v-else-if="attributeKey === 'employees'"
+                      :class="`${
+                        maskedSets.includes(setKey) ? 'blurred ' : ''
+                      }my-2`"
+                    >
+                      <v-divider v-if="index" class="my-2" />
+
+                      <span class="font-weight-medium">{{
+                        value.text.split(' -- ').shift()
+                      }}</span
+                      ><br />
+                      <small
+                        v-if="value.text.split(' -- ').pop().length >= 3"
+                        >{{ value.text.split(' -- ').pop() }}</small
+                      >
+                    </div>
+                    <div
+                      v-else-if="attributeKey === 'companyName'"
+                      :class="`${
+                        maskedSets.includes(setKey) ? 'blurred ' : ''
+                      }my-2`"
+                    >
+                      <strong>{{ value.text }}</strong>
+                    </div>
+                    <div
+                      v-else
+                      :class="`${
+                        maskedSets.includes(setKey) && setKey === 'company'
+                          ? 'blurred '
+                          : ''
+                      }my-2`"
+                    >
                       {{ value.text }}
                     </div>
                   </div>
@@ -144,7 +179,12 @@ import {
   mdiGithub,
 } from '@mdi/js'
 
+import Pro from '~/components/Pro.vue'
+
 export default {
+  components: {
+    Pro,
+  },
   props: {
     hostname: {
       type: Object,
@@ -152,9 +192,11 @@ export default {
         return {}
       },
     },
-    limited: {
-      type: Boolean,
-      defuault: false,
+    maskedSets: {
+      type: Array,
+      default() {
+        return []
+      },
     },
   },
   data() {
@@ -176,7 +218,7 @@ export default {
   computed: {
     attributes() {
       return this.transformAttributes(
-        ['locale', 'email', 'phone', 'social', 'meta'],
+        ['contact', 'company', 'social', 'meta', 'locale'],
         this.hostname
       )
     },

@@ -111,6 +111,15 @@
                     mdi.mdiDomain
                   }}</v-icon>
                   {{ user.billingName || user.name || user.email }}
+
+                  <v-chip
+                    v-if="isPro"
+                    color="white"
+                    class="ml-2"
+                    outlined
+                    x-small
+                    >PRO</v-chip
+                  >
                 </v-btn>
               </template>
 
@@ -291,6 +300,7 @@ export default {
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
+      isPro: ({ credits }) => credits.pro,
       isLoading: ({ user }) => user.loading,
       isSignedIn: ({ user }) => user.isSignedIn,
       isAdmin: ({ user }) =>

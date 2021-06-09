@@ -24,14 +24,14 @@
         <v-expansion-panel-content eager>
           <p>
             Lead lists include domain names, version numbers, website country
-            and language, a traffic indicator, email addresses, phone numbers
-            and links to social media profiles such as LinkedIn, subject to
-            availability.
+            and language, a traffic indicator, company information, email
+            addresses, phone numbers and links to social media profiles such as
+            LinkedIn, subject to availability.
           </p>
 
           <p>
             See the full list of
-            <nuxt-link to="/docs/sets/">attributes</nuxt-link> and
+            <nuxt-link to="/docs/fields/">fields</nuxt-link> and
             <a href="/list-sample.zip">lead list sample</a>.
           </p>
         </v-expansion-panel-content>
@@ -183,14 +183,14 @@
         <v-expansion-panel-content eager>
           <p>
             The APIs return domain names, version numbers, website country and
-            language, a traffic indicator, email addresses, phone numbers and
-            links to social media profiles such as LinkedIn, subject to
-            availability.
+            language, a traffic indicator, company information, email addresses,
+            phone numbers and links to social media profiles such as LinkedIn,
+            subject to availability.
           </p>
 
           <p>
             See the full list of
-            <nuxt-link to="/docs/sets/">attributes</nuxt-link>.
+            <nuxt-link to="/docs/fields/">fields</nuxt-link>.
           </p>
         </v-expansion-panel-content>
       </v-expansion-panel>

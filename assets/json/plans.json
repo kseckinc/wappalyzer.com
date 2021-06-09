@@ -3,8 +3,8 @@
     "seats": { "text": "Seats", "type": "number", "description": ["Number of users who can access the account with their own login."] },
     "credits": { "text": "Credits per month", "type": "credits", "description": ["Credits can be spent on lead lists, technology lookups and APIs. See 'credit usage' below."] },
     "lists": { "text": "Lead lists", "type": "string" },
-    "crm": { "text": "CRM integration", "type": "boolean", "description": ["HubSpot / Pipedrive"] },
     "apis": { "text": "API access", "type": "boolean" },
+    "pro": { "text": "features", "badge": "PRO", "type": "boolean", "description": ["CRM integration (HubSpot, Pipedrive)", "Access to company and contact details (all data products)"] },
     "cancellation": { "text": "Anytime cancellation", "type": "boolean" },
     "support": { "text": "Email & phone support", "type": "boolean" }
   },
@@ -21,7 +21,7 @@
         "lookups": true,
         "lists": "Pay per list",
         "apis": true,
-        "crm": "-",
+        "pro": "-",
         "cancellation": true
       }
     },
@@ -39,7 +39,7 @@
           "tooltip": ["Create lists using the included credits. See 'credit usage' below."]
         },
         "apis": true,
-        "crm": true,
+        "pro": true,
         "cancellation": true
       }
     },
@@ -58,7 +58,7 @@
           "tooltip": ["Free lists include:", "• Lead lists (any technology, up to 500K sites each)", "• Bulk technology lookup (up to 100K sites each)", "", "Create more lists using the included credits. See 'credit usage' below."]
         },
         "apis": true,
-        "crm": true,
+        "pro": true,
         "cancellation": true
       }
     },
@@ -76,7 +76,7 @@
           "tooltip": ["Free lists include:", "• Lead lists (any technology, up to 500K sites each)", "• Bulk technology lookup (up to 100K sites each)", "", "Create more lists using the included credits. See 'credit usage' below."]
         },
         "apis": true,
-        "crm": true,
+        "pro": true,
         "cancellation": true
       }
     },
@@ -92,7 +92,7 @@
         "lookups": true,
         "lists": "Pay per list",
         "apis": true,
-        "crm": "-",
+        "pro": "-",
         "cancellation": true
       }
     },
@@ -110,7 +110,7 @@
           "tooltip": ["Create lists using the included credits. See 'credit usage' below."]
         },
         "apis": true,
-        "crm": true,
+        "pro": true,
         "cancellation": true
       }
     },
@@ -126,17 +126,17 @@
         "lookups": true,
         "lists": {
           "value": "+ 1 Free / mo",
-          "tooltip": ["Free lists include:", "• Lead lists (any technology, up to 500K sites each)", "• Bulk technology lookup (up to 100K sites each)", "", "Create more lists using the included credits. See 'credit usage' below."]
+          "tooltip": ["Free lists include:", "• Lead lists (any technology, up to 500K sites)", "• Bulk technology lookup (up to 100K sites)", "", "Create more lists using the included credits. See 'credit usage' below."]
         },
         "apis": true,
-        "crm": true,
+        "pro": true,
         "cancellation": true
       }
     },
-    "credits_business_v4_yr": {
+    "credits_business_v5_yr": {
       "name": "Business",
       "interval": "year",
-      "price": 39900,
+      "price": 34900,
       "attrs": {
         "credits": 200000,
         "seats": 15,
@@ -147,7 +147,7 @@
           "tooltip": ["Free lists include:", "• Lead lists (any technology, up to 500K sites each)", "• Bulk technology lookup (up to 100K sites each)", "", "Create more lists using the included credits. See 'credit usage' below."]
         },
         "apis": true,
-        "crm": true,
+        "pro": true,
         "cancellation": true
       }
     }

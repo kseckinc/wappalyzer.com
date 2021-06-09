@@ -30,7 +30,9 @@ Vue.mixin({
           minimumFractionDigits: decimal ? 2 : 0,
           maximumFractionDigits: decimal ? 3 : 0,
         }
-      )} ${currency.toUpperCase() === 'AUD' ? currency.toUpperCase() : ''}`,
+      )}${
+        currency.toUpperCase() === 'AUD' ? ` ${currency.toUpperCase()}` : ''
+      }`,
     formatDate: (date, format) => {
       switch (format) {
         case 'monthYear':
@@ -165,6 +167,8 @@ Vue.mixin({
       }, 0)
     },
     signInAs(userId) {
+      userId = userId.toLowerCase().trim()
+
       this.$store.commit('user/setLoading', true)
       this.$store.commit('user/setImpersonating', userId)
       this.$store.commit('user/setImpersonator', this.$store.state.user.attrs)

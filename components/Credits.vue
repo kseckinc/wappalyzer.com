@@ -12,7 +12,7 @@
       <v-row align="center" class="py-2 primary--text">
         <v-col class="py-0">Credits</v-col>
         <v-col class="py-0 text-right">
-          <Spinner v-if="credits === null" />
+          <Spinner v-if="isLoading" />
           <template v-else>
             {{ formatNumber(credits) }}
           </template>
@@ -36,7 +36,7 @@
           </v-tooltip>
         </v-col>
         <v-col class="py-0 text-right">
-          <Spinner v-if="freeLists.total === null" />
+          <Spinner v-if="isLoading" />
           <template v-else>
             <v-tooltip v-if="freeLists.availableAt" max-width="250" top>
               <template #activator="{ on }">
@@ -62,7 +62,7 @@
         <v-col class="py-0 text-right pr-0 flex-grow-1 flex-shrink-0">
           <small>
             Credit balance:
-            <Spinner v-if="credits === null" />
+            <Spinner v-if="isLoading" />
             <span v-else class="font-weight-medium">
               {{ formatNumber(credits) }}
             </span>
@@ -115,19 +115,20 @@ export default {
   computed: {
     ...mapState({
       isSignedIn: ({ user }) => user.isSignedIn,
+      isLoading: ({ user, credits }) => user.loading || credits.loading,
       credits: ({ credits: { credits } }) => credits,
       freeLists: ({ credits: { freeLists } }) => freeLists,
     }),
   },
   watch: {
-    '$store.state.user.isSignedIn'(isSignedIn) {
-      if (isSignedIn) {
+    isSignedIn() {
+      if (this.isSignedIn) {
         this.getCredits()
       }
     },
   },
   created() {
-    if (this.$store.state.user.isSignedIn) {
+    if (this.$store.state.user.isSignedIn && this.credits === null) {
       try {
         this.getCredits()
       } catch (error) {

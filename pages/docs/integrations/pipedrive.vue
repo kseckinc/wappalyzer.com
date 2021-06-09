@@ -94,7 +94,11 @@
 
       <Heading id="pricing" size="2" class="mt-8 mb-2">Pricing</Heading>
 
-      <p>The Pipedrive integration is available on any paid plan.</p>
+      <p>
+        The Pipedrive integration is available on
+        <v-chip to="/pricing/" color="primary" x-small outlined>PRO</v-chip>
+        plans.
+      </p>
 
       <p>
         Permanently enriched records cost 1 credit each. Records can be enriched

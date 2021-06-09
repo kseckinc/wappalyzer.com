@@ -11,6 +11,10 @@
           <v-divider />
           <v-responsive height="60" class="align-center">
             <v-card-text class="py-0">
+              <v-chip v-if="attr.badge" color="primary" x-small outlined>
+                {{ attr.badge }}
+              </v-chip>
+
               {{ attr.text }}
 
               <v-tooltip v-if="attr.description" max-width="450" right>
@@ -163,6 +167,17 @@
                   <small v-else>
                     {{ item.attrs[name] }}
                   </small>
+                </template>
+                <template v-else-if="attr.type === 'pro'">
+                  <v-chip
+                    v-if="item.attrs[name] === true"
+                    to="/pricing/"
+                    color="primary"
+                    x-small
+                    outlined
+                  >
+                    PRO
+                  </v-chip>
                 </template>
                 <small v-else-if="attr.type === 'small'">
                   {{ item.attrs[name] }}
