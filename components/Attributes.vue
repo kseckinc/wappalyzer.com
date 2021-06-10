@@ -93,6 +93,7 @@
                             'linkedin',
                             'youtube',
                             'github',
+                            'pinterest',
                           ].includes(attributeKey)
                         "
                         small
@@ -177,6 +178,7 @@ import {
   mdiEmail,
   mdiYoutube,
   mdiGithub,
+  mdiPinterest,
 } from '@mdi/js'
 
 import Pro from '~/components/Pro.vue'
@@ -212,6 +214,7 @@ export default {
         linkedin: mdiLinkedin,
         youtube: mdiYoutube,
         github: mdiGithub,
+        pinterest: mdiPinterest,
       },
     }
   },

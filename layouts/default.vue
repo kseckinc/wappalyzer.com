@@ -41,6 +41,7 @@ export default {
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
+      isLoading: ({ user }) => user.loading,
       isSignedIn: ({ user }) => user.isSignedIn,
       isMember: ({ user }) =>
         !user.admin && user.impersonator && !user.impersonator.admin,
@@ -55,8 +56,8 @@ export default {
     },
   },
   watch: {
-    async isSignedIn(isSignedIn) {
-      if (isSignedIn) {
+    async isSignedIn() {
+      if (this.isSignedIn) {
         const impersonating = this.$cookies.get('impersonate')
 
         if (impersonating) {
@@ -72,6 +73,11 @@ export default {
           maxAge: 60 * 60 * 24 * 30,
         })
       } else {
+        this.resetCredits()
+      }
+    },
+    isLoading() {
+      if (!this.isSignedIn) {
         this.resetCredits()
       }
     },

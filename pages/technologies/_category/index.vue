@@ -15,7 +15,7 @@
         }`,
         meta: `Download a list of websites${
           category ? ` using ${category.name} technologies` : ''
-        } with email addresses, phone numbers and LinkedIn profiles.`,
+        } with email addresses, phone numbers and company profiles.`,
       }"
       hero
     >
@@ -32,7 +32,7 @@
             :to="`/lists/?categories=${categorySlug}`"
             >websites using {{ category.name }} technology</nuxt-link
           >
-          with email addresses and phone numbers.
+          with company and contact details.
         </p>
 
         <v-btn

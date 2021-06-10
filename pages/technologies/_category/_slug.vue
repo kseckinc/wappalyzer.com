@@ -174,7 +174,7 @@
             >
               {{ technology.name }} websites</nuxt-link
             >
-            with email addresses and phone numbers.
+            with company and contact details.
           </p>
 
           <v-btn
