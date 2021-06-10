@@ -876,7 +876,11 @@
                 :loading="paying"
                 :disabled="
                   !freeLists.remaining ||
-                  (order.product === 'Lead list' && order.dataset.rows > 500000)
+                  (order.product === 'Lead list' &&
+                    totalRows(
+                      order.dataset.rows,
+                      order.dataset.query.matchAllTechnologies
+                    ) > 500000)
                 "
                 class="primary mt-4 mb-8"
                 large

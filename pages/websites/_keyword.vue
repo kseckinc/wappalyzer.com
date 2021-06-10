@@ -73,7 +73,7 @@
 
                 <p>
                   Create a list of {{ formatNumber(results, true) }}
-                  {{ keyword }} websites with email addresses and phone numbers.
+                  {{ keyword }} websites with company and contact details.
                 </p>
 
                 <v-btn
