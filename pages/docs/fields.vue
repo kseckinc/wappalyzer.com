@@ -19,9 +19,7 @@
 
     <v-expansion-panels>
       <v-expansion-panel
-        v-for="set in sets.filter(
-          ({ key }) => key !== 'base-list' && key !== 'base-lookup'
-        )"
+        v-for="set in sets.filter(({ disabled }) => !disabled)"
         :key="set.key"
       >
         <v-expansion-panel-header>

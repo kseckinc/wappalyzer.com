@@ -441,9 +441,9 @@
                       <td>
                         <div v-for="key in list.query.requiredSets" :key="key">
                           {{
-                            (set = sets.find(
-                              ({ key: _key }) => _key === key
-                            )) && null
+                            (set =
+                              sets.find(({ key: _key }) => _key === key) ||
+                              {}) && null
                           }}
                           {{
                             (set.name || key).charAt(0).toUpperCase() +

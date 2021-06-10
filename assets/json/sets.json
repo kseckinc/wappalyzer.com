@@ -7,7 +7,6 @@
       { "key": "versions" },
       { "name": "traffic rank", "key": "trafficRank" }
     ],
-    "value": true,
     "disabled": true
   },
   {
@@ -19,7 +18,22 @@
       { "key": "versions" },
       { "name": "traffic rank", "key": "trafficRank" }
     ],
-    "value": true,
+    "disabled": true
+  },
+  {
+    "key": "phone",
+    "name": "Phone numbers",
+    "attributes": [
+      { "name": "phone numbers", "key": "phone", "description": "" }
+    ],
+    "disabled": true
+  },
+  {
+    "key": "email",
+    "name": "Email addresses",
+    "attributes": [
+      { "name": "email addresses", "key": "email", "description": "" }
+    ],
     "disabled": true
   },
   {
@@ -31,24 +45,6 @@
       { "name": "Skype", "key": "skype", "description": "Skype handles found on the website's contact page." },
       { "name": "WhatsApp", "key": "whatsapp", "description": "WhatsApp numbers found on the website's contact page." }
     ],
-    "value": false,
-    "pro": true
-  },
-  {
-    "key": "social",
-    "name": "Social media accounts",
-    "attributes": [
-      { "name": "Twitter", "key": "twitter", "description": "Twitter handles found on the website's contact page." },
-      { "name": "Facebook", "key": "facebook", "description": "Facebook handles found on the website's contact page." },
-      { "name": "Instagram", "key": "instagram", "description": "Instagram handles found on the website's contact page." },
-      { "name": "GitHub", "key": "github", "description": "GitHub handles found on the website's contact page." },
-      { "name": "TikTok", "key": "tiktok", "description": "TikTok handles found on the website's contact page." },
-      { "name": "YouTube", "key": "youtube", "description": "YouTube handles found on the website's contact page." },
-      { "name": "Pinterest", "key": "pinterest", "description": "Pinterest handles found on the website's contact page." },
-      { "name": "LinkedIn", "key": "linkedin", "description": "LinkedIn handles found on the website's contact page." },
-      { "name": "Owler", "key": "owler", "description": "Owler handles found on the website's contact page." }
-    ],
-    "value": false,
     "pro": true
   },
   {
@@ -65,7 +61,22 @@
       { "name": "company founded", "key": "companyFounded", "description": "The year the company was founded." },
       { "key": "employees", "description": "Names and titles of employees." }
     ],
-    "value": false,
+    "pro": true
+  },
+  {
+    "key": "social",
+    "name": "Social media accounts",
+    "attributes": [
+      { "name": "Twitter", "key": "twitter", "description": "Twitter handles found on the website's contact page." },
+      { "name": "Facebook", "key": "facebook", "description": "Facebook handles found on the website's contact page." },
+      { "name": "Instagram", "key": "instagram", "description": "Instagram handles found on the website's contact page." },
+      { "name": "GitHub", "key": "github", "description": "GitHub handles found on the website's contact page." },
+      { "name": "TikTok", "key": "tiktok", "description": "TikTok handles found on the website's contact page." },
+      { "name": "YouTube", "key": "youtube", "description": "YouTube handles found on the website's contact page." },
+      { "name": "Pinterest", "key": "pinterest", "description": "Pinterest handles found on the website's contact page." },
+      { "name": "LinkedIn", "key": "linkedin", "description": "LinkedIn handles found on the website's contact page." },
+      { "name": "Owler", "key": "owler", "description": "Owler handles found on the website's contact page." }
+    ],
     "pro": true
   },
   {
@@ -74,7 +85,6 @@
     "attributes": [
       { "key": "keywords", "description": "Relevant keywords found in website content." }
     ],
-    "value": false,
     "pro": true
   },
   {
@@ -96,8 +106,7 @@
       { "name": "IP country", "key": "ipCountry", "description": "The website's country, based on its IP address. This is usually the where the website is hosted, which can be indicative of where a business operates from." },
       { "name": "IP region", "key": "ipRegion", "description": "The website's region (e.g. state), based on its IP address" },
       { "key": "language", "description": "The website's language, determined by interpreting content on the website. Indicative only." }
-    ],
-    "value": false
+    ]
   },
   {
     "key": "trackers",
@@ -108,8 +117,7 @@
       { "name": "Medianet", "key": "trackerMedianet", "description": "Medianet tracking ID." },
       { "name": "Facebook", "key": "trackerFacebook", "description": "Facebook tracking ID." },
       { "name": "Optimizely", "key": "trackerOptimizely", "description": "Optimizely tracking ID." }
-    ],
-    "value": false
+    ]
   },
   {
     "key": "security",
@@ -119,7 +127,6 @@
       { "name": "Cert protocol", "key": "certInfo.protocol", "description": "SSL/TLS protocol and version." },
       { "name": "Cert expiry", "key": "certInfo.validTo", "description": "Expiry date of the SSL/TLS certificate." },
       { "name": "SSL/TLS enabled", "key": "https", "description": "The website is served over a secure connection." }
-    ],
-    "value": false
+    ]
   }
 ]

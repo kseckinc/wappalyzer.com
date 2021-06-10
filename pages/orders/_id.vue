@@ -665,7 +665,7 @@
           </v-card-text>
         </template>
 
-        <template v-if="['Open', 'Processing'].includes(order.status)">
+        <template v-if="order.status === 'Open'">
           <template
             v-if="
               !isMember &&
@@ -890,7 +890,7 @@
           </template>
         </template>
 
-        <template v-if="order.status === 'Complete'">
+        <template v-if="['Processing', 'Complete'].includes(order.status)">
           <v-divider />
 
           <v-card-title>Payment</v-card-title>

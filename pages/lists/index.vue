@@ -33,17 +33,49 @@
             </v-card-title>
 
             <v-card-text>
-              <p style="max-width: 600px">
-                Get started by selecting one or more technologies or keywords.
-                Optionally add filters to get exactly what you need. Within
-                minutes, you get a free sample and quote to review. Complete the
-                order to download the full list immediately.
-              </p>
+              <v-row>
+                <v-col cols="12" sm="6">
+                  <p>
+                    Get started by selecting one or more technologies or
+                    keywords. Optionally add filters to get exactly what you
+                    need. Within minutes, you get a free sample and quote to
+                    review. Complete the order to download the full list
+                    immediately.
+                  </p>
 
-              <p class="mb-2">
-                Not sure what to do?
-                <a @click="suggestionsDialog = true">Start with these ideas</a>.
-              </p>
+                  <p class="mb-2">
+                    Not sure what to do?
+                    <a @click="suggestionsDialog = true"
+                      >Start with these ideas</a
+                    >.
+                  </p>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <v-card
+                    v-if="!isPro"
+                    color="primary lighten-1 primary--text"
+                    class="mt-n4"
+                    flat
+                  >
+                    <v-card-title class="subtitle-2">
+                      <v-icon color="primary" size="20" left>{{
+                        mdiLockOpenVariantOutline
+                      }}</v-icon>
+                      Unlock pro features
+                    </v-card-title>
+                    <v-card-text class="primary--text pb-0">
+                      Subscribe to a
+                      <v-chip color="primary" x-small outlined>PRO</v-chip> plan
+                      to include company and contact information in lead lists.
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer />
+
+                      <v-btn color="primary" text>Compare plans</v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-col>
+              </v-row>
             </v-card-text>
 
             <v-divider class="mb-4" />
@@ -1328,6 +1360,7 @@ import {
   mdiFilterOutline,
   mdiArrowCollapseVertical,
   mdiFilterVariant,
+  mdiLockOpenVariantOutline,
 } from '@mdi/js'
 import Page from '~/components/Page.vue'
 import Technologies from '~/components/Technologies.vue'
@@ -1396,6 +1429,7 @@ export default {
       mdiFilterOutline,
       mdiArrowCollapseVertical,
       mdiFilterVariant,
+      mdiLockOpenVariantOutline,
       minAge: 0,
       maxAge: 3,
       meta,

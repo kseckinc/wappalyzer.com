@@ -23,10 +23,15 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content eager>
           <p>
-            Lead lists include domain names, version numbers, website country
-            and language, a traffic indicator, company information, email
-            addresses, phone numbers and links to social media profiles such as
-            LinkedIn, subject to availability.
+            Lead lists include hostnames, version numbers, website country and
+            language, traffic rank and metadata such as page title and
+            description.
+          </p>
+
+          <p>
+            On a <v-chip color="primary" x-small outlined>PRO</v-chip> plan,
+            available company and contact information such as employee counts,
+            email addresses and phone numbers are included too.
           </p>
 
           <p>
@@ -43,9 +48,8 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content eager>
           <p>
-            Lead lists can be filtered by keyword, IP country, top-level domain
-            and language. Right now we do not segment by company information
-            such as size or revenue.
+            Lead lists can be filtered by keyword, company industry and size,
+            website traffic, IP country, top-level domain and language.
           </p>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -182,10 +186,15 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content eager>
           <p>
-            The APIs return domain names, version numbers, website country and
-            language, a traffic indicator, company information, email addresses,
-            phone numbers and links to social media profiles such as LinkedIn,
-            subject to availability.
+            The APIs return hostnames, version numbers, website country and
+            language, traffic rank and metadata such as page title and
+            description.
+          </p>
+
+          <p>
+            On a <v-chip color="primary" x-small outlined>PRO</v-chip> plan,
+            available company and contact information such as employee counts,
+            email addresses and phone numbers are included too.
           </p>
 
           <p>
@@ -286,8 +295,29 @@
         <v-expansion-panel-content eager>
           <p>
             We accept one-time payments for lead lists, technology lookups and
-            credits. A paid plan is usually more cost-effective, particularly
-            when making regular or higher volume purchases.
+            credits. A paid plan is required to access company and contact
+            details and is usually more cost-effective, particularly when making
+            regular or higher volume purchases.
+          </p>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
+      <v-expansion-panel>
+        <v-expansion-panel-header>
+          <span>
+            What are
+            <span class="body-2">
+              <v-chip color="primary" x-small outlined>PRO</v-chip></span
+            >
+            features?
+          </span>
+        </v-expansion-panel-header>
+        <v-expansion-panel-content eager>
+          <p>
+            <v-chip color="primary" x-small outlined>PRO</v-chip> features
+            include CRM integrations and access to company and contact
+            information in all of our data products, including lead lists,
+            technology lookups and APIs.
           </p>
         </v-expansion-panel-content>
       </v-expansion-panel>
