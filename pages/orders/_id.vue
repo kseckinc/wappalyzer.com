@@ -593,7 +593,7 @@
 
           <v-card-text class="px-0">
             <v-simple-table
-              v-if="paymentMethod === 'free' || order.paymentMethod === 'free'"
+              v-if="(order.paymentMethod || paymentMethod) === 'free'"
             >
               <tbody>
                 <tr>
@@ -603,9 +603,7 @@
               </tbody>
             </v-simple-table>
             <v-simple-table
-              v-else-if="
-                paymentMethod === 'credits' || order.paymentMethod === 'credits'
-              "
+              v-else-if="(order.paymentMethod || paymentMethod) === 'credits'"
             >
               <tbody>
                 <tr>

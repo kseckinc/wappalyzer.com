@@ -73,9 +73,9 @@ export default {
           to: '/articles/how-to-hide-technologies-from-wappalyzer/',
         },
         {
-          title: 'Wappalyzer vs. BuiltWith and Datanyze',
-          intro: `Wappalyzer, BuiltWith and Datanyze are data vendors that scan websites to identify technologies. When looking for providers in the technographics space, Wappalyzer is often mentioned as a BuiltWith alternative or Datanyze alternative.`,
-          to: '/articles/wappalyzer-vs-builtwith-and-datanyze/',
+          title: 'Wappalyzer vs. BuiltWith',
+          intro: `Wappalyzer and BuiltWith are technology profilers that provide tools for lead generation, market research and business intelligence. Looking for a comparison between Wappalyzer and BuiltWith? Here's a full review.`,
+          to: '/articles/wappalyzer-vs-builtwith/',
         },
       ],
       mdiArrowRight,

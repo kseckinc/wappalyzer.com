@@ -28,7 +28,7 @@ Vue.mixin({
           style: 'currency',
           currency,
           minimumFractionDigits: decimal ? 2 : 0,
-          maximumFractionDigits: decimal ? 3 : 0,
+          maximumFractionDigits: decimal ? 4 : 0,
         }
       )}${
         currency.toUpperCase() === 'AUD' ? ` ${currency.toUpperCase()}` : ''

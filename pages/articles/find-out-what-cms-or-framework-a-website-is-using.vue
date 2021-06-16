@@ -130,16 +130,22 @@
         Wappalyzer's <nuxt-link to="/lists/">lead lists</nuxt-link>.
       </p>
     </article>
+
+    <template #footer>
+      <Logos apps use-cases />
+    </template>
   </Page>
 </template>
 
 <script>
 import Page from '~/components/Page.vue'
+import Logos from '~/components/Logos.vue'
 import Code from '~/components/Code.vue'
 
 export default {
   components: {
     Page,
+    Logos,
     Code,
   },
   data() {

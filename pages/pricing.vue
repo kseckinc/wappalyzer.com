@@ -8,38 +8,7 @@
         </v-btn>
       </div>
 
-      <div
-        class="
-          d-flex
-          flex-row
-          align-center
-          body-2
-          font-weight-medium
-          mb-6
-          mt-4 mt-md-0
-        "
-      >
-        <v-spacer />
-        <span class="font-weight-regular mr-2">Billing </span>
-        <span @click="annually = !annually">Monthly</span>
-        <v-switch
-          v-model="annually"
-          class="my-0 ml-4"
-          inset
-          hide-details
-        ></v-switch>
-        <span @click="annually = !annually">
-          Annually <span class="font-weight-regular ml-1">(discounted)</span>
-        </span>
-        <v-spacer />
-      </div>
-
-      <Matrix
-        :items="plans"
-        :attrs="attrs"
-        button-text="Sign up"
-        @select="subscribe"
-      />
+      <Pricing :billing="annually ? 'annually' : 'monthly'" />
 
       <small class="text--disabled">
         <nuxt-link to="/contact/">Contact us</nuxt-link> for tailored plans.
@@ -165,17 +134,6 @@
         >
       </div>
 
-      <v-dialog v-model="signInDialog" max-width="400px">
-        <SignIn mode-continue mode-sign-up />
-      </v-dialog>
-
-      <OrderDialog
-        :id="order ? order.id : null"
-        ref="orderDialog"
-        :error="orderError"
-        @close="orderDialog = false"
-      />
-
       <FaqDialog ref="faqDialog" topic="pricing" />
 
       <template #footer>
@@ -186,69 +144,33 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import { mdiForum } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
+import Pricing from '~/components/Pricing.vue'
 import Logos from '~/components/Logos.vue'
-import SignIn from '~/components/SignIn.vue'
-import OrderDialog from '~/components/OrderDialog.vue'
-import Matrix from '~/components/Matrix.vue'
 import FaqDialog from '~/components/FaqDialog.vue'
-import { attrs, plans } from '~/assets/json/plans.json'
 import { creditsPerUnit, creditTiers } from '~/assets/json/pricing.json'
 import { pricing as meta } from '~/assets/json/meta.json'
 
 export default {
   components: {
     Page,
+    Pricing,
     Logos,
-    SignIn,
-    OrderDialog,
-    Matrix,
     FaqDialog,
   },
   data() {
     return {
       title: meta.title,
-      attrs,
       faqDialog: false,
-      order: false,
-      orderError: '',
       annually: true,
       creditsPerUnit,
       creditTiers,
       mdiForum,
       meta,
-      signInDialog: false,
-      subscribing: false,
       text: meta.text,
     }
-  },
-  computed: {
-    ...mapState({
-      isSignedIn: ({ user }) => user.isSignedIn,
-      isMember: ({ user }) =>
-        !user.admin && user.impersonator && !user.impersonator.admin,
-    }),
-    plans() {
-      return Object.keys(plans).reduce((_plans, plan) => {
-        if (plans[plan].interval === (this.annually ? 'year' : 'month')) {
-          _plans[plan] = plans[plan]
-        }
-
-        return _plans
-      }, {})
-    },
-  },
-  watch: {
-    '$store.state.user.isSignedIn'(isSignedIn) {
-      if (isSignedIn && this.subscribing) {
-        this.signInDialog = false
-
-        this.subscribe(this.subscribing)
-      }
-    },
   },
   mounted() {
     const { billing } = this.$route.query
@@ -258,39 +180,6 @@ export default {
 
       this.$router.replace(this.$route.path)
     }
-  },
-  methods: {
-    async subscribe(plan) {
-      this.order = false
-      this.orderError = ''
-      this.subscribing = plan
-
-      if (!this.isSignedIn) {
-        this.signInDialog = true
-
-        return
-      }
-
-      this.$refs.orderDialog.open()
-
-      if (this.isMember) {
-        this.orderError =
-          'Subscriptions can only be created by the account owner.'
-
-        return
-      }
-
-      try {
-        this.order = (
-          await this.$axios.put('orders', {
-            product: 'Subscription',
-            plan,
-          })
-        ).data
-      } catch (error) {
-        this.orderError = this.getErrorMessage(error)
-      }
-    },
   },
 }
 </script>

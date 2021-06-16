@@ -70,4 +70,13 @@
       <ReplaceKeyPrefixWith>docs/fields/</ReplaceKeyPrefixWith>
 		</Redirect>
 	</RoutingRule>
+	<RoutingRule>
+		<Condition>
+      <KeyPrefixEquals>articles/wappalyzer-vs-builtwith-and-datanyze</KeyPrefixEquals>
+		</Condition>
+		<Redirect>
+			<HostName>www.wappalyzer.com</HostName>
+      <ReplaceKeyPrefixWith>articles/wappalyzer-vs-builtwith</ReplaceKeyPrefixWith>
+		</Redirect>
+	</RoutingRule>
 </RoutingRules>

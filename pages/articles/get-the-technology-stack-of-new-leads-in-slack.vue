@@ -262,15 +262,21 @@
         streamlining their processes with Zapier.
       </v-alert>
     </article>
+
+    <template #footer>
+      <Logos apps use-cases />
+    </template>
   </Page>
 </template>
 
 <script>
 import Page from '~/components/Page.vue'
+import Logos from '~/components/Logos.vue'
 
 export default {
   components: {
     Page,
+    Logos,
   },
   data() {
     return {

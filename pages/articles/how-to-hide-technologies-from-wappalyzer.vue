@@ -128,15 +128,21 @@
         used on websites you visit at glance.
       </p>
     </article>
+
+    <template #footer>
+      <Logos apps use-cases />
+    </template>
   </Page>
 </template>
 
 <script>
 import Page from '~/components/Page.vue'
+import Logos from '~/components/Logos.vue'
 
 export default {
   components: {
     Page,
+    Logos,
   },
   data() {
     return {

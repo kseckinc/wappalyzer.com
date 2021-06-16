@@ -108,12 +108,12 @@
         such as CMS and ecommerce.
       </p>
 
-      <p>
+      <v-card class="my-8">
         <v-img
           src="/images/articles/top-ecommerce-platforms.png"
           alt="Top ecommerce platforms"
         />
-      </p>
+      </v-card>
 
       <p>
         The Web Almanac is the brainchild of
@@ -156,15 +156,21 @@
         technology fingerprints and methods of inspection.
       </p>
     </article>
+
+    <template #footer>
+      <Logos apps use-cases />
+    </template>
   </Page>
 </template>
 
 <script>
 import Page from '~/components/Page.vue'
+import Logos from '~/components/Logos.vue'
 
 export default {
   components: {
     Page,
+    Logos,
   },
   data() {
     return {

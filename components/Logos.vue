@@ -2,6 +2,14 @@
   <div>
     <v-divider class="mb-12" />
 
+    <template v-if="useCases">
+      <v-container class="py-6">
+        <UseCases />
+      </v-container>
+
+      <v-divider class="mb-12" />
+    </template>
+
     <template v-if="apps">
       <v-container class="mb-8">
         <div class="text-h3 mb-4">Apps</div>
@@ -35,6 +43,7 @@
 <script>
 import Testimonials from '~/components/Testimonials.vue'
 import Apps from '~/components/Apps.vue'
+import UseCases from '~/components/UseCases.vue'
 
 import Adobe from '~/assets/images/logos/Adobe.svg?inline'
 import Amazon from '~/assets/images/logos/Amazon.svg?inline'
@@ -53,6 +62,7 @@ export default {
   components: {
     Testimonials,
     Apps,
+    UseCases,
     Google,
     Oracle,
     Amazon,
@@ -68,6 +78,10 @@ export default {
   },
   props: {
     apps: {
+      type: Boolean,
+      default: false,
+    },
+    useCases: {
       type: Boolean,
       default: false,
     },

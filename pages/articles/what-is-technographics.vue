@@ -62,8 +62,8 @@
       </p>
 
       <p>
-        Use <nuxt-link to="/lists/">Bulk lookup</nuxt-link> to enrich your own
-        list of websites with technographic data.
+        Use <nuxt-link to="/lookup/#bulk">Bulk lookup</nuxt-link> to enrich your
+        own list of websites with technographic data.
       </p>
 
       <p>
@@ -77,15 +77,21 @@
         instant technology lookups and real-time scraping of websites.
       </p>
     </article>
+
+    <template #footer>
+      <Logos apps use-cases />
+    </template>
   </Page>
 </template>
 
 <script>
 import Page from '~/components/Page.vue'
+import Logos from '~/components/Logos.vue'
 
 export default {
   components: {
     Page,
+    Logos,
   },
   data() {
     return {
