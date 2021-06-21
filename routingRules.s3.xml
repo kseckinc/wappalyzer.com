@@ -58,7 +58,7 @@
 		</Condition>
 		<Redirect>
 			<HostName>www.wappalyzer.com</HostName>
-      <ReplaceKeyPrefixWith>docs/api/v2/live/</ReplaceKeyPrefixWith>
+      <ReplaceKeyPrefixWith>docs/api/v2/live</ReplaceKeyPrefixWith>
 		</Redirect>
 	</RoutingRule>
 	<RoutingRule>
@@ -67,7 +67,7 @@
 		</Condition>
 		<Redirect>
 			<HostName>www.wappalyzer.com</HostName>
-      <ReplaceKeyPrefixWith>docs/fields/</ReplaceKeyPrefixWith>
+      <ReplaceKeyPrefixWith>docs/fields</ReplaceKeyPrefixWith>
 		</Redirect>
 	</RoutingRule>
 	<RoutingRule>

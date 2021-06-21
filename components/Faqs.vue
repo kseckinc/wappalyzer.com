@@ -29,9 +29,10 @@
           </p>
 
           <p>
-            On a <v-chip color="primary" x-small outlined>PRO</v-chip> plan,
-            available company and contact information such as employee counts,
-            email addresses and phone numbers are included too.
+            On a
+            <v-chip to="/pricing/" color="primary" x-small outlined>PRO</v-chip>
+            plan, available company and contact information such as employee
+            counts, email addresses and phone numbers are included too.
           </p>
 
           <p>
@@ -317,7 +318,7 @@
             <v-chip color="primary" x-small outlined>PRO</v-chip> features
             include CRM integrations and access to company and contact
             information in all of our data products, including lead lists,
-            technology lookups and APIs.
+            technology lookups, APIs and browser extension.
           </p>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -393,6 +394,27 @@
     </v-expansion-panels>
 
     <v-expansion-panels v-if="topic === 'extension'" flat>
+      <v-expansion-panel>
+        <v-expansion-panel-header>
+          What's the 'more info' tab about?
+        </v-expansion-panel-header>
+        <v-expansion-panel-content eager>
+          The browser extension shows the technologies a websites uses, for
+          free. On a
+          <v-chip to="/pricing/" color="primary" x-small outlined>PRO</v-chip>
+          plan, the 'more info' tab reveals available company and contact
+          information for the website as well as social media profiles and any
+          other metadata we find.
+
+          <v-card class="my-8" :max-width="1118 * 0.5">
+            <v-img
+              src="/images/faqs/extension-pro.png"
+              alt="Wappalyzer PRO extension"
+            />
+          </v-card>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
       <v-expansion-panel>
         <v-expansion-panel-header>
           Can I suggest a technology to be added?

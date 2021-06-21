@@ -194,7 +194,9 @@ export default {
     async '$store.state.user.isSignedIn'(isSignedIn) {
       if (isSignedIn) {
         try {
-          this.apiKey = (await this.$axios.get('apikey')).data
+          ;({ apiKey: this.apiKey, secret: this.secret } = (
+            await this.$axios.get('apikey')
+          ).data)
 
           this.loading = false
         } catch (error) {
