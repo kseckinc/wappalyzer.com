@@ -2,71 +2,91 @@
   <div>
     <Page
       :title="title"
-      :seo-title="`Websites using ${title}`"
+      :seo-title="`${title} feature and pricing comparison`"
       :crumbs="crumbs"
       :head="{ title, meta }"
-      no-head
-      hero
+      no-hero
     >
-      <v-row>
-        <v-col
-          v-for="technology in technologies"
-          :key="technology.slug"
-          class="py-0"
-        >
-          <h1 class="d-flex align-center mb-2">
-            <TechnologyIcon
-              :icon="technology ? technology.icon : 'default.svg'"
-              large
-            />
-
-            {{ technology.name }}
-          </h1>
-
-          <div class="mb-6 caption text--disabled">
-            <StarRating :stars="technology.rating" large />
-            ({{ formatNumber(technology.reviewCount) }})
-          </div>
-        </v-col>
-      </v-row>
-
-      <v-row class="mb-12">
-        <v-col
-          v-for="technology in technologies"
-          :key="technology.slug"
-          class="py-0"
-        >
-          <v-card class="mt-2" height="100%">
-            <v-card-text class="py-2 pb-0">
-              <v-row class="align-center px-3 my-2 body-2">
-                <v-icon class="mr-2" small>{{ mdiLink }}</v-icon>
-                <div>
-                  <a :href="technology.website" target="_blank">
-                    {{ formatHostname(technology.website) }}
-                  </a>
-                </div>
-              </v-row>
-
-              <v-row class="align-center px-3 my-2 body-2">
-                <v-icon class="mr-2" small>{{ mdiShape }}</v-icon>
-                <div>
-                  <span
-                    v-for="(
-                      { slug: _slug, name }, index
-                    ) in technology.categories"
-                    :key="_slug"
+      <v-card>
+        <v-card-text class="mt-4 px-0">
+          <v-simple-table>
+            <tbody>
+              <tr>
+                <th width="20%"></th>
+                <td
+                  v-for="technology in technologies"
+                  :key="technology.slug"
+                  class="pb-2"
+                  width="40%"
+                >
+                  <h3>
+                    <nuxt-link
+                      :to="`/technologies/${technology.categorySlug}/${technology.slug}/`"
+                      class="d-flex align-center my-2"
+                    >
+                      <TechnologyIcon :icon="technology.icon" large />
+                      {{ technology.name }}
+                    </nuxt-link>
+                  </h3>
+                </td>
+              </tr>
+              <tr>
+                <th>Website</th>
+                <td v-for="technology in technologies" :key="technology.slug">
+                  <v-chip
+                    :href="technology.website"
+                    color="accent"
+                    target="_blank"
+                    outlined
+                    small
                   >
-                    <template v-if="index">,</template>
-                    <nuxt-link :to="`/technologies/${_slug}/`">{{
-                      name
-                    }}</nuxt-link>
-                  </span>
-                </div>
-              </v-row>
+                    Visit {{ formatHostname(technology.website) }}
+                    <v-icon right x-small>{{ mdiOpenInNew }}</v-icon>
+                  </v-chip>
+                </td>
+              </tr>
+              <tr>
+                <th>Categories</th>
+                <td
+                  v-for="technology in technologies"
+                  :key="technology.slug"
+                  class="py-2"
+                >
+                  <v-chip-group column>
+                    <v-chip
+                      v-for="{ slug: _slug, name } in technology.categories"
+                      :key="_slug"
+                      :to="`/technologies/${_slug}/`"
+                      color="primary"
+                      outlined
+                      small
+                      exact
+                      >{{ name }}</v-chip
+                    >
 
-              <v-row class="align-center px-3 my-2 body-2">
-                <v-icon class="mr-2" small>{{ mdiEarth }}</v-icon>
-                <div>
+                    <v-chip v-if="technology.saas" small outlined
+                      >Software as a service</v-chip
+                    >
+
+                    <v-chip v-if="technology.oss" small outlined
+                      >Open-source software</v-chip
+                    >
+                  </v-chip-group>
+                </td>
+              </tr>
+              <tr>
+                <th>About</th>
+                <td
+                  v-for="technology in technologies"
+                  :key="technology.slug"
+                  class="py-2"
+                >
+                  {{ technology.description || 'No description available.' }}
+                </td>
+              </tr>
+              <tr>
+                <th>Websites tracked</th>
+                <td v-for="technology in technologies" :key="technology.slug">
                   <nuxt-link
                     :to="`/technologies/${
                       technology.categories.length
@@ -74,29 +94,105 @@
                         : ''
                     }${technology.slug}`"
                   >
-                    {{ formatNumber(technology.hostnames, true) }} websites
+                    {{ formatNumber(technology.hostnames, true) }}
                   </nuxt-link>
-                </div>
-              </v-row>
+                </td>
+              </tr>
+              <tr>
+                <th>Pricing</th>
+                <td v-for="technology in technologies" :key="technology.slug">
+                  <v-tooltip top>
+                    <template #activator="{ on }">
+                      <v-chip
+                        v-if="
+                          technology.pricing.includes('low') ||
+                          technology.pricing.includes('mid') ||
+                          technology.pricing.includes('high')
+                        "
+                        small
+                        outlined
+                        v-on="on"
+                        ><v-icon small>{{ mdiCurrencyUsd }}</v-icon>
+                        <v-icon
+                          :disabled="technology.pricing.includes('low')"
+                          small
+                          >{{
+                            technology.pricing.includes('low')
+                              ? mdiCurrencyUsdOff
+                              : mdiCurrencyUsd
+                          }}</v-icon
+                        >
+                        <v-icon
+                          :disabled="
+                            technology.pricing.includes('low') ||
+                            technology.pricing.includes('mid')
+                          "
+                          small
+                          >{{
+                            technology.pricing.includes('low') ||
+                            technology.pricing.includes('mid')
+                              ? mdiCurrencyUsdOff
+                              : mdiCurrencyUsd
+                          }}</v-icon
+                        >
+                      </v-chip>
+                    </template>
 
-              <v-row class="px-3 my-2 body-2">
-                <v-col class="pa-0 flex-grow-0 flex-shrink-1">
-                  <v-icon class="mr-2" small>{{ mdiInformation }}</v-icon>
-                </v-col>
-                <v-col class="pa-0">
-                  <div>
-                    {{ technology.description || 'No description available.' }}
-                  </div>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
+                    {{
+                      `Typically costs ${
+                        technology.pricing.includes('mid')
+                          ? 'less than US $1,000/mo'
+                          : technology.pricing.includes('high')
+                          ? 'more than US $1,000/mo'
+                          : 'less than US $100/mo'
+                      } (indicative)`
+                    }}
+                  </v-tooltip>
+
+                  <v-chip
+                    v-if="technology.pricing.includes('recurring')"
+                    small
+                    outlined
+                    >Offers paid plans</v-chip
+                  >
+
+                  <v-chip
+                    v-if="technology.pricing.includes('freemium')"
+                    small
+                    outlined
+                    >Offers a free plan</v-chip
+                  >
+
+                  <v-chip
+                    v-if="technology.pricing.includes('poa')"
+                    small
+                    outlined
+                    >Price on asking</v-chip
+                  >
+
+                  <v-chip
+                    v-if="technology.pricing.includes('payg')"
+                    small
+                    outlined
+                    >Pay as you go</v-chip
+                  >
+
+                  <v-chip
+                    v-if="technology.pricing.includes('onetime')"
+                    small
+                    outlined
+                    >Accepts one-time payments</v-chip
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+        </v-card-text>
+      </v-card>
 
       <v-divider class="my-12" />
 
-      <h2 class="mb-2">
+      <h2 class="mb-6">
         <v-row class="align-center px-3">
           <v-icon color="primary" class="mr-2">{{ mdiFinance }}</v-icon>
           Usage trends
@@ -121,9 +217,9 @@
         </v-card-text>
       </v-card>
 
-      <v-divider class="mt-16 mb-12" />
+      <v-divider class="mt-14 mb-12" />
 
-      <h2 class="mb-4">
+      <h2 class="mb-6">
         <v-row class="align-center px-3">
           <v-icon color="primary" class="mr-2">{{ mdiFinance }}</v-icon>
           Market share
@@ -245,25 +341,32 @@
         <nuxt-link to="/compare">Choose technologies to compare</nuxt-link>
         <v-icon color="accent" small>{{ mdiArrowRight }}</v-icon>
       </small>
+
+      <template #footer>
+        <v-divider class="mb-12" />
+
+        <v-container class="py-6">
+          <UseCases />
+        </v-container>
+      </template>
     </Page>
   </div>
 </template>
 
 <script>
 import {
-  mdiEarth,
-  mdiInformation,
-  mdiLink,
-  mdiShape,
   mdiFinance,
   mdiArrowRight,
+  mdiOpenInNew,
+  mdiCurrencyUsdOff,
+  mdiCurrencyUsd,
 } from '@mdi/js'
 import { GChart } from 'vue-google-charts'
 
 import Page from '~/components/Page.vue'
 import Bar from '~/components/Bar.vue'
-import StarRating from '~/components/StarRating.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
+import UseCases from '~/components/UseCases.vue'
 
 export default {
   components: {
@@ -271,7 +374,7 @@ export default {
     Bar,
     TechnologyIcon,
     GChart,
-    StarRating,
+    UseCases,
   },
   async asyncData({ route, $axios, redirect, error }) {
     const { slug } = route.params
@@ -319,12 +422,11 @@ export default {
           position: 'in',
         },
       },
-      mdiEarth,
-      mdiInformation,
-      mdiLink,
-      mdiShape,
       mdiFinance,
       mdiArrowRight,
+      mdiOpenInNew,
+      mdiCurrencyUsdOff,
+      mdiCurrencyUsd,
     }
   },
   computed: {

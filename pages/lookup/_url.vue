@@ -42,7 +42,9 @@
 
             <v-expansion-panels
               v-if="
-                !loading && (Object.keys(attributes).length || keywords.length)
+                !loading &&
+                !error &&
+                (Object.keys(attributes).length || keywords.length)
               "
               class="mt-4"
             >

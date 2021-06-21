@@ -457,6 +457,14 @@
           </v-card-text>
         </v-card>
       </template>
+
+      <template #footer>
+        <v-divider class="mb-12" />
+
+        <v-container class="py-6">
+          <UseCases />
+        </v-container>
+      </template>
     </Page>
 
     <v-dialog v-model="reviewDialog" max-width="500px">
@@ -585,6 +593,7 @@ import StarRating from '~/components/StarRating.vue'
 import Review from '~/components/Review.vue'
 import SignIn from '~/components/SignIn.vue'
 import Progress from '~/components/Progress.vue'
+import UseCases from '~/components/UseCases.vue'
 import countries from '~/assets/json/countries.json'
 import languages from '~/assets/json/languages.json'
 
@@ -598,6 +607,7 @@ export default {
     Review,
     SignIn,
     Progress,
+    UseCases,
   },
   async asyncData({ route, $axios, redirect }) {
     const { category, slug } = route.params

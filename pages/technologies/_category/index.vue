@@ -126,11 +126,17 @@
       <div class="text-right mb-4">
         <v-btn color="accent" outlined @click="showAll = !showAll">
           <v-icon left>{{ showAll ? mdiMinus : mdiPlus }}</v-icon>
-          {{ showAll ? 'View less' : 'View all' }}
+          {{
+            showAll
+              ? 'View less'
+              : `View all ${formatNumber(
+                  Object.keys(category.technologies).length
+                )}`
+          }}
         </v-btn>
       </div>
 
-      <v-divider class="my-12" />
+      <v-divider class="mb-12" />
 
       <h3 class="mb-2">{{ category.name }} technology reports</h3>
 
@@ -165,6 +171,14 @@
           >.
         </small>
       </p>
+
+      <template #footer>
+        <v-divider class="mb-12" />
+
+        <v-container class="py-6">
+          <UseCases />
+        </v-container>
+      </template>
     </Page>
 
     <v-dialog v-model="signInDialog" max-width="400px">
@@ -210,6 +224,7 @@ import TechnologyIcon from '~/components/TechnologyIcon.vue'
 import Bar from '~/components/Bar.vue'
 import SignIn from '~/components/SignIn.vue'
 import Progress from '~/components/Progress.vue'
+import UseCases from '~/components/UseCases.vue'
 
 export default {
   components: {
@@ -218,6 +233,7 @@ export default {
     Bar,
     SignIn,
     Progress,
+    UseCases,
   },
   async asyncData({ route, redirect, $axios }) {
     const { category: slug } = route.params
@@ -291,6 +307,7 @@ export default {
             ? -order
             : 0
         })
+        .slice(0, this.showAll ? Object.keys(technologies).length : 10)
         .forEach((name) => (ordered[name] = technologies[name]))
 
       return ordered
