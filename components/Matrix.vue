@@ -11,7 +11,13 @@
           <v-divider />
           <v-responsive height="60" class="align-center">
             <v-card-text class="py-0">
-              <v-chip v-if="attr.badge" color="primary" x-small outlined>
+              <v-chip
+                v-if="attr.badge"
+                to="/pro/"
+                color="primary"
+                x-small
+                outlined
+              >
                 {{ attr.badge }}
               </v-chip>
 
@@ -171,7 +177,7 @@
                 <template v-else-if="attr.type === 'pro'">
                   <v-chip
                     v-if="item.attrs[name] === true"
-                    to="/pricing/"
+                    to="/pro/"
                     color="primary"
                     x-small
                     outlined

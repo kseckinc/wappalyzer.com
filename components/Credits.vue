@@ -62,7 +62,9 @@
         <v-col class="py-0 text-right pr-0 flex-grow-1 flex-shrink-0">
           <small>
             Credit balance:
-            <Spinner v-if="isLoading" />
+            <span v-if="isLoading" class="ml-2">
+              <Spinner />
+            </span>
             <span v-else class="font-weight-medium">
               {{ formatNumber(credits) }}
             </span>

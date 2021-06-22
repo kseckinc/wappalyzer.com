@@ -30,15 +30,19 @@
 
           <p>
             On a
-            <v-chip to="/pricing/" color="primary" x-small outlined>PRO</v-chip>
+            <v-chip to="/pro/" color="primary" x-small outlined>PRO</v-chip>
             plan, available company and contact information such as employee
             counts, email addresses and phone numbers are included too.
           </p>
 
           <p>
             See the full list of
-            <nuxt-link to="/docs/fields/">fields</nuxt-link> and
-            <a href="/list-sample.zip">lead list sample</a>.
+            <nuxt-link to="/docs/fields/">fields</nuxt-link>, all
+            <nuxt-link to="/pro/">
+              <v-chip to="/pro/" color="accent" x-small outlined>PRO</v-chip>
+              features</nuxt-link
+            >
+            and a <a href="/list-sample.zip">lead list sample</a>.
           </p>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -193,9 +197,10 @@
           </p>
 
           <p>
-            On a <v-chip color="primary" x-small outlined>PRO</v-chip> plan,
-            available company and contact information such as employee counts,
-            email addresses and phone numbers are included too.
+            On a
+            <v-chip to="/pro/" color="primary" x-small outlined>PRO</v-chip>
+            plan, available company and contact information such as employee
+            counts, email addresses and phone numbers are included too.
           </p>
 
           <p>
@@ -315,10 +320,15 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content eager>
           <p>
-            <v-chip color="primary" x-small outlined>PRO</v-chip> features
-            include CRM integrations and access to company and contact
+            <v-chip to="/pro/" color="primary" x-small outlined>PRO</v-chip>
+            features include CRM integrations and access to company and contact
             information in all of our data products, including lead lists,
             technology lookups, APIs and browser extension.
+            <nuxt-link to="/pro/"
+              >See all
+              <v-chip to="/pro/" color="accent" x-small outlined>PRO</v-chip>
+              features</nuxt-link
+            >.
           </p>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -405,6 +415,11 @@
           plan, the 'more info' tab reveals available company and contact
           information for the website as well as social media profiles and any
           other metadata we find.
+          <nuxt-link to="/pro/"
+            >See all
+            <v-chip to="/pro/" color="accent" x-small outlined>PRO</v-chip>
+            features</nuxt-link
+          >.
 
           <v-card class="my-8" :max-width="1118 * 0.5">
             <v-img

@@ -2,12 +2,12 @@
   <v-row align="stretch">
     <template v-for="(app, name) in apps">
       <v-col
-        v-if="!integrations || app.settings"
+        v-if="pro ? app.pro : !integrations || app.settings"
         :key="name"
         cols="12"
         :sm="6"
-        :md="integrations ? 6 : 4"
-        :lg="integrations ? 4 : 3"
+        :md="integrations || pro ? 6 : 4"
+        :lg="integrations || pro ? 4 : 3"
       >
         <v-card
           class="d-flex flex-column justify-space-between"
@@ -16,7 +16,7 @@
           flat
         >
           <v-card-text
-            :class="feature ? 'px-0' : 'pb-0'"
+            :class="feature ? 'px-0' : pro ? '' : 'pb-0'"
             style="cursor: pointer"
             @click="goto(integrations ? app.settings : app.href)"
           >
@@ -34,7 +34,7 @@
                   <h2 class="mr-2">
                     {{ app.name }}
                   </h2>
-                  <span v-if="app.pro && !feature"
+                  <span v-if="app.pro && !feature && !pro"
                     ><v-chip color="primary" x-small outlined>PRO</v-chip>
                   </span>
                 </div>
@@ -43,7 +43,7 @@
               </v-col>
             </v-row>
           </v-card-text>
-          <v-card-actions v-if="!feature">
+          <v-card-actions v-if="!feature && !pro">
             <v-spacer />
 
             <v-tooltip v-if="app.settings" top>
