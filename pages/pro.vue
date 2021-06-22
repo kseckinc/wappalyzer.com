@@ -13,7 +13,17 @@
             and contact information.
           </p>
 
-          <v-divider class="mt-12 mb-6" />
+          <v-btn
+            href="#plans"
+            class="my-2"
+            depressed
+            @click.prevent="scrollTo('#plans')"
+          >
+            Compare plans
+            <v-icon right>{{ mdiArrowRight }}</v-icon>
+          </v-btn>
+
+          <v-divider class="mt-6 mb-6" />
 
           <h2 class="text-h2 mt-8 mb-2 d-flex">
             <v-icon color="primary" class="mr-2">{{ mdiLayersOutline }}</v-icon>
@@ -152,7 +162,7 @@
             API reference
           </v-btn>
 
-          <v-divider class="mt-12 mb-6" />
+          <v-divider id="plans" class="mt-12 mb-6" />
 
           <h2 class="text-h2 mt-8 mb-2 d-flex">Plans</h2>
 

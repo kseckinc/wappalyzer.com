@@ -65,13 +65,19 @@
                     </v-card-title>
                     <v-card-text class="primary--text pb-0">
                       Subscribe to a
-                      <v-chip color="primary" x-small outlined>PRO</v-chip> plan
-                      to include company and contact information in lead lists.
+                      <v-chip to="/pro/" color="primary" x-small outlined
+                        >PRO</v-chip
+                      >
+                      plan to include company and contact information in lead
+                      lists.
                     </v-card-text>
                     <v-card-actions>
                       <v-spacer />
 
-                      <v-btn color="primary" text>Compare plans</v-btn>
+                      <v-btn to="/pricing/" color="primary" text
+                        >Compare plans
+                        <v-icon right>{{ mdiArrowRight }}</v-icon>
+                      </v-btn>
                     </v-card-actions>
                   </v-card>
                 </v-col>

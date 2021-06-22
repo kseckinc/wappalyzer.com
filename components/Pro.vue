@@ -5,7 +5,7 @@
     color="primary lighten-1"
     outlined
   >
-    <v-btn to="/pricing/" color="primary" depressed :small="small">
+    <v-btn to="/pro/" color="primary" depressed :small="small">
       <v-icon left>{{ mdiLockOpenVariantOutline }}</v-icon>
       Unlock pro features</v-btn
     >

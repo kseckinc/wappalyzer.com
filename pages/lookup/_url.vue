@@ -160,9 +160,7 @@
             <p style="max-width: 600px">
               Supply your own list of websites and we'll report back with the
               technologies they use, as well as any metadata we find. On a
-              <v-chip to="/pricing" color="primary" x-small outlined
-                >PRO</v-chip
-              >
+              <v-chip to="/pro/" color="primary" x-small outlined>PRO</v-chip>
               plan, company and contact information is included where available.
             </p>
 
@@ -276,13 +274,16 @@
               </v-card-title>
               <v-card-text class="primary--text pb-0">
                 Subscribe to a
-                <v-chip color="primary" x-small outlined>PRO</v-chip> plan to
-                include company and contact information in lookups.
+                <v-chip to="/pro/" color="primary" x-small outlined>PRO</v-chip>
+                plan to include company and contact information in lookups.
               </v-card-text>
               <v-card-actions>
                 <v-spacer />
 
-                <v-btn color="primary" text>Compare plans</v-btn>
+                <v-btn to="/pricing/" color="primary" text
+                  >Compare plans
+                  <v-icon right>{{ mdiArrowRight }}</v-icon>
+                </v-btn>
               </v-card-actions>
             </v-card>
 

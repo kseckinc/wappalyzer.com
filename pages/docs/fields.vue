@@ -33,6 +33,8 @@
         </v-expansion-panel-header>
 
         <v-expansion-panel-content class="no-x-padding" eager>
+          <Pro v-if="set.pro" class="mb-4" small />
+
           <v-simple-table>
             <tbody>
               <tr>
@@ -57,12 +59,14 @@
 import { mdiInformationOutline, mdiLink } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
+import Pro from '~/components/Pro.vue'
 import side from '~/assets/json/nav/docs.json'
 import sets from '~/assets/json/sets.json'
 
 export default {
   components: {
     Page,
+    Pro,
   },
   data() {
     return {
