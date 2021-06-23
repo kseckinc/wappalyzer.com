@@ -160,7 +160,7 @@
           </v-col>
         </v-row>
 
-        <v-alert color="primary lighten-1">
+        <v-alert color="primary lighten-2">
           <p class="subtitle-1 font-weight-medium primary--text mb-2">
             Reach out to {{ technology.name }} users
           </p>

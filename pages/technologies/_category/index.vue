@@ -17,9 +17,9 @@
           category ? ` using ${category.name} technologies` : ''
         } with email addresses, phone numbers and company profiles.`,
       }"
-      hero
+      :hero="false"
     >
-      <v-alert color="primary lighten-1" class="mt-6">
+      <v-alert color="primary lighten-2" class="mt-6">
         <p class="subtitle-1 font-weight-medium primary--text mb-2">
           Reach out to {{ category.name }} users
         </p>
@@ -57,10 +57,25 @@
 
       <p class="mb-6">
         These are the top {{ category.name }} technologies based on market share
-        in 2020.
+        in {{ new Date().getFullYear() }}.
       </p>
 
       <v-card class="my-4">
+        <v-card-text class="py-8">
+          <v-row class="justify-center">
+            <v-col cols="12" sm="10" md="8">
+              <GChart
+                type="PieChart"
+                :data="marketShare"
+                :options="pieChartOptions"
+                width="100%"
+              />
+            </v-col>
+          </v-row>
+        </v-card-text>
+
+        <v-divider />
+
         <v-card-text class="px-0">
           <v-simple-table>
             <thead>
@@ -124,7 +139,7 @@
       </v-card>
 
       <div class="text-right mb-4">
-        <v-btn color="accent" outlined @click="showAll = !showAll">
+        <v-btn color="accent" small outlined @click="showAll = !showAll">
           <v-icon left>{{ showAll ? mdiMinus : mdiPlus }}</v-icon>
           {{
             showAll
@@ -218,6 +233,7 @@ import {
   mdiMinus,
   mdiPlus,
 } from '@mdi/js'
+import { GChart } from 'vue-google-charts'
 
 import Page from '~/components/Page.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
@@ -234,6 +250,7 @@ export default {
     SignIn,
     Progress,
     UseCases,
+    GChart,
   },
   async asyncData({ route, redirect, $axios }) {
     const { category: slug } = route.params
@@ -266,6 +283,23 @@ export default {
       mdiFileTableOutline,
       mdiMinus,
       mdiPlus,
+      pieChartOptions: {
+        chartArea: {
+          height: '100%',
+          width: '100%',
+        },
+        pieHole: 0.7,
+        height: 250,
+        sliceVisibilityThreshold: 0.01,
+        enableInteractivity: false,
+        pieSliceText: 'none',
+        legend: {
+          textStyle: {
+            fontSize: 13,
+          },
+          position: 'labeled',
+        },
+      },
       showAll: false,
       signInDialog: false,
       sort: 'hostnames',
@@ -311,6 +345,28 @@ export default {
         .forEach((name) => (ordered[name] = technologies[name]))
 
       return ordered
+    },
+    marketShare() {
+      if (!this.category) {
+        return []
+      }
+
+      const { technologies } = this.category
+
+      delete technologies['cart-functionality']
+
+      return [
+        ['Technology', 'Market share'],
+        ...Object.values(technologies)
+          .filter(({ hostnames }) => hostnames > 50)
+          .sort(({ hostnames: a }, { hostnames: b }) => (a > b ? -1 : 1))
+          .slice(0, 10)
+          .reduce((technologies, technology) => {
+            technologies.push([technology.name, technology.hostnames])
+
+            return technologies
+          }, []),
+      ]
     },
     maxHostnames() {
       return (
