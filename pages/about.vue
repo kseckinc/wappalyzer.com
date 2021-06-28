@@ -36,15 +36,6 @@
         <nuxt-link to="/contact/">contact us</nuxt-link>.
       </p>
 
-      <p class="mt-12 font-italic">
-        <small>
-          <strong>Wappalyzer Pty Ltd</strong> is a Proprietary Limited company
-          registered in Australia (ACN 645916043).
-          <strong>Wappalyzer</strong> is a registered trademark in Australia
-          (2082302) and the United States (1588109).
-        </small>
-      </p>
-
       <template #footer>
         <Logos />
       </template>

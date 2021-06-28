@@ -7,6 +7,13 @@
 
           <h2 class="text-h2 mt-8 mb-2"></h2>
 
+          <v-card color="primary lighten-1" class="mb-8" flat>
+            <v-card-text class="primary--text">
+              Looking for a BuiltWith alternative? Wappalyzer is cheaper and
+              more accurate.
+            </v-card-text>
+          </v-card>
+
           <p>
             Wappalyzer and BuiltWith are technology profilers that provide tools
             for lead generation, market research and business intelligence. The
@@ -288,7 +295,7 @@ export default {
     return {
       title: 'Wappalyzer vs. BuiltWith',
       crumbs: [{ title: 'Articles', to: '/articles/' }],
-      meta: `Looking for a comparison between Wappalyzer and BuiltWith? Here's a full review.`,
+      meta: `Looking for a BuiltWith alternative? Wappalyzer is cheaper and more accurate. Here's a full review.`,
       mdiCheck,
       mdiClose,
     }

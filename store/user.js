@@ -140,7 +140,7 @@ export const actions = {
     })
 
     return new Promise((resolve, reject) => {
-      cognitoUser.confirmRegistration(code, true, (error, result) =>
+      cognitoUser.confirmRegistration(code.trim(), true, (error, result) =>
         error ? reject(error) : resolve(result)
       )
     })
@@ -212,7 +212,7 @@ export const actions = {
           return reject(error)
         }
 
-        cognitoUser.verifyAttribute('email', code, {
+        cognitoUser.verifyAttribute('email', code.trim(), {
           async onSuccess() {
             await dispatch('updateAttrs')
 
@@ -321,7 +321,7 @@ export const actions = {
     })
 
     return new Promise((resolve, reject) => {
-      cognitoUser.confirmPassword(code, password, {
+      cognitoUser.confirmPassword(code.trim(), password, {
         onSuccess: resolve,
         onFailure: reject,
       })

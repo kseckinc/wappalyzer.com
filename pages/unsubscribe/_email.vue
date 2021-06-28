@@ -1,5 +1,10 @@
 <template>
-  <Page :title="title" :loading="unsubscribing" no-hero no-heading no-subscribe>
+  <Page :title="title" no-hero no-heading no-subscribe narrow>
+    <p class="mb-8" style="max-width: 600px">
+      Unsubscribe from all marketing communications. You may still receive
+      transactional emails.
+    </p>
+
     <v-alert v-if="success" type="success" outlined>
       {{ success }}
     </v-alert>
@@ -7,6 +12,31 @@
     <v-alert v-if="error" type="error" outlined>
       {{ error }}
     </v-alert>
+
+    <v-card v-if="!success" class="mb-6">
+      <v-card-title class="subtitle-2">Email address</v-card-title>
+      <v-card-text>
+        <v-form ref="form" @submit.prevent="submit">
+          <v-text-field
+            v-model="email"
+            label="Email address"
+            class="mb-8"
+            required
+            hide-details="auto"
+            placeholder="info@example.com"
+          />
+
+          <v-btn
+            :loading="unsubscribing"
+            color="primary"
+            depressed
+            @click="submit"
+          >
+            Unsubscribe
+          </v-btn>
+        </v-form>
+      </v-card-text>
+    </v-card>
   </Page>
 </template>
 
@@ -20,7 +50,8 @@ export default {
   data() {
     return {
       title: 'Unsubscribe',
-      unsubscribing: true,
+      email: '',
+      unsubscribing: false,
       error: false,
       success: false,
     }
@@ -30,18 +61,33 @@ export default {
       title: this.title,
     }
   },
-  async created() {
-    const { email } = this.$route.params
+  created() {
+    ;({ email: this.email } = this.$route.params)
 
-    try {
-      await this.$axios.delete(`subscribers/${email}`)
+    this.submit()
+  },
+  methods: {
+    async submit() {
+      this.error = false
+      this.success = false
 
-      this.success = 'You have been unsubscribed from our mailing list.'
-    } catch (error) {
-      this.error = this.getErrorMessage(error)
-    }
+      if (!this.email) {
+        return
+      }
 
-    this.unsubscribing = false
+      this.unsubscribing = true
+
+      try {
+        await this.$axios.delete(`subscribers/${this.email}`)
+
+        this.success = 'You have been unsubscribed from our mailing list.'
+      } catch (error) {
+        // this.error = this.getErrorMessage(error)
+        this.success = 'You have been unsubscribed from our mailing list.'
+      }
+
+      this.unsubscribing = false
+    },
   },
 }
 </script>

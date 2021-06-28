@@ -17,7 +17,7 @@
         </span>
       </v-expansion-panel-header>
       <v-expansion-panel-content class="nopadding" eager>
-        <Pro class="mb-4" />
+        <Pro v-if="maskedSets.includes(setKey)" class="mb-4" />
 
         <v-simple-table>
           <tbody>

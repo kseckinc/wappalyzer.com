@@ -130,6 +130,29 @@
           <v-divider class="mt-12 mb-6" />
 
           <h2 class="text-h2 mt-8 mb-2 d-flex">
+            <v-icon color="primary" class="mr-2">{{ mdiAndroid }}</v-icon>
+            Android app
+          </h2>
+
+          <p>
+            Put Wappalyzer in your pocket! Share a website URL from your browser
+            to our free
+            <nuxt-link to="/apps/">Android app</nuxt-link> to see the
+            technologies in use. On a
+            <v-chip color="primary" x-small outlined>PRO</v-chip> plan you get
+            to see the available company and contact as well.
+          </p>
+
+          <v-card class="my-8" max-width="50%">
+            <v-img
+              src="/images/faqs/android-pro.png"
+              alt="Wappalyzer PRO Android app"
+            />
+          </v-card>
+
+          <v-divider class="mt-12 mb-6" />
+
+          <h2 class="text-h2 mt-8 mb-2 d-flex">
             <v-icon color="primary" class="mr-2">{{ mdiApps }}</v-icon>
             CRM integration
           </h2>
@@ -192,6 +215,7 @@ import {
   mdiConsole,
   mdiDownload,
   mdiBookOpenPageVariant,
+  mdiAndroid,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -218,6 +242,7 @@ export default {
       mdiConsole,
       mdiDownload,
       mdiBookOpenPageVariant,
+      mdiAndroid,
     }
   },
   computed: {

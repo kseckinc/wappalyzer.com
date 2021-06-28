@@ -18,8 +18,10 @@
           <v-card-title>
             <v-row align="center">
               <v-col cols="12" sm="4" class="pb-0">
-                <v-icon color="primary" left>{{ mdiLayersOutline }}</v-icon>
-                Lookup
+                <div class="d-flex align-center">
+                  <v-icon color="primary" left>{{ mdiLayersOutline }}</v-icon>
+                  Lookup
+                </div>
               </v-col>
               <v-col cols="12" sm="8" class="pb-0">
                 <Credits />
@@ -140,8 +142,10 @@
           <v-card-title>
             <v-row align="center">
               <v-col class="pb-0 flex-grow-1 flex-shrink-0">
-                <v-icon color="primary" left>{{ mdiLayersOutline }}</v-icon>
-                Bulk lookup
+                <div class="d-flex align-center">
+                  <v-icon color="primary" left>{{ mdiLayersOutline }}</v-icon>
+                  Bulk lookup
+                </div>
               </v-col>
               <v-col class="pb-0 flex-grow-0 flex-shrink-1">
                 <v-btn
@@ -423,6 +427,7 @@ export default {
             )}`
           )
         ).data
+
         return {
           url: fullUrl,
           lastUrl: fullUrl,
@@ -667,9 +672,6 @@ export default {
       }
 
       this.loading = true
-      this.technologies = []
-      this.attributes = {}
-      this.keywords = []
 
       let credits
 
@@ -714,6 +716,10 @@ export default {
             (error.response.data.message || error.response.data)) ||
           this.getErrorMessage(error)
       }
+
+      this.technologies = this.technologies || []
+      this.attributes = this.attributes || {}
+      this.keywords = this.keywords || []
 
       this.loading = false
     },
