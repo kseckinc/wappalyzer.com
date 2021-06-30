@@ -126,7 +126,9 @@
       { "name": "Cert issuer", "key": "certInfo.issuer", "description": "Name of the SSL/TLS certificate authority." },
       { "name": "Cert protocol", "key": "certInfo.protocol", "description": "SSL/TLS protocol and version." },
       { "name": "Cert expiry", "key": "certInfo.validTo", "description": "Expiry date of the SSL/TLS certificate." },
-      { "name": "SSL/TLS enabled", "key": "https", "description": "The website is served over a secure connection." }
+      { "name": "SSL/TLS enabled", "key": "https", "description": "The website is served over a secure connection." },
+      { "name": "SPF record", "key": "dns.spf", "description": "The website has an SPF record." },
+      { "name": "DMARC record", "key": "dns.dmarc", "description": "The website has a DMARC record." }
     ]
   }
 ]

@@ -146,6 +146,14 @@
                       <strong>{{ value.text }}</strong>
                     </div>
                     <div
+                      v-else-if="attributeKey === 'certInfo.validTo'"
+                      :class="`${
+                        maskedSets.includes(setKey) ? 'blurred ' : ''
+                      }my-2`"
+                    >
+                      {{ formatDate(new Date(value.text * 1000)) }}
+                    </div>
+                    <div
                       v-else
                       :class="`${
                         maskedSets.includes(setKey) && setKey === 'company'
@@ -221,7 +229,15 @@ export default {
   computed: {
     attributes() {
       return this.transformAttributes(
-        ['contact', 'company', 'social', 'meta', 'locale'],
+        [
+          'contact',
+          'company',
+          'social',
+          'meta',
+          'locale',
+          'trackers',
+          'security',
+        ],
         this.hostname
       )
     },

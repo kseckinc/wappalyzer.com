@@ -671,6 +671,10 @@ export default {
         }
       }
 
+      this.technologies = []
+      this.attributes = {}
+      this.keywords = []
+
       this.loading = true
 
       let credits
