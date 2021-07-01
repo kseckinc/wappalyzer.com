@@ -52,7 +52,7 @@
                 </v-col>
                 <v-col cols="12" sm="6">
                   <v-card
-                    v-if="!isPro"
+                    v-if="!isLoading && !isPro"
                     color="primary lighten-1 primary--text"
                     class="mt-n4"
                     flat
@@ -667,7 +667,7 @@
                       </v-expansion-panel-content>
                     </v-expansion-panel>
 
-                    <v-expansion-panel>
+                    <v-expansion-panel ref="subset">
                       <v-expansion-panel-header class="subtitle-2">
                         List size &amp; website traffic
                       </v-expansion-panel-header>
@@ -1614,6 +1614,7 @@ export default {
       }
     },
     isLoading() {
+      console.log(this.isLoading, this.isPro)
       if (!this.isLoading) {
         if (!this.isPro) {
           this.compliance = 'exclude'

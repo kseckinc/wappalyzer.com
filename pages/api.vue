@@ -101,15 +101,11 @@ curl -H "x-api-key: &lt;your api key&gt;" \
   ],
   "keywords": [ "WAPPALYZER", "TECHNOLOGY", "WEBSITES", ... ],
   "schemaOrgTypes": [ "WebPage", "Organization" ],
-  "certInfo": {
-    "issuer": "Amazon",
-    "validTo": 1633737600,
-    "protocol": "TLS 1.3"
-  },
-  "dns": {
-    "spf": true,
-    "dmarc": true
-  },
+  "certInfo.issuer": "Amazon",
+  "certInfo.validTo": 1633737600,
+  "certInfo.protocol": "TLS 1.3"
+  "dns.spf": true,
+  "dns.dmarc": true,
   "ipCountry": "US",
   "ipRegion": "WA",
   "language": "en",
