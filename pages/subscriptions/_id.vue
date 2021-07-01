@@ -26,7 +26,9 @@
         outlined
       >
         Stripe subscription
-        <v-icon right>{{ mdiOpenInNew }}</v-icon>
+        <v-icon right>
+          {{ mdiOpenInNew }}
+        </v-icon>
       </v-btn>
 
       <v-btn
@@ -34,8 +36,12 @@
         to="/apikey/"
         color="accent"
         outlined
-        ><v-icon left>{{ mdiKeyVariant }}</v-icon> API key</v-btn
       >
+        <v-icon left>
+          {{ mdiKeyVariant }}
+        </v-icon>
+        API key
+      </v-btn>
 
       <v-card class="my-4">
         <v-card-text class="px-0 pb-0">
@@ -97,10 +103,16 @@
         >
           <v-spacer />
           <v-btn color="accent" text @click="paymentMethodDialog = true">
-            <v-icon left>{{ mdiCreditCardOutline }}</v-icon> Change payment
+            <v-icon left>
+              {{ mdiCreditCardOutline }}
+            </v-icon>
+            Change payment
           </v-btn>
           <v-btn color="error" text @click="cancel(false)">
-            <v-icon left>{{ mdiCalendarRemove }}</v-icon> Cancel subscription
+            <v-icon left>
+              {{ mdiCalendarRemove }}
+            </v-icon>
+            Cancel subscription
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -123,27 +135,24 @@
                 <v-radio
                   label="I only wanted to subscribe for one month"
                   value="I only wanted to subscribe for one month"
-                ></v-radio>
+                />
                 <v-radio
                   label="I no longer need this product"
                   value="I no longer need this product"
-                ></v-radio>
+                />
                 <v-radio
                   label="The product is too expensive"
                   value="The product is too expensive"
-                ></v-radio>
+                />
                 <v-radio
                   label="It doesn't work as expected"
                   value="It doesn't work as expected"
-                ></v-radio>
+                />
                 <v-radio
                   label="I'm switching to another plan"
                   value="I'm switching to another plan"
-                ></v-radio>
-                <v-radio
-                  label="Different reason"
-                  value="Different reason"
-                ></v-radio>
+                />
+                <v-radio label="Different reason" value="Different reason" />
               </v-radio-group>
 
               <v-textarea v-model="cancelComment" label="Comments" outlined />
@@ -154,17 +163,18 @@
           </v-card-text>
 
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="accent" text @click="cancelDialog = false"
-              >Cancel</v-btn
-            >
+            <v-spacer />
+            <v-btn color="accent" text @click="cancelDialog = false">
+              Cancel
+            </v-btn>
             <v-btn
               :loading="cancelling"
               color="error"
               text
               @click="cancel(true)"
-              >Ok</v-btn
             >
+              Ok
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -190,7 +200,7 @@
               outlined
             >
               You don't currently have any
-              <nuxt-link to="/paymentmethods/">payment methods</nuxt-link>.
+              <nuxt-link to="/paymentmethods/"> payment methods </nuxt-link>.
             </v-alert>
             <v-simple-table v-else>
               <thead>
@@ -219,10 +229,10 @@
             </v-simple-table>
           </v-card-text>
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="accent" text @click="paymentMethodDialog = false"
-              >Cancel</v-btn
-            >
+            <v-spacer />
+            <v-btn color="accent" text @click="paymentMethodDialog = false">
+              Cancel
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>

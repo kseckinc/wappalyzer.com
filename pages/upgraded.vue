@@ -30,15 +30,21 @@
             <div v-for="type in ['add', 'fix', 'new']" :key="type">
               <template v-if="release.items[type].length">
                 <v-card-title v-if="type === 'add'" class="subtitle-2">
-                  <v-icon left>{{ mdiPlusBox }}</v-icon>
+                  <v-icon left>
+                    {{ mdiPlusBox }}
+                  </v-icon>
                   Additions
                 </v-card-title>
                 <v-card-title v-if="type === 'fix'" class="subtitle-2">
-                  <v-icon left>{{ mdiAutoFix }}</v-icon>
+                  <v-icon left>
+                    {{ mdiAutoFix }}
+                  </v-icon>
                   Improvements
                 </v-card-title>
                 <v-card-title v-if="type === 'new'" class="subtitle-2">
-                  <v-icon left>{{ mdiStar }} </v-icon>
+                  <v-icon left>
+                    {{ mdiStar }}
+                  </v-icon>
                   Features
                 </v-card-title>
                 <v-card-text class="px-0">

@@ -73,7 +73,7 @@ export default {
     }
   },
   async created() {
-    this.technologies = (await this.$axios.get(`technologies/dead`)).data
+    this.technologies = (await this.$axios.get('technologies/dead')).data
   },
 }
 </script>

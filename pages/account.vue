@@ -18,11 +18,15 @@
         outlined
       >
         Stripe customer
-        <v-icon right>{{ mdiOpenInNew }}</v-icon>
+        <v-icon right>
+          {{ mdiOpenInNew }}
+        </v-icon>
       </v-btn>
 
       <v-btn :loading="disabling" color="error" outlined @click="disable">
-        <v-icon left>{{ mdiAccountRemove }}</v-icon>
+        <v-icon left>
+          {{ mdiAccountRemove }}
+        </v-icon>
         Disable user
       </v-btn>
     </div>
@@ -56,8 +60,11 @@
             text
             @click.prevent="submit(false)"
           >
-            <v-icon left>{{ mdiContentSave }}</v-icon> Save</v-btn
-          >
+            <v-icon left>
+              {{ mdiContentSave }}
+            </v-icon>
+            Save
+          </v-btn>
         </v-card-actions>
 
         <v-divider />
@@ -105,8 +112,11 @@
           text
           @click.prevent="submit(false)"
         >
-          <v-icon left>{{ mdiContentSave }}</v-icon> Save</v-btn
-        >
+          <v-icon left>
+            {{ mdiContentSave }}
+          </v-icon>
+          Save
+        </v-btn>
       </v-card-actions>
 
       <v-divider />
@@ -120,7 +130,9 @@
       outlined
       @click="deleteAccountDialog = true"
     >
-      <v-icon left>{{ mdiAccountRemove }}</v-icon>
+      <v-icon left>
+        {{ mdiAccountRemove }}
+      </v-icon>
       Delete account
     </v-btn>
 
@@ -132,11 +144,11 @@
           sign back in.
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="accent" text @click="changeEmailDialog = false"
-            >Cancel</v-btn
-          >
-          <v-btn color="accent" text @click="submit(true)">Ok</v-btn>
+          <v-spacer />
+          <v-btn color="accent" text @click="changeEmailDialog = false">
+            Cancel
+          </v-btn>
+          <v-btn color="accent" text @click="submit(true)"> Ok </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -146,13 +158,13 @@
         <v-card-title> Delete account </v-card-title>
         <v-card-text> Your account will be deleted permanently. </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="accent" text @click="deleteAccountDialog = false"
-            >Cancel</v-btn
-          >
-          <v-btn :loading="removing" color="error" text @click="remove"
-            >Delete</v-btn
-          >
+          <v-spacer />
+          <v-btn color="accent" text @click="deleteAccountDialog = false">
+            Cancel
+          </v-btn>
+          <v-btn :loading="removing" color="error" text @click="remove">
+            Delete
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

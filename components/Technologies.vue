@@ -32,7 +32,7 @@
           />
         </v-form>
 
-        <v-divider class="mt-4 mb-2"></v-divider>
+        <v-divider class="mt-4 mb-2" />
 
         <div
           v-if="!results.length && errors.length"

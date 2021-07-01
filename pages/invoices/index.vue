@@ -30,9 +30,9 @@
                     :to="`/invoices/${invoice.orderId}`"
                     target="_blank"
                   >
-                    Tax invoice<v-icon color="accent" right small>{{
-                      mdiOpenInNew
-                    }}</v-icon>
+                    Tax invoice<v-icon color="accent" right small>
+                      {{ mdiOpenInNew }}
+                    </v-icon>
                   </nuxt-link>
                   <a v-else :href="invoice.hosted_invoice_url" target="_blank">
                     {{
@@ -55,16 +55,16 @@
                   >
                     {{ invoice.orderId }}
                   </nuxt-link>
-                  <template v-else>-</template>
+                  <template v-else> - </template>
                 </td>
                 <td>{{ formatDate(new Date(invoice.created * 1000)) }}</td>
                 <td>
                   {{ formatCurrency(invoice.total / 100, invoice.currency) }}
                 </td>
                 <td class="text-center">
-                  <v-icon v-if="invoice.status === 'paid'" color="success">{{
-                    mdiCheck
-                  }}</v-icon>
+                  <v-icon v-if="invoice.status === 'paid'" color="success">
+                    {{ mdiCheck }}
+                  </v-icon>
                 </td>
               </tr>
             </tbody>

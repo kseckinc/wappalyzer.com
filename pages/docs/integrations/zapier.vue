@@ -37,8 +37,8 @@
 
       <p>
         A technology lookup costs 1 credit. Refer to the
-        <nuxt-link to="/pricing/">Pricing</nuxt-link> page for more information
-        about credits and plans.
+        <nuxt-link to="/pricing/"> Pricing </nuxt-link> page for more
+        information about credits and plans.
       </p>
     </Page>
   </div>

@@ -22,8 +22,9 @@
         color="primary"
         class="mb-4"
         @click="signInDialog = true"
-        >Sign up for a free account</v-btn
       >
+        Sign up for a free account
+      </v-btn>
 
       <v-divider class="my-8" />
 
@@ -37,7 +38,9 @@
         >
           <div class="mb-2 d-flex align-center">
             <v-avatar color="secondary" size="48" class="elevation-2">
-              <v-icon color="primary" size="32">{{ feature.icon }}</v-icon>
+              <v-icon color="primary" size="32">
+                {{ feature.icon }}
+              </v-icon>
             </v-avatar>
             <div class="body-2 font-weight-medium primary--text ml-4">
               {{ feature.text }}
@@ -58,7 +61,7 @@
             frameborder="0"
             allow="autoplay; fullscreen"
             allowfullscreen
-          ></iframe>
+          />
         </div>
       </v-card>
 

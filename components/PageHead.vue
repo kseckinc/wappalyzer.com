@@ -3,11 +3,15 @@
   <div>
     <v-row v-if="image">
       <v-col md="8" class="py-0">
-        <h1 v-if="title" class="mb-4">{{ title }}</h1>
+        <h1 v-if="title" class="mb-4">
+          {{ title }}
+        </h1>
 
-        <p v-if="subtitle" class="subtitle-2 mt-n4">{{ subtitle }}</p>
+        <p v-if="subtitle" class="subtitle-2 mt-n4">
+          {{ subtitle }}
+        </p>
 
-        <template v-if="Array.isArray(text)">
+        <template v-if="Array.isArray(text) && text.length">
           <p
             v-for="(paragraph, index) in text"
             :key="index"
@@ -15,7 +19,7 @@
             v-html="paragraph"
           />
         </template>
-        <p v-else class="head-text" v-html="text" />
+        <p v-else-if="text" class="head-text" v-html="text" />
 
         <Progress v-if="loading" class="mt-8" />
 
@@ -32,11 +36,15 @@
     <template v-else>
       <v-row>
         <v-col :md="narrow ? 12 : 10" :lg="narrow ? 10 : 8" class="py-0">
-          <h1 v-if="title" class="mb-4">{{ title }}</h1>
+          <h1 v-if="title" class="mb-4">
+            {{ title }}
+          </h1>
 
-          <p v-if="subtitle" class="subtitle-2 mt-n4">{{ subtitle }}</p>
+          <p v-if="subtitle" class="subtitle-2 mt-n4">
+            {{ subtitle }}
+          </p>
 
-          <template v-if="Array.isArray(text)">
+          <template v-if="Array.isArray(text) && text.length">
             <p
               v-for="(paragraph, index) in text"
               :key="index"
@@ -44,7 +52,7 @@
               v-html="paragraph"
             />
           </template>
-          <p v-else class="head-text" v-html="text" />
+          <p v-else-if="text" class="head-text" v-html="text" />
         </v-col>
       </v-row>
 

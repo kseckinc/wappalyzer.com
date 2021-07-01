@@ -45,7 +45,9 @@
                     small
                     @click="createDialog = true"
                   >
-                    <v-icon left>{{ mdiAccountPlus }}</v-icon>
+                    <v-icon left>
+                      {{ mdiAccountPlus }}
+                    </v-icon>
                     Add member
                   </v-btn>
                 </v-col>
@@ -60,7 +62,7 @@
 
               <p class="mb-0">
                 Additional seats are included with selected
-                <nuxt-link to="/pricing/">plans</nuxt-link>.
+                <nuxt-link to="/pricing/"> plans </nuxt-link>.
               </p>
             </v-card-text>
             <v-card-text v-if="!organisation.members.length">
@@ -75,7 +77,7 @@
                     <th width="1">Enabled</th>
                     <th>Name</th>
                     <th>Email address</th>
-                    <th></th>
+                    <th />
                   </tr>
                 </thead>
                 <tbody>
@@ -108,16 +110,18 @@
                         color="error"
                         outlined
                         small
-                        >Pending</v-chip
                       >
+                        Pending
+                      </v-chip>
                       <v-btn
                         icon
                         @click="
                           removeUserId = member.user.sub
                           removeDialog = true
                         "
-                        ><v-icon>{{ mdiCloseCircle }}</v-icon></v-btn
                       >
+                        <v-icon>{{ mdiCloseCircle }}</v-icon>
+                      </v-btn>
                     </td>
                   </tr>
                 </tbody>
@@ -146,7 +150,7 @@
                 <thead>
                   <tr>
                     <th>Organisation</th>
-                    <th></th>
+                    <th />
                   </tr>
                 </thead>
                 <tbody>
@@ -165,9 +169,9 @@
                         small
                         :loading="switching"
                         @click="switchTo(id)"
-                        ><v-icon left>{{ mdiAccountSwitch }}</v-icon
-                        >Switch to</v-btn
                       >
+                        <v-icon left> {{ mdiAccountSwitch }} </v-icon>Switch to
+                      </v-btn>
                       <v-btn
                         v-else
                         color="accent"
@@ -178,16 +182,18 @@
                           activateOrganisationId = id
                           activate()
                         "
-                        >Activate</v-btn
                       >
+                        Activate
+                      </v-btn>
                       <v-btn
                         icon
                         @click="
                           removeOrganisationId = id
                           removeOrganisationDialog = true
                         "
-                        ><v-icon>{{ mdiCloseCircle }}</v-icon></v-btn
                       >
+                        <v-icon>{{ mdiCloseCircle }}</v-icon>
+                      </v-btn>
                     </td>
                   </tr>
                 </tbody>
@@ -218,15 +224,20 @@
               :rules="rules.email"
               label="Email address"
               placeholder="info@example.com"
-            ></v-text-field>
+            />
           </v-form>
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="error" text @click="createDialog = false">Cancel</v-btn>
-          <v-btn :loading="creating" color="accent" text @click="create"
-            ><v-icon left>{{ mdiEmail }}</v-icon> Send invitation</v-btn
-          >
+          <v-spacer />
+          <v-btn color="error" text @click="createDialog = false">
+            Cancel
+          </v-btn>
+          <v-btn :loading="creating" color="accent" text @click="create">
+            <v-icon left>
+              {{ mdiEmail }}
+            </v-icon>
+            Send invitation
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -242,13 +253,13 @@
           This member will be removed from the organisation.
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="accent" text @click="removeDialog = false"
-            >Cancel</v-btn
-          >
-          <v-btn :loading="removing" color="error" text @click="remove"
-            >Ok</v-btn
-          >
+          <v-spacer />
+          <v-btn color="accent" text @click="removeDialog = false">
+            Cancel
+          </v-btn>
+          <v-btn :loading="removing" color="error" text @click="remove">
+            Ok
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -265,17 +276,18 @@
           re-invited.
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="accent" text @click="removeOrganisationDialog = false"
-            >Cancel</v-btn
-          >
+          <v-spacer />
+          <v-btn color="accent" text @click="removeOrganisationDialog = false">
+            Cancel
+          </v-btn>
           <v-btn
             :loading="removingOrganisation"
             color="error"
             text
             @click="removeOrganisation"
-            >Ok</v-btn
           >
+            Ok
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -298,20 +310,24 @@
                   <small>{{ access }}</small>
                 </td>
                 <td class="px-6 text-center">
-                  <v-icon color="success" small>{{ mdiCheck }}</v-icon>
+                  <v-icon color="success" small>
+                    {{ mdiCheck }}
+                  </v-icon>
                 </td>
                 <td class="px-6 text-center">
-                  <v-icon :color="member ? 'success' : 'error'" small>{{
-                    member ? mdiCheck : mdiClose
-                  }}</v-icon>
+                  <v-icon :color="member ? 'success' : 'error'" small>
+                    {{ member ? mdiCheck : mdiClose }}
+                  </v-icon>
                 </td>
               </tr>
             </tbody>
           </v-simple-table>
         </v-card-text>
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="accent" text @click="accessDialog = false">Close</v-btn>
+          <v-spacer />
+          <v-btn color="accent" text @click="accessDialog = false">
+            Close
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

@@ -63,7 +63,9 @@
           md="4"
           lg="3"
         >
-          <nuxt-link :to="`/technologies/${slug}/`">{{ name }}</nuxt-link>
+          <nuxt-link :to="`/technologies/${slug}/`">
+            {{ name }}
+          </nuxt-link>
         </v-col>
       </v-row>
     </template>

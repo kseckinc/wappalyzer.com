@@ -30,7 +30,7 @@
                 <th>Website</th>
                 <th width="20%">Created</th>
                 <th width="20%">Last checked</th>
-                <th width="1"></th>
+                <th width="1" />
               </tr>
             </thead>
 
@@ -46,7 +46,9 @@
                 </td>
                 <td>
                   <a :href="alert.url" target="_blank">{{ alert.url }}</a>
-                  <v-icon small>{{ mdiOpenInNew }}</v-icon>
+                  <v-icon small>
+                    {{ mdiOpenInNew }}
+                  </v-icon>
                 </td>
                 <td>{{ formatDate(new Date(alert.createdAt * 1000)) }}</td>
                 <td>{{ formatDate(new Date(alert.updatedAt * 1000)) }}</td>
@@ -57,11 +59,12 @@
                       removeUrl = alert.url
                       removeDialog = true
                     "
-                    ><v-icon>{{ mdiCloseCircle }}</v-icon></v-btn
                   >
+                    <v-icon>{{ mdiCloseCircle }}</v-icon>
+                  </v-btn>
                 </td>
               </tr>
-              <tr></tr>
+              <tr />
             </tbody>
           </v-simple-table>
         </v-card-text>
@@ -71,8 +74,12 @@
             color="accent"
             text
             @click="isSignedIn ? (createDialog = true) : (signInDialog = true)"
-            ><v-icon left>{{ mdiBullhorn }}</v-icon> Create alert</v-btn
           >
+            <v-icon left>
+              {{ mdiBullhorn }}
+            </v-icon>
+            Create alert
+          </v-btn>
         </v-card-actions>
       </v-card>
 
@@ -96,23 +103,26 @@
                 label="Website URL"
                 placeholder="https://www.example.com"
                 dense
-              ></v-text-field>
+              />
             </v-form>
           </v-card-text>
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="error" text @click="createDialog = false"
-              >Cancel</v-btn
-            >
+            <v-spacer />
+            <v-btn color="error" text @click="createDialog = false">
+              Cancel
+            </v-btn>
             <v-btn
               :disabled="credits < 10"
               :loading="creating"
               color="accent"
               text
               @click="create"
-              ><v-icon left>{{ mdiAlphaCCircle }}</v-icon> Spend 10
-              credits</v-btn
             >
+              <v-icon left>
+                {{ mdiAlphaCCircle }}
+              </v-icon>
+              Spend 10 credits
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -128,13 +138,13 @@
             This alert will be deleted.
           </v-card-text>
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="accent" text @click="removeDialog = false"
-              >Cancel</v-btn
-            >
-            <v-btn :loading="removing" color="error" text @click="remove"
-              >Ok</v-btn
-            >
+            <v-spacer />
+            <v-btn color="accent" text @click="removeDialog = false">
+              Cancel
+            </v-btn>
+            <v-btn :loading="removing" color="error" text @click="remove">
+              Ok
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>

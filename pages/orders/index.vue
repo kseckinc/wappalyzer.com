@@ -22,7 +22,9 @@
 
             <v-btn to="/" color="accent" outlined>
               Explore products
-              <v-icon right>{{ mdiArrowRight }}</v-icon>
+              <v-icon right>
+                {{ mdiArrowRight }}
+              </v-icon>
             </v-btn>
           </v-alert>
         </v-card-text>
@@ -41,9 +43,9 @@
               <template v-for="order in filteredOrders">
                 <tr :key="order.createdAt">
                   <td>
-                    <nuxt-link :to="`/orders/${order.id}`">{{
-                      order.id
-                    }}</nuxt-link>
+                    <nuxt-link :to="`/orders/${order.id}`">
+                      {{ order.id }}
+                    </nuxt-link>
                   </td>
                   <td>
                     <v-chip
@@ -59,8 +61,9 @@
                       label
                       outlined
                       small
-                      >{{ order.status }}</v-chip
                     >
+                      {{ order.status }}
+                    </v-chip>
                   </td>
                   <td>{{ formatDate(new Date(order.createdAt * 1000)) }}</td>
                   <td>

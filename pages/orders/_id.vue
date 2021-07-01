@@ -26,7 +26,9 @@
         </p>
 
         <v-btn to="/lists/" outlined>
-          <v-icon left>{{ mdiArrowLeft }}</v-icon>
+          <v-icon left>
+            {{ mdiArrowLeft }}
+          </v-icon>
           Back to Lead lists
         </v-btn>
       </v-alert>
@@ -84,7 +86,9 @@
           editDialog = true
         "
       >
-        <v-icon left>{{ mdiPencil }}</v-icon>
+        <v-icon left>
+          {{ mdiPencil }}
+        </v-icon>
         Edit order
       </v-btn>
 
@@ -100,17 +104,17 @@
           color="primary lighten-1"
           class="mr-2 primary--text"
           depressed
-          ><v-icon left>{{ mdiDownload }}</v-icon
-          >Download list</v-btn
         >
+          <v-icon left> {{ mdiDownload }} </v-icon>Download list
+        </v-btn>
         <v-btn
           v-else-if="order.dataset.sampleFilename && !order.listId"
           :href="`${datasetsBaseUrl}${order.dataset.sampleFilename}`"
           class="mr-2"
           depressed
-          ><v-icon left>{{ mdiDownload }}</v-icon
-          >Download sample</v-btn
         >
+          <v-icon left> {{ mdiDownload }} </v-icon>Download sample
+        </v-btn>
       </template>
 
       <template v-if="order.product === 'Bulk lookup'">
@@ -120,9 +124,9 @@
           color="primary lighten-1"
           class="mr-2 primary--text"
           depressed
-          ><v-icon left>{{ mdiDownload }}</v-icon
-          >Download list</v-btn
         >
+          <v-icon left> {{ mdiDownload }} </v-icon>Download list
+        </v-btn>
       </template>
 
       <template v-if="order.stripeSubscription">
@@ -131,9 +135,9 @@
           color="primary lighten-1"
           class="mr-2 primary--text"
           depressed
-          ><v-icon left>{{ mdiCalendarSync }}</v-icon
-          >Subscription</v-btn
         >
+          <v-icon left> {{ mdiCalendarSync }} </v-icon>Subscription
+        </v-btn>
       </template>
 
       <v-btn
@@ -150,7 +154,9 @@
         class="mr-2"
         depressed
       >
-        <v-icon left>{{ mdiFileDocumentOutline }}</v-icon>
+        <v-icon left>
+          {{ mdiFileDocumentOutline }}
+        </v-icon>
         Invoice
       </v-btn>
 
@@ -180,8 +186,9 @@
                     label
                     outlined
                     small
-                    >{{ order.status }}</v-chip
                   >
+                    {{ order.status }}
+                  </v-chip>
                 </td>
               </tr>
               <tr>
@@ -199,7 +206,9 @@
         >
           <v-spacer />
           <v-btn color="error" text @click="cancelDialog = true">
-            <v-icon left>{{ mdiCartRemove }}</v-icon>
+            <v-icon left>
+              {{ mdiCartRemove }}
+            </v-icon>
             Cancel order
           </v-btn>
         </v-card-actions>
@@ -239,9 +248,8 @@
               <tr v-if="order.listId">
                 <th width="30%">ID</th>
                 <td>
-                  <nuxt-link :to="`/lists/${order.listId}`">{{
-                    order.listId
-                  }}</nuxt-link
+                  <nuxt-link :to="`/lists/${order.listId}`">
+                    {{ order.listId }} </nuxt-link
                   ><v-btn
                     color="accent"
                     class="ml-2"
@@ -249,10 +257,11 @@
                     x-small
                     outlined
                     @click="listViewAll = !listViewAll"
-                    ><v-icon color="accent">{{
-                      listViewAll ? mdiChevronUp : mdiChevronDown
-                    }}</v-icon></v-btn
                   >
+                    <v-icon color="accent">
+                      {{ listViewAll ? mdiChevronUp : mdiChevronDown }}
+                    </v-icon>
+                  </v-btn>
                 </td>
               </tr>
               <template v-if="listViewAll">
@@ -296,9 +305,9 @@
                         label
                         @click="technologiesViewAll = !technologiesViewAll"
                       >
-                        <v-icon small left>{{
-                          technologiesViewAll ? mdiMinus : mdiPlus
-                        }}</v-icon>
+                        <v-icon small left>
+                          technologiesViewAll ? mdiMinus : mdiPlus }}
+                        </v-icon>
                         {{
                           technologiesViewAll
                             ? 'View less'
@@ -349,11 +358,11 @@
                         "
                       >
                         Exclude
-                        <v-chip outlined small label>{{
-                          order.dataset.query.technologies[1].name
-                        }}</v-chip>
+                        <v-chip outlined small label>
+                          {{ order.dataset.query.technologies[1].name }}
+                        </v-chip>
                       </template>
-                      <template v-else>Match any</template>
+                      <template v-else> Match any </template>
                     </div>
                   </td>
                 </tr>
@@ -435,8 +444,9 @@
                         outlined
                         small
                         label
-                        >{{ industry }}</v-chip
                       >
+                        {{ industry }}
+                      </v-chip>
                     </v-chip-group>
                   </td>
                 </tr>
@@ -451,8 +461,9 @@
                         outlined
                         small
                         label
-                        >{{ text }}</v-chip
                       >
+                        {{ text }}
+                      </v-chip>
                     </v-chip-group>
                   </td>
                 </tr>
@@ -466,8 +477,9 @@
                         outlined
                         small
                         label
-                        >{{ tld }}</v-chip
                       >
+                        {{ tld }}
+                      </v-chip>
                     </v-chip-group>
                   </td>
                 </tr>
@@ -514,7 +526,9 @@
                 <tr v-if="order.dataset.query.matchAll">
                   <th>Match IP country and language</th>
                   <td>
-                    <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
+                    <v-icon color="primary">
+                      {{ mdiCheckboxMarked }}
+                    </v-icon>
                   </td>
                 </tr>
                 <tr v-if="order.dataset.query.subset">
@@ -553,8 +567,9 @@
                       :href="`${datasetsBaseUrl}${order.dataset.exclusionsFilename}`"
                       color="accent"
                       icon
-                      ><v-icon>{{ mdiDownload }}</v-icon></v-btn
                     >
+                      <v-icon>{{ mdiDownload }}</v-icon>
+                    </v-btn>
                   </td>
                 </tr>
               </template>
@@ -707,15 +722,18 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer />
-              <v-btn color="accent" text @click="billingDialog = true"
-                ><v-icon left>{{ mdiPencil }}</v-icon> Edit details</v-btn
-              >
+              <v-btn color="accent" text @click="billingDialog = true">
+                <v-icon left>
+                  {{ mdiPencil }}
+                </v-icon>
+                Edit details
+              </v-btn>
             </v-card-actions>
           </template>
 
           <v-divider />
 
-          <v-card-title v-if="!isMember">Payment</v-card-title>
+          <v-card-title v-if="!isMember"> Payment </v-card-title>
 
           <v-card-text
             v-if="!isMember && order.product !== 'Subscription'"
@@ -760,8 +778,8 @@
               tile
             >
               Come here often? Save with a plan. See
-              <nuxt-link class="primary--text" to="/pricing/"
-                >plans &amp; pricing</nuxt-link
+              <nuxt-link class="primary--text" to="/pricing/">
+                plans &amp; pricing </nuxt-link
               >.
             </v-alert>
           </v-card-text>
@@ -788,8 +806,12 @@
                 large
                 depressed
                 @click="pay"
-                ><v-icon left>{{ mdiCreditCard }}</v-icon> Pay now</v-btn
               >
+                <v-icon left>
+                  {{ mdiCreditCard }}
+                </v-icon>
+                Pay now
+              </v-btn>
               <v-btn
                 v-if="order.product !== 'Subscription'"
                 :loading="invoicing"
@@ -799,8 +821,12 @@
                 large
                 depressed
                 @click="invoice"
-                ><v-icon left>{{ mdiEmail }}</v-icon> Send invoice</v-btn
               >
+                <v-icon left>
+                  {{ mdiEmail }}
+                </v-icon>
+                Send invoice
+              </v-btn>
             </div>
           </v-card-text>
           <v-card-text v-if="paymentMethod === 'paypal'" class="pa-0">
@@ -813,7 +839,9 @@
                 depressed
                 @click="invoice"
               >
-                <v-icon left>{{ mdiEmail }}</v-icon>
+                <v-icon left>
+                  {{ mdiEmail }}
+                </v-icon>
                 Send invoice
               </v-btn>
             </div>
@@ -835,16 +863,21 @@
                   depressed
                   @click="pay"
                 >
-                  <v-icon left>{{ mdiAlphaCCircle }}</v-icon>
+                  <v-icon left>
+                    {{ mdiAlphaCCircle }}
+                  </v-icon>
                   Spend {{ formatNumber(order.totalCredits || 0) }} credits
                 </v-btn>
               </div>
             </v-card-text>
             <v-card-actions v-if="!isMember && credits < order.totalCredits">
               <v-spacer />
-              <v-btn color="accent" to="/credits" text
-                ><v-icon left>{{ mdiAlphaCCircle }}</v-icon> Buy credits</v-btn
-              >
+              <v-btn color="accent" to="/credits" text>
+                <v-icon left>
+                  {{ mdiAlphaCCircle }}
+                </v-icon>
+                Buy credits
+              </v-btn>
             </v-card-actions>
           </template>
           <template v-if="paymentMethod === 'free'">
@@ -856,8 +889,8 @@
                 tile
               >
                 Free lists are included in selected plans. See
-                <nuxt-link class="primary--text" to="/pricing/"
-                  >plans &amp; pricing</nuxt-link
+                <nuxt-link class="primary--text" to="/pricing/">
+                  plans &amp; pricing </nuxt-link
                 >.
               </v-alert>
               <v-alert
@@ -885,7 +918,9 @@
                 depressed
                 @click="pay"
               >
-                <v-icon left>{{ mdiGift }}</v-icon>
+                <v-icon left>
+                  {{ mdiGift }}
+                </v-icon>
                 Claim free list
               </v-btn>
             </v-card-text>
@@ -907,7 +942,7 @@
                     Credit balance
                   </td>
                   <td v-if="order.paymentMethod === 'free'">Free list</td>
-                  <td v-else></td>
+                  <td v-else />
                 </tr>
               </tbody>
             </v-simple-table>
@@ -937,12 +972,12 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn color="accent" text @click="cancelDialog = false"
-              >Cancel</v-btn
-            >
-            <v-btn :loading="cancelling" color="error" text @click="cancel"
-              >Ok</v-btn
-            >
+            <v-btn color="accent" text @click="cancelDialog = false">
+              Cancel
+            </v-btn>
+            <v-btn :loading="cancelling" color="error" text @click="cancel">
+              Ok
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -984,12 +1019,12 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn color="accent" text @click="editDialog = false"
-              >Cancel</v-btn
-            >
-            <v-btn :loading="editing" color="accent" text @click="edit"
-              >Save</v-btn
-            >
+            <v-btn color="accent" text @click="editDialog = false">
+              Cancel
+            </v-btn>
+            <v-btn :loading="editing" color="accent" text @click="edit">
+              Save
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -1154,7 +1189,7 @@ export default {
         }
       }
     },
-    '$store.state.credits.credits'(credits) {
+    '$store.state.credits.credits'() {
       if (this.freeLists.remaining) {
         this.paymentMethod = 'free'
       } else if (
@@ -1177,7 +1212,7 @@ export default {
     user() {
       this.billingDialog = false
     },
-    order({ id, status, totalCredits, discount }) {
+    order({ status, totalCredits, discount }) {
       this.status = status
       this.totalCredits = totalCredits
       this.discount = discount / 100

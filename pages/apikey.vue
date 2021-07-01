@@ -9,13 +9,15 @@
 
     <p class="mb-8">
       Your API key provides authorized access to our
-      <nuxt-link to="/api/">APIs</nuxt-link>.
+      <nuxt-link to="/api/"> APIs </nuxt-link>.
     </p>
 
     <template v-if="!loading">
       <div class="mb-4">
         <v-btn href="/docs/api" depressed>
-          <v-icon left>{{ mdiBookOpenPageVariant }}</v-icon>
+          <v-icon left>
+            {{ mdiBookOpenPageVariant }}
+          </v-icon>
           API reference
         </v-btn>
       </div>
@@ -40,7 +42,7 @@
               hide-details
               dense
               @click:append="() => (showKey = !showKey)"
-            ></v-text-field>
+            />
           </template>
         </v-card-text>
 
@@ -52,11 +54,18 @@
             color="accent"
             text
             @click="createKey"
-            ><v-icon left>{{ mdiKeyPlus }}</v-icon> Create key</v-btn
           >
-          <v-btn v-else color="error" text @click="removeKeyDialog = true"
-            ><v-icon left>{{ mdiKeyRemove }}</v-icon> Delete key</v-btn
-          >
+            <v-icon left>
+              {{ mdiKeyPlus }}
+            </v-icon>
+            Create key
+          </v-btn>
+          <v-btn v-else color="error" text @click="removeKeyDialog = true">
+            <v-icon left>
+              {{ mdiKeyRemove }}
+            </v-icon>
+            Delete key
+          </v-btn>
         </v-card-actions>
 
         <v-divider />
@@ -80,7 +89,7 @@
               hide-details
               dense
               @click:append="() => (showSecret = !showSecret)"
-            ></v-text-field>
+            />
           </template>
         </v-card-text>
 
@@ -92,11 +101,18 @@
             color="accent"
             text
             @click="createSecret"
-            ><v-icon left>{{ mdiKeyPlus }}</v-icon> Create secret</v-btn
           >
-          <v-btn v-else color="error" text @click="removeSecretDialog = true"
-            ><v-icon left>{{ mdiKeyRemove }}</v-icon> Delete secret</v-btn
-          >
+            <v-icon left>
+              {{ mdiKeyPlus }}
+            </v-icon>
+            Create secret
+          </v-btn>
+          <v-btn v-else color="error" text @click="removeSecretDialog = true">
+            <v-icon left>
+              {{ mdiKeyRemove }}
+            </v-icon>
+            Delete secret
+          </v-btn>
         </v-card-actions>
       </v-card>
 
@@ -111,13 +127,13 @@
             Any integrations using this key will stop working.
           </v-card-text>
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="accent" text @click="removeKeyDialog = false"
-              >Cancel</v-btn
-            >
-            <v-btn :loading="removingKey" color="error" text @click="removeKey"
-              >Ok</v-btn
-            >
+            <v-spacer />
+            <v-btn color="accent" text @click="removeKeyDialog = false">
+              Cancel
+            </v-btn>
+            <v-btn :loading="removingKey" color="error" text @click="removeKey">
+              Ok
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -133,17 +149,18 @@
             The signing secret will be deleted.
           </v-card-text>
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="accent" text @click="removeSecretDialog = false"
-              >Cancel</v-btn
-            >
+            <v-spacer />
+            <v-btn color="accent" text @click="removeSecretDialog = false">
+              Cancel
+            </v-btn>
             <v-btn
               :loading="removingSecret"
               color="error"
               text
               @click="removeSecret"
-              >Ok</v-btn
             >
+              Ok
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -264,7 +281,7 @@ export default {
       this.creatingSecret = true
 
       try {
-        await this.$axios.put(`apikey/secret`)
+        await this.$axios.put('apikey/secret')
         ;({ apiKey: this.apiKey, secret: this.secret } = (
           await this.$axios.get('apikey')
         ).data)

@@ -1,7 +1,7 @@
 <template>
   <Page
     :title="title"
-    :crumbs="[{ title: 'Lists', to: '/lists/all/' }]"
+    :crumbs="[{ title: 'Lead lists', to: '/lists/all/' }]"
     :loading="!list && !error"
     secure
     no-side-bar
@@ -23,7 +23,9 @@
               x-large
               depressed
             >
-              <v-icon left size="20">{{ mdiDownload }}</v-icon>
+              <v-icon left size="20">
+                {{ mdiDownload }}
+              </v-icon>
               Download list
             </v-btn>
           </div>
@@ -35,22 +37,24 @@
             flat
           >
             <v-card-title class="subtitle-2">
-              <v-icon color="primary" size="20" left>{{
-                mdiLockOpenVariantOutline
-              }}</v-icon>
+              <v-icon color="primary" size="20" left>
+                {{ mdiLockOpenVariantOutline }}
+              </v-icon>
               Unlock pro features
             </v-card-title>
             <v-card-text class="primary--text pb-0">
               Subscribe to a
-              <v-chip to="/pro/" color="primary" x-small outlined>PRO</v-chip>
+              <v-chip to="/pro/" color="primary" x-small outlined> PRO </v-chip>
               plan to include company and contact information in lead lists.
             </v-card-text>
             <v-card-actions>
               <v-spacer />
 
-              <v-btn to="/pricing/" color="primary" text
-                >Compare plans
-                <v-icon right>{{ mdiArrowRight }}</v-icon>
+              <v-btn to="/pricing/" color="primary" text>
+                Compare plans
+                <v-icon right>
+                  {{ mdiArrowRight }}
+                </v-icon>
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -104,7 +108,9 @@
                   :loading="submitting"
                   @click="submit"
                 >
-                  <v-icon left size="20">{{ mdiCart }}</v-icon>
+                  <v-icon left size="20">
+                    {{ mdiCart }}
+                  </v-icon>
                   Checkout
                 </v-btn>
               </div>
@@ -210,9 +216,9 @@
                     small
                     @click="technologiesViewAll = !technologiesViewAll"
                   >
-                    <v-icon small left text>{{
-                      technologiesViewAll ? mdiMinus : mdiPlus
-                    }}</v-icon>
+                    <v-icon small left text>
+                      {{ technologiesViewAll ? mdiMinus : mdiPlus }}
+                    </v-icon>
                     {{
                       technologiesViewAll
                         ? 'View less'
@@ -344,7 +350,9 @@
                     >
                       <th width="40%">Exclude websites without traffic data</th>
                       <td>
-                        <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
+                        <v-icon color="primary">
+                          {{ mdiCheckboxMarked }}
+                        </v-icon>
                       </td>
                     </tr>
                     <tr v-if="list.query.geoIps.length">
@@ -377,8 +385,9 @@
                             outlined
                             small
                             label
-                            >{{ tld }}</v-chip
                           >
+                            {{ tld }}
+                          </v-chip>
                         </v-chip-group>
                       </td>
                     </tr>
@@ -410,13 +419,17 @@
                     >
                       <th width="40%">Exclude multilingual</th>
                       <td>
-                        <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
+                        <v-icon color="primary">
+                          {{ mdiCheckboxMarked }}
+                        </v-icon>
                       </td>
                     </tr>
                     <tr v-if="list.query.matchAll">
                       <th width="40%">Match IP country and language</th>
                       <td>
-                        <v-icon color="primary">{{ mdiCheckboxMarked }}</v-icon>
+                        <v-icon color="primary">
+                          {{ mdiCheckboxMarked }}
+                        </v-icon>
                       </td>
                     </tr>
                     <tr v-if="list.query.technologies.length">
@@ -435,8 +448,9 @@
                           :href="`${datasetsBaseUrl}${list.exclusionsFilename}`"
                           color="accent"
                           icon
-                          ><v-icon>{{ mdiDownload }}</v-icon></v-btn
                         >
+                          <v-icon>{{ mdiDownload }}</v-icon>
+                        </v-btn>
                       </td>
                     </tr>
                     <tr v-if="list.query.requiredSets.length">
@@ -554,12 +568,16 @@
 
           <div v-if="list.status !== 'Complete'" class="mb-4 d-flex">
             <v-btn small depressed @click="$refs.faqDialog.open()">
-              <v-icon left>{{ mdiForum }}</v-icon>
+              <v-icon left>
+                {{ mdiForum }}
+              </v-icon>
               FAQs
             </v-btn>
             <v-spacer />
             <v-btn :to="`/lists/${queryParams}`" color="accent" outlined small>
-              <v-icon left>{{ mdiPencil }}</v-icon>
+              <v-icon left>
+                {{ mdiPencil }}
+              </v-icon>
               Edit
             </v-btn>
             <v-btn
@@ -569,7 +587,9 @@
               small
               @click="cancelDialog = true"
             >
-              <v-icon left>{{ mdiDelete }}</v-icon>
+              <v-icon left>
+                {{ mdiDelete }}
+              </v-icon>
               Delete
             </v-btn>
           </div>
@@ -596,7 +616,9 @@
             </p>
 
             <v-btn :to="`/lists/${queryParams}`" color="white" exact depressed>
-              <v-icon left>{{ mdiArrowLeft }}</v-icon>
+              <v-icon left>
+                {{ mdiArrowLeft }}
+              </v-icon>
               Change requirements
             </v-btn>
           </v-alert>
@@ -612,9 +634,8 @@
             outlined
           >
             This is an automatically created weekly update for the list
-            <nuxt-link :to="`/lists/${list.repeatListId}`">{{
-              list.repeatListId
-            }}</nuxt-link
+            <nuxt-link :to="`/lists/${list.repeatListId}`">
+              {{ list.repeatListId }} </nuxt-link
             >.
           </v-alert>
 
@@ -669,11 +690,7 @@
                         {{ _technology.name }}
                       </div>
                       <span
-                        ><v-chip
-                          class="ml-2 text--disabled"
-                          small
-                          label
-                          outlined
+                        ><v-chip class="ml-2" small label outlined
                           >sample</v-chip
                         ></span
                       >
@@ -683,7 +700,7 @@
                     <TechnologyIcon :icon="technology.icon" />
                     {{ technology.name }}
                     <span
-                      ><v-chip class="ml-2 text--disabled" small label outlined
+                      ><v-chip class="ml-2" small label outlined
                         >sample</v-chip
                       ></span
                     >
@@ -713,7 +730,9 @@
             class="mb-4"
             depressed
           >
-            <v-icon left>{{ mdiDownload }}</v-icon>
+            <v-icon left>
+              {{ mdiDownload }}
+            </v-icon>
             Download samples
           </v-btn>
         </v-col>
@@ -738,12 +757,12 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="accent" text @click="cancelDialog = false"
-            >Cancel</v-btn
-          >
-          <v-btn :loading="cancelling" color="error" text @click="cancel"
-            >Ok</v-btn
-          >
+          <v-btn color="accent" text @click="cancelDialog = false">
+            Cancel
+          </v-btn>
+          <v-btn :loading="cancelling" color="error" text @click="cancel">
+            Ok
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -761,13 +780,13 @@
             The lists will be paid for automatically using your credit balance.
             If you have insufficient credits, this feature is turned off
             automatically.
-            <nuxt-link to="/pricing/">Subscribe to a plan</nuxt-link> to get
+            <nuxt-link to="/pricing/"> Subscribe to a plan </nuxt-link> to get
             monthly credits.
           </p>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="accent" text @click="repeatDialog = false">Ok</v-btn>
+          <v-btn color="accent" text @click="repeatDialog = false"> Ok </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -980,7 +999,7 @@ export default {
         }
       }
     },
-    list({ id, status, totalCredits }) {
+    list({ id, status }) {
       if (status === 'Calculating') {
         setTimeout(async () => {
           this.checks += 1

@@ -5,8 +5,9 @@
       color="error white--text"
       class="pb-1 text-center"
       tile
-      ><small>User disabled</small></v-sheet
     >
+      <small>User disabled</small>
+    </v-sheet>
     <v-sheet class="header" color="primary" tile>
       <v-container tag="header">
         <v-row class="align-center">
@@ -30,10 +31,14 @@
               >
                 <template #activator="{ on }">
                   <v-btn :icon="!!icon" class="white--text" text v-on="on">
-                    <v-icon v-if="icon" dense>{{ icon }}</v-icon>
+                    <v-icon v-if="icon" dense>
+                      {{ icon }}
+                    </v-icon>
                     <template v-else>
                       {{ title }}
-                      <v-icon dense right>{{ mdi.mdiChevronDown }}</v-icon>
+                      <v-icon dense right>
+                        {{ mdi.mdiChevronDown }}
+                      </v-icon>
                     </template>
                   </v-btn>
                 </template>
@@ -45,18 +50,18 @@
                     ) in items"
                     :key="_title"
                   >
-                    <v-divider v-if="index2"></v-divider>
+                    <v-divider v-if="index2" />
                     <v-list-item
                       :href="_to.match(/^http/) ? _to : null"
                       :target="_to.match(/^http/) ? '_blank' : '_self'"
                       :to="_to.match(/^http/) ? null : _to"
                       color="primary"
                     >
-                      <v-list-item-action v-if="_icon"
-                        ><v-icon color="primary" dense>{{
-                          mdi[_icon]
-                        }}</v-icon></v-list-item-action
-                      >
+                      <v-list-item-action v-if="_icon">
+                        <v-icon color="primary" dense>
+                          {{ mdi[_icon] }}
+                        </v-icon>
+                      </v-list-item-action>
                       <v-list-item-content class="py-4">
                         <v-list-item-title class="subtitle-2">
                           {{ _title }}
@@ -72,11 +77,11 @@
                           {{ subtitle }}
                         </v-list-item-subtitle>
                       </v-list-item-content>
-                      <v-list-item-icon v-if="_to.match(/^http/)"
-                        ><v-icon dense>{{
-                          mdi.mdiOpenInNew
-                        }}</v-icon></v-list-item-icon
-                      >
+                      <v-list-item-icon v-if="_to.match(/^http/)">
+                        <v-icon dense>
+                          {{ mdi.mdiOpenInNew }}
+                        </v-icon>
+                      </v-list-item-icon>
                     </v-list-item>
                   </div>
                 </v-list>
@@ -101,15 +106,15 @@
                   text
                   v-on="on"
                 >
-                  <v-icon v-if="!isAdmin && !isMember" left size="20">{{
-                    mdi.mdiAccount
-                  }}</v-icon>
-                  <v-icon v-else-if="isAdmin" left size="20">{{
-                    mdi.mdiLockOpen
-                  }}</v-icon>
-                  <v-icon v-else-if="isMember" left size="20">{{
-                    mdi.mdiDomain
-                  }}</v-icon>
+                  <v-icon v-if="!isAdmin && !isMember" left size="20">
+                    {{ mdi.mdiAccount }}
+                  </v-icon>
+                  <v-icon v-else-if="isAdmin" left size="20">
+                    {{ mdi.mdiLockOpen }}
+                  </v-icon>
+                  <v-icon v-else-if="isMember" left size="20">
+                    {{ mdi.mdiDomain }}
+                  </v-icon>
                   {{ user.billingName || user.name || user.email }}
 
                   <v-chip
@@ -118,8 +123,9 @@
                     class="ml-2"
                     outlined
                     x-small
-                    >PRO</v-chip
                   >
+                    PRO
+                  </v-chip>
                 </v-btn>
               </template>
 
@@ -127,7 +133,9 @@
                 <v-list nav dense>
                   <v-list-item @click="signOutAs">
                     <v-list-item-icon>
-                      <v-icon dense>{{ mdi.mdiAccountSwitch }}</v-icon>
+                      <v-icon dense>
+                        {{ mdi.mdiAccountSwitch }}
+                      </v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title>
@@ -154,7 +162,9 @@
                     @click="signInAs(organisation.organisationId)"
                   >
                     <v-list-item-icon>
-                      <v-icon dense>{{ mdi.mdiAccountSwitch }}</v-icon>
+                      <v-icon dense>
+                        {{ mdi.mdiAccountSwitch }}
+                      </v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title>
@@ -170,9 +180,9 @@
                 <v-list nav dense>
                   <v-list-item v-if="user.admin" to="/admin">
                     <v-list-item-icon>
-                      <v-icon color="success" dense>{{
-                        mdi.mdiLockOpen
-                      }}</v-icon>
+                      <v-icon color="success" dense>
+                        {{ mdi.mdiLockOpen }}
+                      </v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title>Admin</v-list-item-title>
@@ -184,7 +194,9 @@
                     :to="to"
                   >
                     <v-list-item-icon>
-                      <v-icon dense>{{ mdi[icon] }}</v-icon>
+                      <v-icon dense>
+                        {{ mdi[icon] }}
+                      </v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
                       <v-list-item-title>
@@ -201,8 +213,9 @@
               class="ml-2"
               outlined
               @click="signInDialog = true"
-              >Sign up free</v-btn
             >
+              Sign up free
+            </v-btn>
           </v-col>
 
           <v-col class="text-right d-md-none">

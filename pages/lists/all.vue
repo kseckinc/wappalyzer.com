@@ -8,7 +8,9 @@
       <v-row align="center" class="mb-4">
         <v-col class="py-0">
           <v-btn href="/lists/" depressed>
-            <v-icon left>{{ mdiPlus }}</v-icon>
+            <v-icon left>
+              {{ mdiPlus }}
+            </v-icon>
             Create a new list
           </v-btn>
         </v-col>
@@ -47,9 +49,9 @@
               <template v-for="list in filteredLists">
                 <tr :key="list.createdAt">
                   <td style="white-space: nowrap">
-                    <nuxt-link :to="`/lists/${list.id}`">{{
-                      list.id
-                    }}</nuxt-link>
+                    <nuxt-link :to="`/lists/${list.id}`">
+                      {{ list.id }}
+                    </nuxt-link>
 
                     <v-tooltip v-if="list.repeatListId" max-width="250" top>
                       <template #activator="{ on }">
@@ -117,12 +119,14 @@
                   </td>
                   <td>{{ formatDate(new Date(list.createdAt * 1000)) }}</td>
                   <td class="text-center">
-                    <v-icon v-if="list.repeat">{{ mdiUpdate }}</v-icon>
+                    <v-icon v-if="list.repeat">
+                      {{ mdiUpdate }}
+                    </v-icon>
                   </td>
                   <td class="text-center">
-                    <v-icon v-if="list.status === 'Complete'" color="success">{{
-                      mdiCheck
-                    }}</v-icon>
+                    <v-icon v-if="list.status === 'Complete'" color="success">
+                      {{ mdiCheck }}
+                    </v-icon>
                   </td>
                 </tr>
               </template>

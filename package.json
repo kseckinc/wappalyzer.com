@@ -21,13 +21,13 @@
     "nuxt": "^2.15.6",
     "nuxt-canonical": "^1.0.6",
     "nuxt-stripe-module": "^3.2.0",
+    "raw-loader": "^4.0.2",
     "stripe": "^8.148.0",
     "vue-google-charts": "^0.3.3"
   },
   "devDependencies": {
     "@mdi/js": "^5.9.55",
     "@nuxtjs/eslint-config": "^6.0.0",
-    "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/svg": "^0.1.12",
     "@nuxtjs/vuetify": "^1.11.3",

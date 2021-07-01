@@ -31,8 +31,9 @@
             outlined
             small
             exact
-            >{{ name }}</v-chip
           >
+            {{ name }}
+          </v-chip>
 
           <v-chip
             :href="technology.website"
@@ -42,16 +43,18 @@
             small
           >
             Visit {{ formatHostname(technology.website) }}
-            <v-icon right x-small>{{ mdiOpenInNew }}</v-icon>
+            <v-icon right x-small>
+              {{ mdiOpenInNew }}
+            </v-icon>
           </v-chip>
 
-          <v-chip v-if="technology.saas" small outlined
-            >Software as a service</v-chip
-          >
+          <v-chip v-if="technology.saas" small outlined>
+            Software as a service
+          </v-chip>
 
-          <v-chip v-if="technology.oss" small outlined
-            >Open-source software</v-chip
-          >
+          <v-chip v-if="technology.oss" small outlined>
+            Open-source software
+          </v-chip>
 
           <v-tooltip top>
             <template #activator="{ on }">
@@ -64,25 +67,31 @@
                 small
                 outlined
                 v-on="on"
-                ><v-icon small>{{ mdiCurrencyUsd }}</v-icon>
-                <v-icon :disabled="technology.pricing.includes('low')" small>{{
-                  technology.pricing.includes('low')
-                    ? mdiCurrencyUsdOff
-                    : mdiCurrencyUsd
-                }}</v-icon>
+              >
+                <v-icon small>
+                  {{ mdiCurrencyUsd }}
+                </v-icon>
+                <v-icon :disabled="technology.pricing.includes('low')" small>
+                  {{
+                    technology.pricing.includes('low')
+                      ? mdiCurrencyUsdOff
+                      : mdiCurrencyUsd
+                  }}
+                </v-icon>
                 <v-icon
                   :disabled="
                     technology.pricing.includes('low') ||
                     technology.pricing.includes('mid')
                   "
                   small
-                  >{{
+                >
+                  {{
                     technology.pricing.includes('low') ||
                     technology.pricing.includes('mid')
                       ? mdiCurrencyUsdOff
                       : mdiCurrencyUsd
-                  }}</v-icon
-                >
+                  }}
+                </v-icon>
               </v-chip>
             </template>
 
@@ -97,25 +106,29 @@
             }}
           </v-tooltip>
 
-          <v-chip v-if="technology.pricing.includes('recurring')" small outlined
-            >Offers paid plans</v-chip
+          <v-chip
+            v-if="technology.pricing.includes('recurring')"
+            small
+            outlined
           >
+            Offers paid plans
+          </v-chip>
 
-          <v-chip v-if="technology.pricing.includes('freemium')" small outlined
-            >Offers a free plan</v-chip
-          >
+          <v-chip v-if="technology.pricing.includes('freemium')" small outlined>
+            Offers a free plan
+          </v-chip>
 
-          <v-chip v-if="technology.pricing.includes('poa')" small outlined
-            >Price on asking</v-chip
-          >
+          <v-chip v-if="technology.pricing.includes('poa')" small outlined>
+            Price on asking
+          </v-chip>
 
-          <v-chip v-if="technology.pricing.includes('payg')" small outlined
-            >Pay as you go</v-chip
-          >
+          <v-chip v-if="technology.pricing.includes('payg')" small outlined>
+            Pay as you go
+          </v-chip>
 
-          <v-chip v-if="technology.pricing.includes('onetime')" small outlined
-            >Accepts one-time payments</v-chip
-          >
+          <v-chip v-if="technology.pricing.includes('onetime')" small outlined>
+            Accepts one-time payments
+          </v-chip>
         </v-chip-group>
       </div>
 
@@ -147,7 +160,9 @@
         </v-alert>
 
         <v-btn to="/technologies/" class="mt-4" color="accent" outlined exact>
-          <v-icon left>{{ mdiMagnify }}</v-icon>
+          <v-icon left>
+            {{ mdiMagnify }}
+          </v-icon>
           Browse technologies
         </v-btn>
       </template>
@@ -172,8 +187,8 @@
               class="primary--text"
               :to="`/lists/?technologies=${slug}`"
             >
-              {{ technology.name }} websites</nuxt-link
-            >
+              {{ technology.name }} websites
+            </nuxt-link>
             with company and contact details.
           </p>
 
@@ -184,7 +199,10 @@
             large
             depressed
           >
-            <v-icon left>{{ mdiFilterVariant }}</v-icon> Create a lead list
+            <v-icon left>
+              {{ mdiFilterVariant }}
+            </v-icon>
+            Create a lead list
           </v-btn>
         </v-alert>
 
@@ -192,7 +210,9 @@
 
         <h2 class="mb-4">
           <v-row class="align-center px-3">
-            <v-icon color="primary" class="mr-2">{{ mdiEarth }}</v-icon>
+            <v-icon color="primary" class="mr-2">
+              {{ mdiEarth }}
+            </v-icon>
             Websites using {{ technology.name }}
           </v-row>
         </h2>
@@ -216,8 +236,8 @@
                 >
                   <td width="50%">
                     <nuxt-link :to="`/lookup/${hostname}`">
-                      {{ hostname }}</nuxt-link
-                    >
+                      {{ hostname }}
+                    </nuxt-link>
 
                     <a
                       :href="`http${attributes.https ? 's' : ''}://${
@@ -291,7 +311,9 @@
 
         <h2 class="mb-4">
           <v-row class="align-center px-3">
-            <v-icon color="primary" class="mr-2">{{ mdiFinance }}</v-icon>
+            <v-icon color="primary" class="mr-2">
+              {{ mdiFinance }}
+            </v-icon>
             {{ technology.name }} usage trend
           </v-row>
         </h2>
@@ -316,7 +338,9 @@
 
         <h2 class="mb-4">
           <v-row class="align-center px-3">
-            <v-icon color="primary" class="mr-2">{{ mdiMap }}</v-icon>
+            <v-icon color="primary" class="mr-2">
+              {{ mdiMap }}
+            </v-icon>
             {{ technology.name }} demographics
           </v-row>
         </h2>
@@ -329,7 +353,7 @@
         <v-row class="mb-12">
           <v-col cols="12" md="6" class="py-0">
             <v-card>
-              <v-card-title class="subtitle-2">Countries</v-card-title>
+              <v-card-title class="subtitle-2"> Countries </v-card-title>
               <v-card-text class="pb-8">
                 <GChart
                   type="PieChart"
@@ -342,7 +366,7 @@
           </v-col>
           <v-col cols="12" md="6" class="py-0">
             <v-card>
-              <v-card-title class="subtitle-2">Languages</v-card-title>
+              <v-card-title class="subtitle-2"> Languages </v-card-title>
               <v-card-text class="pb-8">
                 <GChart
                   type="PieChart"
@@ -358,9 +382,9 @@
 
         <h2 class="mb-4">
           <v-row class="align-center px-3">
-            <v-icon color="primary" class="mr-2">{{
-              mdiLightbulbOnOutline
-            }}</v-icon>
+            <v-icon color="primary" class="mr-2">
+              {{ mdiLightbulbOnOutline }}
+            </v-icon>
             Alternatives to {{ technology.name }}
           </v-row>
         </h2>
@@ -437,9 +461,11 @@
 
       <div class="mb-6">
         <v-btn outlined @click="openReviewDialog">
-          <v-icon left>{{ mdiFountainPenTip }}</v-icon>
-          Write a review</v-btn
-        >
+          <v-icon left>
+            {{ mdiFountainPenTip }}
+          </v-icon>
+          Write a review
+        </v-btn>
       </div>
 
       <template v-if="technology.reviews.length">
@@ -509,7 +535,7 @@
 
           <p>
             Choose how your name should appear. You can change your name in
-            <nuxt-link to="/account">account settings</nuxt-link>.
+            <nuxt-link to="/account"> account settings </nuxt-link>.
           </p>
 
           <v-radio-group v-model="review.name" hide-details>
@@ -523,15 +549,18 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="error" text @click="reviewDialog = false">Cancel</v-btn>
+          <v-btn color="error" text @click="reviewDialog = false">
+            Cancel
+          </v-btn>
           <v-btn
             color="accent"
             text
             :loading="submittingReview"
             :disabled="!review.rating"
             @click="submitReview"
-            >Publish</v-btn
           >
+            Publish
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -556,7 +585,7 @@
         </v-card-text>
         <v-card-actions v-if="createlistError">
           <v-spacer />
-          <v-btn v-if="error" color="accent" text @click="close">Ok</v-btn>
+          <v-btn v-if="error" color="accent" text @click="close"> Ok </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -812,8 +841,7 @@ export default {
             const hostnames = this.technology.topIpCountries[ipCountry]
 
             const country = countries.find(
-              ({ value, text }) =>
-                value.toUpperCase() === ipCountry.toUpperCase()
+              ({ value }) => value.toUpperCase() === ipCountry.toUpperCase()
             )
 
             topIpCountries.push([

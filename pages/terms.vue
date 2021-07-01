@@ -1,7 +1,9 @@
 <template>
   <div>
     <Page :title="title" :hero="false" narrow no-head no-subscribe>
-      <h1 class="text-h1 mb-8">{{ title }}</h1>
+      <h1 class="text-h1 mb-8">
+        {{ title }}
+      </h1>
 
       <p>
         These Wappalyzer terms of service (the '<strong>Terms</strong>')
@@ -13,8 +15,8 @@
 
       <p>
         You consent to Wappalyzer's
-        <nuxt-link to="/privacy/">privacy policy</nuxt-link>, which explains how
-        we collect and use the information you provide to us.
+        <nuxt-link to="/privacy/"> privacy policy </nuxt-link>, which explains
+        how we collect and use the information you provide to us.
       </p>
 
       <h2 class="text-h2 mt-8 mb-2">Prohibitions on content</h2>

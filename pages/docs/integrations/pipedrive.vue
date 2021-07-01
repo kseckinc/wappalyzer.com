@@ -42,9 +42,9 @@
       <ul>
         <li>
           Go to the
-          <nuxt-link to="/integrations/pipedrive/"
-            >Pipedrive integration page</nuxt-link
-          >
+          <nuxt-link to="/integrations/pipedrive/">
+            Pipedrive integration page
+          </nuxt-link>
           in your account.
         </li>
         <li>Click 'Connect' and follow the prompts.</li>
@@ -57,8 +57,8 @@
       >
         Each Pipedrive user must connect the app individually to use panels. Add
         members to your
-        <nuxt-link to="/organisation">organisation</nuxt-link> to allow multiple
-        users to use the same plan.
+        <nuxt-link to="/organisation"> organisation </nuxt-link> to allow
+        multiple users to use the same plan.
       </v-alert>
 
       <Heading id="getting-started" size="2" class="mt-8 mb-2">
@@ -78,25 +78,25 @@
 
       <p>
         In Pipedrive settings, go to
-        <v-chip small label outlined>Data fields</v-chip>
-        &rarr; <v-chip small label outlined>Organization</v-chip> &rarr;
-        <v-chip small label outlined>Custom fields</v-chip> and create or find a
-        custom field that contains the website URL for organisations.
+        <v-chip small label outlined> Data fields </v-chip>
+        &rarr; <v-chip small label outlined> Organization </v-chip> &rarr;
+        <v-chip small label outlined> Custom fields </v-chip> and create or find
+        a custom field that contains the website URL for organisations.
       </p>
 
       <p>
         Select the field on the
-        <nuxt-link to="/integrations/pipedrive/"
-          >Pipedrive integration page</nuxt-link
-        >
+        <nuxt-link to="/integrations/pipedrive/">
+          Pipedrive integration page
+        </nuxt-link>
         in your account.
       </p>
 
-      <Heading id="pricing" size="2" class="mt-8 mb-2">Pricing</Heading>
+      <Heading id="pricing" size="2" class="mt-8 mb-2"> Pricing </Heading>
 
       <p>
         The Pipedrive integration is available on
-        <v-chip to="/pricing/" color="primary" x-small outlined>PRO</v-chip>
+        <v-chip to="/pricing/" color="primary" x-small outlined> PRO </v-chip>
         plans.
       </p>
 
@@ -106,8 +106,8 @@
       </p>
 
       <p>
-        Refer to the <nuxt-link to="/pricing/">Pricing</nuxt-link> page for more
-        information about credits and plans.
+        Refer to the <nuxt-link to="/pricing/"> Pricing </nuxt-link> page for
+        more information about credits and plans.
       </p>
     </Page>
   </div>

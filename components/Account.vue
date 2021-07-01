@@ -14,7 +14,7 @@
             :rules="rules.required"
             label="Name"
             required
-          ></v-text-field>
+          />
 
           <v-select
             v-model="attrs.industry"
@@ -22,7 +22,7 @@
             :rules="rules.required"
             label="Industry"
             required
-          ></v-select>
+          />
 
           <v-select
             v-model="attrs.useCase"
@@ -30,7 +30,7 @@
             :rules="rules.required"
             label="Primary use case"
             required
-          ></v-select>
+          />
 
           <v-alert
             v-if="attrs.useCase === 'Reselling'"
@@ -59,14 +59,14 @@
             :rules="rules.required"
             label="Name or business name"
             required
-          ></v-text-field>
+          />
 
           <v-text-field
             v-model="attrs.billingEmail"
             :rules="rules.email"
             label="Email address"
             required
-          ></v-text-field>
+          />
 
           <v-row>
             <v-col cols="6">
@@ -75,13 +75,10 @@
                 :items="taxIds"
                 label="Tax ID type"
                 required
-              ></v-select>
+              />
             </v-col>
             <v-col>
-              <v-text-field
-                v-model="attrs.billingTaxId"
-                label="Tax ID"
-              ></v-text-field>
+              <v-text-field v-model="attrs.billingTaxId" label="Tax ID" />
             </v-col>
           </v-row>
 
@@ -91,7 +88,7 @@
             :rules="rules.required"
             label="Country"
             required
-          ></v-select>
+          />
 
           <v-alert
             v-if="
@@ -113,26 +110,26 @@
             :rules="rules.required"
             label="Address line 1"
             required
-          ></v-text-field>
+          />
 
           <v-text-field
             v-model="attrs.billingAddress2"
             label="Address line 2"
-          ></v-text-field>
+          />
 
           <v-text-field
             v-model="attrs.billingCity"
             :rules="rules.required"
             label="City, suburb or town"
             required
-          ></v-text-field>
+          />
 
           <v-text-field
             v-model="attrs.billingPostcode"
             :rules="rules.required"
             label="Postcode or ZIP"
             required
-          ></v-text-field>
+          />
 
           <v-select
             v-if="states"
@@ -141,14 +138,14 @@
             :rules="rules.required"
             label="State"
             required
-          ></v-select>
+          />
           <v-text-field
             v-else
             v-model="attrs.billingState"
             :rules="rules.required"
             label="State, county or province"
             required
-          ></v-text-field>
+          />
         </v-card-text>
       </v-col>
     </v-row>
@@ -161,8 +158,11 @@
         text
         @click.prevent="submit(false)"
       >
-        <v-icon left>{{ mdiContentSave }}</v-icon> Save</v-btn
-      >
+        <v-icon left>
+          {{ mdiContentSave }}
+        </v-icon>
+        Save
+      </v-btn>
     </v-card-actions>
   </v-form>
 </template>

@@ -56,7 +56,7 @@
             />
           </v-form>
 
-          <v-divider class="mt-4 mb-2"></v-divider>
+          <v-divider class="mt-4 mb-2" />
         </template>
 
         <template #selection="{ item }">
@@ -118,7 +118,7 @@ export default {
         })
       }
     },
-    url(url) {
+    url() {
       this.query = this.url
     },
   },

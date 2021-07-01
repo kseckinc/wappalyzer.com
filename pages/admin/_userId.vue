@@ -1,7 +1,7 @@
 <template>
   <Page :title="title" :hero="false" no-subscribe>
     <v-card class="mb-6" max-width="600px">
-      <v-card-title class="subtitle-2">Sign in as</v-card-title>
+      <v-card-title class="subtitle-2"> Sign in as </v-card-title>
       <v-card-text>
         <v-alert v-if="success" type="success">
           {{ success }}

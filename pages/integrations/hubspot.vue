@@ -28,7 +28,9 @@
 
     <div class="mb-4">
       <v-btn to="/docs/integrations/hubspot/" depressed>
-        <v-icon left>{{ mdiBookOpenPageVariant }}</v-icon>
+        <v-icon left>
+          {{ mdiBookOpenPageVariant }}
+        </v-icon>
         Documentation
       </v-btn>
       <v-btn
@@ -36,7 +38,9 @@
         target="_blank"
         depressed
       >
-        <v-icon left>{{ mdiHubspot }}</v-icon>
+        <v-icon left>
+          {{ mdiHubspot }}
+        </v-icon>
         App marketplace
       </v-btn>
     </div>
@@ -55,9 +59,11 @@
           </p>
 
           <v-btn to="/pricing/" color="accent" outlined>
-            <v-icon left>{{ mdiCalculator }}</v-icon>
-            Plans &amp; pricing</v-btn
-          >
+            <v-icon left>
+              {{ mdiCalculator }}
+            </v-icon>
+            Plans &amp; pricing
+          </v-btn>
         </v-alert>
 
         <v-simple-table>
@@ -89,7 +95,7 @@
               </td>
             </tr>
 
-            <tr></tr>
+            <tr />
           </tbody>
         </v-simple-table>
       </v-card-text>
@@ -104,9 +110,11 @@
           :disabled="!eligible"
           text
         >
-          <v-icon left>{{ mdiPowerPlug }}</v-icon>
-          Connect</v-btn
-        >
+          <v-icon left>
+            {{ mdiPowerPlug }}
+          </v-icon>
+          Connect
+        </v-btn>
         <v-btn
           v-else
           color="error"
@@ -114,9 +122,11 @@
           text
           @click="disconnect"
         >
-          <v-icon left>{{ mdiPowerPlugOff }}</v-icon>
-          Disconnect</v-btn
-        >
+          <v-icon left>
+            {{ mdiPowerPlugOff }}
+          </v-icon>
+          Disconnect
+        </v-btn>
       </v-card-actions>
     </v-card>
 
@@ -145,7 +155,7 @@
 
       <v-divider />
 
-      <v-card-title class="subtitle-2">Technologies</v-card-title>
+      <v-card-title class="subtitle-2"> Technologies </v-card-title>
       <v-card-text class="px-0">
         <p class="mx-4" style="max-width: 600px">
           Map technology categories to custom HubSpot company properties. These
@@ -157,7 +167,7 @@
             <tr>
               <th width="50%">Technology category</th>
               <th>HubSpot property</th>
-              <th></th>
+              <th />
             </tr>
           </thead>
           <tbody>
@@ -213,17 +223,20 @@
               small
               depressed
               @click="addField"
-              >Add</v-btn
             >
+              Add
+            </v-btn>
           </v-col>
         </v-row>
       </v-card-text>
       <v-card-actions>
         <v-spacer />
         <v-btn color="accent" :loading="saving" text @click="save">
-          <v-icon left>{{ mdiContentSave }}</v-icon>
-          Save</v-btn
-        >
+          <v-icon left>
+            {{ mdiContentSave }}
+          </v-icon>
+          Save
+        </v-btn>
       </v-card-actions>
     </v-card>
 
@@ -242,7 +255,7 @@
       </v-card-text>
       <v-divider />
 
-      <v-card-title class="subtitle-2">Existing companies</v-card-title>
+      <v-card-title class="subtitle-2"> Existing companies </v-card-title>
       <v-card-text style="max-width: 600px">
         <p>
           Append technology information to all existing company records using
@@ -256,16 +269,18 @@
               depressed
               @click="syncDialog = true"
             >
-              <v-icon left>{{ mdiAutorenew }}</v-icon>
-              Update all companies</v-btn
-            >
+              <v-icon left>
+                {{ mdiAutorenew }}
+              </v-icon>
+              Update all companies
+            </v-btn>
           </v-col>
         </v-row>
       </v-card-text>
 
       <v-divider />
 
-      <v-card-title class="subtitle-2">New companies</v-card-title>
+      <v-card-title class="subtitle-2"> New companies </v-card-title>
       <v-card-text>
         <p style="max-width: 600px" class="mb-0">
           If you created field mappings above, new companies are automatically
@@ -287,10 +302,12 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="accent" text @click="syncDialog = false">Cancel</v-btn>
-          <v-btn :loading="syncing" color="accent" text @click="sync"
-            >Continue</v-btn
-          >
+          <v-btn color="accent" text @click="syncDialog = false">
+            Cancel
+          </v-btn>
+          <v-btn :loading="syncing" color="accent" text @click="sync">
+            Continue
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

@@ -14,7 +14,7 @@
     </v-alert>
 
     <v-card v-if="!success" class="mb-6">
-      <v-card-title class="subtitle-2">Email address</v-card-title>
+      <v-card-title class="subtitle-2"> Email address </v-card-title>
       <v-card-text>
         <v-form ref="form" @submit.prevent="submit">
           <v-text-field

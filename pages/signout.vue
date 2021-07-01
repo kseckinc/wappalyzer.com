@@ -9,8 +9,9 @@
           color="primary lighten-1"
           class="mt-4 primary--text"
           depressed
-          >Return to home</v-btn
         >
+          Return to home
+        </v-btn>
       </template>
       <v-alert v-else-if="error" type="error">
         {{ error }}

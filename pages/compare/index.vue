@@ -3,7 +3,9 @@
     <Page :title="title" :head="{ title, text }" :crumbs="crumbs" hero>
       <v-card color="secondary" class="mt-8 mb-4">
         <v-card-title>
-          <v-icon color="primary" left>{{ mdiFormatListChecks }}</v-icon>
+          <v-icon color="primary" left>
+            {{ mdiFormatListChecks }}
+          </v-icon>
           Selection
         </v-card-title>
         <v-card-text>
@@ -40,7 +42,11 @@
         color="primary"
         class="mt-4 mb-4"
         large
-        >Compare <v-icon right>{{ mdiArrowRight }}</v-icon>
+      >
+        Compare
+        <v-icon right>
+          {{ mdiArrowRight }}
+        </v-icon>
       </v-btn>
     </Page>
   </div>
@@ -60,7 +66,7 @@ export default {
   data() {
     return {
       title: 'Compare',
-      text: `Choose any two technologies to compare them side-by-side.`,
+      text: 'Choose any two technologies to compare them side-by-side.',
       mdiFormatListChecks,
       mdiArrowRight,
       technologyA: null,

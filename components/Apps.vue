@@ -49,7 +49,9 @@
             <v-tooltip v-if="app.settings" top>
               <template #activator="{ on }">
                 <v-btn :to="app.settings" icon small v-on="on">
-                  <v-icon small>{{ mdiCog }}</v-icon>
+                  <v-icon small>
+                    {{ mdiCog }}
+                  </v-icon>
                 </v-btn>
               </template>
 
@@ -59,7 +61,9 @@
             <v-tooltip v-if="app.docs" top>
               <template #activator="{ on }">
                 <v-btn :to="app.docs" icon small v-on="on">
-                  <v-icon small>{{ mdiBookOpenPageVariant }}</v-icon>
+                  <v-icon small>
+                    {{ mdiBookOpenPageVariant }}
+                  </v-icon>
                 </v-btn>
               </template>
 
@@ -69,7 +73,9 @@
             <v-tooltip v-if="app.href" top>
               <template #activator="{ on }">
                 <v-btn :href="app.href" target="_blank" icon small v-on="on">
-                  <v-icon small>{{ mdiOpenInNew }}</v-icon>
+                  <v-icon small>
+                    {{ mdiOpenInNew }}
+                  </v-icon>
                 </v-btn>
               </template>
 

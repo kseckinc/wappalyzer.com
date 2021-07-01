@@ -45,7 +45,7 @@
         :key="item.size"
         :class="item.raised ? 'matrix__col--raised' : ''"
       >
-        <v-responsive v-if="!item.raised" height="20"> </v-responsive>
+        <v-responsive v-if="!item.raised" height="20" />
         <v-card
           :raised="item.raised"
           class="text-center"
@@ -53,7 +53,7 @@
             item.raised ? 'border: 1px solid #4608ad; margin-top: -1px' : ''
           }`"
         >
-          <v-responsive v-if="!item.raised" height="20"> </v-responsive>
+          <v-responsive v-if="!item.raised" height="20" />
           <v-responsive
             v-if="item.raised && Object.keys(items).length > 1"
             height="40"
@@ -112,8 +112,9 @@
                 class="mx-auto px-4"
                 text
                 @click="signInDialog = true"
-                >Sign up</v-btn
               >
+                Sign up
+              </v-btn>
               <v-btn
                 v-else-if="item.to"
                 :to="item.to"
@@ -121,8 +122,9 @@
                 color="primary white-text"
                 class="mx-auto px-4"
                 depressed
-                >{{ buttonText }}</v-btn
               >
+                {{ buttonText }}
+              </v-btn>
               <v-btn
                 v-else
                 :text="!item.raised"
@@ -130,8 +132,9 @@
                 class="mx-auto px-4"
                 depressed
                 @click="$emit('select', id)"
-                >{{ buttonText }}</v-btn
               >
+                {{ buttonText }}
+              </v-btn>
             </v-card-actions>
           </v-responsive>
           <div v-for="(attr, name) in attrs" :key="name">
@@ -217,7 +220,7 @@
               </v-card-text>
             </v-responsive>
           </div>
-          <v-responsive v-if="item.raised" height="20"> </v-responsive>
+          <v-responsive v-if="item.raised" height="20" />
         </v-card>
       </v-col>
     </v-row>

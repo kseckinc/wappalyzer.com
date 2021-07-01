@@ -20,11 +20,13 @@
             </ol>
 
             <v-btn depressed @click="faqDialog = true">
-              <v-icon left>{{ mdiForum }}</v-icon>
+              <v-icon left>
+                {{ mdiForum }}
+              </v-icon>
               Frequently asked questions
             </v-btn>
           </v-card-text>
-          <v-card-title class="subtitle-2">Watch the video</v-card-title>
+          <v-card-title class="subtitle-2"> Watch the video </v-card-title>
           <v-card-text>
             <iframe
               src="https://player.vimeo.com/video/468326761"
@@ -34,7 +36,7 @@
               frameborder="0"
               allow="autoplay; fullscreen"
               allowfullscreen
-            ></iframe>
+            />
           </v-card-text>
         </v-card>
       </v-col>
@@ -48,7 +50,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="accent" text @click="faqDialog = false">Close</v-btn>
+          <v-btn color="accent" text @click="faqDialog = false"> Close </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

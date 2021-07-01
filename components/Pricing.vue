@@ -14,12 +14,7 @@
       <v-spacer />
       <span class="font-weight-regular mr-2">Billing </span>
       <span @click="annually = !annually">Monthly</span>
-      <v-switch
-        v-model="annually"
-        class="my-0 ml-4"
-        inset
-        hide-details
-      ></v-switch>
+      <v-switch v-model="annually" class="my-0 ml-4" inset hide-details />
       <span @click="annually = !annually">
         Annually <span class="font-weight-regular ml-1">(discounted)</span>
       </span>

@@ -89,7 +89,7 @@ export default {
     '~/plugins/axios.js',
     '~/plugins/mixins.js',
   ],
-  buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/svg', '@nuxtjs/vuetify'],
+  buildModules: ['@nuxtjs/svg', '@nuxtjs/vuetify'],
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/sitemap',
@@ -146,7 +146,14 @@ export default {
     },
   },
   build: {
-    extend(config, ctx) {},
+    extend(config) {
+      config.module.rules.push({
+        enforce: 'pre',
+        test: /\.csv$/,
+        loader: 'raw-loader',
+        exclude: /(node_modules)/,
+      })
+    },
     followSymlinks: true,
   },
   hooks: {

@@ -1,7 +1,9 @@
 <template>
   <Page :crumbs="crumbs" :title="title" :head="{ meta }" no-head narrow>
     <article>
-      <h1 class="text-h1 mb-8">{{ title }}</h1>
+      <h1 class="text-h1 mb-8">
+        {{ title }}
+      </h1>
 
       <p>
         The
@@ -76,9 +78,9 @@
 
       <ul class="mb-4">
         <li>
-          <nuxt-link to="/technologies/javascript-frameworks/jquery/"
-            >jQuery</nuxt-link
-          >
+          <nuxt-link to="/technologies/javascript-frameworks/jquery/">
+            jQuery
+          </nuxt-link>
           is used on 85% of web pages
         </li>
         <li>10% of pages are on an ecommerce platform</li>
@@ -176,7 +178,7 @@ export default {
     return {
       title: 'HTTP Archive uses Wappalyzer to track the state of the web',
       crumbs: [{ title: 'Articles', to: '/articles/' }],
-      meta: ``,
+      meta: '',
     }
   },
 }

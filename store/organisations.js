@@ -9,12 +9,12 @@ export const mutations = {
 }
 
 export const actions = {
-  async get({ state, commit, dispatch }, attributes) {
+  async get({ commit }) {
     const memberOf = (await this.$axios.get('organisation/memberof')).data
 
     commit('setMemberOf', memberOf)
   },
-  set({ state, commit, dispatch }, memberOf) {
+  set({ commit }, memberOf) {
     commit('setMemberOf', memberOf)
   },
 }

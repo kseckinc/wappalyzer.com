@@ -2,7 +2,9 @@
   <Page :title="title" :seo-title="seoTitle" :head="meta" narrow no-heading>
     <v-card color="secondary" class="mt-8 mb-4">
       <v-card-title>
-        <v-icon color="primary" left>{{ mdiMagnify }}</v-icon>
+        <v-icon color="primary" left>
+          {{ mdiMagnify }}
+        </v-icon>
         Search
       </v-card-title>
       <v-card-text>
@@ -56,8 +58,9 @@
               input = example
               search()
             "
-            >{{ example }}</v-chip
           >
+            {{ example }}
+          </v-chip>
         </div>
         <template v-else-if="!loading && websites.length">
           <v-card class="my-4">
@@ -83,14 +86,16 @@
                   large
                   depressed
                 >
-                  <v-icon left>{{ mdiFilterVariant }}</v-icon> Create a lead
-                  list
+                  <v-icon left>
+                    {{ mdiFilterVariant }}
+                  </v-icon>
+                  Create a lead list
                 </v-btn>
               </v-alert>
             </v-card-text>
-            <v-card-title class="subtitle-2"
-              >{{ formatNumber(results) }} Results</v-card-title
-            >
+            <v-card-title class="subtitle-2">
+              {{ formatNumber(results) }} Results
+            </v-card-title>
             <v-card-text
               class="px-0"
               placeholder="E.g. JEWELRY"
@@ -108,8 +113,8 @@
                   >
                     <td>
                       <nuxt-link :to="`/lookup/${hostname}`">
-                        {{ hostname }}</nuxt-link
-                      >
+                        {{ hostname }}
+                      </nuxt-link>
 
                       <a
                         :href="`http${https ? 's' : ''}://${
@@ -166,7 +171,6 @@ export default {
         user: { isSignedIn },
       },
     },
-    redirect,
   }) {
     const { keyword } = route.params
 

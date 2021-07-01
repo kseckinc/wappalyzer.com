@@ -7,7 +7,9 @@
     </p>
 
     <v-btn to="/faq/lists/" depressed>
-      <v-icon left>{{ mdiForum }}</v-icon>
+      <v-icon left>
+        {{ mdiForum }}
+      </v-icon>
       Frequently asked questions
     </v-btn>
 
@@ -15,7 +17,9 @@
       <v-col cols="12" md="6">
         <v-card height="100%" class="d-flex flex-column">
           <v-card-title class="subtitle-2">
-            <v-icon left>{{ mdiFaceAgent }}</v-icon>
+            <v-icon left>
+              {{ mdiFaceAgent }}
+            </v-icon>
 
             Sales &amp; support
           </v-card-title>
@@ -29,16 +33,20 @@
           <v-card-actions>
             <v-spacer />
             <v-btn href="mailto:hello@wappalyzer.com" color="accent" text>
-              <v-icon left>{{ mdiEmail }}</v-icon>
-              Email us</v-btn
-            >
+              <v-icon left>
+                {{ mdiEmail }}
+              </v-icon>
+              Email us
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
       <v-col cols="12" md="6">
         <v-card height="100%" class="d-flex flex-column">
           <v-card-title class="subtitle-2">
-            <v-icon left>{{ mdiThumbUpOutline }}</v-icon>
+            <v-icon left>
+              {{ mdiThumbUpOutline }}
+            </v-icon>
 
             Follow us
           </v-card-title>
@@ -54,32 +62,36 @@
               target="_blank"
               rel="noopener"
               icon
-              ><v-icon>{{ mdiFacebook }}</v-icon></v-btn
             >
+              <v-icon>{{ mdiFacebook }}</v-icon>
+            </v-btn>
             <v-btn
               href="https://www.instagram.com/wappalyzer"
               color="accent"
               target="_blank"
               rel="noopener"
               icon
-              ><v-icon>{{ mdiInstagram }}</v-icon></v-btn
             >
+              <v-icon>{{ mdiInstagram }}</v-icon>
+            </v-btn>
             <v-btn
               href="https://twitter.com/Wappalyzer"
               color="accent"
               target="_blank"
               rel="noopener"
               icon
-              ><v-icon>{{ mdiTwitter }}</v-icon></v-btn
             >
+              <v-icon>{{ mdiTwitter }}</v-icon>
+            </v-btn>
             <v-btn
               href="https://www.linkedin.com/company/wappalyzer"
               color="accent"
               target="_blank"
               rel="noopener"
               icon
-              ><v-icon>{{ mdiLinkedin }}</v-icon></v-btn
             >
+              <v-icon>{{ mdiLinkedin }}</v-icon>
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>

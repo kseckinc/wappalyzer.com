@@ -45,8 +45,8 @@
         For an in-depth example, see:
         <nuxt-link
           to="/articles/get-the-technology-stack-of-new-leads-in-slack/"
-          >Get the technology stack of new leads to your Slack
-          instantly</nuxt-link
+        >
+          Get the technology stack of new leads to your Slack instantly </nuxt-link
         >.
       </v-alert>
 
@@ -54,8 +54,8 @@
 
       <p>
         A technology lookup costs 1 credit. Refer to the
-        <nuxt-link to="/pricing/">Pricing</nuxt-link> page for more information
-        about credits and plans.
+        <nuxt-link to="/pricing/"> Pricing </nuxt-link> page for more
+        information about credits and plans.
       </p>
     </Page>
   </div>

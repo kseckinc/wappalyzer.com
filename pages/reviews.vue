@@ -7,7 +7,9 @@
     <template v-if="!loading">
       <div class="mb-4">
         <v-btn href="/technologies/" depressed>
-          <v-icon left>{{ mdiMagnify }}</v-icon>
+          <v-icon left>
+            {{ mdiMagnify }}
+          </v-icon>
           Browse technologies
         </v-btn>
       </div>

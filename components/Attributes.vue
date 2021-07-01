@@ -1,8 +1,8 @@
 <template>
   <div style="width: 100%">
     <v-expansion-panel v-for="(set, setKey) in attributes" :key="setKey" flat>
-      <v-expansion-panel-header class="subtitle-2" style="line-height: 1em"
-        >{{ set.title }}
+      <v-expansion-panel-header class="subtitle-2" style="line-height: 1em">
+        {{ set.title }}
 
         <span class="body-2 my-n2">
           <v-chip
@@ -105,21 +105,22 @@
                         :class="maskedSets.includes(setKey) ? 'blurred' : ''"
                       >
                         {{ value.text }}
-                      </span></v-chip
-                    >
+                      </span>
+                    </v-chip>
                   </div>
                 </v-chip-group>
                 <template v-else>
                   <div v-for="(value, index) in attribute.values" :key="index">
-                    <v-icon v-if="value.text === true" color="success" small>{{
-                      mdiCheck
-                    }}</v-icon>
+                    <v-icon v-if="value.text === true" color="success" small>
+                      {{ mdiCheck }}
+                    </v-icon>
                     <v-icon
                       v-else-if="value.text === false"
                       color="error"
                       small
-                      >{{ mdiClose }}</v-icon
                     >
+                      {{ mdiClose }}
+                    </v-icon>
                     <div
                       v-else-if="attributeKey === 'employees'"
                       :class="`${

@@ -11,7 +11,7 @@
       </v-card-text>
       <v-card-actions v-if="error">
         <v-spacer />
-        <v-btn v-if="error" color="accent" text @click="close">Ok</v-btn>
+        <v-btn v-if="error" color="accent" text @click="close"> Ok </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

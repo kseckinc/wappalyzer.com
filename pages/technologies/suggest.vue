@@ -24,7 +24,7 @@
 
     <v-card class="mb-4">
       <v-form ref="form" v-model="criteria">
-        <v-card-title class="subtitle-2">Criteria</v-card-title>
+        <v-card-title class="subtitle-2"> Criteria </v-card-title>
         <v-card-text>
           <p>The technology&hellip;</p>
 
@@ -69,7 +69,7 @@
       <v-divider />
 
       <v-form :disabled="!criteria">
-        <v-card-title class="subtitle-2">Basic information</v-card-title>
+        <v-card-title class="subtitle-2"> Basic information </v-card-title>
         <v-card-text>
           <v-row>
             <v-col>
@@ -109,7 +109,7 @@
 
         <v-divider />
 
-        <v-card-title class="subtitle-2">Logo</v-card-title>
+        <v-card-title class="subtitle-2"> Logo </v-card-title>
         <v-card-text>
           <p>
             Upload a square icon in SVG format, suitable to be displayed at
@@ -128,7 +128,7 @@
 
         <v-divider />
 
-        <v-card-title class="subtitle-2">Attributes</v-card-title>
+        <v-card-title class="subtitle-2"> Attributes </v-card-title>
         <v-card-text>
           <p>Select all that apply.</p>
 
@@ -164,7 +164,7 @@
 
         <v-divider />
 
-        <v-card-title class="subtitle-2">Pricing models</v-card-title>
+        <v-card-title class="subtitle-2"> Pricing models </v-card-title>
         <v-card-text>
           <p>Select all that apply.</p>
 
@@ -270,7 +270,7 @@
 
         <v-divider />
 
-        <v-card-title class="subtitle-2">Price range</v-card-title>
+        <v-card-title class="subtitle-2"> Price range </v-card-title>
         <v-card-text>
           <p>
             An indication of cost, based on a typical plan or average monthly
@@ -302,7 +302,7 @@
 
         <v-divider />
 
-        <v-card-title class="subtitle-2">Fingerprints</v-card-title>
+        <v-card-title class="subtitle-2"> Fingerprints </v-card-title>
         <v-card-text>
           <p>
             Wappalyzer identifies technologies by analysing web pages, looking
@@ -327,7 +327,7 @@
 
         <v-divider />
 
-        <v-card-title class="subtitle-2">Example websites</v-card-title>
+        <v-card-title class="subtitle-2"> Example websites </v-card-title>
         <v-card-text>
           <p>
             Provide 2-3 links to websites that use the technology for our
@@ -344,7 +344,7 @@
 
         <v-divider />
 
-        <v-card-title class="subtitle-2">Dependencies</v-card-title>
+        <v-card-title class="subtitle-2"> Dependencies </v-card-title>
         <v-card-text>
           <p>
             If the technology is built on other technologies, such as a
@@ -362,7 +362,7 @@
 
         <v-divider />
 
-        <v-card-title class="subtitle-2">Your contact details</v-card-title>
+        <v-card-title class="subtitle-2"> Your contact details </v-card-title>
         <v-card-text>
           <p>We'll follow up when your submission has been processed.</p>
 
@@ -393,8 +393,9 @@
       :loading="submitting"
       :disabled="!criteria"
       @click="submit"
-      >Submit</v-btn
     >
+      Submit
+    </v-btn>
   </Page>
 </template>
 

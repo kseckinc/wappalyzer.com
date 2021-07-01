@@ -29,19 +29,19 @@
 
     <div class="ttt-grid">
       <div class="ttt-row">
-        <div class="ttt-cell"></div>
-        <div class="ttt-cell"></div>
-        <div class="ttt-cell"></div>
+        <div class="ttt-cell" />
+        <div class="ttt-cell" />
+        <div class="ttt-cell" />
       </div>
       <div class="ttt-row">
-        <div class="ttt-cell"></div>
-        <div class="ttt-cell"></div>
-        <div class="ttt-cell"></div>
+        <div class="ttt-cell" />
+        <div class="ttt-cell" />
+        <div class="ttt-cell" />
       </div>
       <div class="ttt-row">
-        <div class="ttt-cell"></div>
-        <div class="ttt-cell"></div>
-        <div class="ttt-cell"></div>
+        <div class="ttt-cell" />
+        <div class="ttt-cell" />
+        <div class="ttt-cell" />
       </div>
     </div>
 

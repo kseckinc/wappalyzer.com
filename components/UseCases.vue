@@ -19,7 +19,9 @@
         <v-card-actions>
           <v-spacer />
           <v-btn :to="useCase.to" color="primary" text>
-            <v-icon left>{{ useCase.icon }}</v-icon>
+            <v-icon left>
+              {{ useCase.icon }}
+            </v-icon>
             {{ useCase.buttonText }}
           </v-btn>
         </v-card-actions>

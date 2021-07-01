@@ -18,7 +18,9 @@
     </v-col>
     <v-col cols="12" md="8">
       <v-responsive height="30" class="d-flex align-center mb-2">
-        <v-icon color="primary" left>{{ mdi[product.icon] }}</v-icon>
+        <v-icon color="primary" left>
+          {{ mdi[product.icon] }}
+        </v-icon>
 
         <span class="overline font-weight-bold">{{ product.title }}</span>
       </v-responsive>
@@ -41,32 +43,36 @@
           class="my-1"
           style="vertical-align: inherit"
           label
-          >Fashion</v-chip
         >
+          Fashion
+        </v-chip>
         websites that use
         <v-chip
           color="primary lighten-1 primary--text"
           class="my-1"
           style="vertical-align: inherit"
           label
-          >Shopify</v-chip
         >
+          Shopify
+        </v-chip>
         in
         <v-chip
           color="primary lighten-1 primary--text"
           class="my-1"
           style="vertical-align: inherit"
           label
-          >United States</v-chip
         >
+          United States
+        </v-chip>
         with
         <v-chip
           color="primary lighten-1 primary--text"
           class="my-1"
           style="vertical-align: inherit"
           label
-          >high traffic</v-chip
         >
+          high traffic
+        </v-chip>
       </v-alert>
 
       <v-form
@@ -107,8 +113,11 @@
         :class="`mb-2 mr-4${button.secondary ? ' primary--text' : ''}`"
         large
         depressed
-        >{{ button.text }}
-        <v-icon right>{{ mdi[button.icon] }}</v-icon>
+      >
+        {{ button.text }}
+        <v-icon right>
+          {{ mdi[button.icon] }}
+        </v-icon>
       </v-btn>
 
       <div class="overline pt-4">Highlights</div>
@@ -118,7 +127,9 @@
         :key="feature"
         class="body-2 d-flex align-start pt-2 grey--text"
       >
-        <v-icon color="success" dense left>{{ mdi.mdiCheck }}</v-icon>
+        <v-icon color="success" dense left>
+          {{ mdi.mdiCheck }}
+        </v-icon>
         {{ feature }}
       </div>
     </v-col>

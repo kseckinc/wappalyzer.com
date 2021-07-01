@@ -107,7 +107,7 @@
               <td>
                 Comma-separated list of additional field sets to include in the
                 results (e.g. <code>meta,social</code>). See
-                <nuxt-link to="/docs/fields/">Fields</nuxt-link>. Use
+                <nuxt-link to="/docs/fields/"> Fields </nuxt-link>. Use
                 <code>all</code> to include all fields.
               </td>
             </tr>
@@ -143,15 +143,15 @@
         class="my-8 elevation-1"
       >
         To verify that the request was made by Wappalyzer, enable
-        <nuxt-link :to="{ path: '/docs/api/v2/basics', hash: 'signatures' }"
-          >callback signatures</nuxt-link
+        <nuxt-link :to="{ path: '/docs/api/v2/basics', hash: 'signatures' }">
+          callback signatures </nuxt-link
         >.
       </v-alert>
 
       <Heading id="examples" size="2" class="mt-8 mb-4"> Examples </Heading>
 
       <v-card class="mb-8">
-        <v-card-title class="subtitle-2">Example request</v-card-title>
+        <v-card-title class="subtitle-2"> Example request </v-card-title>
         <v-card-text>
           <p>
             In this example we request two URLs with a callback URL and the
@@ -163,9 +163,9 @@
 
         <v-divider />
 
-        <v-card-title class="subtitle-2"
-          >Example response (success)</v-card-title
-        >
+        <v-card-title class="subtitle-2">
+          Example response (success)
+        </v-card-title>
         <v-card-text>
           <p>
             We get a result for each URL, in this case one successful and one
@@ -214,7 +214,9 @@
 
         <v-divider />
 
-        <v-card-title class="subtitle-2">Example response (error)</v-card-title>
+        <v-card-title class="subtitle-2">
+          Example response (error)
+        </v-card-title>
         <v-card-text>
           <pre><Code>[
   {
@@ -228,9 +230,9 @@
 
         <v-divider />
 
-        <v-card-title class="subtitle-2"
-          >Example callback response</v-card-title
-        >
+        <v-card-title class="subtitle-2">
+          Example callback response
+        </v-card-title>
         <v-card-text>
           <p>
             The callback URL will receive a POST request when results become
@@ -261,7 +263,7 @@
       </v-card>
 
       <v-card class="mb-4">
-        <v-card-title class="subtitle-2">Example request</v-card-title>
+        <v-card-title class="subtitle-2"> Example request </v-card-title>
         <v-card-text>
           <p>
             In this example we set <code>squash</code> to <code>false</code> to
@@ -276,7 +278,7 @@
 
         <v-divider />
 
-        <v-card-title class="subtitle-2">Example response</v-card-title>
+        <v-card-title class="subtitle-2"> Example response </v-card-title>
         <v-card-text>
           <pre><Code>[
   {

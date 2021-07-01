@@ -91,7 +91,7 @@
               <td>
                 Comma-separated list of additional field sets to include in the
                 results (e.g. <code>meta,social</code>). See
-                <nuxt-link to="/docs/fields/">Fields</nuxt-link>. Use
+                <nuxt-link to="/docs/fields/"> Fields </nuxt-link>. Use
                 <code>all</code> to include all fields.
               </td>
             </tr>
@@ -99,7 +99,7 @@
         </v-simple-table>
       </v-card>
 
-      <Heading id="callback" size="2" class="mt-8 mb-4">Callback</Heading>
+      <Heading id="callback" size="2" class="mt-8 mb-4"> Callback </Heading>
 
       <p>
         A callback URL is a public endpoint hosted on your own server. If you
@@ -116,15 +116,15 @@
         class="my-8 elevation-1"
       >
         To verify that the request was made by Wappalyzer, enable
-        <nuxt-link :to="{ path: '/docs/api/v2/basics', hash: 'signatures' }"
-          >callback signatures</nuxt-link
+        <nuxt-link :to="{ path: '/docs/api/v2/basics', hash: 'signatures' }">
+          callback signatures </nuxt-link
         >.
       </v-alert>
 
-      <Heading id="examples" size="2" class="mt-8 mb-2">Examples</Heading>
+      <Heading id="examples" size="2" class="mt-8 mb-2"> Examples </Heading>
 
       <v-card class="mb-8">
-        <v-card-title class="subtitle-2">Example request</v-card-title>
+        <v-card-title class="subtitle-2"> Example request </v-card-title>
         <v-card-text>
           <p>
             By default, websites are crawled recursively by following links on
@@ -136,7 +136,7 @@
 
         <v-divider />
 
-        <v-card-title class="subtitle-2">Example response</v-card-title>
+        <v-card-title class="subtitle-2"> Example response </v-card-title>
         <v-card-text>
           <p>
             The callback URL will receive a POST request when results become
@@ -157,7 +157,7 @@
       </v-card>
 
       <v-card class="mb-4">
-        <v-card-title class="subtitle-2">Example request</v-card-title>
+        <v-card-title class="subtitle-2"> Example request </v-card-title>
         <v-card-text>
           <p>
             In this example we pass a single URL, set <code>recursive</code> to
@@ -172,9 +172,9 @@
 
         <v-divider />
 
-        <v-card-title class="subtitle-2"
-          >Example response (success)</v-card-title
-        >
+        <v-card-title class="subtitle-2">
+          Example response (success)
+        </v-card-title>
         <v-card-text>
           <pre><Code>[
   {
@@ -201,7 +201,9 @@
 
         <v-divider />
 
-        <v-card-title class="subtitle-2">Example response (error)</v-card-title>
+        <v-card-title class="subtitle-2">
+          Example response (error)
+        </v-card-title>
         <v-card-text>
           <pre><Code>[
   {

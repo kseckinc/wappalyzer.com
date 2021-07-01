@@ -12,7 +12,7 @@
           <v-simple-table>
             <tbody>
               <tr>
-                <th width="20%"></th>
+                <th width="20%" />
                 <td
                   v-for="technology in technologies"
                   :key="technology.slug"
@@ -41,7 +41,9 @@
                     small
                   >
                     Visit {{ formatHostname(technology.website) }}
-                    <v-icon right x-small>{{ mdiOpenInNew }}</v-icon>
+                    <v-icon right x-small>
+                      {{ mdiOpenInNew }}
+                    </v-icon>
                   </v-chip>
                 </td>
               </tr>
@@ -61,16 +63,17 @@
                       outlined
                       small
                       exact
-                      >{{ name }}</v-chip
                     >
+                      {{ name }}
+                    </v-chip>
 
-                    <v-chip v-if="technology.saas" small outlined
-                      >Software as a service</v-chip
-                    >
+                    <v-chip v-if="technology.saas" small outlined>
+                      Software as a service
+                    </v-chip>
 
-                    <v-chip v-if="technology.oss" small outlined
-                      >Open-source software</v-chip
-                    >
+                    <v-chip v-if="technology.oss" small outlined>
+                      Open-source software
+                    </v-chip>
                   </v-chip-group>
                 </td>
               </tr>
@@ -112,29 +115,34 @@
                         small
                         outlined
                         v-on="on"
-                        ><v-icon small>{{ mdiCurrencyUsd }}</v-icon>
+                      >
+                        <v-icon small>
+                          {{ mdiCurrencyUsd }}
+                        </v-icon>
                         <v-icon
                           :disabled="technology.pricing.includes('low')"
                           small
-                          >{{
+                        >
+                          {{
                             technology.pricing.includes('low')
                               ? mdiCurrencyUsdOff
                               : mdiCurrencyUsd
-                          }}</v-icon
-                        >
+                          }}
+                        </v-icon>
                         <v-icon
                           :disabled="
                             technology.pricing.includes('low') ||
                             technology.pricing.includes('mid')
                           "
                           small
-                          >{{
+                        >
+                          {{
                             technology.pricing.includes('low') ||
                             technology.pricing.includes('mid')
                               ? mdiCurrencyUsdOff
                               : mdiCurrencyUsd
-                          }}</v-icon
-                        >
+                          }}
+                        </v-icon>
                       </v-chip>
                     </template>
 
@@ -153,36 +161,41 @@
                     v-if="technology.pricing.includes('recurring')"
                     small
                     outlined
-                    >Offers paid plans</v-chip
                   >
+                    Offers paid plans
+                  </v-chip>
 
                   <v-chip
                     v-if="technology.pricing.includes('freemium')"
                     small
                     outlined
-                    >Offers a free plan</v-chip
                   >
+                    Offers a free plan
+                  </v-chip>
 
                   <v-chip
                     v-if="technology.pricing.includes('poa')"
                     small
                     outlined
-                    >Price on asking</v-chip
                   >
+                    Price on asking
+                  </v-chip>
 
                   <v-chip
                     v-if="technology.pricing.includes('payg')"
                     small
                     outlined
-                    >Pay as you go</v-chip
                   >
+                    Pay as you go
+                  </v-chip>
 
                   <v-chip
                     v-if="technology.pricing.includes('onetime')"
                     small
                     outlined
-                    >Accepts one-time payments</v-chip
                   >
+                    Accepts one-time payments
+                  </v-chip>
                 </td>
               </tr>
             </tbody>
@@ -194,7 +207,9 @@
 
       <h2 class="mb-6">
         <v-row class="align-center px-3">
-          <v-icon color="primary" class="mr-2">{{ mdiFinance }}</v-icon>
+          <v-icon color="primary" class="mr-2">
+            {{ mdiFinance }}
+          </v-icon>
           Usage trends
         </v-row>
       </h2>
@@ -221,13 +236,15 @@
 
       <h2 class="mb-6">
         <v-row class="align-center px-3">
-          <v-icon color="primary" class="mr-2">{{ mdiFinance }}</v-icon>
+          <v-icon color="primary" class="mr-2">
+            {{ mdiFinance }}
+          </v-icon>
           Market share
         </v-row>
       </h2>
 
       <v-card class="mb-4">
-        <v-card-title class="subtitle-2">Install base</v-card-title>
+        <v-card-title class="subtitle-2"> Install base </v-card-title>
         <v-card-text class="pb-0">
           <v-row>
             <v-col md="8" class="py-0">
@@ -284,7 +301,7 @@
 
         <v-divider />
 
-        <v-card-title class="subtitle-2">Traffic</v-card-title>
+        <v-card-title class="subtitle-2"> Traffic </v-card-title>
         <v-card-text class="pb-0">
           <v-row>
             <v-col md="8" class="py-0">
@@ -376,7 +393,7 @@ export default {
     GChart,
     UseCases,
   },
-  async asyncData({ route, $axios, redirect, error }) {
+  async asyncData({ route, $axios }) {
     const { slug } = route.params
 
     const [slugA, slugB] = slug.split('-vs-')
@@ -488,7 +505,7 @@ export default {
         trend.find(({ yearMonth }) => yearMonth === this.trendStartYearMonth)
       )
 
-      technology.trend.forEach(({ yearMonth, hostnames, hits }) => {
+      technology.trend.forEach(({ yearMonth }) => {
         const month = yearMonth.toString().slice(2, 4)
         const year = `20${yearMonth.toString().slice(0, 2)}`
 

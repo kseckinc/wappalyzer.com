@@ -1,7 +1,9 @@
 <template>
   <Page :crumbs="crumbs" :title="title" :head="{ meta }" no-head narrow>
     <article>
-      <h1 class="text-h1 mb-8">{{ title }}</h1>
+      <h1 class="text-h1 mb-8">
+        {{ title }}
+      </h1>
 
       <p>
         Whether you're a developer, online marketer, security researcher or SEO
@@ -15,7 +17,7 @@
       <p>
         To instantly find out what CMS, framework or ecommerce platform a
         website is using, install the
-        <nuxt-link to="/apps/">Wappalyzer browser extension</nuxt-link>. The
+        <nuxt-link to="/apps/"> Wappalyzer browser extension </nuxt-link>. The
         extension automatically checks pages you visit and reveals the
         technologies the website is built with. Click on any category or
         technology for more insights, such as market share and the top websites
@@ -24,7 +26,7 @@
 
       <p>
         Alternatively, you can use the online
-        <nuxt-link to="/lookup/">technology lookup</nuxt-link>, which requires
+        <nuxt-link to="/lookup/"> technology lookup </nuxt-link>, which requires
         no installation. Results are usually instant and more in-depth
         information is displayed alongside the list of identified technologies.
         If you're performing market research for a software product, the
@@ -45,7 +47,7 @@
       </h3>
 
       <p>
-        <nuxt-link to="/technologies/cms/wordpress/"> WordPress</nuxt-link>
+        <nuxt-link to="/technologies/cms/wordpress/"> WordPress </nuxt-link>
         sites can usually be identified by looking at the website's source code.
         Out of the box, the CMS conveniently adds a meta tag explicitly
         mentioning the name and version of the CMS. All you need to do is
@@ -67,8 +69,8 @@
       <h3 class="text-h3 mt-8 mb-2">Find out if a website is using Shopify</h3>
 
       <p>
-        <nuxt-link to="/technologies/ecommerce/shopify/">Shopify</nuxt-link> is
-        a popular ecommerce solution that makes it easy to set up an online
+        <nuxt-link to="/technologies/ecommerce/shopify/"> Shopify </nuxt-link>
+        is a popular ecommerce solution that makes it easy to set up an online
         store. Websites using Shopify often use a shopify.io subdomain, making
         the platform easy to identify. However, professional websites will often
         use a custom domain.
@@ -89,10 +91,11 @@
       </h3>
 
       <p>
-        Web servers and <nuxt-link to="/technologies/cdn/">CDNs</nuxt-link> can
-        often be identified by inspecting HTTP headers. When you navigate to a
-        web page, both the request and response include headers containing
-        additional information such as content type or cookies.
+        Web servers and
+        <nuxt-link to="/technologies/cdn/"> CDNs </nuxt-link> can often be
+        identified by inspecting HTTP headers. When you navigate to a web page,
+        both the request and response include headers containing additional
+        information such as content type or cookies.
       </p>
 
       <p>
@@ -103,13 +106,13 @@
         and scripts. When you click the first request, you'll see a section with
         response headers. Often there will be a header called 'server', exposing
         the name of the web server (e.g.
-        <nuxt-link to="/technologies/web-servers/apache/">Apache</nuxt-link> or
-        <nuxt-link to="/technologies/web-servers/nginx/">Nginx</nuxt-link>) or
-        CDN (e.g.
-        <nuxt-link to="/technologies/cdn/cloudflare/">CloudFlare</nuxt-link>,
-        <nuxt-link to="/technologies/cdn/akamai/">Akamai</nuxt-link> or
-        <nuxt-link to="/technologies/cdn/amazon-cloudfront/"
-          >Amazon CloudFront</nuxt-link
+        <nuxt-link to="/technologies/web-servers/apache/"> Apache </nuxt-link>
+        or <nuxt-link to="/technologies/web-servers/nginx/"> Nginx </nuxt-link>)
+        or CDN (e.g.
+        <nuxt-link to="/technologies/cdn/cloudflare/"> CloudFlare </nuxt-link>,
+        <nuxt-link to="/technologies/cdn/akamai/"> Akamai </nuxt-link> or
+        <nuxt-link to="/technologies/cdn/amazon-cloudfront/">
+          Amazon CloudFront </nuxt-link
         >).
       </p>
 
@@ -117,17 +120,17 @@
 
       <p>
         There are many different ways to find out what
-        <nuxt-link to="/technologies/cms/">CMS</nuxt-link> or
-        <nuxt-link to="/technologies/web-frameworks/">framework</nuxt-link> is
+        <nuxt-link to="/technologies/cms/"> CMS </nuxt-link> or
+        <nuxt-link to="/technologies/web-frameworks/"> framework </nuxt-link> is
         used on a given website. By far the easiest way is to use a technology
         checker like Wappalyzer but it's possible to do it by hand.
       </p>
 
       <p>
-        You can use the <nuxt-link to="/api/">Wappalyzer APIs</nuxt-link> to add
-        technology lookups to your own project or website. Or, if you want to
-        create a list of websites using a certain technology, have a look at
-        Wappalyzer's <nuxt-link to="/lists/">lead lists</nuxt-link>.
+        You can use the <nuxt-link to="/api/"> Wappalyzer APIs </nuxt-link> to
+        add technology lookups to your own project or website. Or, if you want
+        to create a list of websites using a certain technology, have a look at
+        Wappalyzer's <nuxt-link to="/lists/"> lead lists </nuxt-link>.
       </p>
     </article>
 
@@ -152,7 +155,7 @@ export default {
     return {
       title: 'Find out what CMS or framework a website is using',
       crumbs: [{ title: 'Articles', to: '/articles/' }],
-      meta: `Find out what CMS or framework a website is using. The best tools and methods to identify technologies on websites.`,
+      meta: 'Find out what CMS or framework a website is using. The best tools and methods to identify technologies on websites.',
     }
   },
 }

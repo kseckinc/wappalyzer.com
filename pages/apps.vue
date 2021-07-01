@@ -2,7 +2,9 @@
   <div>
     <Page :title="title" :head="meta">
       <v-btn class="mt-4 mb-6" depressed @click="$refs.faqDialog.open()">
-        <v-icon left>{{ mdi.mdiForum }}</v-icon>
+        <v-icon left>
+          {{ mdi.mdiForum }}
+        </v-icon>
         FAQs
       </v-btn>
 
@@ -26,7 +28,9 @@
         <v-col class="py-0">
           <v-card height="100%" class="d-flex flex-column" flat>
             <v-card-title class="subtitle-2">
-              <v-icon left>{{ mdi.mdiAndroid }}</v-icon>
+              <v-icon left>
+                {{ mdi.mdiAndroid }}
+              </v-icon>
               Android app
             </v-card-title>
             <v-card-text>
@@ -60,7 +64,10 @@
         <v-col class="py-0">
           <v-card height="100%" class="d-flex flex-column" flat>
             <v-card-title class="subtitle-2">
-              <v-icon left>{{ mdi.mdiApple }}</v-icon> iOS app
+              <v-icon left>
+                {{ mdi.mdiApple }}
+              </v-icon>
+              iOS app
             </v-card-title>
             <v-card-text>
               <ol>

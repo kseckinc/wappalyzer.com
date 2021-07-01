@@ -1,5 +1,5 @@
 <template>
-  <v-simple-table>
+  <v-simple-table :fixed-header="!!height" :height="height || null">
     <thead>
       <tr>
         <th
@@ -85,6 +85,10 @@ export default {
       default() {
         return []
       },
+    },
+    height: {
+      type: Number,
+      default: 0,
     },
   },
   data() {

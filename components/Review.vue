@@ -19,10 +19,9 @@
       class="pt-0 mt-n2"
     >
       <v-spacer />
-      <v-btn :loading="removing" color="error" text small @click="remove"
-        ><v-icon left>{{ mdiDelete }}</v-icon
-        >Delete</v-btn
-      >
+      <v-btn :loading="removing" color="error" text small @click="remove">
+        <v-icon left> {{ mdiDelete }} </v-icon>Delete
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>

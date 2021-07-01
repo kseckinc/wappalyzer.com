@@ -1,7 +1,9 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <Page :title="title" :side="side" :crumbs="crumbs" no-hero no-head>
-    <h1 class="mb-4">{{ title }}</h1>
+    <h1 class="mb-4">
+      {{ title }}
+    </h1>
 
     <p style="max-width: 600px">
       Each data product includes a set of base fields, such as websites and

@@ -1,7 +1,9 @@
 <template>
   <div>
     <Page :title="title" no-head narrow>
-      <h1 class="text-h1 mb-8">{{ title }}</h1>
+      <h1 class="text-h1 mb-8">
+        {{ title }}
+      </h1>
 
       <p>
         Wappalyzer, founded by
@@ -24,7 +26,9 @@
       </p>
 
       <v-btn to="/faq/lists/" class="mt-4" depressed>
-        <v-icon left>{{ mdiForum }}</v-icon>
+        <v-icon left>
+          {{ mdiForum }}
+        </v-icon>
         Frequently asked questions
       </v-btn>
 
@@ -33,7 +37,7 @@
       <p>
         We love to hear from you. If you have any comments, questions or
         suggestions, please don't hesitate to
-        <nuxt-link to="/contact/">contact us</nuxt-link>.
+        <nuxt-link to="/contact/"> contact us </nuxt-link>.
       </p>
 
       <template #footer>

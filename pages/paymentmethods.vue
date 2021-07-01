@@ -31,9 +31,12 @@
 
       <v-card-actions>
         <v-spacer />
-        <v-btn color="accent" text @click="billingDialog = true"
-          ><v-icon left>{{ mdiPencil }}</v-icon> Edit details</v-btn
-        >
+        <v-btn color="accent" text @click="billingDialog = true">
+          <v-icon left>
+            {{ mdiPencil }}
+          </v-icon>
+          Edit details
+        </v-btn>
       </v-card-actions>
 
       <v-divider />
@@ -62,8 +65,12 @@
           :to="{ path: '/credits/', query: { buy: true } }"
           color="accent"
           text
-          ><v-icon left>{{ mdiAlphaCCircle }}</v-icon> Buy credits</v-btn
         >
+          <v-icon left>
+            {{ mdiAlphaCCircle }}
+          </v-icon>
+          Buy credits
+        </v-btn>
       </v-card-actions>
     </v-card>
 

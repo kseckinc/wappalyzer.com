@@ -3,7 +3,9 @@
     <Page :title="title" :head="meta">
       <div class="mt-4">
         <v-btn depressed class="mb-2" @click="$refs.faqDialog.open()">
-          <v-icon left>{{ mdiForum }}</v-icon>
+          <v-icon left>
+            {{ mdiForum }}
+          </v-icon>
           FAQs
         </v-btn>
       </div>
@@ -41,7 +43,9 @@
                 <tbody>
                   <tr v-for="{ name, to, units } in creditsPerUnit" :key="name">
                     <td>
-                      <nuxt-link :to="to">{{ name }}</nuxt-link>
+                      <nuxt-link :to="to">
+                        {{ name }}
+                      </nuxt-link>
                     </td>
                     <td>
                       {{
@@ -129,9 +133,9 @@
       </small>
 
       <div class="mt-12 pa-8 text-center">
-        <v-btn to="/contact/" color="primary" depressed x-large
-          >Contact us to book a demo</v-btn
-        >
+        <v-btn to="/contact/" color="primary" depressed x-large>
+          Contact us to book a demo
+        </v-btn>
       </div>
 
       <FaqDialog ref="faqDialog" topic="pricing" />

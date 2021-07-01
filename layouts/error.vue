@@ -86,8 +86,8 @@ export default {
     },
     text() {
       return this.statusCode === 404
-        ? `This page you're looking for isn't here.`
-        : `Sorry, something went wrong. Try reloading the page or <a href='/contact'>contact us</a> if the issue persists.`
+        ? "This page you're looking for isn't here."
+        : "Sorry, something went wrong. Try reloading the page or <a href='/contact'>contact us</a> if the issue persists."
     },
   },
 }

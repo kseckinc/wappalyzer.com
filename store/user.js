@@ -40,7 +40,7 @@ export const mutations = {
 }
 
 export const actions = {
-  updateAttrs({ state, commit }) {
+  updateAttrs({ commit }) {
     const Pool = new CognitoUserPool({
       UserPoolId: this.$config.COGNITO_USER_POOL_ID,
       ClientId: this.$config.COGNITO_CLIENT_ID,
@@ -117,7 +117,7 @@ export const actions = {
         Password,
         attributeList,
         null,
-        (error, result) => {
+        (error) => {
           if (error) {
             return reject(error)
           }
@@ -205,7 +205,7 @@ export const actions = {
     const cognitoUser = Pool.getCurrentUser()
 
     return new Promise((resolve, reject) => {
-      cognitoUser.getSession((error, session) => {
+      cognitoUser.getSession((error) => {
         if (error) {
           commit('setLoading', false)
 
@@ -233,7 +233,7 @@ export const actions = {
     const cognitoUser = Pool.getCurrentUser()
 
     return new Promise((resolve, reject) => {
-      cognitoUser.getSession((error, session) => {
+      cognitoUser.getSession((error) => {
         if (error) {
           return reject(error)
         }
@@ -337,7 +337,7 @@ export const actions = {
     const cognitoUser = Pool.getCurrentUser()
 
     return new Promise((resolve, reject) => {
-      cognitoUser.getSession((error, session) => {
+      cognitoUser.getSession((error) => {
         if (error) {
           return reject(error)
         }
@@ -361,7 +361,7 @@ export const actions = {
     }
   },
 
-  async delete({ state, commit, dispatch }) {
+  async delete({ state, dispatch }) {
     if (state.impersonating) {
       return
     }
@@ -375,7 +375,7 @@ export const actions = {
 
     if (cognitoUser) {
       await new Promise((resolve, reject) => {
-        cognitoUser.getSession((error, session) => {
+        cognitoUser.getSession((error) => {
           if (error) {
             return reject(error)
           }

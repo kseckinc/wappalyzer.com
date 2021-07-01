@@ -57,7 +57,9 @@
               rel="noopener noreferrer"
               icon
             >
-              <v-icon size="20px">{{ mdi[icon] }}</v-icon>
+              <v-icon size="20px">
+                {{ mdi[icon] }}
+              </v-icon>
             </v-btn>
           </v-col>
 

@@ -30,8 +30,9 @@
           <nuxt-link
             class="primary--text"
             :to="`/lists/?categories=${categorySlug}`"
-            >websites using {{ category.name }} technology</nuxt-link
           >
+            websites using {{ category.name }} technology
+          </nuxt-link>
           with company and contact details.
         </p>
 
@@ -42,7 +43,10 @@
           large
           depressed
         >
-          <v-icon left>{{ mdiFilterVariant }}</v-icon> Create a lead list
+          <v-icon left>
+            {{ mdiFilterVariant }}
+          </v-icon>
+          Create a lead list
         </v-btn>
       </v-alert>
 
@@ -50,7 +54,9 @@
 
       <h2 class="mb-2">
         <v-row class="align-center px-3">
-          <v-icon color="primary" class="mr-2">{{ mdiFinance }}</v-icon>
+          <v-icon color="primary" class="mr-2">
+            {{ mdiFinance }}
+          </v-icon>
           {{ category.name }} technologies market share
         </v-row>
       </h2>
@@ -88,8 +94,9 @@
                     icon
                     x-small
                     @click="sort = 'name'"
-                    ><v-icon>{{ mdiChevronDown }}</v-icon></v-btn
                   >
+                    <v-icon>{{ mdiChevronDown }}</v-icon>
+                  </v-btn>
                 </th>
                 <th width="20%">Websites tracked</th>
                 <th>
@@ -100,8 +107,9 @@
                     icon
                     x-small
                     @click="sort = 'hostnames'"
-                    ><v-icon>{{ mdiChevronDown }}</v-icon></v-btn
                   >
+                    <v-icon>{{ mdiChevronDown }}</v-icon>
+                  </v-btn>
                 </th>
               </tr>
             </thead>
@@ -140,7 +148,9 @@
 
       <div class="text-right mb-4">
         <v-btn color="accent" small outlined @click="showAll = !showAll">
-          <v-icon left>{{ showAll ? mdiMinus : mdiPlus }}</v-icon>
+          <v-icon left>
+            {{ showAll ? mdiMinus : mdiPlus }}
+          </v-icon>
           {{
             showAll
               ? 'View less'
@@ -161,7 +171,7 @@
       </p>
 
       <v-card class="mb-4">
-        <v-card-title class="subtitle-2">Example reports</v-card-title>
+        <v-card-title class="subtitle-2"> Example reports </v-card-title>
         <v-card-text class="px-0">
           <v-simple-table dense>
             <tbody>
@@ -216,7 +226,7 @@
         </v-card-text>
         <v-card-actions v-if="createlistError">
           <v-spacer />
-          <v-btn v-if="error" color="accent" text @click="close">Ok</v-btn>
+          <v-btn v-if="error" color="accent" text @click="close"> Ok </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

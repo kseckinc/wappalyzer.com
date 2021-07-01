@@ -19,7 +19,9 @@
             <v-row align="center">
               <v-col cols="12" sm="4" class="pb-0">
                 <div class="d-flex align-center">
-                  <v-icon color="primary" left>{{ mdiLayersOutline }}</v-icon>
+                  <v-icon color="primary" left>
+                    {{ mdiLayersOutline }}
+                  </v-icon>
                   Lookup
                 </div>
               </v-col>
@@ -118,8 +120,9 @@
                             color="secondary"
                             small
                             label
-                            >{{ version }}</v-chip
                           >
+                            {{ version }}
+                          </v-chip>
                         </div>
                       </td>
                       <th class="text-right font-weight-regular">
@@ -143,7 +146,9 @@
             <v-row align="center">
               <v-col class="pb-0 flex-grow-1 flex-shrink-0">
                 <div class="d-flex align-center">
-                  <v-icon color="primary" left>{{ mdiLayersOutline }}</v-icon>
+                  <v-icon color="primary" left>
+                    {{ mdiLayersOutline }}
+                  </v-icon>
                   Bulk lookup
                 </div>
               </v-col>
@@ -154,7 +159,9 @@
                   small
                   @click="$refs.pricingDialog.open()"
                 >
-                  <v-icon left>{{ mdiCalculator }}</v-icon>
+                  <v-icon left>
+                    {{ mdiCalculator }}
+                  </v-icon>
                   Pricing
                 </v-btn>
               </v-col>
@@ -164,7 +171,7 @@
             <p style="max-width: 600px">
               Supply your own list of websites and we'll report back with the
               technologies they use, as well as any metadata we find. On a
-              <v-chip to="/pro/" color="primary" x-small outlined>PRO</v-chip>
+              <v-chip to="/pro/" color="primary" x-small outlined> PRO </v-chip>
               plan, company and contact information is included where available.
             </p>
 
@@ -177,9 +184,9 @@
             </p>
 
             <v-card class="mb-4">
-              <v-card-title class="subtitle-2"
-                >Upload a list of websites</v-card-title
-              >
+              <v-card-title class="subtitle-2">
+                Upload a list of websites
+              </v-card-title>
               <v-card-text>
                 <p class="mb-2">
                   Upload a .txt file with up to 100,000 URLs, each on a separate
@@ -223,7 +230,7 @@
                       hide-details
                       :disabled="australia"
                     >
-                      <template #label>Include contact details</template>
+                      <template #label> Include contact details </template>
                     </v-radio>
                     <v-radio
                       value="excludeEU"
@@ -236,7 +243,7 @@
                       </template>
                     </v-radio>
                     <v-radio value="exclude" class="mt-0" hide-details>
-                      <template #label>Exclude all contact details</template>
+                      <template #label> Exclude all contact details </template>
                     </v-radio>
                   </v-radio-group>
 
@@ -271,22 +278,26 @@
               flat
             >
               <v-card-title class="subtitle-2">
-                <v-icon color="primary" size="20" left>{{
-                  mdiLockOpenVariantOutline
-                }}</v-icon>
+                <v-icon color="primary" size="20" left>
+                  {{ mdiLockOpenVariantOutline }}
+                </v-icon>
                 Unlock pro features
               </v-card-title>
               <v-card-text class="primary--text pb-0">
                 Subscribe to a
-                <v-chip to="/pro/" color="primary" x-small outlined>PRO</v-chip>
+                <v-chip to="/pro/" color="primary" x-small outlined>
+                  PRO
+                </v-chip>
                 plan to include company and contact information in lookups.
               </v-card-text>
               <v-card-actions>
                 <v-spacer />
 
-                <v-btn to="/pricing/" color="primary" text
-                  >Compare plans
-                  <v-icon right>{{ mdiArrowRight }}</v-icon>
+                <v-btn to="/pricing/" color="primary" text>
+                  Compare plans
+                  <v-icon right>
+                    {{ mdiArrowRight }}
+                  </v-icon>
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -296,7 +307,11 @@
               color="primary"
               large
               @click="submitBulk"
-              >Get a quote <v-icon right>{{ mdiArrowRight }}</v-icon>
+            >
+              Get a quote
+              <v-icon right>
+                {{ mdiArrowRight }}
+              </v-icon>
             </v-btn>
           </v-card-text>
         </v-tab-item>
@@ -412,7 +427,6 @@ export default {
         user: { isSignedIn },
       },
     },
-    redirect,
   }) {
     const { url } = route.params
 

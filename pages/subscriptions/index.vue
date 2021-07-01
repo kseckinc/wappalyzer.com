@@ -7,7 +7,9 @@
     <template v-if="subscriptions">
       <div class="mb-4">
         <v-btn href="/pricing/" depressed>
-          <v-icon left>{{ mdiCalculator }}</v-icon>
+          <v-icon left>
+            {{ mdiCalculator }}
+          </v-icon>
           Plans &amp; pricing
         </v-btn>
       </div>
@@ -30,9 +32,9 @@
             <tbody>
               <tr v-for="subscription in subscriptions" :key="subscription.id">
                 <td>
-                  <nuxt-link :to="`/subscriptions/${subscription.id}`">{{
-                    subscription.planName
-                  }}</nuxt-link>
+                  <nuxt-link :to="`/subscriptions/${subscription.id}`">
+                    {{ subscription.planName }}
+                  </nuxt-link>
                 </td>
                 <td>{{ subscription.status }}</td>
                 <td v-if="subscription.cancelAt" class="red--text">

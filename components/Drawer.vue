@@ -9,7 +9,7 @@
       <template v-else>
         <v-list-item v-if="isSignedIn">
           <v-list-item-content>
-            <v-list-item-title class="mb-2">Signed in as</v-list-item-title>
+            <v-list-item-title class="mb-2"> Signed in as </v-list-item-title>
 
             <span>
               <small>{{ user.billingName || user.name || user.email }}</small>
@@ -47,14 +47,18 @@
             </v-list-item-title>
           </v-list-item-content>
           <v-list-item-icon>
-            <v-icon dense>{{ mdi.mdiAccountSwitch }}</v-icon>
+            <v-icon dense>
+              {{ mdi.mdiAccountSwitch }}
+            </v-icon>
           </v-list-item-icon>
         </v-list-item>
 
         <v-list-item v-if="user.admin" to="/admin/">
           <v-list-item-title>Admin</v-list-item-title>
           <v-list-item-icon>
-            <v-icon color="success" dense>{{ mdi.mdiLockOpen }}</v-icon>
+            <v-icon color="success" dense>
+              {{ mdi.mdiLockOpen }}
+            </v-icon>
           </v-list-item-icon>
         </v-list-item>
       </template>
@@ -102,7 +106,9 @@
           {{ item.title }}
         </v-list-item-title>
         <v-list-item-icon v-if="item.icon">
-          <v-icon dense>{{ mdi[item.icon] }}</v-icon>
+          <v-icon dense>
+            {{ mdi[item.icon] }}
+          </v-icon>
         </v-list-item-icon>
       </v-list-item>
     </v-list>

@@ -19,11 +19,15 @@
 
       <div class="mt-8">
         <v-btn class="mb-2 mr-2" depressed @click="$refs.faqDialog.open()">
-          <v-icon left>{{ mdiForum }}</v-icon>
+          <v-icon left>
+            {{ mdiForum }}
+          </v-icon>
           FAQs
         </v-btn>
         <v-btn to="/docs/api/" class="mb-2" depressed>
-          <v-icon left>{{ mdiBookOpenPageVariant }}</v-icon>
+          <v-icon left>
+            {{ mdiBookOpenPageVariant }}
+          </v-icon>
           API reference
         </v-btn>
       </div>
@@ -41,9 +45,9 @@
         </p>
 
         <v-card class="mb-4">
-          <v-card-title class="subtitle-2 pb-0 mb-n2"
-            >Example request</v-card-title
-          >
+          <v-card-title class="subtitle-2 pb-0 mb-n2">
+            Example request
+          </v-card-title>
           <v-card-text>
             <pre><Code>
 curl -H "x-api-key: &lt;your api key&gt;" \
@@ -52,9 +56,9 @@ curl -H "x-api-key: &lt;your api key&gt;" \
 
           <v-divider />
 
-          <v-card-title class="subtitle-2 pb-0 mb-n2"
-            >Example response</v-card-title
-          >
+          <v-card-title class="subtitle-2 pb-0 mb-n2">
+            Example response
+          </v-card-title>
 
           <v-card-text>
             <pre><Code>

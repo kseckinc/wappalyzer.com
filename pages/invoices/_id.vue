@@ -17,7 +17,7 @@
         <v-col>
           <Logo />
         </v-col>
-        <v-col class="text-right font-weight-bold text-h3">TAX INVOICE</v-col>
+        <v-col class="text-right font-weight-bold text-h3"> TAX INVOICE </v-col>
       </v-row>
       <v-row class="mb-2">
         <v-col cols="6">
@@ -58,7 +58,9 @@
                 <tbody>
                   <tr>
                     <th width="40%">Reference</th>
-                    <td class="font-weight-bold">{{ invoice.id }}</td>
+                    <td class="font-weight-bold">
+                      {{ invoice.id }}
+                    </td>
                   </tr>
                   <tr>
                     <th>Issue date</th>

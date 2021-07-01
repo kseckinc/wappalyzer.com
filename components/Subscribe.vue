@@ -39,7 +39,10 @@
             depressed
             @click="subscribe"
           >
-            <v-icon left>{{ mdiEmail }}</v-icon> Subscribe
+            <v-icon left>
+              {{ mdiEmail }}
+            </v-icon>
+            Subscribe
           </v-btn>
         </v-form>
       </div>

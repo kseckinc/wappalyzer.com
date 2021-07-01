@@ -5,9 +5,9 @@
       <v-card-text class="px-0 pb-0">
         <v-alert color="primary lighten-1 primary--text" class="px-6">
           Pay with a credit card, PayPal or credit balance.
-          <nuxt-link to="/pricing" class="primary--text"
-            >Sign up for a plan</nuxt-link
-          >
+          <nuxt-link to="/pricing" class="primary--text">
+            Sign up for a plan
+          </nuxt-link>
           to get monthly credits at a lower price.
         </v-alert>
       </v-card-text>
@@ -15,7 +15,9 @@
         <v-simple-table class="mb-4" outlined dense>
           <thead>
             <tr>
-              <th class="pl-6" width="50%">{{ unit }}</th>
+              <th class="pl-6" width="50%">
+                {{ unit }}
+              </th>
               <th class="pr-6" width="50%">Price per {{ per }}</th>
             </tr>
           </thead>
@@ -107,14 +109,14 @@
                   }}
                 </td>
               </tr>
-            </tbody></v-simple-table
-          >
+            </tbody>
+          </v-simple-table>
         </v-form>
       </v-card-text>
 
       <v-card-actions>
         <v-spacer />
-        <v-btn color="accent" text @click="close">Close</v-btn>
+        <v-btn color="accent" text @click="close"> Close </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

@@ -21,7 +21,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async get({ state, commit, dispatch }) {
+  async get({ commit }) {
     try {
       commit('setLoading', true)
 

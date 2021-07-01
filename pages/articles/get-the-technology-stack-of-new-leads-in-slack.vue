@@ -1,7 +1,9 @@
 <template>
   <Page :crumbs="crumbs" :title="title" :head="{ meta }" no-head narrow>
     <article>
-      <h1 class="text-h1 mb-8">{{ title }}</h1>
+      <h1 class="text-h1 mb-8">
+        {{ title }}
+      </h1>
 
       <p>
         Lead qualification can be a long process with many steps. Save time by
@@ -9,8 +11,9 @@
         a client wants your help in updating their website, you'll
         <nuxt-link
           to="/articles/find-out-what-cms-or-framework-a-website-is-using/"
-          >instantly know what CMS or framework they are using</nuxt-link
         >
+          instantly know what CMS or framework they are using
+        </nuxt-link>
         without having to ask the client first. In this article, we'll explain
         how to set up an automation that sends a Slack message containing the
         technology stack used on a lead's website, when they filled out a form.
@@ -141,8 +144,8 @@
         it find out all kinds of useful things about your lead's website. Before
         you can use Wappalyzer in Integromat, you first need to create an API
         key on your Wappalyzer account. Go to account settings in Wappalyzer,
-        select the <nuxt-link to="/apikey/">API Key</nuxt-link> tab and click on
-        <em>Create key</em>.
+        select the <nuxt-link to="/apikey/"> API Key </nuxt-link> tab and click
+        on <em>Create key</em>.
       </p>
 
       <v-card class="my-8" :max-width="1798 * 0.75">
@@ -282,7 +285,7 @@ export default {
     return {
       title: 'Get the technology stack of new leads to your Slack instantly',
       crumbs: [{ title: 'Articles', to: '/articles/' }],
-      meta: `Save time by automating research into your clients' current technical stack.`,
+      meta: "Save time by automating research into your clients' current technical stack.",
     }
   },
 }

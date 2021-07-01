@@ -28,7 +28,9 @@
 
     <div class="mb-4">
       <v-btn to="/docs/integrations/pipedrive/" depressed>
-        <v-icon left>{{ mdiBookOpenPageVariant }}</v-icon>
+        <v-icon left>
+          {{ mdiBookOpenPageVariant }}
+        </v-icon>
         Documentation
       </v-btn>
       <v-btn
@@ -36,7 +38,9 @@
         target="_blank"
         depressed
       >
-        <v-icon left>{{ mdiStore }}</v-icon>
+        <v-icon left>
+          {{ mdiStore }}
+        </v-icon>
         Marketplace
       </v-btn>
     </div>
@@ -55,9 +59,11 @@
           </p>
 
           <v-btn to="/pricing/" color="accent" outlined>
-            <v-icon left>{{ mdiCalculator }}</v-icon>
-            Plans &amp; pricing</v-btn
-          >
+            <v-icon left>
+              {{ mdiCalculator }}
+            </v-icon>
+            Plans &amp; pricing
+          </v-btn>
         </v-alert>
 
         <v-simple-table>
@@ -89,7 +95,7 @@
               </td>
             </tr>
 
-            <tr></tr>
+            <tr />
           </tbody>
         </v-simple-table>
       </v-card-text>
@@ -104,9 +110,11 @@
           :disabled="!eligible"
           text
         >
-          <v-icon left>{{ mdiPowerPlug }}</v-icon>
-          Connect</v-btn
-        >
+          <v-icon left>
+            {{ mdiPowerPlug }}
+          </v-icon>
+          Connect
+        </v-btn>
         <v-btn
           v-else
           color="error"
@@ -114,9 +122,11 @@
           text
           @click="disconnect"
         >
-          <v-icon left>{{ mdiPowerPlugOff }}</v-icon>
-          Disconnect</v-btn
-        >
+          <v-icon left>
+            {{ mdiPowerPlugOff }}
+          </v-icon>
+          Disconnect
+        </v-btn>
       </v-card-actions>
     </v-card>
 
@@ -135,15 +145,15 @@
             >Pipedrive settings</a
           >
           &rarr;
-          <v-chip small label outlined>Data fields</v-chip>
-          &rarr; <v-chip small label outlined>Organization</v-chip> &rarr;
-          <v-chip small label outlined>Custom fields</v-chip>.
+          <v-chip small label outlined> Data fields </v-chip>
+          &rarr; <v-chip small label outlined> Organization </v-chip> &rarr;
+          <v-chip small label outlined> Custom fields </v-chip>.
         </p>
       </v-card-text>
 
       <v-divider />
 
-      <v-card-title class="subtitle-2">Website field</v-card-title>
+      <v-card-title class="subtitle-2"> Website field </v-card-title>
       <v-card-text>
         <p style="max-width: 600px">
           Select the Pipedrive field that contains the website URL for
@@ -163,7 +173,7 @@
 
       <v-divider />
 
-      <v-card-title class="subtitle-2">Technologies</v-card-title>
+      <v-card-title class="subtitle-2"> Technologies </v-card-title>
       <v-card-text class="px-0">
         <p class="mx-4" style="max-width: 600px">
           Map technology categories to custom Pipedrive fields on organisations.
@@ -175,7 +185,7 @@
             <tr>
               <th width="50%">Technology category</th>
               <th>Pipedrive field</th>
-              <th></th>
+              <th />
             </tr>
           </thead>
           <tbody>
@@ -231,17 +241,20 @@
               small
               depressed
               @click="addField"
-              >Add</v-btn
             >
+              Add
+            </v-btn>
           </v-col>
         </v-row>
       </v-card-text>
       <v-card-actions>
         <v-spacer />
         <v-btn color="accent" :loading="saving" text @click="save">
-          <v-icon left>{{ mdiContentSave }}</v-icon>
-          Save</v-btn
-        >
+          <v-icon left>
+            {{ mdiContentSave }}
+          </v-icon>
+          Save
+        </v-btn>
       </v-card-actions>
     </v-card>
 
@@ -263,7 +276,7 @@
 
       <v-divider />
 
-      <v-card-title class="subtitle-2">Existing organisations</v-card-title>
+      <v-card-title class="subtitle-2"> Existing organisations </v-card-title>
       <v-card-text style="max-width: 600px">
         <p>
           Append technology information to all existing organisation records
@@ -278,16 +291,18 @@
               depressed
               @click="syncDialog = true"
             >
-              <v-icon left>{{ mdiAutorenew }}</v-icon>
-              Update all organisations</v-btn
-            >
+              <v-icon left>
+                {{ mdiAutorenew }}
+              </v-icon>
+              Update all organisations
+            </v-btn>
           </v-col>
         </v-row>
       </v-card-text>
 
       <v-divider />
 
-      <v-card-title class="subtitle-2">New organisations</v-card-title>
+      <v-card-title class="subtitle-2"> New organisations </v-card-title>
       <v-card-text>
         <p style="max-width: 600px">
           To automatically populate technology information on new organisation
@@ -304,17 +319,17 @@
               >Pipedrive settings</a
             >
             &rarr;
-            <v-chip small label outlined>Webhooks</v-chip>
+            <v-chip small label outlined> Webhooks </v-chip>
             &rarr;
-            <v-chip small label outlined>Create new webhook</v-chip>
+            <v-chip small label outlined> Create new webhook </v-chip>
           </li>
           <li>
-            Set <v-chip small label outlined>Event action</v-chip> to 'added'
-            and <v-chip small label outlined>Event object</v-chip> to
+            Set <v-chip small label outlined> Event action </v-chip> to 'added'
+            and <v-chip small label outlined> Event object </v-chip> to
             'organization'.
           </li>
           <li>
-            In the <v-chip small label outlined>Endpoint URL</v-chip> field,
+            In the <v-chip small label outlined> Endpoint URL </v-chip> field,
             enter
             <code>https://api.wappalyzer.com/pipedrive/v2/organisation</code>
           </li>
@@ -335,10 +350,12 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="accent" text @click="syncDialog = false">Cancel</v-btn>
-          <v-btn :loading="syncing" color="accent" text @click="sync"
-            >Continue</v-btn
-          >
+          <v-btn color="accent" text @click="syncDialog = false">
+            Cancel
+          </v-btn>
+          <v-btn :loading="syncing" color="accent" text @click="sync">
+            Continue
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

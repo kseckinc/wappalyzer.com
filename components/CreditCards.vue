@@ -21,10 +21,10 @@
           <v-simple-table>
             <thead>
               <tr>
-                <th v-if="modeSelect" width="1"></th>
+                <th v-if="modeSelect" width="1" />
                 <th>Name on card</th>
                 <th>Card details</th>
-                <th></th>
+                <th />
               </tr>
             </thead>
             <tbody>
@@ -52,10 +52,11 @@
                       removeId = paymentMethod.id
                       removeDialog = true
                     "
-                    ><v-icon color="error">{{
-                      mdiCreditCardRemoveOutline
-                    }}</v-icon></v-btn
                   >
+                    <v-icon color="error">
+                      {{ mdiCreditCardRemoveOutline }}
+                    </v-icon>
+                  </v-btn>
                 </td>
               </tr>
             </tbody>
@@ -65,9 +66,12 @@
 
       <v-card-actions>
         <v-spacer />
-        <v-btn color="accent" text @click="addDialog = true"
-          ><v-icon left>{{ mdiCreditCardPlusOutline }}</v-icon> Add card</v-btn
-        >
+        <v-btn color="accent" text @click="addDialog = true">
+          <v-icon left>
+            {{ mdiCreditCardPlusOutline }}
+          </v-icon>
+          Add card
+        </v-btn>
       </v-card-actions>
 
       <v-dialog v-model="removeDialog" max-width="400px" eager>
@@ -81,13 +85,13 @@
             The card will be removed.
           </v-card-text>
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="accent" text @click="removeDialog = false"
-              >Cancel</v-btn
-            >
-            <v-btn :loading="removing" color="error" text @click="remove"
-              >Ok</v-btn
-            >
+            <v-spacer />
+            <v-btn color="accent" text @click="removeDialog = false">
+              Cancel
+            </v-btn>
+            <v-btn :loading="removing" color="error" text @click="remove">
+              Ok
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -99,8 +103,8 @@
           <v-card-text v-if="!user.stripeCustomer" class="pb-0">
             <v-alert type="info" class="mb-0" outlined>
               Please provide your
-              <nuxt-link to="/account">billing details</nuxt-link> before adding
-              a card.
+              <nuxt-link to="/account"> billing details </nuxt-link> before
+              adding a card.
             </v-alert>
           </v-card-text>
           <v-card-text v-else>
@@ -118,7 +122,7 @@
 
               <v-card :class="`mt-4`" :outlined="!stripeLoading" flat>
                 <v-card-text>
-                  <div id="stripe-elements-card"></div>
+                  <div id="stripe-elements-card" />
                 </v-card-text>
               </v-card>
               <small v-if="stripeError" type="error" class="red--text">
@@ -127,8 +131,10 @@
             </template>
           </v-card-text>
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="accent" text @click="addDialog = false">Cancel</v-btn>
+            <v-spacer />
+            <v-btn color="accent" text @click="addDialog = false">
+              Cancel
+            </v-btn>
             <v-btn
               v-if="user.stripeCustomer"
               :loading="(stripeLoading || saving) && !addError"
@@ -136,8 +142,9 @@
               color="accent"
               text
               @click="save"
-              >Save</v-btn
             >
+              Save
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -314,7 +321,7 @@ export default {
         this.saving = false
       }
     },
-    async remove(id) {
+    async remove() {
       this.removeError = false
       this.removing = true
 

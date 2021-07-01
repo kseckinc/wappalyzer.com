@@ -9,8 +9,9 @@
 
     <p class="mb-8" style="max-width: 600px">
       Credits can be spent on any product, including technology lookups, APIs
-      and datasets. <nuxt-link to="/pricing/">Sign up for a plan</nuxt-link> to
-      get monthly credits at a lower price.
+      and datasets.
+      <nuxt-link to="/pricing/"> Sign up for a plan </nuxt-link> to get monthly
+      credits at a lower price.
     </p>
 
     <template v-if="!loading">
@@ -22,7 +23,9 @@
           outlined
           @click="addDialog = true"
         >
-          <v-icon left>{{ mdiAlphaCCircle }}</v-icon>
+          <v-icon left>
+            {{ mdiAlphaCCircle }}
+          </v-icon>
           Add credits
         </v-btn>
 
@@ -31,16 +34,24 @@
           color="primary lighten-1"
           depressed
           @click="orderDialog = true"
-          ><v-icon left>{{ mdiAlphaCCircle }}</v-icon> Buy credits</v-btn
         >
+          <v-icon left>
+            {{ mdiAlphaCCircle }}
+          </v-icon>
+          Buy credits
+        </v-btn>
 
         <v-btn href="/faq/credits" class="mr-2" depressed>
-          <v-icon left>{{ mdiForum }}</v-icon>
+          <v-icon left>
+            {{ mdiForum }}
+          </v-icon>
           FAQs
         </v-btn>
 
         <v-btn href="/pricing" class="mr-2" depressed>
-          <v-icon left>{{ mdiCalculator }}</v-icon>
+          <v-icon left>
+            {{ mdiCalculator }}
+          </v-icon>
           Plans &amp; pricing
         </v-btn>
       </div>
@@ -223,13 +234,13 @@
             </v-form>
           </v-card-text>
           <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="error" text @click="orderDialog = false"
-              >Cancel</v-btn
-            >
-            <v-btn :loading="submitting" color="accent" text @click="submit"
-              >Create order</v-btn
-            >
+            <v-spacer />
+            <v-btn color="error" text @click="orderDialog = false">
+              Cancel
+            </v-btn>
+            <v-btn :loading="submitting" color="accent" text @click="submit">
+              Create order
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -253,10 +264,12 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn color="accent" text @click="addDialog = false">Cancel</v-btn>
-            <v-btn :loading="adding" color="accent" text @click="add"
-              >Add</v-btn
-            >
+            <v-btn color="accent" text @click="addDialog = false">
+              Cancel
+            </v-btn>
+            <v-btn :loading="adding" color="accent" text @click="add">
+              Add
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>

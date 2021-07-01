@@ -1,7 +1,9 @@
 <template>
   <div>
     <Page :title="title" :hero="false" narrow no-head no-subscribe>
-      <h1 class="text-h1 mb-8">{{ title }}</h1>
+      <h1 class="text-h1 mb-8">
+        {{ title }}
+      </h1>
 
       <p>
         The Wappalyzer privacy policy describes how we treat personal
@@ -32,7 +34,7 @@
 
       <p>
         You do not need to provide any personal information in order to download
-        and use the <nuxt-link to="/apps/">browser extension</nuxt-link>.
+        and use the <nuxt-link to="/apps/"> browser extension </nuxt-link>.
       </p>
 
       <p>

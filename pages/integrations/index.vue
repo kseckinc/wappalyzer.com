@@ -2,7 +2,9 @@
   <div>
     <Page :title="title" secure>
       <v-btn href="/apps" class="mb-4" depressed>
-        <v-icon left>{{ mdiApps }}</v-icon>
+        <v-icon left>
+          {{ mdiApps }}
+        </v-icon>
         View all apps
       </v-btn>
 

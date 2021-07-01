@@ -3,17 +3,23 @@
     <Page :title="title" :head="meta">
       <div class="mb-6">
         <v-btn class="mt-4 mr-2" depressed @click="$refs.pricingDialog.open()">
-          <v-icon left>{{ mdiCalculator }}</v-icon>
+          <v-icon left>
+            {{ mdiCalculator }}
+          </v-icon>
           Pricing
         </v-btn>
 
-        <v-btn href="/list-sample.zip" class="mt-4 mr-2" depressed>
-          <v-icon left>{{ mdiDownload }}</v-icon>
+        <v-btn href="/lists/sample/" class="mt-4 mr-2" depressed>
+          <v-icon left>
+            {{ mdiFormatListBulleted }}
+          </v-icon>
           Sample list
         </v-btn>
 
         <v-btn class="mt-4" depressed @click="$refs.faqDialog.open()">
-          <v-icon left>{{ mdiForum }}</v-icon>
+          <v-icon left>
+            {{ mdiForum }}
+          </v-icon>
           FAQs
         </v-btn>
       </div>
@@ -28,7 +34,9 @@
             </v-card-text>
 
             <v-card-title>
-              <v-icon color="primary" left>{{ mdiFilterVariant }}</v-icon>
+              <v-icon color="primary" left>
+                {{ mdiFilterVariant }}
+              </v-icon>
               Create your list
             </v-card-title>
 
@@ -58,25 +66,27 @@
                     flat
                   >
                     <v-card-title class="subtitle-2">
-                      <v-icon color="primary" size="20" left>{{
-                        mdiLockOpenVariantOutline
-                      }}</v-icon>
+                      <v-icon color="primary" size="20" left>
+                        {{ mdiLockOpenVariantOutline }}
+                      </v-icon>
                       Unlock pro features
                     </v-card-title>
                     <v-card-text class="primary--text pb-0">
                       Subscribe to a
-                      <v-chip to="/pro/" color="primary" x-small outlined
-                        >PRO</v-chip
-                      >
+                      <v-chip to="/pro/" color="primary" x-small outlined>
+                        PRO
+                      </v-chip>
                       plan to include company and contact information in lead
                       lists.
                     </v-card-text>
                     <v-card-actions>
                       <v-spacer />
 
-                      <v-btn to="/pricing/" color="primary" text
-                        >Compare plans
-                        <v-icon right>{{ mdiArrowRight }}</v-icon>
+                      <v-btn to="/pricing/" color="primary" text>
+                        Compare plans
+                        <v-icon right>
+                          {{ mdiArrowRight }}
+                        </v-icon>
                       </v-btn>
                     </v-card-actions>
                   </v-card>
@@ -136,7 +146,7 @@
                                     Not available on all technologies.
                                   </v-tooltip>
                                 </th>
-                                <th width="1"></th>
+                                <th width="1" />
                               </tr>
                               <tr
                                 v-for="item in selectedItems"
@@ -360,7 +370,7 @@
                         <v-simple-table>
                           <tbody>
                             <tr>
-                              <th></th>
+                              <th />
                               <th width="20%">Exclude</th>
                               <th width="20%">Include</th>
                               <th width="20%">Required (one of)</th>
@@ -458,9 +468,9 @@
                             hide-details
                             :disabled="australia"
                           >
-                            <template #label
-                              >Include personal and contact details</template
-                            >
+                            <template #label>
+                              Include personal and contact details
+                            </template>
                           </v-radio>
                           <v-radio
                             value="excludeEU"
@@ -543,11 +553,13 @@
                           <template #item="{ item }">
                             <v-list-item ripple @click="toggleIndustry(item)">
                               <v-list-item-action>
-                                <v-icon :color="item.active ? 'primary' : ''">{{
-                                  item.active
-                                    ? mdiCheckboxMarked
-                                    : mdiCheckboxBlankOutline
-                                }}</v-icon>
+                                <v-icon :color="item.active ? 'primary' : ''">
+                                  {{
+                                    item.active
+                                      ? mdiCheckboxMarked
+                                      : mdiCheckboxBlankOutline
+                                  }}
+                                </v-icon>
                               </v-list-item-action>
                               <v-list-item-content>
                                 {{ item.text }}
@@ -622,11 +634,13 @@
                               @click="toggleCompanySize(item)"
                             >
                               <v-list-item-action>
-                                <v-icon :color="item.active ? 'primary' : ''">{{
-                                  item.active
-                                    ? mdiCheckboxMarked
-                                    : mdiCheckboxBlankOutline
-                                }}</v-icon>
+                                <v-icon :color="item.active ? 'primary' : ''">
+                                  {{
+                                    item.active
+                                      ? mdiCheckboxMarked
+                                      : mdiCheckboxBlankOutline
+                                  }}
+                                </v-icon>
                               </v-list-item-action>
                               <v-list-item-content>
                                 {{ item.text }}
@@ -782,34 +796,37 @@
                                   :color="
                                     selected.tlds.length > 0 ? 'primary' : ''
                                   "
-                                  >{{
+                                >
+                                  {{
                                     tlds.every(({ active }) => active)
                                       ? mdiCheckboxMarked
                                       : tlds.some(({ active }) => active)
                                       ? mdiMinusBoxOutline
                                       : mdiCheckboxBlankOutline
-                                  }}</v-icon
-                                >
+                                  }}
+                                </v-icon>
                               </v-list-item-action>
 
                               <v-list-item-content>
-                                <v-list-item-title
-                                  >Select All</v-list-item-title
-                                >
+                                <v-list-item-title>
+                                  Select All
+                                </v-list-item-title>
                               </v-list-item-content>
                             </v-list-item>
 
-                            <v-divider class="mt-2"></v-divider>
+                            <v-divider class="mt-2" />
                           </template>
 
                           <template #item="{ item }">
                             <v-list-item ripple @click="toggleTld(item)">
                               <v-list-item-action>
-                                <v-icon :color="item.active ? 'primary' : ''">{{
-                                  item.active
-                                    ? mdiCheckboxMarked
-                                    : mdiCheckboxBlankOutline
-                                }}</v-icon>
+                                <v-icon :color="item.active ? 'primary' : ''">
+                                  {{
+                                    item.active
+                                      ? mdiCheckboxMarked
+                                      : mdiCheckboxBlankOutline
+                                  }}
+                                </v-icon>
                               </v-list-item-action>
 
                               <v-list-item-content>
@@ -892,17 +909,19 @@
                               </v-list-item-content>
                             </v-list-item>
 
-                            <v-divider class="mt-3 mb-2"></v-divider>
+                            <v-divider class="mt-3 mb-2" />
                           </template>
 
                           <template #item="{ item }">
                             <v-list-item ripple @click="toggleGeoIp(item)">
                               <v-list-item-action>
-                                <v-icon :color="item.active ? 'primary' : ''">{{
-                                  item.active
-                                    ? mdiCheckboxMarked
-                                    : mdiCheckboxBlankOutline
-                                }}</v-icon>
+                                <v-icon :color="item.active ? 'primary' : ''">
+                                  {{
+                                    item.active
+                                      ? mdiCheckboxMarked
+                                      : mdiCheckboxBlankOutline
+                                  }}
+                                </v-icon>
                               </v-list-item-action>
 
                               <v-list-item-content>
@@ -991,13 +1010,15 @@
                           <template #item="{ item }">
                             <v-list-item ripple @click="toggleLanguage(item)">
                               <v-list-item-action>
-                                <v-icon :color="item.active ? 'primary' : ''">{{
-                                  typeof item.value === 'object'
-                                    ? mdiDotsHorizontal
-                                    : item.active
-                                    ? mdiCheckboxMarked
-                                    : mdiCheckboxBlankOutline
-                                }}</v-icon>
+                                <v-icon :color="item.active ? 'primary' : ''">
+                                  {{
+                                    typeof item.value === 'object'
+                                      ? mdiDotsHorizontal
+                                      : item.active
+                                      ? mdiCheckboxMarked
+                                      : mdiCheckboxBlankOutline
+                                  }}
+                                </v-icon>
                               </v-list-item-action>
 
                               <v-list-item-content>
@@ -1044,34 +1065,37 @@
                                       ? 'primary'
                                       : ''
                                   "
-                                  >{{
+                                >
+                                  {{
                                     variants.every(({ active }) => active)
                                       ? mdiCheckboxMarked
                                       : variants.some(({ active }) => active)
                                       ? mdiMinusBoxOutline
                                       : mdiCheckboxBlankOutline
-                                  }}</v-icon
-                                >
+                                  }}
+                                </v-icon>
                               </v-list-item-action>
 
                               <v-list-item-content>
-                                <v-list-item-title
-                                  >Select All</v-list-item-title
-                                >
+                                <v-list-item-title>
+                                  Select All
+                                </v-list-item-title>
                               </v-list-item-content>
                             </v-list-item>
 
-                            <v-divider class="mt-2"></v-divider>
+                            <v-divider class="mt-2" />
                           </template>
 
                           <template #item="{ item }">
                             <v-list-item ripple @click="toggleVariant(item)">
                               <v-list-item-action>
-                                <v-icon :color="item.active ? 'primary' : ''">{{
-                                  item.active
-                                    ? mdiCheckboxMarked
-                                    : mdiCheckboxBlankOutline
-                                }}</v-icon>
+                                <v-icon :color="item.active ? 'primary' : ''">
+                                  {{
+                                    item.active
+                                      ? mdiCheckboxMarked
+                                      : mdiCheckboxBlankOutline
+                                  }}
+                                </v-icon>
                               </v-list-item-action>
 
                               <v-list-item-content>
@@ -1087,8 +1111,9 @@
                                       body-2
                                       flex-grow-0
                                     "
-                                    >{{ item.value }}</v-col
                                   >
+                                    {{ item.value }}
+                                  </v-col>
                                 </v-row>
                               </v-list-item-content>
                             </v-list-item>
@@ -1141,7 +1166,7 @@
                           class="my-2"
                           label="Match IP country AND language (yields fewer results)"
                           hide-details
-                        ></v-checkbox>
+                        />
                       </v-expansion-panel-content>
                     </v-expansion-panel>
 
@@ -1261,7 +1286,11 @@
                 class="mt-4 mb-4"
                 large
                 @click="submit()"
-                >Create list <v-icon right>{{ mdiArrowRight }}</v-icon>
+              >
+                Create list
+                <v-icon right>
+                  {{ mdiArrowRight }}
+                </v-icon>
               </v-btn>
             </v-card-text>
           </v-card>
@@ -1293,11 +1322,12 @@
                 confirmDialog = false
                 creating = false
               "
-              >Go back</v-btn
             >
-            <v-btn color="error" text @click="submit(true)"
-              >Continue anyway</v-btn
-            >
+              Go back
+            </v-btn>
+            <v-btn color="error" text @click="submit(true)">
+              Continue anyway
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -1334,9 +1364,9 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn color="accent" text @click="suggestionsDialog = false"
-              >Close</v-btn
-            >
+            <v-btn color="accent" text @click="suggestionsDialog = false">
+              Close
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -1352,7 +1382,7 @@
 import { mapState, mapActions } from 'vuex'
 import {
   mdiCalculator,
-  mdiDownload,
+  mdiFormatListBulleted,
   mdiForum,
   mdiFormatListChecks,
   mdiCloseCircleOutline,
@@ -1421,7 +1451,7 @@ export default {
       matchAll: false,
       matchAllTechnologies: 'or',
       mdiCalculator,
-      mdiDownload,
+      mdiFormatListBulleted,
       mdiForum,
       mdiFormatListChecks,
       mdiCloseCircleOutline,

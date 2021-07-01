@@ -6,9 +6,11 @@
     outlined
   >
     <v-btn to="/pro/" color="primary" depressed :small="small">
-      <v-icon left>{{ mdiLockOpenVariantOutline }}</v-icon>
-      Unlock pro features</v-btn
-    >
+      <v-icon left>
+        {{ mdiLockOpenVariantOutline }}
+      </v-icon>
+      Unlock pro features
+    </v-btn>
   </v-sheet>
 </template>
 

@@ -10,7 +10,7 @@
     </v-card-title>
     <v-card-text v-if="variant">
       <v-row align="center" class="py-2 primary--text">
-        <v-col class="py-0">Credits</v-col>
+        <v-col class="py-0"> Credits </v-col>
         <v-col class="py-0 text-right">
           <Spinner v-if="isLoading" />
           <template v-else>
@@ -84,8 +84,9 @@
             :to="{ path: '/credits', query: { buy: true } }"
             outlined
             small
-            >Buy credits</v-btn
           >
+            Buy credits
+          </v-btn>
         </v-col>
       </v-row>
     </v-card-text>
