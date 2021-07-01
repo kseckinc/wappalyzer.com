@@ -1349,7 +1349,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import {
   mdiCalculator,
   mdiDownload,
@@ -1614,7 +1614,6 @@ export default {
       }
     },
     isLoading() {
-      console.log(this.isLoading, this.isPro)
       if (!this.isLoading) {
         if (!this.isPro) {
           this.compliance = 'exclude'
@@ -1701,6 +1700,9 @@ export default {
       this.updateQuery()
     },
   },
+  created() {
+    this.getCredits()
+  },
   mounted() {
     if (!this.isLoading) {
       if (!this.isPro) {
@@ -1715,6 +1717,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      getCredits: 'credits/get',
+    }),
     async submit(confirmed = false) {
       this.error = ''
       this.creating = true
