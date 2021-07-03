@@ -51,7 +51,7 @@
         </template>
       </v-alert>
 
-      <v-alert v-if="order.status === 'Processing'" type="success" outlined>
+      <v-alert v-if="order.status === 'Processing'" type="success">
         Thank you for your payment, your order is being processed. You'll
         receive an email when it's ready.
       </v-alert>

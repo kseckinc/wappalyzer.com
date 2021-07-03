@@ -260,6 +260,7 @@
                 label="Credits"
               />
               <v-text-field v-model="description" label="Description" />
+              <v-text-field v-model="expiry" label="Expiry (days)" />
             </v-form>
           </v-card-text>
           <v-card-actions>
@@ -298,6 +299,7 @@ export default {
       credits: 5000,
       creditTiers,
       description: 'Complimentary credits',
+      expiry: 365,
       mdiAlphaCCircle,
       mdiForum,
       mdiCalculator,
@@ -372,6 +374,7 @@ export default {
         await this.$axios.put('credits', {
           credits: parseInt(this.credits, 10),
           description: this.description,
+          expiry: parseInt(this.expiry, 10),
         })
 
         this.getCredits()

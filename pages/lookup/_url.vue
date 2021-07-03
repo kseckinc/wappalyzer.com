@@ -306,6 +306,7 @@
               :disabled="!!(!file || fileErrors.length)"
               color="primary"
               large
+              depressed
               @click="submitBulk"
             >
               Get a quote

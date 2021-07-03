@@ -1285,6 +1285,7 @@
                 color="primary"
                 class="mt-4 mb-4"
                 large
+                depressed
                 @click="submit()"
               >
                 Create list
