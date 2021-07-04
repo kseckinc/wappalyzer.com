@@ -96,10 +96,10 @@
         "cancellation": true
       }
     },
-    "credits_starter_v5_yr": {
+    "credits_starter_v6_yr": {
       "name": "Starter",
       "interval": "year",
-      "price": 7900,
+      "price": 99000,
       "attrs": {
         "credits": 5000,
         "seats": 1,
@@ -114,11 +114,11 @@
         "cancellation": true
       }
     },
-    "credits_team_v2_yr": {
+    "credits_team_v4_yr": {
       "name": "Team",
       "interval": "year",
       "raised": true,
-      "price": 19900,
+      "price": 249000,
       "attrs": {
         "credits": 50000,
         "seats": 5,
@@ -133,10 +133,10 @@
         "cancellation": true
       }
     },
-    "credits_business_v5_yr": {
+    "credits_business_v6_yr": {
       "name": "Business",
       "interval": "year",
-      "price": 34900,
+      "price": 449000,
       "attrs": {
         "credits": 200000,
         "seats": 15,

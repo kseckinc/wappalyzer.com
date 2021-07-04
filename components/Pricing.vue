@@ -12,11 +12,11 @@
       "
     >
       <v-spacer />
-      <span class="font-weight-regular mr-2">Billing </span>
+      <span class="font-weight-regular mr-2">Billing</span>
       <span @click="annually = !annually">Monthly</span>
       <v-switch v-model="annually" class="my-0 ml-4" inset hide-details />
       <span @click="annually = !annually">
-        Annually <span class="font-weight-regular ml-1">(discounted)</span>
+        Annually <span class="font-weight-regular ml-1">(2 months free)</span>
       </span>
       <v-spacer />
     </div>
@@ -58,13 +58,13 @@ export default {
   props: {
     billing: {
       type: String,
-      default: 'annually',
+      default: 'monthly',
     },
   },
   data() {
     return {
       attrs,
-      annually: true,
+      annually: false,
       order: false,
       orderError: '',
       signInDialog: false,

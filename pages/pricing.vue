@@ -168,7 +168,7 @@ export default {
     return {
       title: meta.title,
       faqDialog: false,
-      annually: true,
+      annually: false,
       creditsPerUnit,
       creditTiers,
       mdiForum,
@@ -179,8 +179,8 @@ export default {
   mounted() {
     const { billing } = this.$route.query
 
-    if (billing === 'monthly') {
-      this.annually = false
+    if (billing) {
+      this.annually = billing === 'annually'
 
       this.$router.replace(this.$route.path)
     }

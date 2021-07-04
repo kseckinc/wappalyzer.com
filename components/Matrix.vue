@@ -87,7 +87,9 @@
                 <span class="font-weight-regular text-h6">
                   {{ formatCurrency(item.price / 100) }}
                 </span>
-                <span class="caption"> / mo </span>
+                <span class="caption">
+                  / {{ item.interval === 'year' ? 'yr' : 'mo' }}
+                </span>
               </template>
             </v-card-text>
           </v-responsive>

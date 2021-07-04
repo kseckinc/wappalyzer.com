@@ -288,7 +288,7 @@
         </v-col>
       </v-row>
 
-      <Pricing billing="monthly" />
+      <Pricing />
 
       <v-row justify="center" no-gutters>
         <v-col sm="10" lg="8">

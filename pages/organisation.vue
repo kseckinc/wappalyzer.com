@@ -62,7 +62,7 @@
 
               <p class="mb-0">
                 Additional seats are included with selected
-                <nuxt-link to="/pricing/"> plans </nuxt-link>.
+                <nuxt-link to="/pricing/">plans</nuxt-link>.
               </p>
             </v-card-text>
             <v-card-text v-if="!organisation.members.length">
