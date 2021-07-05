@@ -1,10 +1,10 @@
 {
   "attrs": {
-    "seats": { "text": "Seats", "type": "number", "description": ["Number of users who can access the account with their own login."] },
-    "credits": { "text": "Credits per month", "type": "credits", "description": ["Credits can be spent on lead lists, technology lookups and APIs. See 'credit usage' below."] },
+    "pro": { "text": "PRO features", "type": "pro", "description": ["Access to company and contact details (all data products)", "CRM integration (HubSpot, Pipedrive)" ] },
+    "users": { "text": "Users", "type": "number", "description": ["Number of users who can access the account with their own login."] },
+    "credits": { "text": "Credits / mo", "type": "credits", "description": ["Credits can be spent on lead lists, technology lookups and APIs. See 'credit usage' below."] },
     "lists": { "text": "Lead lists", "type": "string" },
     "apis": { "text": "API access", "type": "boolean" },
-    "pro": { "text": "features", "badge": "PRO", "type": "boolean", "description": ["CRM integration (HubSpot, Pipedrive)", "Access to company and contact details (all data products)"] },
     "cancellation": { "text": "Anytime cancellation", "type": "boolean" },
     "support": { "text": "Email & phone support", "type": "boolean" }
   },
@@ -12,12 +12,13 @@
     "credits_free_mo": {
       "name": "Free",
       "interval": "month",
+      "price": 0,
       "buttonAction": "signUp",
       "price": 0,
       "attrs": {
         "credits": 50,
-        "seats": 1,
-        "support": false,
+        "users": 1,
+        "support": "-",
         "lookups": true,
         "lists": "Pay per list",
         "apis": true,
@@ -31,7 +32,7 @@
       "price": 9900,
       "attrs": {
         "credits": 5000,
-        "seats": 1,
+        "users": 1,
         "support": true,
         "lookups": true,
         "lists": {
@@ -50,7 +51,7 @@
       "price": 24900,
       "attrs": {
         "credits": 50000,
-        "seats": 5,
+        "users": 5,
         "support": true,
         "lookups": true,
         "lists": {
@@ -68,7 +69,7 @@
       "price": 44900,
       "attrs": {
         "credits": 200000,
-        "seats": 15,
+        "users": 15,
         "support": true,
         "lookups": true,
         "lists": {
@@ -83,11 +84,12 @@
     "credits_free_yr": {
       "name": "Free",
       "interval": "year",
+      "price": 0,
       "buttonAction": "signUp",
       "price": 0,
       "attrs": {
         "credits": 50,
-        "seats": 1,
+        "users": 1,
         "support": "-",
         "lookups": true,
         "lists": "Pay per list",
@@ -102,7 +104,7 @@
       "price": 99000,
       "attrs": {
         "credits": 5000,
-        "seats": 1,
+        "users": 1,
         "support": true,
         "lookups": true,
         "lists": {
@@ -121,7 +123,7 @@
       "price": 249000,
       "attrs": {
         "credits": 50000,
-        "seats": 5,
+        "users": 5,
         "support": true,
         "lookups": true,
         "lists": {
@@ -139,7 +141,7 @@
       "price": 449000,
       "attrs": {
         "credits": 200000,
-        "seats": 15,
+        "users": 15,
         "support": true,
         "lookups": true,
         "lists": {

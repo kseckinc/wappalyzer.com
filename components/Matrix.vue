@@ -11,16 +11,6 @@
           <v-divider />
           <v-responsive height="60" class="align-center">
             <v-card-text class="py-0">
-              <v-chip
-                v-if="attr.badge"
-                to="/pro/"
-                color="primary"
-                x-small
-                outlined
-              >
-                {{ attr.badge }}
-              </v-chip>
-
               {{ attr.text }}
 
               <v-tooltip v-if="attr.description" max-width="450" right>
@@ -77,20 +67,12 @@
             class="align-center"
           >
             <v-card-text class="py-0 justify-center">
-              <template v-if="item.price === 0">
-                <span class="font-weight-medium"> Free forever </span>
-                <div class="text--disabled">
-                  <small>No credit card required</small>
-                </div>
-              </template>
-              <template v-else-if="item.price">
-                <span class="font-weight-regular text-h6">
-                  {{ formatCurrency(item.price / 100) }}
-                </span>
-                <span class="caption">
-                  / {{ item.interval === 'year' ? 'yr' : 'mo' }}
-                </span>
-              </template>
+              <span class="font-weight-regular text-h6">
+                {{ formatCurrency(item.price / 100) }}
+              </span>
+              <span class="caption">
+                / {{ item.interval === 'year' ? 'yr' : 'mo' }}
+              </span>
             </v-card-text>
           </v-responsive>
           <v-responsive
@@ -172,9 +154,9 @@
                   <v-icon v-if="item.attrs[name] === true" color="success">
                     {{ mdiCheck }}
                   </v-icon>
-                  <v-icon v-else-if="item.attrs[name] === false">
+                  <template v-else-if="item.attrs[name] === false">
                     &nbsp;
-                  </v-icon>
+                  </template>
                   <small v-else>
                     {{ item.attrs[name] }}
                   </small>
@@ -189,6 +171,12 @@
                   >
                     PRO
                   </v-chip>
+                  <template v-else-if="item.attrs[name] === false">
+                    &nbsp;
+                  </template>
+                  <small v-else>
+                    {{ item.attrs[name] }}
+                  </small>
                 </template>
                 <small v-else-if="attr.type === 'small'">
                   {{ item.attrs[name] }}

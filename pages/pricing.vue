@@ -1,37 +1,25 @@
 <template>
   <div>
-    <Page :title="title" :head="meta">
-      <div class="mt-4">
-        <v-btn depressed class="mb-2" @click="$refs.faqDialog.open()">
-          <v-icon left>
-            {{ mdiForum }}
-          </v-icon>
-          FAQs
-        </v-btn>
-      </div>
+    <Page :title="title" no-head>
+      <h1 class="text-center mt-n2 mb-6">{{ title }}</h1>
 
       <Pricing :billing="annually ? 'annually' : 'monthly'" />
 
       <small class="text--disabled">
         <nuxt-link to="/contact/">Contact us</nuxt-link> for tailored plans.
         Discounted plans available for startups, students and nonprofits.<br />
-        Credits included in plans expire after 60 days.<br />
         Prices are in United States dollars.
       </small>
 
-      <v-row justify="center" class="mt-8">
-        <v-col cols="12" sm="6">
+      <v-row justify="center" class="mt-10 mb-12">
+        <v-col cols="12" sm="6" class="d-flex">
           <v-card id="usage">
             <v-card-title>Credit usage</v-card-title>
             <v-card-text class="px-0">
-              <v-row>
-                <v-col class="py-0" cols="12" md="10">
-                  <p class="px-4 pb-2">
-                    Credits can be spent on a range of products, including lead
-                    lists, technology lookups and APIs.
-                  </p>
-                </v-col>
-              </v-row>
+              <p class="px-4 mb-2">
+                Credits can be spent on any product, including lead lists,
+                technology lookups and APIs.
+              </p>
 
               <v-simple-table>
                 <thead>
@@ -65,15 +53,13 @@
           <v-card id="credits">
             <v-card-title>Credit pricing</v-card-title>
             <v-card-text class="px-0">
-              <v-row>
-                <v-col class="py-0" cols="12" md="10">
-                  <p class="px-4 pb-4">
-                    Additional credits can be purchased at tiered pricing. For
-                    example, the price for 1,000 credits is (100 x $0.20) + (400
-                    x $0.05) + (500 x $0.03) = $55.
-                  </p>
-                </v-col>
-              </v-row>
+              <p class="px-4">
+                Additional credits can be purchased at tiered pricing. For
+                example, the price for 1,000 credits is
+
+                <code>(100 x $0.20) + (400 x $0.05) + (500 x $0.03) = $55</code
+                >.
+              </p>
 
               <v-simple-table class="mb-4" outlined dense>
                 <thead>
@@ -116,29 +102,27 @@
                   </tr>
                 </tbody>
               </v-simple-table>
-
-              <p class="px-4 mb-0">
-                <small>
-                  Credits purchased without a plan expire after 365 days.
-                </small>
-              </p>
             </v-card-text>
           </v-card>
         </v-col>
       </v-row>
 
-      <small class="text--disabled">
-        By using our services, you agree to our
-        <nuxt-link to="/terms/">terms of service</nuxt-link>.
-      </small>
+      <v-row justify="center">
+        <v-col cols="12" md="10" lg="8">
+          <v-card>
+            <v-card-title>Frequently asked questions</v-card-title>
+            <v-card-text class="px-0">
+              <Faqs topic="pricing" />
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
 
       <div class="mt-12 pa-8 text-center">
         <v-btn to="/contact/" color="primary" depressed x-large>
           Contact us to book a demo
         </v-btn>
       </div>
-
-      <FaqDialog ref="faqDialog" topic="pricing" />
 
       <template #footer>
         <Logos />
@@ -153,27 +137,24 @@ import { mdiForum } from '@mdi/js'
 import Page from '~/components/Page.vue'
 import Pricing from '~/components/Pricing.vue'
 import Logos from '~/components/Logos.vue'
-import FaqDialog from '~/components/FaqDialog.vue'
+import Faqs from '~/components/Faqs.vue'
 import { creditsPerUnit, creditTiers } from '~/assets/json/pricing.json'
-import { pricing as meta } from '~/assets/json/meta.json'
 
 export default {
   components: {
     Page,
     Pricing,
     Logos,
-    FaqDialog,
+    Faqs,
   },
   data() {
     return {
-      title: meta.title,
+      title: 'Pricing',
       faqDialog: false,
       annually: false,
       creditsPerUnit,
       creditTiers,
       mdiForum,
-      meta,
-      text: meta.text,
     }
   },
   mounted() {

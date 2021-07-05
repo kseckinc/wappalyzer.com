@@ -74,12 +74,5 @@
       "Get 5 alerts free"
     ],
     "feature": true
-  },
-  "pricing": {
-    "title": "Pricing",
-    "text": [
-      "Sign up for free to access technology lookups, lead lists, APIs and more. Pay with a credit card, PayPal account or credit balance.",
-      "A plan grants you monthly credits at a lower price. Credits can be spent on any product."
-      ]
   }
 }
