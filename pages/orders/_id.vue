@@ -61,7 +61,11 @@
           Thank you for your payment, your subscription has been created.
         </template>
         <template
-          v-else-if="['Lead list', 'Bulk lookup'].includes(order.product)"
+          v-else-if="
+            ['Lead list', 'Technology lookup', 'Email verification'].includes(
+              order.product
+            )
+          "
         >
           Thank you for your payment, your list is ready.
         </template>
@@ -117,7 +121,11 @@
         </v-btn>
       </template>
 
-      <template v-if="order.product === 'Bulk lookup'">
+      <template
+        v-if="
+          ['Technology lookup', 'Email verification'].includes(order.product)
+        "
+      >
         <v-btn
           v-if="order.status === 'Complete'"
           :href="`${bulkLookupBaseUrl}${order.bulk.filename}`"
@@ -306,7 +314,7 @@
                         @click="technologiesViewAll = !technologiesViewAll"
                       >
                         <v-icon small left>
-                          technologiesViewAll ? mdiMinus : mdiPlus }}
+                          {{ technologiesViewAll ? mdiMinus : mdiPlus }}
                         </v-icon>
                         {{
                           technologiesViewAll
@@ -576,10 +584,21 @@
             </tbody>
           </v-simple-table>
 
-          <v-simple-table v-if="order.product === 'Bulk lookup'">
+          <v-simple-table
+            v-if="
+              ['Technology lookup', 'Email verification'].includes(
+                order.product
+              )
+            "
+          >
             <tbody>
               <tr>
-                <th width="30%">Websites</th>
+                <th v-if="order.product === 'Technology lookup'" width="30%">
+                  Websites
+                </th>
+                <th v-if="order.product === 'Email verification'" width="30%">
+                  Email addresses
+                </th>
                 <td>
                   {{ formatNumber(order.bulk.rows) }}
                 </td>
@@ -758,7 +777,11 @@
                       />
                       <v-radio
                         v-if="
-                          ['Lead list', 'Bulk lookup'].includes(order.product)
+                          [
+                            'Lead list',
+                            'Technology lookup',
+                            'Email verification',
+                          ].includes(order.product)
                         "
                         label="Claim free list"
                         value="free"

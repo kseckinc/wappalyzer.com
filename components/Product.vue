@@ -8,7 +8,7 @@
       md="4"
     >
       <v-row justify="center">
-        <v-col cols="8" sm="12" class="py-0">
+        <v-col cols="8" sm="12" xl="8" class="py-0">
           <ProductImage
             :name="product.image"
             :class="mirror ? 'pr-sm-12' : 'pl-sm-12'"
@@ -76,10 +76,10 @@
       </v-alert>
 
       <v-form
-        v-if="product.search"
+        v-if="product.lookup"
         ref="form"
         class="d-flex align-center mb-2"
-        @submit.prevent="$router.push(`/lookup/${encodeURIComponent(url)}/`)"
+        @submit.prevent="submitLookup"
       >
         <v-text-field
           v-model="url"
@@ -87,10 +87,11 @@
           placeholder="Example or example.com"
           style="max-width: 450px"
           :append-icon="mdi.mdiMagnify"
+          :loading="lookupLoading"
           hide-details
           outlined
           dense
-          @click:append="$router.push(`/lookup/${encodeURIComponent(url)}/`)"
+          @click:append="submitLookup"
         />
 
         <small class="ml-4 text--disabled">
@@ -102,6 +103,36 @@
           >
         </small>
       </v-form>
+
+      <v-form
+        v-if="product.verify"
+        ref="form"
+        class="d-flex align-center mb-2"
+        @submit.prevent="submitVerify"
+      >
+        <v-text-field
+          v-model="email"
+          label="Email address"
+          placeholder="info@example.com"
+          style="max-width: 450px"
+          :append-icon="mdi.mdiMagnify"
+          :loading="verifyLoading"
+          hide-details
+          outlined
+          dense
+          @click:append="submitVerify"
+        />
+
+        <small class="ml-4 text--disabled">
+          Or,
+          <nuxt-link
+            class="text--disabled"
+            :to="{ path: '/verify', hash: '#bulk' }"
+            >upload a list</nuxt-link
+          >
+        </small>
+      </v-form>
+
       <v-btn
         v-for="(button, index) in product.buttons"
         v-else
@@ -152,6 +183,7 @@ import {
   mdiDownload,
   mdiAccountMultiple,
   mdiPowerPlug,
+  mdiEmailCheckOutline,
 } from '@mdi/js'
 
 import ProductImage from '~/components/ProductImage.vue'
@@ -174,6 +206,9 @@ export default {
   data() {
     return {
       url: '',
+      email: '',
+      lookupLoading: false,
+      verifyLoading: false,
       mdi: {
         mdiCheck,
         mdiLayersOutline,
@@ -189,12 +224,25 @@ export default {
         mdiDownload,
         mdiAccountMultiple,
         mdiPowerPlug,
+        mdiEmailCheckOutline,
       },
     }
   },
   computed: {
     product() {
       return meta[this.name]
+    },
+  },
+  methods: {
+    submitLookup() {
+      this.lookupLoading = true
+
+      this.$router.push(`/lookup/${encodeURIComponent(this.url)}/`)
+    },
+    submitVerify() {
+      this.verifyLoading = true
+
+      this.$router.push(`/verify/${this.email}/`)
     },
   },
 }

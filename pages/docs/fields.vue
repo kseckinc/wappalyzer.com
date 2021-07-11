@@ -1,23 +1,14 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <Page :title="title" :side="side" :crumbs="crumbs" no-hero no-head>
-    <h1 class="mb-4">
+    <h1 class="mb-2">
       {{ title }}
     </h1>
 
-    <p style="max-width: 600px">
+    <p style="max-width: 600px" class="mb-6">
       Each data product includes a set of base fields, such as websites and
       technologies. Additional fields can optionally be included.
     </p>
-
-    <v-alert
-      class="mt-6 mb-8 elevation-1"
-      color="secondary"
-      :icon="mdiInformationOutline"
-    >
-      Fields are subject to availability. Contact details such as email
-      addresses and phone numbers are unverified.
-    </v-alert>
 
     <v-expansion-panels>
       <v-expansion-panel

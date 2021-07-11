@@ -73,11 +73,17 @@
                     <Spinner />
                   </td>
                   <td v-else-if="order.status === 'Insufficient'">-</td>
-                  <td v-else-if="order.paymentMethod === 'credits'">
+                  <td v-else-if="order.paymentMethod === 'free'">Free</td>
+                  <td
+                    v-else-if="
+                      order.paymentMethod === 'credits' ||
+                      isMember ||
+                      credits > order.totalCredits
+                    "
+                  >
                     {{ formatNumber(order.totalCredits) }}
                     Credits
                   </td>
-                  <td v-else-if="order.paymentMethod === 'free'">Free</td>
                   <td v-else>
                     {{ formatCurrency(order.total / 100, order.currency) }}
                   </td>
@@ -118,6 +124,7 @@ export default {
       user: ({ user }) => user.attrs,
       isMember: ({ user }) =>
         !user.attrs.admin && user.impersonator && !user.impersonator.admin,
+      credits: ({ credits: { credits } }) => credits,
       impersonator: ({ user }) => user.impersonator,
     }),
     myOrders() {

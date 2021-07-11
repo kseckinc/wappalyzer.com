@@ -13,7 +13,7 @@
 
       <v-row justify="center" class="mt-10 mb-12">
         <v-col cols="12" sm="6" class="d-flex">
-          <v-card id="usage">
+          <v-card id="usage" width="100%" height="100%">
             <v-card-title>Credit usage</v-card-title>
             <v-card-text class="px-0">
               <p class="px-4 mb-2">
@@ -50,7 +50,7 @@
         </v-col>
 
         <v-col cols="12" sm="6">
-          <v-card id="credits">
+          <v-card id="credits" width="100%" height="100%">
             <v-card-title>Credit pricing</v-card-title>
             <v-card-text class="px-0">
               <p class="px-4">

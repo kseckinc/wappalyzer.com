@@ -1295,15 +1295,6 @@
               </v-btn>
             </v-card-text>
           </v-card>
-
-          <p class="mb-8 text--disabled">
-            <small>
-              By using our services, you agree to our
-              <nuxt-link to="/terms/" target="_blank"
-                >terms of service</nuxt-link
-              >.
-            </small>
-          </p>
         </v-form>
       </template>
 

@@ -15,6 +15,10 @@
       {
         "title": "Live API",
         "to": "/docs/api/v2/live/"
+      },
+      {
+        "title": "Verify API",
+        "to": "/docs/api/v2/verify/"
       }
     ]
   },

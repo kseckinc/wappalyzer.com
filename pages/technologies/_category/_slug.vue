@@ -186,9 +186,8 @@
             <nuxt-link
               class="primary--text"
               :to="`/lists/?technologies=${slug}`"
+              >{{ technology.name }} websites</nuxt-link
             >
-              {{ technology.name }} websites
-            </nuxt-link>
             with company and contact details.
           </p>
 
@@ -235,9 +234,9 @@
                   :key="hostname"
                 >
                   <td width="50%">
-                    <nuxt-link :to="`/lookup/${hostname}`">
-                      {{ hostname }}
-                    </nuxt-link>
+                    <nuxt-link :to="`/lookup/${hostname}`">{{
+                      hostname
+                    }}</nuxt-link>
 
                     <a
                       :href="`http${attributes.https ? 's' : ''}://${
@@ -281,7 +280,7 @@
         </p>
 
         <v-card class="mb-4">
-          <v-card-title class="subtitle-2"> Example reports </v-card-title>
+          <v-card-title class="subtitle-2">Example reports</v-card-title>
           <v-card-text class="px-0">
             <v-simple-table dense>
               <tbody>
@@ -353,7 +352,7 @@
         <v-row class="mb-12">
           <v-col cols="12" md="6" class="py-0">
             <v-card>
-              <v-card-title class="subtitle-2"> Countries </v-card-title>
+              <v-card-title class="subtitle-2">Countries</v-card-title>
               <v-card-text class="pb-8">
                 <GChart
                   type="PieChart"
@@ -366,7 +365,7 @@
           </v-col>
           <v-col cols="12" md="6" class="py-0">
             <v-card>
-              <v-card-title class="subtitle-2"> Languages </v-card-title>
+              <v-card-title class="subtitle-2">Languages</v-card-title>
               <v-card-text class="pb-8">
                 <GChart
                   type="PieChart"
@@ -417,20 +416,18 @@
                       <nuxt-link
                         :to="`/technologies/${alternative.categorySlug}/${alternative.slug}/`"
                         class="body-2 d-flex align-center my-2"
+                        ><TechnologyIcon :icon="alternative.icon" />
+                        {{ alternative.name }}</nuxt-link
                       >
-                        <TechnologyIcon :icon="alternative.icon" />
-                        {{ alternative.name }}
-                      </nuxt-link>
                     </td>
                     <td class="text-right">
                       <small>
                         <nuxt-link
                           :to="`/compare/${technology.slug}-vs-${alternative.slug}/`"
                           class="black--text"
+                          >{{ technology.name }} vs.
+                          {{ alternative.name }}</nuxt-link
                         >
-                          {{ technology.name }} vs.
-                          {{ alternative.name }}
-                        </nuxt-link>
                       </small>
                     </td>
                   </tr>
@@ -495,7 +492,7 @@
 
     <v-dialog v-model="reviewDialog" max-width="500px">
       <v-card>
-        <v-card-title> Write a review </v-card-title>
+        <v-card-title>Write a review</v-card-title>
         <v-card-text class="pb-0">
           <v-alert v-if="reviewError" type="error">
             {{ reviewError }}
@@ -515,11 +512,11 @@
               @hover="(rating) => (hoverRating = rating)"
             />
 
-            <template v-if="hoverRating === 1"> Very unlikely </template>
-            <template v-if="hoverRating === 2"> Unlikely </template>
-            <template v-if="hoverRating === 3"> Neutral </template>
-            <template v-if="hoverRating === 4"> Likely </template>
-            <template v-if="hoverRating === 5"> Very likely </template>
+            <template v-if="hoverRating === 1">Very unlikely</template>
+            <template v-if="hoverRating === 2">Unlikely</template>
+            <template v-if="hoverRating === 3">Neutral</template>
+            <template v-if="hoverRating === 4">Likely</template>
+            <template v-if="hoverRating === 5">Very likely</template>
           </div>
 
           <p>Describe your experience with {{ technology.name }}.</p>
@@ -535,7 +532,7 @@
 
           <p>
             Choose how your name should appear. You can change your name in
-            <nuxt-link to="/account"> account settings </nuxt-link>.
+            <nuxt-link to="/account">account settings</nuxt-link>.
           </p>
 
           <v-radio-group v-model="review.name" hide-details>
@@ -575,7 +572,7 @@
       max-width="400px"
     >
       <v-card>
-        <v-card-title> Creating your list&hellip; </v-card-title>
+        <v-card-title>Creating your list&hellip;</v-card-title>
         <v-card-text class="pb-0">
           <v-alert v-if="createlistError" type="error" class="mb-0">
             {{ createlistError }}
@@ -585,7 +582,7 @@
         </v-card-text>
         <v-card-actions v-if="createlistError">
           <v-spacer />
-          <v-btn v-if="error" color="accent" text @click="close"> Ok </v-btn>
+          <v-btn v-if="error" color="accent" text @click="close">Ok</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

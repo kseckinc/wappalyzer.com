@@ -49,22 +49,21 @@
               <template v-for="list in filteredLists">
                 <tr :key="list.createdAt">
                   <td style="white-space: nowrap">
-                    <nuxt-link :to="`/lists/${list.id}`">
-                      {{ list.id }}
-                    </nuxt-link>
+                    <nuxt-link :to="`/lists/${list.id}`">{{
+                      list.id
+                    }}</nuxt-link>
 
                     <v-tooltip v-if="list.repeatListId" max-width="250" top>
                       <template #activator="{ on }">
                         <nuxt-link
                           v-if="list.repeatListId"
                           :to="`/lists/${list.repeatListId}`"
-                        >
-                          <sup>
+                          ><sup>
                             <v-icon color="accent" small v-on="on">{{
                               mdiUpdate
                             }}</v-icon>
-                          </sup>
-                        </nuxt-link>
+                          </sup></nuxt-link
+                        >
                       </template>
 
                       Weekly update for list {{ list.repeatListId }}. Click to

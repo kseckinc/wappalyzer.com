@@ -31,18 +31,23 @@
               <td class="px-6">
                 <v-chip-group
                   v-if="
-                    ['email', 'phone'].includes(attributeKey) ||
-                    setKey === 'social'
+                    ['email', 'verifiedEmail', 'safeEmail', 'phone'].includes(
+                      attributeKey
+                    ) || setKey === 'social'
                   "
                   column
                 >
                   <div v-for="(value, index) in attribute.values" :key="index">
                     <v-chip
-                      v-if="attributeKey === 'email'"
-                      :href="
+                      v-if="
+                        ['email', 'verifiedEmail', 'safeEmail'].includes(
+                          attributeKey
+                        )
+                      "
+                      :to="
                         maskedSets.includes(setKey)
                           ? ''
-                          : `mailto:${value.text}`
+                          : `/verify/${value.text}`
                       "
                       color="accent--text"
                       outlined

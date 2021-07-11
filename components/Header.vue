@@ -257,6 +257,7 @@ import {
   mdiConsole,
   mdiBellOutline,
   mdiMagnify,
+  mdiEmailCheckOutline,
 } from '@mdi/js'
 import Logo from '~/components/Logo.vue'
 import SignIn from '~/components/SignIn.vue'
@@ -307,6 +308,7 @@ export default {
         mdiConsole,
         mdiBellOutline,
         mdiMagnify,
+        mdiEmailCheckOutline,
       },
     }
   },

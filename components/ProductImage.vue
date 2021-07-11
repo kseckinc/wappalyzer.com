@@ -7,6 +7,7 @@ import ImageLookup from '~/assets/images/lookup.svg?inline'
 import ImageList from '~/assets/images/list.svg?inline'
 import ImageAPI from '~/assets/images/api.svg?inline'
 import ImageAlerts from '~/assets/images/alerts.svg?inline'
+import ImageVerify from '~/assets/images/verify.svg?inline'
 
 export default {
   props: {
@@ -22,6 +23,7 @@ export default {
         'list.svg': ImageList,
         'api.svg': ImageAPI,
         'alerts.svg': ImageAlerts,
+        'verify.svg': ImageVerify,
       },
     }
   },

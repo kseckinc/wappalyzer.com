@@ -137,6 +137,7 @@ import {
   mdiAccountSwitch,
   mdiPowerPlug,
   mdiMagnify,
+  mdiEmailCheckOutline,
 } from '@mdi/js'
 
 import SignIn from '~/components/SignIn.vue'
@@ -177,6 +178,7 @@ export default {
         mdiAccountSwitch,
         mdiPowerPlug,
         mdiMagnify,
+        mdiEmailCheckOutline,
       },
     }
   },

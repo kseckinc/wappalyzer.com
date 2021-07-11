@@ -354,8 +354,6 @@ import { mapState, mapActions } from 'vuex'
 import {
   mdiLayersOutline,
   mdiMagnify,
-  mdiCheck,
-  mdiClose,
   mdiCalculator,
   mdiArrowRight,
   mdiLockOpenVariantOutline,
@@ -373,9 +371,6 @@ import PricingDialog from '~/components/PricingDialog.vue'
 import Pro from '~/components/Pro.vue'
 import { lookup as meta } from '~/assets/json/meta.json'
 import sets from '~/assets/json/sets.json'
-import countries from '~/assets/json/countries.json'
-import languages from '~/assets/json/languages.json'
-import states from '~/assets/json/states.json'
 
 function getFullUrl(url) {
   if (!url) {
@@ -482,8 +477,6 @@ export default {
       maskedSets: [],
       mdiLayersOutline,
       mdiMagnify,
-      mdiCheck,
-      mdiClose,
       mdiCalculator,
       mdiArrowRight,
       mdiLockOpenVariantOutline,
@@ -493,16 +486,6 @@ export default {
       url: '',
       lastUrl: '',
       signInDialog: false,
-      socialBaseUrls: {
-        twitter: 'https://www.twitter.com/',
-        facebook: 'https://www.facebook.com/',
-        instagram: 'https://www.instagram.com/',
-        github: 'https://www.github.com/',
-        tiktok: 'https://www.tiktok.com/',
-        youtube: 'https://www.youtube.com/',
-        pinterest: 'https://www.pinterest.com/',
-        linkedin: 'https://www.linkedin.com/',
-      },
       tab: null,
       technologies: [],
     }
@@ -741,41 +724,6 @@ export default {
       this.keywords = this.keywords || []
 
       this.loading = false
-    },
-    getCountry(code) {
-      const country = countries.find(
-        ({ value }) => value.toUpperCase() === code.toUpperCase()
-      )
-
-      return country ? country.text : code
-    },
-    getRegion(countryCode, regionCode) {
-      if (states[countryCode.toUpperCase()]) {
-        const region = states[countryCode.toUpperCase()].find(
-          ({ value }) => value.toUpperCase() === regionCode.toUpperCase()
-        )
-
-        return region ? region.text : regionCode
-      }
-
-      return regionCode
-    },
-    getLanguage(code) {
-      for (const name in languages) {
-        if (typeof languages[name] === 'string') {
-          if (languages[name].toUpperCase() === code.toUpperCase()) {
-            return name
-          }
-        } else {
-          for (const variant in languages[name]) {
-            if (languages[name][variant].toUpperCase() === code.toUpperCase()) {
-              return name === variant ? name : `${name} (${variant})`
-            }
-          }
-        }
-      }
-
-      return code
     },
     async submitBulk() {
       this.orderError = ''

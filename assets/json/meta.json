@@ -9,7 +9,7 @@
     "icon": "mdiLayersOutline",
     "image": "lookup.svg",
     "text": "Instantly reveal the technology stack any website, such as CMS, ecommerce platform or payment processor, as well as company and contact details.",
-    "search": true,
+    "lookup": true,
     "features": ["Instant results", "50 Free monthly lookups", "Perform up to 100,000 lookups at once"],
     "feature": true
   },
@@ -31,6 +31,16 @@
       "Organic data with traffic markers",
       "Fresh and accurate data"
     ],
+    "feature": true
+  },
+  "verify": {
+    "title": "Email verification",
+    "subtitle": "Verify email addresses",
+    "icon": "mdiEmailCheckOutline",
+    "image": "verify.svg",
+    "text": "Verify email addresses before sending to improve delivery. A high bounce rate lowers your sender reputation and you risk getting blocked by email providers. We use advanced methods to check server configuration and connectivity, inbox availability and more.",
+    "verify": true,
+    "features": ["Instant results", "50 Free monthly verifications", "Perform up to 100,000 verifications at once"],
     "feature": true
   },
   "apis": {

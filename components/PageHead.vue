@@ -29,7 +29,7 @@
           </div>
         </v-fade-transition>
       </v-col>
-      <v-col cols="12" md="4" class="d-none d-md-flex align-start pl-12">
+      <v-col cols="12" md="4" xl="3" class="d-none d-md-flex align-start pl-12">
         <ProductImage :name="image" />
       </v-col>
     </v-row>

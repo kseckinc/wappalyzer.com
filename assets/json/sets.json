@@ -32,7 +32,9 @@
     "key": "email",
     "name": "Email addresses",
     "attributes": [
-      { "name": "email addresses", "key": "email", "description": "" }
+      { "name": "email addresses", "key": "email", "description": "" },
+      { "name": "verfied email addresses", "key": "verifiedEmail", "description": "" },
+      { "name": "safe email addresses", "key": "safeEmail", "description": "" }
     ],
     "disabled": true
   },
@@ -42,6 +44,8 @@
     "attributes": [
       { "name": "phone numbers", "key": "phone", "description": "Phone numbers found on the website's contact page. We identify <code>tel:</code> links and numbers that appear to be phone numbers." },
       { "name": "email addresses", "key": "email", "description": "Email addresses found on the website's contact page. We identify <code>mailto:</code> links and strings that appear to be email addresses based on the website's domain." },
+      { "name": "verfied email addresses", "key": "verifiedEmail", "description": "Verified and reachable email addresses." },
+      { "name": "safe email addresses", "key": "safeEmail", "description": "Verified, reachable and safe-to-send email addresses." },
       { "name": "Skype", "key": "skype", "description": "Skype handles found on the website's contact page." },
       { "name": "WhatsApp", "key": "whatsapp", "description": "WhatsApp numbers found on the website's contact page." }
     ],
@@ -111,7 +115,7 @@
   },
   {
     "key": "trackers",
-    "name": "Trackers",
+    "name": "Tracker IDs",
     "attributes": [
       { "name": "Google Analytics", "key": "trackerGoogleAnalytics", "description": "Google Analytics tracking ID." },
       { "name": "Google AdSense", "key": "trackerGoogleAdSense", "description": "Google AdSense tracking ID." },

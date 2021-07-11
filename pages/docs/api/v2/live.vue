@@ -23,7 +23,7 @@
         <v-simple-table>
           <thead>
             <tr>
-              <th>Property</th>
+              <th width="30%">Property</th>
               <th>Description</th>
             </tr>
           </thead>
@@ -53,7 +53,7 @@
         <v-simple-table>
           <thead>
             <tr>
-              <th>Name</th>
+              <th width="30%">Name</th>
               <th>Description</th>
             </tr>
           </thead>

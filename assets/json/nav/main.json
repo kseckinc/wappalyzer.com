@@ -15,6 +15,12 @@
         "to": "/lists/"
       },
       {
+        "title": "Email verification",
+        "subtitle": "Verify the validity of any email address",
+        "icon": "mdiEmailCheckOutline",
+        "to": "/verify/"
+      },
+      {
         "title": "Keyword search",
         "subtitle": "Find websites by keyword",
         "icon": "mdiMagnify",

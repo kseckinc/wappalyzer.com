@@ -82,9 +82,6 @@
           >
             <v-card-subtitle>
               {{ item.description }}
-              <span v-if="item.readMore"
-                ><nuxt-link :to="item.readMore">Read more</nuxt-link>.</span
-              >
             </v-card-subtitle>
           </v-responsive>
           <v-responsive height="75">
