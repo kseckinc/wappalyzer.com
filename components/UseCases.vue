@@ -4,7 +4,7 @@
       <v-card
         class="d-flex flex-column justify-space-between"
         style="height: 100%"
-        color="primary lighten-2"
+        color="primary lighten-1"
         flat
       >
         <v-card-text class="subtitle-2 primary--text">

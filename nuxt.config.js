@@ -134,11 +134,14 @@ export default {
           primary: {
             base: '#4608ad',
             lighten1: '#f0ebf9',
-            lighten2: '#f4f1fa',
+            // lighten2: '#f4f1fa',
             darken1: '#32067c',
             darken2: '#150233',
           },
-          accent: '#2196f3',
+          accent: {
+            base: '#2196f3',
+            lighten1: '#e4f2fe',
+          },
           secondary: '#fafafa',
           anchor: '#2196f3',
         },

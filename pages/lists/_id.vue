@@ -596,46 +596,75 @@
         </v-col>
 
         <v-col cols="12" md="8" class="py-0">
-          <v-alert v-if="list.status === 'Calculating'" color="accent" outlined>
+          <v-alert
+            v-if="list.status === 'Calculating'"
+            :icon="mdiTimerSandEmpty"
+            color="accent"
+            border="left"
+            text
+            prominent
+          >
             Your list is being created. This may take a few minutes, we'll send
             you an email when it's ready.
           </v-alert>
 
-          <v-alert v-if="list.status === 'Failed'" type="error">
+          <v-alert
+            v-if="list.status === 'Failed'"
+            :icon="mdiAlertOctagonOutline"
+            type="error"
+            border="left"
+            text
+            prominent
+          >
             Sorry, something went wrong during the processing of your list.
             Please contact us.
           </v-alert>
 
           <v-alert
             v-if="list.status === 'Insufficient'"
-            color="warning lighten-2"
+            :icon="mdiEmoticonSadOutline"
+            color="warning"
+            border="left"
+            text
+            prominent
           >
             <p>
               Sorry, we don't have results available matching your requirements.
               Please try it again with different or no filters.
             </p>
 
-            <v-btn :to="`/lists/${queryParams}`" color="white" exact depressed>
+            <v-btn :to="`/lists/${queryParams}`" color="warning" exact outlined>
               <v-icon left>
                 {{ mdiArrowLeft }}
               </v-icon>
-              Change requirements
+              Create a new list
             </v-btn>
           </v-alert>
 
-          <v-alert v-if="list.status === 'Ready'" color="accent" text>
+          <v-alert
+            v-if="list.status === 'Ready'"
+            type="success"
+            color="accent"
+            border="left"
+            text
+            prominent
+          >
             Your list is ready. Please review the samples and availability.
           </v-alert>
 
           <v-alert
             v-if="list.status === 'Complete' && list.repeatListId"
-            color="accent"
             :icon="mdiUpdate"
-            outlined
+            type="success"
+            color="accent"
+            border="left"
+            text
+            prominent
           >
             This is an automatically created weekly update for the list
-            <nuxt-link :to="`/lists/${list.repeatListId}`">
-              {{ list.repeatListId }} </nuxt-link
+            <nuxt-link :to="`/lists/${list.repeatListId}`">{{
+              list.repeatListId
+            }}</nuxt-link
             >.
           </v-alert>
 
@@ -810,6 +839,9 @@ import {
   mdiUpdate,
   mdiLockOpenVariantOutline,
   mdiArrowRight,
+  mdiEmoticonSadOutline,
+  mdiAlertOctagonOutline,
+  mdiTimerSandEmpty,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -871,6 +903,9 @@ export default {
       mdiUpdate,
       mdiLockOpenVariantOutline,
       mdiArrowRight,
+      mdiEmoticonSadOutline,
+      mdiTimerSandEmpty,
+      mdiAlertOctagonOutline,
       panelIndex: 0,
       repeat: false,
       repeatDialog: false,

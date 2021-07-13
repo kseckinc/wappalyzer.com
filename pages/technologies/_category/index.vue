@@ -19,7 +19,7 @@
       }"
       :hero="false"
     >
-      <v-alert color="primary lighten-2" class="mt-6">
+      <v-alert color="primary lighten-1" class="mt-6">
         <p class="subtitle-1 font-weight-medium primary--text mb-2">
           Reach out to {{ category.name }} users
         </p>
