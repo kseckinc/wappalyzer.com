@@ -59,24 +59,24 @@
 
       <p>
         Create lists of websites that use certain technologies with
-        <nuxt-link to="/lists/"> Lead lists </nuxt-link>, including email
+        <nuxt-link to="/lists/">Lead lists</nuxt-link>, including email
         addresses, phone numbers and LinkedIn profiles.
       </p>
 
       <p>
-        Use <nuxt-link to="/lookup/#bulk"> Bulk lookup </nuxt-link> to enrich
-        your own list of websites with technographic data.
+        Use <nuxt-link to="/lookup/#bulk">Technology lookup</nuxt-link> to
+        enrich your own list of websites with technographic data.
       </p>
 
       <p>
         Monitor your prospects' technology stack with
-        <nuxt-link to="/alerts/"> Alerts </nuxt-link>, notifying you of any
+        <nuxt-link to="/alerts/">Alerts</nuxt-link>, notifying you of any
         changes via email.
       </p>
 
       <p>
-        Or, automate using our <nuxt-link to="/api/"> APIs </nuxt-link>. We
-        offer instant technology lookups and real-time scraping of websites.
+        Or, automate using our <nuxt-link to="/api/">APIs</nuxt-link>. We offer
+        instant technology lookups and real-time scraping of websites.
       </p>
     </article>
 

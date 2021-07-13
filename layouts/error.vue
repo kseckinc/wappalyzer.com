@@ -1,28 +1,27 @@
 <template>
-  <Page
-    :title="title"
-    :head="{
-      title,
-      subtitle,
-      text,
-    }"
-    hero
-    no-subscribe
-  >
-    <v-alert v-if="statusCode !== 404" type="error" class="mt-4" outlined>
-      {{ message }}
+  <Page :title="title" no-hero no-subscribe no-head narrow>
+    <div class="text-center py-12">
+      <h1 class="mt-n2 mb-4">{{ title }}</h1>
 
-      <template v-if="code">
-        <br /><br />
-        Reference: {{ code }}
-      </template>
-    </v-alert>
+      <p v-if="subtitle" class="subtitle-2 mt-n4">
+        {{ subtitle }}
+      </p>
 
-    <template v-if="statusCode === 404">
-      <v-divider class="my-12" />
+      <p v-else-if="text" class="head-text mt-n2" v-html="text" />
 
-      <TicTacToe />
-    </template>
+      <v-alert v-if="statusCode !== 404" color="error" class="mt-10" text>
+        {{ message }}
+
+        <template v-if="code">
+          <br /><br />
+          Reference: {{ code }}
+        </template>
+      </v-alert>
+
+      <div v-if="statusCode === 404" class="mt-16">
+        <TicTacToe />
+      </div>
+    </div>
   </Page>
 </template>
 
@@ -56,9 +55,9 @@ export default {
   computed: {
     title() {
       return this.statusCode >= 500
-        ? 'Server error'
+        ? 'Something went wrong'
         : this.statusCode === 404
-        ? 'Not found'
+        ? 'Page not found'
         : this.statusCode >= 400
         ? 'Request error'
         : 'Something went wrong'
@@ -66,7 +65,7 @@ export default {
     subtitle() {
       return this.statusCode === 404
         ? ''
-        : `${this.statusCode} ${
+        : `${
             this.statusCode === 500
               ? 'Internal server error'
               : this.statusCode === 502
@@ -82,11 +81,11 @@ export default {
               : this.statusCode === 409
               ? 'Too many requests'
               : ''
-          }`
+          } (error ${this.statusCode})`
     },
     text() {
       return this.statusCode === 404
-        ? "This page you're looking for isn't here."
+        ? "Sorry, the content you're looking for isn't here."
         : "Sorry, something went wrong. Try reloading the page or <a href='/contact'>contact us</a> if the issue persists."
     },
   },

@@ -38,7 +38,7 @@
     "subtitle": "Prevent bounced emails",
     "icon": "mdiEmailCheckOutline",
     "image": "verify.svg",
-    "text": "Verify email addresses to prevent bounces, spam reports and fake website signups. We run a number of live checks for mail server connectivity, inbox availability and more, without sending an email to the address.",
+    "text": "Verify email addresses to prevent bounces, spam reports and fake website sign-ups. We run a number of live checks for mail server connectivity, inbox availability and more, without sending an email to the address.",
     "verify": true,
     "features": ["Instant results", "50 Free monthly verifications", "Perform up to 100,000 verifications at once"],
     "feature": true

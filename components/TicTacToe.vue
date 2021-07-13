@@ -1,5 +1,5 @@
 <template>
-  <div class="ttt-game py-12">
+  <div class="ttt-game">
     <div class="ttt-player">
       <svg
         class="ttt-player-icon ttt-player-icon-x ttt-player-icon--ahead"
@@ -107,6 +107,8 @@ export default {
     function fill(cell, player) {
       cell.value = player
 
+      cell.el.firstChild && cell.el.removeChild(cell.el.firstChild)
+
       cell.el.appendChild(icons[player].cloneNode(true))
     }
 
@@ -184,6 +186,8 @@ export default {
       }
 
       if (!dryrun) {
+        paused = true
+
         if (complete.player) {
           scores[complete.player].score++
 

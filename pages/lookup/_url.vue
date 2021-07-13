@@ -750,7 +750,7 @@ export default {
       try {
         const { id } = (
           await this.$axios.put('orders', {
-            product: 'Bulk lookup',
+            product: 'Technology lookup',
             bulk: {
               input: this.file,
               sets: this.sets
