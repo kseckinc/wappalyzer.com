@@ -15,8 +15,8 @@
 
       <p>
         You consent to Wappalyzer's
-        <nuxt-link to="/privacy/"> privacy policy </nuxt-link>, which explains
-        how we collect and use the information you provide to us.
+        <nuxt-link to="/privacy/">privacy policy</nuxt-link>, which explains how
+        we collect and use the information you provide to us.
       </p>
 
       <h2 class="text-h2 mt-8 mb-2">Prohibitions on content</h2>
@@ -72,7 +72,7 @@
       <p>
         Wappalyzer may offer Services to be paid for on a recurring basis or on
         an one-off basis. Subscriptions may subject you to recurring fees. You
-        may cancel your subscription at any time. You accept that you if you no
+        may cancel your subscription at any time. You accept that if you no
         longer require the service it is your responsibility to cancel your
         subscription. Cancellation functions are available via your Wappalyzer
         account.

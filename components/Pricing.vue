@@ -1,5 +1,9 @@
 <template>
   <div>
+    <v-alert v-if="error" color="error" class="mt-4 mb-8" text>
+      {{ error }}
+    </v-alert>
+
     <div
       class="
         d-flex
@@ -31,13 +35,6 @@
     <v-dialog v-model="signInDialog" max-width="400px">
       <SignIn mode-continue mode-sign-up />
     </v-dialog>
-
-    <OrderDialog
-      :id="order ? order.id : null"
-      ref="orderDialog"
-      :error="orderError"
-      @close="orderDialog = false"
-    />
   </div>
 </template>
 
@@ -46,14 +43,12 @@ import { mapState } from 'vuex'
 
 import Matrix from '~/components/Matrix.vue'
 import SignIn from '~/components/SignIn.vue'
-import OrderDialog from '~/components/OrderDialog.vue'
 import { attrs, plans } from '~/assets/json/plans.json'
 
 export default {
   components: {
     Matrix,
     SignIn,
-    OrderDialog,
   },
   props: {
     billing: {
@@ -66,7 +61,8 @@ export default {
       attrs,
       annually: false,
       order: false,
-      orderError: '',
+      error: '',
+      ordering: false,
       signInDialog: false,
       subscribing: false,
     }
@@ -82,6 +78,8 @@ export default {
         if (plans[plan].interval === (this.annually ? 'year' : 'month')) {
           _plans[plan] = plans[plan]
         }
+
+        plans[plan].buttonLoading = plan === this.ordering
 
         return _plans
       }, {})
@@ -102,8 +100,9 @@ export default {
   methods: {
     async subscribe(plan) {
       this.order = false
-      this.orderError = ''
+      this.error = ''
       this.subscribing = plan
+      this.ordering = plan
 
       if (!this.isSignedIn) {
         this.signInDialog = true
@@ -111,25 +110,26 @@ export default {
         return
       }
 
-      this.$refs.orderDialog.open()
-
       if (this.isMember) {
-        this.orderError =
-          'Subscriptions can only be created by the account owner.'
+        this.error = 'Subscriptions can only be created by the account owner.'
 
         return
       }
 
       try {
-        this.order = (
+        const { id } = (
           await this.$axios.put('orders', {
             product: 'Subscription',
             plan,
           })
         ).data
+
+        this.$router.push(`/orders/${id}`)
       } catch (error) {
-        this.orderError = this.getErrorMessage(error)
+        this.error = this.getErrorMessage(error)
       }
+
+      this.ordering = false
     },
   },
 }

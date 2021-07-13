@@ -1,7 +1,7 @@
 <template>
   <v-card
     v-if="isSignedIn"
-    :color="variant ? 'primary lighten-2' : 'secondary'"
+    :color="variant ? 'primary lighten-2' : ''"
     :class="variant ? 'mb-4' : ''"
     flat
   >
@@ -80,9 +80,9 @@
           "
         >
           <v-btn
-            color="primary"
+            color="primary primary--text lighten-1"
             :to="{ path: '/credits', query: { buy: true } }"
-            outlined
+            depressed
             small
           >
             Buy credits

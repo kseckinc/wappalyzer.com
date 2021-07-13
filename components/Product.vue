@@ -83,6 +83,7 @@
       >
         <v-text-field
           v-model="url"
+          ref="lookup"
           label="Website URL or company name"
           placeholder="Example or example.com"
           style="max-width: 450px"
@@ -112,6 +113,7 @@
       >
         <v-text-field
           v-model="email"
+          ref="verify"
           label="Email address"
           placeholder="info@example.com"
           style="max-width: 450px"
@@ -237,10 +239,14 @@ export default {
     submitLookup() {
       this.lookupLoading = true
 
+      this.$refs.lookup.blur()
+
       this.$router.push(`/lookup/${encodeURIComponent(this.url)}/`)
     },
     submitVerify() {
       this.verifyLoading = true
+
+      this.$refs.verify.blur()
 
       this.$router.push(`/verify/${this.email}/`)
     },

@@ -33,7 +33,7 @@
       </v-col>
     </v-row>
 
-    <h2 class="mt-6">Search by name</h2>
+    <h2 class="mt-6 mb-4">Search by name</h2>
 
     <v-row>
       <v-col md="6">
@@ -41,7 +41,7 @@
       </v-col>
     </v-row>
 
-    <p class="mt-2">
+    <p>
       <small>
         Or,
         <nuxt-link to="/compare"

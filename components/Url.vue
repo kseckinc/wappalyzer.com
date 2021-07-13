@@ -7,9 +7,8 @@
         v-model="query"
         :loading="loading"
         :error-messages="error"
-        :label="`Website URL or company name${
-          isSignedIn ? ' (1 credit per lookup)' : ''
-        }`"
+        label="Website URL or company name"
+        hint="Spend 1 credit."
         placeholder="Example or example.com"
         background-color="white"
         :rules="[

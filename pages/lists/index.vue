@@ -26,7 +26,7 @@
 
       <template #content>
         <v-form ref="form">
-          <v-card class="my-4" color="secondary">
+          <v-card class="my-4">
             <v-card-text v-if="error">
               <v-alert type="error">
                 {{ error }}
@@ -109,7 +109,7 @@
                         Technologies
                       </v-expansion-panel-header>
                       <v-expansion-panel-content>
-                        <p class="mb-0">
+                        <p>
                           Choose one or more technologies (e.g. 'Shopify') or
                           categories (e.g. 'Ecommerce').
                         </p>

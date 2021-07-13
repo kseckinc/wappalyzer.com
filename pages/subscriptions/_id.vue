@@ -48,7 +48,7 @@
           <v-simple-table>
             <tbody>
               <tr>
-                <th>Price</th>
+                <th width="30%">Price</th>
                 <td>
                   {{
                     formatCurrency(
@@ -117,7 +117,7 @@
         </v-card-actions>
       </v-card>
 
-      <small>Prices are in United States dollars.</small>
+      <small class="text--disabled">Prices are in United States dollars.</small>
 
       <v-dialog v-model="cancelDialog" max-width="500px" eager>
         <v-card>

@@ -14,7 +14,7 @@
       <v-divider />
 
       <v-tabs-items v-model="tab">
-        <v-tab-item active-class="secondary" eager>
+        <v-tab-item eager>
           <v-card-title>
             <v-row align="center">
               <v-col cols="12" sm="4" class="pb-0">
@@ -34,13 +34,19 @@
           <v-card-text>
             <Url ref="url" :url="url" class="mt-4" @change="submit" />
 
-            <v-alert v-if="error" color="info" class="mt-4 mb-0" outlined>
+            <v-alert v-if="error" type="info" class="mt-4 mb-0" prominent text>
               {{ error }}
             </v-alert>
 
-            <v-card v-if="loading" class="mt-4">
-              <v-card-text class="d-flex justify-center">
-                <Progress />
+            <v-card v-if="loading" class="mt-4" flat>
+              <v-card-text class="d-flex justify-center pa-12">
+                <v-progress-circular
+                  :size="100"
+                  color="primary"
+                  width="5"
+                  style="opacity: 0.2"
+                  indeterminate
+                ></v-progress-circular>
               </v-card-text>
             </v-card>
 
@@ -141,7 +147,7 @@
           </v-card-text>
         </v-tab-item>
 
-        <v-tab-item active-class="secondary" eager>
+        <v-tab-item eager>
           <v-card-title>
             <v-row align="center">
               <v-col class="pb-0 flex-grow-1 flex-shrink-0">
@@ -154,8 +160,8 @@
               </v-col>
               <v-col class="pb-0 flex-grow-0 flex-shrink-1">
                 <v-btn
-                  color="primary"
-                  outlined
+                  color="primary primary--text lighten-1"
+                  depressed
                   small
                   @click="$refs.pricingDialog.open()"
                 >
@@ -195,6 +201,12 @@
 
                 <v-file-input
                   :error-messages="fileErrors"
+                  :hint="
+                    file
+                      ? `${file.split('\n').length.toLocaleString()} URLs`
+                      : ''
+                  "
+                  persistent-hint
                   placeholder="Select a file..."
                   accept="text/plain"
                   hide-details="auto"
@@ -202,10 +214,17 @@
                   background-color="white"
                   @change="fileChange"
                 />
+
+                <v-checkbox
+                  v-model="removeInvalid"
+                  v-if="removeInvalid || fileErrors.length"
+                  label="Remove invalid URLs"
+                  hide-details="auto"
+                />
               </v-card-text>
             </v-card>
 
-            <v-expansion-panels class="mb-8">
+            <v-expansion-panels class="mb-4">
               <v-expansion-panel ref="compliance">
                 <v-expansion-panel-header class="subtitle-2">
                   Compliance
@@ -304,6 +323,7 @@
 
             <v-btn
               :disabled="!!(!file || fileErrors.length)"
+              :loading="ordering"
               color="primary"
               large
               depressed
@@ -338,13 +358,6 @@
       <SignIn mode-sign-up mode-continue />
     </v-dialog>
 
-    <OrderDialog
-      :id="order ? order.id : null"
-      ref="orderDialog"
-      :error="orderError"
-      @close="orderDialog = false"
-    />
-
     <PricingDialog ref="pricingDialog" product="bulk" />
   </Page>
 </template>
@@ -360,13 +373,11 @@ import {
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
-import Progress from '~/components/Progress.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
 import Credits from '~/components/Credits.vue'
 import Url from '~/components/Url.vue'
 import Attributes from '~/components/Attributes.vue'
 import SignIn from '~/components/SignIn.vue'
-import OrderDialog from '~/components/OrderDialog.vue'
 import PricingDialog from '~/components/PricingDialog.vue'
 import Pro from '~/components/Pro.vue'
 import { lookup as meta } from '~/assets/json/meta.json'
@@ -405,13 +416,11 @@ function getFullUrl(url) {
 export default {
   components: {
     Page,
-    Progress,
     TechnologyIcon,
     Credits,
     Url,
     Attributes,
     SignIn,
-    OrderDialog,
     PricingDialog,
     Pro,
   },
@@ -469,7 +478,9 @@ export default {
       error: false,
       file: '',
       fileErrors: [],
+      inputFile: null,
       loading: false,
+      removeInvalid: false,
       meta,
       sets,
       attributes: {},
@@ -481,7 +492,6 @@ export default {
       mdiArrowRight,
       mdiLockOpenVariantOutline,
       order: false,
-      orderError: '',
       ordering: false,
       url: '',
       lastUrl: '',
@@ -582,6 +592,9 @@ export default {
       if (this.australia) {
         this.compliance = 'exclude'
       }
+    },
+    removeInvalid() {
+      this.fileChange()
     },
   },
   async mounted() {
@@ -726,7 +739,6 @@ export default {
       this.loading = false
     },
     async submitBulk() {
-      this.orderError = ''
       this.ordering = true
 
       if (!this.$store.state.user.isSignedIn) {
@@ -735,10 +747,8 @@ export default {
         return
       }
 
-      this.$refs.orderDialog.open()
-
       try {
-        this.order = (
+        const { id } = (
           await this.$axios.put('orders', {
             product: 'Bulk lookup',
             bulk: {
@@ -750,14 +760,18 @@ export default {
             },
           })
         ).data
+
+        this.$router.push(`/orders/${id}`)
       } catch (error) {
-        this.orderError = this.getErrorMessage(error)
+        this.error = this.getErrorMessage(error)
       }
 
       this.ordering = false
     },
 
-    async fileChange(file) {
+    async fileChange(file = this.inputFile) {
+      this.inputFile = file
+
       this.file = ''
       this.fileErrors = []
 
@@ -777,11 +791,16 @@ export default {
           try {
             new URL(url) // eslint-disable-line no-new
           } catch (error) {
-            this.fileErrors.push(`Invalid URL on line ${i + 1}: ${line}`)
+            if (this.removeInvalid) {
+              return null
+            } else {
+              this.fileErrors.push(`Invalid URL on line ${i + 1}: ${line}`)
+            }
           }
 
           return url
         })
+        .filter((line) => line)
 
       this.fileErrors = this.fileErrors.slice(0, 10)
 

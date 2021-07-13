@@ -109,6 +109,7 @@
               <v-btn
                 v-else
                 :text="!item.raised"
+                :loading="item.buttonLoading"
                 color="primary white-text"
                 class="mx-auto px-4"
                 depressed

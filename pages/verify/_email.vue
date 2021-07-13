@@ -14,7 +14,7 @@
       <v-divider />
 
       <v-tabs-items v-model="tab">
-        <v-tab-item active-class="secondary" eager>
+        <v-tab-item eager>
           <v-card-title class="mb-4">
             <v-row align="center">
               <v-col cols="12" sm="4" class="pb-0">
@@ -36,11 +36,10 @@
               <v-text-field
                 ref="email"
                 v-model="email"
-                :label="`Email address${
-                  isSignedIn ? ' (1 credit per lookup)' : ''
-                }`"
+                label="Email address"
                 placeholder="info@example.com"
                 background-color="white"
+                :hint="isSignedIn ? 'Spend 1 credit.' : ''"
                 :append-icon="mdiMagnify"
                 required
                 outlined
@@ -49,60 +48,69 @@
               />
             </v-form>
 
-            <v-alert
-              v-if="error"
-              :icon="mdiAlertOctagonOutline"
-              type="error"
-              class="mt-4 mb-0"
-            >
+            <v-alert v-if="error" color="error" class="mt-4 mb-0" text>
               {{ error }}
             </v-alert>
 
-            <v-card v-if="loading" class="mt-4">
-              <v-card-text class="d-flex justify-center">
-                <Progress />
+            <v-card v-if="loading" class="mt-4" flat>
+              <v-card-text class="d-flex justify-center pa-12">
+                <v-progress-circular
+                  :size="100"
+                  color="primary"
+                  width="5"
+                  style="opacity: 0.2"
+                  indeterminate
+                ></v-progress-circular>
               </v-card-text>
             </v-card>
 
             <template v-else-if="Object.keys(verifiedEmail).length">
+              <div class="my-4">
+                <v-alert
+                  v-if="verifiedEmail.reachable === 'safe'"
+                  type="success"
+                  border="left"
+                  outlined
+                  prominent
+                >
+                  <div class="subtitle-2 mb-2">Looks safe!</div>
+
+                  Emails to this address are deliverable and unlikely to bounce.
+                </v-alert>
+                <v-alert
+                  v-else-if="verifiedEmail.reachable === 'risky'"
+                  type="warning"
+                  border="left"
+                  outlined
+                  prominent
+                  :icon="mdiAlertOutline"
+                >
+                  <div class="subtitle-2 mb-2">Looks risky!</div>
+
+                  Emails to this address are deliverable but more likely to
+                  bounce.
+                </v-alert>
+                <v-alert
+                  v-else-if="verifiedEmail.reachable === 'invalid'"
+                  type="error"
+                  border="left"
+                  outlined
+                  prominent
+                  :icon="mdiAlertOctagonOutline"
+                >
+                  <div class="subtitle-2 mb-2">Not safe</div>
+
+                  Emails to this address are undeliverable.
+                </v-alert>
+                <v-alert v-else type="error" :icon="mdiAlertOctagonOutline">
+                  <div class="subtitle-2 mb-2">Not safe</div>
+
+                  Some checks failed to complete.
+                </v-alert>
+              </div>
+
               <v-card class="my-4">
-                <v-card-text class="pb-0">
-                  <v-alert
-                    v-if="verifiedEmail.reachable === 'safe'"
-                    type="success"
-                  >
-                    <div class="subtitle-2 mb-2">Looks safe!</div>
-
-                    Emails to this address are deliverable and unlikely to
-                    bounce.
-                  </v-alert>
-                  <v-alert
-                    v-else-if="verifiedEmail.reachable === 'risky'"
-                    type="warning"
-                    :icon="mdiAlertOutline"
-                  >
-                    <div class="subtitle-2 mb-2">Looks risky!</div>
-
-                    Emails to this address are deliverable but more likely to
-                    bounce.
-                  </v-alert>
-                  <v-alert
-                    v-else-if="verifiedEmail.reachable === 'invalid'"
-                    type="error"
-                    :icon="mdiAlertOctagonOutline"
-                  >
-                    <div class="subtitle-2 mb-2">Oops!</div>
-
-                    Emails to this address are undeliverable.
-                  </v-alert>
-                  <v-alert v-else type="error" :icon="mdiAlertOctagonOutline">
-                    <div class="subtitle-2 mb-2">Oops!</div>
-
-                    Some checks failed to complete.
-                  </v-alert>
-                </v-card-text>
-
-                <v-card-title class="subtitle-2"> Checks </v-card-title>
+                <v-card-title class="subtitle-2">Checks</v-card-title>
                 <v-card-text class="pt-0 px-0">
                   <v-simple-table>
                     <tbody>
@@ -181,7 +189,7 @@
 
               <div class="d-flex">
                 <v-spacer />
-                <v-btn :to="`/lookup/${verifiedEmail.domain}`" outlined>
+                <v-btn :to="`/lookup/${verifiedEmail.domain}`" depressed>
                   <v-icon left>{{ mdiLayersOutline }}</v-icon>
                   Technology lookup ({{ verifiedEmail.domain }})
                 </v-btn>
@@ -190,7 +198,7 @@
           </v-card-text>
         </v-tab-item>
 
-        <v-tab-item active-class="secondary" eager>
+        <v-tab-item eager>
           <v-card-title>
             <v-row align="center">
               <v-col class="pb-0 flex-grow-1 flex-shrink-0">
@@ -203,8 +211,8 @@
               </v-col>
               <v-col class="pb-0 flex-grow-0 flex-shrink-1">
                 <v-btn
-                  color="primary"
-                  outlined
+                  color="primary primary--text lighten-1"
+                  depressed
                   small
                   @click="$refs.pricingDialog.open()"
                 >
@@ -231,13 +239,11 @@
             </p>
 
             <v-card class="mb-4">
-              <v-card-title class="subtitle-2">
-                Upload a list of email addresses
-              </v-card-title>
+              <v-card-title class="subtitle-2"> Upload your list </v-card-title>
               <v-card-text>
                 <p class="mb-2">
                   Upload a .txt file with up to 100,000 email addresses, each on
-                  a separate line.<br />
+                  a separate line.
                 </p>
 
                 <v-file-input
@@ -270,6 +276,7 @@
 
             <v-btn
               :disabled="!!(!file || fileErrors.length)"
+              :loading="ordering"
               color="primary"
               large
               depressed
@@ -300,13 +307,6 @@
       <SignIn mode-sign-up mode-continue />
     </v-dialog>
 
-    <OrderDialog
-      :id="order ? order.id : null"
-      ref="orderDialog"
-      :error="orderError"
-      @close="orderDialog = false"
-    />
-
     <PricingDialog ref="pricingDialog" product="verify" />
   </Page>
 </template>
@@ -328,20 +328,16 @@ import {
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
-import Progress from '~/components/Progress.vue'
 import Credits from '~/components/Credits.vue'
 import SignIn from '~/components/SignIn.vue'
-import OrderDialog from '~/components/OrderDialog.vue'
 import PricingDialog from '~/components/PricingDialog.vue'
 import { verify as meta } from '~/assets/json/meta.json'
 
 export default {
   components: {
     Page,
-    Progress,
     Credits,
     SignIn,
-    OrderDialog,
     PricingDialog,
   },
   async asyncData({
@@ -435,8 +431,6 @@ export default {
       mdiHelpCircleOutline,
       mdiCheck,
       mdiClose,
-      order: false,
-      orderError: '',
       ordering: false,
       email: '',
       lastEmail: '',
@@ -455,7 +449,7 @@ export default {
     }),
     seoTitle() {
       if (this.email) {
-        return `Is ${this.email} a valid email address?`
+        return `Is ${this.lastEmail} a valid email address?`
       }
 
       return 'Email verification'
@@ -583,7 +577,6 @@ export default {
       this.loading = false
     },
     async submitBulk() {
-      this.orderError = ''
       this.ordering = true
 
       if (!this.$store.state.user.isSignedIn) {
@@ -592,10 +585,8 @@ export default {
         return
       }
 
-      this.$refs.orderDialog.open()
-
       try {
-        this.order = (
+        const { id } = (
           await this.$axios.put('orders', {
             product: 'Email verification',
             bulk: {
@@ -603,8 +594,10 @@ export default {
             },
           })
         ).data
+
+        this.$router.push(`/orders/${id}`)
       } catch (error) {
-        this.orderError = this.getErrorMessage(error)
+        this.error = this.getErrorMessage(error)
       }
 
       this.ordering = false

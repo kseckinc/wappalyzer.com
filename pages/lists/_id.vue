@@ -623,7 +623,7 @@
             </v-btn>
           </v-alert>
 
-          <v-alert v-if="list.status === 'Ready'" color="accent" outlined>
+          <v-alert v-if="list.status === 'Ready'" color="accent" text>
             Your list is ready. Please review the samples and availability.
           </v-alert>
 

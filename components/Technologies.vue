@@ -4,12 +4,14 @@
       ref="results"
       v-model="selection"
       :items="results"
-      :prepend-icon="mdiMagnify"
+      :append-icon="mdiMagnify"
       class="mb-4"
       label="Find a technology"
       item-value="slug"
       hide-details="auto"
       return-object
+      outlined
+      dense
       eager
       @change="(item) => $emit('select', item)"
       @focus="focus"
@@ -19,13 +21,14 @@
           <v-text-field
             ref="search"
             v-model="query"
-            :loading="loading"
             :error-messages="results.length ? [] : errors"
-            class="pt-0 mx-4"
+            class="pt-2 mx-4"
             :placeholder="
               noCategories ? `E.g. Shopify` : `E.g. ecommerce or Shopify`
             "
             :append-icon="mdiMagnify"
+            outlined
+            dense
             required
             hide-details="auto"
             @click:append="search"
@@ -34,8 +37,11 @@
 
         <v-divider class="mt-4 mb-2" />
 
+        <div v-if="loading" class="d-flex justify-center">
+          <Progress />
+        </div>
         <div
-          v-if="!results.length && errors.length"
+          v-else-if="!results.length && errors.length"
           class="pt-1 pb-2 px-4 text--disabled"
         >
           <small>
@@ -77,10 +83,12 @@
 import { mdiMagnify } from '@mdi/js'
 
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
+import Progress from '~/components/Progress.vue'
 
 export default {
   components: {
     TechnologyIcon,
+    Progress,
   },
   props: {
     noCategories: {

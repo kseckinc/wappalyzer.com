@@ -5,40 +5,52 @@
     :loading="!order && !error"
     secure
   >
-    <v-alert v-if="success" type="success">
+    <v-alert v-if="success" type="success" border="left" text prominent>
       {{ success }}
     </v-alert>
 
-    <v-alert v-if="error" type="error">
+    <v-alert
+      v-if="error"
+      type="error"
+      border="left"
+      :icon="mdiAlertOctagonOutline"
+      text
+      prominent
+    >
       {{ error }}
     </v-alert>
 
     <template v-if="order">
-      <v-alert v-if="order.status === 'Failed'" type="error">
+      <v-alert
+        v-if="order.status === 'Failed'"
+        type="error"
+        border="left"
+        :icon="mdiAlertOctagonOutline"
+        text
+        prominent
+      >
         Sorry, something went wrong during the processing of your order. Please
         contact us.
       </v-alert>
 
-      <v-alert v-if="order.status === 'Insufficient'" type="warning">
-        <p>
-          Sorry, we don't have data available matching your requirements. Please
-          try it again with different or no filters.
-        </p>
-
-        <v-btn to="/lists/" outlined>
-          <v-icon left>
-            {{ mdiArrowLeft }}
-          </v-icon>
-          Back to Lead lists
-        </v-btn>
-      </v-alert>
-
-      <v-alert v-if="order.status === 'Open'" type="info" outlined>
+      <v-alert
+        v-if="order.status === 'Open'"
+        type="info"
+        border="left"
+        text
+        prominent
+      >
         Your order has been created. Please make payment below to complete the
         purchase.
       </v-alert>
 
-      <v-alert v-if="order.status === 'Pending'" type="info" outlined>
+      <v-alert
+        v-if="order.status === 'Pending'"
+        type="info"
+        border="left"
+        text
+        prominent
+      >
         <template v-if="['Subscription'].includes(order.product)">
           Your card could not be charged automatically, please use the invoice
           to complete the payment. An additional step may be required by your
@@ -51,12 +63,24 @@
         </template>
       </v-alert>
 
-      <v-alert v-if="order.status === 'Processing'" type="success">
-        Thank you for your payment, your order is being processed. You'll
-        receive an email when it's ready.
+      <v-alert
+        v-if="order.status === 'Processing'"
+        type="info"
+        border="left"
+        text
+        prominent
+      >
+        Thank you, your order is being processed. You'll receive an email when
+        it's ready.
       </v-alert>
 
-      <v-alert v-if="order.status === 'Complete'" type="success">
+      <v-alert
+        v-if="order.status === 'Complete'"
+        type="success"
+        border="left"
+        text
+        prominent
+      >
         <template v-if="order.product === 'Subscription'">
           Thank you for your payment, your subscription has been created.
         </template>
@@ -1095,6 +1119,7 @@ import {
   mdiGift,
   mdiChevronDown,
   mdiChevronUp,
+  mdiAlertOctagonOutline,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -1146,6 +1171,7 @@ export default {
       mdiGift,
       mdiChevronDown,
       mdiChevronUp,
+      mdiAlertOctagonOutline,
       order: null,
       orderLoaded: false,
       paymentMethod: 'stripe',

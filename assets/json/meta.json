@@ -35,10 +35,10 @@
   },
   "verify": {
     "title": "Email verification",
-    "subtitle": "Verify email addresses",
+    "subtitle": "Prevent bounced emails",
     "icon": "mdiEmailCheckOutline",
     "image": "verify.svg",
-    "text": "Verify email addresses before sending to improve delivery. A high bounce rate lowers your sender reputation and you risk getting blocked by email providers. We use advanced methods to check server configuration and connectivity, inbox availability and more.",
+    "text": "Verify email addresses to prevent bounces, spam reports and fake website signups. We run a number of live checks for mail server connectivity, inbox availability and more, without sending an email to the address.",
     "verify": true,
     "features": ["Instant results", "50 Free monthly verifications", "Perform up to 100,000 verifications at once"],
     "feature": true
