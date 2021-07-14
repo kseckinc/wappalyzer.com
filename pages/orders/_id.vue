@@ -733,14 +733,14 @@
 
             <v-card-title>Billing</v-card-title>
             <v-card-text class="px-0 pb-0">
-              <v-alert v-if="accountSuccess" type="success" class="mx-4">
+              <v-alert v-if="accountSuccess" type="success" class="mx-4" text>
                 {{ accountSuccess }}
               </v-alert>
               <v-alert
                 v-if="!user.billingEmail"
                 color="info"
                 class="my-0 mx-4"
-                outlined
+                text
               >
                 No billing details provided.
               </v-alert>
@@ -1009,9 +1009,9 @@
 
       <v-dialog v-model="cancelDialog" max-width="400px" eager>
         <v-card>
-          <v-card-title> Cancel order </v-card-title>
+          <v-card-title>Cancel order</v-card-title>
           <v-card-text class="pb-0">
-            <v-alert v-if="cancelError" type="error">
+            <v-alert v-if="cancelError" type="error" text>
               {{ cancelError }}
             </v-alert>
 
@@ -1031,9 +1031,9 @@
 
       <v-dialog v-model="editDialog" max-width="400px" eager>
         <v-card>
-          <v-card-title> Edit order </v-card-title>
+          <v-card-title>Edit order</v-card-title>
           <v-card-text>
-            <v-alert v-if="editError" type="error">
+            <v-alert v-if="editError" type="error" text>
               {{ editError }}
             </v-alert>
 

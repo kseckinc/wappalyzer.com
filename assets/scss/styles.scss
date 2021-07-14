@@ -63,3 +63,23 @@ body {
 .no-x-padding td:last-child {
   padding-right: 24px !important;
 }
+
+.v-card__actions .v-btn--text::before {
+  opacity: .08 !important;
+}
+
+.v-card.primary .v-card__actions .v-btn--text::before {
+  opacity: 0 !important;
+}
+
+.v-card__actions .v-btn--text:hover::before {
+  opacity: .24 !important;
+}
+
+.v-card.primary .v-card__actions .v-btn--text:hover::before {
+  opacity: .08 !important;
+}
+
+.v-dialog .v-card__actions {
+  padding-bottom: 16px !important;
+}

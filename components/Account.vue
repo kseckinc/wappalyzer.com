@@ -1,6 +1,6 @@
 <template>
   <v-form ref="form" v-model="valid" class="ml-0 mr-0" style="overflow: hidden">
-    <v-alert v-if="error" type="error" class="mt-4 mx-4 mb-0">
+    <v-alert v-if="error" type="error" class="mt-4 mx-4 mb-0" text>
       {{ error }}
     </v-alert>
 
@@ -34,16 +34,22 @@
 
           <v-alert
             v-if="attrs.useCase === 'Reselling'"
-            color="accent"
+            color="warning"
             class="mb-0"
+            border="left"
             dense
-            outlined
+            text
           >
             <small
-              >Our <nuxt-link to="/terms/">Terms of service</nuxt-link> prohibit
-              reselling without our consent. Please
-              <nuxt-link to="/terms/">contact us</nuxt-link> to help us
-              understand your use case.
+              >Our
+              <nuxt-link class="warning--text" to="/terms/"
+                >Terms of service</nuxt-link
+              >
+              prohibit reselling without our consent. Please
+              <nuxt-link class="warning--text" to="/terms/"
+                >contact us</nuxt-link
+              >
+              to help us understand your use case.
             </small>
           </v-alert>
         </v-card-text>
@@ -95,9 +101,10 @@
               attrs.billingCountry &&
               attrs.billingCountry.toUpperCase() === 'AU'
             "
-            color="accent"
+            color="warning"
+            border="left"
             dense
-            outlined
+            text
           >
             <small>
               To comply with Spam Act 2003, we exclude email addresses and phone

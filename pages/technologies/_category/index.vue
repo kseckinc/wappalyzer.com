@@ -218,7 +218,7 @@
       <v-card>
         <v-card-title> Creating your list&hellip; </v-card-title>
         <v-card-text class="pb-0">
-          <v-alert v-if="createlistError" type="error" class="mb-0">
+          <v-alert v-if="createlistError" type="error" class="mb-0" text>
             {{ createlistError }}
           </v-alert>
 

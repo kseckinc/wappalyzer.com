@@ -13,7 +13,7 @@
           Return to home
         </v-btn>
       </template>
-      <v-alert v-else-if="error" type="error">
+      <v-alert v-else-if="error" type="error" text>
         {{ error }}
       </v-alert>
       <p v-else>Signing out...</p>

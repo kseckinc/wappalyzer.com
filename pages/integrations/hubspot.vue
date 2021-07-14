@@ -4,10 +4,10 @@
     :crumbs="[{ title: 'Integrations', to: '/integrations/' }]"
     secure
   >
-    <v-alert v-if="success" type="success" class="mb-8">
+    <v-alert v-if="success" type="success" class="mb-8" text>
       {{ success }}
     </v-alert>
-    <v-alert v-if="error" type="error" class="mb-8">
+    <v-alert v-if="error" type="error" class="mb-8" text>
       {{ error }}
     </v-alert>
 
@@ -27,7 +27,7 @@
     </v-row>
 
     <div class="mb-4">
-      <v-btn to="/docs/integrations/hubspot/" depressed>
+      <v-btn to="/docs/integrations/hubspot/" class="mr-2" depressed>
         <v-icon left>
           {{ mdiBookOpenPageVariant }}
         </v-icon>
@@ -52,7 +52,7 @@
           v-if="!connecting && !eligible"
           color="accent"
           class="mx-4"
-          outlined
+          text
         >
           <p>
             Please subscribe to an eligible plan to enable this integration.
@@ -293,7 +293,7 @@
       <v-card>
         <v-card-title>Update all companies</v-card-title>
         <v-card-text class="pb-0">
-          <v-alert v-if="syncError" type="error" class="mb-4">
+          <v-alert v-if="syncError" type="error" class="mb-4" text>
             {{ syncError }}
           </v-alert>
 

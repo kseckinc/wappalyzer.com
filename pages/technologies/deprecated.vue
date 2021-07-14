@@ -10,7 +10,7 @@
     }"
     :crumbs="[{ title: 'Technologies', to: '/technologies/' }]"
   >
-    <v-alert v-if="error" type="error">
+    <v-alert v-if="error" type="error" text>
       {{ error }}
     </v-alert>
 
@@ -18,7 +18,7 @@
       <v-card class="mt-8 mb-4">
         <v-card-title>Technologies</v-card-title>
         <v-card-text v-if="!technologies.length">
-          <v-alert class="ma-0" color="info" outlined>
+          <v-alert class="ma-0" color="info" text>
             There are currently no deprecated technologies.
           </v-alert>
         </v-card-text>

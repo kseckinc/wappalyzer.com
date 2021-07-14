@@ -6,7 +6,7 @@
     secure
     no-side-bar
   >
-    <v-alert v-if="error" type="error" class="mb-8">
+    <v-alert v-if="error" type="error" class="mb-8" text>
       {{ error }}
     </v-alert>
 
@@ -487,7 +487,7 @@
                   color="warning"
                   class="mx-6 pb-3"
                   dense
-                  outlined
+                  text
                 >
                   <small v-if="list.query.compliance === 'exclude'">
                     Contact details are excluded.
@@ -566,7 +566,10 @@
             </v-expansion-panel>
           </v-expansion-panels>
 
-          <div v-if="list.status !== 'Complete'" class="mb-4 d-flex">
+          <v-card-actions
+            v-if="list.status !== 'Complete'"
+            class="mb-4 pa-0 d-flex"
+          >
             <v-btn small depressed @click="$refs.faqDialog.open()">
               <v-icon left>
                 {{ mdiForum }}
@@ -574,7 +577,7 @@
               FAQs
             </v-btn>
             <v-spacer />
-            <v-btn :to="`/lists/${queryParams}`" color="accent" outlined small>
+            <v-btn :to="`/lists/${queryParams}`" color="accent" text small>
               <v-icon left>
                 {{ mdiPencil }}
               </v-icon>
@@ -583,7 +586,7 @@
             <v-btn
               color="error"
               class="ml-2"
-              outlined
+              text
               small
               @click="cancelDialog = true"
             >
@@ -592,7 +595,7 @@
               </v-icon>
               Delete
             </v-btn>
-          </div>
+          </v-card-actions>
         </v-col>
 
         <v-col cols="12" md="8" class="py-0">
@@ -778,7 +781,7 @@
       <v-card>
         <v-card-title>Delete list</v-card-title>
         <v-card-text class="pb-0">
-          <v-alert v-if="cancelError" type="error">
+          <v-alert v-if="cancelError" type="error" text>
             {{ cancelError }}
           </v-alert>
 

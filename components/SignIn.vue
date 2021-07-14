@@ -10,10 +10,10 @@
       Reset password
     </v-card-title>
     <v-card-text v-if="!isSignedIn">
-      <v-alert v-if="success" outlined type="success">
+      <v-alert v-if="success" type="success" text>
         {{ success }}
       </v-alert>
-      <v-alert v-if="error" outlined type="error">
+      <v-alert v-if="error" type="error" text>
         {{ error }}
       </v-alert>
       <v-alert

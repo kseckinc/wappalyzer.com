@@ -5,7 +5,7 @@
       :head="meta"
       :loading="isLoading || (isSignedIn && loading && !error)"
     >
-      <v-alert v-if="error" type="error" class="mt-8">
+      <v-alert v-if="error" type="error" class="mt-8" text>
         {{ error }}
       </v-alert>
 
@@ -18,7 +18,7 @@
           </p>
         </v-card-text>
         <v-card-text v-if="!alerts.length" class="pb-0">
-          <v-alert color="info" class="mb-0" outlined>
+          <v-alert color="info" class="mb-0" text>
             You haven't added any websites to monitor yet.
           </v-alert>
         </v-card-text>
@@ -87,7 +87,7 @@
         <v-card>
           <v-card-title> Create alert </v-card-title>
           <v-card-text class="pb-0">
-            <v-alert v-if="createError" type="error">
+            <v-alert v-if="createError" type="error" text>
               {{ createError }}
             </v-alert>
 
@@ -131,7 +131,7 @@
         <v-card>
           <v-card-title> Delete alert </v-card-title>
           <v-card-text>
-            <v-alert v-if="removeError" type="error">
+            <v-alert v-if="removeError" type="error" text>
               {{ removeError }}
             </v-alert>
 

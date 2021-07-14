@@ -22,7 +22,7 @@
           />
         </v-form>
 
-        <v-alert v-if="error" color="info" class="mt-4 mb-0" outlined>
+        <v-alert v-if="error" color="info" class="mt-4 mb-0" text>
           {{ error }}
         </v-alert>
 

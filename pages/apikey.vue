@@ -1,9 +1,9 @@
 <template>
   <Page :title="title" :loading="loading && !error" secure>
-    <v-alert v-if="success" type="success">
+    <v-alert v-if="success" type="success" text>
       {{ success }}
     </v-alert>
-    <v-alert v-if="error" type="error">
+    <v-alert v-if="error" type="error" text>
       {{ error }}
     </v-alert>
 
@@ -24,11 +24,11 @@
 
       <v-card>
         <v-card-title>API Key</v-card-title>
-        <v-card-text class="pb-0">
+        <v-card-text>
           <p>Use your API key to make authenticated API calls.</p>
 
           <template v-if="!apiKey">
-            <v-alert color="info" class="mb-0" outlined>
+            <v-alert color="info" class="mb-0" text>
               You haven't created an API key yet
             </v-alert>
           </template>
@@ -71,11 +71,11 @@
         <v-divider />
 
         <v-card-title>Signing secret</v-card-title>
-        <v-card-text class="pb-0">
+        <v-card-text>
           <p>Use your signing secret to verify callback requests.</p>
 
           <template v-if="!secret">
-            <v-alert color="info" class="mb-0" outlined>
+            <v-alert color="info" class="mb-0" text>
               You haven't created an signing secret yet
             </v-alert>
           </template>
@@ -118,9 +118,9 @@
 
       <v-dialog v-model="removeKeyDialog" max-width="400px" eager>
         <v-card>
-          <v-card-title> Delete key </v-card-title>
-          <v-card-text class="pb-0">
-            <v-alert v-if="removeKeyError" type="error">
+          <v-card-title>Delete key</v-card-title>
+          <v-card-text>
+            <v-alert v-if="removeKeyError" type="error" text>
               {{ removeKeyError }}
             </v-alert>
 
@@ -140,9 +140,9 @@
 
       <v-dialog v-model="removeSecretDialog" max-width="400px" eager>
         <v-card>
-          <v-card-title> Delete signing secret </v-card-title>
-          <v-card-text class="pb-0">
-            <v-alert v-if="removeSecretError" type="error">
+          <v-card-title>Delete signing secret</v-card-title>
+          <v-card-text>
+            <v-alert v-if="removeSecretError" type="error" text>
               {{ removeSecretError }}
             </v-alert>
 

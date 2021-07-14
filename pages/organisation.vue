@@ -1,10 +1,10 @@
 <template>
   <Page :title="title" :loading="loading && !error" secure>
-    <v-alert v-if="success" type="success">
+    <v-alert v-if="success" type="success" text>
       {{ success }}
     </v-alert>
 
-    <v-alert v-if="error" type="error">
+    <v-alert v-if="error" type="error" text>
       {{ error }}
     </v-alert>
 
@@ -66,7 +66,7 @@
               </p>
             </v-card-text>
             <v-card-text v-if="!organisation.members.length">
-              <v-alert class="ma-0" color="info" outlined>
+              <v-alert class="ma-0" color="info" text>
                 This organisation doesn't have any members.
               </v-alert>
             </v-card-text>
@@ -142,7 +142,7 @@
                 v-if="!memberOf.length"
                 class="my-0 mx-4"
                 color="info"
-                outlined
+                text
               >
                 You don't belong to any organisations.
               </v-alert>
@@ -214,16 +214,18 @@
             invition.
           </p>
 
-          <v-alert v-if="createError" type="error">
+          <v-alert v-if="createError" type="error" text>
             {{ createError }}
           </v-alert>
 
-          <v-form ref="form" @submit.prevent="create">
+          <v-form ref="form" @submit.prevent="create" class="mt-6">
             <v-text-field
               v-model="email"
               :rules="rules.email"
               label="Email address"
               placeholder="info@example.com"
+              outlined
+              dense
             />
           </v-form>
         </v-card-text>
@@ -246,7 +248,7 @@
       <v-card>
         <v-card-title> Remove member </v-card-title>
         <v-card-text class="pb-0">
-          <v-alert v-if="removeError" type="error">
+          <v-alert v-if="removeError" type="error" text>
             {{ removeError }}
           </v-alert>
 
@@ -268,7 +270,7 @@
       <v-card>
         <v-card-title> Leave organisation </v-card-title>
         <v-card-text class="pb-0">
-          <v-alert v-if="removeOrganisationError" type="error">
+          <v-alert v-if="removeOrganisationError" type="error" text>
             {{ removeOrganisationError }}
           </v-alert>
 
@@ -294,8 +296,8 @@
 
     <v-dialog v-model="accessDialog" max-width="600px" eager>
       <v-card>
-        <v-card-title> Permissions </v-card-title>
-        <v-card-text class="px-0 pb-0">
+        <v-card-title>Permissions</v-card-title>
+        <v-card-text class="px-0">
           <v-simple-table dense>
             <thead>
               <tr>

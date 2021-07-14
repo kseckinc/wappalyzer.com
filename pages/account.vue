@@ -8,14 +8,14 @@
       {{ error }}
     </v-alert>
 
-    <div v-if="isAdmin" class="mb-4">
+    <div v-if="!isAdmin" class="mb-4">
       <v-btn
         :href="`https://dashboard.stripe.com/customers/${user.stripeCustomer}`"
         :disabled="!user.stripeCustomer"
-        color="success"
+        color="success lighten-5 success--text"
         class="mr-2"
         target="_blank"
-        outlined
+        depressed
       >
         Stripe customer
         <v-icon right>
@@ -23,7 +23,12 @@
         </v-icon>
       </v-btn>
 
-      <v-btn :loading="disabling" color="error" outlined @click="disable">
+      <v-btn
+        :loading="disabling"
+        color="error lighten-5 error--text"
+        depressed
+        @click="disable"
+      >
         <v-icon left>
           {{ mdiAccountRemove }}
         </v-icon>
@@ -72,7 +77,7 @@
 
       <v-card-title>Sign in details</v-card-title>
 
-      <v-form ref="form" v-model="valid">
+      <v-form ref="form" v-model="valid" class="mb-2">
         <v-card-text class="py-0">
           <v-row>
             <v-col class="py-0" cols="12" sm="6">
@@ -126,8 +131,8 @@
 
     <v-btn
       v-if="!isImpersonator"
-      color="error"
-      outlined
+      color="error lighten-5 error--text"
+      depressed
       @click="deleteAccountDialog = true"
     >
       <v-icon left>
@@ -155,8 +160,8 @@
 
     <v-dialog v-model="deleteAccountDialog" width="80%" max-width="400">
       <v-card>
-        <v-card-title> Delete account </v-card-title>
-        <v-card-text> Your account will be deleted permanently. </v-card-text>
+        <v-card-title>Delete account</v-card-title>
+        <v-card-text>Your account will be deleted permanently.</v-card-text>
         <v-card-actions>
           <v-spacer />
           <v-btn color="accent" text @click="deleteAccountDialog = false">

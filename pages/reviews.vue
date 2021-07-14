@@ -1,6 +1,6 @@
 <template>
   <Page :title="title" :loading="loading && !error" secure>
-    <v-alert v-if="error" type="error">
+    <v-alert v-if="error" type="error" text>
       {{ error }}
     </v-alert>
 
@@ -33,7 +33,7 @@
           <Review :key="index" :review="review" class="mb-8" />
         </div>
       </template>
-      <v-alert v-else class="ma-0" color="info" outlined>
+      <v-alert v-else class="ma-0" color="info" text>
         You haven't written any reviews.
       </v-alert>
     </template>

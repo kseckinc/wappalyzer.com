@@ -9,13 +9,13 @@
 
       <v-card-title>PayPal</v-card-title>
 
-      <v-card-text v-if="!user.billingEmail" class="pb-0">
-        <v-alert color="info" class="mb-0" outlined>
+      <v-card-text v-if="!user.billingEmail">
+        <v-alert color="info" class="mb-0" text>
           You haven't provided a billing email address.
         </v-alert>
       </v-card-text>
-      <v-card-text v-else class="px-0 pb-0">
-        <v-alert v-if="accountSuccess" type="success" class="mx-4">
+      <v-card-text v-else class="px-0">
+        <v-alert v-if="accountSuccess" type="success" class="mx-4" text>
           {{ accountSuccess }}
         </v-alert>
 
@@ -43,7 +43,7 @@
 
       <v-card-title>Credits</v-card-title>
 
-      <v-card-text class="px-0 pb-0">
+      <v-card-text class="px-0">
         <v-simple-table>
           <tbody>
             <tr>

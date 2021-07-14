@@ -5,11 +5,11 @@
       transactional emails.
     </p>
 
-    <v-alert v-if="success" type="success" outlined>
+    <v-alert v-if="success" type="success" text>
       {{ success }}
     </v-alert>
 
-    <v-alert v-if="error" type="error" outlined>
+    <v-alert v-if="error" type="error" text>
       {{ error }}
     </v-alert>
 

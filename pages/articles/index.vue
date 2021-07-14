@@ -15,7 +15,7 @@
               </nuxt-link>
             </v-card-title>
 
-            <v-card-text class="pb-0">
+            <v-card-text style="max-width: 600px">
               {{ article.intro }}
             </v-card-text>
 

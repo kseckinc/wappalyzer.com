@@ -6,15 +6,15 @@
     :loading="!subscription && !error"
     secure
   >
-    <v-alert v-if="success" type="success">
+    <v-alert v-if="success" type="success" text>
       {{ success }}
     </v-alert>
-    <v-alert v-if="error" type="error">
+    <v-alert v-if="error" type="error" text>
       {{ error }}
     </v-alert>
 
     <template v-if="subscription">
-      <v-alert v-if="subscription.status === 'Pending'" type="info" outlined>
+      <v-alert v-if="subscription.status === 'Pending'" type="info" text>
         Your subscription is awaiting payment and is not currently active.
       </v-alert>
 
@@ -124,7 +124,7 @@
           <v-card-title> Cancel subscription </v-card-title>
 
           <v-card-text class="pb-0">
-            <v-alert v-if="cancelError" type="error">
+            <v-alert v-if="cancelError" type="error" text>
               {{ cancelError }}
             </v-alert>
 
@@ -183,7 +183,7 @@
         <v-card>
           <v-card-title> Payment method </v-card-title>
           <v-card-text class="px-2">
-            <v-alert v-if="paymentMethodError" type="error">
+            <v-alert v-if="paymentMethodError" type="error" text>
               {{ paymentMethodError }}
             </v-alert>
 
@@ -197,10 +197,10 @@
               v-else-if="!paymentMethods.length"
               color="info"
               class="mx-4 mb-0"
-              outlined
+              text
             >
               You don't currently have any
-              <nuxt-link to="/paymentmethods/"> payment methods </nuxt-link>.
+              <nuxt-link to="/paymentmethods/">payment methods</nuxt-link>.
             </v-alert>
             <v-simple-table v-else>
               <thead>

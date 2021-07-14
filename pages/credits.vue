@@ -1,9 +1,9 @@
 <template>
   <Page :title="title" :loading="loading && !error" secure>
-    <v-alert v-if="success" type="success">
+    <v-alert v-if="success" type="success" text>
       {{ success }}
     </v-alert>
-    <v-alert v-if="error" type="error">
+    <v-alert v-if="error" type="error" text>
       {{ error }}
     </v-alert>
 
@@ -41,7 +41,7 @@
           Buy credits
         </v-btn>
 
-        <v-btn href="/faq/credits" class="mr-2" depressed>
+        <v-btn href="/faq/pricing/" class="mr-2" depressed>
           <v-icon left>
             {{ mdiForum }}
           </v-icon>
@@ -59,7 +59,7 @@
       <v-card>
         <v-card-title>Bundles</v-card-title>
         <v-card-text v-if="!adds.length" class="pb-0">
-          <v-alert color="info" class="mb-0" outlined>
+          <v-alert color="info" class="mb-0" text>
             You don't have any active credit bundles.
           </v-alert>
         </v-card-text>
@@ -115,7 +115,7 @@
           These are your credit spends for the last 60 days.
         </v-card-text>
         <v-card-text v-if="!spends.length">
-          <v-alert color="info" class="mb-0" outlined>
+          <v-alert color="info" class="mb-0" text>
             You don't have credit usage.
           </v-alert>
         </v-card-text>
@@ -155,7 +155,7 @@
         <v-card>
           <v-card-title> Pricing </v-card-title>
           <v-card-text class="px-0">
-            <v-alert v-if="orderError" type="error" class="mx-6">
+            <v-alert v-if="orderError" type="error" class="mx-6" text>
               {{ orderError }}
             </v-alert>
 
@@ -249,7 +249,7 @@
         <v-card>
           <v-card-title> Add credits </v-card-title>
           <v-card-text class="pb-0">
-            <v-alert v-if="addError" type="error">
+            <v-alert v-if="addError" type="error" text>
               {{ addError }}
             </v-alert>
 

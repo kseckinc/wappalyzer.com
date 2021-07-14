@@ -1,6 +1,6 @@
 <template>
   <Page :title="title" :loading="!subscriptions && !error" secure>
-    <v-alert v-if="error" type="error">
+    <v-alert v-if="error" type="error" text>
       {{ error }}
     </v-alert>
 
@@ -16,7 +16,7 @@
 
       <v-card>
         <v-card-text v-if="!subscriptions.length">
-          <v-alert class="ma-0" color="info" outlined>
+          <v-alert class="ma-0" color="info" text>
             You don't have any subscriptions.
           </v-alert>
         </v-card-text>

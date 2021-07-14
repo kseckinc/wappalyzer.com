@@ -8,11 +8,11 @@
       </p>
 
       <div class="ma-auto" style="max-width: 500px">
-        <v-alert v-if="success" type="success" class="mb-0" outlined>
+        <v-alert v-if="success" type="success" class="mb-0" text>
           {{ success }}
         </v-alert>
 
-        <v-alert v-if="error" type="error" outlined>
+        <v-alert v-if="error" type="error" text>
           {{ error }}
         </v-alert>
 

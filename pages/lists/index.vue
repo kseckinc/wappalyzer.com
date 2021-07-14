@@ -28,7 +28,7 @@
         <v-form ref="form">
           <v-card class="my-4">
             <v-card-text v-if="error">
-              <v-alert type="error">
+              <v-alert type="error" text>
                 {{ error }}
               </v-alert>
             </v-card-text>

@@ -141,7 +141,7 @@
           </v-col>
         </v-row>
 
-        <v-alert color="accent" class="mt-2" outlined>
+        <v-alert color="accent" class="mt-2" text>
           <p class="subtitle-1 font-weight-medium mb-2">
             No data available, yet.
           </p>
@@ -494,7 +494,7 @@
       <v-card>
         <v-card-title>Write a review</v-card-title>
         <v-card-text class="pb-0">
-          <v-alert v-if="reviewError" type="error">
+          <v-alert v-if="reviewError" type="error" text>
             {{ reviewError }}
           </v-alert>
 
@@ -574,7 +574,7 @@
       <v-card>
         <v-card-title>Creating your list&hellip;</v-card-title>
         <v-card-text class="pb-0">
-          <v-alert v-if="createlistError" type="error" class="mb-0">
+          <v-alert v-if="createlistError" type="error" class="mb-0" text>
             {{ createlistError }}
           </v-alert>
 

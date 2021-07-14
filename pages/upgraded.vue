@@ -16,7 +16,7 @@
           <v-card-title>Changelog</v-card-title>
 
           <v-card-text v-if="error" class="px-0">
-            <v-alert color="error" class="mx-4 mb-0" outlined>
+            <v-alert color="error" class="mx-4 mb-0" text>
               The changelog could not be loaded at this time.
             </v-alert>
           </v-card-text>

@@ -1,13 +1,13 @@
 <template>
   <Page :title="title" :loading="!invoices && !error" secure>
-    <v-alert v-if="error" type="error">
+    <v-alert v-if="error" type="error" text>
       {{ error }}
     </v-alert>
 
     <template v-if="invoices">
       <v-card>
         <v-card-text v-if="!invoices.length">
-          <v-alert class="ma-0" color="info" outlined>
+          <v-alert class="ma-0" color="info" text>
             You don't have any invoices yet.
           </v-alert>
         </v-card-text>

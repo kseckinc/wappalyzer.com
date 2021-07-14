@@ -1,19 +1,19 @@
 <template>
   <div>
     <v-card-text v-if="error" class="pt-0">
-      <v-alert type="error" class="mb-0">
+      <v-alert type="error" class="mb-0" text>
         {{ error }}
       </v-alert>
     </v-card-text>
 
     <template v-if="paymentMethods">
       <v-card-text v-if="!paymentMethods.length" class="pa-0">
-        <v-alert color="info" class="my-0 mx-4" outlined>
+        <v-alert color="info" class="my-0 mx-4" text>
           You don't have any cards.
         </v-alert>
       </v-card-text>
-      <v-card-text v-else class="pa-0">
-        <v-alert v-if="success" type="success" class="mx-4">
+      <v-card-text v-else class="pt-0 px-0">
+        <v-alert v-if="success" type="success" class="mx-4" text>
           {{ success }}
         </v-alert>
 
@@ -117,6 +117,9 @@
                   v-model="billingName"
                   :rules="[(v) => !!v || 'This field is required']"
                   label="Name on card"
+                  hide-details="auto"
+                  outlined
+                  dense
                 />
               </v-form>
 

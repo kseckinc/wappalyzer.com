@@ -1,6 +1,6 @@
 <template>
   <Page :title="title" :loading="!lists && !error" secure>
-    <v-alert v-if="error" type="error" class="mb-4">
+    <v-alert v-if="error" type="error" class="mb-4" text>
       {{ error }}
     </v-alert>
 
@@ -29,7 +29,7 @@
 
       <v-card class="mb-4">
         <v-card-text v-if="!filteredLists.length">
-          <v-alert class="ma-0" color="info" outlined>
+          <v-alert class="ma-0" color="info" text>
             You don't have any lists.
           </v-alert>
         </v-card-text>
