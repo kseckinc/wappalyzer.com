@@ -13,14 +13,12 @@
     </p>
 
     <template v-if="!loading">
-      <div class="mb-4">
-        <v-btn href="/docs/api" depressed>
-          <v-icon left>
-            {{ mdiBookOpenPageVariant }}
-          </v-icon>
-          API reference
-        </v-btn>
-      </div>
+      <v-btn href="/docs/api" class="mb-4" depressed>
+        <v-icon left>
+          {{ mdiBookOpenPageVariant }}
+        </v-icon>
+        API reference
+      </v-btn>
 
       <v-card>
         <v-card-title>API key</v-card-title>

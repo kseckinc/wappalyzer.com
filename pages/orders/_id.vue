@@ -103,7 +103,7 @@
         v-if="isAdmin"
         :disabled="order.status === 'Complete'"
         color="success"
-        class="mr-2"
+        class="mr-2 mb-4"
         outlined
         @click="
           {
@@ -130,7 +130,7 @@
           v-if="order.dataset.filename"
           :href="`${datasetsBaseUrl}${order.dataset.filename}`"
           color="primary lighten-1"
-          class="mr-2 primary--text"
+          class="mr-2 mb-4 primary--text"
           depressed
         >
           <v-icon left> {{ mdiDownload }} </v-icon>Download list
@@ -138,7 +138,7 @@
         <v-btn
           v-else-if="order.dataset.sampleFilename && !order.listId"
           :href="`${datasetsBaseUrl}${order.dataset.sampleFilename}`"
-          class="mr-2"
+          class="mr-2 mb-4"
           depressed
         >
           <v-icon left> {{ mdiDownload }} </v-icon>Download sample
@@ -154,7 +154,7 @@
           v-if="order.status === 'Complete'"
           :href="`${bulkLookupBaseUrl}${order.bulk.filename}`"
           color="primary lighten-1"
-          class="mr-2 primary--text"
+          class="mr-2 mb-4 primary--text"
           depressed
         >
           <v-icon left> {{ mdiDownload }} </v-icon>Download list
@@ -165,7 +165,7 @@
         <v-btn
           :to="`/subscriptions/${order.stripeSubscription}/`"
           color="primary lighten-1"
-          class="mr-2 primary--text"
+          class="mr-2 mb-4 primary--text"
           depressed
         >
           <v-icon left> {{ mdiCalendarSync }} </v-icon>Subscription
@@ -183,7 +183,7 @@
         :href="order.status === 'Pending' && order.invoiceUrl"
         :to="order.status === 'Complete' && `/invoices/${order.id}`"
         :target="order.status === 'Pending' && '_blank'"
-        class="mr-2"
+        class="mr-2 mb-4"
         depressed
       >
         <v-icon left>
@@ -192,7 +192,7 @@
         Invoice
       </v-btn>
 
-      <v-card class="my-4">
+      <v-card class="mb-4">
         <v-card-text class="px-0 pb-0">
           <v-simple-table>
             <tbody>

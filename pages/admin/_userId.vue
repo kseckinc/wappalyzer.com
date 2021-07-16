@@ -14,14 +14,16 @@
           <v-text-field
             v-model="userId"
             label="Email address or user ID"
-            class="mb-8"
+            class="mb-4"
             required
+            outlined
             hide-details="auto"
           />
 
           <v-btn
             :loading="submitting"
             color="primary"
+            class="mb-0"
             depressed
             @click="submit"
           >

@@ -8,12 +8,12 @@
       {{ error }}
     </v-alert>
 
-    <div v-if="!isAdmin" class="mb-4">
+    <template v-if="!isAdmin">
       <v-btn
         :href="`https://dashboard.stripe.com/customers/${user.stripeCustomer}`"
         :disabled="!user.stripeCustomer"
         color="success lighten-5 success--text"
-        class="mr-2"
+        class="mr-2 mb-4"
         target="_blank"
         depressed
       >
@@ -26,6 +26,7 @@
       <v-btn
         :loading="disabling"
         color="error lighten-5 error--text"
+        class="mr-2 mb-4"
         depressed
         @click="disable"
       >
@@ -34,7 +35,7 @@
         </v-icon>
         Disable user
       </v-btn>
-    </div>
+    </template>
 
     <v-card class="mb-4">
       <template v-if="isAdmin">

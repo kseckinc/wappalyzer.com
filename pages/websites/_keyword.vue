@@ -118,9 +118,9 @@
                     :key="index"
                   >
                     <td>
-                      <nuxt-link :to="`/lookup/${hostname}`">
-                        {{ hostname }}
-                      </nuxt-link>
+                      <nuxt-link :to="`/lookup/${hostname}`">{{
+                        hostname
+                      }}</nuxt-link>
 
                       <a
                         :href="`http${https ? 's' : ''}://${
@@ -141,9 +141,9 @@
 
           <small>
             {{ formatNumber(results) }} Results available. Get the full list of
-            <nuxt-link :to="`/lists/?keywords=${keyword}`">
-              {{ keyword }} companies and websites.
-            </nuxt-link>
+            <nuxt-link :to="`/lists/?keywords=${keyword}`"
+              >{{ keyword }} companies and websites.</nuxt-link
+            >
           </small>
         </template>
       </v-card-text>
