@@ -32,10 +32,13 @@
                 >
                   Members
                 </v-col>
-                <v-col class="text-right flex-shrink-0 flex-grow-1">
-                  <small class="body-2 mr-4"
-                    >{{ organisation.seatsRemaining }} of
-                    {{ organisation.seats }} seats remaining</small
+                <v-col class="text-right flex-shrink-0 flex-grow-1 body-2">
+                  <small class="mr-2"
+                    >Seats available:
+                    <span class="font-weight-medium">
+                      {{ organisation.seatsRemaining }}
+                      of {{ organisation.seats }}</span
+                    ></small
                   >
                   <v-btn
                     :disabled="!organisation.seatsRemaining"
@@ -94,6 +97,7 @@
                         :loading="member.loading"
                         class="ma-0 pa-0 mx-auto"
                         hide-details
+                        inset
                         @change="toggle(member)"
                       />
                     </td>
@@ -115,6 +119,7 @@
                       </v-chip>
                       <v-btn
                         icon
+                        color="error"
                         @click="
                           removeUserId = member.user.sub
                           removeDialog = true

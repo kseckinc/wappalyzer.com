@@ -9,7 +9,7 @@
 
     <p class="mb-8">
       Your API key provides authorized access to our
-      <nuxt-link to="/api/"> APIs </nuxt-link>.
+      <nuxt-link to="/api/">APIs</nuxt-link>.
     </p>
 
     <template v-if="!loading">
@@ -23,7 +23,7 @@
       </div>
 
       <v-card>
-        <v-card-title>API Key</v-card-title>
+        <v-card-title>API key</v-card-title>
         <v-card-text>
           <p>Use your API key to make authenticated API calls.</p>
 

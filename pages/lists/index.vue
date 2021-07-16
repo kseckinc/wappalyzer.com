@@ -1435,7 +1435,6 @@ export default {
       confirmDialog: false,
       error: false,
       createDialog: false,
-      faqDialog: false,
       file: '',
       fileErrors: [],
       keyword: '',

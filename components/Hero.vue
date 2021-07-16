@@ -7,7 +7,11 @@
             {{ title }}
           </p>
 
-          <p>{{ subtitle }}</p>
+          <p class="mb-6 mb-sm-12">{{ subtitle }}</p>
+
+          <div style="max-width: 600px; margin: 0 auto">
+            <Search />
+          </div>
         </v-col>
       </v-row>
     </v-container>
@@ -15,7 +19,12 @@
 </template>
 
 <script>
+import Search from '~/components/Search.vue'
+
 export default {
+  components: {
+    Search,
+  },
   props: {
     title: {
       type: String,

@@ -75,66 +75,6 @@
         </v-chip>
       </v-alert>
 
-      <v-form
-        v-if="product.lookup"
-        ref="form"
-        class="d-flex align-center mb-2"
-        @submit.prevent="submitLookup"
-      >
-        <v-text-field
-          v-model="url"
-          ref="lookup"
-          label="Website URL or company name"
-          placeholder="Example or example.com"
-          style="max-width: 450px"
-          :append-icon="mdi.mdiMagnify"
-          :loading="lookupLoading"
-          hide-details
-          outlined
-          dense
-          @click:append="submitLookup"
-        />
-
-        <small class="ml-4 text--disabled">
-          Or,
-          <nuxt-link
-            class="text--disabled"
-            :to="{ path: '/lookup', hash: '#bulk' }"
-            >upload a list</nuxt-link
-          >
-        </small>
-      </v-form>
-
-      <v-form
-        v-if="product.verify"
-        ref="form"
-        class="d-flex align-center mb-2"
-        @submit.prevent="submitVerify"
-      >
-        <v-text-field
-          v-model="email"
-          ref="verify"
-          label="Email address"
-          placeholder="info@example.com"
-          style="max-width: 450px"
-          :append-icon="mdi.mdiMagnify"
-          :loading="verifyLoading"
-          hide-details
-          outlined
-          dense
-          @click:append="submitVerify"
-        />
-
-        <small class="ml-4 text--disabled">
-          Or,
-          <nuxt-link
-            class="text--disabled"
-            :to="{ path: '/verify', hash: '#bulk' }"
-            >upload a list</nuxt-link
-          >
-        </small>
-      </v-form>
-
       <v-btn
         v-for="(button, index) in product.buttons"
         v-else
@@ -209,8 +149,6 @@ export default {
     return {
       url: '',
       email: '',
-      lookupLoading: false,
-      verifyLoading: false,
       mdi: {
         mdiCheck,
         mdiLayersOutline,
@@ -233,22 +171,6 @@ export default {
   computed: {
     product() {
       return meta[this.name]
-    },
-  },
-  methods: {
-    submitLookup() {
-      this.lookupLoading = true
-
-      this.$refs.lookup.blur()
-
-      this.$router.push(`/lookup/${encodeURIComponent(this.url)}/`)
-    },
-    submitVerify() {
-      this.verifyLoading = true
-
-      this.$refs.verify.blur()
-
-      this.$router.push(`/verify/${this.email}/`)
     },
   },
 }

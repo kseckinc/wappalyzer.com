@@ -5,15 +5,15 @@
       v-model="selection"
       :items="results"
       :append-icon="mdiMagnify"
+      :loading="!!(loading && query)"
       class="mb-4"
-      label="Find a technology"
-      item-value="slug"
+      placeholder="Find a technology"
       hide-details="auto"
       return-object
       outlined
       dense
       eager
-      @change="(item) => $emit('select', item)"
+      @change="submit"
       @focus="focus"
     >
       <template #prepend-item>
@@ -21,12 +21,12 @@
           <v-text-field
             ref="search"
             v-model="query"
-            :error-messages="results.length ? [] : errors"
             class="pt-2 mx-4"
             :placeholder="
               noCategories ? `E.g. Shopify` : `E.g. ecommerce or Shopify`
             "
             :append-icon="mdiMagnify"
+            :loading="!!(loading && query)"
             outlined
             dense
             required
@@ -35,21 +35,23 @@
           />
         </v-form>
 
+        <v-alert v-if="error" color="error" class="ma-4" text>
+          {{ error }}
+        </v-alert>
+
         <v-divider class="mt-4 mb-2" />
 
-        <div v-if="loading" class="d-flex justify-center">
-          <Progress />
-        </div>
         <div
-          v-else-if="!results.length && errors.length"
+          v-if="!results.length && !error"
           class="pt-1 pb-2 px-4 text--disabled"
         >
-          <small>
+          <small v-if="query && !loading">
             Can't find what you're looking for?
             <nuxt-link to="/technologies/suggest"
               >Suggest a new technology</nuxt-link
             >.
           </small>
+          <small v-else>Type something...</small>
         </div>
       </template>
 
@@ -98,85 +100,85 @@ export default {
   },
   data() {
     return {
-      errors: [],
-      categories: [],
+      error: '',
       loading: false,
       mdiMagnify,
       query: '',
       searchTimeout: null,
       selection: false,
       technologies: [],
+      categories: [],
+      results: [],
     }
   },
-  computed: {
-    results() {
-      return [
-        ...(!this.noCategories
-          ? this.categories.map((category) => ({
-              ...category,
-              type: 'category',
-            }))
-          : []),
-        ...this.technologies.map((technology) => ({
-          ...technology,
-          type: 'technology',
-        })),
-      ]
-    },
-  },
   watch: {
-    query(query) {
-      if (query.length >= 3) {
-        clearTimeout(this.searchTimeout)
+    query() {
+      clearTimeout(this.searchTimeout)
 
-        this.searchTimeout = setTimeout(() => this.search(), 300)
-      }
+      this.searchTimeout = setTimeout(() => this.search(), 300)
     },
   },
   methods: {
     async search() {
-      this.errors = []
-      this.categories = []
-      this.technologies = []
+      this.error = ''
+      this.results = []
 
-      if (this.query.length < 3) {
-        this.errors = ['Please enter at least three characters']
+      const match = this.query.toLowerCase().replace(/[^a-z0-9]/, '')
 
-        return
+      const categories = this.categories.filter(({ name }) =>
+        name
+          .toLowerCase()
+          .replace(/[^a-z0-9]/, '')
+          .includes(match)
+      )
+
+      if (categories.length <= 5) {
+        this.results.push(
+          ...categories.map((category) => ({
+            type: 'category',
+            ...category,
+          }))
+        )
       }
 
-      this.loading = true
+      const technologies = this.technologies.filter(({ name }) =>
+        name
+          .toLowerCase()
+          .replace(/[^a-z0-9]/, '')
+          .includes(match)
+      )
 
-      try {
-        ;({ categories: this.categories, technologies: this.technologies } = (
-          await this.$axios.get('search/technologies', {
-            params: {
-              query: this.query,
-            },
-          })
-        ).data)
-
-        if (!this.categories.length && !this.technologies.length) {
-          throw new Error('No matching tecnnologies found.')
-        }
-      } catch (error) {
-        this.errors = [this.getErrorMessage(error)]
+      if (technologies.length <= 50) {
+        this.results.push(
+          ...technologies.map((technology) => ({
+            type: 'technology',
+            ...technology,
+          }))
+        )
       }
-
-      this.loading = false
     },
     clear() {
       this.$nextTick(() => {
         this.$refs.results.blur()
 
-        this.categories = []
-        this.errors = []
+        this.error = ''
         this.query = ''
+        this.loading = false
         this.selection = false
-        this.technologies = []
+        this.results = []
       })
     },
-    focus() {
+    submit(item) {
+      this.loading = true
+
+      this.$refs.results.blur()
+
+      this.$emit('select', item)
+    },
+    async focus() {
+      this.query = ''
+      this.loading = false
+
       this.$nextTick(() => {
         setTimeout(() => {
           if (this.$refs.search) {
@@ -184,6 +186,29 @@ export default {
           }
         }, 300)
       })
+
+      if (!this.technologies.length) {
+        this.loading = true
+
+        this.technologies = (await this.$axios.get('technologies')).data
+
+        this.loading = false
+
+        this.categories = this.technologies.reduce(
+          (_categories, { categories }) => {
+            categories.forEach((category) => {
+              if (!_categories.find(({ slug }) => slug === category.slug)) {
+                _categories.push(category)
+              }
+            })
+
+            return _categories
+          },
+          []
+        )
+
+        this.search()
+      }
     },
   },
 }

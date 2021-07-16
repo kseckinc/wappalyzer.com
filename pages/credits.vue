@@ -9,8 +9,8 @@
 
     <p class="mb-8" style="max-width: 600px">
       Credits can be spent on any product, including technology lookups, APIs
-      and datasets.
-      <nuxt-link to="/pricing/"> Sign up for a plan </nuxt-link> to get monthly
+      and lead lists.
+      <nuxt-link to="/pricing/">Sign up for a plan</nuxt-link> to get monthly
       credits at a lower price.
     </p>
 
@@ -41,7 +41,7 @@
           Buy credits
         </v-btn>
 
-        <v-btn href="/faq/pricing/" class="mr-2" depressed>
+        <v-btn class="mr-2" depressed @click="$refs.faqDialog.open()">
           <v-icon left>
             {{ mdiForum }}
           </v-icon>
@@ -275,6 +275,8 @@
         </v-card>
       </v-dialog>
     </template>
+
+    <FaqDialog ref="faqDialog" topic="pricing" />
   </Page>
 </template>
 
@@ -284,10 +286,12 @@ import { mdiAlphaCCircle, mdiForum, mdiCalculator } from '@mdi/js'
 import { creditTiers } from '~/assets/json/pricing.json'
 
 import Page from '~/components/Page.vue'
+import FaqDialog from '~/components/FaqDialog.vue'
 
 export default {
   components: {
     Page,
+    FaqDialog,
   },
   data() {
     return {

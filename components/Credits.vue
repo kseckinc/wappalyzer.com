@@ -10,9 +10,9 @@
     </v-card-title>
     <v-card-text v-if="variant">
       <v-row align="center" class="py-2 primary--text">
-        <v-col class="py-0"> Credits </v-col>
+        <v-col class="py-0">Credits</v-col>
         <v-col class="py-0 text-right">
-          <Spinner v-if="isLoading" />
+          <Spinner v-if="isLoading" color="primary" />
           <template v-else>
             {{ formatNumber(credits) }}
           </template>
@@ -36,7 +36,7 @@
           </v-tooltip>
         </v-col>
         <v-col class="py-0 text-right">
-          <Spinner v-if="isLoading" />
+          <Spinner v-if="isLoading" color="primary" />
           <template v-else>
             <v-tooltip v-if="freeLists.availableAt" max-width="250" top>
               <template #activator="{ on }">

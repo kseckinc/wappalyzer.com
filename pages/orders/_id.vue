@@ -280,8 +280,9 @@
               <tr v-if="order.listId">
                 <th width="30%">ID</th>
                 <td>
-                  <nuxt-link :to="`/lists/${order.listId}`">
-                    {{ order.listId }} </nuxt-link
+                  <nuxt-link :to="`/lists/${order.listId}`">{{
+                    order.listId
+                  }}</nuxt-link
                   ><v-btn
                     color="accent"
                     class="ml-2"
@@ -825,8 +826,8 @@
               tile
             >
               Come here often? Save with a plan. See
-              <nuxt-link class="primary--text" to="/pricing/">
-                plans &amp; pricing </nuxt-link
+              <nuxt-link class="primary--text" to="/pricing/"
+                >plans &amp; pricing</nuxt-link
               >.
             </v-alert>
           </v-card-text>
@@ -936,8 +937,8 @@
                 tile
               >
                 Free lists are included in selected plans. See
-                <nuxt-link class="primary--text" to="/pricing/">
-                  plans &amp; pricing </nuxt-link
+                <nuxt-link class="primary--text" to="/pricing/"
+                  >plans &amp; pricing</nuxt-link
                 >.
               </v-alert>
               <v-alert
@@ -1010,7 +1011,7 @@
       <v-dialog v-model="cancelDialog" max-width="400px" eager>
         <v-card>
           <v-card-title>Cancel order</v-card-title>
-          <v-card-text class="pb-0">
+          <v-card-text>
             <v-alert v-if="cancelError" type="error" text>
               {{ cancelError }}
             </v-alert>

@@ -150,7 +150,6 @@ export default {
   data() {
     return {
       title: 'Pricing',
-      faqDialog: false,
       annually: false,
       creditsPerUnit,
       creditTiers,

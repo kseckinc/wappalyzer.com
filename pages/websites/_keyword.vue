@@ -1,6 +1,6 @@
 <template>
   <Page :title="title" :seo-title="seoTitle" :head="meta" narrow no-heading>
-    <v-card color="secondary" class="mt-8 mb-4">
+    <v-card class="mt-8 mb-4">
       <v-card-title>
         <v-icon color="primary" left>
           {{ mdiMagnify }}
@@ -26,9 +26,15 @@
           {{ error }}
         </v-alert>
 
-        <v-card v-if="loading" class="mt-4">
-          <v-card-text class="d-flex justify-center">
-            <Progress />
+        <v-card v-if="loading" class="mt-4" flat>
+          <v-card-text class="d-flex justify-center pa-12">
+            <v-progress-circular
+              :size="100"
+              color="primary"
+              width="5"
+              style="opacity: 0.2"
+              indeterminate
+            ></v-progress-circular>
           </v-card-text>
         </v-card>
 
@@ -154,13 +160,11 @@ import { mapState } from 'vuex'
 import { mdiMagnify, mdiOpenInNew, mdiFilterVariant } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
-import Progress from '~/components/Progress.vue'
 import SignIn from '~/components/SignIn.vue'
 
 export default {
   components: {
     Page,
-    Progress,
     SignIn,
   },
   async asyncData({

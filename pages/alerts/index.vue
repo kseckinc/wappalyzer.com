@@ -12,7 +12,7 @@
       <v-card v-if="!error" class="mt-12 mb-4">
         <v-card-title>Websites</v-card-title>
         <v-card-text class="pb-0">
-          <p>
+          <p style="max-width: 600px">
             Add the websites you want to monitor here and we'll check them
             daily. As soon as we notice a change we'll alert you with an email.
           </p>
@@ -55,6 +55,7 @@
                 <td width="1">
                   <v-btn
                     icon
+                    color="error"
                     @click="
                       removeUrl = alert.url
                       removeDialog = true
@@ -86,12 +87,12 @@
       <v-dialog v-model="createDialog" max-width="400px" eager>
         <v-card>
           <v-card-title> Create alert </v-card-title>
-          <v-card-text class="pb-0">
+          <v-card-text>
             <v-alert v-if="createError" type="error" text>
               {{ createError }}
             </v-alert>
 
-            <p>
+            <p class="mb-6">
               One alert costs 10 credits per 30 days. You currently have
               {{ formatNumber(credits) }} credits.
             </p>
@@ -102,7 +103,9 @@
                 :rules="rules.url"
                 label="Website URL"
                 placeholder="https://www.example.com"
+                hide-details="auto"
                 dense
+                outlined
               />
             </v-form>
           </v-card-text>

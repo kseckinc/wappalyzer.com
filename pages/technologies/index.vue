@@ -35,11 +35,9 @@
 
     <h2 class="mt-6 mb-4">Search by name</h2>
 
-    <v-row>
-      <v-col md="6">
-        <Technologies @select="selectTechnology" />
-      </v-col>
-    </v-row>
+    <div style="max-width: 600px">
+      <Technologies @select="selectTechnology" />
+    </div>
 
     <p>
       <small>

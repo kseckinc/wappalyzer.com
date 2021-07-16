@@ -102,7 +102,7 @@
 
               <div class="d-flex flex-column align-stretch mx-4">
                 <v-btn
-                  color="primary"
+                  color="success"
                   x-large
                   depressed
                   :loading="submitting"
@@ -758,7 +758,6 @@
               list.sampleFilename
             "
             :href="`${datasetsBaseUrl}${list.sampleFilename}`"
-            color="primary lighten-1 primary--text"
             class="mb-4"
             depressed
           >
@@ -780,7 +779,7 @@
     <v-dialog v-model="cancelDialog" max-width="400px" eager>
       <v-card>
         <v-card-title>Delete list</v-card-title>
-        <v-card-text class="pb-0">
+        <v-card-text>
           <v-alert v-if="cancelError" type="error" text>
             {{ cancelError }}
           </v-alert>
@@ -802,7 +801,7 @@
     <v-dialog v-model="repeatDialog" max-width="600px" eager>
       <v-card>
         <v-card-title>Weekly updates enabled</v-card-title>
-        <v-card-text class="pb-0">
+        <v-card-text>
           <p>
             This list will be recreated with newly discovered domains every
             week.

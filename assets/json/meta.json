@@ -9,7 +9,19 @@
     "icon": "mdiLayersOutline",
     "image": "lookup.svg",
     "text": "Instantly reveal the technology stack any website, such as CMS, ecommerce platform or payment processor, as well as company and contact details.",
-    "lookup": true,
+    "buttons": [
+      {
+        "text": "Look up a website",
+        "to": "/lookup/",
+        "icon": "mdiArrowRight"
+      },
+      {
+        "text": "Upload a list",
+        "to": "/lookup/#bulk",
+        "icon": "mdiUpload",
+        "secondary": true
+      }
+    ],
     "features": ["Instant results", "50 Free monthly lookups", "Perform up to 100,000 lookups at once"],
     "feature": true
   },
@@ -39,7 +51,19 @@
     "icon": "mdiEmailCheckOutline",
     "image": "verify.svg",
     "text": "Verify email addresses to prevent bounces, spam reports and fake website sign-ups. We run a number of live checks for mail server connectivity, inbox availability and more, without sending an email to the address.",
-    "verify": true,
+    "buttons": [
+      {
+        "text": "Verify an address",
+        "to": "/verify/",
+        "icon": "mdiArrowRight"
+      },
+      {
+        "text": "Upload a list",
+        "to": "/verify/#bulk",
+        "icon": "mdiUpload",
+        "secondary": true
+      }
+    ],
     "features": ["Instant results", "50 Free monthly verifications", "Perform up to 100,000 verifications at once"],
     "feature": true
   },

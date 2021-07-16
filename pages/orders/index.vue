@@ -76,9 +76,10 @@
                   <td v-else-if="order.paymentMethod === 'free'">Free</td>
                   <td
                     v-else-if="
-                      order.paymentMethod === 'credits' ||
-                      isMember ||
-                      credits > order.totalCredits
+                      order.product !== 'Subscription' &&
+                      (order.paymentMethod === 'credits' ||
+                        isMember ||
+                        (order.totalCredits && credits > order.totalCredits))
                     "
                   >
                     {{ formatNumber(order.totalCredits) }}
