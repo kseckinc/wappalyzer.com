@@ -46,7 +46,14 @@
                 <v-list v-if="items" class="header__menu">
                   <div
                     v-for="(
-                      { title: _title, subtitle, icon: _icon, to: _to }, index2
+                      {
+                        title: _title,
+                        subtitle,
+                        icon: _icon,
+                        to: _to,
+                        items: _items,
+                      },
+                      index2
                     ) in items"
                     :key="_title"
                   >
@@ -76,6 +83,19 @@
                         >
                           {{ subtitle }}
                         </v-list-item-subtitle>
+
+                        <div v-if="_items" class="mt-4">
+                          <v-chip
+                            v-for="_item in _items"
+                            :key="_item.title"
+                            class="mr-2"
+                            :to="_item.to"
+                            small
+                            outlined
+                            label
+                            >{{ _item.title }}</v-chip
+                          >
+                        </div>
                       </v-list-item-content>
                       <v-list-item-icon v-if="_to.match(/^http/)">
                         <v-icon dense>

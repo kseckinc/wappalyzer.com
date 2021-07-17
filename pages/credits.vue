@@ -17,9 +17,9 @@
     <template v-if="!loading">
       <v-btn
         v-if="isAdmin"
-        color="success"
+        color="success lighten-5 success--text"
         class="mr-2 mb-4"
-        outlined
+        depressed
         @click="addDialog = true"
       >
         <v-icon left>
@@ -245,7 +245,7 @@
 
       <v-dialog v-model="addDialog" max-width="400px" eager>
         <v-card>
-          <v-card-title> Add credits </v-card-title>
+          <v-card-title>Add credits</v-card-title>
           <v-card-text class="pb-0">
             <v-alert v-if="addError" type="error" text>
               {{ addError }}

@@ -83,3 +83,8 @@ body {
 .v-dialog .v-card__actions {
   padding-bottom: 16px !important;
 }
+
+.v-list-item .v-chip--active::before {
+  opacity: 0 !important;
+}
+

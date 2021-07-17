@@ -486,6 +486,7 @@
                   "
                   color="warning"
                   class="mx-6 pb-3"
+                  border="left"
                   dense
                   text
                 >
@@ -566,10 +567,7 @@
             </v-expansion-panel>
           </v-expansion-panels>
 
-          <v-card-actions
-            v-if="list.status !== 'Complete'"
-            class="mb-4 pa-0 d-flex"
-          >
+          <v-card-actions class="mb-4 pa-0 d-flex">
             <v-btn small depressed @click="$refs.faqDialog.open()">
               <v-icon left>
                 {{ mdiForum }}
@@ -584,6 +582,7 @@
               Edit
             </v-btn>
             <v-btn
+              v-if="list.status !== 'Complete'"
               color="error"
               class="ml-2"
               text

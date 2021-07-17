@@ -13,12 +13,18 @@
       {
         "text": "Look up a website",
         "to": "/lookup/",
-        "icon": "mdiArrowRight"
+        "icon": "mdiEarth"
       },
       {
         "text": "Upload a list",
         "to": "/lookup/#bulk",
-        "icon": "mdiUpload",
+        "icon": "mdiFileOutline",
+        "secondary": true
+      },
+      {
+        "text": "API",
+        "to": "/api/",
+        "icon": "mdiConsole",
         "secondary": true
       }
     ],
@@ -33,9 +39,9 @@
     "text": "Find prospects by the technologies they use. Lead lists contain websites, company and contact details, social media profiles and more. Create and export custom reports for any web technology or keyword based on industry, website traffic and location.",
     "buttons": [
       {
-        "text": "Create a lead list",
+        "text": "Create a list",
         "to": "/lists/",
-        "icon": "mdiArrowRight"
+        "icon": "mdiFileOutline"
       }
     ],
     "features": [
@@ -55,12 +61,18 @@
       {
         "text": "Verify an address",
         "to": "/verify/",
-        "icon": "mdiArrowRight"
+        "icon": "mdiEmail"
       },
       {
         "text": "Upload a list",
         "to": "/verify/#bulk",
-        "icon": "mdiUpload",
+        "icon": "mdiFileOutline",
+        "secondary": true
+      },
+      {
+        "text": "API",
+        "to": "/api/",
+        "icon": "mdiConsole",
         "secondary": true
       }
     ],
@@ -77,7 +89,7 @@
       {
         "text": "Compare APIs",
         "to": "/api/",
-        "icon": "mdiArrowRight"
+        "icon": "mdiConsole"
       },
       {
         "text": "API reference",
@@ -99,7 +111,7 @@
       {
         "text": "Create an alert",
         "to": "/alerts/",
-        "icon": "mdiArrowRight"
+        "icon": "mdiBellOutline"
       }
     ],
     "features": [

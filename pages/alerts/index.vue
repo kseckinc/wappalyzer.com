@@ -41,6 +41,7 @@
                     v-model="alert.enabled"
                     class="ma-0 pa-0 mx-auto"
                     hide-details
+                    inset
                     @change="toggle(alert)"
                   />
                 </td>
@@ -77,7 +78,7 @@
             @click="isSignedIn ? (createDialog = true) : (signInDialog = true)"
           >
             <v-icon left>
-              {{ mdiBullhorn }}
+              {{ mdiBellOutline }}
             </v-icon>
             Create alert
           </v-btn>
@@ -168,7 +169,7 @@ import { mapState, mapActions } from 'vuex'
 import {
   mdiOpenInNew,
   mdiCloseCircle,
-  mdiBullhorn,
+  mdiBellOutline,
   mdiAlphaCCircle,
 } from '@mdi/js'
 
@@ -199,7 +200,7 @@ export default {
       removeUrl: '',
       mdiOpenInNew,
       mdiCloseCircle,
-      mdiBullhorn,
+      mdiBellOutline,
       mdiAlphaCCircle,
       meta,
       rules: {

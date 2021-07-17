@@ -77,7 +77,6 @@
 
       <v-btn
         v-for="(button, index) in product.buttons"
-        v-else
         :key="index"
         :to="button.to"
         :href="button.href"
@@ -117,6 +116,7 @@ import {
   mdiFilterVariant,
   mdiArrowRight,
   mdiFileTableOutline,
+  mdiFileOutline,
   mdiUpload,
   mdiConsole,
   mdiBookOpenPageVariant,
@@ -126,6 +126,8 @@ import {
   mdiAccountMultiple,
   mdiPowerPlug,
   mdiEmailCheckOutline,
+  mdiEarth,
+  mdiEmail,
 } from '@mdi/js'
 
 import ProductImage from '~/components/ProductImage.vue'
@@ -156,6 +158,7 @@ export default {
         mdiFilterVariant,
         mdiArrowRight,
         mdiFileTableOutline,
+        mdiFileOutline,
         mdiUpload,
         mdiConsole,
         mdiBookOpenPageVariant,
@@ -165,6 +168,8 @@ export default {
         mdiAccountMultiple,
         mdiPowerPlug,
         mdiEmailCheckOutline,
+        mdiEarth,
+        mdiEmail,
       },
     }
   },

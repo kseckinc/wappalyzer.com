@@ -6,7 +6,21 @@
         "title": "Technology lookup",
         "subtitle": "Find out what websites are built with",
         "icon": "mdiLayersOutline",
-        "to": "/lookup/"
+        "to": "/lookup/",
+        "items": [
+          {
+            "title": "Look up a website",
+            "to": "/lookup/"
+          },
+          {
+            "title": "Upload a list",
+            "to": { "path": "/lookup/", "hash": "#bulk" }
+          },
+          {
+            "title": "API",
+            "to": "/api/"
+          }
+        ]
       },
       {
         "title": "Lead lists",
@@ -18,19 +32,27 @@
         "title": "Email verification",
         "subtitle": "Verify the validity of any email address",
         "icon": "mdiEmailCheckOutline",
-        "to": "/verify/"
+        "to": "/verify/",
+        "items": [
+          {
+            "title": "Verify an address",
+            "to": "/verify/"
+          },
+          {
+            "title": "Upload a list",
+            "to": { "path": "/verify/", "hash": "#bulk" }
+          },
+          {
+            "title": "API",
+            "to": "/api/"
+          }
+        ]
       },
       {
         "title": "Keyword search",
         "subtitle": "Find websites by keyword",
         "icon": "mdiMagnify",
         "to": "/websites/"
-      },
-      {
-        "title": "APIs",
-        "subtitle": "Automate technology lookups",
-        "icon": "mdiConsole",
-        "to": "/api/"
       },
       {
         "title": "Website alerts",
