@@ -16,9 +16,15 @@
           </v-col>
 
           <v-col class="d-none d-md-block flex-grow-1 flex-shrink-0 text-right">
-            <template v-for="({ title, to, icon, items }, index) in mainNav">
-              <v-btn v-if="to" :key="title" :to="to" class="white--text" text>
-                {{ title }}
+            <template v-for="(item, index) in mainNav">
+              <v-btn
+                v-if="item.to"
+                :key="item.title"
+                :to="item.to"
+                class="white--text"
+                text
+              >
+                {{ item.title }}
               </v-btn>
               <v-menu
                 v-else
@@ -30,12 +36,12 @@
                 attach
               >
                 <template #activator="{ on }">
-                  <v-btn :icon="!!icon" class="white--text" text v-on="on">
-                    <v-icon v-if="icon" dense>
-                      {{ icon }}
+                  <v-btn :icon="!!item.icon" class="white--text" text v-on="on">
+                    <v-icon v-if="item.icon" dense>
+                      {{ item.icon }}
                     </v-icon>
                     <template v-else>
-                      {{ title }}
+                      {{ item.title }}
                       <v-icon dense right>
                         {{ mdi.mdiChevronDown }}
                       </v-icon>
@@ -43,49 +49,35 @@
                   </v-btn>
                 </template>
 
-                <v-list v-if="items" class="header__menu">
-                  <div v-for="(item, _index) in items" :key="_title">
+                <v-list v-if="item.items" class="header__menu">
+                  <div v-for="(_item, _index) in item.items" :key="_index">
                     <v-divider v-if="_index" />
+
                     <v-list-item
-                      :href="item.to.match(/^http/) ? item.to : null"
-                      :target="item.to.match(/^http/) ? '_blank' : '_self'"
-                      :to="item.to.match(/^http/) ? null : item.to"
+                      :href="_item.to.match(/^http/) ? _item.to : null"
+                      :target="_item.to.match(/^http/) ? '_blank' : '_self'"
+                      :to="_item.to.match(/^http/) ? null : _item.to"
                       color="primary"
                     >
-                      <v-list-item-action v-if="item.icon">
+                      <v-list-item-action v-if="_item.icon">
                         <v-icon color="primary" dense>
-                          {{ mdi[item.icon] }}
+                          {{ mdi[_item.icon] }}
                         </v-icon>
                       </v-list-item-action>
                       <v-list-item-content class="py-4">
                         <v-list-item-title class="subtitle-2">
-                          {{ item.title }}
+                          {{ _item.title }}
                         </v-list-item-title>
                         <v-list-item-subtitle
-                          v-if="item.subtitle"
-                          class="
-                            subtitle-2
-                            font-weight-regular
-                            header__subtitle
-                            mt-1
-                          "
+                          v-if="_item.subtitle"
+                          class="header__subtitle text--disabled"
                         >
-                          {{ item.subtitle }}
-                        </v-list-item-subtitle>
-
-                        <div v-if="item.items" class="mt-2">
                           <small>
-                            <nuxt-link
-                              v-for="_item in item.items"
-                              :key="_item.title"
-                              class="mr-4 text--disabled"
-                              :to="_item.to"
-                              >{{ _item.title }}</nuxt-link
-                            >
+                            {{ _item.subtitle }}
                           </small>
-                        </div>
+                        </v-list-item-subtitle>
                       </v-list-item-content>
-                      <v-list-item-icon v-if="item.to.match(/^http/)">
+                      <v-list-item-icon v-if="_item.to.match(/^http/)">
                         <v-icon dense>
                           {{ mdi.mdiOpenInNew }}
                         </v-icon>
@@ -95,9 +87,11 @@
                 </v-list>
               </v-menu>
             </template>
+
             <span v-if="isLoading" class="px-4">
               <Spinner color="white" />
             </span>
+
             <v-menu
               v-else-if="isSignedIn"
               class="text-left"

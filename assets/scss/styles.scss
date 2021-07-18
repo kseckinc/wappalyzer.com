@@ -84,11 +84,7 @@ body {
   padding-bottom: 16px !important;
 }
 
-.v-list-item a.text--disabled {
-  transition: color 0.2s ease;
+.theme--light.v-application .v-list-item--active .text--disabled {
+  color: #4608ad !important;
+  opacity: .7;
 }
-
-.v-list-item a.text--disabled:hover {
-  color: inherit !important;
-}
-
