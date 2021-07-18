@@ -44,49 +44,37 @@
                 </template>
 
                 <v-list v-if="items" class="header__menu">
-                  <div
-                    v-for="(
-                      {
-                        title: _title,
-                        subtitle,
-                        icon: _icon,
-                        to: _to,
-                        items: _items,
-                      },
-                      index2
-                    ) in items"
-                    :key="_title"
-                  >
-                    <v-divider v-if="index2" />
+                  <div v-for="(item, _index) in items" :key="_title">
+                    <v-divider v-if="_index" />
                     <v-list-item
-                      :href="_to.match(/^http/) ? _to : null"
-                      :target="_to.match(/^http/) ? '_blank' : '_self'"
-                      :to="_to.match(/^http/) ? null : _to"
+                      :href="item.to.match(/^http/) ? item.to : null"
+                      :target="item.to.match(/^http/) ? '_blank' : '_self'"
+                      :to="item.to.match(/^http/) ? null : item.to"
                       color="primary"
                     >
-                      <v-list-item-action v-if="_icon">
+                      <v-list-item-action v-if="item.icon">
                         <v-icon color="primary" dense>
-                          {{ mdi[_icon] }}
+                          {{ mdi[item.icon] }}
                         </v-icon>
                       </v-list-item-action>
                       <v-list-item-content class="py-4">
                         <v-list-item-title class="subtitle-2">
-                          {{ _title }}
+                          {{ item.title }}
                         </v-list-item-title>
                         <v-list-item-subtitle
-                          v-if="subtitle"
+                          v-if="item.subtitle"
                           class="
                             subtitle-2
                             font-weight-regular
                             header__subtitle
                           "
                         >
-                          {{ subtitle }}
+                          {{ item.subtitle }}
                         </v-list-item-subtitle>
 
-                        <div v-if="_items" class="mt-4">
+                        <div v-if="item.items" class="mt-4">
                           <v-chip
-                            v-for="_item in _items"
+                            v-for="_item in item.items"
                             :key="_item.title"
                             class="mr-2"
                             :to="_item.to"
@@ -97,7 +85,7 @@
                           >
                         </div>
                       </v-list-item-content>
-                      <v-list-item-icon v-if="_to.match(/^http/)">
+                      <v-list-item-icon v-if="item.to.match(/^http/)">
                         <v-icon dense>
                           {{ mdi.mdiOpenInNew }}
                         </v-icon>
