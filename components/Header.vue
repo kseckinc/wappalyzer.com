@@ -67,22 +67,22 @@
                             subtitle-2
                             font-weight-regular
                             header__subtitle
+                            mt-1
                           "
                         >
                           {{ item.subtitle }}
                         </v-list-item-subtitle>
 
-                        <div v-if="item.items" class="mt-4">
-                          <v-chip
-                            v-for="_item in item.items"
-                            :key="_item.title"
-                            class="mr-2"
-                            :to="_item.to"
-                            small
-                            outlined
-                            label
-                            >{{ _item.title }}</v-chip
-                          >
+                        <div v-if="item.items" class="mt-2">
+                          <small>
+                            <nuxt-link
+                              v-for="_item in item.items"
+                              :key="_item.title"
+                              class="mr-4 text--disabled"
+                              :to="_item.to"
+                              >{{ _item.title }}</nuxt-link
+                            >
+                          </small>
                         </div>
                       </v-list-item-content>
                       <v-list-item-icon v-if="item.to.match(/^http/)">
