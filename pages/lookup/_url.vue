@@ -1,6 +1,27 @@
 <template>
   <Page :title="title" :seo-title="seoTitle" :head="meta" no-heading>
-    <v-card class="mt-8 mb-4">
+    <div class="mt-6 mb-6">
+      <v-btn to="/apps/" class="mb-2 mr-2" depressed>
+        <v-icon left>
+          {{ mdiPuzzle }}
+        </v-icon>
+        Browser extension
+      </v-btn>
+      <v-btn to="/apps/" class="mb-2 mr-2" depressed>
+        <v-icon left>
+          {{ mdiPowerPlug }}
+        </v-icon>
+        CRM integration
+      </v-btn>
+      <v-btn to="/api/" class="mb-2" depressed>
+        <v-icon left>
+          {{ mdiConsole }}
+        </v-icon>
+        API
+      </v-btn>
+    </div>
+
+    <v-card class="mb-4">
       <v-tabs
         v-model="tab"
         slider-color="primary"
@@ -339,17 +360,6 @@
       </v-tabs-items>
     </v-card>
 
-    <p class="text--disabled">
-      <small>
-        Get the free
-        <nuxt-link to="/apps/">browser extension</nuxt-link> to see the
-        technologies on websites you visit.<br />
-        Automate lookups with the
-        <nuxt-link to="/api/">Lookup API</nuxt-link> or
-        <nuxt-link to="/apps/">CRM integrations</nuxt-link>.
-      </small>
-    </p>
-
     <v-dialog
       v-if="!isLoading && !isSignedIn"
       v-model="signInDialog"
@@ -370,6 +380,9 @@ import {
   mdiCalculator,
   mdiArrowRight,
   mdiLockOpenVariantOutline,
+  mdiPuzzle,
+  mdiConsole,
+  mdiPowerPlug,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -491,6 +504,9 @@ export default {
       mdiCalculator,
       mdiArrowRight,
       mdiLockOpenVariantOutline,
+      mdiPuzzle,
+      mdiConsole,
+      mdiPowerPlug,
       order: false,
       ordering: false,
       url: '',

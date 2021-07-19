@@ -1,6 +1,6 @@
 <template>
   <Page :title="title" :seo-title="seoTitle" :head="meta" narrow no-heading>
-    <v-card class="mt-8 mb-4">
+    <v-card class="mt-6 mb-4">
       <v-card-title>
         <v-icon color="primary" left>
           {{ mdiMagnify }}

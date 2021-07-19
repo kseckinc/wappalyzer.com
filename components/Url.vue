@@ -135,6 +135,8 @@ export default {
         return
       }
 
+      this.$refs.search.blur()
+
       this.loading = true
 
       if (this.query.includes('.')) {

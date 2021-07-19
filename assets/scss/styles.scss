@@ -88,3 +88,7 @@ body {
   color: #4608ad !important;
   opacity: .7;
 }
+
+.v-tab--active::before {
+  opacity: .08 !important;
+}
