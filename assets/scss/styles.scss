@@ -92,3 +92,7 @@ body {
 .v-tab--active::before {
   opacity: .08 !important;
 }
+
+.container {
+  max-width: 1185px !important;
+}
