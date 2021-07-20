@@ -129,8 +129,8 @@
         <v-btn
           v-if="order.dataset.filename"
           :href="`${datasetsBaseUrl}${order.dataset.filename}`"
-          color="primary lighten-1"
-          class="mr-2 mb-4 primary--text"
+          color="success"
+          class="mr-2 mb-4"
           depressed
         >
           <v-icon left> {{ mdiDownload }} </v-icon>Download list
@@ -153,8 +153,8 @@
         <v-btn
           v-if="order.status === 'Complete'"
           :href="`${bulkLookupBaseUrl}${order.bulk.filename}`"
-          color="primary lighten-1"
-          class="mr-2 mb-4 primary--text"
+          color="success"
+          class="mr-2 mb-4"
           depressed
         >
           <v-icon left> {{ mdiDownload }} </v-icon>Download list
@@ -204,7 +204,7 @@
               </tr>
               <tr>
                 <th>Status</th>
-                <td>
+                <td class="d-flex align-center">
                   <v-chip
                     :color="
                       order.status === 'Complete'
@@ -219,8 +219,20 @@
                     outlined
                     small
                   >
-                    {{ order.status }}
-                  </v-chip>
+                    {{ order.status }} </v-chip
+                  ><small
+                    v-if="order.status === 'Processing'"
+                    class="ml-4 text--disabled"
+                  >
+                    <v-progress-circular
+                      :rotate="-90"
+                      :size="24"
+                      :width="3"
+                      :value="progress"
+                      color="accent"
+                      class="mr-2"
+                    />{{ progress ? `${progress}%` : 'Starting...' }}
+                  </small>
                 </td>
               </tr>
               <tr>
@@ -1224,6 +1236,14 @@ export default {
         ? this.order.dataset.query.technologies
         : this.order.dataset.query.technologies.slice(0, 10)
     },
+    progress() {
+      return this.order
+        ? Math.round(
+            (100 / (this.order.bulk.rows || 1)) *
+              (this.order.bulk.rowsProcessed || 0)
+          )
+        : 0
+    },
   },
   watch: {
     async '$store.state.user.isSignedIn'(isSignedIn) {
@@ -1262,7 +1282,7 @@ export default {
     user() {
       this.billingDialog = false
     },
-    order({ status, totalCredits, discount }) {
+    order({ id, status, totalCredits, discount }) {
       this.status = status
       this.totalCredits = totalCredits
       this.discount = discount / 100
@@ -1282,6 +1302,12 @@ export default {
         } else {
           this.paymentMethod = 'stripe'
         }
+      }
+
+      if (status === 'Processing') {
+        setTimeout(async () => {
+          this.order = (await this.$axios.get(`orders/${id}`)).data
+        }, 5000)
       }
     },
     paymentMethod() {

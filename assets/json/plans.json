@@ -56,7 +56,7 @@
         "lookups": true,
         "lists": {
           "value": "+ 1 Free / mo",
-          "tooltip": ["Free lists include:", "• Lead lists (any technology, up to 500K sites each)", "• Bulk technology lookup (up to 100K sites each)", "", "Create more lists using the included credits. See 'credit usage' below."]
+          "tooltip": ["Free lists include:", "• Lead lists (any technology, up to 500K sites)", "• Technology lookup (up to 100K sites)", "• Email verification (up to 100K addresses)", "", "Create more lists using the included credits. See 'credit usage' below."]
         },
         "apis": true,
         "pro": true,
@@ -74,7 +74,7 @@
         "lookups": true,
         "lists": {
           "value": "+ 3 Free / mo",
-          "tooltip": ["Free lists include:", "• Lead lists (any technology, up to 500K sites each)", "• Bulk technology lookup (up to 100K sites each)", "", "Create more lists using the included credits. See 'credit usage' below."]
+          "tooltip": ["Free lists include:", "• Lead lists (any technology, up to 500K sites)", "• Bulk technology lookup (up to 100K sites)", "• Email verification (up to 100K addresses)", "", "Create more lists using the included credits. See 'credit usage' below."]
         },
         "apis": true,
         "pro": true,

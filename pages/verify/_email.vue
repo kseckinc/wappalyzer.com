@@ -250,7 +250,7 @@
             <v-card class="mb-4">
               <v-card-title class="subtitle-2"> Upload your list </v-card-title>
               <v-card-text>
-                <p class="mb-2">
+                <p class="mb-6">
                   Upload a .txt file with up to 100,000 email addresses, each on
                   a separate line.
                 </p>
@@ -269,8 +269,8 @@
                   placeholder="Select a file..."
                   accept="text/plain"
                   hide-details="auto"
-                  class="mb-4"
                   background-color="white"
+                  outlined
                   @change="fileChange"
                 />
 

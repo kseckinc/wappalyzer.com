@@ -18,7 +18,7 @@
             class="d-flex flex-column align-stretch mb-4"
           >
             <v-btn
-              color="primary"
+              color="success"
               :href="`${datasetsBaseUrl}${list.filename}`"
               x-large
               depressed
@@ -668,6 +668,16 @@
               list.repeatListId
             }}</nuxt-link
             >.
+          </v-alert>
+
+          <v-alert
+            v-else-if="list.status === 'Complete'"
+            type="success"
+            border="left"
+            text
+            prominent
+          >
+            Thank you for your payment, your list is ready.
           </v-alert>
 
           <div

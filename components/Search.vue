@@ -10,7 +10,9 @@
     hide-details="auto"
     return-object
     solo
-    @focus="focus"
+    :dense="dense"
+    :flat="dense"
+    @focus="onFocus"
     @change="submit"
   >
     <template #prepend-item>
@@ -22,6 +24,7 @@
           placeholder="Website URL, technology, keyword or email address"
           :append-icon="mdiMagnify"
           :loading="!!(loading && query)"
+          :dense="dense"
           outlined
           required
           hide-details="auto"
@@ -133,6 +136,12 @@ import TechnologyIcon from '~/components/TechnologyIcon.vue'
 export default {
   components: {
     TechnologyIcon,
+  },
+  props: {
+    dense: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -256,7 +265,7 @@ export default {
 
       this.$router.push(item.to)
     },
-    async focus() {
+    async onFocus() {
       this.query = ''
       this.loading = false
 

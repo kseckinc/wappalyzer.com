@@ -215,7 +215,7 @@
                 Upload a list of websites
               </v-card-title>
               <v-card-text>
-                <p class="mb-2">
+                <p class="mb-6">
                   Upload a .txt file with up to 100,000 URLs, each on a separate
                   line.<br />
                 </p>
@@ -231,8 +231,8 @@
                   placeholder="Select a file..."
                   accept="text/plain"
                   hide-details="auto"
-                  class="mb-4"
                   background-color="white"
+                  outlined
                   @change="fileChange"
                 />
 

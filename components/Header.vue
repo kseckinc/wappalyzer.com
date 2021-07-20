@@ -16,19 +16,86 @@
           </v-col>
 
           <v-col class="d-none d-md-block flex-grow-1 flex-shrink-0 text-right">
-            <template v-for="(item, index) in mainNav">
-              <v-btn
-                v-if="item.to"
-                :key="item.title"
-                :to="item.to"
-                class="white--text"
-                text
-              >
-                {{ item.title }}
-              </v-btn>
-              <v-menu
-                v-else
-                :key="index"
+            <template v-if="!search">
+              <template v-for="(item, index) in mainNav">
+                <v-btn
+                  v-if="item.to"
+                  :key="item.title"
+                  :to="item.to"
+                  class="white--text"
+                  text
+                >
+                  {{ item.title }}
+                </v-btn>
+                <v-menu
+                  v-else
+                  :key="index"
+                  class="text-left"
+                  offset-y
+                  left
+                  eager
+                  attach
+                >
+                  <template #activator="{ on }">
+                    <v-btn
+                      :icon="!!item.icon"
+                      class="white--text"
+                      text
+                      v-on="on"
+                    >
+                      <v-icon v-if="item.icon" dense>
+                        {{ item.icon }}
+                      </v-icon>
+                      <template v-else>
+                        {{ item.title }}
+                        <v-icon dense right>
+                          {{ mdi.mdiChevronDown }}
+                        </v-icon>
+                      </template>
+                    </v-btn>
+                  </template>
+
+                  <v-list v-if="item.items" class="header__menu">
+                    <div v-for="(_item, _index) in item.items" :key="_index">
+                      <v-divider v-if="_index" />
+
+                      <v-list-item
+                        :href="_item.to.match(/^http/) ? _item.to : null"
+                        :target="_item.to.match(/^http/) ? '_blank' : '_self'"
+                        :to="_item.to.match(/^http/) ? null : _item.to"
+                        color="primary"
+                      >
+                        <v-list-item-action v-if="_item.icon">
+                          <v-icon color="primary" dense>
+                            {{ mdi[_item.icon] }}
+                          </v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content class="py-4">
+                          <v-list-item-title class="subtitle-2">
+                            {{ _item.title }}
+                          </v-list-item-title>
+                          <v-list-item-subtitle
+                            v-if="_item.subtitle"
+                            class="header__subtitle text--disabled"
+                          >
+                            <small>
+                              {{ _item.subtitle }}
+                            </small>
+                          </v-list-item-subtitle>
+                        </v-list-item-content>
+                        <v-list-item-icon v-if="_item.to.match(/^http/)">
+                          <v-icon dense>
+                            {{ mdi.mdiOpenInNew }}
+                          </v-icon>
+                        </v-list-item-icon>
+                      </v-list-item>
+                    </div>
+                  </v-list>
+                </v-menu> </template
+              ><span v-if="isLoading" class="px-4">
+                <Spinner color="white" /> </span
+              ><v-menu
+                v-else-if="isSignedIn"
                 class="text-left"
                 offset-y
                 left
@@ -36,187 +103,142 @@
                 attach
               >
                 <template #activator="{ on }">
-                  <v-btn :icon="!!item.icon" class="white--text" text v-on="on">
-                    <v-icon v-if="item.icon" dense>
-                      {{ item.icon }}
+                  <v-btn
+                    class="font-weight-regular text-left"
+                    color="white"
+                    dark
+                    text
+                    v-on="on"
+                  >
+                    <v-icon v-if="!isAdmin && !isMember" left size="20">
+                      {{ mdi.mdiAccount }}
                     </v-icon>
-                    <template v-else>
-                      {{ item.title }}
-                      <v-icon dense right>
-                        {{ mdi.mdiChevronDown }}
-                      </v-icon>
-                    </template>
+                    <v-icon v-else-if="isAdmin" left size="20">
+                      {{ mdi.mdiLockOpen }}
+                    </v-icon>
+                    <v-icon v-else-if="isMember" left size="20">
+                      {{ mdi.mdiDomain }}
+                    </v-icon>
+                    {{ user.billingName || user.name || user.email }}
+
+                    <v-chip
+                      v-if="isPro"
+                      color="white"
+                      class="ml-2"
+                      outlined
+                      x-small
+                    >
+                      PRO
+                    </v-chip>
                   </v-btn>
                 </template>
 
-                <v-list v-if="item.items" class="header__menu">
-                  <div v-for="(_item, _index) in item.items" :key="_index">
-                    <v-divider v-if="_index" />
-
-                    <v-list-item
-                      :href="_item.to.match(/^http/) ? _item.to : null"
-                      :target="_item.to.match(/^http/) ? '_blank' : '_self'"
-                      :to="_item.to.match(/^http/) ? null : _item.to"
-                      color="primary"
-                    >
-                      <v-list-item-action v-if="_item.icon">
-                        <v-icon color="primary" dense>
-                          {{ mdi[_item.icon] }}
-                        </v-icon>
-                      </v-list-item-action>
-                      <v-list-item-content class="py-4">
-                        <v-list-item-title class="subtitle-2">
-                          {{ _item.title }}
-                        </v-list-item-title>
-                        <v-list-item-subtitle
-                          v-if="_item.subtitle"
-                          class="header__subtitle text--disabled"
-                        >
-                          <small>
-                            {{ _item.subtitle }}
-                          </small>
-                        </v-list-item-subtitle>
-                      </v-list-item-content>
-                      <v-list-item-icon v-if="_item.to.match(/^http/)">
+                <v-sheet v-if="isMember || isAdmin" tile>
+                  <v-list nav dense>
+                    <v-list-item @click="signOutAs">
+                      <v-list-item-icon>
                         <v-icon dense>
-                          {{ mdi.mdiOpenInNew }}
+                          {{ mdi.mdiAccountSwitch }}
                         </v-icon>
                       </v-list-item-icon>
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          {{
+                            impersonator.billingName ||
+                            impersonator.name ||
+                            impersonator.email
+                          }}
+                        </v-list-item-title>
+                      </v-list-item-content>
                     </v-list-item>
-                  </div>
-                </v-list>
+                  </v-list>
+                  <v-divider />
+                </v-sheet>
+
+                <v-sheet
+                  v-if="isSignedIn && !isMember && organisations.length"
+                  tile
+                >
+                  <v-list nav dense>
+                    <v-list-item
+                      v-for="organisation in organisations"
+                      :key="organisation.id"
+                      @click="signInAs(organisation.organisationId)"
+                    >
+                      <v-list-item-icon>
+                        <v-icon dense>
+                          {{ mdi.mdiAccountSwitch }}
+                        </v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          {{ organisation.name }}
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-list>
+                  <v-divider />
+                </v-sheet>
+
+                <v-sheet tile>
+                  <v-list nav dense>
+                    <v-list-item v-if="user.admin" to="/admin">
+                      <v-list-item-icon>
+                        <v-icon color="success" dense>
+                          {{ mdi.mdiLockOpen }}
+                        </v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>
+                        <v-list-item-title>Admin</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item
+                      v-for="{ title, to, icon } in userNav"
+                      :key="title"
+                      :to="to"
+                    >
+                      <v-list-item-icon>
+                        <v-icon dense>
+                          {{ mdi[icon] }}
+                        </v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          {{ title }}
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-list>
+                </v-sheet>
               </v-menu>
+
+              <v-btn
+                v-else
+                color="white "
+                class="mx-2"
+                outlined
+                @click="signInDialog = true"
+              >
+                Sign up free
+              </v-btn>
             </template>
 
-            <span v-if="isLoading" class="px-4">
-              <Spinner color="white" />
-            </span>
+            <v-scroll-x-reverse-transition>
+              <div v-if="search" v-show="search" class="d-flex">
+                <v-spacer />
 
-            <v-menu
-              v-else-if="isSignedIn"
-              class="text-left"
-              offset-y
-              left
-              eager
-              attach
-            >
-              <template #activator="{ on }">
-                <v-btn
-                  class="font-weight-regular text-left"
-                  color="white"
-                  dark
-                  text
-                  v-on="on"
-                >
-                  <v-icon v-if="!isAdmin && !isMember" left size="20">
-                    {{ mdi.mdiAccount }}
-                  </v-icon>
-                  <v-icon v-else-if="isAdmin" left size="20">
-                    {{ mdi.mdiLockOpen }}
-                  </v-icon>
-                  <v-icon v-else-if="isMember" left size="20">
-                    {{ mdi.mdiDomain }}
-                  </v-icon>
-                  {{ user.billingName || user.name || user.email }}
+                <div style="width: 500px">
+                  <Search dense />
+                </div>
 
-                  <v-chip
-                    v-if="isPro"
-                    color="white"
-                    class="ml-2"
-                    outlined
-                    x-small
-                  >
-                    PRO
-                  </v-chip>
+                <v-btn icon color="white" class="ml-2" @click="search = false">
+                  <v-icon>{{ mdi.mdiClose }}</v-icon>
                 </v-btn>
-              </template>
+              </div>
+            </v-scroll-x-reverse-transition>
 
-              <v-sheet v-if="isMember || isAdmin" tile>
-                <v-list nav dense>
-                  <v-list-item @click="signOutAs">
-                    <v-list-item-icon>
-                      <v-icon dense>
-                        {{ mdi.mdiAccountSwitch }}
-                      </v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        {{
-                          impersonator.billingName ||
-                          impersonator.name ||
-                          impersonator.email
-                        }}
-                      </v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
-                <v-divider />
-              </v-sheet>
-
-              <v-sheet
-                v-if="isSignedIn && !isMember && organisations.length"
-                tile
-              >
-                <v-list nav dense>
-                  <v-list-item
-                    v-for="organisation in organisations"
-                    :key="organisation.id"
-                    @click="signInAs(organisation.organisationId)"
-                  >
-                    <v-list-item-icon>
-                      <v-icon dense>
-                        {{ mdi.mdiAccountSwitch }}
-                      </v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        {{ organisation.name }}
-                      </v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
-                <v-divider />
-              </v-sheet>
-
-              <v-sheet tile>
-                <v-list nav dense>
-                  <v-list-item v-if="user.admin" to="/admin">
-                    <v-list-item-icon>
-                      <v-icon color="success" dense>
-                        {{ mdi.mdiLockOpen }}
-                      </v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>Admin</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                  <v-list-item
-                    v-for="{ title, to, icon } in userNav"
-                    :key="title"
-                    :to="to"
-                  >
-                    <v-list-item-icon>
-                      <v-icon dense>
-                        {{ mdi[icon] }}
-                      </v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        {{ title }}
-                      </v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
-              </v-sheet>
-            </v-menu>
-            <v-btn
-              v-else
-              color="white "
-              class="ml-2"
-              outlined
-              @click="signInDialog = true"
-            >
-              Sign up free
+            <v-btn v-if="!search" icon color="white" @click="search = true">
+              <v-icon>{{ mdi.mdiMagnify }}</v-icon>
             </v-btn>
           </v-col>
 
@@ -260,16 +282,19 @@ import {
   mdiBellOutline,
   mdiMagnify,
   mdiEmailCheckOutline,
+  mdiClose,
 } from '@mdi/js'
 import Logo from '~/components/Logo.vue'
 import SignIn from '~/components/SignIn.vue'
 import Spinner from '~/components/Spinner.vue'
+import Search from '~/components/Search.vue'
 
 export default {
   components: {
     Logo,
     SignIn,
     Spinner,
+    Search,
   },
   props: {
     hero: {
@@ -288,6 +313,7 @@ export default {
   data() {
     return {
       signInDialog: false,
+      search: false,
       mdi: {
         mdiChevronDown,
         mdiAccount,
@@ -311,6 +337,7 @@ export default {
         mdiBellOutline,
         mdiMagnify,
         mdiEmailCheckOutline,
+        mdiClose,
       },
     }
   },
@@ -337,6 +364,9 @@ export default {
       if (this.isSignedIn) {
         this.signInDialog = false
       }
+    },
+    $route() {
+      this.search = false
     },
   },
 }
