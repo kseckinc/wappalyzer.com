@@ -9,9 +9,11 @@
       :head="{ title, meta }"
       no-head
     >
-      <h1 class="mb-4 text-h2">Empower your sales and marketing teams</h1>
+      <h1 class="mb-10 text-h2 text-center">
+        Empower your sales and marketing teams
+      </h1>
 
-      <UseCases class="mb-10" />
+      <UseCases class="mb-8" />
 
       <div v-for="(name, index) in products" :key="index">
         <v-divider v-if="index" class="my-8 my-sm-10" />

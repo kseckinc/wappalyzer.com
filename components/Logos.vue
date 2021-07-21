@@ -3,7 +3,7 @@
     <v-divider class="mb-12" />
 
     <template v-if="useCases">
-      <v-container class="py-6">
+      <v-container class="mb-12">
         <UseCases />
       </v-container>
 

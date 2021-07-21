@@ -1,62 +1,116 @@
 <template>
-  <v-row class="mb-8">
-    <v-col v-for="useCase in useCases" :key="useCase.text" cols="12" sm="4">
-      <v-card
-        class="d-flex flex-column justify-space-between"
-        style="height: 100%"
-        color="primary lighten-1"
-        flat
+  <div>
+    <v-row>
+      <v-col
+        v-for="(useCase, index) in useCases"
+        :key="index"
+        cols="6"
+        sm="4"
+        md="2"
       >
-        <v-card-text class="subtitle-2 primary--text">
-          <span style="font-size: 1rem">
-            {{ useCase.title }}
-          </span>
-        </v-card-text>
-        <v-card-text class="pt-0 primary--text" style="opacity: 0.8">
-          {{ useCase.text }}
-        </v-card-text>
-        <v-spacer />
-        <v-card-actions>
-          <v-spacer />
-          <v-btn :to="useCase.to" color="primary" text>
-            <v-icon left>
-              {{ useCase.icon }}
-            </v-icon>
-            {{ useCase.buttonText }}
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+        <div class="d-flex" style="height: 100%">
+          <div style="height: 100%">
+            <v-avatar color="primary lighten-1" size="48" class="mb-2">
+              <v-icon color="primary" size="24">{{ useCase.icon }}</v-icon>
+            </v-avatar>
+
+            <div>
+              <div class="subtitle-2 primary--text mb-1">
+                {{ useCase.title }}
+              </div>
+
+              <div style="line-height: 1rem">
+                <small class="text--disabled">
+                  {{ useCase.text }}
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
-import { mdiFilterVariant, mdiApps, mdiFileOutline } from '@mdi/js'
+import {
+  mdiFileTableOutline,
+  mdiAccountMultiple,
+  mdiFaceAgent,
+  mdiEarth,
+  mdiChartBoxOutline,
+  mdiIncognito,
+  mdiEmailOutline,
+  mdiShieldOutline,
+  mdiLaptop,
+  mdiConsole,
+  mdiChartTimelineVariantShimmer,
+  mdiBellOutline,
+} from '@mdi/js'
 
 export default {
   data() {
     return {
       useCases: [
         {
-          title: 'Generate sales leads',
-          text: 'Find new prospects by the technologies they use. Reach out to customers of Shopify, Magento, Salesforce and others.',
-          buttonText: 'Create a list',
-          icon: mdiFilterVariant,
-          to: '/lists/',
+          title: 'Website profiling',
+          text: 'Find out what websites are built with.',
+          icon: mdiEarth,
         },
         {
-          title: 'Enrich your data',
-          text: 'Upload a list of websites to get a report of the technologies in use, such as CMS or ecommerce platforms.',
-          buttonText: 'Upload a list',
-          icon: mdiFileOutline,
-          to: { path: '/lookup/', hash: '#bulk' },
+          title: 'Lead generation',
+          text: 'Find prospects by the technologies they use.',
+          icon: mdiAccountMultiple,
         },
         {
-          title: 'Connect to your tools',
-          text: 'See the technology stacks of your leads in your browser, CRM, mobile device or email client.',
-          buttonText: 'See all apps',
-          icon: mdiApps,
-          to: '/apps/',
+          title: 'Market research',
+          text: 'Compare market shares and technology trends.',
+          icon: mdiChartBoxOutline,
+        },
+        {
+          title: 'Competitor analysis',
+          text: "Discover who uses competitors' software.",
+          icon: mdiIncognito,
+        },
+        {
+          title: 'Data enrichment',
+          text: 'Technology, company and contact information.',
+          icon: mdiFileTableOutline,
+        },
+        {
+          title: 'Custom reports',
+          text: 'Create lists of websites and contacts.',
+          icon: mdiChartTimelineVariantShimmer,
+        },
+        {
+          title: 'Website monitoring',
+          text: 'Monitor website technology changes.',
+          icon: mdiBellOutline,
+        },
+        {
+          title: 'Browser extension',
+          text: 'See the technologies on websites you visit.',
+          icon: mdiLaptop,
+        },
+        {
+          title: 'CRM integration',
+          text: 'See the technologies of your leads.',
+          icon: mdiFaceAgent,
+        },
+        {
+          title: 'Email verification',
+          text: 'Improve delivery and mailing list quality.',
+          icon: mdiEmailOutline,
+        },
+        {
+          title: 'API access',
+          text: 'Instant and real-time technology lookups.',
+          icon: mdiConsole,
+        },
+        {
+          title: 'Security recon',
+          text: 'Reveal web technologies and version numbers.',
+          icon: mdiShieldOutline,
         },
       ],
     }

@@ -37,7 +37,7 @@
           md="3"
         >
           <div class="mb-2 d-flex align-center">
-            <v-avatar color="secondary" size="48" class="elevation-2">
+            <v-avatar color="primary lighten-1" size="48">
               <v-icon color="primary" size="32">
                 {{ feature.icon }}
               </v-icon>
