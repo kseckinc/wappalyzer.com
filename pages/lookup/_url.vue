@@ -3,13 +3,13 @@
     <div class="mt-6 mb-6">
       <v-btn to="/apps/" class="mb-2 mr-2" depressed>
         <v-icon left>
-          {{ mdiPuzzle }}
+          {{ mdiLaptop }}
         </v-icon>
         Browser extension
       </v-btn>
       <v-btn to="/apps/" class="mb-2 mr-2" depressed>
         <v-icon left>
-          {{ mdiPowerPlug }}
+          {{ mdiFaceAgent }}
         </v-icon>
         CRM integration
       </v-btn>
@@ -380,9 +380,9 @@ import {
   mdiCalculator,
   mdiArrowRight,
   mdiLockOpenVariantOutline,
-  mdiPuzzle,
+  mdiLaptop,
   mdiConsole,
-  mdiPowerPlug,
+  mdiFaceAgent,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -504,9 +504,9 @@ export default {
       mdiCalculator,
       mdiArrowRight,
       mdiLockOpenVariantOutline,
-      mdiPuzzle,
+      mdiLaptop,
       mdiConsole,
-      mdiPowerPlug,
+      mdiFaceAgent,
       order: false,
       ordering: false,
       url: '',

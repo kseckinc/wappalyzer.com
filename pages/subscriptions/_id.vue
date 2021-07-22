@@ -108,7 +108,7 @@
             </v-icon>
             Change payment
           </v-btn>
-          <v-btn color="error" text @click="cancel(false)">
+          <v-btn color="error" text @click="cancelDialog = true">
             <v-icon left>
               {{ mdiCalendarRemove }}
             </v-icon>
@@ -119,9 +119,14 @@
 
       <small class="text--disabled">Prices are in United States dollars.</small>
 
-      <v-dialog v-model="cancelDialog" max-width="500px" eager>
+      <v-dialog
+        v-if="!confirmCancelDialog"
+        v-model="cancelDialog"
+        max-width="500px"
+        eager
+      >
         <v-card>
-          <v-card-title> Cancel subscription </v-card-title>
+          <v-card-title>Cancel subscription</v-card-title>
 
           <v-card-text class="pb-0">
             <v-alert v-if="cancelError" type="error" text>
@@ -155,7 +160,14 @@
                 <v-radio label="Different reason" value="Different reason" />
               </v-radio-group>
 
-              <v-textarea v-model="cancelComment" label="Comments" outlined />
+              <v-textarea
+                v-model="cancelComment"
+                label="Comments"
+                class="mb-4"
+                rows="3"
+                hide-details
+                outlined
+              />
             </v-form>
 
             Your subscription will be cancelled at the end of the billing
@@ -167,76 +179,79 @@
             <v-btn color="accent" text @click="cancelDialog = false">
               Cancel
             </v-btn>
-            <v-btn
-              :loading="cancelling"
-              color="error"
-              text
-              @click="cancel(true)"
-            >
+            <v-btn :loading="cancelling" color="error" text @click="cancel()">
               Ok
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
-
-      <v-dialog v-model="paymentMethodDialog" max-width="600px" eager>
-        <v-card>
-          <v-card-title> Payment method </v-card-title>
-          <v-card-text class="px-2">
-            <v-alert v-if="paymentMethodError" type="error" text>
-              {{ paymentMethodError }}
-            </v-alert>
-
-            <div
-              v-if="paymentMethodsLoading || paymentMethodSaving"
-              class="text-center my-4"
-            >
-              <v-progress-circular color="accent" indeterminate />
-            </div>
-            <v-alert
-              v-else-if="!paymentMethods.length"
-              color="info"
-              class="mx-4 mb-0"
-              text
-            >
-              You don't currently have any
-              <nuxt-link to="/paymentmethods/">payment methods</nuxt-link>.
-            </v-alert>
-            <v-simple-table v-else>
-              <thead>
-                <tr>
-                  <th>Name on card</th>
-                  <th>Card details</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="paymentMethod in paymentMethods"
-                  :key="paymentMethod.id"
-                  @click="savePaymentMethod(paymentMethod.id)"
-                >
-                  <td>{{ paymentMethod.name }}</td>
-                  <td>
-                    <CreditCard
-                      :brand="paymentMethod.brand"
-                      :last4="paymentMethod.last4"
-                      :exp-month="paymentMethod.expMonth"
-                      :exp-year="paymentMethod.expYear"
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </v-simple-table>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer />
-            <v-btn color="accent" text @click="paymentMethodDialog = false">
-              Cancel
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
     </template>
+
+    <v-dialog v-model="confirmCancelDialog" max-width="400px">
+      <SignIn
+        mode-confirm
+        @confirm="cancel(true)"
+        @close="confirmCancelDialog = false"
+      />
+    </v-dialog>
+
+    <v-dialog v-model="paymentMethodDialog" max-width="600px" eager>
+      <v-card>
+        <v-card-title> Payment method </v-card-title>
+        <v-card-text class="px-2">
+          <v-alert v-if="paymentMethodError" type="error" text>
+            {{ paymentMethodError }}
+          </v-alert>
+
+          <div
+            v-if="paymentMethodsLoading || paymentMethodSaving"
+            class="text-center my-4"
+          >
+            <v-progress-circular color="accent" indeterminate />
+          </div>
+          <v-alert
+            v-else-if="!paymentMethods.length"
+            color="info"
+            class="mx-4 mb-0"
+            text
+          >
+            You don't currently have any
+            <nuxt-link to="/paymentmethods/">payment methods</nuxt-link>.
+          </v-alert>
+          <v-simple-table v-else>
+            <thead>
+              <tr>
+                <th>Name on card</th>
+                <th>Card details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="paymentMethod in paymentMethods"
+                :key="paymentMethod.id"
+                @click="savePaymentMethod(paymentMethod.id)"
+              >
+                <td>{{ paymentMethod.name }}</td>
+                <td>
+                  <CreditCard
+                    :brand="paymentMethod.brand"
+                    :last4="paymentMethod.last4"
+                    :exp-month="paymentMethod.expMonth"
+                    :exp-year="paymentMethod.expYear"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn color="accent" text @click="paymentMethodDialog = false">
+            Cancel
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </Page>
 </template>
 
@@ -251,15 +266,18 @@ import {
 
 import Page from '~/components/Page.vue'
 import CreditCard from '~/components/CreditCard.vue'
+import SignIn from '~/components/SignIn.vue'
 
 export default {
   components: {
     Page,
     CreditCard,
+    SignIn,
   },
   data() {
     return {
       cancelDialog: false,
+      confirmCancelDialog: false,
       cancelError: false,
       cancelling: false,
       cancelReason: '',
@@ -324,16 +342,17 @@ export default {
     }
   },
   methods: {
-    async cancel(confirm) {
+    async cancel(confirmed) {
       this.success = false
       this.cancelError = false
 
-      if (!confirm) {
-        this.cancelDialog = true
+      if (!confirmed) {
+        this.confirmCancelDialog = true
 
         return
       }
 
+      this.confirmCancelDialog = false
       this.cancelling = true
 
       try {
@@ -351,7 +370,7 @@ export default {
         this.cancelDialog = false
 
         this.success =
-          'Your subscription will be cancelled at the end of the billing period'
+          'Your subscription will end at the end of the billing period'
       } catch (error) {
         this.cancelError = this.getErrorMessage(error)
       }

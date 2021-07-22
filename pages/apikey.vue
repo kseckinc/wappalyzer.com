@@ -38,7 +38,7 @@
               class="secret__value"
               readonly
               hide-details
-              dense
+              outlined
               @click:append="() => (showKey = !showKey)"
             />
           </template>
@@ -85,7 +85,7 @@
               class="secret__value"
               readonly
               hide-details
-              dense
+              outlined
               @click:append="() => (showSecret = !showSecret)"
             />
           </template>
@@ -114,7 +114,12 @@
         </v-card-actions>
       </v-card>
 
-      <v-dialog v-model="removeKeyDialog" max-width="400px" eager>
+      <v-dialog
+        v-if="!confirmRemoveKeyDialog"
+        v-model="removeKeyDialog"
+        max-width="400px"
+        eager
+      >
         <v-card>
           <v-card-title>Delete key</v-card-title>
           <v-card-text>
@@ -129,14 +134,24 @@
             <v-btn color="accent" text @click="removeKeyDialog = false">
               Cancel
             </v-btn>
-            <v-btn :loading="removingKey" color="error" text @click="removeKey">
+            <v-btn
+              :loading="removingKey"
+              color="error"
+              text
+              @click="removeKey()"
+            >
               Ok
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
 
-      <v-dialog v-model="removeSecretDialog" max-width="400px" eager>
+      <v-dialog
+        v-if="!confirmRemoveSecretDialog"
+        v-model="removeSecretDialog"
+        max-width="400px"
+        eager
+      >
         <v-card>
           <v-card-title>Delete signing secret</v-card-title>
           <v-card-text>
@@ -148,14 +163,14 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer />
-            <v-btn color="accent" text @click="removeSecretDialog = false">
+            <v-btn color="accent" text @click="raemoveSecretDialog = false">
               Cancel
             </v-btn>
             <v-btn
               :loading="removingSecret"
               color="error"
               text
-              @click="removeSecret"
+              @click="removeSecret()"
             >
               Ok
             </v-btn>
@@ -163,6 +178,22 @@
         </v-card>
       </v-dialog>
     </template>
+
+    <v-dialog v-model="confirmRemoveKeyDialog" max-width="400px">
+      <SignIn
+        mode-confirm
+        @confirm="removeKey(true)"
+        @close="confirmRemoveKeyDialog = false"
+      />
+    </v-dialog>
+
+    <v-dialog v-model="confirmRemoveSecretDialog" max-width="400px">
+      <SignIn
+        mode-confirm
+        @confirm="removeSecret(true)"
+        @close="confirmRemoveSecretDialog = false"
+      />
+    </v-dialog>
   </Page>
 </template>
 
@@ -174,11 +205,14 @@ import {
   mdiKeyPlus,
   mdiKeyRemove,
 } from '@mdi/js'
+
 import Page from '~/components/Page.vue'
+import SignIn from '~/components/SignIn.vue'
 
 export default {
   components: {
     Page,
+    SignIn,
   },
   data() {
     return {
@@ -194,7 +228,9 @@ export default {
       mdiKeyPlus,
       mdiKeyRemove,
       removeKeyDialog: false,
+      confirmRemoveKeyDialog: false,
       removeSecretDialog: false,
+      confirmRemoveSecretDialog: false,
       removeKeyError: false,
       removeSecretError: false,
       removingKey: false,
@@ -202,6 +238,7 @@ export default {
       showKey: false,
       showSecret: false,
       success: false,
+      signInDialog: true,
       loading: true,
     }
   },
@@ -252,10 +289,18 @@ export default {
 
       this.creatingKey = false
     },
-    async removeKey() {
+    async removeKey(confirmed) {
       this.success = false
       this.error = false
       this.removeKeyError = false
+
+      if (!confirmed) {
+        this.confirmRemoveKeyDialog = true
+
+        return
+      }
+
+      this.confirmRemoveKeyDialog = false
       this.removingKey = true
 
       try {
@@ -291,10 +336,18 @@ export default {
 
       this.creatingSecret = false
     },
-    async removeSecret() {
+    async removeSecret(confirmed) {
       this.success = false
       this.error = false
       this.removeSecretError = false
+
+      if (!confirmed) {
+        this.confirmRemoveSecretDialog = true
+
+        return
+      }
+
+      this.confirmRemoveSecretDialog = false
       this.removingSecret = true
 
       try {

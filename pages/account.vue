@@ -144,7 +144,7 @@
 
     <v-dialog v-model="changeEmailDialog" width="80%" max-width="400">
       <v-card>
-        <v-card-title> Email address change </v-card-title>
+        <v-card-title>Email address change</v-card-title>
         <v-card-text>
           You will be signed out. You must to verify your new email address to
           sign back in.
@@ -159,7 +159,11 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="deleteAccountDialog" width="80%" max-width="400">
+    <v-dialog
+      v-if="!confirmDeleteAccountDialog"
+      v-model="deleteAccountDialog"
+      max-width="400"
+    >
       <v-card>
         <v-card-title>Delete account</v-card-title>
         <v-card-text>Your account will be deleted permanently.</v-card-text>
@@ -168,11 +172,19 @@
           <v-btn color="accent" text @click="deleteAccountDialog = false">
             Cancel
           </v-btn>
-          <v-btn :loading="removing" color="error" text @click="remove">
+          <v-btn :loading="removing" color="error" text @click="remove()">
             Delete
           </v-btn>
         </v-card-actions>
       </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="confirmDeleteAccountDialog" max-width="400px">
+      <SignIn
+        mode-confirm
+        @confirm="remove(true)"
+        @close="confirmDeleteAccountDialog = false"
+      />
     </v-dialog>
   </Page>
 </template>
@@ -189,17 +201,20 @@ import {
 
 import Page from '~/components/Page.vue'
 import Account from '~/components/Account.vue'
+import SignIn from '~/components/SignIn.vue'
 
 export default {
   components: {
     Page,
     Account,
+    SignIn,
   },
   data() {
     return {
       title: 'Account',
       changeEmailDialog: false,
       deleteAccountDialog: false,
+      confirmDeleteAccountDialog: false,
       email: '',
       error: false,
       mdiOpenInNew,
@@ -283,12 +298,20 @@ export default {
         this.saving = false
       }
     },
-    async remove() {
-      this.removing = true
+    async remove(confirmed) {
       this.error = false
 
+      if (!confirmed) {
+        this.confirmDeleteAccountDialog = true
+
+        return
+      }
+
+      this.confirmDeleteAccountDialog = false
+      this.removing = true
+
       try {
-        await this.deleteUser()
+        // await this.deleteUser()
       } catch (error) {
         this.error = this.getErrorMessage(error)
       }

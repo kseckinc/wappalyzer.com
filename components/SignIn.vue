@@ -3,35 +3,51 @@
     <v-card-title v-if="mode === 'signIn' || mode === 'verifySignIn'">
       Sign in {{ modeContinue ? 'to continue' : '' }}
     </v-card-title>
-    <v-card-title v-if="mode === 'signUp' || mode === 'verifySignUp'">
+    <v-card-title v-else-if="mode === 'signUp' || mode === 'verifySignUp'">
       Sign up {{ modeContinue ? 'to continue' : '' }}
     </v-card-title>
-    <v-card-title v-if="mode === 'reset' || mode === 'verifyReset'">
+    <v-card-title v-else-if="mode === 'reset' || mode === 'verifyReset'">
       Reset password
     </v-card-title>
-    <v-card-text v-if="!isSignedIn">
+    <v-card-title v-else-if="mode === 'confirm'">
+      Re-enter your password
+    </v-card-title>
+
+    <v-card-text
+      v-if="!isSignedIn || mode === 'confirm'"
+      :class="mode === 'confirm' ? 'pb-0' : ''"
+    >
       <v-alert v-if="success" type="success" text>
         {{ success }}
       </v-alert>
+
       <v-alert v-if="error" type="error" text>
         {{ error }}
       </v-alert>
+
       <v-alert
         v-if="!noBanner && mode === 'signUp'"
         color="primary lighten-1"
-        class="mx-n6 px-6 primary--text"
+        class="mx-n6 px-6 mb-6 primary--text"
       >
         Sign up for free to receive 50 credits every month to spend on any
         product.
       </v-alert>
+
       <v-form ref="form" v-model="valid">
         <v-text-field
-          v-if="mode !== 'verifySignUp' && mode !== 'verifySignIn'"
+          v-if="
+            mode !== 'verifySignUp' &&
+            mode !== 'verifySignIn' &&
+            mode !== 'confirm'
+          "
           v-model="email"
           :rules="emailRules"
           label="Email address"
           class="mb-4"
+          hide-details="auto"
           required
+          outlined
         />
 
         <v-text-field
@@ -45,8 +61,10 @@
           :append-icon="showPassword ? mdiEyeOff : mdiEye"
           :type="showPassword ? 'text' : 'password'"
           :label="mode === 'verifyReset' ? 'New password' : 'Password'"
-          class="mt-n4 mb-4"
+          :class="mode === 'confirm' ? 'mt-2 mb-4' : 'mb-4'"
+          hide-details="auto"
           required
+          outlined
           @click:append="() => (showPassword = !showPassword)"
         />
 
@@ -54,6 +72,7 @@
           v-if="mode === 'signUp'"
           v-model="subscribe"
           label="Receive occasional product updates"
+          class="mt-0 pt-0"
         />
 
         <v-text-field
@@ -66,7 +85,9 @@
           :rules="codeRules"
           label="Verification code"
           class="mb-4"
+          hide-details="auto"
           required
+          outlined
         />
 
         <template v-if="mode === 'signUp'">
@@ -75,6 +96,7 @@
             :loading="signingUp"
             type="submit"
             color="primary"
+            large
             depressed
             @click.prevent.stop="doSignUp"
           >
@@ -93,6 +115,7 @@
             :loading="signingIn"
             type="submit"
             color="primary"
+            large
             depressed
             @click.prevent.stop="doSignIn"
           >
@@ -100,9 +123,9 @@
           </v-btn>
 
           <div class="mt-4">
-            <a @click.prevent="mode = 'signUp'"> Create an account </a>
+            <a @click.prevent="mode = 'signUp'">Create an account</a>
             <br />
-            <a @click.prevent="mode = 'reset'"> Reset password </a>
+            <a @click.prevent="mode = 'reset'">Reset password</a>
           </div>
         </template>
         <template
@@ -117,6 +140,7 @@
             :loading="verifying"
             type="submit"
             color="primary"
+            large
             depressed
             @click.prevent.stop="
               () => (mode === 'reset' ? doReset() : doVerify())
@@ -157,7 +181,7 @@
           </v-btn>
 
           <div class="mt-4">
-            <a @click.prevent="mode = 'signIn'"> Sign in </a>
+            <a @click.prevent="mode = 'signIn'">Sign in</a>
           </div>
         </template>
       </v-form>
@@ -168,12 +192,29 @@
       <v-btn
         :loading="signingOut"
         color="primary"
+        large
         depressed
         @click.stop="doSignOut"
       >
         Sign out
       </v-btn>
     </v-card-text>
+    <v-card-actions v-if="mode === 'confirm'">
+      <v-spacer />
+
+      <v-btn color="accent" text @click.prevent.stop="$emit('close')">
+        Cancel
+      </v-btn>
+      <v-btn
+        :disabled="!valid"
+        :loading="confirming"
+        color="accent"
+        text
+        @click.prevent.stop="doConfirm"
+      >
+        Continue
+      </v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -199,6 +240,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    modeConfirm: {
+      type: Boolean,
+      default: false,
+    },
     noBanner: {
       type: Boolean,
       default: false,
@@ -206,7 +251,13 @@ export default {
   },
   data() {
     return {
-      mode: this.modeSignUp ? 'signUp' : this.modeReset ? 'reset' : 'signIn',
+      mode: this.modeSignUp
+        ? 'signUp'
+        : this.modeReset
+        ? 'reset'
+        : this.modeConfirm
+        ? 'confirm'
+        : 'signIn',
       error: '',
       nextError: '',
       subscribe: false,
@@ -221,6 +272,7 @@ export default {
       verifying: false,
       reverifying: false,
       resetting: false,
+      confirming: false,
       valid: false,
       email: '',
       emailRules: [
@@ -414,6 +466,27 @@ export default {
       }
 
       this.reverifying = false
+    },
+    async doConfirm() {
+      this.success = ''
+      this.error = ''
+
+      if (this.$refs.form.validate()) {
+        this.confirming = true
+
+        try {
+          await this.signIn({
+            username: this.user.email,
+            password: this.password,
+          })
+
+          this.$emit('confirm')
+        } catch (error) {
+          this.error = error.message || error.toString()
+
+          this.confirming = false
+        }
+      }
     },
   },
 }

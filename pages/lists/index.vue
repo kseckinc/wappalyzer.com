@@ -702,9 +702,9 @@
                                 'Value must be numeric',
                               (v) =>
                                 !v ||
-                                (parseInt(v, 10) >= 500 &&
+                                (parseInt(v, 10) >= minListSize &&
                                   (isAdmin || parseInt(v, 10) <= 1000000)) ||
-                                'Subset size must be between at 500 and 1M. For larger lists, please contact us.',
+                                `Subset size must be between at ${minListSize} and 1M. For larger lists, please contact us.`,
                             ]"
                             class="mt-6 mb-8 pt-0"
                             placeholder="500000"
@@ -1616,6 +1616,9 @@ export default {
         value,
       }))
     },
+    minListSize() {
+      return this.isPro ? 50 : 500
+    },
   },
   watch: {
     isSignedIn() {
@@ -2244,7 +2247,10 @@ export default {
       this.subset =
         typeof subset === 'undefined'
           ? null
-          : Math.min(1000000, Math.max(500, parseInt(subset || 0, 10))) || null
+          : Math.min(
+              1000000,
+              Math.max(this.minListSize, parseInt(subset || 0, 10))
+            ) || null
 
       this.subsetSlice = Math.max(0, Math.min(4, parseInt(traffic || 0, 10)))
 

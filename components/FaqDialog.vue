@@ -12,7 +12,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn color="accent" text @click="close"> Close </v-btn>
+        <v-btn color="accent" text @click="close">Close</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
