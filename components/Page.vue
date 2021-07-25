@@ -1,61 +1,44 @@
 <template>
   <div>
-    <v-main>
-      <Hero
-        v-if="hero"
-        :title="hero.title || meta.title"
-        :subtitle="hero.subtitle || meta.text"
+    <Hero
+      v-if="hero"
+      :title="hero.title || meta.title"
+      :subtitle="hero.subtitle || meta.text"
+    />
+
+    <Crumbs v-if="crumbs" :crumbs="crumbNav" />
+
+    <slot name="header" />
+
+    <v-container class="py-10 py-sm-12">
+      <Progress
+        v-if="secure && !isSignedIn && isLoading"
+        style="margin: 0 auto"
       />
+      <SignIn v-else-if="secure && !isSignedIn" class="px-2" mode-continue />
+      <v-row v-else-if="sideNav.length">
+        <v-col cols="12" sm="4" lg="3" order="2" order-sm="0">
+          <Credits v-if="secure && isSignedIn" variant />
 
-      <Crumbs v-if="crumbs" :crumbs="crumbNav" />
-
-      <slot name="header" />
-
-      <v-container class="py-10 py-sm-12">
-        <Progress
-          v-if="secure && !isSignedIn && isLoading"
-          style="margin: 0 auto"
-        />
-        <SignIn v-else-if="secure && !isSignedIn" class="px-2" mode-continue />
-        <v-row v-else-if="sideNav.length">
-          <v-col cols="12" sm="4" lg="3" order="2" order-sm="0">
-            <Credits v-if="secure && isSignedIn" variant />
-
-            <SideNav :items="sideNav" />
-          </v-col>
-          <v-col cols="12" sm="8" lg="9">
-            <PageHead
-              v-if="!noHead"
-              :loading="loading"
-              :title="head.title"
-              :subtitle="head.subtitle"
-              :text="head.text"
-              :image="head.image"
-            >
-              <slot />
-            </PageHead>
-            <slot v-else />
-            <slot name="content" />
-          </v-col>
-        </v-row>
-        <v-row v-else-if="narrow" justify="center" no-gutters>
-          <v-col sm="10" lg="8">
-            <PageHead
-              v-if="!noHead"
-              :loading="loading"
-              :title="head.title"
-              :subtitle="head.subtitle"
-              :text="head.text"
-              :image="head.image"
-              :narrow="narrow"
-            >
-              <slot />
-            </PageHead>
-            <slot v-else />
-            <slot name="content" />
-          </v-col>
-        </v-row>
-        <template v-else>
+          <SideNav :items="sideNav" />
+        </v-col>
+        <v-col cols="12" sm="8" lg="9">
+          <PageHead
+            v-if="!noHead"
+            :loading="loading"
+            :title="head.title"
+            :subtitle="head.subtitle"
+            :text="head.text"
+            :image="head.image"
+          >
+            <slot />
+          </PageHead>
+          <slot v-else />
+          <slot name="content" />
+        </v-col>
+      </v-row>
+      <v-row v-else-if="narrow" justify="center" no-gutters>
+        <v-col sm="10" lg="8">
           <PageHead
             v-if="!noHead"
             :loading="loading"
@@ -69,13 +52,28 @@
           </PageHead>
           <slot v-else />
           <slot name="content" />
-        </template>
-      </v-container>
+        </v-col>
+      </v-row>
+      <template v-else>
+        <PageHead
+          v-if="!noHead"
+          :loading="loading"
+          :title="head.title"
+          :subtitle="head.subtitle"
+          :text="head.text"
+          :image="head.image"
+          :narrow="narrow"
+        >
+          <slot />
+        </PageHead>
+        <slot v-else />
+        <slot name="content" />
+      </template>
+    </v-container>
 
-      <slot name="footer" />
+    <slot name="footer" />
 
-      <Subscribe v-if="!noSubscribe && (!secure || isSignedIn)" />
-    </v-main>
+    <Subscribe v-if="!noSubscribe && (!secure || isSignedIn)" />
   </div>
 </template>
 

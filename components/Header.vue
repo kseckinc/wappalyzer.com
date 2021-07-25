@@ -8,8 +8,15 @@
     >
       <small>User disabled</small>
     </v-sheet>
-    <v-sheet class="header" color="primary" tile>
-      <v-container tag="header">
+    <v-app-bar
+      class="header"
+      tag="header"
+      color="primary"
+      height="74"
+      style="z-index: 10"
+      flat
+    >
+      <v-container>
         <v-row class="align-center">
           <v-col class="flex-grow-0 flex-shrink-1">
             <Logo dark />
@@ -31,6 +38,7 @@
                   v-else
                   :key="index"
                   class="text-left"
+                  style="z-index: 20001"
                   offset-y
                   left
                   eager
@@ -224,7 +232,7 @@
             </template>
 
             <v-scroll-x-reverse-transition>
-              <div v-if="search" v-show="search" class="d-flex">
+              <div v-if="search" v-show="search" class="d-flex align-center">
                 <v-spacer />
 
                 <div style="width: 500px">
@@ -249,7 +257,7 @@
           </v-col>
         </v-row>
       </v-container>
-    </v-sheet>
+    </v-app-bar>
 
     <v-dialog v-model="signInDialog" max-width="400px">
       <SignIn mode-sign-up />

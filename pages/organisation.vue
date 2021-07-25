@@ -230,7 +230,6 @@
               label="Email address"
               placeholder="info@example.com"
               outlined
-              dense
             />
           </v-form>
         </v-card-text>

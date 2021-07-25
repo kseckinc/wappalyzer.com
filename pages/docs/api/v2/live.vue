@@ -41,7 +41,7 @@
             </tr>
             <tr>
               <td>Rate limit</td>
-              <td>1 request / second (up to ten domains per request)</td>
+              <td>5 requests / second (up to ten domains per request)</td>
             </tr>
           </tbody>
         </v-simple-table>

@@ -1,10 +1,199 @@
-[
-	"I'd rather not say",
-  "Competitor analysis",
-  "Data enrichment",
-  "Lead generation",
-  "Market research",
-  "Reselling",
-  "Security profiling",
-  "Other"
-]
+{
+  "leadGeneration": {
+    "title": "Lead generation",
+    "intro": "Find new prospects by the technologies they use. We track the technology stacks of millions of websites globally and capture any email addresses, phone numbers and social media profiles we find.",
+    "features": [
+      {
+        "text": "Technology stacks",
+        "icon": "mdiLayers"
+      },
+      {
+        "text": "Company information",
+        "icon": "mdiDomain"
+      },
+      {
+        "text": "Contact details",
+        "icon": "mdiPhone"
+      },
+      {
+        "text": "Social media profiles",
+        "icon": "mdiLinkedin"
+      },
+      {
+        "text": "Audience targeting",
+        "icon": "mdiBullseyeArrow"
+      },
+      {
+        "text": "Custom reports",
+        "icon": "mdiChartTimelineVariantShimmer"
+      },
+      {
+        "text": "API access",
+        "icon": "mdiConsole"
+      },
+      {
+        "text": "Data enrichment",
+        "icon": "mdiFileTableOutline"
+      }
+    ],
+    "products": [
+      "lookup",
+      "lists",
+      "verify"
+    ]
+  },
+  "marketResearch": {
+    "title": "Market research",
+    "intro": "We track web technologies in dozens of categories, such as ecommerce platforms, CMS and CRM. Compare market shares by install base and website traffic, segmented by location and language.",
+    "features": [
+      {
+        "text": "Global coverage",
+        "icon": "mdiEarth"
+      },
+      {
+        "text": "Custom reports",
+        "icon": "mdiChartTimelineVariantShimmer"
+      },
+      {
+        "text": "API access",
+        "icon": "mdiConsole"
+      },
+      {
+        "text": "Data enrichment",
+        "icon": "mdiFileTableOutline"
+      },
+      {
+        "text": "Website traffic",
+        "icon": "mdiTrafficLight"
+      },
+      {
+        "text": "Market shares",
+        "icon": "mdiChartDonut"
+      },
+      {
+        "text": "Competitor analysis",
+        "icon": "mdiIncognito"
+      },
+      {
+        "text": "Browser extension",
+        "icon": "mdiLaptop"
+      }
+    ],
+    "products": [
+      "lookup",
+      "lists"
+    ]
+  },
+  "competitorAnalysis": {
+    "title": "Competitor analysis",
+    "intro": "Discover who's using your software and that of your competitors. Instantly find out the technology stack of your competition's websites, individually or in bulk. Automate technology lookups and real-time analysis with our highly scalable APIs.",
+    "features": [
+      {
+        "text": "Technology stacks",
+        "icon": "mdiLayers"
+      },
+      {
+        "text": "Custom reports",
+        "icon": "mdiChartTimelineVariantShimmer"
+      },
+      {
+        "text": "API access",
+        "icon": "mdiConsole"
+      },
+      {
+        "text": "Data enrichment",
+        "icon": "mdiFileTableOutline"
+      },
+      {
+        "text": "CRM integration",
+        "icon": "mdiFaceAgent"
+      },
+      {
+        "text": "Market shares",
+        "icon": "mdiChartDonut"
+      },
+      {
+        "text": "Monitor websites",
+        "icon": "mdiBellOutline"
+      },
+      {
+        "text": "Browser extension",
+        "icon": "mdiLaptop"
+      }
+    ],
+    "products": [
+      "lookup",
+      "lists",
+      "apis",
+      "alerts"
+    ]
+  },
+  "dataEnrichment": {
+    "title": "Data enrichment",
+    "intro": "Bring your own list of websites and we'll enrich it with technology and contact data. Any websites we don't have readily available results for are be crawled and scanned immediately.",
+    "features": [
+     {
+        "text": "Technology stacks",
+        "icon": "mdiLayers"
+      },
+      {
+        "text": "Company information",
+        "icon": "mdiDomain"
+      },
+      {
+        "text": "Contact details",
+        "icon": "mdiPhone"
+      },
+      {
+        "text": "Social media profiles",
+        "icon": "mdiLinkedin"
+      },
+      {
+        "text": "Website traffic",
+        "icon": "mdiTrafficLight"
+      },
+      {
+        "text": "Real-time analysis",
+        "icon": "mdiClockFast"
+      },
+      {
+        "text": "CRM integration",
+        "icon": "mdiFaceAgent"
+      },
+      {
+        "text": "API access",
+        "icon": "mdiConsole"
+      }
+    ],
+    "products": [
+      "lookup",
+      "apis"
+    ]
+  },
+  "securityRecon": {
+    "title": "Security reconnaissance",
+    "intro": "Our tools are widely used by professionals in the infosec community for information gathering, reconnaissance and software idenification. Wappalyzer is integrated with industry leading security assessment tools like OWASP ZAP.",
+    "features": [
+     {
+        "text": "Technology stacks",
+        "icon": "mdiLayers"
+      },
+      {
+        "text": "Version numbers",
+        "icon": "mdiNumeric"
+      },
+      {
+        "text": "Browser extension",
+        "icon": "mdiLaptop"
+      },
+      {
+        "text": "API access",
+        "icon": "mdiConsole"
+      }
+    ],
+    "products": [
+      "lookup",
+      "apis"
+    ]
+  }
+}

@@ -182,7 +182,6 @@ import taxIds from '~/assets/json/taxids'
 import countries from '~/assets/json/countries'
 import states from '~/assets/json/states'
 import industries from '~/assets/json/industries'
-import useCases from '~/assets/json/usecases'
 
 export default {
   data() {
@@ -214,7 +213,16 @@ export default {
       saving: false,
       success: false,
       taxIds,
-      useCases,
+      useCases: [
+        "I'd rather not say",
+        'Competitor analysis',
+        'Data enrichment',
+        'Lead generation',
+        'Market research',
+        'Reselling',
+        'Security profiling',
+        'Other',
+      ],
       valid: true,
     }
   },

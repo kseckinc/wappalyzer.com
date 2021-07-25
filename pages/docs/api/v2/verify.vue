@@ -34,7 +34,7 @@
             </tr>
             <tr>
               <td>Rate limit</td>
-              <td>1 request / second</td>
+              <td>5 requests / second</td>
             </tr>
           </tbody>
         </v-simple-table>

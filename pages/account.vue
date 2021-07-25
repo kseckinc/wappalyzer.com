@@ -8,7 +8,7 @@
       {{ error }}
     </v-alert>
 
-    <template v-if="!isAdmin">
+    <template v-if="isAdmin">
       <v-btn
         :href="`https://dashboard.stripe.com/customers/${user.stripeCustomer}`"
         :disabled="!user.stripeCustomer"

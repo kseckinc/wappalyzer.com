@@ -4,6 +4,13 @@
 
     <template v-if="useCases">
       <v-container class="mb-12">
+        <div class="text-h3 mb-4">Empower yours sales and marketing teams</div>
+
+        <p class="mb-8">
+          Use our tools for lead generation, market analysis and competitor
+          research.
+        </p>
+
         <UseCases />
       </v-container>
 
