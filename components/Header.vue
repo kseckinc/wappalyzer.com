@@ -260,7 +260,7 @@
     </v-app-bar>
 
     <v-dialog v-model="signInDialog" max-width="400px">
-      <SignIn mode-sign-up />
+      <SignIn mode-sign-up welcome />
     </v-dialog>
   </div>
 </template>

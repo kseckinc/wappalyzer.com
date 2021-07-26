@@ -248,6 +248,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    welcome: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -265,6 +269,7 @@ export default {
       mdiEye,
       mdiEyeOff,
       nextSuccess: '',
+      newAccount: false,
       showPassword: false,
       signingIn: false,
       signingUp: false,
@@ -327,8 +332,12 @@ export default {
         try {
           await this.signIn({ username: this.email, password: this.password })
 
+          console.log(this.newAccount, this.welcome)
+
           if (this.user.email_verified !== 'true') {
             this.mode = 'verifySignIn'
+          } else if (this.newAccount && this.welcome) {
+            this.$router.push('/welcome/')
           }
         } catch (error) {
           if (error.code === 'UserNotConfirmedException') {
@@ -432,6 +441,7 @@ export default {
               code: this.code,
             })
 
+            this.newAccount = true
             this.mode = 'signIn'
             this.nextSuccess = 'Thank you for signing up! You can now sign in.'
 

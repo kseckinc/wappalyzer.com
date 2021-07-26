@@ -38,10 +38,10 @@
           </h2>
 
           <p>
-            Our <nuxt-link to="/lookup/"> technology lookup </nuxt-link> tool
+            Our <nuxt-link to="/lookup/">technology lookup</nuxt-link> tool
             uncovers the technology stack of any website, indivually or
-            <nuxt-link to="/lookup/#bulk"> in bulk </nuxt-link>. Sign up for a
-            <v-chip color="primary" x-small outlined> PRO </v-chip> plan to
+            <nuxt-link to="/lookup/#bulk">in bulk</nuxt-link>. Sign up for a
+            <v-chip color="primary" x-small outlined>PRO</v-chip> plan to
             instantly see company and contact information, as well as social
             media profiles and other data points.
           </p>
@@ -106,7 +106,7 @@
 
           <h2 class="text-h2 mt-8 mb-2 d-flex">
             <v-icon color="primary" class="mr-2">
-              {{ mdiPuzzle }}
+              {{ mdiMonitor }}
             </v-icon>
             Browser extension
           </h2>
@@ -168,7 +168,7 @@
 
           <h2 class="text-h2 mt-8 mb-2 d-flex">
             <v-icon color="primary" class="mr-2">
-              {{ mdiApps }}
+              {{ mdiFaceAgent }}
             </v-icon>
             CRM integration
           </h2>
@@ -230,8 +230,8 @@ import {
   mdiArrowRight,
   mdiLayersOutline,
   mdiFilterVariant,
-  mdiPuzzle,
-  mdiApps,
+  mdiMonitor,
+  mdiFaceAgent,
   mdiConsole,
   mdiDownload,
   mdiBookOpenPageVariant,
@@ -257,8 +257,8 @@ export default {
       mdiArrowRight,
       mdiLayersOutline,
       mdiFilterVariant,
-      mdiPuzzle,
-      mdiApps,
+      mdiMonitor,
+      mdiFaceAgent,
       mdiConsole,
       mdiDownload,
       mdiBookOpenPageVariant,

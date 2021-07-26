@@ -17,7 +17,7 @@
     <template v-if="orders">
       <v-card class="mb-4">
         <v-card-text v-if="!filteredOrders.length">
-          <v-alert class="ma-0" color="info" outlined>
+          <v-alert class="ma-0" color="info" text>
             <p>You don't have any orders.</p>
 
             <v-btn to="/" color="accent" outlined>

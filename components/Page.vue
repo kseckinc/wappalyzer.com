@@ -2,8 +2,9 @@
   <div>
     <Hero
       v-if="hero"
-      :title="hero.title || meta.title"
-      :subtitle="hero.subtitle || meta.text"
+      :title="hero ? hero.title : meta.title"
+      :subtitle="hero ? hero.subtitle : meta.text"
+      :search="search"
     />
 
     <Crumbs v-if="crumbs" :crumbs="crumbNav" />
@@ -133,6 +134,10 @@ export default {
       },
     },
     noHead: {
+      type: Boolean,
+      default: false,
+    },
+    search: {
       type: Boolean,
       default: false,
     },

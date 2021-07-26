@@ -19,7 +19,7 @@
               <li>Click on a technology or category for more insights</li>
             </ol>
 
-            <v-btn depressed @click="faqDialog = true">
+            <v-btn depressed @click="$refs.faqDialog.open()">
               <v-icon left>
                 {{ mdiForum }}
               </v-icon>
@@ -42,18 +42,7 @@
       </v-col>
     </v-row>
 
-    <v-dialog v-model="faqDialog" max-width="600px">
-      <v-card>
-        <v-card-title> Frequently asked questions </v-card-title>
-        <v-card-text class="pb-0">
-          <Faqs topic="extension" />
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="accent" text @click="faqDialog = false"> Close </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <FaqDialog ref="faqDialog" topic="extension" />
   </Page>
 </template>
 
@@ -61,17 +50,16 @@
 import { mdiForum } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
-import Faqs from '~/components/Faqs.vue'
+import FaqDialog from '~/components/FaqDialog.vue'
 
 export default {
   components: {
     Page,
-    Faqs,
+    FaqDialog,
   },
   data() {
     return {
       title: 'Installation successful',
-      faqDialog: false,
       release: null,
       error: false,
       mdiForum,

@@ -30,7 +30,7 @@
 
           <p>
             On a
-            <v-chip to="/pro/" color="primary" x-small outlined> PRO </v-chip>
+            <v-chip to="/pro/" color="primary" x-small outlined>PRO</v-chip>
             plan, available company and contact information such as employee
             counts, email addresses and phone numbers are included too.
           </p>
@@ -39,8 +39,9 @@
             See the full list of
             <nuxt-link to="/docs/fields/">fields</nuxt-link>, all
             <nuxt-link to="/pro/">
-              <v-chip to="/pro/" color="accent" x-small outlined>PRO</v-chip>
-              features</nuxt-link
+              <v-chip to="/pro/" color="accent" class="mr-1" x-small outlined
+                >PRO</v-chip
+              >features</nuxt-link
             >
             and a <nuxt-link to="/lists/sample/">lead list sample</nuxt-link>.
           </p>

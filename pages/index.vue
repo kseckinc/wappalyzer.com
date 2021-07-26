@@ -7,6 +7,7 @@
       :crumbs="false"
       :hero="true"
       :head="{ title, meta }"
+      search
       no-head
     >
       <h1 class="mb-10 text-h2 text-center">
