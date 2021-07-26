@@ -2,8 +2,8 @@
   <div>
     <Hero
       v-if="hero"
-      :title="hero ? hero.title : meta.title"
-      :subtitle="hero ? hero.subtitle : meta.text"
+      :title="hero && hero !== true ? hero.title : meta.title"
+      :subtitle="hero && hero !== true ? hero.subtitle : meta.text"
       :search="search"
     />
 
