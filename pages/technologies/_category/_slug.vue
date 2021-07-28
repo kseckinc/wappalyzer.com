@@ -159,7 +159,7 @@
           </template>
         </v-alert>
 
-        <v-btn to="/technologies/" class="mt-4" color="accent" outlined exact>
+        <v-btn to="/technologies/" class="mt-4" depressed exact>
           <v-icon left>
             {{ mdiMagnify }}
           </v-icon>
@@ -457,7 +457,7 @@
       </div>
 
       <div class="mb-6">
-        <v-btn outlined @click="openReviewDialog">
+        <v-btn depressed @click="openReviewDialog">
           <v-icon left>
             {{ mdiFountainPenTip }}
           </v-icon>
@@ -474,11 +474,7 @@
         />
       </template>
       <template v-else>
-        <v-card outlined>
-          <v-card-text class="caption text--disabled text-center">
-            No reviews yet!
-          </v-card-text>
-        </v-card>
+        <v-alert color="accent" text>No reviews yet.</v-alert>
       </template>
 
       <template #footer>

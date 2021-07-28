@@ -41,12 +41,26 @@
 
     <v-card flat tile class="footer" color="secondary">
       <v-container tag="footer">
-        <v-row justify="space-between">
+        <v-row justify="space-between align-center">
           <v-col cols="12" sm="auto" class="text-center">
             <Logo class="mx-auto d-inline-block d-sm-block" />
           </v-col>
 
           <v-spacer />
+
+          <v-col cols="12" sm="auto" class="text-center">
+            <v-btn
+              v-for="{ title, to } in items"
+              :key="title"
+              :to="to"
+              class="font-weight-regular"
+              text
+              small
+              exact
+            >
+              {{ title }}
+            </v-btn>
+          </v-col>
 
           <v-col cols="12" sm="auto" class="text-center">
             <v-btn
@@ -56,22 +70,11 @@
               target="blank"
               rel="noopener noreferrer"
               icon
+              small
             >
-              <v-icon size="20px">
+              <v-icon small>
                 {{ mdi[icon] }}
               </v-icon>
-            </v-btn>
-          </v-col>
-
-          <v-col cols="12" sm="auto" class="text-center">
-            <v-btn
-              v-for="{ title, to } in items"
-              :key="title"
-              :to="to"
-              text
-              exact
-            >
-              {{ title }}
             </v-btn>
           </v-col>
         </v-row>

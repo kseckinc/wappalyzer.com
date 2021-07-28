@@ -19,16 +19,12 @@
   ],
   "items": [
     {
-      "title": "Terms",
+      "title": "Terms of service",
       "to": "/terms/"
     },
     {
-      "title": "Privacy",
+      "title": "Privacy policy",
       "to": "/privacy/"
-    },
-    {
-      "title": "Get in touch",
-      "to": "/contact/"
     }
   ]
 }

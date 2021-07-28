@@ -13,7 +13,7 @@
       tag="header"
       color="primary"
       height="74"
-      style="z-index: 10"
+      style="z-index: 7"
       flat
     >
       <v-container>
@@ -220,15 +220,19 @@
                 </v-sheet>
               </v-menu>
 
-              <v-btn
-                v-else
-                color="white "
-                class="mx-2"
-                outlined
-                @click="signInDialog = true"
-              >
-                Sign up free
-              </v-btn>
+              <template v-else>
+                <v-btn
+                  color="white"
+                  class="font-weight-regular"
+                  @click="signInDialog = true"
+                  text
+                >
+                  Sign in
+                </v-btn>
+                <v-btn color="white" outlined @click="signUpDialog = true">
+                  Sign up free
+                </v-btn>
+              </template>
             </template>
 
             <v-scroll-x-reverse-transition>
@@ -260,6 +264,10 @@
     </v-app-bar>
 
     <v-dialog v-model="signInDialog" max-width="400px">
+      <SignIn mode-sign-in welcome />
+    </v-dialog>
+
+    <v-dialog v-model="signUpDialog" max-width="400px">
       <SignIn mode-sign-up welcome />
     </v-dialog>
   </div>
@@ -321,6 +329,7 @@ export default {
   data() {
     return {
       signInDialog: false,
+      signUpDialog: false,
       search: false,
       mdi: {
         mdiChevronDown,
@@ -371,6 +380,7 @@ export default {
     isSignedIn() {
       if (this.isSignedIn) {
         this.signInDialog = false
+        this.signUpDialog = false
       }
     },
     $route() {

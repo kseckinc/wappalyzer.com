@@ -46,23 +46,23 @@
     "items": [
       {
         "title": "Lead generation",
-        "to": "/lead-generation"
+        "to": "/lead-generation/"
       },
       {
         "title": "Market research",
-        "to": "/market-research"
+        "to": "/market-research/"
       },
       {
         "title": "Competitor analysis",
-        "to": "/competitor-analysis"
+        "to": "/competitor-analysis/"
       },
       {
         "title": "Data enrichment",
-        "to": "/data-enrichment"
+        "to": "/data-enrichment/"
       },
       {
         "title": "Security recon",
-        "to": "/security-recon"
+        "to": "/security-recon/"
       }
     ]
   },
@@ -97,6 +97,16 @@
   },
   {
     "title": "About",
-    "to": "/about/"
+    "header": false,
+    "items": [
+      {
+      "title": "About us",
+      "to": "/about/"
+      },
+      {
+      "title": "Get in touch",
+      "to": "/contact/"
+      }
+    ]
   }
 ]

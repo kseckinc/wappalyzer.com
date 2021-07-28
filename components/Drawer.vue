@@ -21,9 +21,14 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item v-else @click="signInDialog = true">
-          <v-list-item-title>Sign up free</v-list-item-title>
-        </v-list-item>
+        <template v-else>
+          <v-list-item @click="signUpDialog = true">
+            <v-list-item-title>Sign up free</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="signInDialog = true">
+            <v-list-item-title>Sign in</v-list-item-title>
+          </v-list-item>
+        </template>
 
         <v-list-item v-if="isMember || isAdmin" @click="signOutAs">
           <v-list-item-content>
@@ -114,7 +119,11 @@
     </v-list>
 
     <v-dialog v-model="signInDialog" max-width="400px">
-      <SignIn mode-sign-up />
+      <SignIn welcome />
+    </v-dialog>
+
+    <v-dialog v-model="signUpDialog" max-width="400px">
+      <SignIn mode-sign-up welcome />
     </v-dialog>
   </v-navigation-drawer>
 </template>
@@ -162,6 +171,7 @@ export default {
     return {
       isOpen: false,
       signInDialog: false,
+      signUpDialog: false,
       mdi: {
         mdiAccount,
         mdiLockOpen,
@@ -203,6 +213,7 @@ export default {
     isSignedIn() {
       if (this.isSignedIn) {
         this.signInDialog = false
+        this.signUpDialog = false
       }
     },
   },
