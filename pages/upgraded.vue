@@ -8,11 +8,9 @@
     :crumbs="false"
     no-head
   >
-    <UseCases class="mb-10" />
-
-    <v-row justify="center" class="my-4">
-      <v-col cols="12" sm="8" lg="6" class="py-0">
-        <v-card>
+    <v-row justify="space-between" class="my-4">
+      <v-col cols="12" sm="6" class="py-0">
+        <v-card class="mb-12 mb-sm-4">
           <v-card-title>Changelog</v-card-title>
 
           <v-card-text v-if="error" class="px-0">
@@ -64,28 +62,51 @@
           </template>
         </v-card>
       </v-col>
+
+      <v-col cols="12" sm="6" lg="5" class="py-0">
+        <div class="text-h3 mb-4">Empower yours sales and marketing teams</div>
+
+        <p class="mb-8">
+          Use our tools for lead generation, market analysis and competitor
+          research.
+        </p>
+
+        <UseCases class="mb-12" tall />
+
+        <v-alert v-if="!isSignedIn" color="primary lighten-1 text-center">
+          <v-btn class="primary" large depressed @click="signUpDialog = true"
+            >Sign up for free</v-btn
+          >
+        </v-alert>
+      </v-col>
     </v-row>
+
+    <v-dialog v-model="signUpDialog" max-width="400px">
+      <SignIn mode-sign-up welcome />
+    </v-dialog>
   </Page>
 </template>
 
 <script>
-import {
-  mdiPlusBox,
-  mdiAutoFix,
-  mdiStar,
-  mdiFilterVariant,
-  mdiPlay,
-} from '@mdi/js'
+import { mapState } from 'vuex'
+import { mdiPlusBox, mdiAutoFix, mdiStar } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import Progress from '~/components/Progress.vue'
 import UseCases from '~/components/UseCases.vue'
+import SignIn from '~/components/SignIn.vue'
 
 export default {
   components: {
     Page,
     Progress,
     UseCases,
+    SignIn,
+  },
+  computed: {
+    ...mapState({
+      isSignedIn: ({ user }) => user.isSignedIn,
+    }),
   },
   data() {
     return {
@@ -95,9 +116,7 @@ export default {
       mdiStar,
       release: null,
       error: false,
-      mdiFilterVariant,
-      mdiPlay,
-      videoDialog: false,
+      signUpDialog: false,
     }
   },
   async mounted() {
@@ -106,6 +125,13 @@ export default {
     } catch (error) {
       this.error = this.getErrorMessage(error)
     }
+  },
+  watch: {
+    isSignedIn() {
+      if (this.isSignedIn) {
+        this.signUpDialog = false
+      }
+    },
   },
 }
 </script>

@@ -5,8 +5,8 @@
         v-for="(useCase, index) in useCases"
         :key="index"
         cols="6"
-        sm="4"
-        md="2"
+        :sm="tall ? 6 : 4"
+        :md="tall ? 6 : 2"
       >
         <div class="d-flex" style="height: 100%">
           <div style="height: 100%">
@@ -49,6 +49,12 @@ import {
 } from '@mdi/js'
 
 export default {
+  props: {
+    tall: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       useCases: [
