@@ -3,7 +3,6 @@
     <Page :title="title" :head="meta" no-heading>
       <div style="max-width: 600px">
         <h4 class="mt-6 d-flex align-center overline font-weight-bold">
-          <v-icon color="primary" left>{{ mdiMagnify }}</v-icon>
           Lookup API
         </h4>
 
@@ -16,7 +15,6 @@
         </p>
 
         <h4 class="mt-6 d-flex align-center overline font-weight-bold">
-          <v-icon color="primary" left>{{ mdiClockFast }}</v-icon>
           Live API
         </h4>
 
@@ -27,7 +25,6 @@
         </p>
 
         <h4 class="mt-6 d-flex align-center overline font-weight-bold">
-          <v-icon color="primary" left>{{ mdiEmailCheckOutline }}</v-icon>
           Verify API
         </h4>
 
@@ -277,13 +274,7 @@ curl -H "x-api-key: &lt;your api key&gt;" \
 </template>
 
 <script>
-import {
-  mdiForum,
-  mdiBookOpenPageVariant,
-  mdiClockFast,
-  mdiEmailCheckOutline,
-  mdiMagnify,
-} from '@mdi/js'
+import { mdiForum, mdiBookOpenPageVariant } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import Logos from '~/components/Logos.vue'
@@ -311,9 +302,6 @@ export default {
       meta,
       mdiForum,
       mdiBookOpenPageVariant,
-      mdiMagnify,
-      mdiClockFast,
-      mdiEmailCheckOutline,
     }
   },
 }

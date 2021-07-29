@@ -22,6 +22,17 @@
           <Credits v-if="secure && isSignedIn" variant />
 
           <SideNav :items="sideNav" />
+
+          <v-card
+            v-if="$route.path.startsWith('/docs/')"
+            color="secondary"
+            class="mt-4 text-center"
+            flat
+          >
+            <v-card-text>
+              <Status />
+            </v-card-text>
+          </v-card>
         </v-col>
         <v-col cols="12" sm="8" lg="9">
           <PageHead
@@ -89,6 +100,7 @@ import SignIn from '~/components/SignIn.vue'
 import Credits from '~/components/Credits.vue'
 import Hero from '~/components/Hero.vue'
 import Progress from '~/components/Progress.vue'
+import Status from '~/components/Status.vue'
 import userNav from '~/assets/json/nav/user.json'
 import { hero as meta } from '~/assets/json/meta.json'
 
@@ -98,6 +110,7 @@ export default {
     PageHead,
     Subscribe,
     SideNav,
+    Status,
     Crumbs,
     SignIn,
     Credits,

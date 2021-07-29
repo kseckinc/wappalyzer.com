@@ -48,6 +48,8 @@
 
           <v-spacer />
 
+          <v-col cols="12" sm="auto" class="text-center"> <Status /> </v-col>
+
           <v-col cols="12" sm="auto" class="text-center">
             <v-btn
               v-for="{ title, to } in items"
@@ -93,11 +95,13 @@ import {
   mdiLinkedin,
 } from '@mdi/js'
 import Logo from '~/components/Logo.vue'
+import Status from '~/components/Status.vue'
 import { icons, items } from '~/assets/json/nav/footer.json'
 
 export default {
   components: {
     Logo,
+    Status,
   },
   props: {
     mainNav: {

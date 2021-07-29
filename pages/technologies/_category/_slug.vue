@@ -158,13 +158,6 @@
             technologies with considerable usage are displayed.
           </template>
         </v-alert>
-
-        <v-btn to="/technologies/" class="mt-4" depressed exact>
-          <v-icon left>
-            {{ mdiMagnify }}
-          </v-icon>
-          Browse technologies
-        </v-btn>
       </template>
       <template v-else>
         <v-row align="center">
