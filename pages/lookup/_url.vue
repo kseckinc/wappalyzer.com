@@ -220,6 +220,10 @@
                   line.<br />
                 </p>
 
+                <v-alert v-if="error" type="error" class="mb-4" text>
+                  {{ error }}
+                </v-alert>
+
                 <v-file-input
                   :error-messages="fileErrors"
                   :hint="
@@ -596,6 +600,8 @@ export default {
       }
     },
     tab(index) {
+      this.error = false
+
       if (index === 1) {
         if (this.$route.hash !== '#bulk') {
           this.$router.replace({ path: '/lookup/', hash: '#bulk' })

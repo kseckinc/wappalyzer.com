@@ -20,7 +20,7 @@
         API reference
       </v-btn>
 
-      <v-card>
+      <v-card class="mb-4">
         <v-card-title>API key</v-card-title>
         <v-card-text>
           <p>Use your API key to make authenticated API calls.</p>
@@ -113,6 +113,11 @@
           </v-btn>
         </v-card-actions>
       </v-card>
+
+      <small class="text--disabled"
+        >Unused API keys on free plans are automatically deleted after three
+        months.</small
+      >
 
       <v-dialog
         v-if="!confirmRemoveKeyDialog"
