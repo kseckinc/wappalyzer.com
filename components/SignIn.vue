@@ -181,6 +181,7 @@
             :loading="resetting"
             type="submit"
             color="primary"
+            large
             depressed
             @click.prevent.stop="doVerify"
           >
@@ -339,8 +340,6 @@ export default {
         try {
           await this.signIn({ username: this.email, password: this.password })
 
-          console.log(this.newAccount, this.welcome)
-
           if (this.user.email_verified !== 'true') {
             this.mode = 'verifySignIn'
           } else if (this.newAccount && this.welcome) {
@@ -458,7 +457,7 @@ export default {
             })
 
             this.mode = 'signIn'
-            this.nextSuccess = 'Your password has been reset'
+            this.nextSuccess = 'Your password has been reset.'
           } else if (this.mode === 'verifySignUp') {
             await this.verifySignUp({
               username: this.email,
@@ -517,9 +516,9 @@ export default {
           this.$emit('confirm')
         } catch (error) {
           this.error = error.message || error.toString()
-
-          this.confirming = false
         }
+
+        this.confirming = false
       }
     },
   },
