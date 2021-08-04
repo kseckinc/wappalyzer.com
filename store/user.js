@@ -93,7 +93,7 @@ export const actions = {
 
   signUp(
     context,
-    { username: Username, password: Password, rewardfulReferral = '' }
+    { username: Username, password: Password, recaptchaToken = '' }
   ) {
     const Pool = new CognitoUserPool({
       UserPoolId: this.$config.COGNITO_USER_POOL_ID,
@@ -105,10 +105,6 @@ export const actions = {
         Name: 'email',
         Value: Username.toLowerCase().trim(),
       }),
-      new CognitoUserAttribute({
-        Name: 'custom:rewardfulReferral',
-        Value: rewardfulReferral,
-      }),
     ]
 
     return new Promise((resolve, reject) => {
@@ -116,7 +112,12 @@ export const actions = {
         Username.toLowerCase().trim(),
         Password,
         attributeList,
-        null,
+        [
+          {
+            Name: 'recaptchaToken',
+            Value: recaptchaToken,
+          },
+        ],
         (error) => {
           if (error) {
             return reject(error)

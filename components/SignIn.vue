@@ -17,14 +17,6 @@
       v-if="!isSignedIn || mode === 'confirm'"
       :class="mode === 'confirm' ? 'pb-0' : ''"
     >
-      <v-alert v-if="success" type="success" text>
-        {{ success }}
-      </v-alert>
-
-      <v-alert v-if="error" type="error" text>
-        {{ error }}
-      </v-alert>
-
       <v-alert
         v-if="!noBanner && mode === 'signUp'"
         color="primary lighten-1"
@@ -32,6 +24,14 @@
       >
         Sign up for free to receive 50 credits every month to spend on any
         product.
+      </v-alert>
+
+      <v-alert v-if="success" type="success" text>
+        {{ success }}
+      </v-alert>
+
+      <v-alert v-if="error" type="error" text>
+        {{ error }}
       </v-alert>
 
       <v-form ref="form" v-model="valid">
@@ -72,8 +72,17 @@
           v-if="mode === 'signUp'"
           v-model="subscribe"
           label="Receive occasional product updates"
-          class="mt-0 pt-0"
+          class="mt-0 pt-0 mb-4"
+          hide-details
         />
+
+        <v-alert
+          v-if="mode === 'signUp'"
+          color="secondary"
+          class="mx-n6 px-6 mb-4"
+        >
+          <recaptcha v-if="mode === 'signUp'" />
+        </v-alert>
 
         <v-text-field
           v-if="
@@ -122,7 +131,7 @@
             Sign in
           </v-btn>
 
-          <div class="mt-4">
+          <div v-if="mode === 'signUp' || mode === 'reset'" class="mt-4">
             <a @click.prevent="mode = 'signUp'">Create an account</a>
             <br />
             <a @click.prevent="mode = 'reset'">Reset password</a>
@@ -140,32 +149,30 @@
             :loading="verifying"
             type="submit"
             color="primary"
+            class="mr-4"
             large
             depressed
             @click.prevent.stop="
               () => (mode === 'reset' ? doReset() : doVerify())
             "
           >
-            Verify
-          </v-btn>
-
-          <v-btn
+            Verify </v-btn
+          ><v-btn
             v-if="mode !== 'reset'"
             :loading="reverifying"
-            text
+            color="primary primary--text lighten-1"
+            large
             depressed
             @click.prevent.stop="doReverify"
           >
             Resend code
           </v-btn>
 
-          <div class="mt-4">
-            <a
-              v-if="mode !== 'verifySignUp' && mode !== 'verifySignIn'"
-              @click.prevent="mode = 'signIn'"
-            >
-              Sign in
-            </a>
+          <div
+            v-if="mode !== 'verifySignUp' && mode !== 'verifySignIn'"
+            class="mt-4"
+          >
+            <a @click.prevent="mode = 'signIn'"> Sign in </a>
           </div>
         </template>
         <template v-else-if="mode === 'verifyReset'">
@@ -358,6 +365,20 @@ export default {
       this.success = ''
       this.error = ''
 
+      let recaptchaToken = ''
+
+      try {
+        recaptchaToken = await this.$recaptcha.getResponse()
+
+        await this.$recaptcha.reset()
+      } catch (error) {
+        this.error = 'Are you a robot?'
+
+        return
+      }
+
+      console.log('ReCaptcha token:', recaptchaToken)
+
       if (this.$refs.form.validate()) {
         this.verifying = true
 
@@ -373,6 +394,7 @@ export default {
           await this.signUp({
             username: this.email,
             password: this.password,
+            recaptchaToken,
           })
 
           this.mode = 'verifySignUp'

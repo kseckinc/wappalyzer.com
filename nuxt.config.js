@@ -96,6 +96,7 @@ export default {
     'nuxt-stripe-module',
     'cookie-universal-nuxt',
     '@nuxtjs/gtm',
+    '@nuxtjs/recaptcha',
     [
       'nuxt-canonical',
       { baseUrl: publicRuntimeConfig.WEBSITE_URL, trailingSlashes: true },
@@ -106,6 +107,10 @@ export default {
     pageTracking: true,
     respectDoNotTrack: false,
     debug: process.env.ENVIRONMENT === 'beta',
+  },
+  recaptcha: {
+    siteKey: '6LeW3NobAAAAACuVCOX8MLhIHtJCitFkuUZjRPRo',
+    version: 2,
   },
   axios: {
     baseURL: publicRuntimeConfig.BASE_URL,
