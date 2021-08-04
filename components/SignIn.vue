@@ -368,19 +368,21 @@ export default {
       let recaptchaToken = ''
 
       try {
+        this.signingUp = true
+
         recaptchaToken = await this.$recaptcha.getResponse()
 
         await this.$recaptcha.reset()
       } catch (error) {
+        this.signingUp = false
+
         this.error = 'Are you a robot?'
 
         return
       }
 
-      console.log('ReCaptcha token:', recaptchaToken)
-
       if (this.$refs.form.validate()) {
-        this.verifying = true
+        this.signingUp = true
 
         if (this.subscribe) {
           try {
@@ -403,7 +405,7 @@ export default {
           this.error = error.message || error.toString()
         }
 
-        this.verifying = false
+        this.signingUp = false
       }
     },
     async doSignOut() {
