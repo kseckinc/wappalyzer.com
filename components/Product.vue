@@ -10,6 +10,7 @@
       <v-row justify="center">
         <v-col cols="8" sm="12" xl="8" class="py-0">
           <ProductImage
+            v-if="product.image"
             :name="product.image"
             :class="mirror ? 'pr-sm-12' : 'pl-sm-12'"
           />

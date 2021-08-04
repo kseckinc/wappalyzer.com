@@ -34,6 +34,10 @@
         {{ error }}
       </v-alert>
 
+      <p v-if="mode === 'signIn'">
+        Welcome back! Please sign in with your email address and password.
+      </p>
+
       <v-form ref="form" v-model="valid">
         <v-text-field
           v-if="
@@ -131,7 +135,7 @@
             Sign in
           </v-btn>
 
-          <div v-if="mode === 'signUp' || mode === 'reset'" class="mt-4">
+          <div class="mt-4">
             <a @click.prevent="mode = 'signUp'">Create an account</a>
             <br />
             <a @click.prevent="mode = 'reset'">Reset password</a>
