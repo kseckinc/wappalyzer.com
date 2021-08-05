@@ -98,12 +98,14 @@
       <div
         v-for="feature in product.features"
         :key="feature"
-        class="body-2 d-flex align-start pt-2 grey--text"
+        class="grey--text"
       >
-        <v-icon color="success" dense left>
+        <v-icon color="success" size="20" dense left>
           {{ mdi.mdiCheck }}
         </v-icon>
-        {{ feature }}
+        <small>
+          {{ feature }}
+        </small>
       </div>
     </v-col>
   </v-row>

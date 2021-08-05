@@ -82,8 +82,10 @@
             <tr>
               <td><code>recursive</code></td>
               <td>
-                Follow links to analyse up to 25 pages (<code>true</code>
-                (default) or <code>false</code>).
+                Analyse multiple pages (<code>true</code> (default) or
+                <code>false</code>). When <code>false</code>, the request is
+                completed synchronously and no callback URL is required. Only
+                one URL can be specified at a time.
               </td>
             </tr>
             <tr>
@@ -91,7 +93,7 @@
               <td>
                 Comma-separated list of additional field sets to include in the
                 results (e.g. <code>meta,social</code>). See
-                <nuxt-link to="/docs/fields/"> Fields </nuxt-link>. Use
+                <nuxt-link to="/docs/fields/">Fields</nuxt-link>. Use
                 <code>all</code> to include all fields.
               </td>
             </tr>

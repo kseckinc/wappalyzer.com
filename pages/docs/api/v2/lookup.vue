@@ -80,6 +80,16 @@
               </td>
             </tr>
             <tr>
+              <td><code>recursive</code></td>
+              <td>
+                If instant results are unavailable, analyse multiple pages
+                (<code>true</code> (default) or <code>false</code>). When
+                <code>false</code>, the request is completed synchronously and
+                no callback URL is required. Only one URL can be specified at a
+                time.
+              </td>
+            </tr>
+            <tr>
               <td><code>denoise</code></td>
               <td>
                 Exclude low confidence results (<code>true</code> (default) or
@@ -107,7 +117,7 @@
               <td>
                 Comma-separated list of additional field sets to include in the
                 results (e.g. <code>meta,social</code>). See
-                <nuxt-link to="/docs/fields/"> Fields </nuxt-link>. Use
+                <nuxt-link to="/docs/fields/">Fields</nuxt-link>. Use
                 <code>all</code> to include all fields.
               </td>
             </tr>
@@ -132,9 +142,20 @@
         class="my-8 elevation-1"
       >
         When a crawl is initiated, subsequent requests for the same URL are free
-        for one hour. Allow for up to 15 minutes for the crawl to complete
-        before re-trying a request. This allows you to get results without the
-        need for a public callback endpoint.
+        for one hour. Allow for 5-15 minutes for the crawl to complete before
+        re-trying a request. This allows you to get results without the need for
+        a public callback endpoint.
+      </v-alert>
+
+      <v-alert
+        :icon="mdiLightbulbOnOutline"
+        color="secondary"
+        class="my-8 elevation-1"
+      >
+        When <code>recursive</code> is set to <code>false</code>, the request is
+        completed synchronously and a callback URL is not required. This allows
+        you to get live results as quickly as possible if instant results are
+        unavailable.
       </v-alert>
 
       <v-alert

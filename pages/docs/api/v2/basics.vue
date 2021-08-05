@@ -5,7 +5,7 @@
 
       <p>
         The
-        <nuxt-link to="/api/"> Wappalyzer APIs </nuxt-link>
+        <nuxt-link to="/api/">Wappalyzer APIs</nuxt-link>
         provide programmatic access to technographic data on websites, either in
         real-time or prefetched.
       </p>
@@ -34,13 +34,13 @@
 
       <p>
         API calls deduct credits from your balance. Credits are included in
-        <nuxt-link to="/pricing/"> plans </nuxt-link> and can also be
+        <nuxt-link to="/pricing/">plans</nuxt-link> and can also be
         <nuxt-link :to="{ path: '/pricing/', hash: 'credits' }">
           purchased directly </nuxt-link
         >. To determine the number of credits spent per request, refer to the
-        <nuxt-link :to="{ path: '/pricing/', hash: 'usage' }">
-          pricing
-        </nuxt-link>
+        <nuxt-link :to="{ path: '/pricing/', hash: 'usage' }"
+          >pricing</nuxt-link
+        >
         page.
       </p>
 
@@ -50,7 +50,7 @@
 
       <p>
         Wappalyzer uses API keys to provide authorized access to its APIs. Sign
-        up to <nuxt-link to="/apikey/"> create an API key </nuxt-link>.
+        up to <nuxt-link to="/apikey/">create an API key</nuxt-link>.
       </p>
 
       <v-card class="my-4" flat outlined>
@@ -77,7 +77,7 @@
       <p>
         Requests to your callback endpoint can optionally be signed to allow you
         to verify the request was made by Wappalyzer. To enable signing,
-        <nuxt-link to="/apikey/"> create a signing secret </nuxt-link>.
+        <nuxt-link to="/apikey/">create a signing secret</nuxt-link>.
       </p>
 
       <p>
