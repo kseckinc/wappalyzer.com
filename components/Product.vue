@@ -8,7 +8,7 @@
       md="4"
     >
       <v-row justify="center">
-        <v-col cols="8" sm="12" xl="8" class="py-0">
+        <v-col cols="8" sm="12" class="py-0">
           <ProductImage
             v-if="product.image"
             :name="product.image"
