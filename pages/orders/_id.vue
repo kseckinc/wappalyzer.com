@@ -44,24 +44,39 @@
         purchase.
       </v-alert>
 
-      <v-alert
-        v-if="order.status === 'Pending'"
-        type="info"
-        border="left"
-        text
-        prominent
-      >
-        <template v-if="['Subscription'].includes(order.product)">
-          Your card could not be charged automatically, please use the invoice
-          to complete the payment. An additional step may be required by your
-          card issuer to authorise the transaction.
-        </template>
-        <template v-else>
+      <template v-if="order.status === 'Pending'">
+        <v-alert
+          v-if="['Subscription'].includes(order.product)"
+          type="warning"
+          border="left"
+          text
+          prominent
+        >
+          <p>
+            Your card could not be charged automatically, please use the link
+            below to complete the payment. An additional step may be required by
+            your card issuer to authorise the transaction.
+          </p>
+
+          <v-btn
+            :href="order.invoiceUrl"
+            color="warning"
+            target="_blank"
+            depressed
+          >
+            Confirm payment
+
+            <v-icon right>
+              {{ mdiArrowRight }}
+            </v-icon>
+          </v-btn>
+        </v-alert>
+        <v-alert v-else type="info" border="left" text prominent>
           Your order is awaiting payment. Please use the
           <a :href="order.invoiceUrl" target="_blank">invoice</a> to complete
           the purchase.
-        </template>
-      </v-alert>
+        </v-alert>
+      </template>
 
       <v-alert
         v-if="order.status === 'Processing'"
@@ -1133,6 +1148,7 @@ import {
   mdiChevronDown,
   mdiChevronUp,
   mdiAlertOctagonOutline,
+  mdiArrowRight,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -1185,6 +1201,7 @@ export default {
       mdiChevronDown,
       mdiChevronUp,
       mdiAlertOctagonOutline,
+      mdiArrowRight,
       order: null,
       orderLoaded: false,
       paymentMethod: 'stripe',
