@@ -206,12 +206,14 @@ export default {
       rules: {
         url: [
           (v) => {
-            try {
-              new URL(v.trim()) // eslint-disable-line no-new
+            if (v) {
+              try {
+                new URL(v.trim()) // eslint-disable-line no-new
 
-              return true
-            } catch (error) {
-              return 'Enter a valid URL, e.g. https://www.example.com'
+                return true
+              } catch (error) {
+                return 'Enter a valid URL, e.g. https://www.example.com'
+              }
             }
           },
         ],
@@ -287,7 +289,7 @@ export default {
       this.createError = false
       this.creating = true
 
-      if (this.$refs.form.validate()) {
+      if (this.url && this.$refs.form.validate()) {
         try {
           await this.$axios.put('alerts', {
             url: this.url.trim(),

@@ -301,6 +301,8 @@
                             placeholder="E.g. education"
                             class="pt-0"
                             hide-details="auto"
+                            outlined
+                            dense
                             @click:append="addKeyword()"
                           />
                         </v-form>
@@ -548,6 +550,8 @@
                           class="mb-4 pt-0"
                           label="Select an industry"
                           hide-details
+                          outlined
+                          dense
                           eager
                         >
                           <template #item="{ item }">
@@ -626,6 +630,8 @@
                           class="mb-4 pt-0"
                           label="Number of employees"
                           hide-details
+                          outlined
+                          dense
                           eager
                         >
                           <template #item="{ item }">
@@ -691,26 +697,26 @@
                           high or low traffic websites per technology.
                         </p>
 
-                        <div style="max-width: 150px">
-                          <v-text-field
-                            v-model="subset"
-                            label="Size limit"
-                            :rules="[
-                              (v) =>
-                                !v ||
-                                /^[0-9]+$/.test(v) ||
-                                'Value must be numeric',
-                              (v) =>
-                                !v ||
-                                (parseInt(v, 10) >= minListSize &&
-                                  (isAdmin || parseInt(v, 10) <= 1000000)) ||
-                                `Subset size must be between at ${minListSize} and 1M. For larger lists, please contact us.`,
-                            ]"
-                            class="mt-6 mb-8 pt-0"
-                            placeholder="500000"
-                            hide-details="auto"
-                          />
-                        </div>
+                        <v-text-field
+                          v-model="subset"
+                          label="Max number of websites to include"
+                          :rules="[
+                            (v) =>
+                              !v ||
+                              /^[0-9]+$/.test(v) ||
+                              'Value must be numeric',
+                            (v) =>
+                              !v ||
+                              (parseInt(v, 10) >= minListSize &&
+                                (isAdmin || parseInt(v, 10) <= 1000000)) ||
+                              `List size must be between at ${minListSize} and 1M. For larger lists, please contact us.`,
+                          ]"
+                          class="mt-6 mb-8 pt-0"
+                          placeholder="500000"
+                          hide-details="auto"
+                          outlined
+                          dense
+                        />
 
                         <v-slider
                           v-model="subsetSlice"
@@ -762,6 +768,8 @@
                               class="mb-4 pt-0"
                               label="Select a country"
                               hide-details
+                              outlined
+                              dense
                               eager
                             />
                           </v-col>
@@ -774,6 +782,8 @@
                                 placeholder=".com"
                                 class="pt-0"
                                 hide-details="auto"
+                                outlined
+                                dense
                                 @click:append="addTld"
                               />
                             </v-form>
@@ -787,6 +797,8 @@
                           class="mb-8"
                           label="Select a top-level-domain"
                           hide-details
+                          outlined
+                          dense
                           eager
                         >
                           <template #prepend-item>
@@ -891,6 +903,8 @@
                           class="mb-4 pt-0"
                           label="Select a country"
                           hide-details
+                          outlined
+                          dense
                           eager
                         >
                           <template #prepend-item>
@@ -1005,6 +1019,8 @@
                           class="mb-4 pt-0"
                           label="Select a language"
                           hide-details
+                          outlined
+                          dense
                           eager
                         >
                           <template #item="{ item }">
@@ -1054,6 +1070,8 @@
                           class="mb-4"
                           label="Select a language country"
                           hide-details
+                          outlined
+                          dense
                           eager
                         >
                           <template #prepend-item>
@@ -1246,22 +1264,32 @@
                       <v-expansion-panel-content>
                         <p>
                           Upload a .txt file with domain names to exclude, each
-                          on a new line.
+                          on a new line. Or, upload the CSV file from a previous
+                          purchase.
                         </p>
 
                         <v-file-input
                           :error-messages="fileErrors"
+                          :hint="
+                            file
+                              ? `${file
+                                  .split('\n')
+                                  .length.toLocaleString()} URLs`
+                              : ''
+                          "
+                          persistent-hint
                           placeholder="Select a file..."
-                          accept="text/plain"
-                          hide-details="auto"
-                          class="mb-4 pt-0"
+                          accept="text/plain,text/csv"
+                          class="mb-0 pt-0"
+                          outlined
+                          dense
                           @change="fileChange"
                         />
 
                         <v-alert
                           color="secondary"
                           border="left"
-                          class="mt-6 mb-2"
+                          class="mb-2"
                           dense
                         >
                           <small>
@@ -2101,22 +2129,27 @@ export default {
         return
       }
 
-      this.file = (await file.text())
-        .trim()
-        .split('\n')
-        .map((line, i) => {
-          const a = document.createElement('a')
+      const lines = (await file.text()).trim().split('\n')
 
-          a.href = (line.startsWith('http') ? line : `http://${line}`).trim()
+      if (lines[0].startsWith('"url"')) {
+        lines.shift()
+      }
 
-          const { hostname } = a
+      this.file = lines.map((line, i) => {
+        line = line.replace(/^"([^"]+)".+$/, '$1')
 
-          if (!hostname) {
-            this.fileErrors.push(`Invalid URL on line ${i + 1}: ${line}`)
-          }
+        const a = document.createElement('a')
 
-          return a.href
-        })
+        a.href = (line.startsWith('http') ? line : `http://${line}`).trim()
+
+        const { hostname } = a
+
+        if (!hostname) {
+          this.fileErrors.push(`Invalid URL on line ${i + 1}: ${line}`)
+        }
+
+        return a.href
+      })
 
       this.fileErrors = this.fileErrors.slice(0, 10)
 

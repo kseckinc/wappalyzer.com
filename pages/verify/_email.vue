@@ -371,7 +371,7 @@ export default {
         }
 
         return {
-          email,
+          email: email || '',
           lastEmail: email,
           error: error.message || error.toString(),
         }

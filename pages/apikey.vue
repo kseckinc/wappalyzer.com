@@ -115,7 +115,7 @@
       </v-card>
 
       <small class="text--disabled"
-        >Unused API keys on free plans are automatically deleted after three
+        >Unused API keys on free plans are automatically deleted after two
         months.</small
       >
 

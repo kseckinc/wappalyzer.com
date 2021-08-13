@@ -41,7 +41,7 @@
 
     <v-card flat tile class="footer" color="secondary">
       <v-container tag="footer">
-        <v-row justify="space-between align-center">
+        <v-row justify="space-between" align="center">
           <v-col cols="12" sm="auto" class="text-center">
             <Logo class="mx-auto d-inline-block d-sm-block" />
           </v-col>

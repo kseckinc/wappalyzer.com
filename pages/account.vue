@@ -4,7 +4,7 @@
       {{ success }}
     </v-alert>
 
-    <v-alert v-if="error" type="error">
+    <v-alert v-if="error" type="error" text>
       {{ error }}
     </v-alert>
 

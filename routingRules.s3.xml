@@ -79,4 +79,13 @@
       <ReplaceKeyPrefixWith>articles/wappalyzer-vs-builtwith</ReplaceKeyPrefixWith>
 		</Redirect>
 	</RoutingRule>
+	<RoutingRule>
+		<Condition>
+      <KeyPrefixEquals>meet</KeyPrefixEquals>
+		</Condition>
+		<Redirect>
+			<HostName>www.calendly.com</HostName>
+      <ReplaceKeyPrefixWith>wappalyzer/45min</ReplaceKeyPrefixWith>
+		</Redirect>
+	</RoutingRule>
 </RoutingRules>
