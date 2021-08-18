@@ -97,6 +97,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    noLoading: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -169,7 +173,9 @@ export default {
       })
     },
     submit(item) {
-      this.loading = true
+      if (!this.noLoading) {
+        this.loading = true
+      }
 
       this.$refs.results.blur()
 

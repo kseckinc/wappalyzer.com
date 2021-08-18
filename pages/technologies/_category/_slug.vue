@@ -230,17 +230,6 @@
                     <nuxt-link :to="`/lookup/${hostname}`">{{
                       hostname
                     }}</nuxt-link>
-
-                    <a
-                      :href="`http${attributes.https ? 's' : ''}://${
-                        attributes.www ? 'www.' : ''
-                      }${hostname}`"
-                      rel="nofollow noopener"
-                      target="_blank"
-                      ><v-icon color="accent" small>{{
-                        mdiOpenInNew
-                      }}</v-icon></a
-                    >
                   </td>
                   <td>
                     <Bar
@@ -279,9 +268,12 @@
               <tbody>
                 <tr v-for="(list, index) in lists" :key="index">
                   <td>
-                    <a class="d-flex align-center" @click="createList(list)">
+                    <a
+                      class="d-flex align-center body-1"
+                      @click="createList(list)"
+                    >
                       <v-icon left>{{ mdiFileTableOutline }}</v-icon
-                      ><span>{{ list.text }}</span>
+                      ><small>{{ list.text }}</small>
                     </a>
                   </td>
                 </tr>
@@ -417,7 +409,7 @@
                       <small>
                         <nuxt-link
                           :to="`/compare/${technology.slug}-vs-${alternative.slug}/`"
-                          class="black--text"
+                          style="color: inherit !important"
                           >{{ technology.name }} vs.
                           {{ alternative.name }}</nuxt-link
                         >
@@ -440,116 +432,10 @@
         </p>
       </template>
 
-      <v-divider class="mt-12 mb-10" />
-
-      <h2 class="mb-2">User reviews</h2>
-
-      <div class="mb-4 caption text--disabled">
-        <StarRating :stars="technology.rating" large />
-        ({{ formatNumber(technology.reviewCount) }})
-      </div>
-
-      <div class="mb-6">
-        <v-btn depressed @click="openReviewDialog">
-          <v-icon left>
-            {{ mdiFountainPenTip }}
-          </v-icon>
-          Write a review
-        </v-btn>
-      </div>
-
-      <template v-if="technology.reviews.length">
-        <Review
-          v-for="(_review, index) in technology.reviews"
-          :key="index"
-          :review="_review"
-          class="mb-4"
-        />
-      </template>
-      <template v-else>
-        <v-alert color="accent" text>No reviews yet.</v-alert>
-      </template>
-
       <template #footer>
-        <v-divider class="mb-12" />
-
-        <v-container class="py-6">
-          <UseCases />
-        </v-container>
+        <Logos apps />
       </template>
     </Page>
-
-    <v-dialog v-model="reviewDialog" max-width="500px">
-      <v-card>
-        <v-card-title>Write a review</v-card-title>
-        <v-card-text class="pb-0">
-          <v-alert v-if="reviewError" type="error" text>
-            {{ reviewError }}
-          </v-alert>
-
-          <p>
-            How likely are you to recommend {{ technology.name }} to a friend or
-            colleague?
-          </p>
-
-          <div class="mb-4 text--disabled">
-            <StarRating
-              :stars="review.rating"
-              large
-              input
-              @rate="(rating) => (review.rating = rating)"
-              @hover="(rating) => (hoverRating = rating)"
-            />
-
-            <template v-if="hoverRating === 1">Very unlikely</template>
-            <template v-if="hoverRating === 2">Unlikely</template>
-            <template v-if="hoverRating === 3">Neutral</template>
-            <template v-if="hoverRating === 4">Likely</template>
-            <template v-if="hoverRating === 5">Very likely</template>
-          </div>
-
-          <p>Describe your experience with {{ technology.name }}.</p>
-
-          <v-textarea
-            ref="reviewText"
-            v-model="review.text"
-            :hint="`${Math.max(0, 250 - review.text.length)} / 250`"
-            :rules="reviewRules"
-            placeholder="Leave blank to only submit a rating."
-            outlined
-          />
-
-          <p>
-            Choose how your name should appear. You can change your name in
-            <nuxt-link to="/account">account settings</nuxt-link>.
-          </p>
-
-          <v-radio-group v-model="review.name" hide-details>
-            <v-radio
-              :disabled="!user.name"
-              :label="`${user.name || 'No name provided'}`"
-              :value="user.name"
-            />
-            <v-radio label="Anonymous" value="Anonymous" />
-          </v-radio-group>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="error" text @click="reviewDialog = false">
-            Cancel
-          </v-btn>
-          <v-btn
-            color="accent"
-            text
-            :loading="submittingReview"
-            :disabled="!review.rating"
-            @click="submitReview"
-          >
-            Publish
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
 
     <v-dialog v-model="signInDialog" max-width="400px">
       <SignIn mode-continue mode-sign-up />
@@ -604,11 +490,9 @@ import { GChart } from 'vue-google-charts'
 import Page from '~/components/Page.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
 import Bar from '~/components/Bar.vue'
-import StarRating from '~/components/StarRating.vue'
-import Review from '~/components/Review.vue'
 import SignIn from '~/components/SignIn.vue'
 import Progress from '~/components/Progress.vue'
-import UseCases from '~/components/UseCases.vue'
+import Logos from '~/components/Logos.vue'
 import countries from '~/assets/json/countries.json'
 import languages from '~/assets/json/languages.json'
 
@@ -618,11 +502,9 @@ export default {
     TechnologyIcon,
     Bar,
     GChart,
-    StarRating,
-    Review,
     SignIn,
     Progress,
-    UseCases,
+    Logos,
   },
   async asyncData({ route, $axios, redirect }) {
     const { category, slug } = route.params
@@ -645,7 +527,6 @@ export default {
       creatingList: false,
       createlistError: false,
       createListDialog: false,
-      hoverRating: null,
       lineChartOptions: {
         chartArea: {
           height: '100%',
@@ -688,15 +569,6 @@ export default {
           },
         },
       },
-      reviewRules: [
-        (v) => v.length < 250 || 'Maximum length exceeded',
-        (v) =>
-          v.length < 5 ||
-          v.replace(/[^A-Z]/g, '').length <
-            v.replace(/[^a-z]/g, '').length / 2 ||
-          'Too many uppercase characters',
-        (v) => !/(fuck|sucks)/.test(v.toLowerCase()) || 'Stay classy',
-      ],
       mdiFilterVariant,
       mdiOpenInNew,
       mdiMagnify,
@@ -711,16 +583,7 @@ export default {
       mdiFileTableOutline,
       mdiCurrencyUsd,
       mdiCurrencyUsdOff,
-      review: {
-        rating: 0,
-        text: '',
-        name: '',
-      },
-      reviewDialog: false,
-      reviewing: false,
-      reviewError: false,
       signInDialog: false,
-      submittingReview: false,
       technology: false,
     }
   },
@@ -742,26 +605,6 @@ export default {
           url: this.technology.website,
         },
         applicationCategory: this.technology.categories[0].name,
-        review: this.technology.reviews.map(
-          ({ name, text, rating, createdAt }) => ({
-            '@type': 'Review',
-            author: {
-              '@type': 'Person',
-              name,
-            },
-            datePublished: new Date(createdAt * 1000).toISOString(),
-            reviewBody: text,
-            reviewRating: {
-              '@type': 'Rating',
-              ratingValue: rating.toString(),
-            },
-          })
-        ),
-        aggregateRating: {
-          '@type': 'AggregateRating',
-          ratingValue: this.technology.rating || 5,
-          ratingCount: this.technology.reviews.length || 1,
-        },
       }
     },
     categorySlug() {
@@ -996,22 +839,11 @@ export default {
       if (this.isSignedIn) {
         this.signInDialog = false
 
-        this.review.name = this.user.name || 'Anonymous'
-
-        if (this.reviewing) {
-          this.reviewDialog = true
-        }
-
         if (this.creatingList) {
           this.createList()
         }
       }
     },
-  },
-  mounted() {
-    if (this.isSignedIn) {
-      this.review.name = this.user.name || 'Anonymous'
-    }
   },
   methods: {
     async createList(list = this.creatingList) {
@@ -1044,54 +876,6 @@ export default {
 
       this.creatingList = false
     },
-    openReviewDialog() {
-      this.reviewError = ''
-      this.reviewing = true
-
-      if (!this.isSignedIn) {
-        this.signInDialog = true
-
-        return
-      }
-
-      this.reviewDialog = true
-    },
-    async submitReview() {
-      if (!this.$refs.reviewText.validate()) {
-        return
-      }
-
-      this.reviewError = ''
-      this.submittingReview = true
-
-      try {
-        this.review.text = this.review.text.trim()
-
-        await this.$axios.put(`reviews/${this.technology.slug}`, {
-          ...this.review,
-        })
-
-        this.technology = (
-          await this.$axios.get(`technologies/${this.technology.slug}`)
-        ).data
-
-        this.reviewDialog = false
-      } catch (error) {
-        this.reviewError = this.getErrorMessage(error)
-      }
-
-      this.submittingReview = false
-    },
   },
 }
 </script>
-
-<style>
-.v-expansion-panel-content.no-padding .v-expansion-panel-content__wrap {
-  padding: 0;
-}
-
-.blur {
-  filter: blur(3px);
-}
-</style>

@@ -19,32 +19,22 @@
                   class="pb-2"
                   width="40%"
                 >
-                  <h3>
-                    <nuxt-link
-                      :to="`/technologies/${technology.categorySlug}/${technology.slug}/`"
-                      class="d-flex align-center my-2"
-                    >
-                      <TechnologyIcon :icon="technology.icon" large />
-                      {{ technology.name }}
-                    </nuxt-link>
-                  </h3>
+                  <nuxt-link
+                    :to="`/technologies/${technology.categorySlug}/${technology.slug}/`"
+                    class="d-flex align-center my-2"
+                  >
+                    <TechnologyIcon :icon="technology.icon" large />
+
+                    <span class="ml-2">{{ technology.name }}</span>
+                  </nuxt-link>
                 </td>
               </tr>
               <tr>
                 <th>Website</th>
                 <td v-for="technology in technologies" :key="technology.slug">
-                  <v-chip
-                    :href="technology.website"
-                    color="accent"
-                    target="_blank"
-                    outlined
-                    small
-                  >
-                    Visit {{ formatHostname(technology.website) }}
-                    <v-icon right x-small>
-                      {{ mdiOpenInNew }}
-                    </v-icon>
-                  </v-chip>
+                  <a :href="technology.website" target="_blank">{{
+                    formatHostname(technology.website)
+                  }}</a>
                 </td>
               </tr>
               <tr>
@@ -244,7 +234,7 @@
       </h2>
 
       <v-card class="mb-4">
-        <v-card-title class="subtitle-2"> Install base </v-card-title>
+        <v-card-title class="subtitle-1">Install base</v-card-title>
         <v-card-text class="pb-0">
           <v-row>
             <v-col md="8" class="py-0">
@@ -360,11 +350,7 @@
       </small>
 
       <template #footer>
-        <v-divider class="mb-12" />
-
-        <v-container class="py-6">
-          <UseCases />
-        </v-container>
+        <Logos apps />
       </template>
     </Page>
   </div>
@@ -383,7 +369,7 @@ import { GChart } from 'vue-google-charts'
 import Page from '~/components/Page.vue'
 import Bar from '~/components/Bar.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
-import UseCases from '~/components/UseCases.vue'
+import Logos from '~/components/Logos.vue'
 
 export default {
   components: {
@@ -391,7 +377,7 @@ export default {
     Bar,
     TechnologyIcon,
     GChart,
-    UseCases,
+    Logos,
   },
   async asyncData({ route, $axios }) {
     const { slug } = route.params
@@ -518,11 +504,12 @@ export default {
         const item = [date]
 
         this.technologies.forEach((technology) => {
-          const trend = technology.trend.find(
-            ({ yearMonth: _yearMonth }) => _yearMonth === yearMonth
-          )
+          const trend =
+            technology.trend.find(
+              ({ yearMonth: _yearMonth }) => _yearMonth === yearMonth
+            ) || {}
 
-          item.push(trend.hostnames || null, trend.hits || null)
+          item.push(trend.hostnames || 0, trend.hits || 0)
         })
 
         trend.push(item)

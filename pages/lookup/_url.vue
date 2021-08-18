@@ -172,6 +172,10 @@
         </v-row>
       </template>
     </template>
+
+    <template #footer>
+      <Logos apps />
+    </template>
   </Page>
 </template>
 
@@ -190,6 +194,7 @@ import Attributes from '~/components/Attributes.vue'
 import SignIn from '~/components/SignIn.vue'
 import Pro from '~/components/Pro.vue'
 import Search from '~/components/Search.vue'
+import Logos from '~/components/Logos.vue'
 import { lookup as meta } from '~/assets/json/meta.json'
 import sets from '~/assets/json/sets.json'
 
@@ -235,6 +240,7 @@ export default {
     SignIn,
     Pro,
     Search,
+    Logos,
   },
   async asyncData({
     route,

@@ -8,7 +8,7 @@
     }"
     :loading="!categories"
   >
-    <h2 class="mt-6 mb-4">Popular</h2>
+    <h2 class="mt-12 mb-4">Popular</h2>
 
     <v-row class="mb-2">
       <v-col
@@ -20,20 +20,27 @@
         lg="2"
       >
         <nuxt-link
-          class="text-decoration-none"
           :to="`/technologies/${categorySlug}/${slug}/`"
+          class="body-2 text-center text-decoration-none"
         >
-          <v-card color="secondary" flat>
-            <v-card-text class="d-flex flex-column align-center">
-              <TechnologyIcon class="mb-4" :icon="icon" large white />
-              <span class="font-weight-medium">{{ name }}</span>
-            </v-card-text>
-          </v-card>
+          <v-hover v-slot="{ hover }">
+            <v-card flat>
+              <v-card-text class="d-flex align-center pa-0">
+                <TechnologyIcon :icon="icon" large white />
+
+                <div class="ml-2 d-flex align-center text-decoration-none">
+                  <span :class="hover ? 'accent--text' : ''">
+                    {{ name }}
+                  </span>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-hover>
         </nuxt-link>
       </v-col>
     </v-row>
 
-    <h2 class="mt-6 mb-4">Search by name</h2>
+    <h2 class="mt-12 mb-4">Search</h2>
 
     <div style="max-width: 600px">
       <Technologies @select="selectTechnology" />
@@ -49,7 +56,7 @@
     </p>
 
     <template v-if="categories">
-      <h2 class="mt-8 mb-6">Browse by category</h2>
+      <h2 class="mt-14 mb-6">Browse</h2>
 
       <v-row class="mb-4">
         <v-col

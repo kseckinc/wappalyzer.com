@@ -16,12 +16,12 @@
           <span class="body-2 my-n2">
             <v-chip
               v-if="['contact', 'company', 'social'].includes(setKey)"
+              to="/pro/"
               color="primary"
               class="ml-2"
               x-small
               outlined
-            >
-              PRO</v-chip
+              >PRO</v-chip
             >
           </span>
         </v-card-title>

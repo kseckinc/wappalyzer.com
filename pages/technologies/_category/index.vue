@@ -177,9 +177,12 @@
             <tbody>
               <tr v-for="(list, index) in lists" :key="index">
                 <td>
-                  <a class="d-flex align-center" @click="createList(list)">
+                  <a
+                    class="d-flex align-center body-1"
+                    @click="createList(list)"
+                  >
                     <v-icon left>{{ mdiFileTableOutline }}</v-icon
-                    ><span>{{ list.text }}</span>
+                    ><small>{{ list.text }}</small>
                   </a>
                 </td>
               </tr>
@@ -198,11 +201,7 @@
       </p>
 
       <template #footer>
-        <v-divider class="mb-12" />
-
-        <v-container class="py-6">
-          <UseCases />
-        </v-container>
+        <Logos apps />
       </template>
     </Page>
 
@@ -250,7 +249,7 @@ import TechnologyIcon from '~/components/TechnologyIcon.vue'
 import Bar from '~/components/Bar.vue'
 import SignIn from '~/components/SignIn.vue'
 import Progress from '~/components/Progress.vue'
-import UseCases from '~/components/UseCases.vue'
+import Logos from '~/components/Logos.vue'
 
 export default {
   components: {
@@ -259,7 +258,7 @@ export default {
     Bar,
     SignIn,
     Progress,
-    UseCases,
+    Logos,
     GChart,
   },
   async asyncData({ route, redirect, $axios }) {

@@ -53,11 +53,6 @@
     "to": "/apikey/"
   },
   {
-    "title": "Reviews",
-    "icon": "mdiStar",
-    "to": "/reviews/"
-  },
-  {
     "title": "Sign out",
     "icon": "mdiLogoutVariant",
     "to": "/signout/",
