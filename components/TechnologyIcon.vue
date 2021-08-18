@@ -1,6 +1,8 @@
 <template>
   <v-avatar
-    :color="`${white ? 'white' : 'secondary'} elevation-1 mr-2`"
+    :color="`${white ? 'white' : 'secondary'}${
+      flat ? '' : ' elevation-1'
+    } mr-2`"
     :size="xLarge ? 80 : large ? 40 : 32"
   >
     <div class="d-flex">
@@ -26,6 +28,10 @@ export default {
     icon: {
       type: String,
       default: '',
+    },
+    flat: {
+      type: Boolean,
+      default: false,
     },
     large: {
       type: Boolean,

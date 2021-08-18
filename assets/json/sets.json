@@ -21,6 +21,35 @@
     "disabled": true
   },
   {
+    "key": "meta",
+    "name": "Metadata",
+    "attributes": [
+      { "key": "title", "description": "The website's title, as found on the homepage." },
+      { "key": "description", "description": "The website's meta description." },
+      { "key": "copyright", "description": "Copyright notice, if found (e.g. \"Copyright © 2018 - 2020\")." },
+      { "name": "copyright year", "key": "copyrightYear", "description": "The most recent year extracted from the copyright notice (e.g. \"2020\")." },
+      { "key": "responsive", "description": "Website has a responsive layout, i.e. optimised for various screen sizes." },
+      { "name": "schema.org types", "key": "schemaOrgTypes", "description": "Types defined in the website's schema.org JSON-LD." }
+    ],
+    "value": false
+  },
+  {
+    "key": "company",
+    "name": "Company information",
+    "attributes": [
+      { "name": "company name", "key": "companyName", "description": "Company name." },
+      { "name": "inferred company name", "key": "inferredCompanyName", "description": "Company name, inferred from website content (best guess)." },
+      { "key": "industry", "description": "Company industry, e.g. 'Design'." },
+      { "key": "about", "description": "Company description." },
+      { "key": "locations", "description": "Business locations." },
+      { "name": "company size", "key": "companySize", "description": "Number of employees at the company." },
+      { "name": "company type", "key": "companyType", "description": "The type of company, e.g. 'Public Company' or 'Privately Held'." },
+      { "name": "company founded", "key": "companyFounded", "description": "The year the company was founded." },
+      { "key": "employees", "description": "Names and titles of employees." }
+    ],
+    "pro": true
+  },
+  {
     "key": "phone",
     "name": "Phone numbers",
     "attributes": [
@@ -52,22 +81,6 @@
     "pro": true
   },
   {
-    "key": "company",
-    "name": "Company information",
-    "attributes": [
-      { "name": "company name", "key": "companyName", "description": "Company name." },
-      { "name": "inferred company name", "key": "inferredCompanyName", "description": "Company name, inferred from website content (best guess)." },
-      { "key": "industry", "description": "Company industry, e.g. 'Design'." },
-      { "key": "about", "description": "Company description." },
-      { "key": "locations", "description": "Business locations." },
-      { "name": "company size", "key": "companySize", "description": "Number of employees at the company." },
-      { "name": "company type", "key": "companyType", "description": "The type of company, e.g. 'Public Company' or 'Privately Held'." },
-      { "name": "company founded", "key": "companyFounded", "description": "The year the company was founded." },
-      { "key": "employees", "description": "Names and titles of employees." }
-    ],
-    "pro": true
-  },
-  {
     "key": "social",
     "name": "Social media accounts",
     "attributes": [
@@ -84,33 +97,24 @@
     "pro": true
   },
   {
-    "key": "keywords",
-    "name": "Keywords",
-    "attributes": [
-      { "key": "keywords", "description": "Relevant keywords found in website content." }
-    ],
-    "pro": true
-  },
-  {
-    "key": "meta",
-    "name": "Metadata",
-    "attributes": [
-      { "key": "title", "description": "The website's title, as found on the homepage." },
-      { "key": "description", "description": "The website's meta description." },
-      { "key": "copyright", "description": "Copyright notice, if found (e.g. \"Copyright © 2018 - 2020\")." },
-      { "name": "copyright year", "key": "copyrightYear", "description": "The most recent year extracted from the copyright notice (e.g. \"2020\")." },
-      { "key": "responsive", "description": "Website has a responsive layout, i.e. optimised for various screen sizes." },
-      { "name": "schema.org types", "key": "schemaOrgTypes", "description": "Types defined in the website's schema.org JSON-LD." }
-    ],
-    "value": false
-  },
-  {
     "key": "locale",
     "name": "Locale",
     "attributes": [
       { "name": "IP country", "key": "ipCountry", "description": "The website's country, based on its IP address. This is usually the where the website is hosted, which can be indicative of where a business operates from." },
       { "name": "IP region", "key": "ipRegion", "description": "The website's region (e.g. state), based on its IP address" },
       { "key": "language", "description": "The website's language, determined by interpreting content on the website. Indicative only." }
+    ]
+  },
+  {
+    "key": "security",
+    "name": "Security",
+    "attributes": [
+      { "name": "Certificate issuer", "key": "certInfo.issuer", "description": "Name of the SSL/TLS certificate authority." },
+      { "name": "Certificate protocol", "key": "certInfo.protocol", "description": "SSL/TLS protocol and version." },
+      { "name": "Certificate expiry", "key": "certInfo.validTo", "description": "Expiry date of the SSL/TLS certificate." },
+      { "name": "SSL/TLS enabled", "key": "https", "description": "The website is served over a secure connection." },
+      { "name": "SPF record", "key": "dns.spf", "description": "The website has an SPF record." },
+      { "name": "DMARC record", "key": "dns.dmarc", "description": "The website has a DMARC record." }
     ]
   },
   {
@@ -125,15 +129,11 @@
     ]
   },
   {
-    "key": "security",
-    "name": "Security",
+    "key": "keywords",
+    "name": "Keywords",
     "attributes": [
-      { "name": "Cert issuer", "key": "certInfo.issuer", "description": "Name of the SSL/TLS certificate authority." },
-      { "name": "Cert protocol", "key": "certInfo.protocol", "description": "SSL/TLS protocol and version." },
-      { "name": "Cert expiry", "key": "certInfo.validTo", "description": "Expiry date of the SSL/TLS certificate." },
-      { "name": "SSL/TLS enabled", "key": "https", "description": "The website is served over a secure connection." },
-      { "name": "SPF record", "key": "dns.spf", "description": "The website has an SPF record." },
-      { "name": "DMARC record", "key": "dns.dmarc", "description": "The website has a DMARC record." }
-    ]
+      { "key": "keywords", "description": "Relevant keywords found in website content." }
+    ],
+    "pro": true
   }
 ]

@@ -133,14 +133,16 @@ export default {
     },
   },
   data() {
+    const credits = creditsPerUnit[this.product] || {}
+
     return {
       isOpen: false,
       creditsPerUnit,
       creditTiers,
-      units: creditsPerUnit[this.product].units,
-      minPrice: creditsPerUnit[this.product].minPrice || 0,
-      min: creditsPerUnit[this.product].min || 0,
-      max: creditsPerUnit[this.product].max,
+      units: credits.units,
+      minPrice: credits.minPrice || 0,
+      min: credits.min || 0,
+      max: credits.max,
       value: 1000,
     }
   },

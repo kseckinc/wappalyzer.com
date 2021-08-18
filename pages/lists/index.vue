@@ -2216,7 +2216,7 @@ export default {
         }
 
         this.$router.replace({
-          path: '/lists/',
+          path: '/lists',
           query: Object.keys(query).reduce((filtered, key) => {
             if (
               typeof query[key] !== 'undefined' &&
@@ -2234,7 +2234,7 @@ export default {
     },
     async fillForm(query) {
       if (query) {
-        this.$router.replace({ path: '/lists/', query })
+        this.$router.replace({ path: '/lists', query })
 
         this.suggestionsDialog = false
       }

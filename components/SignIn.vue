@@ -21,6 +21,7 @@
         v-if="!noBanner && mode === 'signUp'"
         color="primary lighten-1"
         class="mx-n6 px-6 mb-6 primary--text"
+        tile
       >
         Sign up for free to receive 50 credits every month to spend on any
         product.

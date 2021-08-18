@@ -6,12 +6,13 @@
     background-color="white"
     placeholder="Website URL, technology, keyword or email address"
     :append-icon="mdiMagnify"
-    :loading="loading ? 'white' : false"
+    :loading="loading ? (outlined ? 'primary' : 'white') : false"
     hide-details="auto"
     return-object
     solo
     :dense="dense"
-    :flat="dense"
+    :flat="dense || outlined"
+    :outlined="outlined"
     @focus="onFocus"
     @change="submit"
   >
@@ -32,7 +33,7 @@
         />
       </v-form>
 
-      <v-alert v-if="error" color="error" class="ma-4" text>
+      <v-alert v-if="error" color="error" class="my-4" text>
         {{ error }}
       </v-alert>
 
@@ -142,6 +143,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    outlined: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -186,7 +191,21 @@ export default {
 
         hostname = hostname.replace(/^www\./, '').toLowerCase()
 
-        if (hostname && hostname.match(/^.+\..+$/)) {
+        if (
+          hostname &&
+          hostname.match(/^.+\..+$/) &&
+          ![
+            'wappalyzer',
+            'google',
+            'facebook',
+            'twitter',
+            'reddit',
+            'yahoo',
+            'wikipedia',
+            'amazon',
+            'youtube',
+          ].some((ignore) => hostname.includes(ignore))
+        ) {
           this.results.push({
             type: 'lookup',
             text: hostname,
@@ -261,9 +280,13 @@ export default {
       }
     },
     submit(item) {
-      this.loading = true
+      this.$refs.results.blur()
 
-      this.$router.push(item.to)
+      if (this.$route.path !== item.to) {
+        this.loading = true
+
+        this.$router.push(item.to)
+      }
     },
     async onFocus() {
       this.query = ''
