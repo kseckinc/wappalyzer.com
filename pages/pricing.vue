@@ -110,7 +110,7 @@
       <v-row justify="center">
         <v-col cols="12" md="10" lg="8">
           <v-card>
-            <v-card-title>Frequently asked questions</v-card-title>
+            <v-card-title class="px-6">Frequently asked questions</v-card-title>
             <v-card-text class="px-0">
               <Faqs topic="pricing" />
             </v-card-text>

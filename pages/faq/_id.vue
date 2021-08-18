@@ -10,11 +10,7 @@
     >
       <h1 class="mb-4">Frequently asked questions</h1>
 
-      <v-card>
-        <v-card-text class="px-0">
-          <Faqs :topic="$route.params.id" />
-        </v-card-text>
-      </v-card>
+      <Faqs class="mx-n6" :topic="$route.params.id" />
     </Page>
   </div>
 </template>

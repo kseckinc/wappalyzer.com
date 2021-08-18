@@ -11,7 +11,7 @@
 
     <v-row>
       <v-col md="8" class="py-0">
-        <v-expansion-panels v-model="panels" class="mb-6">
+        <v-expansion-panels v-model="panels" class="mb-6" accordion>
           <v-expansion-panel>
             <v-expansion-panel-header class="subtitle-1 font-weight-medium"
               ><span class="d-flex align-center"

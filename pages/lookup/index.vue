@@ -21,7 +21,7 @@
       </v-btn>
     </div>
 
-    <v-expansion-panels v-model="panels" class="mb-6">
+    <v-expansion-panels v-model="panels" class="mb-6" accordion>
       <v-expansion-panel>
         <v-expansion-panel-header class="subtitle-1 font-weight-medium"
           ><span class="d-flex align-center"

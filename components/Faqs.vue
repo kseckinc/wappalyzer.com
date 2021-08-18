@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body-2">
     <v-expansion-panels v-if="topic === 'lists'" flat>
       <v-expansion-panel>
         <v-expansion-panel-header>
@@ -29,20 +29,15 @@
           </p>
 
           <p>
-            On a
-            <v-chip to="/pro/" color="primary" x-small outlined>PRO</v-chip>
-            plan, available company and contact information such as employee
-            counts, email addresses and phone numbers are included too.
+            On a <nuxt-link to="/pro/">PRO</nuxt-link> plan, available company
+            and contact information such as employee counts, email addresses and
+            phone numbers are included too.
           </p>
 
           <p>
             See the full list of
             <nuxt-link to="/docs/fields/">fields</nuxt-link>, all
-            <nuxt-link to="/pro/">
-              <v-chip to="/pro/" color="accent" class="mr-1" x-small outlined
-                >PRO</v-chip
-              >features</nuxt-link
-            >
+            <nuxt-link to="/pro/">PROfeatures</nuxt-link>
             and a <nuxt-link to="/lists/sample/">lead list sample</nuxt-link>.
           </p>
         </v-expansion-panel-content>
@@ -198,10 +193,9 @@
           </p>
 
           <p>
-            On a
-            <v-chip to="/pro/" color="primary" x-small outlined> PRO </v-chip>
-            plan, available company and contact information such as employee
-            counts, email addresses and phone numbers are included too.
+            On a <nuxt-link to="/pro/">PRO</nuxt-link> plan, available company
+            and contact information such as employee counts, email addresses and
+            phone numbers are included too.
           </p>
 
           <p>
@@ -311,25 +305,14 @@
 
       <v-expansion-panel>
         <v-expansion-panel-header>
-          <span>
-            What are
-            <span class="body-2">
-              <v-chip color="primary" x-small outlined>PRO</v-chip></span
-            >
-            features?
-          </span>
+          What are PRO features?
         </v-expansion-panel-header>
         <v-expansion-panel-content eager>
           <p>
-            <v-chip to="/pro/" color="primary" x-small outlined> PRO </v-chip>
-            features include CRM integrations and access to company and contact
-            information in all of our data products, including lead lists,
-            technology lookups, APIs and browser extension.
-            <nuxt-link to="/pro/">
-              See all
-              <v-chip to="/pro/" color="accent" x-small outlined> PRO </v-chip>
-              features</nuxt-link
-            >.
+            PRO features include CRM integrations and access to company and
+            contact information in all of our data products, including lead
+            lists, technology lookups, APIs and browser extension.
+            <nuxt-link to="/pro/">See all PRO features</nuxt-link>.
           </p>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -411,16 +394,10 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content eager>
           The browser extension shows the technologies a websites uses, for
-          free. On a
-          <v-chip to="/pricing/" color="primary" x-small outlined> PRO </v-chip>
-          plan, the 'more info' tab reveals available company and contact
-          information for the website as well as social media profiles and any
-          other metadata we find.
-          <nuxt-link to="/pro/"
-            >See all
-            <v-chip to="/pro/" color="accent" x-small outlined> PRO </v-chip>
-            features</nuxt-link
-          >.
+          free. On a PRO plan, the 'more info' tab reveals available company and
+          contact information for the website as well as social media profiles
+          and any other metadata we find.
+          <nuxt-link to="/pro/">See all PRO features</nuxt-link>.
 
           <v-card class="my-8" :max-width="1118 * 0.5">
             <v-img
