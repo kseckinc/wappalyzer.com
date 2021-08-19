@@ -33,7 +33,7 @@
         v-for="(attribute, attributeKey) in set.attributes"
         :key="attributeKey"
       >
-        <v-card-title class="caption font-weight-medium pb-0">
+        <v-card-title class="subtitle-2 pb-2">
           {{ attribute.title }}
         </v-card-title>
 
@@ -45,7 +45,7 @@
               ) || setKey === 'social'
             "
           >
-            <span v-for="(value, index) in attribute.values" :key="index">
+            <div v-for="(value, index) in attribute.values" :key="index">
               <nuxt-link
                 v-if="
                   ['email', 'verifiedEmail', 'safeEmail'].includes(attributeKey)
@@ -61,9 +61,9 @@
                 label
               >
                 <v-icon color="accent" class="mr-1" small>{{ mdiEmail }}</v-icon
-                ><small :class="maskedSets.includes(setKey) ? 'blurred' : ''">{{
+                ><span :class="maskedSets.includes(setKey) ? 'blurred' : ''">{{
                   value.text
-                }}</small>
+                }}</span>
               </nuxt-link>
               <nuxt-link
                 v-else-if="attributeKey === 'phone'"
@@ -77,9 +77,9 @@
                 label
               >
                 <v-icon color="accent" class="mr-1" small>{{ mdiPhone }}</v-icon
-                ><small :class="maskedSets.includes(setKey) ? 'blurred' : ''">{{
+                ><span :class="maskedSets.includes(setKey) ? 'blurred' : ''">{{
                   value.text
-                }}</small>
+                }}</span>
               </nuxt-link>
               <nuxt-link
                 v-else-if="value.to"
@@ -109,19 +109,19 @@
                   small
                 >
                   {{ mdi[attributeKey] }} </v-icon
-                ><small :class="maskedSets.includes(setKey) ? 'blurred' : ''">{{
+                ><span :class="maskedSets.includes(setKey) ? 'blurred' : ''">{{
                   value.text
-                }}</small>
+                }}</span>
               </nuxt-link>
-            </span>
+            </div>
           </template>
 
           <template v-else>
             <div v-for="(value, index) in attribute.values" :key="index">
-              <v-icon v-if="value.text === true" color="success" small>
+              <v-icon v-if="value.text === true" color="success">
                 {{ mdiCheck }}
               </v-icon>
-              <v-icon v-else-if="value.text === false" color="error" small>
+              <v-icon v-else-if="value.text === false" color="error">
                 {{ mdiClose }}
               </v-icon>
               <div
@@ -130,18 +130,31 @@
               >
                 <v-divider v-if="index" class="my-2" />
 
-                <small>{{ value.text.split(' -- ').shift() }}</small>
-                <small v-if="value.text.split(' -- ').pop().length >= 3"
-                  >&mdash; {{ value.text.split(' -- ').pop() }}</small
+                <span>{{ value.text.split(' -- ').shift() }}</span>
+                <span v-if="value.text.split(' -- ').pop().length >= 3"
+                  >&mdash; {{ value.text.split(' -- ').pop() }}</span
                 >
               </div>
-              <small
+              <span
                 v-else-if="attributeKey === 'certInfo.validTo'"
                 :class="`${maskedSets.includes(setKey) ? 'blurred ' : ''}`"
               >
                 {{ formatDate(new Date(value.text * 1000)) }}
-              </small>
-              <small
+              </span>
+              <span
+                v-else-if="attributeKey === 'locations'"
+                :class="`${maskedSets.includes(setKey) ? 'blurred ' : ''}`"
+              >
+                <a
+                  :href="`https://maps.google.com/?q=${encodeURIComponent(
+                    value.text
+                  )}`"
+                  target="_blank"
+                >
+                  {{ value.text }}
+                </a>
+              </span>
+              <span
                 v-else
                 :class="`${
                   maskedSets.includes(setKey) && setKey === 'company'
@@ -161,7 +174,7 @@
                   @click.prevent="toggle(attributeKey)"
                   >Show {{ expanded[attributeKey] ? 'less' : 'more' }}</a
                 >
-              </small>
+              </span>
             </div>
           </template>
         </v-card-text>

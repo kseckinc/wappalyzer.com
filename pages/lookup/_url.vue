@@ -34,18 +34,7 @@
     </v-alert>
 
     <template #content>
-      <v-card v-if="!signInDialog && loading" class="mt-4" flat>
-        <v-card-text class="d-flex justify-center pa-12">
-          <v-progress-circular
-            :size="100"
-            color="primary"
-            width="5"
-            style="opacity: 0.2"
-            indeterminate
-          ></v-progress-circular>
-        </v-card-text>
-      </v-card>
-      <template v-else-if="!signInDialog && technologies.length">
+      <template v-if="!signInDialog || isLoading">
         <v-row>
           <v-col cols="12" sm="6">
             <h3 class="d-flex align-center mb-4">
@@ -55,7 +44,26 @@
               Technology stack
             </h3>
 
-            <div v-for="category in categorised" :key="category.slug">
+            <template v-if="isLoading || (!signInDialog && loading)">
+              <v-card v-for="index in [0, 1, 2]" class="mb-4" outlined>
+                <v-card-text>
+                  <v-skeleton-loader type="card-heading" />
+                  <v-row>
+                    <v-col>
+                      <v-skeleton-loader type="list-item-avatar" />
+                    </v-col>
+                    <v-col>
+                      <v-skeleton-loader type="list-item-avatar" />
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+              </v-card>
+            </template>
+            <div
+              v-else-if="technologies.length"
+              v-for="category in categorised"
+              :key="category.slug"
+            >
               <v-card class="mb-4" outlined>
                 <v-hover v-slot="{ hover }">
                   <v-sheet color="secondary">
@@ -135,8 +143,17 @@
               Website profile
             </h3>
 
+            <v-card
+              v-if="isLoading || (!signInDialog && loading)"
+              class="mb-4"
+              outlined
+            >
+              <v-card-text>
+                <v-skeleton-loader type="article, article " />
+              </v-card-text>
+            </v-card>
             <template
-              v-if="
+              v-else-if="
                 !error && (Object.keys(attributes).length || keywords.length)
               "
             >
@@ -160,7 +177,6 @@
                       color="accent--text"
                       outlined
                       label
-                      small
                     >
                       {{ keyword }}
                     </v-chip>
