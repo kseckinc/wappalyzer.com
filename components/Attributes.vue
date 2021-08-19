@@ -38,83 +38,91 @@
         </v-card-title>
 
         <v-card-text class="pb-0">
-          <template
+          <v-simple-table
             v-if="
               ['email', 'verifiedEmail', 'safeEmail', 'phone'].includes(
                 attributeKey
               ) || setKey === 'social'
             "
+            class="mx-n4"
+            style="max-width: none"
           >
-            <div v-for="(value, index) in attribute.values" :key="index">
-              <nuxt-link
-                v-if="
-                  ['email', 'verifiedEmail', 'safeEmail'].includes(attributeKey)
-                "
-                :to="
-                  maskedSets.includes(setKey)
-                    ? '/pro/'
-                    : `/verify/${value.text}`
-                "
-                color="accent--text"
-                class="mr-2"
-                outlined
-                label
-              >
-                <v-icon color="accent" class="mr-1" small>{{ mdiEmail }}</v-icon
-                ><span :class="maskedSets.includes(setKey) ? 'blurred' : ''">{{
-                  value.text
-                }}</span>
-              </nuxt-link>
-              <nuxt-link
-                v-else-if="attributeKey === 'phone'"
-                :href="
-                  maskedSets.includes(setKey) ? undefined : `tel:${value.text}`
-                "
-                :to="maskedSets.includes(setKey) ? '/pro/' : ''"
-                color="accent--text"
-                class="mr-2"
-                outlined
-                label
-              >
-                <v-icon color="accent" class="mr-1" small>{{ mdiPhone }}</v-icon
-                ><span :class="maskedSets.includes(setKey) ? 'blurred' : ''">{{
-                  value.text
-                }}</span>
-              </nuxt-link>
-              <nuxt-link
-                v-else-if="value.to"
-                :href="maskedSets.includes(setKey) ? undefined : value.to"
-                :to="maskedSets.includes(setKey) ? '/pro/' : ''"
-                rel="nofollow noopener"
-                target="_blank"
-                color="accent--text"
-                class="mr-2"
-                outlined
-                label
-              >
-                <v-icon
+            <tbody>
+              <tr v-for="(value, index) in attribute.values" :key="index">
+                <td
                   v-if="
-                    [
-                      'twitter',
-                      'instagram',
-                      'facebook',
-                      'linkedin',
-                      'youtube',
-                      'github',
-                      'pinterest',
-                    ].includes(attributeKey)
+                    ['email', 'verifiedEmail', 'safeEmail'].includes(
+                      attributeKey
+                    )
                   "
-                  color="accent"
-                  class="mr-1"
-                  small
                 >
-                  {{ mdi[attributeKey] }} </v-icon
-                ><span :class="maskedSets.includes(setKey) ? 'blurred' : ''">{{
-                  value.text
-                }}</span>
-              </nuxt-link>
-            </div>
-          </template>
+                  <nuxt-link
+                    :to="
+                      maskedSets.includes(setKey)
+                        ? '/pro/'
+                        : `/verify/${value.text}`
+                    "
+                  >
+                    <v-icon color="accent" class="mr-1" size="22">{{
+                      mdiEmail
+                    }}</v-icon
+                    ><span
+                      :class="maskedSets.includes(setKey) ? 'blurred' : ''"
+                      >{{ value.text }}</span
+                    >
+                  </nuxt-link>
+                </td>
+                <td v-else-if="attributeKey === 'phone'">
+                  <nuxt-link
+                    :href="
+                      maskedSets.includes(setKey)
+                        ? undefined
+                        : `tel:${value.text}`
+                    "
+                    :to="maskedSets.includes(setKey) ? '/pro/' : ''"
+                  >
+                    <v-icon color="accent" class="mr-1" size="22">{{
+                      mdiPhone
+                    }}</v-icon
+                    ><span
+                      :class="maskedSets.includes(setKey) ? 'blurred' : ''"
+                      >{{ value.text }}</span
+                    >
+                  </nuxt-link>
+                </td>
+                <td v-else-if="value.to">
+                  <nuxt-link
+                    :href="maskedSets.includes(setKey) ? undefined : value.to"
+                    :to="maskedSets.includes(setKey) ? '/pro/' : ''"
+                    rel="nofollow noopener"
+                    target="_blank"
+                  >
+                    <v-icon
+                      v-if="
+                        [
+                          'twitter',
+                          'instagram',
+                          'facebook',
+                          'linkedin',
+                          'youtube',
+                          'github',
+                          'pinterest',
+                        ].includes(attributeKey)
+                      "
+                      color="accent"
+                      class="mr-1"
+                      size="22"
+                    >
+                      {{ mdi[attributeKey] }} </v-icon
+                    ><span
+                      :class="maskedSets.includes(setKey) ? 'blurred' : ''"
+                      >{{ value.text }}</span
+                    >
+                  </nuxt-link>
+                </td>
+              </tr>
+            </tbody>
+          </v-simple-table>
 
           <template v-else>
             <div v-for="(value, index) in attribute.values" :key="index">
