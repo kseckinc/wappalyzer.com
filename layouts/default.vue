@@ -148,6 +148,7 @@ export default {
           '/faq/',
           '/pricing/',
           '/orders/',
+          '/verify/#bulk',
         ].some((path) =>
           `${this.$route.path}${this.$route.hash}`.startsWith(path)
         )

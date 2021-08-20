@@ -34,7 +34,7 @@
     </v-alert>
 
     <template #content>
-      <template v-if="!signInDialog || isLoading">
+      <template v-if="!error && (!signInDialog || isLoading)">
         <v-row>
           <v-col cols="12" sm="6">
             <h3 class="d-flex align-center mb-4">
@@ -133,6 +133,9 @@
                 </v-card-text>
               </v-card>
             </div>
+            <v-alert v-else type="info" prominent text
+              >No technologies found.</v-alert
+            >
           </v-col>
 
           <v-col cols="12" sm="6">
@@ -153,9 +156,7 @@
               </v-card-text>
             </v-card>
             <template
-              v-else-if="
-                !error && (Object.keys(attributes).length || keywords.length)
-              "
+              v-else-if="Object.keys(attributes).length || keywords.length"
             >
               <Attributes
                 v-if="Object.keys(attributes).length"
@@ -184,6 +185,9 @@
                 </v-card-text>
               </v-card>
             </template>
+            <v-alert v-else type="info" prominent text
+              >No information availably yet. Please check back soon.</v-alert
+            >
           </v-col>
         </v-row>
       </template>
@@ -305,7 +309,19 @@ export default {
           ...response,
           maskedSets,
           technologies,
-          attributes,
+          attributes: Object.keys(attributes)
+            .filter((key) =>
+              Array.isArray(attributes[key])
+                ? attributes[key].length
+                : attributes[key]
+            )
+            .reduce(
+              (_attributes, key) => ({
+                ..._attributes,
+                [key]: attributes[key],
+              }),
+              {}
+            ),
           keywords,
         }
       } catch (error) {
@@ -409,7 +425,7 @@ export default {
   async mounted() {
     const path = `/lookup/${this.hostname}`
 
-    if (this.$route.path !== path) {
+    if (this.hostname && this.$route.path !== path) {
       this.$router.replace(path)
     }
   },
