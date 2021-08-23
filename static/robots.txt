@@ -8,6 +8,7 @@ Disallow: /apikey/
 Disallow: /credits/
 Disallow: /css/
 Disallow: /installed/
+Disallow: /integrations/
 Disallow: /invoices/
 Disallow: /lists/*
 Disallow: /organisation/

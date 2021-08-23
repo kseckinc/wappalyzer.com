@@ -67,9 +67,9 @@
                   >
                     <v-card-title class="subtitle-2">
                       <v-icon color="primary" size="20" left>
-                        {{ mdiLockOpenVariantOutline }}
+                        {{ mdiPhone }}
                       </v-icon>
-                      Unlock pro features
+                      Company and contact details
                     </v-card-title>
                     <v-card-text class="primary--text pb-0">
                       Subscribe to a
@@ -82,11 +82,22 @@
                     <v-card-actions>
                       <v-spacer />
 
-                      <v-btn to="/pricing/" color="primary" text>
-                        Compare plans
-                        <v-icon right>
-                          {{ mdiArrowRight }}
+                      <v-btn
+                        v-if="!pro"
+                        color="primary"
+                        text
+                        @click="pro = true"
+                      >
+                        <v-icon left>
+                          {{ mdiLockOpenVariantOutline }}
                         </v-icon>
+                        Unlock PRO
+                      </v-btn>
+                      <v-btn v-else color="primary" text @click="pro = false">
+                        <v-icon left>
+                          {{ mdiLockOutline }}
+                        </v-icon>
+                        PRO unlocked
                       </v-btn>
                     </v-card-actions>
                   </v-card>
@@ -352,23 +363,25 @@
                     :disabled="!selection"
                     multiple
                   >
-                    <v-expansion-panel ref="attributes" value="attributes">
+                    <v-expansion-panel
+                      ref="attributes"
+                      value="attributes"
+                      @click="pro = true"
+                    >
                       <v-expansion-panel-header class="subtitle-2">
                         Fields
-                        <span class="body-2">
+                        <div class="body-2 text-right">
                           <v-chip
                             :disabled="!selection"
                             color="primary"
-                            class="ml-2"
+                            class="mr-2"
                             x-small
                             outlined
                             >PRO</v-chip
                           >
-                        </span>
+                        </div>
                       </v-expansion-panel-header>
                       <v-expansion-panel-content class="no-x-padding">
-                        <Pro class="mb-2" small />
-
                         <v-simple-table>
                           <tbody>
                             <tr>
@@ -385,7 +398,7 @@
                                   class="ma-0"
                                   hide-details
                                   :disabled="
-                                    !isPro ||
+                                    !pro ||
                                     (['phone', 'email'].includes(key) &&
                                       compliance === 'exclude')
                                   "
@@ -399,7 +412,7 @@
                                   class="ma-0"
                                   hide-details
                                   :disabled="
-                                    !isPro ||
+                                    !pro ||
                                     (['phone', 'email'].includes(key) &&
                                       compliance === 'exclude')
                                   "
@@ -413,7 +426,7 @@
                                   class="ma-0"
                                   hide-details
                                   :disabled="
-                                    !isPro ||
+                                    !pro ||
                                     (['phone', 'email'].includes(key) &&
                                       compliance === 'exclude')
                                   "
@@ -441,28 +454,30 @@
                       </v-expansion-panel-content>
                     </v-expansion-panel>
 
-                    <v-expansion-panel ref="compliance" value="compliance">
+                    <v-expansion-panel
+                      ref="compliance"
+                      value="compliance"
+                      @click="pro = true"
+                    >
                       <v-expansion-panel-header class="subtitle-2">
                         Compliance
-                        <span class="body-2">
+                        <div class="body-2 text-right">
                           <v-chip
                             :disabled="!selection"
                             color="primary"
-                            class="ml-2"
+                            class="mr-2"
                             x-small
                             outlined
                             >PRO</v-chip
                           >
-                        </span>
+                        </div>
                       </v-expansion-panel-header>
                       <v-expansion-panel-content>
-                        <Pro class="mx-n6 mb-4" small />
-
                         <v-radio-group
                           v-model="compliance"
                           class="my-0"
                           mandatory
-                          :disabled="!isPro"
+                          :disabled="!pro"
                         >
                           <v-radio
                             value="include"
@@ -497,7 +512,7 @@
                           label="I'm in or do business in Australia"
                           class="mt-0"
                           hide-details
-                          :disabled="!isPro"
+                          :disabled="!pro"
                         />
 
                         <v-alert
@@ -524,23 +539,25 @@
                     :disabled="!selection"
                     multiple
                   >
-                    <v-expansion-panel ref="industries" value="industries">
+                    <v-expansion-panel
+                      ref="industries"
+                      value="industries"
+                      @click="pro = true"
+                    >
                       <v-expansion-panel-header class="subtitle-2">
                         Industry
-                        <span class="body-2">
+                        <div class="body-2 text-right">
                           <v-chip
                             :disabled="!selection"
                             color="primary"
-                            class="ml-2"
+                            class="mr-2"
                             x-small
                             outlined
                             >PRO</v-chip
                           >
-                        </span>
+                        </div>
                       </v-expansion-panel-header>
                       <v-expansion-panel-content>
-                        <Pro class="mx-n6 mb-4" small />
-
                         <p>Choose which company industries to include.</p>
 
                         <v-select
@@ -604,23 +621,25 @@
                       </v-expansion-panel-content>
                     </v-expansion-panel>
 
-                    <v-expansion-panel ref="companySizes" value="companySizes">
+                    <v-expansion-panel
+                      ref="companySizes"
+                      value="companySizes"
+                      @click="pro = true"
+                    >
                       <v-expansion-panel-header class="subtitle-2">
                         Company size
-                        <span class="body-2">
+                        <div class="body-2 text-right">
                           <v-chip
                             :disabled="!selection"
                             color="primary"
-                            class="ml-2"
+                            class="mr-2"
                             x-small
                             outlined
                             >PRO</v-chip
                           >
-                        </span>
+                        </div>
                       </v-expansion-panel-header>
                       <v-expansion-panel-content>
-                        <Pro class="mx-n6 mb-4" small />
-
                         <p>Choose what size companies to include.</p>
 
                         <v-select
@@ -1360,6 +1379,43 @@
 
       <FaqDialog ref="faqDialog" topic="lists" />
 
+      <v-dialog v-model="proDialog" max-width="600px">
+        <v-card>
+          <v-card-title>Unlock PRO features?</v-card-title>
+          <v-card-text>
+            <p>
+              Company and contact details will be included in the list and you
+              get access to all filters.
+              <nuxt-link to="/pro/" target="_blank"
+                >See all PRO features</nuxt-link
+              >.
+            </p>
+
+            <p class="mb-0">
+              Continue creating your list to get a free sample.
+              <nuxt-link to="/pricing/" target="_blank">Sign up</nuxt-link> for
+              an eligible plan to access the full list (no obligation).
+            </p>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn
+              color="error"
+              text
+              @click="
+                () => {
+                  pro = false
+                  proDialog = false
+                }
+              "
+            >
+              Cancel
+            </v-btn>
+            <v-btn color="accent" text @click="proDialog = false">Unlock</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
       <v-dialog v-model="suggestionsDialog" max-width="600px">
         <v-card>
           <v-card-title>List ideas</v-card-title>
@@ -1417,6 +1473,8 @@ import {
   mdiArrowCollapseVertical,
   mdiFilterVariant,
   mdiLockOpenVariantOutline,
+  mdiLockOutline,
+  mdiPhone,
 } from '@mdi/js'
 import Page from '~/components/Page.vue'
 import Technologies from '~/components/Technologies.vue'
@@ -1485,12 +1543,16 @@ export default {
       mdiArrowCollapseVertical,
       mdiFilterVariant,
       mdiLockOpenVariantOutline,
+      mdiLockOutline,
+      mdiPhone,
       minAge: 0,
       maxAge: 3,
       meta,
       panelsMain: [],
       panelsSelection: [],
       panelsFilters: [],
+      pro: false,
+      proDialog: false,
       loading: false,
       signInDialog: false,
       selectedCountry: '',
@@ -1645,7 +1707,7 @@ export default {
       }))
     },
     minListSize() {
-      return this.isPro ? 50 : 500
+      return this.pro ? 50 : 500
     },
   },
   watch: {
@@ -1667,7 +1729,11 @@ export default {
     },
     isLoading() {
       if (!this.isLoading) {
-        if (!this.isPro) {
+        if (this.isPro) {
+          this.pro = true
+        }
+
+        if (!this.pro) {
           this.compliance = 'exclude'
 
           Object.keys(this.selected.sets).forEach(
@@ -1678,14 +1744,28 @@ export default {
         this.fillForm()
       }
     },
-    isPro() {
-      if (!this.isPro) {
-        this.compliance = 'exclude'
+    pro() {
+      if (this.pro && !this.isPro) {
+        this.proDialog = true
+      }
 
-        Object.keys(this.selected.sets).forEach(
-          (key) => (this.selected.sets[key] = 'exclude')
+      this.updateQuery()
+
+      if (!this.pro) {
+        // Close Pro panels
+        this.panelsSelection = this.panelsSelection.filter(
+          (index) => index !== 0 && index !== 1
+        )
+        this.panelsFilters = this.panelsFilters.filter(
+          (index) => index !== 0 && index !== 1
         )
       }
+
+      this.compliance = this.pro ? 'include' : 'exclude'
+
+      Object.keys(this.selected.sets).forEach(
+        (key) => (this.selected.sets[key] = this.pro ? 'include' : 'exclude')
+      )
     },
     australia() {
       if (this.australia) {
@@ -1757,12 +1837,8 @@ export default {
   },
   mounted() {
     if (!this.isLoading) {
-      if (!this.isPro) {
-        this.compliance = 'exclude'
-
-        Object.keys(this.selected.sets).forEach(
-          (key) => (this.selected.sets[key] = 'exclude')
-        )
+      if (this.isPro) {
+        this.pro = true
       }
 
       this.fillForm()
@@ -1863,6 +1939,7 @@ export default {
               (key) => this.selected.sets[key] !== 'excluded'
             ),
             exclusions: this.file,
+            pro: this.pro,
           })
         ).data
 
@@ -2201,7 +2278,7 @@ export default {
               ? this.matchAllTechnologies
               : undefined,
           contacts:
-            this.isPro &&
+            this.pro &&
             (this.compliance === 'exclude' || this.compliance === 'excludeEU')
               ? this.compliance
               : undefined,
@@ -2213,6 +2290,7 @@ export default {
           attributes: Object.keys(this.selected.sets)
             .filter((set) => this.selected.sets[set] === 'required')
             .join(','),
+          pro: this.pro && !this.isPro ? '1' : undefined,
         }
 
         this.$router.replace({
@@ -2260,6 +2338,7 @@ export default {
         keywords,
         industries,
         sizes,
+        pro,
       } = query || this.$route.query
 
       if (Object.keys(query || this.$route.query).length) {
@@ -2269,6 +2348,10 @@ export default {
       this.panelsMain = []
       this.panelsSelection = []
       this.panelsFilters = []
+
+      if (pro) {
+        this.pro = true
+      }
 
       this.minAge = Math.max(0, Math.min(11, parseInt(min || 0, 10)))
 
@@ -2295,7 +2378,7 @@ export default {
 
       this.compliance = 'include'
 
-      if (!this.isPro) {
+      if (!this.pro) {
         this.compliance = 'exclude'
       } else if (contacts === 'exclude' || contacts === 'excludeEU') {
         this.compliance = contacts
@@ -2510,7 +2593,7 @@ export default {
         this.$refs.technologies.toggle()
       }
 
-      if (this.isPro && this.compliance === 'exclude') {
+      if (this.pro && this.compliance === 'exclude') {
         this.$refs.compliance.toggle()
         this.$refs.attributes.toggle()
       }

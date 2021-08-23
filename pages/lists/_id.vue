@@ -31,7 +31,7 @@
           </div>
 
           <v-card
-            v-if="!isPro"
+            v-if="!list.pro && !isPro"
             color="primary lighten-1 primary--text"
             class="mb-4"
             flat
@@ -82,7 +82,9 @@
                       {{ formatNumber(list.totalCredits) }} credits
                     </td>
                     <td v-else>
-                      <template v-if="credits >= list.totalCredits">
+                      <template
+                        v-if="list.pro || isPro || credits >= list.totalCredits"
+                      >
                         {{ formatNumber(list.totalCredits) }} credits
                         <span class="text--disabled"
                           >(or {{ formatCurrency(list.total / 100) }})</span
@@ -101,7 +103,23 @@
               </v-simple-table>
 
               <div class="d-flex flex-column align-stretch mx-4">
+                <template v-if="list.pro && !isPro">
+                  <v-alert color="primary" text
+                    ><small
+                      >PRO fields are included. Sign up for an eligible plan to
+                      download the full list.</small
+                    ></v-alert
+                  >
+
+                  <v-btn to="/pricing/" color="primary" x-large depressed>
+                    Plans &amp; pricing
+                    <v-icon right size="20">
+                      {{ mdiArrowRight }}
+                    </v-icon>
+                  </v-btn>
+                </template>
                 <v-btn
+                  v-else
                   color="success"
                   x-large
                   depressed
@@ -123,6 +141,7 @@
             "
             v-model="repeat"
             :loading="repeating"
+            :disabled="list.pro && !isPro"
             class="my-6 pt-0"
             inset
             hide-details
@@ -1008,6 +1027,7 @@ export default {
             this.list.query.compliance === 'excludeEU')
             ? this.list.query.compliance
             : undefined,
+        pro: !this.isPro && this.list.pro ? '1' : 'undefined',
       }
 
       const string = Object.keys(params)

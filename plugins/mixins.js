@@ -401,12 +401,14 @@ Vue.mixin({
           return this.formatNumber(parseInt(value, 10))
         case 'url':
           return {
-            to: value,
+            to: `/lookup/${encodeURIComponent(value)}/`,
             text: value,
           }
         case 'email':
+        case 'verifiedEmail':
+        case 'safeEmail':
           return {
-            to: `mailto:${value}`,
+            to: `/verify/${value}/`,
             text: value,
           }
         case 'phone':

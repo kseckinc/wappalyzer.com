@@ -40,7 +40,6 @@
                   v-if="formatted.to"
                   :href="formatted.to"
                   rel="noopener nofollow"
-                  target="_blank"
                   >{{ formatted.text }}</a
                 >
                 <template v-else>
@@ -57,7 +56,6 @@
                 v-if="formatted.to"
                 :href="formatted.to"
                 rel="noopener nofollow"
-                target="_blank"
                 >{{ formatted.text }}</a
               >
               <template v-else-if="formatted === 'true'">
