@@ -8,206 +8,174 @@
       {{ error }}
     </v-alert>
 
-    <v-card>
-      <v-tabs
-        v-model="tab"
-        slider-color="primary"
-        background-color="secondary"
-        active-class="primary--text"
-      >
-        <v-tab><small>Manage</small></v-tab>
-        <v-tab><small>Memberships</small></v-tab>
-      </v-tabs>
+    <v-expansion-panels v-model="panels" accordion>
+      <v-expansion-panel>
+        <v-expansion-panel-header class="subtitle-1 font-weight-medium">
+          Your organisation ({{ user.billingName || user.name || user.email }})
+        </v-expansion-panel-header>
+        <v-expansion-panel-content class="no-x-padding body-2" eager>
+          <div class="px-6" style="max-width: 600px">
+            <p>
+              Members have
+              <a @click="accessDialog = true">limited access</a> to your
+              account. They can create orders and spend credits. Additional
+              seats are included with selected
+              <nuxt-link to="/pricing/">plans</nuxt-link>.
+            </p>
+          </div>
 
-      <v-divider />
+          <v-divider class="my-6" />
 
-      <v-tabs-items v-model="tab">
-        <v-tab-item>
-          <v-card flat>
-            <v-card-title>
-              <v-row>
-                <v-col
-                  class="flex-shrink-1 flex-grow-0"
-                  style="white-space: nowrap"
-                >
-                  Members
-                </v-col>
-                <v-col class="text-right flex-shrink-0 flex-grow-1 body-2">
-                  <small class="mr-2"
-                    >Seats available:
-                    <span class="font-weight-medium">
-                      {{ organisation.seatsRemaining }}
-                      of {{ organisation.seats }}</span
-                    ></small
+          <h3 class="subtitle-2 mx-6 mb-2">Members</h3>
+
+          <v-alert
+            v-if="!organisation.members.length"
+            class="mx-6"
+            color="info"
+            text
+          >
+            You're the only member of this organisation.
+          </v-alert>
+
+          <v-simple-table v-else class="mb-4">
+            <thead>
+              <tr>
+                <th width="1">Enabled</th>
+                <th>Name</th>
+                <th>Email address</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="member in organisation.members" :key="member.user.sub">
+                <td>
+                  <v-switch
+                    v-model="member.enabled"
+                    :disabled="!member.enabled && !organisation.seatsRemaining"
+                    :loading="member.loading"
+                    class="ma-0 pa-0 mx-auto"
+                    hide-details
+                    inset
+                    @change="toggle(member)"
+                  />
+                </td>
+                <td>
+                  <template v-if="member.user.name">
+                    {{ member.user.name }}
+                  </template>
+                  <span v-else class="text--disabled">Not provided</span>
+                </td>
+                <td>{{ member.user.email }}</td>
+                <td class="text-right">
+                  <v-chip
+                    v-if="member.user.sub === member.user.email"
+                    color="warning"
+                    outlined
+                    small
                   >
+                    Pending
+                  </v-chip>
                   <v-btn
-                    :disabled="!organisation.seatsRemaining"
-                    color="primary lighten-1"
-                    class="primary--text"
+                    icon
+                    color="error"
+                    @click="
+                      removeUserId = member.user.sub
+                      removeDialog = true
+                    "
+                  >
+                    <v-icon>{{ mdiCloseCircle }}</v-icon>
+                  </v-btn>
+                </td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+
+          <div class="d-flex align-center justify-end mr-6 mb-2">
+            <small class="text--disabled mr-4"
+              >{{ organisation.seatsRemaining }} of
+              {{ organisation.seats }} seats available</small
+            ><v-btn
+              :disabled="!organisation.seatsRemaining"
+              color="accent lighten-1 accent--text"
+              depressed
+              @click="createDialog = true"
+            >
+              <v-icon left>
+                {{ mdiAccountPlus }}
+              </v-icon>
+              Add member
+            </v-btn>
+          </div>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
+      <v-expansion-panel>
+        <v-expansion-panel-header class="subtitle-1 font-weight-medium"
+          >Your memberships</v-expansion-panel-header
+        >
+        <v-expansion-panel-content class="no-x-padding body-2">
+          <p class="mx-6">These are the organisations you're a member of.</p>
+
+          <v-alert v-if="!memberOf.length" class="mx-6 mb-2" color="info" text>
+            You don't belong to any organisations.
+          </v-alert>
+
+          <v-simple-table v-else>
+            <thead>
+              <tr>
+                <th>Organisation</th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="{ organisationId: id, name, status } in memberOf"
+                :key="id"
+              >
+                <td>
+                  {{ name }}
+                </td>
+                <td class="text-right">
+                  <v-btn
+                    v-if="status === 'Active'"
+                    color="accent lighten-1 accent--text"
                     depressed
                     small
-                    @click="createDialog = true"
+                    :loading="switching"
+                    @click="switchTo(id)"
                   >
-                    <v-icon left>
-                      {{ mdiAccountPlus }}
-                    </v-icon>
-                    Add member
+                    <v-icon left> {{ mdiAccountSwitch }} </v-icon>Switch to
                   </v-btn>
-                </v-col>
-              </v-row>
-            </v-card-title>
-            <v-card-text class="pb-0">
-              <p>
-                Members have
-                <a @click="accessDialog = true">limited access</a> to your
-                account. They can create orders and spend credits.
-              </p>
-
-              <p class="mb-0">
-                Additional seats are included with selected
-                <nuxt-link to="/pricing/">plans</nuxt-link>.
-              </p>
-            </v-card-text>
-            <v-card-text v-if="!organisation.members.length">
-              <v-alert class="ma-0" color="info" text>
-                This organisation doesn't have any members.
-              </v-alert>
-            </v-card-text>
-            <v-card-text v-else class="px-0">
-              <v-simple-table>
-                <thead>
-                  <tr>
-                    <th width="1">Enabled</th>
-                    <th>Name</th>
-                    <th>Email address</th>
-                    <th />
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="member in organisation.members"
-                    :key="member.user.sub"
+                  <v-btn
+                    v-else
+                    color="accent"
+                    outlined
+                    small
+                    :loading="activating"
+                    @click="
+                      activateOrganisationId = id
+                      activate()
+                    "
                   >
-                    <td>
-                      <v-switch
-                        v-model="member.enabled"
-                        :disabled="
-                          !member.enabled && !organisation.seatsRemaining
-                        "
-                        :loading="member.loading"
-                        class="ma-0 pa-0 mx-auto"
-                        hide-details
-                        inset
-                        @change="toggle(member)"
-                      />
-                    </td>
-                    <td>
-                      <template v-if="member.user.name">
-                        {{ member.user.name }}
-                      </template>
-                      <span v-else class="text--disabled">Not provided</span>
-                    </td>
-                    <td>{{ member.user.email }}</td>
-                    <td class="text-right">
-                      <v-chip
-                        v-if="member.user.sub === member.user.email"
-                        color="error"
-                        outlined
-                        small
-                      >
-                        Pending
-                      </v-chip>
-                      <v-btn
-                        icon
-                        color="error"
-                        @click="
-                          removeUserId = member.user.sub
-                          removeDialog = true
-                        "
-                      >
-                        <v-icon>{{ mdiCloseCircle }}</v-icon>
-                      </v-btn>
-                    </td>
-                  </tr>
-                </tbody>
-              </v-simple-table>
-            </v-card-text>
-          </v-card>
-        </v-tab-item>
-
-        <v-tab-item>
-          <v-card flat>
-            <v-card-title>Organisations</v-card-title>
-            <v-card-text class="px-0">
-              <p class="px-4">
-                These are the organisations you're a member of.
-              </p>
-
-              <v-alert
-                v-if="!memberOf.length"
-                class="my-0 mx-4"
-                color="info"
-                text
-              >
-                You don't belong to any organisations.
-              </v-alert>
-              <v-simple-table v-else>
-                <thead>
-                  <tr>
-                    <th>Organisation</th>
-                    <th />
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    v-for="{ organisationId: id, name, status } in memberOf"
-                    :key="id"
+                    Activate
+                  </v-btn>
+                  <v-btn
+                    icon
+                    color="error"
+                    @click="
+                      removeOrganisationId = id
+                      removeOrganisationDialog = true
+                    "
                   >
-                    <td>
-                      {{ name }}
-                    </td>
-                    <td class="text-right">
-                      <v-btn
-                        v-if="status === 'Active'"
-                        color="accent"
-                        outlined
-                        small
-                        :loading="switching"
-                        @click="switchTo(id)"
-                      >
-                        <v-icon left> {{ mdiAccountSwitch }} </v-icon>Switch to
-                      </v-btn>
-                      <v-btn
-                        v-else
-                        color="accent"
-                        outlined
-                        small
-                        :loading="activating"
-                        @click="
-                          activateOrganisationId = id
-                          activate()
-                        "
-                      >
-                        Activate
-                      </v-btn>
-                      <v-btn
-                        icon
-                        @click="
-                          removeOrganisationId = id
-                          removeOrganisationDialog = true
-                        "
-                      >
-                        <v-icon>{{ mdiCloseCircle }}</v-icon>
-                      </v-btn>
-                    </td>
-                  </tr>
-                </tbody>
-              </v-simple-table>
-            </v-card-text>
-          </v-card>
-        </v-tab-item>
-      </v-tabs-items>
-    </v-card>
+                    <v-icon>{{ mdiCloseCircle }}</v-icon>
+                  </v-btn>
+                </td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
 
     <v-dialog v-model="createDialog" max-width="400px" eager>
       <v-card>
@@ -377,7 +345,7 @@ export default {
       removeOrganisationError: false,
       switching: false,
       permissions,
-      tab: null,
+      panels: 0,
       error: false,
       email: '',
       loading: true,
@@ -416,7 +384,7 @@ export default {
         }
       }
     },
-    tab(index) {
+    panels(index) {
       if (index === 1) {
         if (this.$route.hash !== '#memberships') {
           this.$router.replace({ path: '/organisation/', hash: '#memberships' })
@@ -428,7 +396,7 @@ export default {
   },
   created() {
     if (this.$route.hash === '#memberships') {
-      this.tab = 1
+      this.panels = 1
     }
   },
   async mounted() {

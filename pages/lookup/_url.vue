@@ -45,7 +45,12 @@
             </h3>
 
             <template v-if="isLoading || (!signInDialog && loading)">
-              <v-card v-for="index in [0, 1, 2]" class="mb-4" outlined>
+              <v-card
+                v-for="index in [0, 1, 2]"
+                class="mb-4"
+                :key="index"
+                outlined
+              >
                 <v-card-text>
                   <v-skeleton-loader type="card-heading" />
                   <v-row>

@@ -1,16 +1,14 @@
 {
   "Create, view and cancel orders": true,
-  "View credit balance": true,
-  "Spend credits": true,
-  "Perform technology lookups": true,
   "Create, view and delete alerts": true,
-  "Pay with a credit card or PayPal account": false,
+  "Perform technology lookups": true,
+  "View and spend credits": true,
   "View credit usage": false,
-  "View and edit account details": false,
+  "Make credit card, PayPal payments": false,
+  "View and edit organisation details": false,
   "Add and remove members": false,
   "Create, view and delete payment methods": false,
   "Create, view and cancel subscriptions": false,
   "View invoices": false,
-  "View and delete API keys": false,
-  "Create, view and delete reviews": false
+  "View and delete API keys": false
 }
