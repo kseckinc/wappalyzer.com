@@ -86,7 +86,7 @@
                         v-if="list.pro || isPro || credits >= list.totalCredits"
                       >
                         {{ formatNumber(list.totalCredits) }} credits
-                        <span class="text--disabled"
+                        <span v-if="isPro" class="text--disabled"
                           >(or {{ formatCurrency(list.total / 100) }})</span
                         >
                       </template>
@@ -1027,7 +1027,7 @@ export default {
             this.list.query.compliance === 'excludeEU')
             ? this.list.query.compliance
             : undefined,
-        pro: !this.isPro && this.list.pro ? '1' : 'undefined',
+        pro: !this.isPro && this.list.pro ? '1' : undefined,
       }
 
       const string = Object.keys(params)

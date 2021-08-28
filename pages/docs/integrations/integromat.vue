@@ -37,11 +37,7 @@
         page to learn more.
       </p>
 
-      <v-alert
-        :icon="mdiLightbulbOnOutline"
-        color="secondary"
-        class="my-8 elevation-1"
-      >
+      <v-alert :icon="mdiLightbulbOnOutline" type="info" class="my-8" text>
         For an in-depth example, see:
         <nuxt-link
           to="/articles/get-the-technology-stack-of-new-leads-in-slack/"

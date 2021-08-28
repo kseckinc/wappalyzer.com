@@ -55,7 +55,7 @@
                   >
                     {{ invoice.orderId }}
                   </nuxt-link>
-                  <template v-else> - </template>
+                  <span class="text--disabled" v-else>-</span>
                 </td>
                 <td>{{ formatDate(new Date(invoice.created * 1000)) }}</td>
                 <td>

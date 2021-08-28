@@ -2,11 +2,12 @@
   "creditsPerUnit": {
     "list": { "name": "Lead lists", "to": "/lists/", "units": [ { "unit": "Websites", "per": "website", "credits": 1 } ], "min": 500, "max": 1000000, "minPrice": 5000 },
     "lookup": { "name": "Technology lookup", "to": "/lookup/",  "units": [ { "unit": "Websites", "per": "website", "credits": 1 } ] },
-    "bulk": { "name": "Technology lookup (bulk)", "to": { "path": "/lookup/", "hash": "#bulk" }, "units": [ { "unit": "Websites", "per": "website", "credits": 2 } ], "max": 100000 },
-    "verify": { "name": "Email verification", "to": { "path": "/verify/" }, "units": [ { "unit": "Email addresses", "per": "verification", "credits": 1 } ], "max": 100000 },
-    "alert": { "name": "Alerts", "to": "/alerts/", "units": [ { "unit": "Websites", "per": "alert every 30 days", "credits": 10 } ] },
-    "apiLookup": { "name": "Lookup API", "to": "/api/", "units": [ { "unit": "Websites", "per": "website", "credits": 1 } ] },
-    "apiLive": { "name": "Live API", "to": "/api/", "units": [ { "unit": "Pages", "per": "page", "credits": 1 }, { "unit": "Websites", "per": "website", "credits": 2 } ] }
+    "bulk": { "name": "Technology lookup (list upload)", "to": { "path": "/lookup/", "hash": "#bulk" }, "units": [ { "unit": "Websites", "per": "website", "credits": 2 } ], "max": 100000 },
+    "apiLookup": { "name": "Technology Lookup API", "to": "/api/", "units": [ { "unit": "Websites", "per": "website", "credits": 1 }, { "unit": "Websites", "per": "live scan", "credits": 2 } ] },
+    "verify": { "name": "Email verification", "to": { "path": "/verify/" }, "units": [ { "unit": "Email addresses", "per": "email address", "credits": 1 } ], "max": 100000 },
+    "bulkVerify": { "name": "Email verification (list upload)", "to": { "path": "/verify/", "hash": "#bulk" }, "units": [ { "unit": "Email addresses", "per": "email address", "credits": 1 } ], "max": 100000 },
+    "apiVerify": { "name": "Email verification API", "to": { "path": "/api/" }, "units": [ { "unit": "Email addresses", "per": "email address", "credits": 1 } ], "max": 100000 },
+    "alert": { "name": "Alerts", "to": "/alerts/", "units": [ { "unit": "Websites", "per": "alert every 30 days", "credits": 10 } ] }
   },
   "creditTiers": {
     "100": 20,

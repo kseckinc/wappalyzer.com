@@ -21,11 +21,7 @@
         meta data we have on record.
       </p>
 
-      <v-alert
-        :icon="mdiLightbulbOnOutline"
-        color="secondary"
-        class="my-8 elevation-1"
-      >
+      <v-alert :icon="mdiLightbulbOnOutline" type="info" class="my-8" text>
         HubSpot fetches technology data from Wappalyzer every time you view a
         company record. When you uninstall the Wappalyzer app, this information
         is longer available.

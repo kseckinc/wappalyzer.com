@@ -9,15 +9,11 @@
         "to": "/docs/api/v2/basics/"
       },
       {
-        "title": "Lookup API",
+        "title": "Technology lookup",
         "to": "/docs/api/v2/lookup/"
       },
       {
-        "title": "Live API",
-        "to": "/docs/api/v2/live/"
-      },
-      {
-        "title": "Verify API",
+        "title": "Email verification",
         "to": "/docs/api/v2/verify/"
       }
     ]

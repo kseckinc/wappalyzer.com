@@ -76,7 +76,7 @@
     "subtitle": "Automate technology lookups",
     "icon": "mdiConsole",
     "image": "apis",
-    "text": "The Wappalyzer APIs provide instant access to website technology stacks, company and contact details, social media profiles and more. Track your prospects' technology choices, examine large numbers of websites or enrich your own datasets with technographic insights.",
+    "text": "The Wappalyzer APIs provide instant access to website technology stacks, company and contact details, social media profiles, email verification and more. Track your prospects' technology choices, examine large numbers of websites or enrich your own datasets with technographic insights.",
     "buttons": [
       {
         "text": "Compare APIs",

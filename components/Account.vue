@@ -74,20 +74,6 @@
             required
           />
 
-          <v-row>
-            <v-col cols="6">
-              <v-select
-                v-model="attrs.billingTaxIdType"
-                :items="taxIds"
-                label="Tax ID type"
-                required
-              />
-            </v-col>
-            <v-col>
-              <v-text-field v-model="attrs.billingTaxId" label="Tax ID" />
-            </v-col>
-          </v-row>
-
           <v-select
             v-model="attrs.billingCountry"
             :items="countries"
@@ -153,6 +139,23 @@
             label="State, county or province"
             required
           />
+
+          <v-row>
+            <v-col cols="6">
+              <v-select
+                v-model="attrs.billingTaxIdType"
+                :items="taxIds"
+                label="Tax ID type"
+                required
+              />
+            </v-col>
+            <v-col>
+              <v-text-field
+                v-model="attrs.billingTaxId"
+                label="Tax ID (optional)"
+              />
+            </v-col>
+          </v-row>
         </v-card-text>
       </v-col>
     </v-row>

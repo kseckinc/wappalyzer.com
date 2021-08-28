@@ -4,15 +4,16 @@
       <h1 class="mb-4">Basics</h1>
 
       <p>
-        The
-        <nuxt-link to="/api/">Wappalyzer APIs</nuxt-link>
-        provide programmatic access to technographic data on websites, either in
-        real-time or prefetched.
+        Our APIs provide programmatic access to our comprehensive database of
+        websites and companies, as well live analysis of websites and email
+        addresses.
       </p>
+
+      <p>The APIs&hellip;</p>
 
       <ul class="mb-4">
         <li>
-          The APIs conform to
+          Conform to
           <a
             href="https://en.wikipedia.org/wiki/Representational_state_transfer"
             target="_blank"
@@ -21,27 +22,28 @@
           principles
         </li>
         <li>
-          The
+          Return
           <a href="https://en.wikipedia.org/wiki/JSON" target="_blank">JSON</a>
-          data format is used for responses and POST requests
+          data
         </li>
-        <li>All resources require authentication</li>
-        <li>Requests are rate-limited and metered</li>
-        <li>Endpoints are HTTPS only</li>
+        <li>Require authentication</li>
+        <li>Are metered and rate-limited</li>
+        <li>Are HTTPS only</li>
       </ul>
 
       <Heading id="pricing" size="2" class="mt-8 mb-2"> Pricing </Heading>
 
       <p>
-        API calls deduct credits from your balance. Credits are included in
+        API calls cost credits. Credits are included in
         <nuxt-link to="/pricing/">plans</nuxt-link> and can also be
-        <nuxt-link :to="{ path: '/pricing/', hash: 'credits' }">
-          purchased directly </nuxt-link
-        >. To determine the number of credits spent per request, refer to the
-        <nuxt-link :to="{ path: '/pricing/', hash: 'usage' }"
-          >pricing</nuxt-link
-        >
-        page.
+        <nuxt-link :to="{ path: '/pricing/', hash: 'credits' }"
+          >purchased separately</nuxt-link
+        >.
+      </p>
+
+      <p>
+        Sign up for an account to trial the APIs for free. The Free plan
+        includes 50 credits that can be spent on any product.
       </p>
 
       <Heading id="authentication" size="2" class="mt-8 mb-2">
@@ -49,8 +51,8 @@
       </Heading>
 
       <p>
-        Wappalyzer uses API keys to provide authorized access to its APIs. Sign
-        up to <nuxt-link to="/apikey/">create an API key</nuxt-link>.
+        API keys are used for authorized access. Sign up to
+        <nuxt-link to="/apikey/">create an API key</nuxt-link>.
       </p>
 
       <v-card class="my-4" flat outlined>
@@ -76,7 +78,7 @@
 
       <p>
         Requests to your callback endpoint can optionally be signed to allow you
-        to verify the request was made by Wappalyzer. To enable signing,
+        to verify the request was made by us. To enable signing,
         <nuxt-link to="/apikey/">create a signing secret</nuxt-link>.
       </p>
 
@@ -156,11 +158,7 @@
         </v-simple-table>
       </v-card>
 
-      <v-alert
-        :icon="mdiLightbulbOnOutline"
-        color="secondary"
-        class="my-8 elevation-1"
-      >
+      <v-alert :icon="mdiLightbulbOnOutline" type="info" class="my-8" text>
         In less common scenarios, other status codes may be used. To verify if a
         request was successful, check for a <code>2xx</code> code. A
         <code>4xx</code> code indicates a problem with the request. A
@@ -172,8 +170,8 @@
       </Heading>
 
       <p>
-        Every response includes a header with the credit spend and remaining
-        balance.
+        Every successful response includes headers with the numbers of credits
+        that were spent and your remaining balance.
       </p>
 
       <v-card class="my-4" flat outlined>
@@ -213,23 +211,17 @@
         <code>https://api.wappalyzer.com/credits/v2/balance/</code>
       </p>
 
-      <Heading id="examples" size="3" class="mt-8 mb-4"> Example </Heading>
+      <Heading id="examples" size="3" class="mt-8 mb-4">Example</Heading>
 
-      <v-card class="mb-8">
-        <v-card-title class="subtitle-2"> Example request </v-card-title>
-        <v-card-text>
-          <pre><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/credits/v2/balance/"</Code></pre>
-        </v-card-text>
+      <h4 class="mb-2">Request</h4>
 
-        <v-divider />
+      <pre><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/credits/v2/balance/"</Code></pre>
 
-        <v-card-title class="subtitle-2"> Example response </v-card-title>
-        <v-card-text>
-          <pre><Code>{
+      <h4 class="mt-8 mb-2">Response</h4>
+
+      <pre><Code>{
   "credits": 100000
 }</Code></pre>
-        </v-card-text>
-      </v-card>
     </Page>
   </div>
 </template>

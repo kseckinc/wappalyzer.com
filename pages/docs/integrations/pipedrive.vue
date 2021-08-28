@@ -20,11 +20,7 @@
         website.
       </p>
 
-      <v-alert
-        :icon="mdiLightbulbOnOutline"
-        color="secondary"
-        class="my-8 elevation-1"
-      >
+      <v-alert :icon="mdiLightbulbOnOutline" type="info" class="my-8" text>
         Pipedrive fetches technology data from Wappalyzer every time you view a
         person or organisation. When you uninstall the Wappalyzer app, this
         information is longer available.
@@ -50,11 +46,7 @@
         <li>Click 'Connect' and follow the prompts.</li>
       </ul>
 
-      <v-alert
-        :icon="mdiLightbulbOnOutline"
-        color="secondary"
-        class="my-8 elevation-1"
-      >
+      <v-alert :icon="mdiLightbulbOnOutline" type="info" class="my-8" text>
         Each Pipedrive user must connect the app individually to use panels. Add
         members to your
         <nuxt-link to="/organisation"> organisation </nuxt-link> to allow

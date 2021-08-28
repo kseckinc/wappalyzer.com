@@ -30,11 +30,15 @@
             </tr>
             <tr>
               <td>Request timeout</td>
-              <td>30s</td>
+              <td>30 seconds</td>
             </tr>
             <tr>
               <td>Rate limit</td>
-              <td>5 requests / second</td>
+              <td>5 requests per second</td>
+            </tr>
+            <tr>
+              <td>Pricing</td>
+              <td>1 credit per email address<br /></td>
             </tr>
           </tbody>
         </v-simple-table>
@@ -168,21 +172,14 @@
         </v-simple-table>
       </v-card>
 
-      <Heading id="examples" size="2" class="mt-8 mb-4">Examples</Heading>
+      <Heading id="examples" size="2" class="mt-8 mb-4">Example</Heading>
 
-      <v-card class="mb-8">
-        <v-card-title class="subtitle-2">Example request</v-card-title>
-        <v-card-text>
-          <pre><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/verify/v2/?email=info@example.com"</Code></pre>
-        </v-card-text>
+      <h4 class="mb-2">Request</h4>
 
-        <v-divider />
+      <pre><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/verify/v2/?email=info@example.com"</Code></pre>
 
-        <v-card-title class="subtitle-2">
-          Example response (success)
-        </v-card-title>
-        <v-card-text>
-          <pre><Code>{
+      <h4 class="mt-8 mb-2">Response</h4>
+      <pre><Code>{
   "email": "info@example.com",
   "domain": "example.com",
   "reachable": "risky",
@@ -197,8 +194,6 @@
   "syntaxValid": true
 }
 </Code></pre>
-        </v-card-text>
-      </v-card>
     </Page>
   </div>
 </template>

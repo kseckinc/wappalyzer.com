@@ -8,6 +8,7 @@
       <small class="text--disabled">
         <nuxt-link to="/contact/">Contact us</nuxt-link> for tailored plans.
         Discounted plans available for startups, students and nonprofits.<br />
+        Credits included in plans expire after 60 days.<br />
         Prices are in United States dollars.
       </small>
 
@@ -21,7 +22,7 @@
                 technology lookups and APIs.
               </p>
 
-              <v-simple-table>
+              <v-simple-table dense>
                 <thead>
                   <tr>
                     <th width="40%">Product</th>
@@ -32,15 +33,15 @@
                   <tr v-for="{ name, to, units } in creditsPerUnit" :key="name">
                     <td>
                       <nuxt-link :to="to">
-                        {{ name }}
+                        <small>{{ name }}</small>
                       </nuxt-link>
                     </td>
                     <td>
-                      {{
+                      <small>{{
                         units
                           .map(({ per, credits }) => `${credits} per ${per}`)
                           .join(' or ')
-                      }}
+                      }}</small>
                     </td>
                   </tr>
                 </tbody>
