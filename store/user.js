@@ -17,7 +17,11 @@ export const state = () => ({
 
 export const mutations = {
   setAttrs(state, attrs) {
-    state.attrs = { ...attrs, admin: attrs.admin === '1' }
+    state.attrs = {
+      ...attrs,
+      admin: attrs.admin === '1',
+      role: attrs.role === 'false' ? '' : attrs.role,
+    }
   },
   setLoading(state, loading) {
     state.loading = loading

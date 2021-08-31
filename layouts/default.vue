@@ -48,8 +48,16 @@ export default {
     }),
     userNav() {
       return this.isSignedIn
-        ? userNav.filter((item) => (this.isMember ? item.member : true))
-        : userNav.filter((item) => !item.auth)
+        ? userNav.filter((item) =>
+            this.isMember
+              ? item.roles.includes(this.user.role || 'buyer')
+              : true
+          )
+        : userNav.filter((item) =>
+            !item.auth && this.isMember
+              ? item.roles.includes(this.user.role || 'buyer')
+              : true
+          )
     },
     headerNav() {
       return this.mainNav.filter(({ header }) => header !== false)

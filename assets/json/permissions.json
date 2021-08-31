@@ -1,14 +1,14 @@
 {
-  "Create, view and cancel orders": true,
-  "Create, view and delete alerts": true,
-  "Perform technology lookups": true,
-  "View and spend credits": true,
-  "View credit usage": false,
-  "Make credit card, PayPal payments": false,
-  "View and edit organisation details": false,
-  "Add and remove members": false,
-  "Create, view and delete payment methods": false,
-  "Create, view and cancel subscriptions": false,
-  "View invoices": false,
-  "View and delete API keys": false
+  "Technology lookups": ["buyer", "developer", "admin"],
+  "Create, view and cancel orders": ["buyer", "developer", "admin"],
+  "Create, view and delete alerts": ["buyer", "developer", "admin"],
+  "Spend credits and view credit balance": ["buyer", "developer", "admin"],
+  "View credit usage": ["developer", "admin"],
+  "View, create and delete API keys": ["developer", "admin"],
+  "Make credit card, PayPal payments": ["admin"],
+  "Create, view and delete payment methods": ["admin"],
+  "Create, view and cancel subscriptions": ["admin"],
+  "View invoices": ["admin"],
+  "Add and remove members": ["admin"],
+  "View and edit account details": []
 }

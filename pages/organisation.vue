@@ -11,13 +11,16 @@
     <v-expansion-panels v-model="panels" accordion>
       <v-expansion-panel>
         <v-expansion-panel-header class="subtitle-1 font-weight-medium">
-          Your organisation ({{ user.billingName || user.name || user.email }})
+          {{ isMember ? 'Organisation' : 'Your organisation' }} ({{
+            user.billingName || user.name || user.email
+          }})
         </v-expansion-panel-header>
         <v-expansion-panel-content class="no-x-padding body-2" eager>
           <div class="px-6" style="max-width: 600px">
             <p>
               Members have
-              <a @click="accessDialog = true">limited access</a> to your
+              <a @click="accessDialog = true">limited access</a> to
+              {{ isMember ? 'the' : 'your' }}
               account. They can create orders and spend credits. Additional
               seats are included with selected
               <nuxt-link to="/pricing/">plans</nuxt-link>.
@@ -41,6 +44,14 @@
             <thead>
               <tr>
                 <th width="1">Enabled</th>
+                <th>
+                  Role
+                  <sup>
+                    <v-icon class="ml-1" small @click="accessDialog = true">{{
+                      mdiHelpCircleOutline
+                    }}</v-icon>
+                  </sup>
+                </th>
                 <th>Name</th>
                 <th>Email address</th>
                 <th />
@@ -48,15 +59,31 @@
             </thead>
             <tbody>
               <tr v-for="member in organisation.members" :key="member.user.sub">
-                <td>
+                <td width="1">
                   <v-switch
                     v-model="member.enabled"
-                    :disabled="!member.enabled && !organisation.seatsRemaining"
-                    :loading="member.loading"
+                    :disabled="
+                      (!member.enabled && !organisation.seatsRemaining) ||
+                      member.user.sub === impersonatorUserId
+                    "
+                    :loading="member.updatingStatus"
                     class="ma-0 pa-0 mx-auto"
                     hide-details
                     inset
-                    @change="toggle(member)"
+                    @change="toggleStatus(member)"
+                  />
+                </td>
+                <td width="1">
+                  <v-select
+                    ref="role"
+                    v-model="member.role"
+                    style="width: 150px"
+                    :loading="member.updatingRole"
+                    :disabled="member.user.sub === impersonatorUserId"
+                    :items="roles"
+                    dense
+                    hide-details
+                    @change="updateRole(member)"
                   />
                 </td>
                 <td>
@@ -78,6 +105,7 @@
                   <v-btn
                     icon
                     color="error"
+                    :disabled="member.user.sub === impersonatorUserId"
                     @click="
                       removeUserId = member.user.sub
                       removeDialog = true
@@ -109,7 +137,7 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
 
-      <v-expansion-panel>
+      <v-expansion-panel v-if="!isMember">
         <v-expansion-panel-header class="subtitle-1 font-weight-medium"
           >Your memberships</v-expansion-panel-header
         >
@@ -199,6 +227,14 @@
               placeholder="info@example.com"
               outlined
             />
+
+            <v-select
+              v-model="role"
+              :items="roles"
+              label="Role"
+              outlined
+              required
+            />
           </v-form>
         </v-card-text>
         <v-card-actions>
@@ -266,31 +302,37 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="accessDialog" max-width="600px" eager>
+    <v-dialog v-model="accessDialog" max-width="800px" eager>
       <v-card>
-        <v-card-title>Permissions</v-card-title>
+        <v-card-title>Roles and permissions</v-card-title>
         <v-card-text class="px-0">
           <v-simple-table dense>
             <thead>
               <tr>
-                <th class="px-6">Access</th>
-                <th width="25%" class="px-6 text-center">Owner (you)</th>
-                <th width="25%" class="px-6 text-center">Member</th>
+                <th width="40%" class="px-6">Permissions</th>
+                <th width="15%" class="px-6 text-center">Owner</th>
+                <th width="15%" class="px-6 text-center">Admin</th>
+                <th width="15%" class="px-6 text-center">Developer</th>
+                <th width="15%" class="px-6 text-center">Buyer</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(member, access) in permissions" :key="access">
+              <tr v-for="(roles, access) in permissions" :key="access">
                 <td class="px-6">
                   <small>{{ access }}</small>
                 </td>
                 <td class="px-6 text-center">
-                  <v-icon color="success" small>
-                    {{ mdiCheck }}
+                  <v-icon color="success">
+                    {{ mdiCheckCircle }}
                   </v-icon>
                 </td>
-                <td class="px-6 text-center">
-                  <v-icon :color="member ? 'success' : 'error'" small>
-                    {{ member ? mdiCheck : mdiClose }}
+                <td
+                  v-for="role in ['admin', 'developer', 'buyer']"
+                  class="px-6 text-center"
+                  :key="role"
+                >
+                  <v-icon :color="roles.includes(role) ? 'success' : 'error'">
+                    {{ roles.includes(role) ? mdiCheckCircle : mdiCloseCircle }}
                   </v-icon>
                 </td>
               </tr>
@@ -315,8 +357,8 @@ import {
   mdiEmail,
   mdiCloseCircle,
   mdiAccountSwitch,
-  mdiCheck,
-  mdiClose,
+  mdiCheckCircle,
+  mdiHelpCircleOutline,
 } from '@mdi/js'
 
 import permissions from '~/assets/json/permissions.json'
@@ -343,9 +385,24 @@ export default {
       removeOrganisationDialog: false,
       removeError: false,
       removeOrganisationError: false,
+      role: 'buyer',
       switching: false,
       permissions,
       panels: 0,
+      roles: [
+        {
+          value: 'buyer',
+          text: 'Buyer',
+        },
+        {
+          value: 'developer',
+          text: 'Developer',
+        },
+        {
+          value: 'admin',
+          text: 'Admin',
+        },
+      ],
       error: false,
       email: '',
       loading: true,
@@ -362,14 +419,20 @@ export default {
       mdiEmail,
       mdiCloseCircle,
       mdiAccountSwitch,
-      mdiCheck,
-      mdiClose,
+      mdiCheckCircle,
+      mdiHelpCircleOutline,
     }
   },
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
       memberOf: ({ organisations }) => organisations.memberOf,
+      isMember: ({ user }) =>
+        !user.admin && user.impersonator && !user.impersonator.admin,
+      impersonatorUserId: ({ user }) =>
+        !user.admin && user.impersonator && !user.impersonator.admin
+          ? user.impersonator.sub
+          : '',
     }),
   },
   watch: {
@@ -423,7 +486,8 @@ export default {
       if (this.$refs.form.validate()) {
         try {
           await this.$axios.put(
-            `organisation/${this.email.toLowerCase().trim()}`
+            `organisation/${this.email.toLowerCase().trim()}`,
+            { role: this.role }
           )
 
           this.getMemberOf()
@@ -432,6 +496,7 @@ export default {
 
           this.success = 'The invitation has been sent'
           this.email = ''
+          this.role = 'buyer'
 
           this.createDialog = false
         } catch (error) {
@@ -506,9 +571,9 @@ export default {
 
       this.activating = false
     },
-    async toggle(member) {
+    async toggleStatus(member) {
       this.error = false
-      member.loading = true
+      member.updatingStatus = true
 
       try {
         await this.$axios.patch(`organisation/${member.user.sub}`, {
@@ -520,7 +585,23 @@ export default {
         this.error = this.getErrorMessage(error)
       }
 
-      delete member.loading
+      delete member.updatingStatus
+    },
+    async updateRole(member) {
+      this.error = false
+      member.updatingRole = true
+
+      try {
+        await this.$axios.patch(`organisation/${member.user.sub}`, {
+          role: member.role,
+        })
+
+        this.organisation = (await this.$axios.get('organisation')).data
+      } catch (error) {
+        this.error = this.getErrorMessage(error)
+      }
+
+      delete member.updatingRole
     },
     async switchTo(organisationId) {
       this.error = false

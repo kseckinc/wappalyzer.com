@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-alert v-if="error" color="error" class="mt-4 mb-8" text>
+    <v-alert v-if="error" color="error" class="mt-4 mb-8 text-center" text>
       {{ error }}
     </v-alert>
 
@@ -69,6 +69,7 @@ export default {
   },
   computed: {
     ...mapState({
+      user: ({ user }) => user.attrs,
       isSignedIn: ({ user }) => user.isSignedIn,
       isMember: ({ user }) =>
         !user.admin && user.impersonator && !user.impersonator.admin,
@@ -110,8 +111,11 @@ export default {
         return
       }
 
-      if (this.isMember) {
-        this.error = 'Subscriptions can only be created by the account owner.'
+      if (this.isMember && this.user.role !== 'admin') {
+        this.error =
+          "You don't have permission from the account owner to create subscriptions."
+
+        this.ordering = false
 
         return
       }

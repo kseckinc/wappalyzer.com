@@ -208,9 +208,15 @@ export default {
     sideNav() {
       return this.secure && !this.noSideBar
         ? this.isSignedIn
-          ? userNav.filter((item) => (this.isMember ? item.member : true))
+          ? userNav.filter((item) =>
+              this.isMember
+                ? item.roles.includes(this.user.role || 'buyer')
+                : true
+            )
           : userNav.filter((item) =>
-              !item.auth && this.isMember ? item.member : true
+              !item.auth && this.isMember
+                ? item.roles.includes(this.user.role || 'buyer')
+                : true
             )
         : this.side
     },

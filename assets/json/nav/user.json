@@ -2,61 +2,68 @@
   {
     "title": "Account",
     "icon": "mdiAccount",
-    "to": "/account/"
+    "to": "/account/",
+    "roles": []
   },
   {
     "title": "Organisation",
     "icon": "mdiDomain",
-    "to": "/organisation/"
+    "to": "/organisation/",
+    "roles": ["admin"]
   },
   {
     "title": "Credits",
     "icon": "mdiAlphaCCircle",
-    "to": "/credits/"
+    "to": "/credits/",
+    "roles": ["developer", "admin"]
   },
   {
     "title": "Lead lists",
     "icon": "mdiFilterVariant",
     "to": "/lists/all/",
-    "member": true
+    "roles": ["buyer", "developer", "admin"]
   },
   {
     "title": "Subscriptions",
     "icon": "mdiCalendarSync",
-    "to": "/subscriptions/"
+    "to": "/subscriptions/",
+    "roles": ["admin"]
   },
   {
     "title": "Orders",
     "icon": "mdiCart",
     "to": "/orders/",
-    "member": true
+    "roles": ["buyer", "developer", "admin"]
   },
   {
     "title": "Invoices",
     "icon": "mdiFileDocumentOutline",
-    "to": "/invoices/"
+    "to": "/invoices/",
+    "roles": ["admin"]
   },
   {
     "title": "Payment methods",
     "icon": "mdiCreditCard",
-    "to": "/paymentmethods/"
+    "to": "/paymentmethods/",
+    "roles": ["admin"]
   },
   {
     "title": "Integrations",
     "icon": "mdiPowerPlug",
     "to": "/integrations/",
-    "member": true
+    "roles": ["buyer", "developer", "admin"]
   },
   {
     "title": "API Key",
     "icon": "mdiKeyVariant",
-    "to": "/apikey/"
+    "to": "/apikey/",
+    "roles": ["developer", "admin"]
   },
   {
     "title": "Sign out",
     "icon": "mdiLogoutVariant",
     "to": "/signout/",
     "auth": true,
-    "member": true
+    "roles": ["buyer", "developer", "admin"]
   }
 ]
