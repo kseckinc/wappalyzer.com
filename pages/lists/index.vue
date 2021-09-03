@@ -27,7 +27,7 @@
       <template #content>
         <v-form ref="form">
           <v-card class="my-4">
-            <v-card-text v-if="error">
+            <v-card-text v-if="error" class="pb-0">
               <v-alert type="error" text>
                 {{ error }}
               </v-alert>
@@ -1305,6 +1305,14 @@
                           @change="fileChange"
                         />
 
+                        <v-checkbox
+                          v-model="removeInvalid"
+                          v-if="removeInvalid || fileErrors.length"
+                          label="Remove invalid URLs"
+                          class="mt-0 mb-6"
+                          hide-details="auto"
+                        />
+
                         <v-alert
                           color="secondary"
                           border="left"
@@ -1523,6 +1531,7 @@ export default {
       createDialog: false,
       file: '',
       fileErrors: [],
+      inputFile: null,
       keyword: '',
       keywordErrors: [],
       matchAll: false,
@@ -1554,6 +1563,7 @@ export default {
       pro: false,
       proDialog: false,
       loading: false,
+      removeInvalid: false,
       signInDialog: false,
       selectedCountry: '',
       selectedLanguage: {},
@@ -1772,6 +1782,9 @@ export default {
         this.compliance = 'exclude'
       }
     },
+    removeInvalid() {
+      this.fileChange()
+    },
     signInDialog() {
       if (!this.signInDialog) {
         this.creating = false
@@ -1946,6 +1959,8 @@ export default {
         this.$router.push(`/lists/${list.id}`)
       } catch (error) {
         this.error = this.getErrorMessage(error)
+
+        this.scrollTo('h1')
 
         this.creating = false
       }
@@ -2198,7 +2213,9 @@ export default {
         this.selected.keywords.splice(index, 1)
       }
     },
-    async fileChange(file) {
+    async fileChange(file = this.inputFile) {
+      this.inputFile = file
+
       this.file = ''
       this.fileErrors = []
 
@@ -2212,21 +2229,27 @@ export default {
         lines.shift()
       }
 
-      this.file = lines.map((line, i) => {
-        line = line.replace(/^"([^"]+)".+$/, '$1')
+      this.file = lines
+        .map((line, i) => {
+          line = line.replace(/^"([^"]+)".+$/, '$1')
 
-        const a = document.createElement('a')
+          const url = !/^https?:\/\//.test(line.trim())
+            ? `http://${line.trim()}`
+            : line.trim()
 
-        a.href = (line.startsWith('http') ? line : `http://${line}`).trim()
+          try {
+            new URL(url) // eslint-disable-line no-new
+          } catch (error) {
+            if (this.removeInvalid) {
+              return null
+            } else {
+              this.fileErrors.push(`Invalid URL on line ${i + 1}: ${line}`)
+            }
+          }
 
-        const { hostname } = a
-
-        if (!hostname) {
-          this.fileErrors.push(`Invalid URL on line ${i + 1}: ${line}`)
-        }
-
-        return a.href
-      })
+          return url
+        })
+        .filter((line) => line)
 
       this.fileErrors = this.fileErrors.slice(0, 10)
 
@@ -2513,6 +2536,8 @@ export default {
         }
       } catch (error) {
         this.error = this.getErrorMessage(error)
+
+        this.scrollTo('h1')
       }
 
       this.selected.keywords = []
