@@ -180,10 +180,11 @@ export default {
 
       if (query.match(/^((https?:\/\/|www\/)|[a-z0-9._]+\.[a-z.]+$)/i)) {
         let hostname
+        let protocol
 
         try {
-          ;({ hostname } = new URL(
-            query.startsWith('http') ? query : `http://${query}`
+          ;({ hostname, protocol } = new URL(
+            query.startsWith('http') ? query : `https://${query}`
           ))
         } catch (error) {
           // Continue
@@ -209,7 +210,7 @@ export default {
           this.results.push({
             type: 'lookup',
             text: hostname,
-            to: `/lookup/${hostname}/`,
+            to: `/lookup/${encodeURIComponent(`${protocol}//${hostname}`)}/`,
           })
         }
       }

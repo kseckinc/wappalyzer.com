@@ -24,7 +24,7 @@
 
     <v-card class="mb-4">
       <v-form ref="form" v-model="criteria">
-        <v-card-title class="subtitle-2"> Criteria </v-card-title>
+        <v-card-title class="subtitle-2">Criteria</v-card-title>
         <v-card-text>
           <p>The technology&hellip;</p>
 
@@ -69,13 +69,13 @@
       <v-divider />
 
       <v-form :disabled="!criteria">
-        <v-card-title class="subtitle-2"> Basic information </v-card-title>
+        <v-card-title class="subtitle-2">Basic information</v-card-title>
         <v-card-text>
           <v-row>
             <v-col>
               <v-text-field
                 v-model="form.technology"
-                label="Technology name"
+                label="Technology name *"
                 placeholder="E.g. Shopify"
               />
             </v-col>
@@ -391,7 +391,7 @@
       class="mt-4 mb-4"
       large
       :loading="submitting"
-      :disabled="!criteria"
+      :disabled="!criteria || !form.technology"
       @click="submit"
     >
       Submit

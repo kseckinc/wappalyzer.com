@@ -241,9 +241,9 @@ function getFullUrl(url) {
   } catch (error) {
     if (url.includes('.')) {
       if (url.startsWith('www.')) {
-        fullUrl = `http://${url}`
+        fullUrl = `https://${url}`
       } else {
-        fullUrl = `http://${url.split('.').length > 2 ? '' : 'www.'}${url}`
+        fullUrl = `https://${url.split('.').length > 2 ? '' : 'www.'}${url}`
       }
 
       new URL(fullUrl) // eslint-disable-line no-new

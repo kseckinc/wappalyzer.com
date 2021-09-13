@@ -109,7 +109,10 @@
     "key": "security",
     "name": "Security",
     "attributes": [
-      { "name": "Certificate issuer", "key": "certInfo.issuer", "description": "Name of the SSL/TLS certificate authority." },
+      { "name": "Certificate organisation name", "key": "certInfo.subjectOrg", "description": "Organisation name of the subject on the SSL/TLS certificate." },
+      { "name": "Certificate country", "key": "certInfo.subjectCountry", "description": "Country of the subject on the SSL/TLS certificate." },
+      { "name": "Certificate state", "key": "certInfo.subjectState", "description": "State of the subject on the SSL/TLS certificate." },
+      { "name": "Certificate locality", "key": "certInfo.subjectLocality", "description": "Address of the subject on the SSL/TLS certificate." },
       { "name": "Certificate protocol", "key": "certInfo.protocol", "description": "SSL/TLS protocol and version." },
       { "name": "Certificate expiry", "key": "certInfo.validTo", "description": "Expiry date of the SSL/TLS certificate." },
       { "name": "SSL/TLS enabled", "key": "https", "description": "The website is served over a secure connection." },

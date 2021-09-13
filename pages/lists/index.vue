@@ -2234,7 +2234,7 @@ export default {
           line = line.replace(/^"([^"]+)".+$/, '$1')
 
           const url = !/^https?:\/\//.test(line.trim())
-            ? `http://${line.trim()}`
+            ? `https://${line.trim()}`
             : line.trim()
 
           try {

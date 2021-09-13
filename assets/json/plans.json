@@ -116,7 +116,7 @@
         "cancellation": true
       }
     },
-    "credits_team_v4_yr": {
+    "credits_team_v3_yr": {
       "name": "Team",
       "interval": "year",
       "raised": true,
