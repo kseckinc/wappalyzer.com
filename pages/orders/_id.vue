@@ -417,12 +417,12 @@
                           order.dataset.query.matchAllTechnologies === 'not'
                         "
                       >
-                        Exclude
+                        Match only
                         <v-chip outlined small label>
-                          {{ order.dataset.query.technologies[1].name }}
+                          {{ order.dataset.query.technologies[0].name }}
                         </v-chip>
                       </template>
-                      <template v-else> Match any </template>
+                      <template v-else>Match any</template>
                     </div>
                   </td>
                 </tr>
@@ -1247,10 +1247,10 @@ export default {
         .join(', ')
     },
     technologies() {
-      return this.order.dataset.query.matchAllTechnologies === 'not'
-        ? this.order.dataset.query.technologies.slice(0, 1)
-        : this.technologiesViewAll
+      return this.technologiesViewAll
         ? this.order.dataset.query.technologies
+        : this.order.dataset.query.matchAllTechnologies === 'not'
+        ? this.order.dataset.query.technologies.slice(0, 1)
         : this.order.dataset.query.technologies.slice(0, 10)
     },
     progress() {

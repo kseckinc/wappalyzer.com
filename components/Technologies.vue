@@ -68,7 +68,7 @@
           <v-row>
             <v-col>{{ item.name }}</v-col>
             <v-col class="text-right">
-              <small>({{ item.technologiesCount }} technologies)</small>
+              <small>(select all)</small>
             </v-col>
           </v-row>
         </template>

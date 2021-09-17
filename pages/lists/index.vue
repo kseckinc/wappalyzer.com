@@ -176,12 +176,7 @@
                                       {{ item.name }}
                                     </v-col>
                                     <v-col class="pr-0 text-right">
-                                      <small
-                                        >{{
-                                          item.technologiesCount
-                                        }}
-                                        technologies</small
-                                      >
+                                      <small>(all)</small>
                                     </v-col>
                                   </v-row>
                                 </td>
@@ -243,7 +238,12 @@
                                 </div>
                               </template>
                             </v-radio>
-                            <v-radio class="mt-0" value="and" hide-details>
+                            <v-radio
+                              v-if="!selected.categories.length"
+                              class="mt-0"
+                              value="and"
+                              hide-details
+                            >
                               <template #label>
                                 <div>
                                   {{ selectedItems[0].name }}
@@ -1662,7 +1662,7 @@ export default {
       )
     },
     selectedItems() {
-      return [...this.selected.categories, ...this.selected.technologies]
+      return [...this.selected.technologies, ...this.selected.categories]
     },
     variants() {
       if (typeof this.selectedLanguage.value === 'object') {
@@ -1926,11 +1926,11 @@ export default {
               tlds: this.selected.tlds.map(({ value }) => value),
               matchAll: this.matchAll,
               matchAllTechnologies:
-                (this.selected.technologies.length === 2 &&
-                  (this.matchAllTechnologies === 'and' ||
-                    this.matchAllTechnologies === 'not')) ||
-                (this.selected.technologies.length === 3 &&
-                  this.matchAllTechnologies === 'and')
+                ((this.selected.technologies.length === 2 ||
+                  this.selected.technologies.length === 3) &&
+                  this.matchAllTechnologies === 'and') ||
+                (this.selectedItems.length === 2 &&
+                  this.matchAllTechnologies === 'not')
                   ? this.matchAllTechnologies
                   : 'or',
               subset: this.subset || 500000,

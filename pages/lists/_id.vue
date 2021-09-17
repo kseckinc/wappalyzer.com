@@ -257,15 +257,16 @@
                     <template
                       v-else-if="list.query.matchAllTechnologies === 'not'"
                     >
-                      Excluding
+                      Matching
                       <nuxt-link
                         :to="`/technologies${
-                          list.query.technologies[1].categories[0]
-                            ? `/${list.query.technologies[1].categories[0].slug}`
+                          list.query.technologies[0].categories[0]
+                            ? `/${list.query.technologies[0].categories[0].slug}`
                             : ''
-                        }/${list.query.technologies[1].slug}/`"
-                        >{{ list.query.technologies[1].name }}</nuxt-link
-                      >.
+                        }/${list.query.technologies[0].slug}/`"
+                        >{{ list.query.technologies[0].name }}</nuxt-link
+                      >
+                      and excluding all others.
                     </template>
                     <template v-else
                       >Matching <strong>any</strong> of the above.</template
@@ -725,7 +726,7 @@
                 :key="technology.slug"
               >
                 <v-expansion-panel-header>
-                  <template v-if="list.query.matchAllTechnologies !== 'or'">
+                  <template v-if="list.query.matchAllTechnologies === 'and'">
                     <div class="d-flex align-center">
                       <div
                         v-for="_technology in list.query.technologies"
@@ -959,10 +960,10 @@ export default {
       credits: ({ credits: { credits } }) => credits,
     }),
     technologies() {
-      return this.list.query.matchAllTechnologies === 'not'
-        ? this.list.query.technologies.slice(0, 1)
-        : this.technologiesViewAll
+      return this.technologiesViewAll
         ? this.list.query.technologies
+        : this.list.query.matchAllTechnologies === 'not'
+        ? this.list.query.technologies.slice(0, 1)
         : this.list.query.technologies.slice(0, 10)
     },
     queryParams() {
