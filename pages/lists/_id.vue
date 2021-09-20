@@ -595,6 +595,19 @@
               FAQs
             </v-btn>
             <v-spacer />
+            <v-btn
+              v-if="isAdmin"
+              :loading="calculating"
+              color="success"
+              text
+              small
+              @click="calculate"
+            >
+              <v-icon left>
+                {{ mdiReload }}
+              </v-icon>
+              Recalc
+            </v-btn>
             <v-btn :to="`/lists/${queryParams}`" color="accent" text small>
               <v-icon left>
                 {{ mdiPencil }}
@@ -782,10 +795,7 @@
           </template>
 
           <v-btn
-            v-if="
-              !['Complete', 'Failed', 'Insufficient'].includes(list.status) &&
-              list.sampleFilename
-            "
+            v-if="list.status === 'Open' && list.sampleFilename"
             :href="`${datasetsBaseUrl}${list.sampleFilename}`"
             class="mb-4"
             depressed
@@ -863,6 +873,7 @@ import {
   mdiMinus,
   mdiCheckboxMarked,
   mdiPencil,
+  mdiReload,
   mdiCart,
   mdiDelete,
   mdiForum,
@@ -919,6 +930,7 @@ export default {
       cancelDialog: false,
       cancelError: false,
       cancelling: false,
+      calculating: false,
       error: false,
       mdiArrowLeft,
       mdiDownload,
@@ -927,6 +939,7 @@ export default {
       mdiMinus,
       mdiCheckboxMarked,
       mdiPencil,
+      mdiReload,
       mdiCart,
       mdiDelete,
       mdiForum,
@@ -1157,6 +1170,22 @@ export default {
       }
 
       this.repeating = false
+    },
+    async calculate() {
+      this.error = false
+      this.calculating = true
+
+      try {
+        await this.$axios.patch(`lists/${this.list.id}`, {
+          calculate: true,
+        })
+
+        this.list = (await this.$axios.get(`lists/${this.list.id}`)).data
+      } catch (error) {
+        this.error = this.getErrorMessage(error)
+      }
+
+      this.calculating = false
     },
   },
 }

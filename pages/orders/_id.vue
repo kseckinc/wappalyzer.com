@@ -120,19 +120,29 @@
         color="success"
         class="mr-2 mb-4"
         outlined
-        @click="
-          {
-            {
-              user.billingEmail
-            }
-          }
-          editDialog = true
-        "
+        @click="editDialog = true"
       >
         <v-icon left>
           {{ mdiPencil }}
         </v-icon>
         Edit order
+      </v-btn>
+
+      <v-btn
+        v-if="
+          isAdmin &&
+          ['Technology lookup', 'Email verification'].includes(order.product)
+        "
+        :loading="processing"
+        color="success"
+        class="mr-2 mb-4"
+        outlined
+        @click="process"
+      >
+        <v-icon left>
+          {{ mdiReload }}
+        </v-icon>
+        Process order
       </v-btn>
 
       <template
@@ -1134,6 +1144,7 @@ import { mapState, mapActions } from 'vuex'
 import {
   mdiArrowLeft,
   mdiPencil,
+  mdiReload,
   mdiFileDocumentOutline,
   mdiCalendarSync,
   mdiDownload,
@@ -1187,6 +1198,7 @@ export default {
       invoicing: false,
       mdiArrowLeft,
       mdiPencil,
+      mdiReload,
       mdiFileDocumentOutline,
       mdiCalendarSync,
       mdiDownload,
@@ -1206,6 +1218,7 @@ export default {
       orderLoaded: false,
       paymentMethod: 'stripe',
       paying: false,
+      processing: false,
       sets,
       status: '',
       statusItems: [
@@ -1359,6 +1372,21 @@ export default {
     ...mapActions({
       getCredits: 'credits/get',
     }),
+    async process() {
+      this.error = false
+      this.success = false
+      this.processing = true
+
+      try {
+        await this.$axios.patch(`orders/${this.order.id}`, { process: true })
+
+        this.order = (await this.$axios.get(`orders/${this.order.id}`)).data
+      } catch (error) {
+        this.error = this.getErrorMessage(error)
+      }
+
+      this.processing = false
+    },
     async pay() {
       this.error = false
       this.paying = true

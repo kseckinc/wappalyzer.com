@@ -24,6 +24,7 @@
       </v-btn>
 
       <v-btn
+        v-if="!user.disabled"
         :loading="disabling"
         color="error lighten-5 error--text"
         class="mr-2 mb-4"
@@ -34,6 +35,20 @@
           {{ mdiAccountRemove }}
         </v-icon>
         Disable user
+      </v-btn>
+
+      <v-btn
+        v-if="user.disabled"
+        :loading="enabling"
+        color="success lighten-5 success--text"
+        class="mr-2 mb-4"
+        depressed
+        @click="enable"
+      >
+        <v-icon left>
+          {{ mdiAccountCheck }}
+        </v-icon>
+        Enable user
       </v-btn>
     </template>
 
@@ -194,6 +209,7 @@ import { mapState, mapActions } from 'vuex'
 import {
   mdiOpenInNew,
   mdiAccountRemove,
+  mdiAccountCheck,
   mdiContentSave,
   mdiEye,
   mdiEyeOff,
@@ -219,12 +235,14 @@ export default {
       error: false,
       mdiOpenInNew,
       mdiAccountRemove,
+      mdiAccountCheck,
       mdiContentSave,
       mdiEye,
       mdiEyeOff,
       newPassword: '',
       oldPassword: '',
       disabling: false,
+      enabling: false,
       removing: false,
       stripeCustomer: '',
       rules: {
@@ -258,6 +276,7 @@ export default {
     ...mapActions({
       saveUser: 'user/save',
       deleteUser: 'user/delete',
+      enableUser: 'user/enable',
       disableUser: 'user/disable',
       changePassword: 'user/changePassword',
     }),
@@ -332,6 +351,20 @@ export default {
       }
 
       this.disabling = false
+
+      this.scrollToTop()
+    },
+    async enable() {
+      this.enabling = true
+      this.error = false
+
+      try {
+        await this.enableUser()
+      } catch (error) {
+        this.error = this.getErrorMessage(error)
+      }
+
+      this.enabling = false
 
       this.scrollToTop()
     },

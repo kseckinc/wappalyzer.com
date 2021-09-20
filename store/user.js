@@ -406,4 +406,16 @@ export const actions = {
       await dispatch('updateAttrs')
     }
   },
+
+  async enable({ state, commit, dispatch }) {
+    if (state.impersonating && state.impersonator.admin) {
+      await this.$axios.patch('user', { disabled: false })
+
+      const user = (await this.$axios.get('user')).data
+
+      commit('setAttrs', user)
+    } else {
+      await dispatch('updateAttrs')
+    }
+  },
 }

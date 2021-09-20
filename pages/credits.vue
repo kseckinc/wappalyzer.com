@@ -29,6 +29,19 @@
       </v-btn>
 
       <v-btn
+        v-if="isAdmin"
+        color="success lighten-5 success--text"
+        class="mr-2 mb-4"
+        depressed
+        @click="spendDialog = true"
+      >
+        <v-icon left>
+          {{ mdiAlphaCCircle }}
+        </v-icon>
+        Spend credits
+      </v-btn>
+
+      <v-btn
         class="mr-2 mb-4 primary--text"
         color="primary lighten-1"
         depressed
@@ -257,7 +270,7 @@
                 :rules="rules.credits"
                 label="Credits"
               />
-              <v-text-field v-model="description" label="Description" />
+              <v-text-field v-model="addDescription" label="Description" />
               <v-text-field v-model="expiry" label="Expiry (days)" />
             </v-form>
           </v-card-text>
@@ -268,6 +281,35 @@
             </v-btn>
             <v-btn :loading="adding" color="accent" text @click="add">
               Add
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <v-dialog v-model="spendDialog" max-width="400px" eager>
+        <v-card>
+          <v-card-title>Spend credits</v-card-title>
+          <v-card-text class="pb-0">
+            <v-alert v-if="spendError" type="error" text>
+              {{ spendError }}
+            </v-alert>
+
+            <v-form>
+              <v-text-field
+                v-model="credits"
+                :rules="rules.credits"
+                label="Credits"
+              />
+              <v-text-field v-model="spendDescription" label="Description" />
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn color="accent" text @click="spendDialog = false">
+              Cancel
+            </v-btn>
+            <v-btn :loading="spending" color="accent" text @click="spend">
+              Spend
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -296,11 +338,15 @@ export default {
       title: 'Credits',
       adds: [],
       addDialog: false,
+      spendDialog: false,
       adding: false,
+      spending: false,
       addError: false,
+      spendError: false,
       credits: 5000,
       creditTiers,
-      description: 'Complimentary credits',
+      addDescription: 'Complimentary credits',
+      spendDescription: 'Subscription cancellation',
       expiry: 365,
       mdiAlphaCCircle,
       mdiForum,
@@ -375,7 +421,7 @@ export default {
       try {
         await this.$axios.put('credits', {
           credits: parseInt(this.credits, 10),
-          description: this.description,
+          description: this.addDescription,
           expiry: parseInt(this.expiry, 10),
         })
 
@@ -383,12 +429,37 @@ export default {
         ;({ add: this.adds, spend: this.spends } = (
           await this.$axios.get('credits/usage')
         ).data)
+
+        this.addDialog = false
       } catch (error) {
         this.addError = this.getErrorMessage(error)
       }
 
       this.adding = false
-      this.addDialog = false
+    },
+    async spend() {
+      this.spendError = ''
+      this.spending = true
+
+      try {
+        await this.$axios.delete('credits', {
+          data: {
+            credits: parseInt(this.credits, 10),
+            description: this.spendDescription,
+          },
+        })
+
+        this.getCredits()
+        ;({ add: this.adds, spend: this.spends } = (
+          await this.$axios.get('credits/usage')
+        ).data)
+
+        this.spendDialog = false
+      } catch (error) {
+        this.spendError = this.getErrorMessage(error)
+      }
+
+      this.spending = false
     },
     async submit() {
       this.orderError = ''
