@@ -228,7 +228,10 @@
 
                 <div class="text-right">
                   <v-btn
-                    v-if="list.query.technologies.length > 20"
+                    v-if="
+                      list.query.technologies.length > 20 ||
+                      list.query.matchAllTechnologies === 'not'
+                    "
                     color="accent"
                     class="mt-2 mr-3"
                     text
@@ -1107,9 +1110,9 @@ export default {
       getCredits: 'credits/get',
     }),
     totalRows(rows, matchAllTechnologies) {
-      return matchAllTechnologies === 'or'
-        ? Object.values(rows).reduce((total, rows) => total + rows, 0)
-        : Object.values(rows)[0]
+      return matchAllTechnologies === 'and'
+        ? Object.values(rows)[0]
+        : Object.values(rows).reduce((total, rows) => total + rows, 0)
     },
     async submit() {
       this.error = false

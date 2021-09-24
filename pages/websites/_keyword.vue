@@ -1,6 +1,6 @@
 <template>
-  <Page :title="title" :seo-title="seoTitle" :head="meta" narrow no-heading>
-    <v-card class="mt-6 mb-4">
+  <Page :title="title" :seo-title="seoTitle" :head="meta" no-heading>
+    <v-card class="mt-8 mb-4">
       <v-card-title>
         <v-icon color="primary" left>
           {{ mdiMagnify }}
@@ -223,6 +223,7 @@ export default {
         title: 'Keyword search',
         subtitle: 'Find and create lists of websites by keyword',
         text: 'Find websites that use a certain keyword, such as a brand, product, profession or industry. Segment lists by technology, traffic, location and more.',
+        image: 'keywords',
       },
       input: '',
       keyword: '',
