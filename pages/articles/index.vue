@@ -81,7 +81,7 @@ export default {
           to: '/articles/how-to-hide-technologies-from-wappalyzer/',
         },
         {
-          title: 'BuiltWith alternative',
+          title: 'Wappalyzer vs. BuiltWith',
           intro:
             "Wappalyzer and BuiltWith are technology profilers that provide tools for lead generation, market research and business intelligence. Looking for a comparison between Wappalyzer and BuiltWith? Here's a full review.",
           to: '/articles/builtwith-alternative/',
