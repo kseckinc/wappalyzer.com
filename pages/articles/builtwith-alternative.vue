@@ -3,9 +3,7 @@
     <article>
       <v-row justify="center" no-gutters>
         <v-col sm="10" lg="8">
-          <h1 class="text-h1 mb-8">
-            {{ title }}
-          </h1>
+          <h1 class="text-h1 mb-8">Wappalyzer vs. BuiltWith</h1>
 
           <h2 class="text-h2 mt-8 mb-2" />
 
