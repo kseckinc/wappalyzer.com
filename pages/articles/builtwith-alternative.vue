@@ -339,7 +339,7 @@ export default {
   },
   data() {
     return {
-      title: 'Wappalyzer vs. BuiltWith',
+      title: 'BuiltWith alternative',
       crumbs: [{ title: 'Articles', to: '/articles/' }],
       meta: "Looking for a BuiltWith alternative? Wappalyzer is cheaper and more accurate. Here's a full review.",
       mdiCheck,

@@ -76,7 +76,16 @@
 		</Condition>
 		<Redirect>
 			<HostName>www.wappalyzer.com</HostName>
-      <ReplaceKeyPrefixWith>articles/wappalyzer-vs-builtwith</ReplaceKeyPrefixWith>
+      <ReplaceKeyPrefixWith>articles/builtwith-alternative</ReplaceKeyPrefixWith>
+		</Redirect>
+	</RoutingRule>
+	<RoutingRule>
+		<Condition>
+      <KeyPrefixEquals>articles/wappalyzer-vs-builtwith</KeyPrefixEquals>
+		</Condition>
+		<Redirect>
+			<HostName>www.wappalyzer.com</HostName>
+      <ReplaceKeyPrefixWith></ReplaceKeyPrefixWith>
 		</Redirect>
 	</RoutingRule>
 	<RoutingRule>
