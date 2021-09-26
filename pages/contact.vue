@@ -1,105 +1,106 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
-  <Page :title="title" narrow>
-    <p class="mb-8">
-      We love to hear from you. Please don't hesitate to email us with any
-      comments, questions and suggestions.
-    </p>
+  <Page :title="title" no-head narrow>
+    <v-row align="center" justify="space-between">
+      <v-col cols="12" md="9" lg="8">
+        <h1 class="mt-n2 mb-2">{{ title }}</h1>
 
-    <v-btn to="/faq/lists/" depressed>
-      <v-icon left>
-        {{ mdiForum }}
-      </v-icon>
-      Frequently asked questions
-    </v-btn>
+        <p>
+          We love to hear from you. Please don't hesitate to email us with any
+          comments, questions and suggestions.
+        </p>
 
-    <v-row class="mt-8 mb-4">
-      <v-col cols="12" md="6">
-        <v-card height="100%" class="d-flex flex-column">
-          <v-card-title class="subtitle-2">
-            <v-icon left>
-              {{ mdiFaceAgent }}
-            </v-icon>
-
-            Sales &amp; support
-          </v-card-title>
-          <v-card-text class="pb-0">
-            Email us at
-            <a href="mailto:hello@wappalyzer.com">hello@wappalyzer.com</a> for
-            sales enquiries and technical support for paid products, or just to
-            say hi.
-          </v-card-text>
-          <v-spacer />
-          <v-card-actions>
-            <v-spacer />
-            <v-btn href="mailto:hello@wappalyzer.com" color="accent" text>
-              <v-icon left>
-                {{ mdiEmail }}
-              </v-icon>
-              Email us
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+        <v-btn class="mt-4" to="/faq/lists/" depressed>
+          <v-icon left>
+            {{ mdiForum }}
+          </v-icon>
+          Frequently asked questions
+        </v-btn>
       </v-col>
-      <v-col cols="12" md="6">
-        <v-card height="100%" class="d-flex flex-column">
-          <v-card-title class="subtitle-2">
-            <v-icon left>
-              {{ mdiThumbUpOutline }}
-            </v-icon>
+      <v-col class="d-none d-md-block" cols="12" md="2" lg="3">
+        <v-img :src="`/images/contact.png`" width="100%" contain />
+      </v-col>
+    </v-row>
 
-            Follow us
-          </v-card-title>
-          <v-card-text class="pb-0">
-            Follow us on social media for occasional product updates.
-          </v-card-text>
-          <v-spacer />
-          <v-card-actions>
-            <v-spacer />
-            <v-btn
-              href="https://www.facebook.com/wappalyzer"
-              color="accent"
-              target="_blank"
-              rel="noopener"
-              icon
-            >
-              <v-icon>{{ mdiFacebook }}</v-icon>
-            </v-btn>
-            <v-btn
-              href="https://www.instagram.com/wappalyzer"
-              color="accent"
-              target="_blank"
-              rel="noopener"
-              icon
-            >
-              <v-icon>{{ mdiInstagram }}</v-icon>
-            </v-btn>
-            <v-btn
-              href="https://twitter.com/Wappalyzer"
-              color="accent"
-              target="_blank"
-              rel="noopener"
-              icon
-            >
-              <v-icon>{{ mdiTwitter }}</v-icon>
-            </v-btn>
-            <v-btn
-              href="https://www.linkedin.com/company/wappalyzer"
-              color="accent"
-              target="_blank"
-              rel="noopener"
-              icon
-            >
-              <v-icon>{{ mdiLinkedin }}</v-icon>
-            </v-btn>
-          </v-card-actions>
-        </v-card>
+    <v-row class="mt-6">
+      <v-col cols="6">
+        <h3 class="mb-2">Email us</h3>
+
+        <p class="body-2">
+          Email us at
+          <a href="mailto:hello@wappalyzer.com">hello@wappalyzer.com</a> for
+          sales enquiries and technical support for paid products, or just to
+          say hi.
+        </p>
+      </v-col>
+      <v-col cols="6">
+        <h3 class="mb-2">Follow us</h3>
+        <p class="body-2">
+          Follow us on social media for occasional product updates.
+        </p>
+
+        <a
+          href="https://www.facebook.com/wappalyzer"
+          target="_blank"
+          rel="noopener"
+          icon
+        >
+          <v-icon color="accent" size="20" left>{{ mdiFacebook }}</v-icon>
+        </a>
+        <a
+          href="https://www.instagram.com/wappalyzer"
+          target="_blank"
+          rel="noopener"
+          icon
+        >
+          <v-icon color="accent" size="20" left>{{ mdiInstagram }}</v-icon>
+        </a>
+        <a
+          href="https://twitter.com/Wappalyzer"
+          target="_blank"
+          rel="noopener"
+          icon
+        >
+          <v-icon color="accent" size="20" left>{{ mdiTwitter }}</v-icon>
+        </a>
+        <a
+          href="https://www.linkedin.com/company/wappalyzer"
+          target="_blank"
+          rel="noopener"
+          icon
+        >
+          <v-icon color="accent" size="20" left>{{ mdiLinkedin }}</v-icon>
+        </a>
+      </v-col>
+      <v-col cols="6">
+        <h3 class="mb-2">Chat with us</h3>
+
+        <p class="body-2">
+          We're located in Melbourne, Australia and generally available between
+          8am-8pm AEST.
+        </p>
+
+        <p class="body-2">
+          Right now it's
+          {{
+            new Date().toLocaleTimeString([], {
+              hour: '2-digit',
+              minute: '2-digit',
+              timeZone: 'Australia/Melbourne',
+            })
+          }}
+          AEST.
+        </p>
+
+        <p class="body-2"><a @click.prevent="chat">Start a chat</a>.</p>
       </v-col>
     </v-row>
   </Page>
 </template>
 
 <script>
+/* globals $crisp */
+
 import {
   mdiTwitter,
   mdiLinkedin,
@@ -129,6 +130,11 @@ export default {
       mdiForum,
       mdiThumbUpOutline,
     }
+  },
+  methods: {
+    chat() {
+      $crisp.push(['do', 'chat:open'])
+    },
   },
 }
 </script>
