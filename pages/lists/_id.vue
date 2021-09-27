@@ -1,11 +1,14 @@
 <template>
   <Page
     :title="title"
+    :head="{ title, subtitle: list && list.name }"
     :crumbs="[{ title: 'Lead lists', to: '/lists/all/' }]"
     :loading="!list && !error"
     secure
     no-side-bar
   >
+    <div class="mb-2"></div>
+
     <v-alert v-if="error" type="error" class="mb-8" text>
       {{ error }}
     </v-alert>
@@ -1142,7 +1145,6 @@ export default {
     async cancel() {
       this.cancelError = false
       this.cancelling = true
-      this.success = false
 
       try {
         const { id } = this.$route.params

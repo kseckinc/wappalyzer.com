@@ -37,109 +37,196 @@
           <v-simple-table>
             <thead>
               <tr>
-                <th width="15%">ID</th>
-                <th>Tech / keywords</th>
-                <th width="15%">Websites</th>
-                <th width="15%">Date</th>
+                <th width="20%">ID</th>
+                <th>Description</th>
+                <th width="10%">Websites</th>
                 <th width="1">Repeat</th>
                 <th width="1">Paid</th>
+                <th width="1"></th>
               </tr>
             </thead>
             <tbody>
               <template v-for="list in filteredLists">
-                <tr :key="list.createdAt">
-                  <td style="white-space: nowrap">
-                    <nuxt-link :to="`/lists/${list.id}`">{{
-                      list.id
-                    }}</nuxt-link>
+                <v-hover v-slot="{ hover }">
+                  <tr :key="list.createdAt">
+                    <td style="white-space: nowrap">
+                      <nuxt-link :to="`/lists/${list.id}`">{{
+                        list.id
+                      }}</nuxt-link>
 
-                    <v-tooltip v-if="list.repeatListId" max-width="250" top>
-                      <template #activator="{ on }">
-                        <nuxt-link
-                          v-if="list.repeatListId"
-                          :to="`/lists/${list.repeatListId}`"
-                          ><sup>
-                            <v-icon color="accent" small v-on="on">{{
-                              mdiUpdate
-                            }}</v-icon>
-                          </sup></nuxt-link
+                      <v-tooltip v-if="list.repeatListId" max-width="250" top>
+                        <template #activator="{ on }">
+                          <nuxt-link
+                            v-if="list.repeatListId"
+                            :to="`/lists/${list.repeatListId}`"
+                            ><sup>
+                              <v-icon color="accent" small v-on="on">{{
+                                mdiUpdate
+                              }}</v-icon>
+                            </sup></nuxt-link
+                          >
+                        </template>
+
+                        Weekly update for list {{ list.repeatListId }}. Click to
+                        manage.
+                      </v-tooltip>
+                    </td>
+                    <td>
+                      <div v-if="list.name">
+                        <small>{{ list.name }}</small>
+                      </div>
+
+                      <v-chip-group v-else-if="list.technologies.length" column>
+                        <v-chip
+                          v-for="technology in list.technologies.slice(0, 10)"
+                          :key="technology"
+                          small
+                          outlined
+                          label
                         >
-                      </template>
-
-                      Weekly update for list {{ list.repeatListId }}. Click to
-                      manage.
-                    </v-tooltip>
-                  </td>
-                  <td>
-                    <v-chip-group v-if="list.technologies.length" column>
-                      <v-chip
-                        v-for="technology in list.technologies.slice(0, 10)"
-                        :key="technology"
-                        small
-                        outlined
-                        label
-                      >
-                        {{ technology }}
-                      </v-chip>
-                      <v-chip
-                        v-if="list.technologies.length > 10"
-                        small
-                        outlined
-                        label
-                      >
-                        (+{{ list.technologies.length - 10 }} more)
-                      </v-chip>
-                    </v-chip-group>
-                    <v-chip-group v-else-if="list.keywords.length" column>
-                      <v-chip
-                        v-for="keyword in list.keywords.slice(0, 10)"
-                        :key="keyword"
-                        small
-                        outlined
-                        label
-                      >
-                        {{ keyword }}
-                      </v-chip>
-                      <v-chip
-                        v-if="list.keywords.length > 10"
-                        small
-                        outlined
-                        label
-                      >
-                        (+{{ list.keywords.length - 10 }} more)
-                      </v-chip>
-                    </v-chip-group>
-                  </td>
-                  <td v-if="list.status === 'Calculating'">
-                    <Spinner />
-                  </td>
-                  <td v-else>
-                    {{ list.rows ? formatNumber(list.rows) : '-' }}
-                  </td>
-                  <td>{{ formatDate(new Date(list.createdAt * 1000)) }}</td>
-                  <td class="text-center">
-                    <v-icon v-if="list.repeat">
-                      {{ mdiUpdate }}
-                    </v-icon>
-                  </td>
-                  <td class="text-center">
-                    <v-icon v-if="list.status === 'Complete'" color="success">
-                      {{ mdiCheck }}
-                    </v-icon>
-                  </td>
-                </tr>
+                          {{ technology }}
+                        </v-chip>
+                        <v-chip
+                          v-if="list.technologies.length > 10"
+                          small
+                          outlined
+                          label
+                        >
+                          (+{{ list.technologies.length - 10 }} more)
+                        </v-chip>
+                      </v-chip-group>
+                      <v-chip-group v-else-if="list.keywords.length" column>
+                        <v-chip
+                          v-for="keyword in list.keywords.slice(0, 10)"
+                          :key="keyword"
+                          small
+                          outlined
+                          label
+                        >
+                          {{ keyword }}
+                        </v-chip>
+                        <v-chip
+                          v-if="list.keywords.length > 10"
+                          small
+                          outlined
+                          label
+                        >
+                          (+{{ list.keywords.length - 10 }} more)
+                        </v-chip>
+                      </v-chip-group>
+                    </td>
+                    <td v-if="list.status === 'Calculating'">
+                      <Spinner />
+                    </td>
+                    <td v-else>
+                      {{ list.rows ? formatNumber(list.rows) : '-' }}
+                    </td>
+                    <td class="text-center">
+                      <v-icon v-if="list.repeat">
+                        {{ mdiUpdate }}
+                      </v-icon>
+                    </td>
+                    <td class="text-center">
+                      <v-icon v-if="list.status === 'Complete'" color="success">
+                        {{ mdiCheck }}
+                      </v-icon>
+                    </td>
+                    <td style="white-space: nowrap">
+                      <div :style="hover ? '' : 'visibility: hidden'">
+                        <v-btn
+                          color="accent"
+                          icon
+                          @click="
+                            selected = list
+                            editDialog = true
+                          "
+                        >
+                          <v-icon>{{ mdiPencil }}</v-icon> </v-btn
+                        ><v-btn
+                          :disabled="list.status === 'Complete'"
+                          color="error"
+                          icon
+                          @click="
+                            selected = list
+                            cancelDialog = true
+                          "
+                        >
+                          <v-icon>{{ mdiDelete }}</v-icon>
+                        </v-btn>
+                      </div>
+                    </td>
+                  </tr>
+                </v-hover>
               </template>
             </tbody>
           </v-simple-table>
         </v-card-text>
       </v-card>
     </template>
+
+    <v-dialog v-model="editDialog" max-width="400px" eager>
+      <v-card>
+        <v-card-title>Edit list</v-card-title>
+        <v-card-text>
+          <v-alert v-if="editError" type="error" text>
+            {{ editError }}
+          </v-alert>
+
+          <p>Name your list so you can find it back later.</p>
+
+          <v-form ref="form" @submit.prevent="edit">
+            <v-text-field
+              v-model="selected.name"
+              label="Name"
+              :rules="[v && v.length > 250 && 'Max length']"
+              placeholder="My list"
+              hide-details="auto"
+              dense
+              outlined
+            />
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn color="accent" text @click="editDialog = false">
+            Cancel
+          </v-btn>
+          <v-btn :loading="editing" color="error" text @click="edit">
+            Ok
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="cancelDialog" max-width="400px" eager>
+      <v-card>
+        <v-card-title>Delete list</v-card-title>
+        <v-card-text>
+          <v-alert v-if="cancelError" type="error" text>
+            {{ cancelError }}
+          </v-alert>
+
+          <div>
+            The list <strong>{{ selected.id }}</strong> will be deleted.
+          </div>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn color="accent" text @click="cancelDialog = false">
+            Cancel
+          </v-btn>
+          <v-btn :loading="cancelling" color="error" text @click="cancel">
+            Ok
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </Page>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import { mdiPlus, mdiCheck, mdiUpdate } from '@mdi/js'
+import { mdiPlus, mdiCheck, mdiUpdate, mdiPencil, mdiDelete } from '@mdi/js'
 import Page from '~/components/Page.vue'
 import Spinner from '~/components/Spinner.vue'
 
@@ -151,11 +238,20 @@ export default {
   data() {
     return {
       title: 'Lead lists',
+      cancelDialog: false,
+      cancelError: false,
+      cancelling: false,
+      editDialog: false,
+      editError: false,
+      editing: false,
       error: false,
       lists: null,
       mdiPlus,
       mdiCheck,
       mdiUpdate,
+      mdiPencil,
+      mdiDelete,
+      selected: {},
       viewMine: false,
     }
   },
@@ -195,22 +291,49 @@ export default {
       }
     }
   },
+  methods: {
+    async edit() {
+      this.editError = false
+      this.editing = true
+
+      try {
+        await this.$axios.patch(`lists/${this.selected.id}`, {
+          name: this.selected.name,
+        })
+
+        try {
+          this.lists = (await this.$axios.get('lists')).data
+        } catch (error) {
+          this.error = this.getErrorMessage(error)
+        }
+
+        this.editDialog = false
+      } catch (error) {
+        this.editError = this.getErrorMessage(error)
+      }
+
+      this.editing = false
+    },
+    async cancel() {
+      this.cancelError = false
+      this.cancelling = true
+
+      try {
+        await this.$axios.delete(`lists/${this.selected.id}`)
+
+        try {
+          this.lists = (await this.$axios.get('lists')).data
+        } catch (error) {
+          this.error = this.getErrorMessage(error)
+        }
+
+        this.cancelDialog = false
+      } catch (error) {
+        this.cancelError = this.getErrorMessage(error)
+      }
+
+      this.cancelling = false
+    },
+  },
 }
 </script>
-
-<style>
-.loader {
-  animation: loader 1.5s infinite;
-  display: flex;
-}
-
-@keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-</style>
