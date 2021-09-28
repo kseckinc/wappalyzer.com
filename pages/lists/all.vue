@@ -178,7 +178,7 @@
             <v-text-field
               v-model="selected.name"
               label="Name"
-              :rules="[v && v.length > 250 && 'Max length']"
+              :rules="[(v) => (v.length > 250 ? 'Name too long' : true)]"
               placeholder="My list"
               hide-details="auto"
               dense
