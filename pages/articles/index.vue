@@ -1,37 +1,21 @@
 <template>
   <div>
     <Page :title="title" narrow>
-      <v-card class="mb-4">
-        <template v-for="(article, index) in articles">
+      <template v-for="(article, index) in articles">
+        <nuxt-link :to="article.to" class="text-decoration-none text--primary">
           <div :key="index">
-            <v-divider v-if="index" class="mb-2" />
+            <v-divider v-if="index" class="mt-12 mb-10" />
 
-            <v-card-title>
-              <nuxt-link
-                :to="article.to"
-                class="text-decoration-none text--primary"
-              >
-                {{ article.title }}
-              </nuxt-link>
-            </v-card-title>
+            <h2 class="text-h2 mt-8 mb-2">
+              {{ article.title }}
+            </h2>
 
-            <v-card-text style="max-width: 600px">
+            <p>
               {{ article.intro }}
-            </v-card-text>
-
-            <v-card-actions>
-              <v-spacer />
-
-              <v-btn :to="article.to" color="accent" text>
-                Read article
-                <v-icon right small>
-                  {{ mdiArrowRight }}
-                </v-icon>
-              </v-btn>
-            </v-card-actions>
+            </p>
           </div>
-        </template>
-      </v-card>
+        </nuxt-link>
+      </template>
     </Page>
   </div>
 </template>
@@ -49,6 +33,13 @@ export default {
     return {
       title: 'Articles',
       articles: [
+        {
+          title:
+            'Email deliverability: how to prepare your inbox & build a lead list',
+          intro:
+            'Preparing your inbox for good email deliverability can be a daunting task. To make the process as easy as possible, we are going to break down the steps for you. Here are some of the most important factors to keep in mind when preparing your inbox for email deliverability.',
+          to: '/articles/email-deliverability/',
+        },
         {
           title:
             'Get the technology stack of new leads to your Slack instantly',
