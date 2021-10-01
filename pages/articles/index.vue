@@ -6,7 +6,7 @@
           <div :key="index">
             <v-divider v-if="index" class="mt-12 mb-10" />
 
-            <h2 class="text-h2 mt-8 mb-2">
+            <h2 class="text-h2 mt-8 mb-2 text-decoration-underline">
               {{ article.title }}
             </h2>
 
@@ -21,8 +21,6 @@
 </template>
 
 <script>
-import { mdiArrowRight } from '@mdi/js'
-
 import Page from '~/components/Page.vue'
 
 export default {
@@ -78,7 +76,6 @@ export default {
           to: '/articles/builtwith-alternative/',
         },
       ],
-      mdiArrowRight,
     }
   },
 }
