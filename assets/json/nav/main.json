@@ -104,6 +104,10 @@
       "to": "/about/"
       },
       {
+      "title": "Logos",
+      "to": "/logos/"
+      },
+      {
       "title": "Contact us",
       "to": "/contact/"
       }
