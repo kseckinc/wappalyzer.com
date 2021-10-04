@@ -19,6 +19,20 @@
       }"
       :hero="false"
     >
+        <v-chip-group column>
+          <v-chip
+            v-for="{ slug, name } in category.groups"
+            :key="name"
+            :to="`/technologies/#${slug}`"
+            color="primary"
+            outlined
+            small
+            exact
+          >
+            {{ name }}
+          </v-chip>
+        </v-chip-group column>
+
       <v-alert color="primary lighten-1" class="mt-6">
         <p class="subtitle-1 font-weight-medium primary--text mb-2">
           Reach out to {{ category.name }} users
@@ -30,9 +44,7 @@
           <nuxt-link
             class="primary--text"
             :to="`/lists/?categories=${categorySlug}`"
-          >
-            websites using {{ category.name }} technology
-          </nuxt-link>
+          >websites using {{ category.name }} technology</nuxt-link>
           with company and contact details.
         </p>
 

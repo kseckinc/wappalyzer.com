@@ -58,13 +58,13 @@
     <template v-if="categories">
       <h2 class="mt-14 mb-6">Browse</h2>
 
-      <v-card>
-        <div v-for="(categories, name) in groups">
-          <v-card-title class="subtitle-1 mb-2">{{ name }}</v-card-title>
+      <v-card class="mb-4">
+        <div v-for="group in groups" :key="group.slug" :id="group.slug">
+          <v-card-title class="subtitle-1 mb-2">{{ group.name }}</v-card-title>
           <v-card-text class="pb-8">
             <v-row>
               <v-col
-                v-for="{ name, slug, technologiesCount } in categories"
+                v-for="{ name, slug, technologiesCount } in group.categories"
                 :key="slug"
                 class="py-1 body-2"
                 cols="12"
@@ -184,15 +184,17 @@ export default {
   computed: {
     groups() {
       return this.categories
-        ? this.categories.reduce((grouped, category) => {
-            category.groups.forEach(({ name }) => {
-              grouped[name] = grouped[name] || []
+        ? Object.values(
+            this.categories.reduce((grouped, category) => {
+              category.groups.forEach(({ slug, name }) => {
+                grouped[slug] = grouped[slug] || { slug, name, categories: [] }
 
-              grouped[name].push(category)
-            })
+                grouped[slug].categories.push(category)
+              })
 
-            return grouped
-          }, {})
+              return grouped
+            }, {})
+          ).sort(({ name: a }, { name: b }) => (a > b ? 1 : -1))
         : []
     },
     categoriesCount() {
