@@ -58,21 +58,31 @@
     <template v-if="categories">
       <h2 class="mt-14 mb-6">Browse</h2>
 
-      <v-row class="mb-4">
-        <v-col
-          v-for="{ name, slug } in categories"
-          :key="slug"
-          class="py-1 body-2"
-          cols="12"
-          sm="6"
-          md="4"
-          lg="3"
-        >
-          <nuxt-link :to="`/technologies/${slug}/`">
-            {{ name }}
-          </nuxt-link>
-        </v-col>
-      </v-row>
+      <v-card>
+        <div v-for="(categories, name) in groups">
+          <v-card-title class="subtitle-1 mb-2">{{ name }}</v-card-title>
+          <v-card-text class="pb-8">
+            <v-row>
+              <v-col
+                v-for="{ name, slug, technologiesCount } in categories"
+                :key="slug"
+                class="py-1 body-2"
+                cols="12"
+                sm="6"
+                md="4"
+                lg="3"
+              >
+                <nuxt-link :to="`/technologies/${slug}/`">{{ name }}</nuxt-link
+                ><small class="ml-2 text--disabled">{{
+                  technologiesCount
+                }}</small>
+              </v-col>
+            </v-row>
+          </v-card-text>
+
+          <v-divider />
+        </div>
+      </v-card>
     </template>
   </Page>
 </template>
@@ -172,6 +182,19 @@ export default {
     }
   },
   computed: {
+    groups() {
+      return this.categories
+        ? this.categories.reduce((grouped, category) => {
+            category.groups.forEach(({ name }) => {
+              grouped[name] = grouped[name] || []
+
+              grouped[name].push(category)
+            })
+
+            return grouped
+          }, {})
+        : []
+    },
     categoriesCount() {
       return this.categories ? this.categories.length : 0
     },
