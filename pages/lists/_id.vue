@@ -801,7 +801,7 @@
           </template>
 
           <v-btn
-            v-if="list.status === 'Open' && list.sampleFilename"
+            v-if="list.status === 'Ready' && list.sampleFilename"
             :href="`${datasetsBaseUrl}${list.sampleFilename}`"
             class="mb-4"
             depressed
@@ -1011,7 +1011,9 @@ export default {
           ? this.list.query.languages.map(({ value }) => value)
           : undefined,
         industries: this.list.query.industries.length
-          ? this.list.query.industries
+          ? this.list.query.industries.map((industry) =>
+              encodeURIComponent(industry)
+            )
           : undefined,
         sizes: this.list.query.companySizes.length
           ? this.list.query.companySizes.map(({ value }) => value)

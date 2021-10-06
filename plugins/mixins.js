@@ -310,7 +310,9 @@ Vue.mixin({
               switch (set.key) {
                 case 'social':
                   formatted[set.key].attributes[attribute.key].values.push({
-                    to: `${socialBaseUrls[attribute.key]}${value}`,
+                    to: value.startsWith('https://')
+                      ? value
+                      : `${socialBaseUrls[attribute.key]}${value}`,
                     text: value,
                   })
 
@@ -391,7 +393,9 @@ Vue.mixin({
 
       if (set.key === 'social') {
         return {
-          to: `${socialBaseUrls[key]}${value}`,
+          to: value.startsWith('https://')
+            ? value
+            : `${socialBaseUrls[key]}${value}`,
           text: value,
         }
       }
