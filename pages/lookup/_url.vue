@@ -217,7 +217,6 @@ import Page from '~/components/Page.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
 import Attributes from '~/components/Attributes.vue'
 import SignIn from '~/components/SignIn.vue'
-import Pro from '~/components/Pro.vue'
 import Search from '~/components/Search.vue'
 import Logos from '~/components/Logos.vue'
 import { lookup as meta } from '~/assets/json/meta.json'
@@ -263,7 +262,6 @@ export default {
     TechnologyIcon,
     Attributes,
     SignIn,
-    Pro,
     Search,
     Logos,
   },
@@ -413,9 +411,7 @@ export default {
               keywords: this.keywords,
             } = (
               await this.$axios.get(
-                `lookup-site${
-                  this.isSignedIn ? '' : '/public'
-                }/${encodeURIComponent(this.fullUrl)}`
+                `lookup-site/${encodeURIComponent(this.fullUrl)}`
               )
             ).data)
           } catch (error) {

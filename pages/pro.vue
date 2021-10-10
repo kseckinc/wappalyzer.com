@@ -46,12 +46,24 @@
             media profiles and other data points.
           </p>
 
-          <v-card class="my-8">
-            <v-img
-              src="/images/faqs/lookup-pro.png"
-              alt="Wappalyzer PRO technology lookup"
-            />
-          </v-card>
+          <v-row class="mt-4 mb-8">
+            <v-col cols="12" sm="6">
+              <v-card>
+                <v-img
+                  src="/images/faqs/lookup-plus-1.png"
+                  alt="Wappalyzer technology lookup"
+                />
+              </v-card>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-card>
+                <v-img
+                  src="/images/faqs/lookup-plus-2.png"
+                  alt="Wappalyzer technology lookup"
+                />
+              </v-card>
+            </v-col>
+          </v-row>
 
           <v-divider class="mt-12 mb-6" />
 
@@ -84,7 +96,7 @@
             <v-card-title class="subtitle-2"> Fields </v-card-title>
             <v-card-text>
               Fields in bold are exclusive to users on on a
-              <v-chip color="primary" x-small outlined> PRO </v-chip> plan.
+              <v-chip color="primary" x-small outlined>PRO</v-chip> plan.
             </v-card-text>
             <v-divider />
             <v-card-text class="pt-0 pb-7 px-4" style="overflow: hidden">
@@ -102,7 +114,7 @@
             </v-card-text>
           </v-card>
 
-          <v-divider class="mt-12 mb-6" />
+          <v-divider id="extension" class="mt-12 mb-6" />
 
           <h2 class="text-h2 mt-8 mb-2 d-flex">
             <v-icon color="primary" class="mr-2">
@@ -113,9 +125,9 @@
 
           <p>
             Our free
-            <nuxt-link to="/apps/"> browser extension </nuxt-link> shows you the
-            technologies use on websites you visit. On a
-            <v-chip color="primary" x-small outlined> PRO </v-chip> plan you can
+            <nuxt-link to="/apps/">browser extension</nuxt-link> shows you the
+            technologies used on websites you visit. On a
+            <v-chip color="primary" x-small outlined>PRO</v-chip> plan you can
             view available company and contact information as well as any
             metadata we find without leaving the page you're on.
           </p>
@@ -132,14 +144,14 @@
             <v-col cols="12" sm="6">
               <v-card>
                 <v-img
-                  src="/images/faqs/extension-pro.png"
+                  src="/images/faqs/extension-plus.png"
                   alt="Wappalyzer PRO extension"
                 />
               </v-card>
             </v-col>
           </v-row>
 
-          <v-divider class="mt-12 mb-6" />
+          <v-divider id="android" class="mt-12 mb-6" />
 
           <h2 class="text-h2 mt-8 mb-2 d-flex">
             <v-icon color="primary" class="mr-2">
@@ -151,15 +163,15 @@
           <p>
             Put Wappalyzer in your pocket! Share a website URL from your browser
             to our free
-            <nuxt-link to="/apps/"> Android app </nuxt-link> to see the
+            <nuxt-link to="/apps/">Android app</nuxt-link> to see the
             technologies in use. On a
-            <v-chip color="primary" x-small outlined> PRO </v-chip> plan you get
+            <v-chip color="primary" x-small outlined>PRO</v-chip> plan you get
             to see the available company and contact as well.
           </p>
 
           <v-card class="my-8" max-width="50%">
             <v-img
-              src="/images/faqs/android-pro.png"
+              src="/images/faqs/android-plus.png"
               alt="Wappalyzer PRO Android app"
             />
           </v-card>

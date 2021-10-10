@@ -280,6 +280,7 @@ import TechnologyIcon from '~/components/TechnologyIcon.vue'
 import SignIn from '~/components/SignIn.vue'
 import PricingDialog from '~/components/PricingDialog.vue'
 import Logos from '~/components/Logos.vue'
+import Pro from '~/components/Pro.vue'
 import { lookup as meta } from '~/assets/json/meta.json'
 import sets from '~/assets/json/sets.json'
 
@@ -320,6 +321,7 @@ export default {
     SignIn,
     PricingDialog,
     Logos,
+    Pro,
   },
   data() {
     return {

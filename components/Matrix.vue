@@ -1,10 +1,15 @@
 <template>
   <v-container class="matrix__container pl-0 pr-3 pt-2 pb-4">
-    <v-row class="matrix" no-gutters>
+    <v-row
+      class="matrix"
+      :style="`min-width: ${200 + Object.keys(items).length * 200}px`"
+      no-gutters
+    >
       <v-col>
         <v-responsive
           :height="
-            (Object.values(items).some(({ price }) => price) ? 0 : 20) + 215
+            (Object.values(items).some(({ price }) => price) ? 0 : 20) +
+            (Object.keys(items).length > 1 ? 215 : 195)
           "
         />
         <div v-for="attr in attrs" :key="attr.text">
@@ -43,7 +48,10 @@
             item.raised ? 'border: 1px solid #4608ad; margin-top: -1px' : ''
           }`"
         >
-          <v-responsive v-if="!item.raised" height="20" />
+          <v-responsive
+            v-if="!item.raised || Object.keys(items).length === 1"
+            height="20"
+          />
           <v-responsive
             v-if="item.raised && Object.keys(items).length > 1"
             height="40"
@@ -272,7 +280,7 @@ export default {
 
 <style>
 .matrix {
-  min-width: 850px;
+  min-width: 600px;
 }
 
 .matrix__container {

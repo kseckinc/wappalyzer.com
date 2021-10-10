@@ -138,6 +138,15 @@
                     >
                       PRO
                     </v-chip>
+                    <v-chip
+                      v-else-if="isPlus"
+                      color="white"
+                      class="ml-2"
+                      outlined
+                      x-small
+                    >
+                      PLUS
+                    </v-chip>
                   </v-btn>
                 </template>
 
@@ -361,6 +370,7 @@ export default {
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
+      isPlus: ({ credits }) => credits.plus,
       isPro: ({ credits }) => credits.pro,
       isLoading: ({ user }) => user.loading,
       isSignedIn: ({ user }) => user.isSignedIn,

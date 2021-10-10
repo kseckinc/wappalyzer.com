@@ -2,6 +2,7 @@ export const state = () => ({
   loading: true,
   credits: null,
   freeLists: { total: null, remaining: null, availableAt: null },
+  plus: false,
   pro: false,
 })
 
@@ -11,6 +12,9 @@ export const mutations = {
   },
   setFreeLists(state, freeLists) {
     state.freeLists = freeLists
+  },
+  setPlus(state, plus) {
+    state.plus = plus
   },
   setPro(state, pro) {
     state.pro = pro
@@ -25,11 +29,13 @@ export const actions = {
     try {
       commit('setLoading', true)
 
-      const { credits, freeLists, pro } = (await this.$axios.get('credits'))
-        .data
+      const { credits, freeLists, plus, pro } = (
+        await this.$axios.get('credits')
+      ).data
 
       commit('setCredits', credits)
       commit('setFreeLists', freeLists)
+      commit('setPlus', plus)
       commit('setPro', pro)
       commit('setLoading', false)
     } catch (error) {
@@ -38,6 +44,7 @@ export const actions = {
 
       commit('setCredits', 0)
       commit('setFreeLists', { total: 0, remaining: 0, availableAt: null })
+      commit('setPlus', false)
       commit('setPro', false)
       commit('setLoading', false)
     }
@@ -45,6 +52,7 @@ export const actions = {
   reset({ commit }) {
     commit('setCredits', 0)
     commit('setFreeLists', { total: 0, remaining: 0, availableAt: null })
+    commit('setPlus', false)
     commit('setPro', false)
     commit('setLoading', false)
   },

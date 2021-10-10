@@ -1,0 +1,34 @@
+{
+  "attrs": {
+    "users": { "text": "Users", "type": "number", "description": ["Number of users who can access the account with their own login."] },
+    "credits": { "text": "Credits / mo", "type": "credits", "description": ["Each lookup costs 1 credit."] },
+    "cancellation": { "text": "Anytime cancellation", "type": "boolean" },
+    "support": { "text": "Email support", "type": "boolean" }
+  },
+  "plans": {
+    "credits_plus_v1_mo": {
+      "name": "Plus",
+      "interval": "month",
+      "raised": true,
+      "price": 500,
+      "attrs": {
+        "credits": 200,
+        "users": 1,
+        "support": true,
+        "cancellation": true
+      }
+    },
+    "credits_plus_v1_yr": {
+      "name": "Plus",
+      "interval": "year",
+      "raised": true,
+      "price": 5000,
+      "attrs": {
+        "credits": 200,
+        "users": 1,
+        "support": true,
+        "cancellation": true
+      }
+    }
+  }
+}

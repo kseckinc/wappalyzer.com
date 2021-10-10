@@ -16,18 +16,18 @@
           <span class="body-2 my-n2">
             <v-chip
               v-if="['contact', 'company', 'social'].includes(setKey)"
-              to="/pro/"
+              to="/plus/"
               color="primary"
               class="ml-2"
               x-small
               outlined
-              >PRO</v-chip
+              >PLUS</v-chip
             >
           </span>
         </v-card-title>
       </v-sheet>
 
-      <Pro v-if="maskedSets.includes(setKey)" small />
+      <Plus v-if="maskedSets.includes(setKey)" small />
 
       <div
         v-for="(attribute, attributeKey) in set.attributes"
@@ -59,7 +59,7 @@
                   <nuxt-link
                     :to="
                       maskedSets.includes(setKey)
-                        ? '/pro/'
+                        ? '/plus/'
                         : `/verify/${value.text}`
                     "
                   >
@@ -79,7 +79,7 @@
                         ? undefined
                         : `tel:${value.text}`
                     "
-                    :to="maskedSets.includes(setKey) ? '/pro/' : ''"
+                    :to="maskedSets.includes(setKey) ? '/plus/' : ''"
                   >
                     <v-icon color="accent" class="mr-1" size="22">{{
                       mdiPhone
@@ -93,7 +93,7 @@
                 <td v-else-if="value.to">
                   <nuxt-link
                     :href="maskedSets.includes(setKey) ? undefined : value.to"
-                    :to="maskedSets.includes(setKey) ? '/pro/' : ''"
+                    :to="maskedSets.includes(setKey) ? '/plus/' : ''"
                     rel="nofollow noopener"
                     target="_blank"
                   >
@@ -206,11 +206,11 @@ import {
   mdiPinterest,
 } from '@mdi/js'
 
-import Pro from '~/components/Pro.vue'
+import Plus from '~/components/Plus.vue'
 
 export default {
   components: {
-    Pro,
+    Plus,
   },
   props: {
     hostname: {
