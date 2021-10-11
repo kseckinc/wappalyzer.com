@@ -64,6 +64,29 @@
       </v-col>
 
       <v-col cols="12" sm="6" lg="5" class="py-0">
+        <v-card
+          v-if="!isLoading && !isPlus"
+          color="primary lighten-1 primary--text"
+          class="mb-8"
+          flat
+        >
+          <v-card-title class="subtitle-2">Get plus for $5/mo</v-card-title>
+          <v-card-text class="primary--text pb-0">
+            With Plus, the browser extension shows company and contact
+            information of websites you visit.
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+
+            <v-btn to="/plus/" color="primary" text>
+              Learn more
+              <v-icon right>
+                {{ mdiArrowRight }}
+              </v-icon>
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+
         <div class="text-h3 mb-4">Empower yours sales and marketing teams</div>
 
         <p class="mb-8">
@@ -88,8 +111,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { mdiPlusBox, mdiAutoFix, mdiStar } from '@mdi/js'
+import { mapState, mapActions } from 'vuex'
+import { mdiPlusBox, mdiAutoFix, mdiStar, mdiArrowRight } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import Progress from '~/components/Progress.vue'
@@ -106,6 +129,8 @@ export default {
   computed: {
     ...mapState({
       isSignedIn: ({ user }) => user.isSignedIn,
+      isPlus: ({ credits }) => credits.plus,
+      isLoading: ({ user, credits }) => user.loading || credits.loading,
     }),
   },
   data() {
@@ -114,6 +139,7 @@ export default {
       mdiPlusBox,
       mdiAutoFix,
       mdiStar,
+      mdiArrowRight,
       release: null,
       error: false,
       signUpDialog: false,
@@ -130,8 +156,15 @@ export default {
     isSignedIn() {
       if (this.isSignedIn) {
         this.signUpDialog = false
+
+        this.getCredits()
       }
     },
+  },
+  methods: {
+    ...mapActions({
+      getCredits: 'credits/get',
+    }),
   },
 }
 </script>

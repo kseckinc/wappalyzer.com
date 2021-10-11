@@ -305,6 +305,20 @@
 
       <v-expansion-panel>
         <v-expansion-panel-header>
+          What are Plus features?
+        </v-expansion-panel-header>
+        <v-expansion-panel-content eager>
+          <p>
+            Plus features include extended website lookups. With plus, you have
+            access to company and contact information in invididual technology
+            lookups, browser extension and Android app.
+            <nuxt-link to="/plus/">See all Plus features</nuxt-link>.
+          </p>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
+      <v-expansion-panel>
+        <v-expansion-panel-header>
           What are PRO features?
         </v-expansion-panel-header>
         <v-expansion-panel-content eager>
