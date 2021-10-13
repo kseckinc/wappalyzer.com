@@ -7,7 +7,7 @@
     secure
     no-side-bar
   >
-    <div class="mb-2"></div>
+    <div v-if="list && list.name" class="mb-2"></div>
 
     <v-alert v-if="error" type="error" class="mb-8" text>
       {{ error }}
@@ -15,7 +15,184 @@
 
     <template v-if="list">
       <v-row>
-        <v-col cols="12" md="4" order-md="1" class="py-0">
+        <v-col cols="12" md="8" class="py-0">
+          <v-alert
+            v-if="list.status === 'Calculating'"
+            :icon="mdiTimerSandEmpty"
+            color="accent"
+            border="left"
+            text
+            prominent
+          >
+            Your list is being created. This may take a few minutes, we'll send
+            you an email when it's ready.
+          </v-alert>
+
+          <v-alert
+            v-if="list.status === 'Failed'"
+            :icon="mdiAlertOctagonOutline"
+            type="error"
+            border="left"
+            text
+            prominent
+          >
+            Sorry, something went wrong during the processing of your list.
+            Please contact us.
+          </v-alert>
+
+          <v-alert
+            v-if="list.status === 'Insufficient'"
+            :icon="mdiEmoticonSadOutline"
+            color="warning"
+            border="left"
+            text
+            prominent
+          >
+            <p>
+              Sorry, we don't have results available matching your requirements.
+              Please try it again with different or no filters.
+            </p>
+
+            <v-btn :to="`/lists/${queryParams}`" color="warning" exact outlined>
+              <v-icon left>
+                {{ mdiArrowLeft }}
+              </v-icon>
+              Create a new list
+            </v-btn>
+          </v-alert>
+
+          <v-alert
+            v-if="list.status === 'Ready'"
+            type="success"
+            color="accent"
+            border="left"
+            text
+            prominent
+          >
+            Your list is ready. Please review the samples and availability.
+          </v-alert>
+
+          <v-alert
+            v-if="list.status === 'Complete' && list.repeatListId"
+            :icon="mdiUpdate"
+            type="success"
+            color="accent"
+            border="left"
+            text
+            prominent
+          >
+            This is an automatically created weekly update for the list
+            <nuxt-link :to="`/lists/${list.repeatListId}`">{{
+              list.repeatListId
+            }}</nuxt-link
+            >.
+          </v-alert>
+
+          <v-alert
+            v-else-if="list.status === 'Complete'"
+            type="success"
+            border="left"
+            text
+            prominent
+          >
+            Thank you for your payment, your list is ready.
+          </v-alert>
+
+          <div
+            v-if="list.status === 'Calculating'"
+            class="text-center mb-n6"
+            style="padding: 100px 0"
+          >
+            <v-progress-circular
+              size="100"
+              width="5"
+              style="opacity: 0.2"
+              indeterminate
+            />
+          </div>
+
+          <template v-if="['Ready', 'Complete'].includes(list.status)">
+            <v-expansion-panels
+              v-if="list.query.technologies.length"
+              v-model="panelIndex"
+              class="mb-6"
+            >
+              <v-expansion-panel
+                v-for="technology in list.query.technologies.filter(
+                  ({ sample }) => sample && sample.length
+                )"
+                :key="technology.slug"
+              >
+                <v-expansion-panel-header>
+                  <template v-if="list.query.matchAllTechnologies === 'and'">
+                    <div class="d-flex align-center">
+                      <div
+                        v-for="_technology in list.query.technologies"
+                        :key="`${_technology.slug}_1`"
+                      >
+                        <TechnologyIcon :icon="_technology.icon" />
+                      </div>
+                      <div
+                        v-for="(_technology, index) in list.query.technologies"
+                        :key="`${_technology.slug}_2`"
+                      >
+                        <span v-if="index" class="ml-1">
+                          <template
+                            v-if="list.query.matchAllTechnologies === 'and'"
+                            >+</template
+                          >
+                          <template
+                            v-if="list.query.matchAllTechnologies === 'not'"
+                            >-</template
+                          >
+                        </span>
+                        {{ _technology.name }}
+                      </div>
+                      <span
+                        ><v-chip class="ml-2" small label outlined
+                          >sample</v-chip
+                        ></span
+                      >
+                    </div>
+                  </template>
+                  <div v-else class="d-flex align-center">
+                    <TechnologyIcon :icon="technology.icon" />
+                    {{ technology.name }}
+                    <span
+                      ><v-chip class="ml-2" small label outlined
+                        >sample</v-chip
+                      ></span
+                    >
+                  </div>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content class="no-x-padding no-b-padding">
+                  <ListSample :sample="technology.sample" />
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+
+            <v-card v-else class="mb-6">
+              <v-card-title>Sample</v-card-title>
+              <v-card-text class="px-0 pb-0">
+                <ListSample :sample="list.query.sample" />
+              </v-card-text>
+            </v-card>
+          </template>
+
+          <v-btn
+            v-if="list.status === 'Ready' && list.sampleFilename"
+            :href="`${datasetsBaseUrl}${list.sampleFilename}`"
+            class="mb-4"
+            depressed
+          >
+            <v-icon left>
+              {{ mdiDownload }}
+            </v-icon>
+            Download samples
+          </v-btn>
+        </v-col>
+
+        <v-col cols="12" md="4" class="py-0">
           <div
             v-if="list.status === 'Complete'"
             class="d-flex flex-column align-stretch mb-4"
@@ -634,183 +811,6 @@
               Delete
             </v-btn>
           </v-card-actions>
-        </v-col>
-
-        <v-col cols="12" md="8" class="py-0">
-          <v-alert
-            v-if="list.status === 'Calculating'"
-            :icon="mdiTimerSandEmpty"
-            color="accent"
-            border="left"
-            text
-            prominent
-          >
-            Your list is being created. This may take a few minutes, we'll send
-            you an email when it's ready.
-          </v-alert>
-
-          <v-alert
-            v-if="list.status === 'Failed'"
-            :icon="mdiAlertOctagonOutline"
-            type="error"
-            border="left"
-            text
-            prominent
-          >
-            Sorry, something went wrong during the processing of your list.
-            Please contact us.
-          </v-alert>
-
-          <v-alert
-            v-if="list.status === 'Insufficient'"
-            :icon="mdiEmoticonSadOutline"
-            color="warning"
-            border="left"
-            text
-            prominent
-          >
-            <p>
-              Sorry, we don't have results available matching your requirements.
-              Please try it again with different or no filters.
-            </p>
-
-            <v-btn :to="`/lists/${queryParams}`" color="warning" exact outlined>
-              <v-icon left>
-                {{ mdiArrowLeft }}
-              </v-icon>
-              Create a new list
-            </v-btn>
-          </v-alert>
-
-          <v-alert
-            v-if="list.status === 'Ready'"
-            type="success"
-            color="accent"
-            border="left"
-            text
-            prominent
-          >
-            Your list is ready. Please review the samples and availability.
-          </v-alert>
-
-          <v-alert
-            v-if="list.status === 'Complete' && list.repeatListId"
-            :icon="mdiUpdate"
-            type="success"
-            color="accent"
-            border="left"
-            text
-            prominent
-          >
-            This is an automatically created weekly update for the list
-            <nuxt-link :to="`/lists/${list.repeatListId}`">{{
-              list.repeatListId
-            }}</nuxt-link
-            >.
-          </v-alert>
-
-          <v-alert
-            v-else-if="list.status === 'Complete'"
-            type="success"
-            border="left"
-            text
-            prominent
-          >
-            Thank you for your payment, your list is ready.
-          </v-alert>
-
-          <div
-            v-if="list.status === 'Calculating'"
-            class="text-center mb-n6"
-            style="padding: 100px 0"
-          >
-            <v-progress-circular
-              size="100"
-              width="5"
-              style="opacity: 0.2"
-              indeterminate
-            />
-          </div>
-
-          <template v-if="['Ready', 'Complete'].includes(list.status)">
-            <v-expansion-panels
-              v-if="list.query.technologies.length"
-              v-model="panelIndex"
-              class="mb-6"
-            >
-              <v-expansion-panel
-                v-for="technology in list.query.technologies.filter(
-                  ({ sample }) => sample && sample.length
-                )"
-                :key="technology.slug"
-              >
-                <v-expansion-panel-header>
-                  <template v-if="list.query.matchAllTechnologies === 'and'">
-                    <div class="d-flex align-center">
-                      <div
-                        v-for="_technology in list.query.technologies"
-                        :key="`${_technology.slug}_1`"
-                      >
-                        <TechnologyIcon :icon="_technology.icon" />
-                      </div>
-                      <div
-                        v-for="(_technology, index) in list.query.technologies"
-                        :key="`${_technology.slug}_2`"
-                      >
-                        <span v-if="index" class="ml-1">
-                          <template
-                            v-if="list.query.matchAllTechnologies === 'and'"
-                            >+</template
-                          >
-                          <template
-                            v-if="list.query.matchAllTechnologies === 'not'"
-                            >-</template
-                          >
-                        </span>
-                        {{ _technology.name }}
-                      </div>
-                      <span
-                        ><v-chip class="ml-2" small label outlined
-                          >sample</v-chip
-                        ></span
-                      >
-                    </div>
-                  </template>
-                  <div v-else class="d-flex align-center">
-                    <TechnologyIcon :icon="technology.icon" />
-                    {{ technology.name }}
-                    <span
-                      ><v-chip class="ml-2" small label outlined
-                        >sample</v-chip
-                      ></span
-                    >
-                  </div>
-                </v-expansion-panel-header>
-                <v-expansion-panel-content class="no-x-padding no-b-padding">
-                  <ListSample :sample="technology.sample" />
-                </v-expansion-panel-content>
-              </v-expansion-panel>
-            </v-expansion-panels>
-
-            <v-card v-else class="mb-6">
-              <v-card-title>Sample</v-card-title>
-              <v-card-text class="px-0 pb-0">
-                <ListSample :sample="list.query.sample" />
-              </v-card-text>
-            </v-card>
-          </template>
-
-          <v-btn
-            v-if="list.status === 'Ready' && list.sampleFilename"
-            :href="`${datasetsBaseUrl}${list.sampleFilename}`"
-            class="mb-4"
-            depressed
-          >
-            <v-icon left>
-              {{ mdiDownload }}
-            </v-icon>
-            Download samples
-          </v-btn>
         </v-col>
       </v-row>
     </template>

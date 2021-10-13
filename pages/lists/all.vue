@@ -72,9 +72,9 @@
                       </v-tooltip>
                     </td>
                     <td>
-                      <div v-if="list.name">
-                        <small>{{ list.name }}</small>
-                      </div>
+                      <template v-if="list.name">
+                        {{ list.name }}
+                      </template>
 
                       <v-chip-group v-else-if="list.technologies.length" column>
                         <v-chip

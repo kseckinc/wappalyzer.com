@@ -1,10 +1,13 @@
 <template>
   <Page
     :title="title"
+    :head="{ title, subtitle: order && order.name }"
     :crumbs="[{ title: 'Orders', to: '/orders/' }]"
     :loading="!order && !error"
     secure
   >
+    <div v-if="order && order.name" class="mb-2"></div>
+
     <v-alert v-if="success" type="success" border="left" text prominent>
       {{ success }}
     </v-alert>
