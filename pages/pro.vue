@@ -10,7 +10,7 @@
           <p class="subtitle-1">
             Wappalyzer offers tools for website profiling, market research and
             lead generation. Sign up for a
-            <v-chip color="primary" x-small outlined> PRO </v-chip> plan to
+            <v-chip color="primary" x-small outlined>PRO</v-chip> plan to
             unlock additional features, such as CRM integrations and access to
             company and contact information.
           </p>
@@ -76,11 +76,11 @@
           </h2>
 
           <p>
-            With <nuxt-link to="/lists/"> lead lists </nuxt-link> you can create
+            With <nuxt-link to="/lists/">lead lists</nuxt-link> you can create
             lists of websites that use certain technologies or keywords,
             including basic information such as the website's title and
             description. On a
-            <v-chip color="primary" x-small outlined> PRO </v-chip> plan, you
+            <v-chip color="primary" x-small outlined>PRO</v-chip> plan, you
             also get any available company and contact details and social media
             profiles.
           </p>
@@ -185,9 +185,9 @@
             CRM integration
           </h2>
 
-          As a <v-chip color="primary" x-small outlined> PRO </v-chip> user, you
+          As a <v-chip color="primary" x-small outlined>PRO</v-chip> user, you
           get access to our CRM integrations in addition to our other
-          <nuxt-link to="/apps/"> apps </nuxt-link>. See the technologies stacks
+          <nuxt-link to="/apps/">apps</nuxt-link>. See the technologies stacks
           of your leads without leaving your CRM.
 
           <Apps pro class="my-8" />
@@ -202,10 +202,10 @@
           </h2>
 
           <p>
-            Our <nuxt-link to="/api/"> Lookup and Live APIs </nuxt-link> grant
+            Our <nuxt-link to="/api/">Lookup and Live APIs</nuxt-link> grant
             instant and real-time access to website technology stacks and
             metadata. On a
-            <v-chip color="primary" x-small outlined> PRO </v-chip> plan, all
+            <v-chip color="primary" x-small outlined>PRO</v-chip> plan, all
             available company and contact information is returned as well,
             allowing you to enrich your own datasets at scale.
           </p>
@@ -223,7 +223,7 @@
 
           <p class="mb-8">
             Subscribe to an eligible plan to get started immediately or
-            <nuxt-link to="/contact/"> contact us </nuxt-link> to book a demo.
+            <nuxt-link to="/contact/">contact us</nuxt-link> to book a demo.
           </p>
         </v-col>
       </v-row>
