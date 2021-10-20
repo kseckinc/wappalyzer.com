@@ -11,7 +11,7 @@
 
       <Heading id="endpoint" size="2" class="mt-8 mb-4">Endpoint</Heading>
 
-      <p><code>GET</code> <code>https://api.wappalyzer.com/verify/v2/</code></p>
+      <p><code>GET</code> <code>https://api.wappalyzer.com/v2/verify/</code></p>
 
       <Heading id="properties" size="2" class="mt-8 mb-4">Properties</Heading>
 
@@ -176,7 +176,7 @@
 
       <h4 class="mb-2">Request</h4>
 
-      <pre><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/verify/v2/?email=info@example.com"</Code></pre>
+      <pre><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/v2/verify/?email=info@example.com"</Code></pre>
 
       <h4 class="mt-8 mb-2">Response</h4>
       <pre><Code>{

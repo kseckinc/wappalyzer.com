@@ -18,7 +18,7 @@
 
       <Heading id="endpoint" size="2" class="mt-8 mb-2"> Endpoint </Heading>
 
-      <p><code>GET</code> <code>https://api.wappalyzer.com/lookup/v2/</code></p>
+      <p><code>GET</code> <code>https://api.wappalyzer.com/v2/lookup/</code></p>
 
       <Heading id="properties" size="2" class="mt-8 mb-2">Properties</Heading>
 
@@ -277,7 +277,7 @@
 
             <pre
               class="mt-6"
-            ><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com,https://example.org&amp;callback_url=https://yourdomain.com"</Code></pre>
+            ><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/v2/lookup/?urls=https://example.com,https://example.org&amp;callback_url=https://yourdomain.com"</Code></pre>
 
             <h4 class="mt-8 mb-2">Response (success)</h4>
 
@@ -393,7 +393,7 @@
 
             <pre
               class="mt-6"
-            ><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com&amp;recursive=false"</Code></pre>
+            ><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/v2/lookup/?urls=https://example.com&amp;recursive=false"</Code></pre>
 
             <h4 class="mt-8 mb-2">Response</h4>
 
@@ -450,7 +450,7 @@
 
             <pre
               class="my-6"
-            ><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com,https://example.org&amp;live=true&amp;callback_url=https://yourdomain.com"</Code></pre>
+            ><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/v2/lookup/?urls=https://example.com,https://example.org&amp;live=true&amp;callback_url=https://yourdomain.com"</Code></pre>
 
             <h4 class="mt-8 mb-2">Response</h4>
 
@@ -495,7 +495,7 @@
 
             <pre
               class="mt-6"
-            ><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com&amp;live=true&amp;recursive=false"</Code></pre>
+            ><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/v2/lookup/?urls=https://example.com&amp;live=true&amp;recursive=false"</Code></pre>
 
             <h4 class="mt-4 mb-2">Response</h4>
 
@@ -546,7 +546,7 @@
 
             <pre
               class="mt-6"
-            ><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://www.wappalyzer.com&amp;sets=company,contact"</Code></pre>
+            ><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/v2/lookup/?urls=https://www.wappalyzer.com&amp;sets=company,contact"</Code></pre>
 
             <h4 class="mt-8 mb-2">Response</h4>
 
@@ -617,7 +617,7 @@
 
             <pre
               class="mt-6"
-            ><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://example.com&amp;callback_url=https://yourdomain.com&amp;squash=false&amp;max_age=12"</Code></pre>
+            ><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/v2/lookup/?urls=https://example.com&amp;callback_url=https://yourdomain.com&amp;squash=false&amp;max_age=12"</Code></pre>
 
             <h4 class="mt-8 mb-2">Response</h4>
 

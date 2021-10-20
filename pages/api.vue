@@ -52,7 +52,7 @@
 
               <v-card-title class="subtitle-2">Example request</v-card-title>
               <v-card-text>
-                <pre><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/lookup/v2/?urls=https://www.wappalyzer.com&amp;sets=all"</Code></pre>
+                <pre><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/v2/lookup/?urls=https://www.wappalyzer.com&amp;sets=all"</Code></pre>
               </v-card-text>
 
               <v-divider />
@@ -137,7 +137,7 @@
 
               <v-card-title class="subtitle-2">Example request</v-card-title>
               <v-card-text>
-                <pre><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/verify/v2/?email=hello@wappalyzer.com"</Code></pre>
+                <pre><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/v2/verify/?email=hello@wappalyzer.com"</Code></pre>
               </v-card-text>
 
               <v-divider />

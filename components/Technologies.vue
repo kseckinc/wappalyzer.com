@@ -68,7 +68,7 @@
           <v-row>
             <v-col>{{ item.name }}</v-col>
             <v-col class="text-right">
-              <small>(select all)</small>
+              <small>Category</small>
             </v-col>
           </v-row>
         </template>

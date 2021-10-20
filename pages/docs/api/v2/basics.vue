@@ -208,14 +208,14 @@
 
       <p>
         <code>GET</code>
-        <code>https://api.wappalyzer.com/credits/v2/balance/</code>
+        <code>https://api.wappalyzer.com/v2/credits/balance/</code>
       </p>
 
       <Heading id="examples" size="3" class="mt-8 mb-4">Example</Heading>
 
       <h4 class="mb-2">Request</h4>
 
-      <pre><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/credits/v2/balance/"</Code></pre>
+      <pre><Code>curl -H "x-api-key: &lt;your api key&gt;" "https://api.wappalyzer.com/v2/credits/balance/"</Code></pre>
 
       <h4 class="mt-8 mb-2">Response</h4>
 

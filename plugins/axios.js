@@ -12,7 +12,7 @@ export default ({ store: { dispatch, state }, $axios, $config }) => {
       config.headers.common.Authorization = getAuth(state)
 
       if (!config.apiVersioned) {
-        config.url = config.url.replace(/^([^/]+)/, `$1/${$config.API_VERSION}`)
+        config.url = `${$config.API_VERSION}/${config.url}`
 
         config.apiVersioned = true
       }

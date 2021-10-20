@@ -6,7 +6,7 @@ const publicRuntimeConfig = {
   COGNITO_CLIENT_ID: '17uprj6843uiev15qqdkn3l5h7',
   COGNITO_IDENTITY_POOL_ID:
     'ap-southeast-2:6b7b7db4-96fd-450f-88fc-2a6feb55cb8e',
-  BASE_URL: 'https://api.wappalyzer.com/',
+  BASE_URL: 'https://api2.wappalyzer.com/',
   DATASETS_BASE_URL: 'https://datasets.wappalyzer.com/',
   BULK_LOOKUP_BASE_URL: 'https://bulk.wappalyzer.com/',
   RELEASE_URL:
@@ -15,7 +15,7 @@ const publicRuntimeConfig = {
   process.env.ENVIRONMENT === 'beta'
     ? {
         WEBSITE_URL: 'http://localhost:3000',
-        API_VERSION: 'beta',
+        API_VERSION: 'v2',
         STRIPE_PUBLIC_KEY: 'pk_test_m0X44lIHlqdzZNoJ8hY9OOkv',
         PIPEDRIVE_CLIENT_ID: '6406b42d1ba763c8',
         HUBSPOT_CLIENT_ID: '249959d8-60d3-4689-91ad-d02d90d81e35',
