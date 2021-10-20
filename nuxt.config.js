@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 const publicRuntimeConfig = {
-  AWS_REGION: 'ap-southeast-2',
   COGNITO_USER_POOL_ID: 'ap-southeast-2_Tz6DGDkmB',
   COGNITO_CLIENT_ID: '17uprj6843uiev15qqdkn3l5h7',
   COGNITO_IDENTITY_POOL_ID:
