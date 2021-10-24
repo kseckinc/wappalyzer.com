@@ -267,6 +267,7 @@
             <v-btn
               color="primary lighten-1 primary--text"
               depressed
+              :disabled="!assignedFields.length"
               @click="syncDialog = true"
             >
               <v-icon left>
@@ -276,11 +277,21 @@
             </v-btn>
           </v-col>
         </v-row>
+
+        <v-switch
+          v-model="autoSync"
+          label="Run automatically once a month"
+          :disabled="!assignedFields.length"
+          :loading="savingAutoSync"
+          hide-details
+          inset
+          @change="saveAutoSync"
+        />
       </v-card-text>
 
       <v-divider />
 
-      <v-card-title class="subtitle-2"> New companies </v-card-title>
+      <v-card-title class="subtitle-2">New companies</v-card-title>
       <v-card-text>
         <p style="max-width: 600px" class="mb-0">
           If you created field mappings above, new companies are automatically
@@ -370,6 +381,8 @@ export default {
       websiteUrl: this.$config.WEBSITE_URL,
       appId: this.$config.HUBSPOT_APP_ID,
       clientId: this.$config.HUBSPOT_CLIENT_ID,
+      autoSync: false,
+      savingAutoSync: false,
     }
   },
   computed: {
@@ -400,6 +413,7 @@ export default {
               eligible: this.eligible,
               portalId: this.hubspotId,
               fields: this.fields,
+              autoSync: this.autoSync,
             } = (await this.$axios.get('hubspot')).data)
           } catch (error) {
             // Continue
@@ -436,6 +450,7 @@ export default {
             eligible: this.eligible,
             portalId: this.hubspotId,
             fields: this.fields,
+            autoSync: this.autoSync,
           } = (await this.$axios.get('hubspot')).data)
         } catch (error) {
           this.error = this.getErrorMessage(error)
@@ -452,11 +467,15 @@ export default {
       this.connecting = true
 
       try {
-        ;({ portalId: this.hubspotId } = (
-          await this.$axios.post(`hubspot/auth/${this.code}`)
-        ).data)
+        await this.$axios.post(`hubspot/auth/${this.code}`)
 
-        this.eligible = true
+        //
+        ;({
+          eligible: this.eligible,
+          portalId: this.hubspotId,
+          fields: this.fields,
+          autoSync: this.autoSync,
+        } = (await this.$axios.get('hubspot')).data)
 
         this.success = 'Connected to HubSpot.'
       } catch (error) {
@@ -474,10 +493,13 @@ export default {
         await this.$axios.patch('hubspot', {
           fields: this.fields.filter(({ categorySlug }) => categorySlug),
         })
+
+        //
         ;({
           eligible: this.eligible,
           portalId: this.hubspotId,
           fields: this.fields,
+          autoSync: this.autoSync,
         } = (await this.$axios.get('hubspot')).data)
 
         this.success = 'Field mappings have been saved.'
@@ -488,6 +510,27 @@ export default {
       this.saving = false
 
       this.scrollToTop()
+    },
+    async saveAutoSync() {
+      this.savingAutoSync = true
+
+      try {
+        await this.$axios.patch('hubspot', {
+          autoSync: this.autoSync,
+        })
+
+        //
+        ;({
+          eligible: this.eligible,
+          portalId: this.hubspotId,
+          fields: this.fields,
+          autoSync: this.autoSync,
+        } = (await this.$axios.get('hubspot')).data)
+      } catch (error) {
+        this.error = this.getErrorMessage(error)
+      }
+
+      this.savingAutoSync = true
     },
     async disconnect() {
       this.success = null

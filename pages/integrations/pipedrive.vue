@@ -276,7 +276,7 @@
 
       <v-divider />
 
-      <v-card-title class="subtitle-2"> Existing organisations </v-card-title>
+      <v-card-title class="subtitle-2">Existing organisations</v-card-title>
       <v-card-text style="max-width: 600px">
         <p>
           Append technology information to all existing organisation records
@@ -298,6 +298,16 @@
             </v-btn>
           </v-col>
         </v-row>
+
+        <v-switch
+          v-model="autoSync"
+          label="Run automatically once a month"
+          :disabled="!orgWebsiteField || !assignedFields.length"
+          :loading="savingAutoSync"
+          hide-details
+          inset
+          @change="saveAutoSync"
+        />
       </v-card-text>
 
       <v-divider />
@@ -419,6 +429,8 @@ export default {
       mdiAutorenew,
       websiteUrl: this.$config.WEBSITE_URL,
       clientId: this.$config.PIPEDRIVE_CLIENT_ID,
+      autoSync: false,
+      savingAutoSync: false,
     }
   },
   computed: {
@@ -450,6 +462,7 @@ export default {
               id: this.pipedriveId,
               orgWebsiteField: this.orgWebsiteField,
               fields: this.fields,
+              autoSync: this.autoSync,
             } = (await this.$axios.get('pipedrive')).data)
           } catch (error) {
             // Continue
@@ -487,6 +500,7 @@ export default {
             id: this.pipedriveId,
             orgWebsiteField: this.orgWebsiteField,
             fields: this.fields,
+            autoSync: this.autoSync,
           } = (await this.$axios.get('pipedrive')).data)
         } catch (error) {
           this.error = this.getErrorMessage(error)
@@ -503,11 +517,16 @@ export default {
       this.connecting = true
 
       try {
-        ;({ id: this.pipedriveId } = (
-          await this.$axios.post(`pipedrive/auth/${this.code}`)
-        ).data)
+        await this.$axios.post(`pipedrive/auth/${this.code}`)
 
-        this.eligible = true
+        //
+        ;({
+          eligible: this.eligible,
+          id: this.pipedriveId,
+          orgWebsiteField: this.orgWebsiteField,
+          fields: this.fields,
+          autoSync: this.autoSync,
+        } = (await this.$axios.get('pipedrive')).data)
 
         this.success = 'Connected to Pipedrive.'
       } catch (error) {
@@ -526,11 +545,14 @@ export default {
           orgWebsiteField: this.orgWebsiteField,
           fields: this.fields.filter(({ categorySlug }) => categorySlug),
         })
+
+        //
         ;({
           eligible: this.eligible,
           id: this.pipedriveId,
           orgWebsiteField: this.orgWebsiteField,
           fields: this.fields,
+          autoSync: this.autoSync,
         } = (await this.$axios.get('pipedrive')).data)
 
         this.success = 'Field mappings have been saved.'
@@ -541,6 +563,28 @@ export default {
       this.saving = false
 
       this.scrollToTop()
+    },
+    async saveAutoSync() {
+      this.savingAutoSync = true
+
+      try {
+        await this.$axios.patch('pipedrive', {
+          autoSync: this.autoSync,
+        })
+
+        //
+        ;({
+          eligible: this.eligible,
+          id: this.pipedriveId,
+          orgWebsiteField: this.orgWebsiteField,
+          fields: this.fields,
+          autoSync: this.autoSync,
+        } = (await this.$axios.get('pipedrive')).data)
+      } catch (error) {
+        this.error = this.getErrorMessage(error)
+      }
+
+      this.savingAutoSync = true
     },
     async disconnect() {
       this.success = null
