@@ -584,7 +584,7 @@ export default {
         this.error = this.getErrorMessage(error)
       }
 
-      this.savingAutoSync = true
+      this.savingAutoSync = false
     },
     async disconnect() {
       this.success = null
