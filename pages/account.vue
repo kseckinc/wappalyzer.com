@@ -330,7 +330,7 @@ export default {
       this.removing = true
 
       try {
-        // await this.deleteUser()
+        await this.deleteUser()
       } catch (error) {
         this.error = this.getErrorMessage(error)
       }

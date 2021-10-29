@@ -7,8 +7,7 @@ const publicRuntimeConfig = {
     'ap-southeast-2:6b7b7db4-96fd-450f-88fc-2a6feb55cb8e',
   DATASETS_BASE_URL: 'https://lists.wappalyzer.com/',
   BULK_LOOKUP_BASE_URL: 'https://lookup.wappalyzer.com/',
-  RELEASE_URL:
-    'https://s3.dualstack.ap-southeast-2.amazonaws.com/assets.wappalyzer.com/release.json',
+  RELEASE_URL: 'https://s3.amazonaws.com/assets.wappalyzer.com/release.json',
   ...(process.env.NODE_ENV === 'development' ||
   process.env.ENVIRONMENT === 'beta'
     ? {
