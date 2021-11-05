@@ -32,7 +32,7 @@ export default {
   target: 'static',
   generate: {
     fallback: '200.html',
-    concurrency: 20,
+    concurrency: 200,
     exclude: [/^\/compare\/.+/],
     async routes() {
       const categories = (

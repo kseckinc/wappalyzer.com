@@ -448,7 +448,6 @@ function getFullUrl(url) {
     return null
   }
 
-  //
   let fullUrl
 
   try {
