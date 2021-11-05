@@ -82,11 +82,11 @@
           </p>
 
           <v-card class="mb-4">
-            <v-card-title class="subtitle-2"> Upload your list </v-card-title>
+            <v-card-title class="subtitle-2">Upload your list</v-card-title>
             <v-card-text>
               <p class="mb-6">
-                Upload a .txt file with up to 100,000 URLs, each on a separate
-                line.<br />
+                Upload a CSV or TXT file with up to 100,000 URLs, each on a
+                separate line.<br />
               </p>
 
               <v-alert v-if="error" type="error" class="mb-4" text>
@@ -94,26 +94,185 @@
               </v-alert>
 
               <v-file-input
-                :error-messages="fileErrors"
-                :hint="
-                  file ? `${file.split('\n').length.toLocaleString()} URLs` : ''
-                "
                 persistent-hint
                 placeholder="Select a file..."
-                accept="text/plain"
+                accept="text/plain,text/csv"
                 hide-details="auto"
                 background-color="white"
                 outlined
                 @change="fileChange"
               />
-
-              <v-checkbox
-                v-model="removeInvalid"
-                v-if="removeInvalid || fileErrors.length"
-                label="Remove invalid URLs"
-                hide-details="auto"
-              />
             </v-card-text>
+            <template v-if="inputFile">
+              <v-divider />
+
+              <v-card-title class="subtitle-2">Preview</v-card-title>
+              <v-card-text>
+                <v-row>
+                  <v-col>
+                    <v-select
+                      v-model="csvHeader"
+                      label="Header row"
+                      :items="csvHeaders"
+                      hide-details
+                      outlined
+                      dense
+                    />
+                  </v-col>
+                  <v-col>
+                    <v-select
+                      v-model="csvDelimiter"
+                      label="Delimiter"
+                      :items="csvDelimiters"
+                      hide-details
+                      outlined
+                      dense
+                    />
+                  </v-col>
+                  <v-col>
+                    <v-select
+                      v-model="csvTextQualifier"
+                      label="Text qualifier"
+                      :items="csvTextQualifiers"
+                      hide-details
+                      outlined
+                      dense
+                    />
+                  </v-col>
+                </v-row>
+
+                <v-select
+                  v-model="csvUrlColumn"
+                  label="Website URL column"
+                  class="mt-4"
+                  :items="csvColumns"
+                  hide-details
+                  outlined
+                  dense
+                />
+              </v-card-text>
+              <v-card-text class="pa-0" v-if="inputFile">
+                <template v-if="preview.length">
+                  <v-divider />
+
+                  <v-simple-table dense>
+                    <tbody>
+                      <tr>
+                        <th width="1"></th>
+                        <th v-for="column in preview[0]" class="pl-0">
+                          <div class="d-flex align-center">
+                            <v-divider
+                              class="mr-4"
+                              style="height: 1.7rem"
+                              vertical
+                            />
+
+                            <small>
+                              {{ column }}
+                            </small>
+                          </div>
+                        </th>
+                      </tr>
+                      <tr
+                        v-for="(columns, index) in preview.slice(1, 11)"
+                        :key="index"
+                      >
+                        <th>
+                          <small>
+                            {{ index + 1 }}
+                          </small>
+                        </th>
+                        <td
+                          v-for="(key, index) in preview[0]"
+                          class="pl-0"
+                          :style="
+                            csvUrlColumn === index
+                              ? 'background-color: #f0ebf9;'
+                              : ''
+                          "
+                          :key="key"
+                        >
+                          <div class="d-flex align-center">
+                            <v-divider
+                              class="mr-4"
+                              style="height: 1.7rem"
+                              vertical
+                            />
+
+                            <small
+                              style="
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                max-width: 200px;
+                              "
+                            >
+                              {{ columns[csvHeader ? key : index] }}
+                            </small>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </v-simple-table>
+                </template>
+                <v-alert v-else color="accent" class="mx-4 mb-4" text>
+                  Preview not available.
+                </v-alert>
+              </v-card-text>
+
+              <v-divider />
+
+              <v-card-title class="subtitle-2">Validation</v-card-title>
+              <v-card-text>
+                <v-alert
+                  v-if="previewError || fileErrors.length"
+                  type="error"
+                  class="mb-0"
+                  prominent
+                  text
+                >
+                  <div class="subtitle-2 mb-2">
+                    Sorry, something doesn't seem right
+                  </div>
+
+                  <p class="mb-2">
+                    Please ensure the file is formatted correctly and you have
+                    selected the right options.
+                  </p>
+
+                  <small v-if="previewError">
+                    {{ previewError }}
+                  </small>
+                  <template v-else>
+                    <div v-for="error in fileErrors">
+                      <small>
+                        {{ error }}
+                      </small>
+                    </div>
+                  </template>
+                </v-alert>
+
+                <v-alert v-else type="success" class="mb-0" prominent text>
+                  <div class="subtitle-2 mb-2">Looks good!</div>
+
+                  <p class="mb-2">
+                    We found
+                    {{ file.split('\n').length.toLocaleString() }}
+                    URLs.
+                  </p>
+
+                  Before you continue, please ensure the preview looks correct
+                  and the column containing URLs is highlighted in purple.
+                </v-alert>
+
+                <v-checkbox
+                  v-model="removeInvalid"
+                  v-if="removeInvalid || fileErrors.length"
+                  label="Remove invalid URLs"
+                  hide-details="auto"
+                />
+              </v-card-text>
+            </template>
           </v-card>
 
           <v-expansion-panels class="mb-4">
@@ -263,6 +422,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import parse from 'csv-parse/lib/sync'
 import {
   mdiLayersOutline,
   mdiMagnify,
@@ -282,7 +442,6 @@ import PricingDialog from '~/components/PricingDialog.vue'
 import Logos from '~/components/Logos.vue'
 import Pro from '~/components/Pro.vue'
 import { lookup as meta } from '~/assets/json/meta.json'
-import sets from '~/assets/json/sets.json'
 
 function getFullUrl(url) {
   if (!url) {
@@ -331,7 +490,26 @@ export default {
       error: false,
       file: '',
       fileErrors: [],
-      inputFile: null,
+      previewError: false,
+      csvHeader: false,
+      csvHeaders: [
+        { text: 'None', value: false },
+        { text: 'First line', value: true },
+      ],
+      csvDelimiter: ',',
+      csvDelimiters: [
+        { text: 'Comma', value: ',' },
+        { text: 'Tab', value: '\t' },
+        { text: 'Space', value: ' ' },
+      ],
+      csvUrlColumn: 0,
+      csvTextQualifier: '"',
+      csvTextQualifiers: [
+        { text: 'Double quote', value: '"' },
+        { text: 'Single quote', value: "'" },
+        { text: 'None', value: '' },
+      ],
+      inputFile: '',
       loading: false,
       removeInvalid: false,
       meta,
@@ -348,7 +526,6 @@ export default {
       ordering: false,
       url: '',
       signInDialog: false,
-      sets,
       panels: 0,
       technologies: [],
     }
@@ -362,6 +539,48 @@ export default {
       isSignedIn: ({ user }) => user.isSignedIn,
       credits: ({ credits: { credits } }) => credits,
     }),
+    preview() {
+      try {
+        const csv = parse(this.inputFile.split('\n').slice(0, 11).join('\n'), {
+          columns: this.csvHeader,
+          delimiter: this.csvDelimiter,
+          quote: this.csvTextQualifier,
+        })
+
+        this.previewError = false
+
+        const header = csv.length
+          ? this.csvHeader
+            ? Object.keys(csv[0])
+            : Object.keys(csv[0]).length === 1
+            ? ['URL']
+            : Object.keys(csv[0]).map(
+                (index) =>
+                  (Math.ceil((index + 1) / 26) > 1
+                    ? String.fromCharCode(
+                        63 + (Math.ceil((index + 1) / 26) % 26)
+                      )
+                    : '') + String.fromCharCode(65 + (index % 26))
+              )
+          : []
+
+        return [header, ...csv]
+      } catch (error) {
+        console.log(error)
+
+        this.previewError = this.getErrorMessage(error)
+      }
+
+      return []
+    },
+    csvColumns() {
+      return this.preview.length
+        ? this.preview[0].map((text, value) => ({
+            text,
+            value,
+          }))
+        : []
+    },
   },
   watch: {
     async isSignedIn() {
@@ -409,6 +628,25 @@ export default {
       }
     },
     removeInvalid() {
+      this.fileChange()
+    },
+    csvHeader() {
+      const csvUrlColumn =
+        this.csvHeader && this.preview.length ? this.preview[0][0] : 0
+
+      if (csvUrlColumn !== this.csvUrlColumn) {
+        this.autoSetCsvUrlColum()
+      }
+
+      this.fileChange()
+    },
+    csvDelimiter() {
+      this.fileChange()
+    },
+    csvTextQualifier() {
+      this.fileChange()
+    },
+    csvUrlColumn() {
       this.fileChange()
     },
   },
@@ -514,9 +752,11 @@ export default {
             product: 'Technology lookup',
             bulk: {
               input: this.file,
-              sets: this.sets
-                .filter(({ disabled, value }) => value && !disabled)
-                .map(({ key }) => key),
+              columns: this.csvColumns.map(({ text }) => text),
+              header: this.csvHeader,
+              delimiter: this.csvDelimiter,
+              textQualifier: this.csvTextQualifier,
+              urlColumn: this.csvUrlColumn,
               compliance: this.compliance,
             },
           })
@@ -529,47 +769,111 @@ export default {
 
       this.ordering = false
     },
-
     async fileChange(file = this.inputFile) {
-      this.inputFile = file
-
-      this.file = ''
-      this.fileErrors = []
-
       if (!file) {
+        this.inputFile = ''
+
         return
       }
 
-      this.file = (await file.text())
-        .trim()
-        .split(/[\r\n]/)
-        .filter((line) => line)
-        .map((line, i) => {
-          const url = !/^https?:\/\//.test(line.trim())
-            ? `http://${line.trim()}`
-            : line.trim()
+      if (file !== this.inputFile) {
+        this.inputFile = file ? await file.text() : ''
+
+        const header = this.inputFile.split('\n')[0]
+
+        this.csvHeader = file.type === 'text/csv' && !/\bhttps?:/.test(header)
+        this.csvDelimiter = header.includes('\t') ? '\t' : ','
+
+        this.autoSetCsvUrlColum()
+      }
+
+      this.file = this.inputFile.split('\n')
+      this.fileErrors = []
+
+      if (!this.inputFile) {
+        return
+      }
+
+      try {
+        const csv = parse(this.inputFile.split('\n').slice(0, 11).join('\n'), {
+          columns: this.csvHeader,
+          delimiter: this.csvDelimiter,
+          quote: this.csvTextQualifier,
+        })
+
+        const urls = csv.map(
+          (row) => (row && Object.values(row)[this.csvUrlColumn]) || ''
+        )
+
+        for (let index = urls.length - 1; index >= 0; index--) {
+          const url = !/^https?:\/\//.test(urls[index].trim())
+            ? `http://${urls[index].trim()}`
+            : urls[index].trim()
 
           try {
+            if (!url.includes('.')) {
+              throw new Error('Invalid URL')
+            }
+
             new URL(url) // eslint-disable-line no-new
           } catch (error) {
             if (this.removeInvalid) {
-              return null
+              this.file.splice(index, 1)
             } else {
-              this.fileErrors.push(`Invalid URL on line ${i + 1}: ${line}`)
+              this.fileErrors.push(
+                `Invalid URL on line ${index + 1}: ${urls[index]}`
+              )
             }
           }
+        }
 
-          return url
-        })
-        .filter((line) => line)
+        if (urls.length > 100000) {
+          this.fileErrors.push('Limit of 100,000 URLs exceeded')
+        }
+      } catch (error) {
+        console.log(error)
 
-      this.fileErrors = this.fileErrors.slice(0, 10)
-
-      if (this.file.length > 100000) {
-        this.fileErrors.push('Limit of 100,000 URLs exceeded')
+        this.fileErrors = [this.getErrorMessage(error)]
       }
 
-      this.file = this.file.join('\n')
+      this.fileErrors = this.fileErrors.slice(-5).reverse()
+
+      this.file = this.file.filter((line) => line)
+
+      if (
+        !this.fileErrors.length && this.file.length <= this.csvHeader ? 1 : 0
+      ) {
+        this.fileErrors = ['No valid URLs found.']
+      }
+
+      if (this.csvHeader) {
+        this.file.shift()
+      }
+
+      this.file = this.file.join('\n').trim()
+    },
+    autoSetCsvUrlColum() {
+      this.csvUrlColumn =
+        this.csvHeader && this.preview.length
+          ? Math.max(
+              0,
+              this.preview[0].findIndex(
+                (key) =>
+                  key.toLowerCase().includes('url') ||
+                  key.toLowerCase().includes('website') ||
+                  key.toLowerCase().includes('hostname') ||
+                  key.toLowerCase().includes('domain')
+              )
+            )
+          : Math.max(
+              0,
+              (this.preview[1] || []).findIndex(
+                (value) =>
+                  value.toLowerCase().includes('http') ||
+                  value.toLowerCase().includes('www') ||
+                  value.toLowerCase().includes('.')
+              )
+            )
     },
   },
 }

@@ -12,7 +12,7 @@
         strong qualifying factor.
       </p>
 
-      <h2 class="text-h2 mt-8 mb-2">Why does technograpics matter?</h2>
+      <h2 class="text-h2 mt-8 mb-2">Why does technographics matter?</h2>
 
       <p>
         Much like how demographics and firmographics describe people and

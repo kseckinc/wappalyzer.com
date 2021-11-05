@@ -2185,12 +2185,6 @@ export default {
         .toLowerCase()
         .replace(/[\u{0080}-\u{FFFF}]/gu, '')
 
-      if (!/^[a-z]+$/.test(keyword)) {
-        this.keywordErrors = ['Letters only, e.g. shopping']
-
-        return
-      }
-
       if (keyword.length < 3) {
         this.keywordErrors = ['Must be at least 3 characters']
 

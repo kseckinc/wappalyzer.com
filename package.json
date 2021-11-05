@@ -19,6 +19,7 @@
     "@nuxtjs/recaptcha": "^1.0.4",
     "amazon-cognito-identity-js": "^5.0.1",
     "cookie-universal-nuxt": "^2.1.4",
+    "csv-parse": "^4.16.3",
     "nuxt": "^2.15.6",
     "nuxt-canonical": "^1.0.6",
     "nuxt-stripe-module": "^3.2.0",
