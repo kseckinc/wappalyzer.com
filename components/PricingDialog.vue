@@ -1,9 +1,9 @@
 <template>
   <v-dialog v-model="isOpen" max-width="400px">
-    <v-card v-for="({ unit, per, credits }, i) in units" :key="i">
-      <v-card-title> Pricing </v-card-title>
+    <v-card>
+      <v-card-title>Pricing</v-card-title>
       <v-card-text class="px-0 pb-0">
-        <v-alert color="primary lighten-1 primary--text" class="px-6">
+        <v-alert color="primary lighten-1 primary--text" class="px-6" tile>
           Pay with a credit card, PayPal or credit balance.
           <nuxt-link to="/pricing" class="primary--text">
             Sign up for a plan
@@ -16,14 +16,30 @@
           <thead>
             <tr>
               <th class="pl-6" width="50%">
-                {{ unit }}
+                {{ unit.unit }}
               </th>
-              <th class="pr-6" width="50%">Price per {{ per }}</th>
+              <th
+                v-if="units.length > 1"
+                class="pr-6 py-1 font-weight-regular"
+                width="50%"
+              >
+                <v-select
+                  v-model="selectedUnit"
+                  :items="
+                    units.map(({ per: text }, value) => ({ text, value }))
+                  "
+                  label="Price per"
+                  hide-details
+                  outlined
+                  dense
+                />
+              </th>
+              <th v-else class="pr-6" width="50%">Price per {{ unit.per }}</th>
             </tr>
           </thead>
           <tbody>
             <template v-for="(tier, index) in Object.keys(creditTiers)">
-              <tr v-if="tier <= max" :key="index">
+              <tr v-if="!unit.max || tier <= unit.max" :key="index">
                 <td class="pl-6 caption">
                   {{
                     formatNumber(
@@ -41,7 +57,7 @@
                 <td class="pr-6 caption">
                   {{
                     formatCurrency(
-                      (creditTiers[tier] * credits) / 100,
+                      (creditTiers[tier] * unit.credits) / 100,
                       'USD',
                       true
                     )
@@ -62,10 +78,12 @@
             v-model="value"
             :rules="[
               (v) => /^[0-9]+$/.test(value) || 'Value should be numeric',
-              (v) => !min || v >= min || `Min. ${formatNumber(min)}`,
-              (v) => !max || v <= max || `Max. ${formatNumber(max)}`,
+              (v) =>
+                !unit.min || v >= unit.min || `Min. ${formatNumber(unit.min)}`,
+              (v) =>
+                !unit.max || v <= unit.max || `Max. ${formatNumber(unit.max)}`,
             ]"
-            :label="unit"
+            :label="unit.unit"
             class="px-6 mb-n2"
             placeholder="1000"
             outlined
@@ -83,12 +101,12 @@
                         minPrice,
                         creditsToCents(
                           parseInt(
-                            (min
+                            (unit.min
                               ? Math.max(
-                                  min,
-                                  max ? Math.min(max, value) : value
+                                  unit.min,
+                                  unit.max ? Math.min(unit.max, value) : value
                                 )
-                              : value) * credits,
+                              : value) * unit.credits,
                             10
                           )
                         )
@@ -102,9 +120,12 @@
                 <td class="pr-6 caption">
                   {{
                     formatNumber(
-                      (min
-                        ? Math.max(min, max ? Math.min(max, value) : value)
-                        : value) * credits
+                      (unit.min
+                        ? Math.max(
+                            unit.min,
+                            unit.max ? Math.min(unit.max, value) : value
+                          )
+                        : value) * unit.credits
                     )
                   }}
                 </td>
@@ -141,10 +162,14 @@ export default {
       creditTiers,
       units: credits.units,
       minPrice: credits.minPrice || 0,
-      min: credits.min || 0,
-      max: credits.max,
       value: 1000,
+      selectedUnit: 0,
     }
+  },
+  computed: {
+    unit() {
+      return this.units[this.selectedUnit]
+    },
   },
   methods: {
     open() {

@@ -668,6 +668,16 @@
                   {{ formatNumber(order.bulk.rows) }}
                 </td>
               </tr>
+              <tr
+                v-if="order.product === 'Technology lookup' && order.bulk.live"
+              >
+                <th>Live scan</th>
+                <td>
+                  <v-icon color="primary">
+                    {{ mdiCheckboxMarked }}
+                  </v-icon>
+                </td>
+              </tr>
             </tbody>
           </v-simple-table>
 

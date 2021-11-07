@@ -85,8 +85,9 @@
             <v-card-title class="subtitle-2">Upload your list</v-card-title>
             <v-card-text>
               <p class="mb-6">
-                Upload a CSV or TXT file with up to 100,000 URLs, each on a
-                separate line.<br />
+                Upload a CSV or TXT file with up to
+                {{ live ? '10,000' : '100,000' }} URLs, each on a separate
+                line.<br />
               </p>
 
               <v-alert v-if="error" type="error" class="mb-4" text>
@@ -102,6 +103,22 @@
                 outlined
                 @change="fileChange"
               />
+
+              <v-radio-group v-model="live" hide-details mandatory>
+                <v-radio
+                  label="Include cached results where possible (recommended)"
+                  :value="false"
+                />
+                <v-radio label="Live results only" :value="true" />
+              </v-radio-group>
+
+              <v-alert color="secondary" border="left" class="mt-6 mb-2" dense>
+                <small>
+                  Cached results have been verified within the last 30 days, are
+                  more complete and have a high success rate. Live results are
+                  more up-to-date but cost more (2 credits instead of 1).
+                </small>
+              </v-alert>
             </v-card-text>
             <template v-if="inputFile">
               <v-divider />
@@ -412,7 +429,7 @@
       <SignIn mode-sign-up mode-continue />
     </v-dialog>
 
-    <PricingDialog ref="pricingDialog" product="bulk" />
+    <PricingDialog ref="pricingDialog" product="lookup" />
 
     <template #footer>
       <Logos />
@@ -490,6 +507,7 @@ export default {
       error: false,
       file: '',
       fileErrors: [],
+      live: false,
       previewError: false,
       csvHeader: false,
       csvHeaders: [
@@ -752,6 +770,7 @@ export default {
             product: 'Technology lookup',
             bulk: {
               input: this.file,
+              live: this.live,
               columns: this.csvColumns.map(({ text }) => text),
               header: this.csvHeader,
               delimiter: this.csvDelimiter,
@@ -827,8 +846,10 @@ export default {
           }
         }
 
-        if (urls.length > 100000) {
-          this.fileErrors.push('Limit of 100,000 URLs exceeded')
+        if (urls.length > (this.live ? 10000 : 100000)) {
+          this.fileErrors.push(
+            `Limit of (${this.live ? '10,000' : '100,000'}) URLs exceeded`
+          )
         }
       } catch (error) {
         console.log(error)
