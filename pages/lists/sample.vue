@@ -68,21 +68,6 @@ import FaqDialog from '~/components/FaqDialog.vue'
 import sets from '~/assets/json/sets.json'
 import list from '~/static/lead-list-sample.csv'
 
-const arrayAttributes = [
-  'version',
-  'email',
-  'ipCountry',
-  'ipRegion',
-  'language',
-  'locations',
-  'employees',
-  ...sets
-    .filter(({ key }) => ['contact', 'social'].includes(key))
-    .map(({ attributes }) => attributes.map(({ key }) => key))
-    .flat(),
-  'schemaOrgTypes',
-]
-
 const lines = list
   .split('\n')
   .map((line) => line.replace(/(^"|"$)/g, '').split('","'))
@@ -91,9 +76,7 @@ const keys = lines.shift()
 
 const sample = lines.map((columns) => {
   return columns.reduce((line, column, index) => {
-    line[keys[index]] = arrayAttributes.includes(keys[index])
-      ? column.split(' ; ')
-      : column
+    line[keys[index]] = column
 
     return line
   }, {})
