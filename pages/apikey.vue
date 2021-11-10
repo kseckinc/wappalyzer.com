@@ -8,8 +8,10 @@
     </v-alert>
 
     <p class="mb-8">
-      Your API key provides authorized access to our
-      <nuxt-link to="/api/">APIs</nuxt-link>.
+      Your API key provides authenticated access to your account when using our
+      <nuxt-link to="/api/">APIs</nuxt-link> or
+      <nuxt-link to="/apps/">browser extension</nuxt-link>. Treat it like a
+      password: keep it safe and don't share it with anyone you don't trust.
     </p>
 
     <template v-if="!loading">

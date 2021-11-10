@@ -101,6 +101,12 @@
       >
         <template v-if="order.product === 'Subscription'">
           Thank you for your payment, your subscription has been created.
+
+          <div v-if="order.plan.id.startsWith('credits_plus')" class="mt-2">
+            To enable Plus features in the browser extension,
+            <nuxt-link to="/apikey/">create an API key</nuxt-link>
+            and add it in the 'More info' tab.
+          </div>
         </template>
         <template
           v-else-if="
@@ -197,6 +203,23 @@
           depressed
         >
           <v-icon left> {{ mdiCalendarSync }} </v-icon>Subscription
+        </v-btn>
+      </template>
+
+      <template
+        v-if="
+          order.status === 'Complete' &&
+          order.plan.id.startsWith('credits_plus')
+        "
+      >
+        <v-btn
+          to="/apikey/"
+          color="primary lighten-1"
+          class="mr-2 mb-4 primary--text"
+          depressed
+        >
+          <v-icon left>{{ mdiKeyVariant }}</v-icon
+          >API key
         </v-btn>
       </template>
 
@@ -1173,6 +1196,7 @@ import {
   mdiChevronUp,
   mdiAlertOctagonOutline,
   mdiArrowRight,
+  mdiKeyVariant,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -1227,6 +1251,7 @@ export default {
       mdiChevronUp,
       mdiAlertOctagonOutline,
       mdiArrowRight,
+      mdiKeyVariant,
       order: null,
       orderLoaded: false,
       paymentMethod: 'stripe',
