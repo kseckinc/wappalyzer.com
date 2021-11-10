@@ -42,7 +42,16 @@
                   max-width: 200px;
                 "
               >
-                {{ column }}
+                <a
+                  v-if="/^https?:\/\//.test(column)"
+                  :href="column"
+                  rel="nofollow noopener"
+                  target="_blank"
+                  >{{ column }}</a
+                >
+                <template v-else>
+                  {{ column }}
+                </template>
               </small>
             </div>
           </td>

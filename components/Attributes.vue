@@ -246,20 +246,23 @@ export default {
   },
   computed: {
     attributes() {
-      const hostname = Object.keys(this.hostname).reduce((hostname, key) => ({
-        ...hostname,
-        ...([
-          'verifiedEmail',
-          'safeEmail',
-          'copyrightYear',
-          'responsive',
-          'schemaOrgTypes',
-        ].includes(key)
-          ? {}
-          : {
-              [key]: this.hostname[key],
-            }),
-      }))
+      const hostname = Object.keys(this.hostname).reduce(
+        (hostname, key) => ({
+          ...hostname,
+          ...([
+            'verifiedEmail',
+            'safeEmail',
+            'copyrightYear',
+            'responsive',
+            'schemaOrgTypes',
+          ].includes(key)
+            ? {}
+            : {
+                [key]: this.hostname[key],
+              }),
+        }),
+        {}
+      )
 
       return this.transformAttributes(
         [
