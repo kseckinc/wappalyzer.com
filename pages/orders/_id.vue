@@ -102,7 +102,10 @@
         <template v-if="order.product === 'Subscription'">
           Thank you for your payment, your subscription has been created.
 
-          <div v-if="order.plan.id.startsWith('credits_plus')" class="mt-2">
+          <div
+            v-if="order.plan && order.plan.id.startsWith('credits_plus')"
+            class="mt-2"
+          >
             To enable Plus features in the browser extension,
             <nuxt-link to="/apikey/">create an API key</nuxt-link>
             and add it in the 'More info' tab.
@@ -209,6 +212,7 @@
       <template
         v-if="
           order.status === 'Complete' &&
+          order.plan &&
           order.plan.id.startsWith('credits_plus')
         "
       >
