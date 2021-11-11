@@ -8,7 +8,7 @@
           <th
             v-for="(key, index) in Object.keys(sample[0])"
             :key="key"
-            class="pl-0"
+            :class="index ? 'pl-0' : ''"
             style="white-space: nowrap"
           >
             <div class="d-flex align-center">
@@ -25,7 +25,11 @@
       </thead>
       <tbody>
         <tr v-for="(row, index) in sample" :key="index">
-          <td v-for="(column, attribute) in row" class="pl-0" :key="attribute">
+          <td
+            v-for="(column, attribute) in row"
+            :class="attribute === Object.keys(row)[0] ? '' : 'pl-0'"
+            :key="attribute"
+          >
             <div class="d-flex align-center">
               <v-divider
                 v-if="attribute !== Object.keys(row)[0]"
