@@ -243,19 +243,36 @@
             </v-card-text>
           </v-card>
 
-          <v-btn
-            :disabled="!!(!file || fileErrors.length)"
-            :loading="ordering"
-            color="primary"
-            large
-            depressed
-            @click="submitBulk"
-          >
-            Get a quote
-            <v-icon right>
-              {{ mdiArrowRight }}
-            </v-icon>
-          </v-btn>
+          <v-row>
+            <v-col>
+              <v-btn
+                :disabled="!!(!file || fileErrors.length)"
+                :loading="ordering"
+                color="primary"
+                large
+                depressed
+                @click="submitBulk"
+              >
+                Get a quote
+                <v-icon right>
+                  {{ mdiArrowRight }}
+                </v-icon>
+              </v-btn>
+            </v-col>
+            <v-col class="flex-shrink-1 flex-grow-0">
+              <v-btn
+                color="primary primary--text lighten-1"
+                depressed
+                large
+                @click="$refs.pricingDialog.open()"
+              >
+                <v-icon left>
+                  {{ mdiCalculator }}
+                </v-icon>
+                Pricing
+              </v-btn>
+            </v-col>
+          </v-row>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>

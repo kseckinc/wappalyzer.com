@@ -1334,20 +1334,45 @@
             </v-row>
 
             <v-card-text class="py-0">
-              <v-btn
-                :disabled="!selection"
-                :loading="creating"
-                color="primary"
-                class="mt-4 mb-4"
-                large
-                depressed
-                @click="submit()"
-              >
-                Create list
-                <v-icon right>
-                  {{ mdiArrowRight }}
-                </v-icon>
-              </v-btn>
+              <v-row>
+                <v-col>
+                  <v-btn
+                    :disabled="!selection"
+                    :loading="creating"
+                    color="primary"
+                    class="mt-4 mb-4"
+                    large
+                    depressed
+                    @click="submit()"
+                  >
+                    Create list
+                    <v-icon right>
+                      {{ mdiArrowRight }}
+                    </v-icon>
+                  </v-btn>
+                </v-col>
+                <v-col>
+                  <v-checkbox
+                    v-if="!isPro"
+                    v-model="pro"
+                    color="primary"
+                    hide-details
+                  >
+                    <template #label>
+                      Include company and contact details
+                      <v-chip
+                        to="/pro/"
+                        color="primary"
+                        class="ml-2"
+                        x-small
+                        outlined
+                      >
+                        PRO
+                      </v-chip>
+                    </template>
+                  </v-checkbox>
+                </v-col>
+              </v-row>
             </v-card-text>
           </v-card>
         </v-form>
@@ -1394,6 +1419,9 @@
             <p>
               Company and contact details will be included in the list and you
               get access to all filters.
+            </p>
+
+            <p>
               <nuxt-link to="/pro/" target="_blank"
                 >See all PRO features</nuxt-link
               >.
@@ -1402,7 +1430,7 @@
             <p class="mb-0">
               Continue creating your list to get a free sample.
               <nuxt-link to="/pricing/" target="_blank">Sign up</nuxt-link> for
-              an eligible plan to access the full list (no obligation).
+              an eligible plan to access the full list.
             </p>
           </v-card-text>
           <v-card-actions>

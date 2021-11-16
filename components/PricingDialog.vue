@@ -156,11 +156,13 @@ export default {
   data() {
     const credits = creditsPerUnit[this.product] || {}
 
+    console.log(credits)
+
     return {
       isOpen: false,
       creditsPerUnit,
       creditTiers,
-      units: credits.units,
+      units: credits.units || [],
       minPrice: credits.minPrice || 0,
       value: 1000,
       selectedUnit: 0,
@@ -168,7 +170,7 @@ export default {
   },
   computed: {
     unit() {
-      return this.units[this.selectedUnit]
+      return this.units[this.selectedUnit] || {}
     },
   },
   methods: {
