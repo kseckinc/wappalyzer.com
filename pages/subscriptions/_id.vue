@@ -50,13 +50,32 @@
               <tr>
                 <th width="30%">Price</th>
                 <td>
+                  <span
+                    v-if="subscription.coupon"
+                    class="text-decoration-line-through text--disabled"
+                    >{{
+                      formatCurrency(
+                        subscription.planAmount / 100,
+                        subscription.planCurrency
+                      )
+                    }}</span
+                  >
+
                   {{
                     formatCurrency(
-                      subscription.planAmount / 100,
+                      subscription.total / 100,
                       subscription.planCurrency
                     )
                   }}
-                  / {{ subscription.planInterval }}
+                  / {{ subscription.planInterval
+                  }}<v-chip
+                    v-if="subscription.coupon"
+                    class="ml-2"
+                    color="success lighten-5 success--text"
+                    label
+                    small
+                    >{{ subscription.coupon }}</v-chip
+                  >
                 </td>
               </tr>
               <tr>

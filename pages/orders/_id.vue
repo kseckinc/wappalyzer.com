@@ -760,12 +760,43 @@
                     }}
                   </td>
                 </tr>
-                <tr v-if="order.discount">
+                <tr
+                  v-if="
+                    order.discount ||
+                    order.coupon ||
+                    (order.status === 'Open' &&
+                      order.product === 'Subscription')
+                  "
+                >
                   <th>Discount</th>
-                  <td>
+                  <td v-if="order.discount">
                     {{
-                      formatCurrency(order.discount / 100, order.currency, true)
-                    }}
+                      formatCurrency(
+                        order.discount / 100,
+                        order.currency,
+                        true
+                      )
+                    }}<v-chip
+                      v-if="order.coupon"
+                      class="ml-2"
+                      color="success lighten-5 success--text"
+                      label
+                      small
+                      :close="order.status === 'Open'"
+                      :disabled="savingCoupon"
+                      @click:close="saveCoupon('')"
+                      >{{ order.coupon }}</v-chip
+                    >
+                  </td>
+                  <td
+                    v-else-if="
+                      order.status === 'Open' &&
+                      order.product === 'Subscription'
+                    "
+                  >
+                    <a href="#" @click.prevent="couponDialog = true"
+                      >Enter promo code</a
+                    >
                   </td>
                 </tr>
                 <tr>
@@ -1115,7 +1146,7 @@
               {{ editError }}
             </v-alert>
 
-            <v-form>
+            <v-form @submit.prevent="edit">
               <v-text-field v-model="order.userId" label="User ID" readonly />
 
               <v-text-field
@@ -1149,6 +1180,40 @@
             </v-btn>
             <v-btn :loading="editing" color="accent" text @click="edit">
               Save
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <v-dialog v-model="couponDialog" max-width="400px" eager>
+        <v-card>
+          <v-card-title>Add a promo code</v-card-title>
+          <v-card-text>
+            <v-alert v-if="couponError" type="error" text>
+              {{ couponError }}
+            </v-alert>
+
+            <v-form @submit.prevent="saveCoupon()">
+              <v-text-field
+                v-model="coupon"
+                label="Promo code"
+                hide-details
+                outlined
+              />
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn color="accent" text @click="couponDialog = false">
+              Cancel
+            </v-btn>
+            <v-btn
+              :loading="savingCoupon"
+              color="accent"
+              text
+              @click="saveCoupon()"
+            >
+              Apply
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -1223,6 +1288,10 @@ export default {
       accountSuccess: false,
       billingDialog: false,
       billingSuccess: false,
+      coupon: '',
+      couponDialog: false,
+      couponError: false,
+      savingCoupon: false,
       cancelDialog: false,
       cancelError: false,
       cancelling: false,
@@ -1435,29 +1504,27 @@ export default {
       this.success = false
 
       try {
-        const { id } = this.$route.params
-
         if (this.order.product === 'Subscription') {
-          await this.$axios.patch(`orders/${id}`, {
+          await this.$axios.patch(`orders/${this.order.id}`, {
             paymentMethod: 'stripe',
             stripePaymentMethod: this.stripePaymentMethod,
           })
 
-          this.order = (await this.$axios.get(`orders/${id}`)).data
+          this.order = (await this.$axios.get(`orders/${this.order.id}`)).data
         } else if (
           this.paymentMethod === 'credits' ||
           this.paymentMethod === 'free'
         ) {
-          await this.$axios.patch(`orders/${id}`, {
+          await this.$axios.patch(`orders/${this.order.id}`, {
             paymentMethod: this.paymentMethod,
           })
 
-          this.order = (await this.$axios.get(`orders/${id}`)).data
+          this.order = (await this.$axios.get(`orders/${this.order.id}`)).data
         } else if (this.paymentMethod === 'stripe') {
           if (!this.order.stripePaymentIntent.id) {
-            await this.$axios.patch(`orders/${id}`)
+            await this.$axios.patch(`orders/${this.order.id}`)
 
-            this.order = (await this.$axios.get(`orders/${id}`)).data
+            this.order = (await this.$axios.get(`orders/${this.order.id}`)).data
 
             if (!this.order.stripePaymentIntent.id) {
               throw new Error(
@@ -1488,7 +1555,9 @@ export default {
               await new Promise((resolve, reject) => {
                 setTimeout(async () => {
                   try {
-                    this.order = (await this.$axios.get(`orders/${id}`)).data
+                    this.order = (
+                      await this.$axios.get(`orders/${this.order.id}`)
+                    ).data
 
                     resolve()
                   } catch (error) {
@@ -1527,15 +1596,13 @@ export default {
       this.success = false
 
       try {
-        const { id } = this.$route.params
-
-        await this.$axios.patch(`orders/${id}`, {
+        await this.$axios.patch(`orders/${this.order.id}`, {
           paymentMethod: this.paymentMethod,
           stripePaymentMethod:
             this.paymentMethod === 'stripe' ? this.stripePaymentMethod : null,
         })
 
-        this.order = (await this.$axios.get(`orders/${id}`)).data
+        this.order = (await this.$axios.get(`orders/${this.order.id}`)).data
       } catch (error) {
         this.error = this.getErrorMessage(error)
       }
@@ -1567,17 +1634,15 @@ export default {
       this.success = false
 
       try {
-        const { id } = this.$route.params
-
-        await this.$axios.patch(`orders/${id}`, {
+        await this.$axios.patch(`orders/${this.order.id}`, {
           status: this.status,
           totalCredits: this.totalCredits,
           discount: Math.min(this.discount * 100, this.order.subtotal),
         })
 
-        this.order = (await this.$axios.get(`orders/${id}`)).data
+        this.order = (await this.$axios.get(`orders/${this.order.id}`)).data
 
-        this.success = 'The order has been updated'
+        this.success = 'The order has been updated.'
 
         this.editDialog = false
       } catch (error) {
@@ -1588,13 +1653,41 @@ export default {
 
       this.scrollToTop()
     },
+    async saveCoupon(coupon = this.coupon) {
+      this.couponError = false
+      this.savingCoupon = true
+
+      try {
+        await this.$axios.patch(`orders/${this.order.id}`, {
+          coupon: coupon.toUpperCase(),
+        })
+
+        try {
+          this.order = (await this.$axios.get(`orders/${this.order.id}`)).data
+
+          this.coupon = ''
+
+          this.success = `The promo code has been ${
+            this.order.coupon ? 'added' : 'removed'
+          }.`
+        } catch (error) {
+          this.error = this.getErrorMessage(error)
+        }
+
+        this.couponDialog = false
+      } catch (error) {
+        this.couponError = this.getErrorMessage(error)
+      }
+
+      this.savingCoupon = false
+    },
     totalRows(rows, matchAllTechnologies) {
       return matchAllTechnologies === 'or'
         ? Object.values(rows).reduce((total, rows) => total + rows, 0)
         : Object.values(rows)[0]
     },
     async billingUpdated() {
-      this.accountSuccess = 'Your billing details have been updated'
+      this.accountSuccess = 'Your billing details have been updated.'
 
       this.order = (await this.$axios.get(`orders/${this.order.id}`)).data
     },
