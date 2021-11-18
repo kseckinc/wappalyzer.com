@@ -794,7 +794,10 @@
                       order.product === 'Subscription'
                     "
                   >
-                    <a href="#" @click.prevent="couponDialog = true"
+                    <a
+                      href="#"
+                      class="text--disabled"
+                      @click.prevent="couponDialog = true"
                       >Enter promo code</a
                     >
                   </td>
@@ -885,12 +888,9 @@
 
           <v-divider />
 
-          <v-card-title v-if="!isMember"> Payment </v-card-title>
+          <v-card-title v-if="!isMember">Payment</v-card-title>
 
-          <v-card-text
-            v-if="!isMember && order.product !== 'Subscription'"
-            class="px-0"
-          >
+          <v-card-text v-if="order.product !== 'Subscription'" class="px-0">
             <v-simple-table>
               <tbody>
                 <tr>
@@ -1036,7 +1036,9 @@
               </v-btn>
             </v-card-actions>
           </template>
-          <template v-if="paymentMethod === 'free'">
+          <template
+            v-if="order.product !== 'Subscription' && paymentMethod === 'free'"
+          >
             <v-card-text class="pa-0 text-center">
               <v-alert
                 v-if="freeLists.total === 0"
@@ -1401,7 +1403,7 @@ export default {
       }
     },
     '$store.state.credits.credits'() {
-      if (this.freeLists.remaining) {
+      if (this.freeLists.remaining && this.order?.product !== 'Subscription') {
         this.paymentMethod = 'free'
       } else if (
         this.isMember ||
@@ -1431,7 +1433,10 @@ export default {
       if (!this.orderLoaded) {
         this.orderLoaded = true
 
-        if (this.freeLists.remaining) {
+        if (
+          this.freeLists.remaining &&
+          this.order?.product !== 'Subscription'
+        ) {
           this.paymentMethod = 'free'
         } else if (
           this.isMember ||
