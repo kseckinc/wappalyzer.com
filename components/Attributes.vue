@@ -298,7 +298,10 @@ export default {
     parseEmail(fullEmail) {
       const email = fullEmail.replace(/^[^<]*<([^>]+)>/, '$1')
 
-      const [name, title] = fullEmail.replace(/ <([^>]+)>$/, '').split(' -- ')
+      const [name, title] =
+        email === fullEmail
+          ? ['', '']
+          : fullEmail.replace(/ <([^>]+)>$/, '').split(' -- ')
 
       return { email, name, title }
     },
