@@ -56,21 +56,23 @@
                     )
                   "
                 >
-                  <nuxt-link
-                    :to="
-                      maskedSets.includes(setKey)
-                        ? '/plus/'
-                        : `/verify/${value.text}`
-                    "
-                  >
+                  <a :href="`mailto:${parseEmail(value.text).email}`">
                     <v-icon color="accent" class="mr-1" size="22">{{
                       mdiEmail
                     }}</v-icon
-                    ><span
-                      :class="maskedSets.includes(setKey) ? 'blurred' : ''"
-                      >{{ value.text }}</span
+                    >{{ parseEmail(value.text).email }}
+                  </a>
+
+                  <div v-if="parseEmail(value.text).name">
+                    {{ parseEmail(value.text).name }}
+                    <span
+                      v-if="parseEmail(value.text).title"
+                      class="text--disabled"
                     >
-                  </nuxt-link>
+                      &mdash;
+                      {{ parseEmail(value.text).title }}
+                    </span>
+                  </div>
                 </td>
                 <td v-else-if="attributeKey === 'phone'">
                   <nuxt-link
@@ -139,7 +141,9 @@
                 <v-divider v-if="index" class="my-2" />
 
                 <span>{{ value.text.split(' -- ').shift() }}</span>
-                <span v-if="value.text.split(' -- ').pop().length >= 3"
+                <span
+                  v-if="value.text.split(' -- ').pop().length >= 3"
+                  class="text--disabled"
                   >&mdash; {{ value.text.split(' -- ').pop() }}</span
                 >
               </div>
@@ -290,6 +294,13 @@ export default {
           [attributeKey]: true,
         }
       }
+    },
+    parseEmail(fullEmail) {
+      const email = fullEmail.replace(/^[^<]*<([^>]+)>/, '$1')
+
+      const [name, title] = fullEmail.replace(/ <([^>]+)>$/, '').split(' -- ')
+
+      return { email, name, title }
     },
   },
 }

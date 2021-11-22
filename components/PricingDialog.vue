@@ -156,8 +156,6 @@ export default {
   data() {
     const credits = creditsPerUnit[this.product] || {}
 
-    console.log(credits)
-
     return {
       isOpen: false,
       creditsPerUnit,
