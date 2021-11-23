@@ -55,15 +55,22 @@
                       attributeKey
                     )
                   "
+                  class="py-2"
                 >
-                  <a :href="`mailto:${parseEmail(value.text).email}`">
+                  <nuxt-link :to="`/verify/${parseEmail(value.text).email}`">
                     <v-icon color="accent" class="mr-1" size="22">{{
                       mdiEmail
                     }}</v-icon
-                    >{{ parseEmail(value.text).email }}
-                  </a>
+                    ><span
+                      :class="maskedSets.includes(setKey) ? 'blurred' : ''"
+                      >{{ parseEmail(value.text).email }}</span
+                    >
+                  </nuxt-link>
 
-                  <div v-if="parseEmail(value.text).name">
+                  <div
+                    v-if="parseEmail(value.text).name"
+                    :class="maskedSets.includes(setKey) ? 'blurred' : ''"
+                  >
                     {{ parseEmail(value.text).name }}
                     <span
                       v-if="parseEmail(value.text).title"
@@ -125,7 +132,6 @@
               </tr>
             </tbody>
           </v-simple-table>
-
           <template v-else>
             <div v-for="(value, index) in attribute.values" :key="index">
               <v-icon v-if="value.text === true" color="success">
@@ -136,16 +142,20 @@
               </v-icon>
               <div
                 v-else-if="attributeKey === 'employees'"
-                :class="`${maskedSets.includes(setKey) ? 'blurred ' : ''}`"
+                :class="`mx-n4 ${
+                  maskedSets.includes(setKey) ? 'blurred ' : ''
+                }`"
               >
                 <v-divider v-if="index" class="my-2" />
 
-                <span>{{ value.text.split(' -- ').shift() }}</span>
-                <span
-                  v-if="value.text.split(' -- ').pop().length >= 3"
-                  class="text--disabled"
-                  >&mdash; {{ value.text.split(' -- ').pop() }}</span
-                >
+                <div class="px-4">
+                  <span>{{ value.text.split(' -- ').shift() }}</span>
+                  <span
+                    v-if="value.text.split(' -- ').pop().length >= 3"
+                    class="text--disabled"
+                    >&mdash; {{ value.text.split(' -- ').pop() }}</span
+                  >
+                </div>
               </div>
               <span
                 v-else-if="attributeKey === 'certInfo.validTo'"

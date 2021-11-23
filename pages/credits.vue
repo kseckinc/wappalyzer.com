@@ -70,7 +70,7 @@
       <v-card>
         <v-card-title>Bundles</v-card-title>
         <v-card-text v-if="!adds.length" class="pb-0">
-          <v-alert color="info" class="mb-0" text>
+          <v-alert color="info" text>
             You don't have any active credit bundles.
           </v-alert>
         </v-card-text>

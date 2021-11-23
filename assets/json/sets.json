@@ -45,7 +45,7 @@
       { "name": "company size", "key": "companySize", "description": "Number of employees at the company." },
       { "name": "company type", "key": "companyType", "description": "The type of company, e.g. 'Public Company' or 'Privately Held'." },
       { "name": "company founded", "key": "companyFounded", "description": "The year the company was founded." },
-      { "key": "employees", "description": "Names and titles of employees." }
+      { "name": "people", "key": "employees", "description": "Names and titles of people at the company." }
     ],
     "pro": true
   },
