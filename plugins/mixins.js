@@ -7,6 +7,9 @@ import countries from '~/assets/json/countries.json'
 import languages from '~/assets/json/languages.json'
 import states from '~/assets/json/states.json'
 
+const hostnameBlacklist =
+  /\b((local|dev(elop(ment)?)?|sandbox|stag(e|ing)?|preprod|production|preview|test(ing)?|[^a-z]demo(shop)?|cache)[.-]|dev\d|localhost|((wappalyzer|google|bing|baidu|microsoft|facebook|adobe|twitter|reddit|yahoo|wikipedia|amazon|amazonaws|youtube|stackoverflow|stackexchange|w3schools|twitch)\.)|(live|office|herokuapp|shopifypreview)\.com|\.local|\.test|\.netlify\.app|web\.archive\.org|zoom\.us|^([0-9.]+|[\d.]+)$|^([a-f0-9:]+:+)+[a-f0-9]+$)/
+
 const socialBaseUrls = {
   twitter: 'https://www.twitter.com/',
   facebook: 'https://www.facebook.com/',
@@ -373,6 +376,9 @@ Vue.mixin({
       })
 
       return formatted
+    },
+    hostnameBlacklisted(hostname = '') {
+      return hostnameBlacklist.test(hostname)
     },
   },
 })

@@ -715,19 +715,7 @@ export default {
           throw new Error('Invalid URL')
         }
 
-        if (
-          [
-            'wappalyzer',
-            'google',
-            'facebook',
-            'twitter',
-            'reddit',
-            'yahoo',
-            'wikipedia',
-            'amazon',
-            'youtube',
-          ].some((ignore) => hostname.includes(ignore))
-        ) {
+        if (this.hostnameBlacklisted(hostname)) {
           this.error =
             'This website is excluded from lookups for technical reasons. Please use our free browser extension instead.'
 

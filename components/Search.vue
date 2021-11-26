@@ -192,21 +192,7 @@ export default {
 
         hostname = hostname.replace(/^www\./, '').toLowerCase()
 
-        if (
-          hostname &&
-          hostname.match(/^.+\..+$/) &&
-          ![
-            'wappalyzer',
-            'google',
-            'facebook',
-            'twitter',
-            'reddit',
-            'yahoo',
-            'wikipedia',
-            'amazon',
-            'youtube',
-          ].some((ignore) => hostname.includes(ignore))
-        ) {
+        if (hostname && !this.hostnameBlacklisted(hostname)) {
           this.results.push({
             type: 'lookup',
             text: hostname,
