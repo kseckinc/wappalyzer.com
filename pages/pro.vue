@@ -10,9 +10,9 @@
           <p class="subtitle-1">
             Wappalyzer offers tools for website profiling, market research and
             lead generation. Sign up for a
-            <v-chip color="primary" x-small outlined>PRO</v-chip> plan to
-            unlock additional features, such as CRM integrations and access to
-            company and contact information.
+            <v-chip color="primary" x-small outlined>PRO</v-chip> plan to unlock
+            additional features, such as lead lists, CRM integrations and access
+            to company and contact information in data products.
           </p>
 
           <v-btn
@@ -78,11 +78,9 @@
           <p>
             With <nuxt-link to="/lists/">lead lists</nuxt-link> you can create
             lists of websites that use certain technologies or keywords,
-            including basic information such as the website's title and
-            description. On a
-            <v-chip color="primary" x-small outlined>PRO</v-chip> plan, you
-            also get any available company and contact details and social media
-            profiles.
+            including company and contact details and many other data points.
+            This feature is exclusive to
+            <v-chip color="primary" x-small outlined>PRO</v-chip> plan users.
           </p>
 
           <v-btn href="/list-sample.zip" class="my-2" depressed>
@@ -93,20 +91,20 @@
           </v-btn>
 
           <v-card class="my-6">
-            <v-card-title class="subtitle-2"> Fields </v-card-title>
-            <v-card-text>
-              Fields in bold are exclusive to users on on a
-              <v-chip color="primary" x-small outlined>PRO</v-chip> plan.
-            </v-card-text>
+            <v-card-title class="subtitle-2">Fields</v-card-title>
+            <v-card-text
+              >Lead lists include detailed information about websites companies.
+              These are the available data points.</v-card-text
+            >
             <v-divider />
             <v-card-text class="pt-0 pb-7 px-4" style="overflow: hidden">
               <v-row class="mt-4">
                 <v-col
-                  v-for="{ attribute, pro } in attributes"
+                  v-for="{ attribute } in attributes"
                   :key="attribute.name"
                   cols="6"
                   md="4"
-                  :class="`py-0${pro ? ' font-weight-bold primary--text' : ''}`"
+                  class="py-0"
                 >
                   <small>{{ attribute }}</small>
                 </v-col>

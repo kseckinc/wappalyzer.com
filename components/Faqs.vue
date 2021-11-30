@@ -295,10 +295,9 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content eager>
           <p>
-            We accept one-time payments for lead lists, technology lookups and
-            credits. A paid plan is required to access company and contact
-            details and is usually more cost-effective, especially when making
-            regular or higher volume purchases.
+            We accept one-time payments for credits and technology lookups. A
+            PRO plan is required to access lead lists and company and contact
+            details in data products. Credits are cheaper on a plan.
           </p>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -309,9 +308,9 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content eager>
           <p>
-            Plus features include extended website lookups. With plus, you have
+            Plus features include extended website lookups. With Plus, you have
             access to company and contact information in invididual technology
-            lookups, browser extension and Android app.
+            lookups, the browser extension and Android app.
             <nuxt-link to="/plus/">See all Plus features</nuxt-link>.
           </p>
         </v-expansion-panel-content>
@@ -323,9 +322,9 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content eager>
           <p>
-            PRO features include CRM integrations and access to company and
-            contact information in all of our data products, including lead
-            lists, technology lookups, APIs and browser extension.
+            PRO features include lead lists, CRM integrations and access to
+            company and contact information in all of our data products,
+            including technology lookups, APIs and the browser extension.
             <nuxt-link to="/pro/">See all PRO features</nuxt-link>.
           </p>
         </v-expansion-panel-content>
@@ -347,8 +346,9 @@
         <v-expansion-panel-header> What are credits? </v-expansion-panel-header>
         <v-expansion-panel-content eager>
           <p>
-            Credits can be spent on a range of products, including lead lists
-            and APIs. Each product has a fixed spend per unit, detailed on the
+            Credits can be spent on a range of products, including lead lists,
+            technology lookups and APIs. Each product has a fixed spend per
+            unit, detailed on the
             <nuxt-link :to="{ path: '/pricing/', hash: '#usage' }"
               >pricing</nuxt-link
             >

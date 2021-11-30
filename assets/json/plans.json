@@ -4,9 +4,10 @@
     "users": { "text": "Users", "type": "number", "description": ["Number of users who can access the account with their own login."] },
     "credits": { "text": "Credits / mo", "type": "credits", "description": ["Credits can be spent on lead lists, technology lookups and APIs. See 'credit usage' below."] },
     "lists": { "text": "Lead lists", "type": "string" },
-    "apis": { "text": "API access", "type": "boolean" },
-    "cancellation": { "text": "Anytime cancellation", "type": "boolean" },
-    "support": { "text": "Email & phone support", "type": "boolean" }
+    "lookups": { "text": "Technology lookups", "type": "string" },
+    "apis": { "text": "API access", "type": "string" },
+    "cancellation": { "text": "Anytime cancellation", "type": "string" },
+    "support": { "text": "Email & phone support", "type": "string" }
   },
   "plans": {
     "credits_free_mo": {
@@ -20,7 +21,8 @@
         "users": 1,
         "support": "-",
         "lookups": true,
-        "lists": "Pay per list",
+        "lists": "-",
+        "lookups": true,
         "apis": true,
         "pro": "-",
         "cancellation": true
@@ -35,10 +37,8 @@
         "users": 1,
         "support": true,
         "lookups": true,
-        "lists": {
-          "value": "Use credits",
-          "tooltip": ["Create lists using the included credits. See 'credit usage' below."]
-        },
+        "lists": true,
+        "lookups": true,
         "apis": true,
         "pro": true,
         "cancellation": true
@@ -76,6 +76,7 @@
           "value": "+ 3 Free / mo",
           "tooltip": ["Free lists include:", "• Lead lists (any technology, up to 500K sites)", "• Bulk technology lookup (up to 100K sites)", "• Email verification (up to 100K addresses)", "", "Create more lists using the included credits. See 'credit usage' below."]
         },
+        "lookups": true,
         "apis": true,
         "pro": true,
         "cancellation": true
@@ -111,6 +112,7 @@
           "value": "Use credits",
           "tooltip": ["Create lists using the included credits. See 'credit usage' below."]
         },
+        "lookups": true,
         "apis": true,
         "pro": true,
         "cancellation": true
@@ -130,6 +132,7 @@
           "value": "+ 1 Free / mo",
           "tooltip": ["Free lists include:", "• Lead lists (any technology, up to 500K sites)", "• Bulk technology lookup (up to 100K sites)", "", "Create more lists using the included credits. See 'credit usage' below."]
         },
+        "lookups": true,
         "apis": true,
         "pro": true,
         "cancellation": true
@@ -148,6 +151,7 @@
           "value": "+ 3 Free / mo",
           "tooltip": ["Free lists include:", "• Lead lists (any technology, up to 500K sites each)", "• Bulk technology lookup (up to 100K sites each)", "", "Create more lists using the included credits. See 'credit usage' below."]
         },
+        "lookups": true,
         "apis": true,
         "pro": true,
         "cancellation": true

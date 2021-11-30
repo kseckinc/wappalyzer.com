@@ -271,10 +271,10 @@
 
           <p>
             Wappalyzer has two pricing models: one-time payments and
-            subscriptions. You can buy lists and credits on a free plan, or you
-            can subscribe to get credits at a lower price. Credits can be spent
-            on any product, including lists and APIs, giving you the most
-            flexibility.
+            subscriptions. You can pay for credits and technology lookups on a
+            free plan, or you can subscribe to get credits at a lower price.
+            Credits can be spent on any product, including lists and APIs,
+            giving you the most flexibility.
           </p>
 
           <p class="mb-8">

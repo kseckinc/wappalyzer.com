@@ -22,7 +22,7 @@
                 technology lookups and APIs.
               </p>
 
-              <v-simple-table dense>
+              <v-simple-table>
                 <thead>
                   <tr>
                     <th width="40%">Product</th>
@@ -33,15 +33,15 @@
                   <tr v-for="{ name, to, units } in creditsPerUnit" :key="name">
                     <td>
                       <nuxt-link :to="to">
-                        <small>{{ name }}</small>
+                        {{ name }}
                       </nuxt-link>
                     </td>
                     <td>
-                      <small>{{
+                      {{
                         units
                           .map(({ per, credits }) => `${credits} per ${per}`)
                           .join(' or ')
-                      }}</small>
+                      }}
                     </td>
                   </tr>
                 </tbody>
@@ -103,6 +103,41 @@
                   </tr>
                 </tbody>
               </v-simple-table>
+
+              <v-divider />
+
+              <v-card-title class="subtitle-2">Calculator</v-card-title>
+              <v-card-text class="pb-0">
+                <v-row class="align-center">
+                  <v-col cols="6">
+                    <v-form @submit.prevent="submit">
+                      <v-text-field
+                        v-model="credits"
+                        label="Credits"
+                        placeholder="1000"
+                        hide-details
+                        outlined
+                        dense
+                      />
+                    </v-form>
+                  </v-col>
+                  <v-col>
+                    {{
+                      formatCurrency(
+                        creditsToCents(parseInt(credits || 0, 10)) / 100
+                      )
+                    }}
+                  </v-col>
+                  <v-col class="text-right">
+                    <v-btn to="/credits/" depressed>
+                      <v-icon left>
+                        {{ mdiAlphaCCircle }}
+                      </v-icon>
+                      Buy credits
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </v-card-text>
             </v-card-text>
           </v-card>
         </v-col>
@@ -133,7 +168,7 @@
 </template>
 
 <script>
-import { mdiForum } from '@mdi/js'
+import { mdiAlphaCCircle } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
 import Pricing from '~/components/Pricing.vue'
@@ -154,7 +189,8 @@ export default {
       annually: false,
       creditsPerUnit,
       creditTiers,
-      mdiForum,
+      credits: 1000,
+      mdiAlphaCCircle,
     }
   },
   mounted() {

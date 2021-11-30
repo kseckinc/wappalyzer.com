@@ -188,7 +188,18 @@
                   {{ item.attrs[name] }}
                 </small>
                 <template v-else>
-                  {{ item.attrs[name].value || item.attrs[name] }}
+                  <v-icon
+                    v-if="
+                      item.attrs[name].value === true ||
+                      item.attrs[name] === true
+                    "
+                    color="success"
+                  >
+                    {{ mdiCheck }}
+                  </v-icon>
+                  <template v-else>
+                    {{ item.attrs[name].value || item.attrs[name] }}
+                  </template>
 
                   <v-tooltip
                     v-if="item.attrs[name].tooltip"

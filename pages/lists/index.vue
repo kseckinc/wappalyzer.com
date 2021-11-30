@@ -2,11 +2,11 @@
   <div>
     <Page :title="title" :head="meta">
       <div class="mb-6">
-        <v-btn class="mt-4 mr-2" depressed @click="$refs.pricingDialog.open()">
+        <v-btn class="mt-4" depressed @click="$refs.faqDialog.open()">
           <v-icon left>
-            {{ mdiCalculator }}
+            {{ mdiForum }}
           </v-icon>
-          Pricing
+          FAQs
         </v-btn>
 
         <v-btn href="/lists/sample/" class="mt-4 mr-2" depressed>
@@ -14,13 +14,6 @@
             {{ mdiFormatListBulleted }}
           </v-icon>
           Sample list
-        </v-btn>
-
-        <v-btn class="mt-4" depressed @click="$refs.faqDialog.open()">
-          <v-icon left>
-            {{ mdiForum }}
-          </v-icon>
-          FAQs
         </v-btn>
       </div>
 
@@ -41,68 +34,23 @@
             </v-card-title>
 
             <v-card-text>
-              <v-row>
-                <v-col cols="12" sm="6">
-                  <p>
-                    Get started by selecting one or more technologies or
-                    keywords. Optionally add filters to get exactly what you
-                    need. Within minutes, you get a free sample and quote to
-                    review. Complete the order to download the full list
-                    immediately.
-                  </p>
-
-                  <p class="mb-2">
-                    Not sure what to do?
-                    <a @click="suggestionsDialog = true"
-                      >Start with these ideas</a
-                    >.
-                  </p>
-                </v-col>
-                <v-col cols="12" sm="6">
-                  <v-card
-                    v-if="!isLoading && !isPro"
-                    color="primary lighten-1 primary--text"
-                    class="mt-n4"
-                    flat
+              <div style="max-width: 600px">
+                <p>
+                  Get started by selecting one or more technologies or keywords.
+                  Optionally add filters to get exactly what you need. Within
+                  minutes, you get a free sample to review. Sign up for a
+                  <v-chip to="/pro/" color="primary" x-small outlined
+                    >PRO</v-chip
                   >
-                    <v-card-title class="subtitle-2">
-                      <v-icon color="primary" size="20" left>
-                        {{ mdiPhone }}
-                      </v-icon>
-                      Company and contact details
-                    </v-card-title>
-                    <v-card-text class="primary--text pb-0">
-                      Subscribe to a
-                      <v-chip to="/pro/" color="primary" x-small outlined>
-                        PRO
-                      </v-chip>
-                      plan to include company and contact information in lead
-                      lists.
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-spacer />
+                  plan to download the full list.
+                </p>
 
-                      <v-btn
-                        v-if="!pro"
-                        color="primary"
-                        text
-                        @click="pro = true"
-                      >
-                        <v-icon left>
-                          {{ mdiLockOpenVariantOutline }}
-                        </v-icon>
-                        Unlock PRO
-                      </v-btn>
-                      <v-btn v-else color="primary" text @click="pro = false">
-                        <v-icon left>
-                          {{ mdiLockOutline }}
-                        </v-icon>
-                        PRO unlocked
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-col>
-              </v-row>
+                <p class="mb-2">
+                  Not sure what to do?
+                  <a @click="suggestionsDialog = true">Start with these ideas</a
+                  >.
+                </p>
+              </div>
             </v-card-text>
 
             <v-divider class="mb-4" />
@@ -363,23 +311,9 @@
                     :disabled="!selection"
                     multiple
                   >
-                    <v-expansion-panel
-                      ref="attributes"
-                      value="attributes"
-                      @click="pro = true"
-                    >
+                    <v-expansion-panel ref="attributes" value="attributes">
                       <v-expansion-panel-header class="subtitle-2">
                         Fields
-                        <div class="body-2 text-right">
-                          <v-chip
-                            :disabled="!selection"
-                            color="primary"
-                            class="mr-2"
-                            x-small
-                            outlined
-                            >PRO</v-chip
-                          >
-                        </div>
                       </v-expansion-panel-header>
                       <v-expansion-panel-content class="no-x-padding">
                         <v-simple-table>
@@ -398,9 +332,8 @@
                                   class="ma-0"
                                   hide-details
                                   :disabled="
-                                    !pro ||
-                                    (['phone', 'email'].includes(key) &&
-                                      compliance === 'exclude')
+                                    ['phone', 'email'].includes(key) &&
+                                    compliance === 'exclude'
                                   "
                                 >
                                   <v-radio value="exclude" class="ma-0" />
@@ -412,9 +345,8 @@
                                   class="ma-0"
                                   hide-details
                                   :disabled="
-                                    !pro ||
-                                    (['phone', 'email'].includes(key) &&
-                                      compliance === 'exclude')
+                                    ['phone', 'email'].includes(key) &&
+                                    compliance === 'exclude'
                                   "
                                 >
                                   <v-radio value="include" class="ma-0" />
@@ -426,9 +358,8 @@
                                   class="ma-0"
                                   hide-details
                                   :disabled="
-                                    !pro ||
-                                    (['phone', 'email'].includes(key) &&
-                                      compliance === 'exclude')
+                                    ['phone', 'email'].includes(key) &&
+                                    compliance === 'exclude'
                                   "
                                 >
                                   <v-radio value="required" class="ma-0" />
@@ -454,30 +385,15 @@
                       </v-expansion-panel-content>
                     </v-expansion-panel>
 
-                    <v-expansion-panel
-                      ref="compliance"
-                      value="compliance"
-                      @click="pro = true"
-                    >
+                    <v-expansion-panel ref="compliance" value="compliance">
                       <v-expansion-panel-header class="subtitle-2">
                         Compliance
-                        <div class="body-2 text-right">
-                          <v-chip
-                            :disabled="!selection"
-                            color="primary"
-                            class="mr-2"
-                            x-small
-                            outlined
-                            >PRO</v-chip
-                          >
-                        </div>
                       </v-expansion-panel-header>
                       <v-expansion-panel-content>
                         <v-radio-group
                           v-model="compliance"
                           class="my-0"
                           mandatory
-                          :disabled="!pro"
                         >
                           <v-radio
                             value="include"
@@ -512,7 +428,6 @@
                           label="I'm in or do business in Australia"
                           class="mt-0"
                           hide-details
-                          :disabled="!pro"
                         />
 
                         <v-alert
@@ -539,23 +454,9 @@
                     :disabled="!selection"
                     multiple
                   >
-                    <v-expansion-panel
-                      ref="industries"
-                      value="industries"
-                      @click="pro = true"
-                    >
+                    <v-expansion-panel ref="industries" value="industries">
                       <v-expansion-panel-header class="subtitle-2">
                         Industry
-                        <div class="body-2 text-right">
-                          <v-chip
-                            :disabled="!selection"
-                            color="primary"
-                            class="mr-2"
-                            x-small
-                            outlined
-                            >PRO</v-chip
-                          >
-                        </div>
                       </v-expansion-panel-header>
                       <v-expansion-panel-content>
                         <p>Choose which company industries to include.</p>
@@ -621,23 +522,9 @@
                       </v-expansion-panel-content>
                     </v-expansion-panel>
 
-                    <v-expansion-panel
-                      ref="companySizes"
-                      value="companySizes"
-                      @click="pro = true"
-                    >
+                    <v-expansion-panel ref="companySizes" value="companySizes">
                       <v-expansion-panel-header class="subtitle-2">
                         Company size
-                        <div class="body-2 text-right">
-                          <v-chip
-                            :disabled="!selection"
-                            color="primary"
-                            class="mr-2"
-                            x-small
-                            outlined
-                            >PRO</v-chip
-                          >
-                        </div>
                       </v-expansion-panel-header>
                       <v-expansion-panel-content>
                         <p>Choose what size companies to include.</p>
@@ -1334,45 +1221,20 @@
             </v-row>
 
             <v-card-text class="py-0">
-              <v-row>
-                <v-col>
-                  <v-btn
-                    :disabled="!selection"
-                    :loading="creating"
-                    color="primary"
-                    class="mt-4 mb-4"
-                    large
-                    depressed
-                    @click="submit()"
-                  >
-                    Create list
-                    <v-icon right>
-                      {{ mdiArrowRight }}
-                    </v-icon>
-                  </v-btn>
-                </v-col>
-                <v-col>
-                  <v-checkbox
-                    v-if="!isPro"
-                    v-model="pro"
-                    color="primary"
-                    hide-details
-                  >
-                    <template #label>
-                      Include company and contact details
-                      <v-chip
-                        to="/pro/"
-                        color="primary"
-                        class="ml-2"
-                        x-small
-                        outlined
-                      >
-                        PRO
-                      </v-chip>
-                    </template>
-                  </v-checkbox>
-                </v-col>
-              </v-row>
+              <v-btn
+                :disabled="!selection"
+                :loading="creating"
+                color="primary"
+                class="mt-4 mb-4"
+                large
+                depressed
+                @click="submit()"
+              >
+                Create list
+                <v-icon right>
+                  {{ mdiArrowRight }}
+                </v-icon>
+              </v-btn>
             </v-card-text>
           </v-card>
         </v-form>
@@ -1408,49 +1270,7 @@
         <SignIn mode-continue mode-sign-up />
       </v-dialog>
 
-      <PricingDialog ref="pricingDialog" product="list" />
-
       <FaqDialog ref="faqDialog" topic="lists" />
-
-      <v-dialog v-model="proDialog" max-width="600px">
-        <v-card>
-          <v-card-title>Unlock PRO features?</v-card-title>
-          <v-card-text>
-            <p>
-              Company and contact details will be included in the list and you
-              get access to all filters.
-            </p>
-
-            <p>
-              <nuxt-link to="/pro/" target="_blank"
-                >See all PRO features</nuxt-link
-              >.
-            </p>
-
-            <p class="mb-0">
-              Continue creating your list to get a free sample.
-              <nuxt-link to="/pricing/" target="_blank">Sign up</nuxt-link> for
-              an eligible plan to access the full list.
-            </p>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer />
-            <v-btn
-              color="error"
-              text
-              @click="
-                () => {
-                  pro = false
-                  proDialog = false
-                }
-              "
-            >
-              Cancel
-            </v-btn>
-            <v-btn color="accent" text @click="proDialog = false">Unlock</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
 
       <v-dialog v-model="suggestionsDialog" max-width="600px">
         <v-card>
@@ -1517,9 +1337,7 @@ import Technologies from '~/components/Technologies.vue'
 import TechnologyIcon from '~/components/TechnologyIcon.vue'
 import Logos from '~/components/Logos.vue'
 import SignIn from '~/components/SignIn.vue'
-import PricingDialog from '~/components/PricingDialog.vue'
 import FaqDialog from '~/components/FaqDialog.vue'
-import Pro from '~/components/Pro.vue'
 import { lists as meta } from '~/assets/json/meta.json'
 import languages from '~/assets/json/languages.json'
 import tlds from '~/assets/json/tlds.json'
@@ -1536,9 +1354,7 @@ export default {
     TechnologyIcon,
     Logos,
     SignIn,
-    PricingDialog,
     FaqDialog,
-    Pro,
   },
   data() {
     return {
@@ -1588,8 +1404,6 @@ export default {
       panelsMain: [],
       panelsSelection: [],
       panelsFilters: [],
-      pro: false,
-      proDialog: false,
       loading: false,
       removeInvalid: false,
       signInDialog: false,
@@ -1677,8 +1491,7 @@ export default {
   computed: {
     ...mapState({
       user: ({ user }) => user.attrs,
-      isLoading: ({ user, credits }) => user.loading || credits.loading,
-      isPro: ({ credits }) => credits.pro,
+      isLoading: ({ user }) => user.loading,
       isSignedIn: ({ user }) => user.isSignedIn,
       isAdmin: ({ user }) =>
         user.attrs.admin || (user.impersonator && user.impersonator.admin),
@@ -1745,7 +1558,7 @@ export default {
       }))
     },
     minListSize() {
-      return this.pro ? 50 : 500
+      return 50
     },
   },
   watch: {
@@ -1767,43 +1580,8 @@ export default {
     },
     isLoading() {
       if (!this.isLoading) {
-        if (this.isPro) {
-          this.pro = true
-        }
-
-        if (!this.pro) {
-          this.compliance = 'exclude'
-
-          Object.keys(this.selected.sets).forEach(
-            (key) => (this.selected.sets[key] = 'exclude')
-          )
-        }
-
         this.fillForm()
       }
-    },
-    pro() {
-      if (this.pro && !this.isPro) {
-        this.proDialog = true
-      }
-
-      this.updateQuery()
-
-      if (!this.pro) {
-        // Close Pro panels
-        this.panelsSelection = this.panelsSelection.filter(
-          (index) => index !== 0 && index !== 1
-        )
-        this.panelsFilters = this.panelsFilters.filter(
-          (index) => index !== 0 && index !== 1
-        )
-      }
-
-      this.compliance = this.pro ? 'include' : 'exclude'
-
-      Object.keys(this.selected.sets).forEach(
-        (key) => (this.selected.sets[key] = this.pro ? 'include' : 'exclude')
-      )
     },
     australia() {
       if (this.australia) {
@@ -1878,10 +1656,6 @@ export default {
   },
   mounted() {
     if (!this.isLoading) {
-      if (this.isPro) {
-        this.pro = true
-      }
-
       this.fillForm()
     }
   },
@@ -1980,7 +1754,6 @@ export default {
               (key) => this.selected.sets[key] !== 'excluded'
             ),
             exclusions: this.file,
-            pro: this.pro,
           })
         ).data
 
@@ -2323,8 +2096,7 @@ export default {
               ? this.matchAllTechnologies
               : undefined,
           contacts:
-            this.pro &&
-            (this.compliance === 'exclude' || this.compliance === 'excludeEU')
+            this.compliance === 'exclude' || this.compliance === 'excludeEU'
               ? this.compliance
               : undefined,
           keywords: this.selected.keywords.join(','),
@@ -2335,7 +2107,6 @@ export default {
           attributes: Object.keys(this.selected.sets)
             .filter((set) => this.selected.sets[set] === 'required')
             .join(','),
-          pro: this.pro && !this.isPro ? '1' : undefined,
         }
 
         this.$router.replace({
@@ -2383,7 +2154,6 @@ export default {
         keywords,
         industries,
         sizes,
-        pro,
       } = query || this.$route.query
 
       if (Object.keys(query || this.$route.query).length) {
@@ -2393,10 +2163,6 @@ export default {
       this.panelsMain = []
       this.panelsSelection = []
       this.panelsFilters = []
-
-      if (pro) {
-        this.pro = true
-      }
 
       this.minAge = Math.max(0, Math.min(11, parseInt(min || 0, 10)))
 
@@ -2421,13 +2187,9 @@ export default {
 
       this.matchAll = filters === 'and'
 
-      this.compliance = 'include'
-
-      if (!this.pro) {
-        this.compliance = 'exclude'
-      } else if (contacts === 'exclude' || contacts === 'excludeEU') {
-        this.compliance = contacts
-      }
+      this.compliance = ['exclude', 'excludeEu'].includes(contacts)
+        ? contacts
+        : 'include'
 
       if (this.compliance !== 'exclude') {
         const _attributes = String(attributes).split(',')
@@ -2640,7 +2402,7 @@ export default {
         this.$refs.technologies.toggle()
       }
 
-      if (this.pro && this.compliance === 'exclude') {
+      if (this.compliance === 'exclude') {
         this.$refs.compliance.toggle()
         this.$refs.attributes.toggle()
       }

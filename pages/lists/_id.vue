@@ -69,7 +69,7 @@
             text
             prominent
           >
-            Your list is ready. Please review the samples and availability.
+            Your list is ready. Please find a sample below.
           </v-alert>
 
           <v-alert
@@ -95,7 +95,7 @@
             text
             prominent
           >
-            Thank you for your payment, your list is ready.
+            Your list is ready.
           </v-alert>
 
           <div
@@ -171,7 +171,7 @@
               </v-expansion-panel>
             </v-expansion-panels>
 
-            <v-card v-else class="mb-6">
+            <v-card v-else-if="list.query.keywords.length" class="mb-6">
               <v-card-title>Sample</v-card-title>
               <v-card-text class="px-0 pb-0">
                 <ListSample :sample="list.query.sample" />
@@ -210,110 +210,68 @@
             </v-btn>
           </div>
 
-          <v-card
-            v-if="!list.pro && !isPro"
-            color="primary lighten-1 primary--text"
-            class="mb-4"
-            flat
-          >
-            <v-card-title class="subtitle-2">
-              <v-icon color="primary" size="20" left>
-                {{ mdiLockOpenVariantOutline }}
-              </v-icon>
-              Unlock pro features
-            </v-card-title>
-            <v-card-text class="primary--text pb-0">
-              Subscribe to a
-              <v-chip to="/pro/" color="primary" x-small outlined> PRO </v-chip>
-              plan to include company and contact information in lead lists.
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer />
-
-              <v-btn to="/pricing/" color="primary" text>
-                Compare plans
-                <v-icon right>
-                  {{ mdiArrowRight }}
-                </v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-
-          <v-card v-if="list.status === 'Ready'" class="mb-4">
-            <v-card-text class="px-0">
-              <v-simple-table class="mb-4">
-                <tbody>
-                  <tr>
-                    <th width="40%">Websites</th>
-                    <td>
-                      {{
-                        formatNumber(
-                          totalRows(
-                            list.rows || 0,
-                            list.query.matchAllTechnologies
-                          )
-                        )
-                      }}
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>Price</th>
-                    <td v-if="isMember">
-                      {{ formatNumber(list.totalCredits) }} credits
-                    </td>
-                    <td v-else>
-                      <template
-                        v-if="list.pro || isPro || credits >= list.totalCredits"
-                      >
-                        {{ formatNumber(list.totalCredits) }} credits
-                        <span v-if="isPro" class="text--disabled"
-                          >(or {{ formatCurrency(list.total / 100) }})</span
-                        >
-                      </template>
-                      <template v-else>
-                        {{ formatCurrency(list.total / 100) }}
-                        <span class="text--disabled"
-                          >(or
-                          {{ formatNumber(list.totalCredits) }} credits)</span
-                        >
-                      </template>
-                    </td>
-                  </tr>
-                </tbody>
-              </v-simple-table>
-
-              <div class="d-flex flex-column align-stretch mx-4">
-                <template v-if="list.pro && !isPro">
-                  <v-alert color="primary" text
-                    ><small
-                      >PRO fields are included. Sign up for an eligible plan to
-                      download the full list.</small
-                    ></v-alert
-                  >
-
-                  <v-btn to="/pricing/" color="primary" x-large depressed>
-                    Plans &amp; pricing
-                    <v-icon right size="20">
-                      {{ mdiArrowRight }}
+          <div v-if="list.status === 'Ready'" class="mb-4">
+            <div class="d-flex flex-column align-stretch">
+              <template v-if="!isPro">
+                <v-card
+                  color="primary lighten-1 primary--text"
+                  class="mb-4"
+                  flat
+                >
+                  <v-card-title class="subtitle-2">
+                    <v-icon color="primary" size="20" left>
+                      {{ mdiLockOpenVariantOutline }}
                     </v-icon>
-                  </v-btn>
-                </template>
+                    Unlock PRO features
+                  </v-card-title>
+                  <v-card-text class="primary--text">
+                    Sign up for a
+                    <v-chip to="/pro/" color="primary" x-small outlined>
+                      PRO
+                    </v-chip>
+                    plan to download the full list.
+                  </v-card-text>
+                </v-card>
+
+                <v-btn to="/pricing/" color="primary" x-large depressed>
+                  Compare plans
+                  <v-icon right size="20">
+                    {{ mdiArrowRight }}
+                  </v-icon>
+                </v-btn>
+              </template>
+              <template v-else>
                 <v-btn
-                  v-else
-                  color="success"
+                  color="primary"
                   x-large
                   depressed
-                  :loading="submitting"
-                  @click="submit"
+                  :loading="paying"
+                  :disabled="!list.totalCredits || credits < list.totalCredits"
+                  @click="pay"
                 >
                   <v-icon left size="20">
-                    {{ mdiCart }}
+                    {{ mdiAlphaCCircle }}
                   </v-icon>
-                  Checkout
+                  Spend {{ formatNumber(list.totalCredits) }} credits
                 </v-btn>
-              </div>
-            </v-card-text>
-          </v-card>
+
+                <template v-if="freeLists.remaining">
+                  <v-row class="my-4 mx-0 align-center"
+                    ><v-divider />
+                    <div class="px-2">Or</div>
+                    <v-divider
+                  /></v-row>
+
+                  <v-btn x-large depressed :loading="claiming" @click="claim">
+                    <v-icon left size="20">
+                      {{ mdiGift }}
+                    </v-icon>
+                    Claim free list
+                  </v-btn>
+                </template>
+              </template>
+            </div>
+          </div>
 
           <v-switch
             v-if="
@@ -321,7 +279,7 @@
             "
             v-model="repeat"
             :loading="repeating"
-            :disabled="list.pro && !isPro"
+            :disabled="!isPro"
             class="my-6 pt-0"
             inset
             hide-details
@@ -345,6 +303,31 @@
               </v-tooltip>
             </template>
           </v-switch>
+
+          <v-card class="mb-4">
+            <v-card-text class="pa-2">
+              <v-simple-table>
+                <tbody>
+                  <tr>
+                    <th width="40%">Websites</th>
+                    <td v-if="list.status !== 'Calculating'" class="text-right">
+                      {{
+                        formatNumber(
+                          totalRows(
+                            list.rows || 0,
+                            list.query.matchAllTechnologies
+                          )
+                        )
+                      }}
+                    </td>
+                    <td v-else class="text-right">
+                      <Spinner />
+                    </td>
+                  </tr>
+                </tbody>
+              </v-simple-table>
+            </v-card-text>
+          </v-card>
 
           <v-expansion-panels v-model="sidePanelIndex" class="mb-4">
             <v-expansion-panel v-if="technologies.length">
@@ -880,7 +863,7 @@ import {
   mdiCheckboxMarked,
   mdiPencil,
   mdiReload,
-  mdiCart,
+  mdiAlphaCCircle,
   mdiDelete,
   mdiForum,
   mdiHelpCircleOutline,
@@ -890,6 +873,7 @@ import {
   mdiEmoticonSadOutline,
   mdiAlertOctagonOutline,
   mdiTimerSandEmpty,
+  mdiGift,
 } from '@mdi/js'
 
 import Page from '~/components/Page.vue'
@@ -946,7 +930,7 @@ export default {
       mdiCheckboxMarked,
       mdiPencil,
       mdiReload,
-      mdiCart,
+      mdiAlphaCCircle,
       mdiDelete,
       mdiForum,
       mdiHelpCircleOutline,
@@ -956,12 +940,14 @@ export default {
       mdiEmoticonSadOutline,
       mdiTimerSandEmpty,
       mdiAlertOctagonOutline,
+      mdiGift,
       panelIndex: 0,
       repeat: false,
       repeatDialog: false,
       repeating: false,
       sidePanelIndex: 0,
-      submitting: false,
+      paying: false,
+      claiming: false,
       list: null,
       sets,
       technologiesViewAll: false,
@@ -977,6 +963,7 @@ export default {
       isMember: ({ user }) =>
         !user.attrs.admin && user.impersonator && !user.impersonator.admin,
       credits: ({ credits: { credits } }) => credits,
+      freeLists: ({ credits: { freeLists } }) => freeLists,
     }),
     technologies() {
       return this.technologiesViewAll
@@ -1044,12 +1031,10 @@ export default {
             ? this.list.query.matchAllTechnologies
             : undefined,
         contacts:
-          this.isPro &&
-          (this.list.query.compliance === 'exclude' ||
-            this.list.query.compliance === 'excludeEU')
+          this.list.query.compliance === 'exclude' ||
+          this.list.query.compliance === 'excludeEU'
             ? this.list.query.compliance
             : undefined,
-        pro: !this.isPro && this.list.pro ? '1' : undefined,
       }
 
       const string = Object.keys(params)
@@ -1119,31 +1104,70 @@ export default {
         ? Object.values(rows)[0]
         : Object.values(rows).reduce((total, rows) => total + rows, 0)
     },
-    async submit() {
+    async pay() {
       this.error = false
-      this.submitting = true
-
-      if (this.list.orderId) {
-        this.$router.push(`/orders/${this.list.orderId}`)
-
-        return
-      }
+      this.paying = true
+      this.success = false
 
       try {
-        const { id } = (
-          await this.$axios.put('orders', {
-            product: 'Lead list',
-            listId: this.list.id,
-          })
-        ).data
+        await this.$axios.patch(`lists/${this.list.id}`, {
+          paymentMethod: 'credits',
+        })
 
-        this.$router.push(`/orders/${id}`)
+        this.list = (await this.$axios.get(`lists/${this.lis.id}`)).data
       } catch (error) {
         this.error = this.getErrorMessage(error)
-
-        this.submitting = false
       }
+
+      this.paying = false
+
+      this.getCredits()
+
+      this.scrollToTop()
     },
+    async claim() {
+      this.error = false
+      this.claiming = true
+      this.success = false
+
+      try {
+        await this.$axios.patch(`lists/${this.list.id}`, {
+          paymentMethod: 'free',
+        })
+
+        this.list = (await this.$axios.get(`lists/${this.list.id}`)).data
+      } catch (error) {
+        this.error = this.getErrorMessage(error)
+      }
+
+      this.claiming = false
+
+      this.getCredits()
+
+      this.scrollToTop()
+    },
+    async invoice() {
+      this.error = false
+      this.invoicing = true
+      this.success = false
+
+      try {
+        await this.$axios.patch(`orders/${this.order.id}`, {
+          paymentMethod: this.paymentMethod,
+          stripePaymentMethod:
+            this.paymentMethod === 'stripe' ? this.stripePaymentMethod : null,
+        })
+
+        this.order = (await this.$axios.get(`orders/${this.order.id}`)).data
+      } catch (error) {
+        this.error = this.getErrorMessage(error)
+      }
+
+      this.invoicing = false
+
+      this.scrollToTop()
+    },
+
     async cancel() {
       this.cancelError = false
       this.cancelling = true

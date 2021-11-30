@@ -113,9 +113,7 @@
         </template>
         <template
           v-else-if="
-            ['Lead list', 'Technology lookup', 'Email verification'].includes(
-              order.product
-            )
+            ['Technology lookup', 'Email verification'].includes(order.product)
           "
         >
           Thank you for your payment, your list is ready.
@@ -123,7 +121,7 @@
         <template v-else-if="order.product === 'Credits'">
           Thank you for your payment, credits have been added to your balance.
         </template>
-        <template v-else> Thank you for your payment. </template>
+        <template v-else>Thank you for your payment.</template>
       </v-alert>
 
       <v-btn
@@ -156,31 +154,6 @@
         </v-icon>
         Process order
       </v-btn>
-
-      <template
-        v-if="
-          order.product === 'Lead list' &&
-          !['Insufficient', 'Failed'].includes(order.status)
-        "
-      >
-        <v-btn
-          v-if="order.dataset.filename"
-          :href="`${datasetsBaseUrl}${order.dataset.filename}`"
-          color="success"
-          class="mr-2 mb-4"
-          depressed
-        >
-          <v-icon left> {{ mdiDownload }} </v-icon>Download list
-        </v-btn>
-        <v-btn
-          v-else-if="order.dataset.sampleFilename && !order.listId"
-          :href="`${datasetsBaseUrl}${order.dataset.sampleFilename}`"
-          class="mr-2 mb-4"
-          depressed
-        >
-          <v-icon left> {{ mdiDownload }} </v-icon>Download sample
-        </v-btn>
-      </template>
 
       <template
         v-if="
@@ -349,330 +322,9 @@
                 <td>
                   <nuxt-link :to="`/lists/${order.listId}`">{{
                     order.listId
-                  }}</nuxt-link
-                  ><v-btn
-                    color="accent"
-                    class="ml-2"
-                    icon
-                    x-small
-                    outlined
-                    @click="listViewAll = !listViewAll"
-                  >
-                    <v-icon color="accent">
-                      {{ listViewAll ? mdiChevronUp : mdiChevronDown }}
-                    </v-icon>
-                  </v-btn>
+                  }}</nuxt-link>
                 </td>
               </tr>
-              <template v-if="listViewAll">
-                <tr v-if="!['Insufficient', 'Failed'].includes(order.status)">
-                  <th>Websites</th>
-                  <td>
-                    {{
-                      formatNumber(
-                        totalRows(
-                          order.dataset.rows,
-                          order.dataset.query.matchAllTechnologies
-                        )
-                      )
-                    }}
-                  </td>
-                </tr>
-                <tr v-if="technologies.length">
-                  <th>Technologies</th>
-                  <td>
-                    <v-chip-group class="my-2" column>
-                      <v-chip
-                        v-for="{ slug, name } in technologies"
-                        :key="slug"
-                        outlined
-                        small
-                        label
-                      >
-                        {{ name }}
-                        {{
-                          !['Insufficient', 'Failed'].includes(order.status)
-                            ? ` (${formatNumber(order.dataset.rows[slug])})`
-                            : ''
-                        }}
-                      </v-chip>
-
-                      <v-chip
-                        v-if="order.dataset.query.technologies.length > 10"
-                        color="accent"
-                        outlined
-                        small
-                        label
-                        @click="technologiesViewAll = !technologiesViewAll"
-                      >
-                        <v-icon small left>
-                          {{ technologiesViewAll ? mdiMinus : mdiPlus }}
-                        </v-icon>
-                        {{
-                          technologiesViewAll
-                            ? 'View less'
-                            : `View all ${order.dataset.query.technologies.length}`
-                        }}
-                      </v-chip>
-                    </v-chip-group>
-                  </td>
-                </tr>
-                <tr
-                  v-if="
-                    order.dataset.query.keywords &&
-                    order.dataset.query.keywords.length
-                  "
-                >
-                  <th>Keywords</th>
-                  <td>
-                    <v-chip-group class="my-2" column>
-                      <v-chip
-                        v-for="keyword in order.dataset.query.keywords"
-                        :key="keyword"
-                        outlined
-                        small
-                        label
-                      >
-                        {{ keyword }}
-                      </v-chip>
-                    </v-chip-group>
-                  </td>
-                </tr>
-                <tr v-if="order.dataset.query.technologies.length >= 2">
-                  <th>Match technologies</th>
-                  <td>
-                    <div
-                      v-if="order.dataset.query.technologies.length >= 2"
-                      class="font-weight-regular"
-                    >
-                      <template
-                        v-if="
-                          order.dataset.query.matchAllTechnologies === 'and'
-                        "
-                      >
-                        Match all
-                      </template>
-                      <template
-                        v-else-if="
-                          order.dataset.query.matchAllTechnologies === 'not'
-                        "
-                      >
-                        Match only
-                        <v-chip outlined small label>
-                          {{ order.dataset.query.technologies[0].name }}
-                        </v-chip>
-                      </template>
-                      <template v-else>Match any</template>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th>Fields</th>
-                  <td>
-                    <v-chip-group class="my-2" column>
-                      <v-tooltip
-                        v-for="set in sets.filter(
-                          ({ key }) =>
-                            key === 'base-list' ||
-                            order.dataset.sets.includes(key)
-                        )"
-                        :key="set.key"
-                        bottom
-                      >
-                        <template #activator="{ on }">
-                          <v-chip outlined small label v-on="on">
-                            {{ set.name }}
-                            {{
-                              !['Insufficient', 'Failed'].includes(order.status)
-                                ? ` (${formatNumber(
-                                    set.key === 'base-list'
-                                      ? totalRows(
-                                          order.dataset.rows,
-                                          order.dataset.query
-                                            .matchAllTechnologies
-                                        )
-                                      : order.dataset.setRows[set.key] || 0
-                                  )})`
-                                : ''
-                            }}
-                          </v-chip>
-                        </template>
-
-                        {{
-                          set.attributes
-                            .map(
-                              ({ name, key }) =>
-                                (name || key).charAt(0).toUpperCase() +
-                                (name || key).substring(1)
-                            )
-                            .join(', ')
-                        }}
-                      </v-tooltip>
-                    </v-chip-group>
-                  </td>
-                </tr>
-                <tr v-if="order.dataset.query.requiredSets.length">
-                  <th>Required fields</th>
-                  <td>
-                    <v-chip-group class="my-2" column>
-                      <v-chip
-                        v-for="key in order.dataset.query.requiredSets"
-                        :key="key"
-                        outlined
-                        small
-                        label
-                      >
-                        {{
-                          (set = sets.find(({ key: _key }) => _key === key)) &&
-                          null
-                        }}
-                        {{
-                          (set.name || key).charAt(0).toUpperCase() +
-                          (set.name || key).substring(1)
-                        }}
-                      </v-chip>
-                    </v-chip-group>
-                  </td>
-                </tr>
-                <tr v-if="order.dataset.query.industries.length">
-                  <th>Industries</th>
-                  <td>
-                    <v-chip-group class="my-2" column>
-                      <v-chip
-                        v-for="industry in order.dataset.query.industries"
-                        :key="industry"
-                        outlined
-                        small
-                        label
-                      >
-                        {{ industry }}
-                      </v-chip>
-                    </v-chip-group>
-                  </td>
-                </tr>
-                <tr v-if="order.dataset.query.companySizes.length">
-                  <th>Company sizes</th>
-                  <td>
-                    <v-chip-group class="my-2" column>
-                      <v-chip
-                        v-for="{ value, text } in order.dataset.query
-                          .companySizes"
-                        :key="value"
-                        outlined
-                        small
-                        label
-                      >
-                        {{ text }}
-                      </v-chip>
-                    </v-chip-group>
-                  </td>
-                </tr>
-                <tr v-if="order.dataset.query.tlds.length">
-                  <th>TLDs</th>
-                  <td>
-                    <v-chip-group class="my-2" column>
-                      <v-chip
-                        v-for="tld in order.dataset.query.tlds"
-                        :key="tld"
-                        outlined
-                        small
-                        label
-                      >
-                        {{ tld }}
-                      </v-chip>
-                    </v-chip-group>
-                  </td>
-                </tr>
-                <tr v-if="order.dataset.query.geoIps.length">
-                  <th>IP countries</th>
-                  <td>
-                    <v-chip-group class="my-2" column>
-                      <v-tooltip
-                        v-for="{ text, value } in order.dataset.query.geoIps"
-                        :key="value"
-                        bottom
-                      >
-                        <template #activator="{ on }">
-                          <v-chip outlined small label v-on="on">
-                            {{ value }}
-                          </v-chip>
-                        </template>
-
-                        {{ text }}
-                      </v-tooltip>
-                    </v-chip-group>
-                  </td>
-                </tr>
-                <tr v-if="order.dataset.query.languages.length">
-                  <th>Languages</th>
-                  <td>
-                    <v-chip-group class="my-2" column>
-                      <v-tooltip
-                        v-for="{ text, value } in order.dataset.query.languages"
-                        :key="value"
-                        bottom
-                      >
-                        <template #activator="{ on }">
-                          <v-chip outlined small label v-on="on">
-                            {{ value }}
-                          </v-chip>
-                        </template>
-
-                        {{ text }}
-                      </v-tooltip>
-                    </v-chip-group>
-                  </td>
-                </tr>
-                <tr v-if="order.dataset.query.matchAll">
-                  <th>Match IP country and language</th>
-                  <td>
-                    <v-icon color="primary">
-                      {{ mdiCheckboxMarked }}
-                    </v-icon>
-                  </td>
-                </tr>
-                <tr v-if="order.dataset.query.subset">
-                  <th>List size limit</th>
-                  <td>
-                    {{ formatNumber(order.dataset.query.subset) }}
-                    <template v-if="order.dataset.query.technologies.length">
-                      ({{
-                        order.dataset.query.subsetSlice === 1
-                          ? 'high'
-                          : order.dataset.query.subsetSlice === 2
-                          ? 'medium'
-                          : order.dataset.query.subsetSlice === 3
-                          ? 'low'
-                          : order.dataset.query.subsetSlice === 4
-                          ? 'lowest'
-                          : 'highest'
-                      }}
-                      traffic)
-                    </template>
-                  </td>
-                </tr>
-                <tr>
-                  <th>Freshness</th>
-                  <td>
-                    {{ order.dataset.query.minAge || 0 }}-{{
-                      order.dataset.query.maxAge || 3
-                    }}
-                    months
-                  </td>
-                </tr>
-                <tr v-if="order.dataset.exclusionsFilename">
-                  <th>Exclusions</th>
-                  <td>
-                    <v-btn
-                      :href="`${datasetsBaseUrl}${order.dataset.exclusionsFilename}`"
-                      color="accent"
-                      icon
-                    >
-                      <v-icon>{{ mdiDownload }}</v-icon>
-                    </v-btn>
-                  </td>
-                </tr>
-              </template>
             </tbody>
           </v-simple-table>
 
@@ -910,11 +562,9 @@
                       />
                       <v-radio
                         v-if="
-                          [
-                            'Lead list',
-                            'Technology lookup',
-                            'Email verification',
-                          ].includes(order.product)
+                          ['Technology lookup', 'Email verification'].includes(
+                            order.product
+                          )
                         "
                         label="Claim free list"
                         value="free"
@@ -1063,14 +713,7 @@
 
               <v-btn
                 :loading="paying"
-                :disabled="
-                  !freeLists.remaining ||
-                  (order.product === 'Lead list' &&
-                    totalRows(
-                      order.dataset.rows,
-                      order.dataset.query.matchAllTechnologies
-                    ) > 500000)
-                "
+                :disabled="!freeLists.remaining"
                 class="primary mt-4 mb-8"
                 large
                 depressed
@@ -1299,7 +942,6 @@ export default {
       cancelling: false,
       cardsLoaded: false,
       checks: 0,
-      datasetsBaseUrl: this.$config.DATASETS_BASE_URL,
       bulkLookupBaseUrl: this.$config.BULK_LOOKUP_BASE_URL,
       declineCodes,
       discount: 0,
@@ -1343,8 +985,6 @@ export default {
         'Complete',
       ],
       stripePaymentMethod: null,
-      listViewAll: false,
-      technologiesViewAll: false,
       totalCredits: 0,
       success: false,
     }
@@ -1371,13 +1011,6 @@ export default {
       ]
         .filter((value) => value)
         .join(', ')
-    },
-    technologies() {
-      return this.technologiesViewAll
-        ? this.order.dataset.query.technologies
-        : this.order.dataset.query.matchAllTechnologies === 'not'
-        ? this.order.dataset.query.technologies.slice(0, 1)
-        : this.order.dataset.query.technologies.slice(0, 10)
     },
     progress() {
       return this.order

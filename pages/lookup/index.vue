@@ -368,11 +368,11 @@
               <v-icon color="primary" size="20" left>
                 {{ mdiLockOpenVariantOutline }}
               </v-icon>
-              Unlock pro features
+              Unlock PRO features
             </v-card-title>
             <v-card-text class="primary--text pb-0">
-              Subscribe to a
-              <v-chip to="/pro/" color="primary" x-small outlined> PRO </v-chip>
+              Sign up for a
+              <v-chip to="/pro/" color="primary" x-small outlined>PRO</v-chip>
               plan to include company and contact information in lookups.
             </v-card-text>
             <v-card-actions>
