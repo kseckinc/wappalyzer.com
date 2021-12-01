@@ -84,10 +84,12 @@
                     <td
                       style="white-space: nowrap"
                       v-else-if="
-                        order.product !== 'Subscription' &&
-                        (order.paymentMethod === 'credits' ||
-                          isMember ||
-                          (order.totalCredits && credits > order.totalCredits))
+                        (order.product !== 'Subscription' &&
+                          (order.paymentMethod === 'credits' ||
+                            isMember ||
+                            (order.totalCredits &&
+                              credits > order.totalCredits))) ||
+                        !order.total
                       "
                     >
                       {{ formatNumber(order.totalCredits) }}

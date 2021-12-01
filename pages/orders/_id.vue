@@ -391,7 +391,10 @@
               </tbody>
             </v-simple-table>
             <v-simple-table
-              v-else-if="(order.paymentMethod || paymentMethod) === 'credits'"
+              v-else-if="
+                (order.paymentMethod || paymentMethod) === 'credits' ||
+                !order.total
+              "
             >
               <tbody>
                 <tr>
@@ -607,7 +610,9 @@
               <v-btn
                 v-if="!order.taxPercent || order.product === 'Subscription'"
                 :loading="paying"
-                :disabled="!stripePaymentMethod || !user.billingEmail"
+                :disabled="
+                  !stripePaymentMethod || !user.billingEmail || !order.total
+                "
                 color="primary"
                 large
                 depressed
@@ -621,7 +626,7 @@
               <v-btn
                 v-if="order.product !== 'Subscription'"
                 :loading="invoicing"
-                :disabled="!user.billingEmail"
+                :disabled="!user.billingEmail || !order.total"
                 class="ml-4"
                 color="primary lighten-1 primary--text"
                 large
