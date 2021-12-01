@@ -393,7 +393,9 @@ export default {
 
           return categories
         }, {})
-      ).sort(({ priority: a }, { priority: b }) => (a > b ? 1 : -1))
+      )
+        .sort(({ name: a }, { name: b }) => (a > b ? 1 : -1))
+        .sort(({ priority: a }, { priority: b }) => (a > b ? 1 : -1))
     },
   },
   watch: {

@@ -143,16 +143,20 @@
         </v-col>
       </v-row>
 
-      <v-row justify="center">
-        <v-col cols="12" md="10" lg="8">
-          <v-card>
-            <v-card-title class="px-6">Frequently asked questions</v-card-title>
-            <v-card-text class="px-0">
-              <Faqs topic="pricing" />
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
+      <v-card style="max-width: 800px; margin: 0 auto" class="mb-14">
+        <v-card-title>Take a tour</v-card-title>
+
+        <v-card-content>
+          <Vimeo id="651847462" height="600px" />
+        </v-card-content>
+      </v-card>
+
+      <v-card style="max-width: 800px; margin: 0 auto" class="mb-14">
+        <v-card-title class="px-6">Frequently asked questions</v-card-title>
+        <v-card-text class="px-0">
+          <Faqs topic="pricing" />
+        </v-card-text>
+      </v-card>
 
       <div class="mt-12 pa-8 text-center">
         <v-btn to="/contact/" color="primary" depressed x-large>
@@ -174,6 +178,7 @@ import Page from '~/components/Page.vue'
 import Pricing from '~/components/Pricing.vue'
 import Logos from '~/components/Logos.vue'
 import Faqs from '~/components/Faqs.vue'
+import Vimeo from '~/components/Vimeo.vue'
 import { creditsPerUnit, creditTiers } from '~/assets/json/pricing.json'
 
 export default {
@@ -182,6 +187,7 @@ export default {
     Pricing,
     Logos,
     Faqs,
+    Vimeo,
   },
   data() {
     return {

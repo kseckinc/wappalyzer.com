@@ -35,7 +35,7 @@
       <v-divider class="my-4 my-sm-6" />
 
       <v-card style="max-width: 800px; margin: 0 auto">
-        <Vimeo id="476996233" height="600px" />
+        <Vimeo id="651847462" height="600px" />
       </v-card>
 
       <template v-for="(product, index) in products">
