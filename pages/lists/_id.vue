@@ -1114,7 +1114,7 @@ export default {
           paymentMethod: 'credits',
         })
 
-        this.list = (await this.$axios.get(`lists/${this.lis.id}`)).data
+        this.list = (await this.$axios.get(`lists/${this.list.id}`)).data
       } catch (error) {
         this.error = this.getErrorMessage(error)
       }
