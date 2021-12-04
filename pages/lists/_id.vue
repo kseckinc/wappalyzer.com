@@ -233,42 +233,49 @@
                   </v-card-text>
                 </v-card>
 
-                <v-btn to="/pricing/" color="primary" x-large depressed>
+                <v-btn
+                  to="/pricing/"
+                  color="primary"
+                  class="mb-4"
+                  x-large
+                  depressed
+                >
                   Compare plans
                   <v-icon right size="20">
                     {{ mdiArrowRight }}
                   </v-icon>
                 </v-btn>
               </template>
-              <template v-else>
-                <v-btn
-                  color="primary"
-                  x-large
-                  depressed
-                  :loading="paying"
-                  :disabled="!list.totalCredits || credits < list.totalCredits"
-                  @click="pay"
-                >
+
+              <v-btn
+                color="primary"
+                x-large
+                depressed
+                :loading="paying"
+                :disabled="
+                  !isPro || !list.totalCredits || credits < list.totalCredits
+                "
+                @click="pay"
+              >
+                <v-icon left size="20">
+                  {{ mdiAlphaCCircle }}
+                </v-icon>
+                Spend {{ formatNumber(list.totalCredits) }} credits
+              </v-btn>
+
+              <template v-if="freeLists.remaining">
+                <v-row class="my-4 mx-0 align-center"
+                  ><v-divider />
+                  <div class="px-2">Or</div>
+                  <v-divider
+                /></v-row>
+
+                <v-btn x-large depressed :loading="claiming" @click="claim">
                   <v-icon left size="20">
-                    {{ mdiAlphaCCircle }}
+                    {{ mdiGift }}
                   </v-icon>
-                  Spend {{ formatNumber(list.totalCredits) }} credits
+                  Claim free list
                 </v-btn>
-
-                <template v-if="freeLists.remaining">
-                  <v-row class="my-4 mx-0 align-center"
-                    ><v-divider />
-                    <div class="px-2">Or</div>
-                    <v-divider
-                  /></v-row>
-
-                  <v-btn x-large depressed :loading="claiming" @click="claim">
-                    <v-icon left size="20">
-                      {{ mdiGift }}
-                    </v-icon>
-                    Claim free list
-                  </v-btn>
-                </template>
               </template>
             </div>
           </div>

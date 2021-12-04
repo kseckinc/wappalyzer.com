@@ -93,7 +93,7 @@
         "users": 1,
         "support": "-",
         "lookups": true,
-        "lists": "Pay per list",
+        "lists": "-",
         "apis": true,
         "pro": "-",
         "cancellation": true
@@ -108,10 +108,7 @@
         "users": 1,
         "support": true,
         "lookups": true,
-        "lists": {
-          "value": "Use credits",
-          "tooltip": ["Create lists using the included credits. See 'credit usage' below."]
-        },
+        "lists": true,
         "lookups": true,
         "apis": true,
         "pro": true,
