@@ -256,7 +256,7 @@
                 <div class="d-flex flex-column align-stretch">
                   <template v-if="isPro">
                     <v-alert
-                      v-if="true || credits < list.totalCredits"
+                      v-if="credits < list.totalCredits"
                       color="warning"
                       class="mb-6 px-6"
                       text
