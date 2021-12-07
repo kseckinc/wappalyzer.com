@@ -193,92 +193,149 @@
         </v-col>
 
         <v-col cols="12" md="4" class="py-0">
-          <div
-            v-if="list.status === 'Complete'"
-            class="d-flex flex-column align-stretch mb-4"
-          >
-            <v-btn
-              color="success"
-              :href="`${datasetsBaseUrl}${list.filename}`"
-              x-large
-              depressed
+          <v-card class="mb-4">
+            <v-card-title class="subtitle-1 px-6"
+              >Get the full list</v-card-title
             >
-              <v-icon left size="20">
-                {{ mdiDownload }}
-              </v-icon>
-              Download list
-            </v-btn>
-          </div>
+            <v-card-text class="pb-2 px-0">
+              <v-simple-table class="mb-4">
+                <tbody>
+                  <tr>
+                    <th width="40%" class="pl-6">Websites</th>
+                    <td
+                      v-if="list.status !== 'Calculating'"
+                      class="text-right pr-6"
+                    >
+                      {{
+                        formatNumber(
+                          totalRows(
+                            list.rows || 0,
+                            list.query.matchAllTechnologies
+                          )
+                        )
+                      }}
+                    </td>
+                    <td v-else class="text-right">
+                      <Spinner />
+                    </td>
+                  </tr>
+                  <tr v-if="!isPro">
+                    <th class="pl-6">Price</th>
+                    <td
+                      v-if="list.status !== 'Calculating'"
+                      class="text-right pr-6"
+                    >
+                      {{ formatNumber(list.totalCredits) }} credits
+                    </td>
+                    <td v-else class="text-right">
+                      <Spinner />
+                    </td>
+                  </tr>
+                </tbody>
+              </v-simple-table>
 
-          <div v-if="list.status === 'Ready'" class="mb-4">
-            <div class="d-flex flex-column align-stretch">
-              <template v-if="!isPro">
-                <v-card
-                  color="primary lighten-1 primary--text"
-                  class="mb-4"
-                  flat
-                >
-                  <v-card-title class="subtitle-2">
-                    <v-icon color="primary" size="20" left>
-                      {{ mdiLockOpenVariantOutline }}
-                    </v-icon>
-                    Unlock PRO features
-                  </v-card-title>
-                  <v-card-text class="primary--text">
-                    Sign up for a
-                    <v-chip to="/pro/" color="primary" x-small outlined>
-                      PRO
-                    </v-chip>
-                    plan to download the full list.
-                  </v-card-text>
-                </v-card>
-
+              <div
+                v-if="list.status === 'Complete'"
+                class="d-flex flex-column align-stretch mb-4"
+              >
                 <v-btn
-                  to="/pricing/"
-                  color="primary"
-                  class="mb-4"
+                  color="success"
+                  class="mx-6"
+                  :href="`${datasetsBaseUrl}${list.filename}`"
                   x-large
                   depressed
                 >
-                  Compare plans
-                  <v-icon right size="20">
-                    {{ mdiArrowRight }}
-                  </v-icon>
-                </v-btn>
-              </template>
-
-              <v-btn
-                color="primary"
-                x-large
-                depressed
-                :loading="paying"
-                :disabled="
-                  !isPro || !list.totalCredits || credits < list.totalCredits
-                "
-                @click="pay"
-              >
-                <v-icon left size="20">
-                  {{ mdiAlphaCCircle }}
-                </v-icon>
-                Spend {{ formatNumber(list.totalCredits) }} credits
-              </v-btn>
-
-              <template v-if="freeLists.remaining">
-                <v-row class="my-4 mx-0 align-center"
-                  ><v-divider />
-                  <div class="px-2">Or</div>
-                  <v-divider
-                /></v-row>
-
-                <v-btn x-large depressed :loading="claiming" @click="claim">
                   <v-icon left size="20">
-                    {{ mdiGift }}
+                    {{ mdiDownload }}
                   </v-icon>
-                  Claim free list
+                  Download list
                 </v-btn>
-              </template>
-            </div>
-          </div>
+              </div>
+
+              <div v-if="list.status === 'Ready'" class="mb-4">
+                <div class="d-flex flex-column align-stretch">
+                  <template v-if="isPro">
+                    <v-btn
+                      color="primary"
+                      class="mx-6"
+                      x-large
+                      depressed
+                      :loading="paying"
+                      :disabled="
+                        !list.totalCredits || credits < list.totalCredits
+                      "
+                      @click="pay"
+                    >
+                      <v-icon left size="20">
+                        {{ mdiAlphaCCircle }}
+                      </v-icon>
+                      Spend {{ formatNumber(list.totalCredits) }} credits
+                    </v-btn>
+
+                    <template v-if="freeLists.remaining">
+                      <v-row class="my-4 mx-6 align-center"
+                        ><v-divider />
+                        <div class="px-2">Or</div>
+                        <v-divider
+                      /></v-row>
+
+                      <v-btn
+                        x-large
+                        depressed
+                        class="mx-6"
+                        color="primary lighten-1 primary--text"
+                        :loading="claiming"
+                        @click="claim"
+                      >
+                        <v-icon left size="20">
+                          {{ mdiGift }}
+                        </v-icon>
+                        Claim free list
+                      </v-btn>
+                    </template>
+                  </template>
+
+                  <template v-else>
+                    <v-card
+                      color="primary lighten-1 primary--text"
+                      class="mb-n2 pb-2"
+                      flat
+                      tile
+                    >
+                      <v-card-title class="subtitle-2 px-6">
+                        <v-icon color="primary" size="20" left>
+                          {{ mdiLockOpenVariantOutline }}
+                        </v-icon>
+                        Unlock PRO features
+                      </v-card-title>
+                      <v-card-text class="primary--text px-6">
+                        <p>
+                          Sign up for a
+                          <v-chip to="/pro/" color="primary" x-small outlined>
+                            PRO
+                          </v-chip>
+                          plan to download the full list.
+                        </p>
+
+                        <v-btn
+                          to="/pricing/"
+                          color="primary"
+                          x-large
+                          depressed
+                          block
+                        >
+                          Compare plans
+                          <v-icon right size="20">
+                            {{ mdiArrowRight }}
+                          </v-icon>
+                        </v-btn>
+                      </v-card-text>
+                    </v-card>
+                  </template>
+                </div>
+              </div>
+            </v-card-text>
+          </v-card>
 
           <v-switch
             v-if="
@@ -311,34 +368,9 @@
             </template>
           </v-switch>
 
-          <v-card class="mb-4">
-            <v-card-text class="pa-2">
-              <v-simple-table>
-                <tbody>
-                  <tr>
-                    <th width="40%">Websites</th>
-                    <td v-if="list.status !== 'Calculating'" class="text-right">
-                      {{
-                        formatNumber(
-                          totalRows(
-                            list.rows || 0,
-                            list.query.matchAllTechnologies
-                          )
-                        )
-                      }}
-                    </td>
-                    <td v-else class="text-right">
-                      <Spinner />
-                    </td>
-                  </tr>
-                </tbody>
-              </v-simple-table>
-            </v-card-text>
-          </v-card>
-
           <v-expansion-panels v-model="sidePanelIndex" class="mb-4">
             <v-expansion-panel v-if="technologies.length">
-              <v-expansion-panel-header class="subtitle-2">
+              <v-expansion-panel-header class="subtitle-1">
                 Technologies
               </v-expansion-panel-header>
               <v-expansion-panel-content class="no-x-padding">
@@ -450,7 +482,7 @@
             </v-expansion-panel>
 
             <v-expansion-panel v-if="list.query.keywords.length">
-              <v-expansion-panel-header class="subtitle-2">
+              <v-expansion-panel-header class="subtitle-1">
                 Keywords
               </v-expansion-panel-header>
               <v-expansion-panel-content>
@@ -468,7 +500,7 @@
             </v-expansion-panel>
 
             <v-expansion-panel>
-              <v-expansion-panel-header class="subtitle-2">
+              <v-expansion-panel-header class="subtitle-1">
                 Filters
               </v-expansion-panel-header>
               <v-expansion-panel-content class="no-x-padding">
@@ -668,7 +700,7 @@
             </v-expansion-panel>
 
             <v-expansion-panel>
-              <v-expansion-panel-header class="subtitle-2">
+              <v-expansion-panel-header class="subtitle-1">
                 Fields
               </v-expansion-panel-header>
               <v-expansion-panel-content class="no-x-padding">

@@ -100,7 +100,7 @@
                     >
                       <nuxt-link
                         :to="`/technologies/${category.slug}/${slug}/`"
-                        class="body-2 text-center text-decoration-none"
+                        class="body-2 text-decoration-none"
                       >
                         <v-hover v-slot="{ hover }">
                           <v-card flat>
