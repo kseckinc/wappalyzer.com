@@ -255,6 +255,16 @@
               <div v-if="list.status === 'Ready'" class="mb-4">
                 <div class="d-flex flex-column align-stretch">
                   <template v-if="isPro">
+                    <v-alert
+                      v-if="true || credits < list.totalCredits"
+                      color="warning"
+                      class="mb-6 px-6"
+                      text
+                    >
+                      You have {{ formatNumber(credits) }} credits. Please top
+                      up your credit balance or create a smaller list.
+                    </v-alert>
+
                     <v-btn
                       color="primary"
                       class="mx-6"
