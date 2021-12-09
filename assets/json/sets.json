@@ -97,6 +97,14 @@
     "pro": true
   },
   {
+    "key": "signals",
+    "name": "Signals",
+    "attributes": [
+      { "name": "Technology spend", "key": "technologySpend", "description": "Estimated technology spend (very low, low, medium, high or very high)." }
+    ],
+    "pro": true
+  },
+  {
     "key": "locale",
     "name": "Locale",
     "attributes": [

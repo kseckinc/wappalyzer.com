@@ -283,6 +283,7 @@ export default {
           'contact',
           'company',
           'social',
+          'signals',
           'meta',
           'locale',
           'trackers',
