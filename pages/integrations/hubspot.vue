@@ -103,7 +103,7 @@
         <v-spacer />
         <v-btn
           v-if="!hubspotId"
-          :href="`https://app.hubspot.com/oauth/authorize?scope=contacts%20crm.objects.custom.read%20crm.objects.custom.write&redirect_uri=${websiteUrl}/integrations/hubspot/&client_id=${clientId}`"
+          :href="`https://app.hubspot.com/oauth/authorize?client_id=${clientId}&redirect_uri=${websiteUrl}/integrations/hubspot/&scope=crm.objects.contacts.read%20crm.objects.contacts.write%20crm.objects.custom.read%20crm.objects.custom.write%20crm.objects.companies.write%20crm.schemas.contacts.read%20crm.objects.companies.read%20crm.schemas.companies.read`"
           color="accent"
           _target="blank"
           :loading="connecting"

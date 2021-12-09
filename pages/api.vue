@@ -104,6 +104,7 @@
     ...
   ],
   "keywords": [ "WAPPALYZER", "TECHNOLOGY", "WEBSITES", ... ],
+  "technologySpend": "Medium",
   "schemaOrgTypes": [ "WebPage", "Organization" ],
   "certInfo.issuer": "Amazon",
   "certInfo.validTo": 1633737600,
