@@ -1788,13 +1788,10 @@ export default {
       )
 
       this.selected.technologies = this.selected.technologies.filter(
-        ({ slug, categories }, index) =>
+        ({ slug }, index) =>
           this.selected.technologies.findIndex(
             (technology) => slug === technology.slug
-          ) === index &&
-          !categories.some(({ slug }) =>
-            this.selected.categories.some((category) => slug === category.slug)
-          )
+          ) === index
       )
 
       this.$refs.selector && this.$refs.selector.clear()
