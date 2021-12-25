@@ -203,7 +203,7 @@
                   <tr>
                     <th width="40%" class="pl-6">Websites</th>
                     <td
-                      v-if="list.status !== 'Calculating'"
+                      v-if="['Ready', 'Complete'].includes(list.status)"
                       class="text-right pr-6"
                     >
                       {{
@@ -215,9 +215,13 @@
                         )
                       }}
                     </td>
-                    <td v-else class="text-right">
+                    <td
+                      v-else-if="list.status !== 'Calculating'"
+                      class="text-right"
+                    >
                       <Spinner />
                     </td>
+                    <td v-else class="text-right">-</td>
                   </tr>
                   <tr v-if="!isPro">
                     <th class="pl-6">Price</th>
